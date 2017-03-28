@@ -1,0 +1,46 @@
+<!-- SRTDashHeaderView -->
+<div id="header" style="height: 100px; padding: 0px;">
+    <nav class="us-navbar navbar-default">
+        <div class="container-fluid" style="padding: 0px;">
+            <div class="navbar-header" style="height: 60px">
+                <a class="navbar-left" href="/srt/report"><img id="srtlogo" src="https://s3.amazonaws.com/srt.bucket/assets/srtlogo.PNG"></a>
+            </div>
+
+        <div class="collapse navbar-collapse" id="navbar" style="padding: 0px;">
+                <ul *ngIf="firstName" class="nav navbar-nav">
+                    <li data-toggle="tab" class="active"><a [routerLink]="['/srt']">Home</a></li>
+                    <li data-toggle="tab"><a [routerLink]="['/report']">Report</a></li>
+                    <li data-toggle="tab"><a href="#">Pre-Exam</a></li>
+                    <li data-toggle="tab"><a [routerLink]="['/analytics']">Analytics</a></li>
+                    <li data-toggle="tab"><a [routerLink]="['/admin']">Account Requests</a></li>
+                </ul>
+                <div class=" gsa_logo">
+                    <a href='#' class="logo_li">
+                    <div class='span-logo' >
+                        <img src='https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcStDPOwn52HTo15I09MdmZaDVuVM90Xc09d_WO1GRAlptb47H4a34h14g'/>
+                    </div>
+                    </a>
+                </div>
+                <ul *ngIf="firstName" id="gsaDropdown" class="nav navbar-nav" style="float: right;">
+                    <li class="dropdown">
+                        <a *ngIf="firstName" href="#" class="dropdown-toggle"
+                                    style="font-weight: 300"
+                                    data-toggle="dropdown"
+                                    role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">Hello, {{firstName}}<span class="caret"></span></a>
+
+                        <ul class="dropdown-menu">
+                            <li><a href="#" style="padding: 10px 20px;">Profile</a></li>
+                            <li><a href="#" style="padding: 10px 20px;">Password</a></li>
+                            <li><button class="dropdown-item" type="button" style="padding: 10px 20px;" (click)="onLogout()">Log Out</button></li>
+                      </ul>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+    </nav>
+    <hr style="margin: 0px;">
+</div>

@@ -1,0 +1,23 @@
+<div class="col-xs-4 col-md-offset-1">
+  <div class='register-title'>Log In</div>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email"
+             id="email"
+             class="form-control"
+             formControlName="email">
+    </div>
+    <div class="form-group" style="margin-bottom: 40px;">
+      <label for="password">Password</label>
+      <input type="password"
+             id="password"
+             class="form-control"
+             formControlName="password">
+    </div>
+    <button type="submit" class="btn btn-primary srt-button">Log In</button>
+
+    <div style="padding-top: 20px;"><a href="#">Forgot Password?</a></div>
+
+  </form>
+</div>

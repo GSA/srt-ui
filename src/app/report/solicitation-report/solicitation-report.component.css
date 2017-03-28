@@ -1,0 +1,36 @@
+
+
+#solsearch{
+    width: 100%;
+    float: right;
+    border-radius: 50px;
+}
+
+#soltitle {
+    text-decoration: none;
+    color: #205493;
+    /*font-family: Arial, sans-serif;*/
+    font-size: x-large;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 0px  20px;
+    width: 800px;
+}
+
+#csv {
+  padding-left: 20px;
+}
+#csvlogo {
+  max-height: 40px;
+  padding-left: 10px;
+}
+
+/* Override padding for bootstrap. */
+.nopadding {
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
+body {
+    font-family: Source Sans Pro !important;
+}

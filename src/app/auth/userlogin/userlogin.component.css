@@ -1,0 +1,15 @@
+.register-title {
+    padding: 0px 0px 45px 0px;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.form-group label {
+    font-weight: 300;
+}
+
+.srt-button {
+    width: 150px;
+    background-color: rgba(0,176,255,1);
+    border: 1px solid rgba(0,176,255,1);
+}
