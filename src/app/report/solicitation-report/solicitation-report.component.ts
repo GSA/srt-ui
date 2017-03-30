@@ -54,10 +54,11 @@ export class SolicitationReportComponent implements OnInit {
   }
 
   // Manual review button kicks this off.  navigates to solicitation review page
-  onRowSelect(solicitation: any) {
-    this.router.navigate(['/report', solicitation.data._id]);
-
+  selectSol(solicitation: any) {
     console.log("selected sol is ",solicitation);
+
+    this.router.navigate(['/report', solicitation._id]);
+
   }
 
 }

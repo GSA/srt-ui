@@ -1,9 +1,12 @@
 <div>
+  <div id="nav">
+  <button pButton type="button" label="All Solicitations" [routerLink]="['/report']" id="reps"></button>
+  </div>
 <p-dataTable #dt [value]="solicitation">
   <p-column field="solNum" header="Solicitation"></p-column>
-  <p-column field="noticeType" header="Notice Type" [style]="{'width': '90px'}"></p-column>
   <p-column field="title" header="Title"></p-column>
-  <p-column field="predictions.value" header="Review Result" [style]="{'width': '90px'}">
+  <p-column field="url" header="URL" [style]="{'width': '300px'}"></p-column>
+  <p-column field="predictions.value" header="Review Result"[style]="{'width': '90px'}">
     <ng-template let-sol="rowData" pTemplate="body">
       <div *ngIf="sol.predictions.value == 'RED'">
         <span [style.color]="sol.predictions.value"><i class="fa fa-exclamation-triangle"></i> {{sol.predictions.value}}</span>
@@ -13,8 +16,6 @@
       </div>
     </ng-template>
   </p-column>
-  <p-column field="reviewRec" header="Manual Review Recommended" [style]="{'width': '110px'}"></p-column>
-  <p-column field="reviewStatus" header="Review Status"></p-column>
   <p-column field="isReadable" header="Machine Readable (Yes/No)" [style]="{'width': '90px'}"></p-column>
   <p-column field="eitLikelihood" header="EIT (ICT) (Yes/No)" [style]="{'width': '90px'}"></p-column>
   <p-column field="agency" header="Agency"></p-column>
