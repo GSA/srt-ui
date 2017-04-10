@@ -1,7 +1,7 @@
 <div class="row nopadding">
     <table style="width: calc(100% - 20px); margin: 0px 0px 20px 0px">
         <tr>
-            <td id="soltitle" style="vertical-align: middle; font-size: 28px; color: #112e51 ">Solicitation Review Results for 508 Language</td>
+            <td id="soltitle" style="vertical-align: middle; font-size: 28px; color: #112e51 ">Solicitation Review Results for Section 508 Requirements</td>
             <td style="vertical-align: middle;  text-align: right; padding-right: 20px;"> Keyword Search:  </td>
             <td style="vertical-align: middle; width: 400px">
                  <div class="input-group" id="solsearch">
@@ -25,13 +25,14 @@
                  [pageLinks]="4"
                  [rowsPerPageOptions]="[10, 15, 20]"
                  [globalFilter]="gb">
-  <p-column field="solNum" header="Solicitation" [sortable]="true" [filter]="false" filterPlaceholder="Search"></p-column>
+  <p-column field="solNum" header="Solicitation ID" [sortable]="true" [filter]="false" filterPlaceholder="Search"></p-column>
   <p-column field="noticeType" header="Notice Type" [sortable]="true" [filter]="true" [style]="{'width': '90px'}"  filterPlaceholder="Search"></p-column>
-  <p-column field="title" header="Title" [sortable]="true" [filter]="false" filterPlaceholder="Search">
+  <p-column field="title" header="Solicitation Title" [sortable]="true" [filter]="false" filterPlaceholder="Search">
     <ng-template let-sol="rowData" pTemplate="body">
       <a href="{{sol.url}}">{{sol.title}}</a>
     </ng-template>
   </p-column>
+  <p-column field="date" header="Date Posted" [sortable]="true" [filter]="true" [style]="{'width': '120px'}" filterPlaceholder="Search"></p-column>
   <p-column field="predictions.value" header="Review Result" [sortable]="true" [filter]="true" [style]="{'width': '90px'}" filterPlaceholder="Search">
     <ng-template let-sol="rowData" pTemplate="body">
       <div *ngIf="sol.predictions.value == 'RED'">
@@ -42,19 +43,14 @@
       </div>
     </ng-template>
   </p-column>
-  <p-column field="reviewRec" header="Manual Review Recommended" [sortable]="true" [filter]="true" [style]="{'width': '110px'}" filterPlaceholder="Search"></p-column>
-  <p-column [style]="{'width': '60px'}">
-          <ng-template pTemplate="header">Manual Review</ng-template>
-          <ng-template let-sol="rowData" pTemplate="body">
-              <button type="button" pButton (click)="selectSol(sol)" icon="fa-edit"></button>
-          </ng-template>
-      </p-column>
-  <p-column field="reviewStatus" header="Review Status" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-  <p-column field="date" header="Date Ingested" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-  <p-column field="isReadable" header="Machine Readable (Yes/No)" [sortable]="true" [filter]="false" [style]="{'width': '90px'}"filterPlaceholder="Search"></p-column>
-  <p-column field="eitLikelihood" header="EIT (ICT) (Yes/No)" [sortable]="true" [filter]="false" [style]="{'width': '90px'}"filterPlaceholder="Search"></p-column>
+  <p-column header="Manual Review Recommended" [sortable]="true" [style]="{'width': '110px'}" filterPlaceholder="Search">
+       <ng-template let-sol="rowData" pTemplate="body">
+             <button type="button" pButton (click)="selectSol(sol)" label={{sol.reviewRec}}></button>
+        </ng-template>
+  </p-column>
+  <p-column field="actionStatus" header="Current Action Status" [sortable]="true" [style]="{'width': '110px'}" filterPlaceholder="Search"></p-column>
+  <p-column field="isReadable" header="Documents Found" [sortable]="true" [filter]="false" [style]="{'width': '180px'}"filterPlaceholder="Search"></p-column>
+  <p-column field="eitLikelihood.value" header="ICT (EIT) (Yes/No)" [sortable]="true" [filter]="false" [style]="{'width': '90px'}"filterPlaceholder="Search"></p-column>
   <p-column field="agency" header="Agency" [sortable]="true" [filter]="false" filterPlaceholder="Search"></p-column>
   <p-column field="office" header="Office" [sortable]="true" [filter]="false" filterPlaceholder="Search"></p-column>
-  <p-column field="contact" header="Contact" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-  <p-column field="position" header="Position" [sortable]="true" [filter]="false" filterPlaceholder="Search"></p-column>
 </p-dataTable>

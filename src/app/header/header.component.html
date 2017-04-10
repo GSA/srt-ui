@@ -1,6 +1,6 @@
 <!-- SRTDashHeaderView -->
 <div id="header" style="height: 100px; padding: 0px;">
-    <nav class="us-navbar navbar-default">
+  <nav class="us-navbar navbar-default">
         <div class="container-fluid" style="padding: 0px;">
             <div class="navbar-header" style="height: 60px">
                 <a class="navbar-left" href="/srt/report"><img id="srtlogo" src="https://s3.amazonaws.com/srt.bucket/assets/srtlogo.PNG"></a>
@@ -9,10 +9,10 @@
         <div class="collapse navbar-collapse" id="navbar" style="padding: 0px;">
                 <ul *ngIf="firstName" class="nav navbar-nav">
                     <li data-toggle="tab" class="active"><a [routerLink]="['/srt']">Home</a></li>
-                    <li data-toggle="tab"><a [routerLink]="['/report']">Report</a></li>
-                    <li data-toggle="tab"><a href="#">Pre-Exam</a></li>
-                    <li data-toggle="tab"><a [routerLink]="['/analytics']">Analytics</a></li>
-                    <li data-toggle="tab"><a [routerLink]="['/admin']">Access Requests</a></li>
+                    <li data-toggle="tab"><a [routerLink]="['/report']">Manage Workload</a></li>
+                    <li data-toggle="tab"><a [routerLink]="['/analytics']">View Analytics</a></li>
+                    <li data-toggle="tab"><a [routerLink]="['/admin']">Manage Access Requests</a></li>
+                    <li data-toggle="tab"><a href="#">Help Us Improve</a></li>
                 </ul>
                 <div class=" gsa_logo">
                     <a href='#' class="logo_li">

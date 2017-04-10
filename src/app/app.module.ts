@@ -21,6 +21,7 @@ import { SolicitationReviewComponent } from './solicitation-review/solicitation-
 import { SrtComponent } from './srt/srt.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { AdminComponent } from './admin/admin.component';
+import { ResultsDetailComponent } from './report/results-detail/results-detail.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AdminComponent } from './admin/admin.component';
     SolicitationReviewComponent,
     SrtComponent,
     AnalyticsComponent,
-    AdminComponent
+    AdminComponent,
+    ResultsDetailComponent
   ],
   imports: [
     BrowserModule,

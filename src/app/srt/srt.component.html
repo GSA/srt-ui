@@ -1,66 +1,53 @@
 <div class="container">
   <div class="jumbotron">
-    <img src="	https://s3.amazonaws.com/srt.bucket/assets/srtlogo.PNG" alt="">
+    <img src="https://s3.amazonaws.com/srt.bucket/assets/srtlogo.png" alt="">
   <h1>Welcome to the Solicitation Review Tool</h1>
   <p>The Solicitation Review Tool is provided to allow agencies to understand the overall solicitation compliance with various regulations.</p>
 </div>
-    <div class="row">
-        <div class="col-xs-12 col-sm-4 col-md-2">
-            <div class="thumbnail">
-                <img src="https://s3.amazonaws.com/srt.bucket/assets/accessibility.jpg" class="">
-                <div class="caption">
-                     <h4 class="">Solicitation Review Results for 508 Language</h4>
-
-                    <p class="">Provides accessibility compliance results for your agency soliciations posted to fedbizzopps.com</p> <a [routerLink]="['/report']" class="btn btn-default btn-xs" role="button">Report</a>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-4 col-md-2">
-            <div class="thumbnail">
-                <img src="	https://s3.amazonaws.com/srt.bucket/assets/Analytics.png" class="">
-                <div class="caption">
-                     <h4 class="">Analytics</h4>
-
-                    <p class="">Explore your agency soliciation data.</p><a [routerLink]="['/analytics']" class="btn btn-default btn-xs" role="button">Analytics</a>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-4 col-md-2">
-            <div class="thumbnail">
-                <img src="	https://s3.amazonaws.com/srt.bucket/assets/Check-mark.jpg" class="">
-                <div class="caption">
-                     <h4 class="">Pre-Exam</h4>
-
-                    <p class="">Check the compliance of a solicitation prior to posting on FBO</p> <a href="#" class="btn btn-default btn-xs" role="button">Pre-Exam</a>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-4 col-md-2">
-            <div class="thumbnail">
-                <img src="	https://s3.amazonaws.com/srt.bucket/assets/user_tour.jpg" class="">
-                <div class="caption">
-                     <h4 class="">Access Requests</h4>
-
-                    <p class="">Administer requests for user accounts</p> <a href="#" class="btn btn-default btn-xs" role="button">Account Admin</a>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-4 col-md-2">
-            <div class="thumbnail">
-                <img src="	https://s3.amazonaws.com/srt.bucket/assets/procurement-2.jpg" class="">
-                <div class="caption">
-                     <h4 class="">Need Help?</h4>
-
-                    <p class="">Do you need help with Accessiblity Language for Solicitations?  Try out the Buy Accessible Wizard!</p> <a href="https://app.buyaccessible.gov/baw/Main.jsp" class="btn btn-default btn-xs" role="button">Buy Accessible Wizard</a>
-
-                </div>
-            </div>
-        </div>
+<div class="container-fluid cards-row">
+  <div class="container">
+  <div class="row col-xs-12">
+    <div class="col-md-3">
+    <div class="thumbnail">
+      <img src="https://s3.amazonaws.com/srt.bucket/assets/Check-mark.jpg" alt="Check Mark">
+      <div class="caption">
+        <h3>Manage Your Section 508 Solicitation Requirements Workload</h3>
+        <p class="card-description">Access and manage Section 508 review results for your agency</p>
+        <p><a [routerLink]="['/report']" class="btn btn-primary" role="button">Manage Workflow</a></p>
+      </div>
     </div>
-    <!--/row-->
+  </div>
+  <div class="col-md-3">
+  <div class="thumbnail">
+    <img src="	https://s3.amazonaws.com/srt.bucket/assets/Analytics.jpg" alt="Analytics Magnifying Glass">
+  <div class="caption">
+    <h3>View Analytics</h3>
+    <p class="card-description">Explore your agency Section 508 Requirements Soliciation data.</p>
+    <p><a [routerLink]="['/analytics']" class="btn btn-primary" role="button">View Analytics</a></p>
+  </div>
+  </div>
+</div>
+<div class="col-md-3">
+<div class="thumbnail">
+<img src="https://s3.amazonaws.com/srt.bucket/assets/user_tour.jpg" alt="Group of three users">
+<div class="caption">
+  <h3>Manage SRT Access Requests</h3>
+  <p class="card-description">Manage Solicitation Review Tool access requests.  Administrator view to handle user registration workflow.</p>
+  <p><a [routerLink]="['/report']" class="btn btn-primary">Manage Requests</a></p>
+</div>
+</div>
+</div>
+<div class="col-md-3">
+<div class="thumbnail">
+<img src="https://s3.amazonaws.com/srt.bucket/assets/procurement-2.jpg" alt="Procurement graphic.">
+<div class="caption">
+  <h3>Need Help?</h3>
+  <p class="card-text">Do you need help with Accessiblity Language for Solicitations?  Try out the Buy Accessible Wizard!</p>
+  <p><a href="https://app.buyaccessible.gov/baw/Main.jsp" class="btn btn-primary">Manage Workflow</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <!--/container -->
