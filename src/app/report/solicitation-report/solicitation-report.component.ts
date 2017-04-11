@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SolicitationService } from '../../solicitation.service';
+import { SelectItem } from 'primeng/primeng';
 
 
 @Component({
@@ -12,6 +13,10 @@ export class SolicitationReportComponent implements OnInit {
 
   solicitations: any[];
   solicitation = {};
+  ict: SelectItem[] = [];
+  solType: SelectItem[] = [];
+  revResult: SelectItem[] = [];
+
 
   filterParams = {
       agency: '',
@@ -41,6 +46,18 @@ export class SolicitationReportComponent implements OnInit {
         });
   this.solicitationService.pushedSolicitations.subscribe(
     solicitations => this.solicitations = solicitations);
+  this.ict.push({label: 'All', value: null});
+  this.ict.push({label: 'Yes', value: 'Yes'});
+  this.ict.push({label: 'No', value: 'No'});
+
+  this.solType.push({label: 'All', value: null});
+  this.solType.push({label: 'COMBINE', value: 'COMBINE'});
+  this.solType.push({label: 'PRESOL', value: 'PRESOL'});
+  this.solType.push({label: 'SRCSGT', value: 'SRCSGT'});
+
+  this.revResult.push({label: 'All', value: null});
+  this.revResult.push({label: 'Red', value: 'RED'});
+  this.revResult.push({label: 'Green', value: 'GREEN'});
   }
 
   // set initial params based upon logged in user

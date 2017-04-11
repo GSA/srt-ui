@@ -26,14 +26,21 @@
                  [rowsPerPageOptions]="[10, 15, 20]"
                  [globalFilter]="gb">
   <p-column field="solNum" header="Solicitation ID" [sortable]="true" [filter]="false" filterPlaceholder="Search"></p-column>
-  <p-column field="noticeType" header="Notice Type" [sortable]="true" [filter]="true" [style]="{'width': '90px'}"  filterPlaceholder="Search"></p-column>
+  <p-column field="noticeType" header="Notice Type" [sortable]="true" [filter]="true" [style]="{'overflow':'visible'}"  filterPlaceholder="Search">
+    <ng-template pTemplate="filter" let-col>
+        <p-dropdown [options]="solType" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+    </ng-template>
+  </p-column>
   <p-column field="title" header="Solicitation Title" [sortable]="true" [filter]="false" filterPlaceholder="Search">
     <ng-template let-sol="rowData" pTemplate="body">
       <a href="{{sol.url}}">{{sol.title}}</a>
     </ng-template>
   </p-column>
   <p-column field="date" header="Date Posted" [sortable]="true" [filter]="true" [style]="{'width': '120px'}" filterPlaceholder="Search"></p-column>
-  <p-column field="predictions.value" header="Review Result" [sortable]="true" [filter]="true" [style]="{'width': '90px'}" filterPlaceholder="Search">
+  <p-column field="predictions.value" header="SRT Review Result" [sortable]="true" [filter]="true" [style]="{'overflow': 'visible'}" filterPlaceholder="Search">
+    <ng-template pTemplate="filter" let-col>
+        <p-dropdown [options]="revResult" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+    </ng-template>
     <ng-template let-sol="rowData" pTemplate="body">
       <div *ngIf="sol.predictions.value == 'RED'">
         <span [style.color]="sol.predictions.value"><i class="fa fa-exclamation-triangle"></i> {{sol.predictions.value}}</span>
@@ -43,14 +50,18 @@
       </div>
     </ng-template>
   </p-column>
-  <p-column header="Manual Review Recommended" [sortable]="true" [style]="{'width': '110px'}" filterPlaceholder="Search">
+  <p-column header="Action Requested" [sortable]="true" [style]="{'width': '110px'}" filterPlaceholder="Search">
        <ng-template let-sol="rowData" pTemplate="body">
              <button type="button" pButton (click)="selectSol(sol)" label={{sol.reviewRec}}></button>
         </ng-template>
   </p-column>
   <p-column field="actionStatus" header="Current Action Status" [sortable]="true" [style]="{'width': '110px'}" filterPlaceholder="Search"></p-column>
   <p-column field="isReadable" header="Documents Found" [sortable]="true" [filter]="false" [style]="{'width': '180px'}"filterPlaceholder="Search"></p-column>
-  <p-column field="eitLikelihood.value" header="ICT (EIT) (Yes/No)" [sortable]="true" [filter]="false" [style]="{'width': '90px'}"filterPlaceholder="Search"></p-column>
+  <p-column field="eitLikelihood.value" header="ICT (EIT) (Yes/No)" [filter]="true" [style]="{'overflow':'visible'}" filterMatchMode="equals">
+          <ng-template pTemplate="filter" let-col>
+              <p-dropdown [options]="ict" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+          </ng-template>
+      </p-column>
   <p-column field="agency" header="Agency" [sortable]="true" [filter]="false" filterPlaceholder="Search"></p-column>
   <p-column field="office" header="Office" [sortable]="true" [filter]="false" filterPlaceholder="Search"></p-column>
 </p-dataTable>

@@ -1,7 +1,21 @@
-img {
+#srtlogo {
 	max-width: 100%;
 	max-height: 200px;
 	float: right;
+}
+
+.centerfy img{
+                margin: 0 auto;
+            }
+
+.centerfy{
+                text-align: center;
+            }
+
+#gsa {
+	max-width: 100%;
+	max-height: 200px;
+	float: left;
 }
 
 .card {
