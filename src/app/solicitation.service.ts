@@ -13,14 +13,14 @@ export class SolicitationService {
   pushedSolicitations = new EventEmitter();
   pushedSolicitation = new EventEmitter();
 
-  constructor ( private http: Http ){};
+   constructor ( private http: Http ){};
   // private solicitationsUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/predictions';
   // private solicitationsFilterUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/predictions/filter';
 	// private solicitationUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/solicitation/';
 
    private solicitationsUrl = 'http://localhost:3000/predictions';
    private solicitationsFilterUrl = 'http://localhost:3000/predictions/filter';
-   private solicitationUrl = 'http://localhost:3000/solicitation';
+   private solicitationUrl = 'http://localhost:3000/solicitation/';
 
   getFilteredSolicitations(body) {
 		console.log(body);

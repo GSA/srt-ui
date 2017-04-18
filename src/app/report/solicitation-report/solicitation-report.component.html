@@ -19,13 +19,13 @@
 
 </div>
 
-<p-dataTable #dt [value]="solicitations"
+<p-dataTable styleClass="myStyle" #dt [value]="solicitations"
                  [rows]="15"
                  [paginator]="true"
                  [pageLinks]="4"
                  [rowsPerPageOptions]="[10, 15, 20]"
                  [globalFilter]="gb">
-  <p-column field="solNum" header="Solicitation ID" [sortable]="true" [filter]="false" filterPlaceholder="Search"></p-column>
+  <p-column field="solNum" header="Solicitation ID" [sortable]="true" [filter]="false" filterPlaceholder="Search" [style]="{'font-weight':'600'}"></p-column>
   <p-column field="noticeType" header="Notice Type" [sortable]="true" [filter]="true" [style]="{'overflow':'visible'}"  filterPlaceholder="Search">
     <ng-template pTemplate="filter" let-col>
         <p-dropdown [options]="solType" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
@@ -56,8 +56,8 @@
         </ng-template>
   </p-column>
   <p-column field="actionStatus" header="Current Action Status" [sortable]="true" [style]="{'width': '110px'}" filterPlaceholder="Search"></p-column>
-  <p-column field="isReadable" header="Documents Found" [sortable]="true" [filter]="false" [style]="{'width': '180px'}"filterPlaceholder="Search"></p-column>
-  <p-column field="eitLikelihood.value" header="ICT (EIT) (Yes/No)" [filter]="true" [style]="{'overflow':'visible'}" filterMatchMode="equals">
+  <p-column field="numDocs" header="Documents Found" [sortable]="true" [filter]="false" [style]="{'width': '180px'}"filterPlaceholder="Search"></p-column>
+  <p-column field="eitLikelihood.value" header="ICT (Yes/No)" [filter]="true" [style]="{'overflow':'visible'}" filterMatchMode="equals">
           <ng-template pTemplate="filter" let-col>
               <p-dropdown [options]="ict" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
           </ng-template>

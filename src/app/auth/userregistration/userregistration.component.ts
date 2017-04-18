@@ -29,9 +29,9 @@ export class UserregistrationComponent implements OnInit {
 // requests user account for SRT
   onSubmit() {
     const user = new User(
-      this.myForm.value.position,
       this.myForm.value.email,
       this.myForm.value.password,
+      this.myForm.value.position,
       this.myForm.value.firstName,
       this.myForm.value.lastName,
       this.myForm.value.agency

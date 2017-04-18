@@ -5,14 +5,15 @@ export class Solicitation {
         public url: String,
         public predictions: {RED: Number, GREEN: Number},
         public reviewRec: Boolean,
-        public isReadable: String, //modified
-        public eitLikelihood: String, //modified
+        public numDocs: String,
+        public eitLikelihood: String,
         public date: Date,
         public agency: String,
         public office: String,
         public contact: String,
         public position: String,
         public reviewStatus: Boolean,
-        public noticeType: String
+        public noticeType: String,
+        public parseStatus: [{name: String, status: String}]
     ) {}
 }

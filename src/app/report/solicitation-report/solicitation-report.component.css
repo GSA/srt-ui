@@ -1,5 +1,6 @@
-
-
+.ui-datatable-header {
+  color: blue;
+}
 #solsearch{
     width: 100%;
     float: right;

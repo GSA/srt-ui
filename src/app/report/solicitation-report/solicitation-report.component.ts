@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { SolicitationService } from '../../solicitation.service';
 import { SelectItem } from 'primeng/primeng';
@@ -7,7 +7,8 @@ import { SelectItem } from 'primeng/primeng';
 @Component({
   selector: 'app-solicitation-report',
   templateUrl: './solicitation-report.component.html',
-  styleUrls: ['./solicitation-report.component.css']
+  styleUrls: ['./solicitation-report.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SolicitationReportComponent implements OnInit {
 
@@ -23,7 +24,7 @@ export class SolicitationReportComponent implements OnInit {
       office: '',
       contact: '',
       eitLikelihood: '',
-      isReadable: '',
+      numDocs: '',
       reviewStatus: '',
       reviewRec: '',
     };

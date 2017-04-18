@@ -1,3 +1,70 @@
-<p>
-  results-detail works!
-</p>
+<div style="margin-left: 40px">
+  <div id="back">
+  <a [routerLink]="['/report']"> < Back to Solicitation Review Results for Section 508 Requirements</a>
+</div>
+<div>
+  <h1>Solicitation Review - Detailed Results</h1>
+</div>
+<div id="detail">
+  <div class="panel panel-default col-md-12">
+    <div class="panel-body" *ngIf="solicitation">
+      <div class="row">
+        <div class="col-md-6">
+          <strong>Solicitation Title: </strong> {{solicitation.title}}
+        </div>
+        <div class="col-md-4">
+          <strong>Agency: </strong> {{solicitation.agency}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <strong>Solicitation Number: </strong> {{solicitation.solNum}}
+        </div>
+        <div class="col-md-4">
+          <strong>Office: </strong>{{solicitation.office}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <strong>Solicitation Type: </strong> {{solicitation.noticeType}}
+        </div>
+        <div class="col-md-4">
+          <strong>Point of Contact: </strong> John Doe
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <strong>URL: </strong> {{solicitation.url}}
+        </div>
+        <div class="col-md-4">
+          <strong>Position: </strong>Contracting Officer
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <strong>ICT (Yes/No): </strong> {{solicitation.eitLikelihood.value}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <strong>Total Documents Scanned: </strong> {{solicitation.numDocs}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <ul><strong>Document Status:</strong>
+            <li *ngFor="let doc of solicitation.parseStatus">{{doc.name}} : {{doc.status}}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <ul><strong>SRT Review Results:</strong>
+            <li>hello</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
