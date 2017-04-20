@@ -15,7 +15,7 @@ const APP_ROUTES: Routes = [
   {path: 'srt', component: SrtComponent},
   {path: 'admin', component: AdminComponent},
   {path: 'analytics', component: AnalyticsComponent},
-  {path: 'feedback', component: SolicitationReviewComponent}
+  {path: 'feedback', component: SolicitationReviewComponent},
 ];
 
 export const routing = RouterModule.forRoot(APP_ROUTES);

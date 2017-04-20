@@ -23,6 +23,7 @@ import { SrtComponent } from './srt/srt.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { AdminComponent } from './admin/admin.component';
 import { ResultsDetailComponent } from './report/results-detail/results-detail.component';
+import { AgGridModule } from 'ag-grid-angular/main';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { ResultsDetailComponent } from './report/results-detail/results-detail.c
     SrtComponent,
     AnalyticsComponent,
     AdminComponent,
-    ResultsDetailComponent
+    ResultsDetailComponent,
   ],
   imports: [
     BrowserModule,
