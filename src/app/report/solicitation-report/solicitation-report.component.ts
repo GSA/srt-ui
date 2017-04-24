@@ -57,8 +57,8 @@ export class SolicitationReportComponent implements OnInit {
   this.solType.push({label: 'SRCSGT', value: 'SRCSGT'});
 
   this.revResult.push({label: 'All', value: null});
-  this.revResult.push({label: 'Red', value: 'RED'});
-  this.revResult.push({label: 'Green', value: 'GREEN'});
+  this.revResult.push({label: 'Action Requested', value: 'RED'});
+  this.revResult.push({label: 'Pass', value: 'GREEN'});
   }
 
   // set initial params based upon logged in user

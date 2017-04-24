@@ -29,7 +29,7 @@
           <strong>Solicitation Type: </strong> {{solicitation.noticeType}}
         </div>
         <div class="col-md-4">
-          <strong>Point of Contact: </strong> John Doe
+          <strong>Point of Contact: </strong> {{solicitation.contactInfo.name}}
         </div>
       </div>
       <div class="row">
@@ -37,7 +37,7 @@
           <strong>URL: </strong> {{solicitation.url}}
         </div>
         <div class="col-md-4">
-          <strong>Position: </strong>Contracting Officer
+          <strong>Position: </strong>{{solicitation.contactInfo.position}}
         </div>
       </div>
       <div class="row">
@@ -60,7 +60,8 @@
       <div class="row">
         <div class="col-md-4">
           <ul><strong>SRT Review Results:</strong>
-            <li>hello</li>
+            <li>Document Name: This document is not Section 508 compliant.</li>
+            <li>Insufficient Section 508 requirements found in solicitation documents.</li>
           </ul>
         </div>
       </div>
