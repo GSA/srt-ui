@@ -14,13 +14,13 @@ export class SolicitationService {
   pushedSolicitation = new EventEmitter();
 
    constructor ( private http: Http ){};
-  // private solicitationsUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/predictions';
-  // private solicitationsFilterUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/predictions/filter';
-	// private solicitationUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/solicitation/';
+  private solicitationsUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/predictions';
+  private solicitationsFilterUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/predictions/filter';
+	private solicitationUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/solicitation/';
 
-   private solicitationsUrl = 'http://localhost:3000/predictions';
-   private solicitationsFilterUrl = 'http://localhost:3000/predictions/filter';
-   private solicitationUrl = 'http://localhost:3000/solicitation/';
+  //  private solicitationsUrl = 'http://localhost:3000/predictions';
+  //  private solicitationsFilterUrl = 'http://localhost:3000/predictions/filter';
+  //  private solicitationUrl = 'http://localhost:3000/solicitation/';
 
   getFilteredSolicitations(body) {
 		console.log(body);
@@ -28,13 +28,12 @@ export class SolicitationService {
 	  	.map((res: Response) => res.json())
 		.catch((error:any) => Observable.throw(error.json().error || 'Server Error'));  }
 
-
+// still using?
   pushSolicitations(solicitations: Solicitation[]) {
   	this.pushedSolicitations.emit(solicitations);
   }
 
   getSolicitation(index: String): Observable<Solicitation> {
-		console.log("index in service = ", index);
 
     const solUrl = this.solicitationUrl + index;
     return this.http.get(solUrl)

@@ -45,16 +45,18 @@ export class SolicitationReportComponent implements OnInit {
         err => {
             console.log(err);
         });
+        //do I still need this?
   this.solicitationService.pushedSolicitations.subscribe(
     solicitations => this.solicitations = solicitations);
+
   this.ict.push({label: 'All', value: null});
   this.ict.push({label: 'Yes', value: 'Yes'});
   this.ict.push({label: 'No', value: 'No'});
 
   this.solType.push({label: 'All', value: null});
-  this.solType.push({label: 'COMBINE', value: 'COMBINE'});
-  this.solType.push({label: 'PRESOL', value: 'PRESOL'});
-  this.solType.push({label: 'SRCSGT', value: 'SRCSGT'});
+  this.solType.push({label: 'Combined Synopsis/Solicitation', value: 'Combined Synopsis/Solicitation'});
+  this.solType.push({label: 'Presolicitation', value: 'Presolicitation'});
+  this.solType.push({label: 'Sources Sought', value: 'Sources Sought'});
 
   this.revResult.push({label: 'All', value: null});
   this.revResult.push({label: 'Action Requested', value: 'RED'});

@@ -35,6 +35,7 @@
     <ng-template pTemplate="filter" let-col>
         <p-dropdown [options]="solType" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
     </ng-template>
+  
   </p-column>
   <p-column field="date" header="Date Posted on FedBizOpps" [sortable]="true" [filter]="true" [style]="{'width': '120px'}" filterPlaceholder="Search"></p-column>
   <p-column field="predictions.value" header="SRT Review Result" [sortable]="true" [filter]="true" [style]="{'overflow': 'visible', 'width': '200px'}" filterPlaceholder="Search">

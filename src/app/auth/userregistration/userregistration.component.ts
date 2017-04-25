@@ -13,6 +13,7 @@ import { User } from '../user';
 })
 export class UserregistrationComponent implements OnInit {
   myForm: FormGroup;
+  registerSuccess = false;
 
   constructor(private authService: AuthService) { }
 // sets up data template for  registration form
@@ -38,7 +39,10 @@ export class UserregistrationComponent implements OnInit {
     );
     this.authService.signup(user)
       .subscribe(
-        data => console.log(data),
+        data => {
+          console.log(data);
+          this.registerSuccess = true;
+        },
         error => console.log(error)
       );
     this.myForm.reset();
