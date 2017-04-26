@@ -8,7 +8,7 @@ import { SrtComponent } from './srt/srt.component';
 import { ResultsDetailComponent } from './report/results-detail/results-detail.component';
 
 const APP_ROUTES: Routes = [
-  {path: '', redirectTo: 'auth', pathMatch: 'full'},
+  {path: '', redirectTo: 'auth', pathMatch: 'full'}, 
   {path: 'auth', component: AuthComponent},
   {path: 'report/:id', component: ResultsDetailComponent},
   {path: 'report', component: SolicitationReportComponent},

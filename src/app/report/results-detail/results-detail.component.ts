@@ -35,4 +35,19 @@ export class ResultsDetailComponent implements OnInit {
 
   }
 
+  emailContact(solicitation) {
+    var emailContent = {
+      text: "Solicitation has been reviewed.  Due to the solicitation dealing with ICT, it is required to be compliant with Section 508 Law.  Please modify the solicitation to inclue Section 508 requirements.",
+      email: "srttestuser@gmail.com"
+    }
+    this.solicitationService.sendContactEmail(emailContent)
+      .subscribe(
+        msg => {
+          console.log(msg);
+        },
+        err => {
+          console.log(err);
+        });
+  }
+
 }
