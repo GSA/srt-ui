@@ -71,4 +71,9 @@
     </div>
   </div>
 </div>
+<div class="usa-width-one-half">
+  <ul *ngIf="solicitation">
+    <li *ngFor="let action of solicitation.history">{{action.date}} - {{action.action}}</li>
+  </ul>
+</div>
 </div>

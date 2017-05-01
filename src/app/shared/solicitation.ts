@@ -14,6 +14,10 @@ export class Solicitation {
         public position: String,
         public reviewStatus: Boolean,
         public noticeType: String,
-        public parseStatus: [{name: String, status: String}]
+        public parseStatus: [{name: String, status: String}],
+        public history: [{
+          date: String,
+          action: String
+        }]
     ) {}
 }

@@ -48,6 +48,14 @@ export class ResultsDetailComponent implements OnInit {
         err => {
           console.log(err);
         });
+    this.solicitationService.updateHistory(solicitation)
+      .subscribe(
+        msg => {
+          console.log(msg);
+        },
+        err => {
+          console.log(err);
+        });
   }
 
 }

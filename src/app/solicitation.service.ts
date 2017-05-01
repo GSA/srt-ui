@@ -13,7 +13,7 @@ export class SolicitationService {
   pushedSolicitations = new EventEmitter();
   pushedSolicitation = new EventEmitter();
 
-   constructor ( private http: Http ){};
+  constructor ( private http: Http ){};
   private solicitationsUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/predictions';
   private solicitationsFilterUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/predictions/filter';
   private solicitationUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/solicitation/';
@@ -48,4 +48,10 @@ export class SolicitationService {
       .map((res: Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
     }
+
+  updateHistory(solicitation) {
+    return this.http.post(this.solicitationUrl, solicitation)
+      .map((res: Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
+  }
 }
