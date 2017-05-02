@@ -6,12 +6,14 @@ import { SolicitationReportComponent } from './report/solicitation-report/solici
 import { SolicitationReviewComponent } from './solicitation-review/solicitation-review.component';
 import { SrtComponent } from './srt/srt.component';
 import { ResultsDetailComponent } from './report/results-detail/results-detail.component';
+import { EmailPocComponent } from './report/email-poc/email-poc.component';
 
 const APP_ROUTES: Routes = [
-  {path: '', redirectTo: 'auth', pathMatch: 'full'}, 
+  {path: '', redirectTo: 'auth', pathMatch: 'full'},
   {path: 'auth', component: AuthComponent},
   {path: 'report/:id', component: ResultsDetailComponent},
   {path: 'report', component: SolicitationReportComponent},
+  {path: 'email/:id', component: EmailPocComponent},
   {path: 'srt', component: SrtComponent},
   {path: 'admin', component: AdminComponent},
   {path: 'analytics', component: AnalyticsComponent},
