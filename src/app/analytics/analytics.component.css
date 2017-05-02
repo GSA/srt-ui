@@ -1,0 +1,45 @@
+.analytic-div {
+    background-color: #ebf3f9;
+    min-height: calc(100vh - 100px);
+    margin: 0px !important;
+}
+
+.analytic-summary-div {
+    position: relative; 
+    display: inline-block;
+    width: calc(20% - 10px);
+    text-align: center;
+    padding: 10px;
+}
+
+.analytic-summary-result {
+    font-size: 30px;
+    padding-bottom: 20px;
+}
+
+.information-icon {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.analytic-summary-title {
+    color: #8ca0b3;
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+
+.nopadding {
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
+.analytic-title {
+    font-size: 20px;   
+    color: #687a8b;
+    padding: 20px;
+    font-weight: 300;
+}
+
+
+
