@@ -14,7 +14,6 @@ export class ResultsDetailComponent implements OnInit {
   solicitation: Solicitation;
   private subscription: Subscription;
   private solicitationIndex: String;
-  private parseError: boolean = false;
 
   constructor(private solicitationService: SolicitationService, private route: ActivatedRoute) { }
 
