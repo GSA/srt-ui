@@ -23,6 +23,7 @@ export class AnalyticsComponent implements OnInit {
     angencyTotal = {}
     angencyPass = {}
     angency = {};
+        
 
     constructor(
         private SolicitationService: SolicitationService,
@@ -36,6 +37,8 @@ export class AnalyticsComponent implements OnInit {
     public doughnutChartData:number[] = [];
     public doughnutChartType:string = 'doughnut';
 
+    
+    
     // events
     public pieChartClicked(e:any):void {
         console.log(e);
@@ -56,6 +59,7 @@ export class AnalyticsComponent implements OnInit {
     public barChartType:string = 'bar';
     public barChartLegend:boolean = true;
 
+
     public barChartData:any[] = [
         {data: [], label: 'Total Solicitation'},
         {data: [], label: 'Pass Solicitation'}
@@ -69,9 +73,6 @@ export class AnalyticsComponent implements OnInit {
     public chartHovered(e:any):void {
         console.log(e);
     }
-    
-    //var ctx = document.getElementById("canvas").getContext("2d");
-  
     
 
     // Analytic get data
@@ -116,6 +117,9 @@ export class AnalyticsComponent implements OnInit {
                 }               
                                 
                 
+                // Refresh the chart
+                this.forceChartRefresh();
+                
                 /*   Bar Chart   */
                 
                 for (let item of ICT)
@@ -150,11 +154,11 @@ export class AnalyticsComponent implements OnInit {
                     this.barChartData[1].data.push(this.angencyPass[key]);
                 }
                 
+                // Refresh the chart
                 let clone = JSON.parse(JSON.stringify(this.barChartData));
                 this.barChartData = clone;      
                                 
-                // Refresh the chart
-                this.forceChartRefresh();
+                
                 
                 console.log(this.baseChart);
                 
