@@ -1,22 +1,23 @@
 <div class="row nopadding">
-    <table style="width: calc(100% - 20px); margin: 0px 0px 20px 0px">
-        <tr>
-            <td id="soltitle" style="vertical-align: middle; font-size: 28px; color: #112e51 ">Solicitation Review Results for Section 508 Requirements</td>
-            <td style="vertical-align: middle;  text-align: right; padding-right: 20px;"> Keyword Search:  </td>
-            <td style="vertical-align: middle; width: 400px">
-                 <div class="input-group" id="solsearch">
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button">
-                            <span class=" glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
-                    <input #gb type="text" class="search-query form-control" placeholder="Global Filter" />
-                </div>
-            </td>
-            <td id="csv"> Export As:<img id="csvlogo" src="https://s3.amazonaws.com/srt.bucket/assets/downloadcsv.jpeg" (click)="dt.exportCSV()"></td>
-        </tr>
-    </table>
+  <div class="usa-width-one-half">
+    <h4 id="soltitle" style="vertical-align: middle; font-size: 28px; color: #112e51 ">Solicitation Review Results for Section 508 Requirements</h4>
+  </div>
+  <div class="usa-width-one-half">
+    <div class="report-header" style="display: inline-block;">
+      <div id="csv" style="float: right"> Export As:<img id="csvlogo" src="../../../assets/downloadcsv.jpeg" (click)="dt.exportCSV()"></div>
 
+      <div id="solsearch"> Keyword Search:
+        <div class="input-group" id="solsearch">
+         <span class="input-group-btn">
+             <button class="btn btn-primary" type="button">
+                 <span class=" glyphicon glyphicon-search"></span>
+             </button>
+         </span>
+         <input #gb type="text" class="search-query form-control" placeholder="Global Filter" />
+       </div>
+     </div>
+    </div>
+  </div>
 </div>
 
 <p-dataTable styleClass="myStyle" #dt [value]="solicitations"
