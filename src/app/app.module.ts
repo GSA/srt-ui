@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Router } from '@angular/router';
 
+import { ChartsModule } from 'ng2-charts';
+
 import { AppComponent } from './app.component';
 import { SolicitationReportComponent } from './report/solicitation-report/solicitation-report.component';
 import { SolicitationService } from './solicitation.service';
@@ -49,7 +51,8 @@ import { ResultsDetailComponent } from './report/results-detail/results-detail.c
     DataTableModule,
     SharedModule,
     ButtonModule,
-    DropdownModule
+    DropdownModule,
+    ChartsModule
   ],
   providers: [
     SolicitationService,
