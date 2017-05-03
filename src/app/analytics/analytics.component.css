@@ -1,7 +1,7 @@
 .analytic-div {
     background-color: #ebf3f9;
-    min-height: calc(100vh - 100px);
-    margin: 0px !important;
+    min-height: calc(100vh - 85px);
+    margin: -39px 0px 0px 0px !important;
 }
 
 .analytic-summary-div {

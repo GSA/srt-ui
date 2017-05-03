@@ -1,11 +1,11 @@
-<div style="margin-left: 40px">
+<div style="padding: 0px 40px">
   <div id="back">
   <a [routerLink]="['/report']"> < Back to Solicitation Review Results for Section 508 Requirements</a>
 </div>
 <div>
-  <h1>Solicitation Review - Detailed Results</h1>
+  <h1>Solicitation Review Result Summary</h1>
 </div>
-<div id="detail">
+<div id="detail" style="position: relative">
   <div class="panel panel-default col-md-12">
     <div class="panel-body" *ngIf="solicitation">
       <div class="row">
@@ -64,7 +64,7 @@
             <li>Insufficient Section 508 requirements found in solicitation documents.</li>
           </ul>
         </div>
-        <div class="col-md-4">
+        <div  style="position: absolute; right: 20px; bottom: 20px">
           <button type="button" name="email" class="usa-button" (click)="emailPoc(solicitation)" >Contact Solicitation PoC</button>
         </div>
       </div>
