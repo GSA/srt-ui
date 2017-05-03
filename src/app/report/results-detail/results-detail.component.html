@@ -2,76 +2,40 @@
   <div id="back">
   <a [routerLink]="['/report']"> < Back to Solicitation Review Results for Section 508 Requirements</a>
 </div>
+{{emailBody}}
 <div>
   <h1>Solicitation Review - Detailed Results</h1>
 </div>
 <div id="detail">
   <div class="panel panel-default col-md-12">
     <div class="panel-body" *ngIf="solicitation">
-      <div class="row">
-        <div class="col-md-6">
-          <strong>Solicitation Title: </strong> {{solicitation.title}}
-        </div>
-        <div class="col-md-4">
-          <strong>Agency: </strong> {{solicitation.agency}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <strong>Solicitation Number: </strong> {{solicitation.solNum}}
-        </div>
-        <div class="col-md-4">
-          <strong>Office: </strong>{{solicitation.office}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <strong>Solicitation Type: </strong> {{solicitation.noticeType}}
-        </div>
-        <div class="col-md-4">
-          <strong>Point of Contact: </strong> {{solicitation.contactInfo.name}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <strong>URL: </strong> {{solicitation.url}}
-        </div>
-        <div class="col-md-4">
-          <strong>Position: </strong>{{solicitation.contactInfo.position}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <strong>ICT (Yes/No): </strong> {{solicitation.eitLikelihood.value}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <strong>Total Documents Scanned: </strong> {{solicitation.numDocs}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <ul><strong>Document Status:</strong>
+      <div class="col-md-6">
+        <strong>Agency: </strong> {{solicitation.agency}}<br>
+        <strong>Office: </strong>{{solicitation.office}}<br>
+        <strong>Point of Contact: </strong> {{solicitation.contactInfo.name}}<br>
+        <strong>Position: </strong>{{solicitation.contactInfo.position}}<br>
+        <br>
+        <strong>Solicitation Title: </strong> {{solicitation.title}}<br>
+        <strong>Solicitation Number: </strong> {{solicitation.solNum}}<br>
+        <strong>Solicitation Type: </strong> {{solicitation.noticeType}}<br>
+        <strong>URL: </strong> {{solicitation.url}}<br>
+        <strong>ICT (Yes/No): </strong> {{solicitation.eitLikelihood.value}}<br>
+        <strong>Total Documents Scanned: </strong> {{solicitation.numDocs}}<br>
+        <ul><strong>Document Status:</strong>
             <li *ngFor="let doc of solicitation.parseStatus">{{doc.name}} : {{doc.status}}</li>
-          </ul>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <ul><strong>SRT Review Results:</strong>
+        </ul>
+        <ul><strong>SRT Review Results:</strong>
             <li>Document Name: This document is not Section 508 compliant.</li>
             <li>Insufficient Section 508 requirements found in solicitation documents.</li>
-          </ul>
-        </div>
-        <div class="col-md-4">
-          <button type="button" name="email" class="usa-button" (click)="emailPoc(solicitation)" >Contact Solicitation PoC</button>
-        </div>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <app-email-poc [emailBody]="emailBody" [subject]="subject" [emailTo]="emailTo"></app-email-poc>
       </div>
     </div>
   </div>
 </div>
-<div class="usa-width-one-half">
+<div class="col-md-6">Action History
   <ul *ngIf="solicitation">
     <li *ngFor="let action of solicitation.history">{{action.date}} - {{action.action}}</li>
   </ul>
