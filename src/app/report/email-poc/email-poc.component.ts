@@ -61,7 +61,7 @@ emailContact() {
       this.myForm.value.emailCC
     );
 
-//    console.log("email content: ", emailContent);
+    console.log("email content: ", emailContent);
     this.solicitationService.sendContactEmail(emailContent)
       .subscribe(
         msg => {

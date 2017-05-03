@@ -57,6 +57,8 @@ export class SolicitationReportComponent implements OnInit {
   this.solType.push({label: 'Combined Synopsis/Solicitation', value: 'Combined Synopsis/Solicitation'});
   this.solType.push({label: 'Presolicitation', value: 'Presolicitation'});
   this.solType.push({label: 'Sources Sought', value: 'Sources Sought'});
+  this.solType.push({label: 'Special Notice', value: 'Special Notice'});
+
 
   this.revResult.push({label: 'All', value: null});
   this.revResult.push({label: 'Action Requested', value: 'RED'});
