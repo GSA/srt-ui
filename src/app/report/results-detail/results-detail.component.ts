@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+
 import { Subscription } from 'rxjs/Rx';
 
 import { SolicitationService } from '../../solicitation.service';
@@ -15,7 +17,9 @@ export class ResultsDetailComponent implements OnInit {
   private subscription: Subscription;
   private solicitationIndex: String;
 
-  constructor(private solicitationService: SolicitationService, private route: ActivatedRoute) { }
+  constructor(private solicitationService: SolicitationService,
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     // listen for the activated route and use the 'id'  to pull chosen solicitation from mongo
@@ -35,27 +39,8 @@ export class ResultsDetailComponent implements OnInit {
 
   }
 
-  emailContact(solicitation) {
-    var emailContent = {
-      text: "Solicitation has been reviewed.  Due to the solicitation dealing with ICT, it is required to be compliant with Section 508 Law.  Please modify the solicitation to inclue Section 508 requirements.",
-      email: "srttestuser@gmail.com"
-    }
-    this.solicitationService.sendContactEmail(emailContent)
-      .subscribe(
-        msg => {
-          console.log(msg);
-        },
-        err => {
-          console.log(err);
-        });
-    this.solicitationService.updateHistory(solicitation)
-      .subscribe(
-        msg => {
-          console.log(msg);
-        },
-        err => {
-          console.log(err);
-        });
+  emailPoc(solicitation: any) {
+    this.router.navigate(['/email', solicitation._id]);
   }
 
 }

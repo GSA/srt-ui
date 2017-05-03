@@ -25,6 +25,8 @@ import { SrtComponent } from './srt/srt.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { AdminComponent } from './admin/admin.component';
 import { ResultsDetailComponent } from './report/results-detail/results-detail.component';
+import { EmailPocComponent } from './report/email-poc/email-poc.component';
+
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { ResultsDetailComponent } from './report/results-detail/results-detail.c
     AnalyticsComponent,
     AdminComponent,
     ResultsDetailComponent,
+    EmailPocComponent,
   ],
   imports: [
     BrowserModule,
