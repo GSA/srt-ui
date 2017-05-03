@@ -43,10 +43,18 @@ export class SolicitationService {
 
   }
 
+
   sendContactEmail(emailContent) {
     return this.http.post(this.emailUrl, emailContent)
       .map((res: Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
+    }
+
+  
+    getData() {
+        // Get whole whole data set
+        var data =  this.http.get(this.solicitationsUrl).map((res: Response) => res.json());
+        return data
     }
 
   updateHistory(solicitation) {

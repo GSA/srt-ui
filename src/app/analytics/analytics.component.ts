@@ -1,68 +1,184 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild, Directive } from '@angular/core';
+import { Router } from '@angular/router';
+import { SolicitationService } from '../solicitation.service';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-analytics',
   templateUrl: './analytics.component.html',
   styleUrls: ['./analytics.component.css']
 })
-export class AnalyticsComponent {
 
-  // lineChart
-   public lineChartData:Array<any> = [
-     {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-     {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
-     {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
-   ];
-   public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-   public lineChartOptions:any = {
-     responsive: true
-   };
-   public lineChartColors:Array<any> = [
-     { // grey
-       backgroundColor: 'rgba(148,159,177,0.2)',
-       borderColor: 'rgba(148,159,177,1)',
-       pointBackgroundColor: 'rgba(148,159,177,1)',
-       pointBorderColor: '#fff',
-       pointHoverBackgroundColor: '#fff',
-       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-     },
-     { // dark grey
-       backgroundColor: 'rgba(77,83,96,0.2)',
-       borderColor: 'rgba(77,83,96,1)',
-       pointBackgroundColor: 'rgba(77,83,96,1)',
-       pointBorderColor: '#fff',
-       pointHoverBackgroundColor: '#fff',
-       pointHoverBorderColor: 'rgba(77,83,96,1)'
-     },
-     { // grey
-       backgroundColor: 'rgba(148,159,177,0.2)',
-       borderColor: 'rgba(148,159,177,1)',
-       pointBackgroundColor: 'rgba(148,159,177,1)',
-       pointBorderColor: '#fff',
-       pointHoverBackgroundColor: '#fff',
-       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-     }
-   ];
-   public lineChartLegend:boolean = true;
-   public lineChartType:string = 'line';
+@Directive({selector: 'baseChart'})
 
-   public randomize():void {
-     let _lineChartData:Array<any> = new Array(this.lineChartData.length);
-     for (let i = 0; i < this.lineChartData.length; i++) {
-       _lineChartData[i] = {data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label};
-       for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-         _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
-       }
-     }
-     this.lineChartData = _lineChartData;
-   }
+export class AnalyticsComponent implements OnInit {
+        
+    @ViewChild(BaseChartDirective) private baseChart;   
+    
+    solicitationType = {};   
+    solicitationNumber = 0;
+    actionTakenNumber= 0;
+    complianceRate = 0.0;
 
-   // events
-   public chartClicked(e:any):void {
-     console.log(e);
-   }
+    angencyTotal = {}
+    angencyPass = {}
+    angency = {};
+        
 
-   public chartHovered(e:any):void {
-     console.log(e);
-   }
- }
+    constructor(
+        private SolicitationService: SolicitationService,
+        private router: Router
+    ) { }
+
+    // Analytic chart
+    
+    // Pie Chart
+    public doughnutChartLabels:string[] = [];
+    public doughnutChartData:number[] = [];
+    public doughnutChartType:string = 'doughnut';
+
+    
+    
+    // events
+    public pieChartClicked(e:any):void {
+        console.log(e);
+    }
+
+    public pieChartHovered(e:any):void {
+        console.log(e);
+    }
+        
+    // Bar Chart
+
+    public barChartOptions:any = {
+        scaleShowVerticalLines: false,
+        responsive: true
+    };
+    
+    public barChartLabels:string[] = [];
+    public barChartType:string = 'bar';
+    public barChartLegend:boolean = true;
+
+
+    public barChartData:any[] = [
+        {data: [], label: 'Total Solicitation'},
+        {data: [], label: 'Pass Solicitation'}
+    ];
+
+    // events
+    public chartClicked(e:any):void {
+        console.log(e);
+    }
+
+    public chartHovered(e:any):void {
+        console.log(e);
+    }
+    
+
+    // Analytic get data
+    ngOnInit() {            
+        this.SolicitationService.getData()
+        .subscribe(
+            solicitation => {  
+                
+                // ICT Solicitation
+                var ICT = solicitation.filter( d => d.eitLikelihood.value == "Yes" );
+                this.solicitationNumber = ICT.length;         
+                console.log(ICT)
+                
+                // Pass ICT Solicitaion
+                var compliedSolicitaion = ICT.filter( d => d.predictions.value == "GREEN" );
+                var compliedNumber = compliedSolicitaion.length;;
+                this.complianceRate = Math.round(compliedNumber / this.solicitationNumber * 10000) / 100;
+                
+                // Action Taken Solicitaion
+                var actionTaken = ICT.filter( d => d.history.length > 0 );                
+                this.actionTakenNumber = actionTaken.length
+                
+                /*   Pie Chart   */                
+                for (let item of ICT)
+                {                                      
+                    // Gathering data by noticeType
+                    if (this.solicitationType[item.noticeType] == null)
+                    {
+                        this.solicitationType[item.noticeType] = 1;
+                    } 
+                    else {
+                        this.solicitationType[item.noticeType]++;
+                    }        
+                    
+                }                             
+                
+                // Insert data to the chart
+                for (var key in this.solicitationType) {
+                    var value = this.solicitationType[key];
+                    this.doughnutChartData.push(value);
+                    this.doughnutChartLabels.push(key);     
+                }               
+                                
+                
+                // Refresh the chart
+                this.forceChartRefresh();
+                
+                /*   Bar Chart   */
+                
+                for (let item of ICT)
+                {                                      
+                    // Gathering data by noticeType
+                    if (this.angencyTotal[item.agency] == null)
+                    {
+                        this.angencyTotal[item.agency] = 1;
+                        if (item.predictions.value == "GREEN") this.angencyPass[item.agency] = 1;
+                    } 
+                    else {
+                        this.angencyTotal[item.agency]++;
+                        if (item.predictions.value == "GREEN") this.angencyPass[item.agency]++;
+                    }       
+                } 
+                
+                // Insert data to the chart
+                for (var key in this.angencyTotal) {                
+                    
+                    // if angency doesn't have any passed solicitation                    
+                    if (this.angencyPass[key] == null) 
+                    {
+                        this.angency[key] = 0;                    
+                    }
+                    else
+                    {
+                        this.angency[key] = this.angencyPass[key] / this.angencyTotal[key];  
+                    }  
+                           
+                    this.barChartLabels.push(key);
+                    this.barChartData[0].data.push(this.angencyTotal[key]);
+                    this.barChartData[1].data.push(this.angencyPass[key]);
+                }
+                
+                // Refresh the chart
+                let clone = JSON.parse(JSON.stringify(this.barChartData));
+                this.barChartData = clone;      
+                                
+                
+                
+                console.log(this.baseChart);
+                
+               
+            },
+            err => {
+                console.log(err);
+        });       
+        
+    }    
+     
+    // refresh the charts
+    forceChartRefresh() {
+        setTimeout(() => {
+            this.baseChart.refresh();
+        }, 10);
+    }
+   
+ 
+    
+    
+}
+

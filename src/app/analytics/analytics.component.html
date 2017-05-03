@@ -1,26 +1,97 @@
-<div class="row">
-  <div class="col-md-6">
-    <div style="display: block;">
-    <canvas baseChart width="400" height="400"
-                [datasets]="lineChartData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [colors]="lineChartColors"
-                [legend]="lineChartLegend"
-                [chartType]="lineChartType"
-                (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)"></canvas>
+<div class="row analytic-div">
+    <div style="padding: 20px;" class="clearfix">
+        
+        <div class="col-md-12 nopadding">
+            <div style="margin-bottom: 10px; background-color: white;">
+                
+                <div class="analytic-title" style="float: left">Overview</div>
+                
+                
+                <div style="float: right; padding: 20px;">
+                    <div style="display: inline-block; vertical-align: middle; padding-right: 10px; font-size: 16px;">Time Period : </div>
+                    <div style="display: inline-block; vertical-align: middle; "> 
+                        <select style="height: 32px; padding: 5px 30px 5px 15px; font-size: 16px; border: none; border-bottom: 1px solid #4a4a4a; ">
+                            <option>All</option>
+                            <option>Today</option>
+                            <option>This Week</option>
+                            <option>This Month</option>
+                            <option>This Year</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="clear: both">
+                    <div class="analytic-summary-div">
+                        <div class="information-icon"></div>
+                        <div class="analytic-summary-title">Number of ICT Solicitations</div>
+                        <div class="analytic-summary-result">{{solicitationNumber}}</div>
+                    </div>
+                    <div class="analytic-summary-div">
+                        <div class="information-icon"></div>
+                        <div class="analytic-summary-title">Compliance Rate</div>
+                        <div class="analytic-summary-result">{{complianceRate}}%</div>
+                    </div>
+                    <div class="analytic-summary-div">
+                        <div class="information-icon"></div>
+                        <div class="analytic-summary-title">Review Action Taken</div>
+                        <div class="analytic-summary-result">{{actionTakenNumber}}</div>
+                    </div>
+                    <div class="analytic-summary-div">
+                        <div class="information-icon"></div>
+                        <div class="analytic-summary-title">Compliance Trend</div>
+                        <div class="analytic-summary-result">N/A</div>
+                    </div>
+                    <div class="analytic-summary-div">
+                        <div class="information-icon"></div>
+                        <div class="analytic-summary-title">Conversion Rate</div>
+                        <div class="analytic-summary-result">N/A</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+        <div class="col-md-12 nopadding" style="background-color: white" >
+            
+            <div class="analytic-title">Analytics</div>
+            
+            <div style="padding: 20px;">   
+                
+                <div style="padding: 0px 0px;" class="clearfix">
+                    
+                    <div class="col-md-4 nopadding">  
+                        <div style="text-transform: uppercase; padding-bottom: 20px">Non-Compliance solicitaations by solicitation types</div>
+                        <div style="display: block; width: 80%; margin: 0px auto">
+                            <canvas baseChart
+                                    [data]="doughnutChartData"
+                                    [labels]="doughnutChartLabels"
+                                    [chartType]="doughnutChartType"
+                                    (chartHover)="pieChartHovered($event)"
+                                    (chartClick)="pieChartClicked($event)">
+                            </canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-1 nopadding"></div>
+                    
+                    <div class="col-md-7 nopadding">
+                        <div style="text-transform: uppercase; padding-bottom: 20px">Top 20 Section 508 Compliant Agencies</div>
+                        
+                         <div style="display: block;">
+                            <canvas baseChart
+                                [datasets]="barChartData"
+                                [labels]="barChartLabels"
+                                [options]="barChartOptions"
+                                [legend]="barChartLegend"
+                                [chartType]="barChartType"
+                                (chartHover)="chartHovered($event)"
+                                (chartClick)="chartClicked($event)">
+                             </canvas>
+                        </div>                        
+                    </div>
+                    
+                </div>
+            </div>           
+           
+        </div>
     </div>
-  </div>
-  <div class="col-md-6" style="margin-bottom: 10px">
-    <table class="table table-responsive table-condensed">
-      <tr>
-        <th *ngFor="let label of lineChartLabels">{{label}}</th>
-      </tr>
-      <tr *ngFor="let d of lineChartData">
-        <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
-      </tr>
-    </table>
-    <button (click)="randomize()">CLICK</button>
-  </div>
 </div>
