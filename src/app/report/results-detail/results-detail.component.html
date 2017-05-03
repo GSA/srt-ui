@@ -1,12 +1,12 @@
-<div style="margin-left: 40px">
+<div style="padding: 0px 40px">
   <div id="back">
   <a [routerLink]="['/report']"> < Back to Solicitation Review Results for Section 508 Requirements</a>
 </div>
 {{emailBody}}
 <div>
-  <h1>Solicitation Review - Detailed Results</h1>
+  <h1>Solicitation Review Result Summary</h1>
 </div>
-<div id="detail">
+<div id="detail" style="position: relative">
   <div class="panel panel-default col-md-12">
     <div class="panel-body" *ngIf="solicitation">
       <div class="col-md-6">
