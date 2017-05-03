@@ -23,6 +23,8 @@ export class AnalyticsComponent implements OnInit {
     angencyTotal = {}
     angencyPass = {}
     angency = {};
+    
+    percentage = [];
         
 
     constructor(
@@ -36,7 +38,6 @@ export class AnalyticsComponent implements OnInit {
     public doughnutChartLabels:string[] = [];
     public doughnutChartData:number[] = [];
     public doughnutChartType:string = 'doughnut';
-
     
     
     // events
@@ -92,7 +93,7 @@ export class AnalyticsComponent implements OnInit {
                 this.complianceRate = Math.round(compliedNumber / this.solicitationNumber * 10000) / 100;
                 
                 // Action Taken Solicitaion
-                var actionTaken = ICT.filter( d => d.history.length > 0 );                
+                var actionTaken = ICT.filter( d => d.history.length > 1 );                
                 this.actionTakenNumber = actionTaken.length
                 
                 /*   Pie Chart   */                
@@ -128,7 +129,8 @@ export class AnalyticsComponent implements OnInit {
                     if (this.angencyTotal[item.agency] == null)
                     {
                         this.angencyTotal[item.agency] = 1;
-                        if (item.predictions.value == "GREEN") this.angencyPass[item.agency] = 1;
+                        if (item.predictions.value == "GREEN") this.angencyPass[item.agency] = 1;  
+                        else this.angencyPass[item.agency] = 0; 
                     } 
                     else {
                         this.angencyTotal[item.agency]++;
@@ -137,30 +139,47 @@ export class AnalyticsComponent implements OnInit {
                 } 
                 
                 // Insert data to the chart
-                for (var key in this.angencyTotal) {                
-                    
+                for (var key in this.angencyTotal) { 
                     // if angency doesn't have any passed solicitation                    
                     if (this.angencyPass[key] == null) 
                     {
-                        this.angency[key] = 0;                    
+                        this.percentage.push([key, 0, this.angencyPass[key], this.angencyTotal[key]]);                
                     }
                     else
                     {
-                        this.angency[key] = this.angencyPass[key] / this.angencyTotal[key];  
+                        this.percentage.push([key, this.angencyPass[key] / this.angencyTotal[key], this.angencyPass[key], this.angencyTotal[key]]);
                     }  
-                           
-                    this.barChartLabels.push(key);
-                    this.barChartData[0].data.push(this.angencyTotal[key]);
-                    this.barChartData[1].data.push(this.angencyPass[key]);
                 }
+                
+                // Sorting by rate
+                
+                this.percentage.sort(function(a, b) {
+                    return  b[1] - a[1] ;
+                });
+                
+                // push data into chart
+                var i = 0;
+                for (let item of this.percentage) 
+                {         
+                    if (i < 10)
+                    {                    
+                         this.barChartLabels.push(item[0]);
+                         this.barChartData[0].data.push(item[3]);
+                         this.barChartData[1].data.push(item[2]);
+                    }
+                    
+                    i ++;
+                }
+                
+                // Set up y-axis start with 0
+                this.barChartLabels.push("");
+                this.barChartData[0].data.push(0);
+                this.barChartData[1].data.push(0);
+                
                 
                 // Refresh the chart
                 let clone = JSON.parse(JSON.stringify(this.barChartData));
                 this.barChartData = clone;      
-                                
-                
-                
-                console.log(this.baseChart);
                 
                
             },
