@@ -15,3 +15,7 @@
     /* symbol for "collapsed" panels */
     content: "\e113";    /* adjust as needed, taken from bootstrap.css */
 }
+
+* {
+    font-family: Source Sans Pro !important
+}
