@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
-
 
 import { SolicitationService } from '../../solicitation.service';
 import { Solicitation } from '../../shared/solicitation';
@@ -16,6 +14,9 @@ import { Email } from './email';
   styleUrls: ['./email-poc.component.css']
 })
 export class EmailPocComponent implements OnInit {
+  @Input() emailTo: String;
+  @Input() subject: String;
+  @Input() emailBody: String;
   myForm: FormGroup;
   solicitation: Solicitation;
   private subscription: Subscription;
@@ -28,8 +29,8 @@ export class EmailPocComponent implements OnInit {
   ngOnInit() {
     this.myForm = new FormGroup({
       emailTo: new FormControl("srttestuser@gmail.com", Validators.required),
-      subject: new FormControl("Solicitation Review - Action Requested", Validators.required),
-      message: new FormControl(null, Validators.required)
+      subject: new FormControl(this.subject, Validators.required),
+      message: new FormControl(this.emailBody, Validators.required)
     });
 
     // listen for the activated route and use the 'id'  to pull chosen solicitation from mongo

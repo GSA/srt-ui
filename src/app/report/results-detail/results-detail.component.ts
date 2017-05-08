@@ -13,6 +13,9 @@ import { Solicitation } from '../../shared/solicitation';
   styleUrls: ['./results-detail.component.css']
 })
 export class ResultsDetailComponent implements OnInit {
+  emailBody: String = "";
+  subject: String = "";
+  emailTo: String = "";
   solicitation: Solicitation;
   private subscription: Subscription;
   private solicitationIndex: String;
@@ -31,6 +34,9 @@ export class ResultsDetailComponent implements OnInit {
           .subscribe(
             solicitation => {
               this.solicitation = solicitation;
+              this.emailTo = "srttestuser@gmail.com";
+              this.subject = "Solicitation " + this.solicitation.solNum + ": Action Requested";
+              this.emailBody = "Solicitation Number: " + this.solicitation.solNum  + "\nURL: " + this.solicitation.url + "\nThis solicitation does not contain sufficient Section 508 Requirements.";
             },
             err => {
               console.log(err);
