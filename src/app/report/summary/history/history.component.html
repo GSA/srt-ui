@@ -1,0 +1,11 @@
+<div style="font-size: 16px;">
+    <div class="list-title" style="width: 100%;">
+        Action History
+    </div>
+    <div class="list-content">
+        <ul *ngIf="history" class="nopadding">
+            <li *ngFor="let action of history" style="list-style: none;">{{action.date}} - {{action.action}}</li>
+        </ul>
+    </div>
+  
+</div>

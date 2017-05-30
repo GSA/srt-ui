@@ -1,0 +1,105 @@
+<div id="detail" style="position: relative; font-size: 16px;">
+
+       <div (click)="EmailPoc()" class="srt-button">
+            <div>
+                Contact PoC
+            </div>
+        </div>
+
+ 
+     
+      <div class="row" *ngIf="solicitation" style="clear: both">
+     
+        <div class="col-md-8">
+            <div class="list">
+                <div class="list-title">Solicitation Title:&nbsp;</div>
+                <div class="list-content">{{solicitation.title}}</div>
+            </div>
+
+            <div class="list">
+                <div class="list-title">Solicitation Number:&nbsp;</div>
+                <div class="list-content">{{solicitation.solNum}}</div>
+            </div>
+
+             <div class="list">
+                <div class="list-title">Solicitation Type:&nbsp;</div>
+                <div class="list-content">{{solicitation.noticeType}}</div>
+            </div>
+
+            <div class="list">
+                <div class="list-title">URL:&nbsp;</div>
+                <div class="list-content"><a target="_blank" href="{{solicitation.url}}" (click)="ReviewSolicitation()">{{solicitation.url}}</a></div>
+            </div>
+
+            <div class="list">
+                <div class="list-title">ICT (Yes/No):
+                    <sup><i class="fa fa-info-circle" aria-hidden="true"></i></sup>
+                    &nbsp;</div>
+                <div class="list-content">{{solicitation.eitLikelihood.value}}</div>
+            </div>
+
+            <div class="list">
+                <div class="list-title">Total Documents Scanned:&nbsp;</div>
+                <div class="list-content">{{solicitation.numDocs}}</div>
+            </div>
+
+            <div class="list">
+                <div class="list-title" style="width: 100%">Machine Readable (Yes/No):
+                    <sup><i class="fa fa-info-circle" aria-hidden="true"></i></sup>
+                    &nbsp; </div>
+                <div class="list-content">
+                    <ul class="nopadding">
+                        <li *ngFor="let doc of solicitation.parseStatus" style="list-style: none; line-height: 18px;">{{doc.name}} : {{doc.status}}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="list">
+                <div class="list-title" style="width: 100%">Results:&nbsp; </div>
+                <div class="list-content">
+                    <ul class="nopadding">
+                        <li style="list-style: none; line-height: 18px;">This solicitation may not contain sufficient Section 508 requirements.</li>      
+                    </ul>
+                </div>
+            </div>
+        
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="list">
+                <div class="list-title">Agency:&nbsp;</div>
+                <div class="list-content">{{solicitation.agency}}</div>
+            </div>
+
+            <div class="list">
+                <div class="list-title">Office:&nbsp;</div>
+                <div class="list-content">{{solicitation.office}}</div>
+            </div>
+
+             <div class="list">
+                <div class="list-title">Point of Contact:&nbsp;</div>
+                <div class="list-content">{{solicitation.contactInfo.name}}</div>
+            </div>
+
+            <!--<div class="list">
+                <div class="list-title">Position:&nbsp;</div>
+                <div class="list-content">{{solicitation.contactInfo.position}}</div>
+            </div>-->
+
+            <!--<div class="list">
+                <div class="list-title">Export As:&nbsp;</div>
+                <div class="list-content"></div>
+            </div>-->
+           
+        </div>
+
+      </div>
+ 
+    <!--<div class="sticky-button-bottom" style="float: right; clear: both; bottom: -5px; cursor: pointer" (click)="HelpUsImprove(solicitation)">
+        <a style="font-weight: 500">Provide feedback to make SRT smarter</a>
+    </div>-->
+
+</div>
+
+

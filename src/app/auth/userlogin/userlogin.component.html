@@ -2,20 +2,31 @@
   <div class='register-title'>Log In</div>
   <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="email">Email Address</label>
+      <label for="email">Email Address        
+          <span style="color: #BE3430; font-weight: bold; float: right" *ngIf="errorMessage && (myForm.value.email == null || myForm.value.email == '')">Please fill in requred field</span>
+      </label>
       <input type="email"
              id="email"
              class="form-control"
+             [ngClass]="{'error-form': errorMessage && (myForm.value.email == null || myForm.value.email == '')}"
              formControlName="email">
     </div>
     <div class="form-group" style="margin-bottom: 40px;">
-      <label for="password">Password</label>
+      <label for="password">Password        
+          <span style="color: #BE3430; font-weight: bold; float: right" *ngIf="errorMessage && (myForm.value.password == null || myForm.value.password == '')">Please fill in requred field</span>
+      </label>
       <input type="password"
              id="password"
              class="form-control"
+             [ngClass]="{'error-form': errorMessage && (myForm.value.password == null || myForm.value.password == '')}"
              formControlName="password">
     </div>
-    <button type="submit" class="btn btn-primary srt-button">Log In</button>
+    
+    <div *ngIf="errorMessage" style="color: #BE3430; font-weight: bold; margin-bottom: 20px; margin-top: -10px" >
+        Login Failed; Invalid user Email Address or Password.
+    </div>
+
+    <button type="submit" class="srt-button">Log In</button>
 
     <div style="padding-top: 20px;"><a href="#">Forgot Password?</a></div>
 

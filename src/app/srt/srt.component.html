@@ -1,64 +1,229 @@
+
+<div style="background-image: url(../assets/home-page-cover.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 350px;
+            width: 100%;
+            opacity: 0.85;
+            position: relative">
+        <div style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px;">
+            <div style="text-align: right;  display: table; height: 100%; width: 100%">
+                <div  style="display: table-cell; vertical-align: middle;">
+                    <div style="padding: 0px 60px; max-width: 1000px; float: right">
+                        <h1 style="font-weight: 600; border-bottom: 0.5px solid #112e51; padding-bottom: 10px" class="srt-blue">Solicitation Review Tool</h1>
+                        <h3 style="padding-left: 100px; padding-top: 20px" class="srt-blue">
+                            The Solicitation Review Tool (SRT) is provided to allow agencies to evaluate the overall solicitation compliance with various regulations and requirements.
+                        </h3>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+</div>
+
 <div class="container">
-  <div class="jumbotron">
-  <!--    <img id="gsa" src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcStDPOwn52HTo15I09MdmZaDVuVM90Xc09d_WO1GRAlptb47H4a34h14g" alt=""> -->
-      <img id="srtlogo" src="https://s3.amazonaws.com/srt.bucket/assets/srtlogo.png" alt="">
-      <h1>Welcome to the Solicitation Review Tool</h1>
-  <p>The Solicitation Review Tool is provided to allow agencies to understand the overall solicitation compliance with various regulations.</p>
-</div>
-<div class="container-fluid cards-row">
-  <div class="container">
-  <div class="row col-xs-12">
-    <div class="col-md-3">
-    <div class="thumbnail">
-      <img src="https://s3.amazonaws.com/srt.bucket/assets/Check-mark.jpg" alt="Check Mark">
-      <div class="caption">
-        <h3>Manage Workload</h3>
-        <p class="card-description">Access and manage solicitation review results for your agency</p>
-        <p><a [routerLink]="['/report']" class="btn btn-primary" role="button">Manage Workload</a></p>
-      </div>
+    <div style="padding: 40px;">
+        <div class="row">
+            
+            <!-- Review/Manage Workload -->
+            <div class="col-md-4 col-sm-6" style="margin-bottom: 30px">
+                <div class="srt-1-1">                
+                    <div>
+                        <div class="srt-main-box" [routerLink]="['/report']">
+                            <!-- image -->
+                            <div class="srt-9-20">                
+                                <div>
+                                    <div style="padding: 20px;">
+                                        <div style="background-image: url(../assets/review-manage-workflow.png);
+                                                    background-size: contain;
+                                                    background-repeat: no-repeat;
+                                                    background-position: center;
+                                                    height: 100%; width: 100%">
+                                            
+                                        </div>
+                                     </div>
+                                </div>
+                            </div>
+                            <!-- description -->
+                            <div class="srt-11-20">                
+                                <div>
+                                    <div style="text-align: center; padding: 0px 25px">
+                                        <h3>Review/Manage Workload</h3>
+                                        <p>Access and manage solicitation review results for your agency</p>
+                                    </div>
+                                </div>
+                            </div>                
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View Analytic -->
+            <div class="col-md-4 col-sm-6" style="margin-bottom: 30px">
+                <div class="srt-1-1">
+                    <div>
+                        <div class="srt-main-box" [routerLink]="['/analytics']">
+                            <!-- image -->
+                            <div class="srt-9-20">                
+                                <div>
+                                    <div style="padding: 20px;">
+                                        <div style="background-image: url(../assets/view-analytics.png);
+                                                    background-size: contain;
+                                                    background-repeat: no-repeat;
+                                                    background-position: center;
+                                                    height: 100%; width: 100%">
+                                            
+                                        </div>
+                                     </div>
+                                </div>
+                            </div>
+                            <!-- description -->
+                            <div class="srt-11-20">                
+                                <div>
+                                    <div style="text-align: center; padding: 0px 25px">
+                                        <h3>View Analytics</h3>
+                                        <p>Visualize trend and discover insights from the analytics</p>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>                   
+                </div>
+            </div>
+
+            <!-- Manage SRT Access Requests -->
+            <div class="col-md-4 col-sm-6" style="margin-bottom: 30px">
+                <div class="srt-1-1">
+                    <div>
+                        <div class="srt-main-box" [routerLink]="['/admin']">
+                            <!-- image -->
+                            <div class="srt-9-20">                
+                                <div>
+                                    <div style="padding: 20px;">
+                                        <div style="background-image: url(../assets/manage-srt-access-requests.png);
+                                                    background-size: contain;
+                                                    background-repeat: no-repeat;
+                                                    background-position: center;
+                                                    height: 100%; width: 100%">
+                                            
+                                        </div>
+                                     </div>
+                                </div>
+                            </div>
+                            <!-- description -->
+                            <div class="srt-11-20">                
+                                <div>
+                                    <div style="text-align: center; padding: 0px 25px">
+                                        <h3>Manage SRT Access Requests</h3>
+                                        <p>The Administrator manages new SRT sign up requests and current users settings</p>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+      
+            <!-- Get Additional Resourses -->      
+            <div class="col-md-4 col-sm-6" style="margin-bottom: 30px">
+                <div class="srt-1-1">                
+                    <div>
+                        <div class="srt-main-box" onclick="window.open('https://app.buyaccessible.gov/baw/Main.jsp')">
+                            <!-- image -->
+                            <div class="srt-9-20">                
+                                <div>
+                                    <div style="padding: 20px;">
+                                        <div style="background-image: url(../assets/get-additional-resourses.png);
+                                                    background-size: contain;
+                                                    background-repeat: no-repeat;
+                                                    background-position: center;
+                                                    height: 100%; width: 100%">
+                                            
+                                        </div>
+                                     </div>
+                                </div>
+                            </div>
+                            <!-- description -->
+                            <div class="srt-11-20">                
+                                <div>
+                                    <div style="text-align: center; padding: 0px 25px">
+                                        <h3>Get Additional Resources</h3>
+                                        <p>Need help with Accessiblity requirements? Buy Accessible Wizard can assist you with that</p>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ --> 
+            <div class="col-md-4 col-sm-6" style="margin-bottom: 30px">
+                <div class="srt-1-1">
+                    <div>
+                        <div class="srt-main-box" [routerLink]="['/faq']">
+                            <!-- image -->
+                            <div class="srt-9-20">                
+                                <div>
+                                    <div style="padding: 20px;">
+                                        <div style="background-image: url(../assets/faq.png);
+                                                    background-size: contain;
+                                                    background-repeat: no-repeat;
+                                                    background-position: center;
+                                                    height: 100%; width: 100%">
+                                            
+                                        </div>
+                                     </div>
+                                </div>
+                            </div>
+                            <!-- description -->
+                            <div class="srt-11-20">                
+                                <div>
+                                    <div style="text-align: center; padding: 0px 25px">
+                                        <h3>FAQ</h3>
+                                        <p>Review all the Frequently Asked Questions and learn more about SRT</p>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>                   
+                </div>
+            </div>
+
+            <!-- Settings --> 
+            <div class="col-md-4 col-sm-6" style="margin-bottom: 30px">
+                <div class="srt-1-1">
+                    <div>
+                        <div class="srt-main-box">
+                            <!-- image -->
+                            <div class="srt-9-20">                
+                                <div>
+                                    <div style="padding: 20px;">
+                                        <div style="background-image: url(../assets/settings.png);
+                                                    background-size: contain;
+                                                    background-repeat: no-repeat;
+                                                    background-position: center;
+                                                    height: 100%; width: 100%">
+                                            
+                                        </div>
+                                     </div>
+                                </div>
+                            </div>
+                            <!-- description -->
+                            <div class="srt-11-20">                
+                                <div>
+                                    <div style="text-align: center; padding: 0px 25px">
+                                        <h3>Settings</h3>
+                                        <p>Manage your profile and password settings</p>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="col-md-3">
-  <div class="thumbnail">
-    <img src="	https://s3.amazonaws.com/srt.bucket/assets/Analytics.jpg" alt="Analytics Magnifying Glass">
-  <div class="caption">
-    <h3>View Analytics</h3>
-    <p class="card-description">Explore your agency soliciation data.</p>
-    <p><a [routerLink]="['/analytics']" class="btn btn-primary" role="button">View Analytics</a></p>
-  </div>
-  </div>
 </div>
-<div class="col-md-3">
-<div class="thumbnail">
-<img src="https://s3.amazonaws.com/srt.bucket/assets/user_tour.jpg" alt="Group of three users">
-<div class="caption">
-  <h3>Manage SRT Access Requests</h3>
-  <p class="card-description">Manage Solicitation Review Tool access requests.  Administrator view to handle user registration workflow.</p>
-  <p><a [routerLink]="['/report']" class="btn btn-primary">Manage Requests</a></p>
-</div>
-</div>
-</div>
-<div class="col-md-3">
-<div class="thumbnail">
-<img src="https://s3.amazonaws.com/srt.bucket/assets/procurement-2.jpg" alt="Procurement graphic.">
-<div class="caption">
-  <h3>Get Additional Resources</h3>
-  <p class="card-text">Do you need help with Accessiblity requirements for solicitations?  Try out the Buy Accessible Wizard!</p>
-  <p><a href="https://app.buyaccessible.gov/baw/Main.jsp" target="_blank" class="btn btn-primary">Buy Accessible Wizard</a></p>
-</div>
-</div>
-</div>
-<div class="col-md-3">
-<div class="thumbnail">
-<img src="https://s3.amazonaws.com/srt.bucket/assets/good-bien_eng.jpg" alt="Procurement graphic.">
-<div class="caption">
-  <h3>FAQ</h3>
-  <p class="card-text">See the frequently asked questions.</p>
-  <p><a href="#" class="btn btn-primary">See FAQ</a></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!--/container -->

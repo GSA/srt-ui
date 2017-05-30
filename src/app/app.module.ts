@@ -15,7 +15,6 @@ import { UserService } from './user.service';
 import {DataTableModule,SharedModule, ButtonModule, DropdownModule} from 'primeng/primeng';
 import { routing } from './app.routing';
 import { HeaderComponent } from './header/header.component';
-import { ReportComponent } from './report/report.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthService } from './auth/auth.service';
 import { UserloginComponent } from './auth/userlogin/userlogin.component';
@@ -24,8 +23,14 @@ import { SolicitationReviewComponent } from './solicitation-review/solicitation-
 import { SrtComponent } from './srt/srt.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { AdminComponent } from './admin/admin.component';
-import { ResultsDetailComponent } from './report/results-detail/results-detail.component';
-import { EmailPocComponent } from './report/email-poc/email-poc.component';
+import { FaqComponent } from './faq/faq.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { ReportComponent } from './report/report.component';
+import { SummaryComponent } from './report/summary/summary.component';
+import { ResultsDetailComponent } from './report/summary/results-detail/results-detail.component';
+import { HelpUsImproveComponent } from './report/summary/help-us-improve/help-us-improve.component';
+import { EmailPocComponent } from './report/summary/email-poc/email-poc.component';
+import { HistoryComponent } from './report/summary/history/history.component';
 
 
 @NgModule({
@@ -43,6 +48,11 @@ import { EmailPocComponent } from './report/email-poc/email-poc.component';
     AdminComponent,
     ResultsDetailComponent,
     EmailPocComponent,
+    FaqComponent,
+    ContactUsComponent,
+    HelpUsImproveComponent,
+    SummaryComponent,
+    HistoryComponent,
   ],
   imports: [
     BrowserModule,

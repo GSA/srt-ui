@@ -1,24 +1,218 @@
-<div class="row analytic-div">
-    <div style="padding: 20px;" class="clearfix">
+<div class="row analytic-div" style="background-color: white;">
+    <div class="clearfix">
         
+        <div class="col-md-12 nopadding">
+            <div style="padding-bottom: 20px" class="clearfix">
+                   
+
+                <div style="float: right; padding: 20px;">
+                    <!--<div style="display: inline-block; vertical-align: middle; padding-right: 10px; font-size: 16px;">Time Period : </div>-->
+                    <div style="display: inline-block; vertical-align: middle; "> 
+                        <select id="select" style="height: 32px; padding: 5px 30px 5px 15px; font-size: 16px; border: none; border-bottom: 1px solid #4a4a4a;"
+                            (change)="onPeriodChange($event.target.value)"
+                            [ngModel]="selectedPeriod"
+                            >
+                            <option value="All">All</option>
+                            <option value="This Week">This Week</option>
+                            <option value="This Month">This Month</option>
+                            <option value="This Year">This Year</option>
+                        </select>                       
+                    </div>
+                </div>  
+                
+                 <div style="float: right; padding: 20px; ">
+                    <!--<div style="display: inline-block; vertical-align: middle; padding-right: 10px; font-size: 16px;">Filter : </div>-->
+                    <div style="display: inline-block; vertical-align: middle; "> 
+                        <select style="height: 32px; padding: 5px 30px 5px 15px; font-size: 16px; border: none; border-bottom: 1px solid #4a4a4a;" 
+                                [ngModel]="selectedGovernment"
+                                (ngModelChange)="onChange($event)">
+                            <option val="Government-wide">Government-wide</option>
+                            <option val="data" *ngFor="let data of agencyList">{{data}}</option>
+                        </select>
+                    </div>
+                </div>            
+            </div>
+        </div>
+
+        <div class="col-md-12 nopadding">
+            <div class="row-eq-height">
+                <div class="col-md-7 nopadding">
+                    <div style="padding-right: 40px; border-right: 0.5px solid #dadada;">
+                        <div style="font-size: 20px; margin-bottom: 40px; font-weight: 600" class="srt-blue">
+                            {{barTitle}}&nbsp;&nbsp;
+                            <sup style="font-size: 20px;"><i *ngIf="isGovernomentWide" class="fa fa-info-circle info" aria-hidden="true" 
+                                title="The agencies ranking is sorted by Compliance Rate*. 
+* Compliance Rate = (Number of compliant solicitations / Total ICT solicitations) %"></i>
+                            </sup>
+                        </div>
+                        <!-- bar chart -->
+                        <div style="width: 100%; position: relative; font-size: 18px; margin-bottom: 60px; height: 191px; display: table; text-align: center" *ngIf="noData">
+                            <div style="display: table-cell; vertical-align: middle">
+                                 No data to show on this time period
+                            </div>
+                        </div>
+                        <div style="width: 100%; position: relative; margin-bottom: 40px" *ngIf="!noData">
+                            <div style="position: absolute; top: calc(0px - 8px); left: 0px;">{{maxSolicitation}}</div>               
+                            <div style="position: absolute; top: calc(37.5px - 8px); left: 0px;">{{maxSolicitation/4*3}}</div>                    
+                            <div style="position: absolute; top: calc(75px - 8px); left: 0px;">{{maxSolicitation/2}}</div>                        
+                            <div style="position: absolute; top: calc(112.5px - 8px); left: 0px;">{{maxSolicitation/4}}</div>                                
+                            <div style="position: absolute; top: calc(150px - 8px); left: 0px;">0</div>
+                            <div style="position: absolute; right: 29px; top: 0px;">
+                                <div style="width: 15px; height: 15px; background-color: #2C81C0; display: inline-block; vertical-align: middle"></div>
+                                <div style="display: inline-block; vertical-align: middle"># Compliant Solicitations</div>
+                            </div>
+                            <div style="position: absolute; right: 0px; top: 25px;">
+                                <div style="width: 15px; height: 15px; background-color: #eeeeee; display: inline-block; vertical-align: middle"></div>
+                                <div style="display: inline-block; vertical-align: middle"># Non-Compliant Solicitations</div>
+                            </div>
+                            <table style="display: 100%; margin-left: 30px;">
+                                <thead>
+                                    <tr>
+                                        <th *ngFor="let header of barData | slice:indexFrom:indexTo">{{i}}</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <td *ngFor="let footer of barData | slice:indexFrom:indexTo" 
+                                        [style.width]="selectedPeriod=='This Month' && selectedGovernment != 'Government-wide' ? '30px' : '60px'"
+                                        style="text-align: center">{{GetAbbr(footer[0])}}</td>
+                                    </tr>
+                                </tfoot>
+                                <tbody style="border-bottom: 1px solid black;">
+                                    <tr>
+                                        <td *ngFor="let num of barData | slice:indexFrom:indexTo" style="vertical-align: bottom">
+                                            <div class="analyric-bar" style="margin: 0px auto; position: relative" 
+                                            [style.width]="selectedPeriod=='This Month' && selectedGovernment != 'Government-wide'? '20px' : '40px'"
+                                            title="Total: {{num[3]}} 
+Compliant Solicitations: {{num[2]}}
+Non-Compliant Solicitations: {{(num[3] - num[2])}}">
+                                                <!-- Compliant solicitation -->
+                                                <div style="background-color:#2C81C0"
+                                                    [ngStyle]="{'height': num[2]/maxSolicitation * 150 + 'px'}">
+                                                </div>
+                                                <div style="background-color:#eeeeee"
+                                                    [ngStyle]="{'height': (num[3] - num[2])/maxSolicitation * 150 + 'px'}">
+                                                </div>
+                                                <div style="position: absolute; top: -25px; width: 100%; text-align: center; ">
+                                                    {{num[1] | percent:'.1-1'}}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div style="font-size: 20px; margin-bottom: 40px; font-weight: 600" class="srt-blue">
+                            Non-Compliance solicitations by solicitation types
+                        </div>
+                        <div style="width: 100%; position: relative; font-size: 18px; margin-bottom: 60px; height: 191px; display: table; text-align: center" *ngIf="noData">
+                            <div style="display: table-cell; vertical-align: middle">
+                                 No data to show on this time period
+                            </div>
+                        </div>
+                        <div style="display: block; width: 40%; margin: 0px auto;" *ngIf="!noData">
+                            <canvas baseChart
+                                    [data]="doughnutChartData"
+                                    [colors]="colorsOverride"
+                                    [labels]="doughnutChartLabels"
+                                    [chartType]="doughnutChartType"
+                                    (chartHover)="pieChartHovered($event)"
+                                    (chartClick)="pieChartClicked($event)">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-5 nopadding">
+                    <div style="padding-left: 40px;">
+                        
+                        
+                        <div style="font-size: 16px; width: 100%; max-width: 600px; margin: 0px auto">
+
+                            <div style="font-size: 20px; margin-bottom: 40px; font-weight: 600" class="srt-blue">
+                                Activities Overview
+                            </div>
+
+                            <!-- Total ICT Solicitations -->
+                            <div class="clearfix analytic-overview-name">
+                                <div style="float: left">Total ICT Solicitations&nbsp;&nbsp;
+                                    <sup style="font-size: 20px"><i class="fa fa-info-circle info" aria-hidden="true" title="Total number of ICT solicitations scanned from FedBizOpps for all federal agencies."></i></sup>    
+                                </div> 
+                                <div style="float: right">{{solicitationNumber}}</div> 
+                            </div>
+                            <div style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px;">
+                                <div style="background-color: #2C81C0; height: 8px" [ngStyle]="{'width': solicitationNumber/solicitationNumber * 100 + '%'}"></div>
+                            </div>                        
+
+                            <!-- # Solicitations Reviewed by 508 Coordinators -->
+                            <div class="clearfix analytic-overview-name">
+                                <div style="float: left"># Solicitations Reviewed by 508 Coordinators&nbsp;&nbsp;
+                                    <sup style="font-size: 20px"><i class="fa fa-info-circle info" aria-hidden="true" title="Number of FebBizOpps solicitation links accessed through SRT by Section 508 coordinators. The solicitation links are visited for further review of SRT results prior to contacting the Point of Contact (PoC)."></i></sup>    
+                                </div> 
+                                <div style="float: right">{{reviewed}}</div> 
+                            </div>
+                            <div style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px">
+                                <div style="background-color: #2C81C0; height: 8px;" [ngStyle]="{'width': reviewed/solicitationNumber * 100 + '%'}"></div>
+                            </div>                        
+
+                            <!-- # Emails Sent to PoC -->
+                            <div class="clearfix analytic-overview-name">
+                                <div style="float: left"># Emails Sent to PoC&nbsp;&nbsp;
+                                    <sup style="font-size: 20px"><i class="fa fa-info-circle info" aria-hidden="true" title="Number of e-mails sent from Section 508 Coordinators to solicitations Point of Contact (PoC). "></i></sup>      
+                                </div> 
+                                <div style="float: right">{{emailSend}}</div> 
+                            </div>
+                            <div style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px">
+                                <div style="background-color: #2C81C0; height: 8px;" [ngStyle]="{'width': emailSend/solicitationNumber * 100 + '%'}"></div>
+                            </div>                        
+
+                            <!-- # Updated Solicitations -->
+                            <div class="clearfix analytic-overview-name">
+                                <div style="float: left"># Updated Solicitations&nbsp;&nbsp;
+                                    <sup style="font-size: 20px"><i class="fa fa-info-circle info" aria-hidden="true" title="Number of ICT solicitations that have been re-scanned from FedBizOpps."></i></sup>      
+                                </div> 
+                                <div style="float: right">0</div> 
+                            </div>
+                            <div style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px">
+                                <div style="background-color: #2C81C0; height: 8px; width: 0px"></div>
+                            </div>                        
+
+                            <!-- # Updated Non-compliant Solicitations -->
+                            <div class="clearfix analytic-overview-name">
+                                <div style="float: left"># Updated Non-compliant Solicitations&nbsp;&nbsp;
+                                    <sup style="font-size: 20px"><i class="fa fa-info-circle info" aria-hidden="true" title="Number of ICT solicitations that have been re-scanned from FedBizOpps and remained non-compliant on SRT. "></i></sup>      
+                                </div> 
+                                <div style="float: right">0</div> 
+                            </div>
+                            <div style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px">
+                                <div style="background-color: #2C81C0; height: 8px; width: 0px"></div>
+                            </div>                        
+
+                            <!-- # Updated Compliant Solicitations -->
+                            <div class="clearfix analytic-overview-name">
+                                <div style="float: left"># Updated Compliant Solicitations&nbsp;&nbsp;
+                                    <sup style="font-size: 20px"><i class="fa fa-info-circle info" aria-hidden="true" title="Number of ICT solicitations that have been re-scanned from FedBizOpps and updated as compliant on SRT"></i></sup>      
+                                </div> 
+                                <div style="float: right">0</div> 
+                            </div>
+                            <div class="clearfix" style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px">
+                                <div style="background-color: #2C81C0; height: 8px; width: 0px"></div>
+                            </div>                        
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--
         <div class="col-md-12 nopadding">
             <div style="margin-bottom: 20px; background-color: white;">
                 
                 <div class="analytic-title" style="float: left">Overview</div>
-                
-                
-                <div style="float: right; padding: 20px;">
-                    <div style="display: inline-block; vertical-align: middle; padding-right: 10px; font-size: 16px;">Time Period : </div>
-                    <div style="display: inline-block; vertical-align: middle; "> 
-                        <select style="height: 32px; padding: 5px 30px 5px 15px; font-size: 16px; border: none; border-bottom: 1px solid #4a4a4a; ">
-                            <option>All</option>
-                            <option>Today</option>
-                            <option>This Week</option>
-                            <option>This Month</option>
-                            <option>This Year</option>
-                        </select>
-                    </div>
-                </div>
+
+              
                 <div style="clear: both">
                     <div class="analytic-summary-div">
                         <div class="information-icon"></div>
@@ -47,51 +241,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
 
         
-        
-        <div class="col-md-12 nopadding" style="background-color: white" >
-            
-            <div class="analytic-title">Analytics</div>
-            
-            <div style="padding: 20px;">   
-                
-                <div style="padding: 0px 0px;" class="clearfix">
-                    
-                    <div class="row-eq-height">                    
-                        <div class="col-md-4 nopadding">  
-                            <div style="text-transform: uppercase; padding-bottom: 20px">Non-Compliance solicitaations by solicitation types</div>
-                            <div style="display: block; width: 80%; margin: 0px auto; height: 100%">
-                                <canvas baseChart
-                                        [data]="doughnutChartData"
-                                        [labels]="doughnutChartLabels"
-                                        [chartType]="doughnutChartType"
-                                        (chartHover)="pieChartHovered($event)"
-                                        (chartClick)="pieChartClicked($event)">
-                                </canvas>
-                            </div>
-                        </div>
-                        <div class="col-md-1 nopadding"></div>
-                        <div class="col-md-7 nopadding">
-                            <div style="text-transform: uppercase; padding-bottom: 20px">Top 10 Section 508 Compliant Agencies</div>
-
-                             <div style="display: block; height: 100%">
-                                <canvas baseChart
-                                    [datasets]="barChartData"
-                                    [labels]="barChartLabels"
-                                    [options]="barChartOptions"
-                                    [legend]="barChartLegend"
-                                    [chartType]="barChartType"
-                                    (chartHover)="chartHovered($event)"
-                                    (chartClick)="chartClicked($event)">
-                                 </canvas>
-                            </div>                        
-                        </div>
-                    </div>
-                </div>
-            </div>           
-           
-        </div>
+     
     </div>
 </div>
