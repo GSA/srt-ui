@@ -49,16 +49,16 @@ export class UserregistrationComponent implements OnInit {
     }
     else
     {
-      this.registerSuccess = true;
-      // this.authService.signup(user)
-      //   .subscribe(
-      //     data => {
-      //       console.log(data);
-      //       this.registerSuccess = true;
-      //     },
-      //     error => console.log(error)
-      //   );
-      // this.myForm.reset();
+      //this.registerSuccess = true;
+      this.authService.signup(user)
+        .subscribe(
+          data => {
+            console.log(data);
+            this.registerSuccess = true;
+          },
+          error => console.log(error)
+        );
+      this.myForm.reset();
     }
   
   }

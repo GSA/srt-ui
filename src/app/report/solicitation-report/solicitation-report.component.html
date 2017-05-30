@@ -77,7 +77,7 @@
       
       <p-column field="title" header="Solicitation Title" [sortable]="true" [filter]="false" filterPlaceholder="Search">
         <ng-template let-sol="rowData" pTemplate="body">
-          <a href="{{sol.url}}">{{sol.title}}</a>
+          <a href="{{sol.url}}" target="_blank">{{sol.title}}</a>
         </ng-template>
       </p-column>
       
