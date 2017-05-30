@@ -5,14 +5,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Router } from '@angular/router';
 
-import { ChartsModule } from 'ng2-charts';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { AppComponent } from './app.component';
 import { SolicitationReportComponent } from './report/solicitation-report/solicitation-report.component';
 import { SolicitationService } from './solicitation.service';
 import { UserService } from './user.service';
 
-import {DataTableModule,SharedModule, ButtonModule, DropdownModule} from 'primeng/primeng';
+import { DataTableModule,SharedModule, ButtonModule, DropdownModule} from 'primeng/primeng';
 import { routing } from './app.routing';
 import { HeaderComponent } from './header/header.component';
 import { AuthComponent } from './auth/auth.component';
