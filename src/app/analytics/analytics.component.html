@@ -93,7 +93,7 @@ Non-Compliant Solicitations: {{(num[3] - num[2])}}">
                                                 <div style="background-color:#eeeeee"
                                                     [ngStyle]="{'height': (num[3] - num[2])/maxSolicitation * 150 + 'px'}">
                                                 </div>
-                                                <div style="position: absolute; top: -25px; width: 100%; text-align: center; ">
+                                                <div style="position: absolute; top: -25px; width: 100%; text-align: center;" [hidden]="num[3]==0">
                                                     {{num[1] | percent:'.1-1'}}
                                                 </div>
                                             </div>

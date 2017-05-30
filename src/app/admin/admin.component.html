@@ -1,1 +1,48 @@
-<img src="https://s3.amazonaws.com/srt.bucket/assets/Members.png" alt="">
+<!--<img src="https://s3.amazonaws.com/srt.bucket/assets/Members.png" alt="">-->
+
+
+<div style="padding: 40px">
+
+    <div class="srt-page-title srt-title-padding">
+        Access Requests
+    </div>
+  
+
+  <!-- Tabs -->
+    <div class="active-tabs" ng-if="showActivitySelection()">
+        
+        <div style="width: 100%; height: 70px;">
+            <!-- min-width = (80 + 5) * number of tab -->
+            <ul class="us-tab-slide nopadding" style="padding: 0px;">
+                <li id="tab0" class="us-tab-item-slide" (click)="ChangeDisplayTab('0')"  [ngClass]="{'active':displayTab=='0'}">
+                    <a>PENDING</a>
+                </li>
+                <li id="tab1" class="us-tab-item-slide" (click)="ChangeDisplayTab('1')" [ngClass]="{'active':displayTab=='1'}">
+                    <a>APPROVED</a>
+                </li>
+                <li id="tab2" class="us-tab-item-slide" (click)="ChangeDisplayTab('2')" [ngClass]="{'active':displayTab=='2'}">
+                    <a>DENIED</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div style="border: 1px solid #aaaaaa; padding: 30px 40px; height: calc(100vh - 267px); overflow: auto; clear: both" class="clearfix">
+
+        <div *ngIf="displayTab=='0'">
+            <app-pending></app-pending>
+        </div>
+
+        <div *ngIf="displayTab=='1'">
+            <app-approved></app-approved>
+        </div>
+
+        <div *ngIf="displayTab=='2'">
+            <app-denied></app-denied>
+        </div>
+
+    </div>
+
+
+</div>
