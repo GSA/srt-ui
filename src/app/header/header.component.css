@@ -26,19 +26,22 @@
     padding-left: 15px;
 }
 #srtlogo {
-	max-height: 50px;
-    margin-top: 5px;
+	max-height: 40px;
+    margin-top: 8px;
+    margin-left: 10px;
 }
 #navbar ul.nav.navbar-nav,
 #navbar ul.nav.navbar-nav > li{
     height: 60px;
+    cursor: pointer;
 }
 
 #navbar ul.nav.navbar-nav > li > a{
     margin: 20px 15px;
     padding: 0px;
-    font-weight: 300;
+    font-weight: 500;
     color: #102c52;
+    font-size: 16px;
 }
 
 #navbar ul.nav.navbar-nav > li.active > a{
@@ -50,9 +53,13 @@
     background-color: transparent !important;
 }
 
+#navbar ul.nav.navbar-nav > li:focus {
+    outline: none;
+}
+
 
 hr {
-		margin: 0px;
+    margin: 0px;
 }
 
 .us-navbar {
@@ -81,7 +88,7 @@ hr {
     font-weight: bold;
     letter-spacing: 1px;
 }
-#navbar a:active
+/*#navbar a:active
 {
     text-decoration: none;
     color: #112e51;
@@ -89,7 +96,7 @@ hr {
     font-size: medium;
     font-weight: bold;
     letter-spacing: 1px;
-}
+}*/
 
 img {
 	max-width: 100%;
@@ -104,4 +111,9 @@ hr {
     border-top: 1px solid #112e51;
     margin: 5px 0;
     padding: 0;
+}
+
+.dropdown-menu {
+    left: auto;
+    right: -1px;
 }

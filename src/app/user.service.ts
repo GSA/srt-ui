@@ -9,7 +9,7 @@ export class UserService {
     this.updateCurrentUser = new EventEmitter();
    }
 
-   public saveUser(currentUser: Currentuser){
+   public saveUser(currentUser: Currentuser){          
      this.updateCurrentUser.emit(currentUser);
    }
 }

@@ -1,1 +1,110 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600,700);
+body {
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-weight: 300;
+}
+
+
+/* button */
+
+.nopadding {
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+/* title */
+
+.srt-page-title {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 24px;
+}
+
+.srt-section-title {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+}
+
+.srt-blue {
+    color: #112e51;
+}
+
+.srt-blue-border {
+    border-color: #112e51;
+}
+
+.srt-title-padding {
+    padding-bottom: 20px;
+}
+
+/* button */
+
+.sticky-button-bottom {
+    position: sticky;
+    bottom: 20px;
+}
+
+button.srt-button {
+    width: 150px;
+    background-color: #337ab7;
+}
+
+.srt-button {
+    background-color: #337ab7; 
+    border-color: #2e6da4;
+    border-radius: 5px;
+    border: none;
+    color: #fff; 
+    cursor: pointer;
+    display: table; 
+    float: right; 
+    font-weight: 500; 
+    font-size: 16px;
+    height: 35px; 
+    text-align: center; 
+    transition: all 100ms linear;
+    width: 100px; 
+}
+
+.srt-button > div {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.srt-button:hover {
+    box-shadow:0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.3);
+}
+
+/* shadow */
+
+
+.box-shadow {
+    box-shadow:0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.3);
+}
+
+.box-shadow-hover:hover {
+    box-shadow:0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.3);
+}
+
+/* banner */
+
+.srt-banner.blue {
+    margin: 0px;
+    background-color: #205493;
+    padding: 40px;
+    color: white;
+    height: 300px;
+    box-shadow:0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.3);
+}
+
+.srt-banner h1 {
+    margin: 0px;
+    padding-bottom: 20px;
+}
+
+.srt-banner p {
+    font-size: 16px;
+}

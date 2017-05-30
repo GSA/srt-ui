@@ -57,6 +57,7 @@ export class SolicitationService {
         return data
     }
 
+  
   updateHistory(solicitation) {
     return this.http.post(this.solicitationUrl, solicitation)
       .map((res: Response) => res.json())

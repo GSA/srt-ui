@@ -1,0 +1,18 @@
+.input {
+  width: 100%;
+}
+
+.nopadding {
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
+input.form-control {
+    font-weight: 500;
+    display: inline-block;
+    width: calc(100% - 70px);    
+}
+
+label {
+    width: 65px;
+}

@@ -11,10 +11,11 @@ import { User } from '../user';
   templateUrl: './userregistration.component.html',
   styleUrls: ['./userregistration.component.css']
 })
+
 export class UserregistrationComponent implements OnInit {
   myForm: FormGroup;
   registerSuccess = false;
-
+  errorMessage = false;
   constructor(private authService: AuthService) { }
 // sets up data template for  registration form
   ngOnInit() {
@@ -36,16 +37,30 @@ export class UserregistrationComponent implements OnInit {
       this.myForm.value.firstName,
       this.myForm.value.lastName,
       this.myForm.value.agency
-    );
-    this.authService.signup(user)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.registerSuccess = true;
-        },
-        error => console.log(error)
-      );
-    this.myForm.reset();
+    );    
+    if (this.myForm.value.email == null ||
+        this.myForm.value.password == null ||
+        this.myForm.value.position == null ||
+        this.myForm.value.firstName == null ||
+        this.myForm.value.lastName == null ||
+        this.myForm.value.agency == null)
+    {        
+        this.errorMessage = true;
+    }
+    else
+    {
+      //this.registerSuccess = true;
+      this.authService.signup(user)
+        .subscribe(
+          data => {
+            console.log(data);
+            this.registerSuccess = true;
+          },
+          error => console.log(error)
+        );
+      this.myForm.reset();
+    }
+  
   }
 
 }

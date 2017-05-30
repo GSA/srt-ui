@@ -1,56 +1,93 @@
 
-<div class="col-xs-4 col-md-offset-1">
+<div class="col-xs-4 col-md-offset-1" style="padding-bottom: 40px;">
   <div class="alert alert-success" *ngIf="registerSuccess">
     <strong>Success!</strong> Thank you for registering!  You should receive an email confirming access.
   </div>
-  <div class='register-title'>
+  <div class='register-title' *ngIf="!registerSuccess">
       <div>New to Solicitation Review Tool?</div>
-      <div style="color: red; font-size: 12px; padding: 5px; font-weight: 300;"><sup>*</sup>Required fields</div>
- </div>
-  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+      <div style="color: #BE3430; font-size: 14px; padding: 5px; font-weight: 300;"><sup>*</sup>Required fields</div>
+  </div>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" *ngIf="!registerSuccess">
 
+
+    <!-- firstName -->
     <div class="form-group">
-      <label for="firstName">First Name<span style="color: red; padding-left: 5px;"><sup>*</sup></span></label>
+      <label for="firstName">First Name
+          <span style="color: #BE3430; padding-left: 5px;"><sup>*</sup></span>
+          <span style="color: #BE3430; font-weight: bold; float: right" *ngIf="errorMessage && (myForm.value.firstName == null || myForm.value.firstName == '')">Please fill in requred field</span>
+      </label>
       <input type="text"
              id="firstName"
              class="form-control"
+             [ngClass]="{'error-form': errorMessage && (myForm.value.firstName == null || myForm.value.firstName == '')}"
              formControlName="firstName">
     </div>
+
+    <!-- lastName -->
     <div class="form-group">
-      <label for="lastName">Last Name<span style="color: red; padding-left: 5px;"><sup>*</sup></span></label>
+      <label for="lastName">Last Name
+          <span style="color: #BE3430; padding-left: 5px;"><sup>*</sup></span>
+          <span style="color: #BE3430; font-weight: bold; float: right" *ngIf="errorMessage && (myForm.value.lastName == null || myForm.value.lastName == '')">Please fill in requred field</span>
+      </label>
       <input type="text"
              id="lastName"
              class="form-control"
+             [ngClass]="{'error-form': errorMessage &&(myForm.value.lastName == null || myForm.value.lastName == '')}"
              formControlName="lastName">
     </div>
+
+   <!-- position -->
    <div class="form-group">
-      <label for="position">Position<span style="color: red; padding-left: 5px;"><sup>*</sup></span></label>
+      <label for="position">Position
+          <span style="color: #BE3430; padding-left: 5px;"><sup>*</sup></span>
+          <span style="color: #BE3430; font-weight: bold; float: right" *ngIf="errorMessage && (myForm.value.position == null || myForm.value.position == '')">Please fill in requred field</span>
+      </label>
       <input type="text"
              id="position"
              class="form-control"
+             [ngClass]="{'error-form': errorMessage && (myForm.value.position == null || myForm.value.position == '')}"
              formControlName="position">
     </div>
+
+    <!-- email -->
     <div class="form-group">
-      <label for="email">Email Address<span style="color: red; padding-left: 5px;"><sup>*</sup></span></label>
+      <label for="email">Email Address
+          <span style="color: #BE3430; padding-left: 5px;"><sup>*</sup></span>
+          <span style="color: #BE3430; font-weight: bold; float: right" *ngIf="errorMessage && (myForm.value.email == null || myForm.value.email == '')">Please fill in requred field</span>
+      </label>
       <input type="email"
              id="email"
              class="form-control"
+             [ngClass]="{'error-form': errorMessage && (myForm.value.email == null || myForm.value.email == '')}"
              formControlName="email">
     </div>
+
+    <!-- agency -->
     <div class="form-group" style="margin-bottom: 40px;">
-      <label for="agency">Agency<span style="color: red; padding-left: 5px;"><sup>*</sup></span></label>
+      <label for="agency">Agency
+          <span style="color: #BE3430; padding-left: 5px;"><sup>*</sup></span>
+          <span style="color: #BE3430; font-weight: bold; float: right" *ngIf="errorMessage && (myForm.value.agency == null || myForm.value.agency == '')">Please fill in requred field</span>
+      </label>
       <input type="text"
              id="agency"
              class="form-control"
+             [ngClass]="{'error-form': errorMessage && (myForm.value.agency == null || myForm.value.agency == '')}"
              formControlName="agency">
     </div>
+
+    <!-- password -->
     <div class="form-group" style="margin-bottom: 40px;">
-      <label for="password">Password<span style="color: red; padding-left: 5px;"><sup>*</sup></span></label>
+      <label for="password">Password
+          <span style="color: #BE3430; padding-left: 5px;"><sup>*</sup></span>
+          <span style="color: #BE3430; font-weight: bold; float: right" *ngIf="errorMessage && (myForm.value.password == null || myForm.value.password == '')">Please fill in requred field</span>
+      </label>
       <input type="password"
              id="password"
              class="form-control"
+             [ngClass]="{'error-form': errorMessage && (myForm.value.password == null || myForm.value.password == '')}"
              formControlName="password">
     </div>
-    <button type="submit" class="btn btn-primary srt-button">Send Request</button>
+
+    <button type="submit" class="srt-button">Send Request</button>
   </form>
 </div>

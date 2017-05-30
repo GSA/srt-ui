@@ -13,7 +13,7 @@ import { UserService } from '../../user.service';
 })
 export class UserloginComponent implements OnInit {
   myForm: FormGroup;
-
+  errorMessage = false;
   constructor(private authService: AuthService,
               private router: Router,
               private user: UserService) { }
@@ -28,19 +28,27 @@ export class UserloginComponent implements OnInit {
 // submit authentication data.  uses local storage to hold encrypted json web token and user agency
 // the jwt is set to expire after 2 hours.
   onSubmit() {
-    const user = new User(this.myForm.value.email, this.myForm.value.password);
+    const user = new User(this.myForm.value.email, this.myForm.value.password);    
     this.authService.login(user)
       .subscribe(
-        data => {
-          localStorage.setItem('token', data.token);
+        data => { 
+          debugger
+          localStorage.setItem('token', data.token);       
+          localStorage.setItem('firstName', data.firstName);
+          localStorage.setItem('lastName', data.lastName);
           localStorage.setItem('agency', data.agency); // ToDo: clean this up and use user service
-          var currentUser = new Currentuser(data.firstName, data.agency);
+          localStorage.setItem('email', data.email);
+          localStorage.setItem('position', data.position);
+          var currentUser = new Currentuser(data.firstName, data.lastName, data.agency, data.email, data.position);
           this.user.saveUser(currentUser);
           this.router.navigateByUrl('srt');
         },
-        error => console.log(error)
+        error => {          
+          this.errorMessage = true;
+          console.log(error)
+        }
       );
-    this.myForm.reset();
+      
   }
 
 }

@@ -3,8 +3,8 @@ import { Subscription } from 'rxjs/Rx';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { SolicitationService } from '../../solicitation.service';
-import { Solicitation } from '../../shared/solicitation';
+import { SolicitationService } from '../../../solicitation.service';
+import { Solicitation } from '../../../shared/solicitation';
 import { Email } from './email';
 
 
@@ -15,6 +15,7 @@ import { Email } from './email';
 })
 export class EmailPocComponent implements OnInit {
   @Input() emailTo: String;
+  @Input() emailCC: String;
   @Input() subject: String;
   @Input() emailBody: String;
   myForm: FormGroup;
@@ -27,12 +28,15 @@ export class EmailPocComponent implements OnInit {
 ) { }
 
   ngOnInit() {
+    
+    this.emailCC = localStorage.getItem("email");
+
     this.myForm = new FormGroup({
       emailTo: new FormControl("srttestuser@gmail.com", Validators.required),
+      emailCC: new FormControl(this.emailCC , Validators.required),
       subject: new FormControl(this.subject, Validators.required),
       message: new FormControl(this.emailBody, Validators.required)
     });
-
     // listen for the activated route and use the 'id'  to pull chosen solicitation from mongo
     this.subscription = this.route.params.subscribe(
       (params: any) => {
@@ -48,8 +52,6 @@ export class EmailPocComponent implements OnInit {
               console.log(err);
             });
         });
-
-
   }
 
 emailContact() {
@@ -62,7 +64,9 @@ emailContact() {
       this.myForm.value.emailCC
     );
 
-    console.log("email content: ", emailContent);
+    var now = new Date().toLocaleDateString();
+    var r = this.solicitation.history.push({'date': now, 'action': "Email Sent to PoC"});
+
     this.solicitationService.sendContactEmail(emailContent)
       .subscribe(
         msg => {
@@ -71,6 +75,7 @@ emailContact() {
         err => {
           console.log(err);
         });
+
     this.solicitationService.updateHistory(this.solicitation)
       .subscribe(
         msg => {

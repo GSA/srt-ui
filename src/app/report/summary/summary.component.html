@@ -1,0 +1,53 @@
+<div style="padding: 20px 40px">
+
+  <div class="srt-title-padding">
+      <a [routerLink]="['/report']"> < Back to Solicitation Review Results for Section 508 Requirements</a>
+  </div>
+
+    <div class="srt-page-title srt-title-padding">
+        Solicitation Review Result Summary
+    </div>
+  
+
+  <!-- Tabs -->
+    <div class="active-tabs" ng-if="showActivitySelection()">
+        
+        <div style="width: 100%; height: 50px;">
+            <!-- min-width = (80 + 5) * number of tab -->
+            <ul class="us-tab-slide nopadding" style="padding: 0px;">
+                <li id="tab0" class="us-tab-item-slide" (click)="ChangeDisplayTab('0')"  [ngClass]="{'active':displayTab=='0'}">
+                    <a>Detailed Result</a>
+                </li>
+                <li id="tab1" class="us-tab-item-slide" (click)="ChangeDisplayTab('1')" [ngClass]="{'active':displayTab=='1'}">
+                    <a>Contact PoC</a>
+                </li>
+                <li id="tab2" class="us-tab-item-slide" (click)="ChangeDisplayTab('2')" [ngClass]="{'active':displayTab=='2'}">
+                    <a>History</a>
+                </li>
+            </ul>
+            <div style="float: right; clear: both; cursor: pointer; padding-bottom: 10px;" (click)="HelpUsImprove(solicitation)">
+                <a style="font-weight: 500">Provide feedback to make SRT smarter</a>
+            </div>
+        </div>
+    </div>
+
+ 
+
+    <div style="border: 1px solid #aaaaaa; padding: 30px 40px; height: calc(100vh - 267px); overflow: auto; clear: both" class="clearfix">
+
+        <div *ngIf="displayTab=='0'">
+            <app-results-detail [solicitation]="solicitation" (displayType)="ChangeDisplayTab($event)"></app-results-detail>
+        </div>
+
+        <div *ngIf="displayTab=='1'">
+            <app-email-poc [emailBody]="emailBody" [subject]="subject" [emailTo]="emailTo" [emailCC] ="emailCC"></app-email-poc>
+        </div>
+
+        <div *ngIf="displayTab=='2'">
+            <app-history [history]="solicitation.history"></app-history>
+        </div>
+
+    </div>
+
+
+</div>

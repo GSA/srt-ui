@@ -1,0 +1,16 @@
+
+.list {
+    margin-bottom: 10px;
+}
+
+.list-title {
+    font-weight: 600;
+    display: inline-block;
+    vertical-align: baseline;
+}
+
+.list-content {
+    font-weight: 400;
+    display: inline-block;
+    vertical-align: baseline;
+}
