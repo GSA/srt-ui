@@ -31,6 +31,11 @@ import { ResultsDetailComponent } from './report/summary/results-detail/results-
 import { HelpUsImproveComponent } from './report/summary/help-us-improve/help-us-improve.component';
 import { EmailPocComponent } from './report/summary/email-poc/email-poc.component';
 import { HistoryComponent } from './report/summary/history/history.component';
+import { PendingComponent } from './admin/pending/pending.component';
+import { ApprovedComponent } from './admin/approved/approved.component';
+import { DeniedComponent } from './admin/denied/denied.component';
+import { ProfileComponent } from './profile/profile.component';
+import { PasswordComponent } from './password/password.component';
 
 
 @NgModule({
@@ -53,6 +58,11 @@ import { HistoryComponent } from './report/summary/history/history.component';
     HelpUsImproveComponent,
     SummaryComponent,
     HistoryComponent,
+    PendingComponent,
+    ApprovedComponent,
+    DeniedComponent,
+    ProfileComponent,
+    PasswordComponent,
   ],
   imports: [
     BrowserModule,

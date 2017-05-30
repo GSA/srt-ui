@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
+  public displayTab:number = 0;
+  
   constructor() { }
 
   ngOnInit() {
   }
 
+  ChangeDisplayTab( num ){
+      this.displayTab = num;    
+  }
+  
 }

@@ -12,9 +12,14 @@ import { FaqComponent} from './faq/faq.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { HelpUsImproveComponent } from './report/summary/help-us-improve/help-us-improve.component';
 
+import { ProfileComponent } from './profile/profile.component';
+import { PasswordComponent } from './password/password.component';
+
 const APP_ROUTES: Routes = [
   {path: '', redirectTo: 'auth', pathMatch: 'full'},
   {path: 'auth', component: AuthComponent},
+  {path: 'profile', component: ProfileComponent},
+  {path: 'password', component: PasswordComponent},
   {path: 'report/:id', component: SummaryComponent},
   {path: 'report', component: SolicitationReportComponent},
   {path: 'email/:id', component: EmailPocComponent},
