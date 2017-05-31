@@ -38,7 +38,7 @@ export class AnalyticsComponent implements OnInit {
     public maxSolicitation:number = 0;
     public barTitle = "Top 10 Section 508 Compliant Agencies";
     public isGovernomentWide = true;
-    public noData = false;
+    public noData = true;
 
     // doughnut
     solicitationType = {};   
@@ -196,6 +196,9 @@ export class AnalyticsComponent implements OnInit {
         else if (name == "Department of Homeland Security") return "DHS";
         else if (name == "Department of Veterans Affairs") return "DVA";    
         else if (name == "United States International Trade Commission") return "USITC";
+        else if (name == "Department of Health and Human Services") return "DHHS";
+        else if (name == "Department of Commerce") return "DOC";
+        else if (name == "Department of Labor") return "DOL";
         else if (name == "1" && this.selectedPeriod == "This Year") return "Jan.";
         else if (name == "2" && this.selectedPeriod == "This Year") return "Feb.";
         else if (name == "3" && this.selectedPeriod == "This Year") return "Mar.";
@@ -428,15 +431,14 @@ export class AnalyticsComponent implements OnInit {
                     }          
                 } 
                 this.ICTforDisplay = filteredData;
-                this.noData = Object.keys(this.ICTforDisplay).length == 0;
-
-
 
                console.log(this.ICTforDisplay);
                 // ICT Solicitation        
                 this.GetOverview();
                 this.GetBarChart();
                 this.GetDoughnutChart();   
+                
+                this.noData = Object.keys(this.ICTforDisplay).length == 0;
             },
             err => {
                 console.log(err);

@@ -32,6 +32,7 @@ export class SummaryComponent implements OnInit {
     // listen for the activated route and use the 'id'  to pull chosen solicitation from mongo
     this.subscription = this.route.params.subscribe(
       (params: any) => {
+        var now = new Date().toLocaleDateString();
         this.solicitationIndex = params['id'];
         // pull chosen solicitation from mongo
         this.solicitationService.getSolicitation(this.solicitationIndex)
@@ -41,7 +42,7 @@ export class SummaryComponent implements OnInit {
               this.solicitation = solicitation;
               this.emailTo = "srttestuser@gmail.com";    
               this.emailCC = localStorage.getItem("email");        
-              this.subject = "Section 508 Requirements Assessment of " + this.solicitation.solNum + ", reviewed on " + this.solicitation.date;              
+              this.subject = "Section 508 Requirements Assessment of " + this.solicitation.solNum + ", reviewed on " + now;              
               this.emailBody = 
                               "Solicitation Title: " + this.solicitation.title  + "\n" + 
                               "Link: " + this.solicitation.url + "\n\n" +

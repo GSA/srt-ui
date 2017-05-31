@@ -51,21 +51,23 @@
                                  No data to show on this time period
                             </div>
                         </div>
-                        <div style="width: 100%; position: relative; margin-bottom: 40px" *ngIf="!noData">
-                            <div style="position: absolute; top: calc(0px - 8px); left: 0px;">{{maxSolicitation}}</div>               
-                            <div style="position: absolute; top: calc(37.5px - 8px); left: 0px;">{{maxSolicitation/4*3}}</div>                    
-                            <div style="position: absolute; top: calc(75px - 8px); left: 0px;">{{maxSolicitation/2}}</div>                        
-                            <div style="position: absolute; top: calc(112.5px - 8px); left: 0px;">{{maxSolicitation/4}}</div>                                
-                            <div style="position: absolute; top: calc(150px - 8px); left: 0px;">0</div>
+                        <div style="width: 100%; position: relative; margin-bottom: 40px; padding-left: 40px" *ngIf="!noData">
+                            <div style="position: absolute; top: calc(0px - 8px); left: 40px;">{{maxSolicitation}}</div>               
+                            <div style="position: absolute; top: calc(37.5px - 8px); left: 40px;">{{maxSolicitation/4*3}}</div>                    
+                            <div style="position: absolute; top: calc(75px - 8px); left: 40px;">{{maxSolicitation/2}}</div>                        
+                            <div style="position: absolute; top: calc(112.5px - 8px); left: 40px;">{{maxSolicitation/4}}</div>                                
+                            <div style="position: absolute; top: calc(150px - 8px); left: 40px;">0</div>
+                            <div style="position: absolute; bottom: -25px; left: 0px; width: 100%; text-align: center; font-size: 16px; font-weight: 500">Agency</div>
+                            <div style="position: absolute; left: -50px; transform: rotate(-90deg); width: 250px; left: -120px; font-size: 16px; font-weight: 500"># Solicitation(s)</div>
                             <div style="position: absolute; right: 29px; top: 0px;">
                                 <div style="width: 15px; height: 15px; background-color: #2C81C0; display: inline-block; vertical-align: middle"></div>
-                                <div style="display: inline-block; vertical-align: middle"># Compliant Solicitations</div>
+                                <div style="display: inline-block; vertical-align: middle"># Compliant Solicitation(s)</div>
                             </div>
                             <div style="position: absolute; right: 0px; top: 25px;">
                                 <div style="width: 15px; height: 15px; background-color: #eeeeee; display: inline-block; vertical-align: middle"></div>
-                                <div style="display: inline-block; vertical-align: middle"># Non-Compliant Solicitations</div>
+                                <div style="display: inline-block; vertical-align: middle"># Non-Compliant Solicitation(s)</div>
                             </div>
-                            <table style="display: 100%; margin-left: 30px;">
+                            <table style="width: calc(100% - 30px); margin-left: 30px;">
                                 <thead>
                                     <tr>
                                         <th *ngFor="let header of barData | slice:indexFrom:indexTo">{{i}}</th>
@@ -94,7 +96,7 @@ Non-Compliant Solicitations: {{(num[3] - num[2])}}">
                                                     [ngStyle]="{'height': (num[3] - num[2])/maxSolicitation * 150 + 'px'}">
                                                 </div>
                                                 <div style="position: absolute; top: -25px; width: 100%; text-align: center;" [hidden]="num[3]==0">
-                                                    {{num[1] | percent:'.1-1'}}
+                                                    {{num[1] | percent:'.0-0'}}
                                                 </div>
                                             </div>
                                         </td>

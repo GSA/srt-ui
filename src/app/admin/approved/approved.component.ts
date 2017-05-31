@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { SelectItem } from 'primeng/primeng';
+
+
+import { UserService } from '../../user.service';
 
 @Component({
   selector: 'app-approved',
@@ -7,9 +11,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApprovedComponent implements OnInit {
 
-  constructor() { }
+  filterParams = {}
+  public users: any[];
+  constructor(private user: UserService) { }
 
   ngOnInit() {
+      
+      this.user.GetUsers(this.filterParams).subscribe(
+          data => {
+            this.users = data;
+          },
+          error => {          
+            console.log(error)
+          }
+      )
+    
   }
+
+ 
+ 
 
 }
