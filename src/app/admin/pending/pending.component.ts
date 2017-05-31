@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { UserService } from '../../user.service';
+
 @Component({
   selector: 'app-pending',
   templateUrl: './pending.component.html',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PendingComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
+    filterParams = {}
+    public users: any[];
+    constructor(private user: UserService) { }
+    
+   ngOnInit() {
+      
+      this.user.GetUsers(this.filterParams).subscribe(
+          data => {
+            this.users = data;
+          },
+          error => {          
+            console.log(error)
+          }
+      )
+    
   }
-
 }
