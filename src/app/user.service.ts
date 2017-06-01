@@ -8,6 +8,7 @@ import { Currentuser } from './shared/currentuser';
 @Injectable()
 export class UserService {
 
+  // deployee localhost
   private userUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/user';
   private loginUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/user/login';
 

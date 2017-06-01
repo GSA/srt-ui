@@ -227,7 +227,6 @@ export class AnalyticsComponent implements OnInit {
             this.indexFrom = 0;
             this.indexTo = 10;
             this.barTitle = "Top 10 Section 508 Compliant Agencies";
-            debugger
             // Filter by date      
             for (let item of this.ICTforDisplay)
             {   
@@ -382,7 +381,6 @@ export class AnalyticsComponent implements OnInit {
              return (d.history.filter(function(e){return e["action"] == 'Email Sent to PoC'}).length > 0)
         });
         this.emailSend = emailSentSolicitation.length;
-        debugger
     }
 
 

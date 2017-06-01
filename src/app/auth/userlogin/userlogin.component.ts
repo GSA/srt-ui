@@ -32,7 +32,6 @@ export class UserloginComponent implements OnInit {
     this.authService.login(user)
       .subscribe(
         data => { 
-          debugger
           localStorage.setItem('token', data.token);       
           localStorage.setItem('firstName', data.firstName);
           localStorage.setItem('lastName', data.lastName);

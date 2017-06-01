@@ -8,12 +8,12 @@ import { User } from './user';
 @Injectable()
 export class AuthService {
 
-  
-  // private userUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/user';
-  // private loginUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/user/login';
+  // deployee localhost
+  private userUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/user';
+  private loginUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/user/login';
 
-  private userUrl = 'http://localhost:3000/user';
-  private loginUrl = 'http://localhost:3000/user/login';
+  // private userUrl = 'http://localhost:3000/user';
+  // private loginUrl = 'http://localhost:3000/user/login';
   
 
   // register a new user
