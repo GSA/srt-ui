@@ -1,7 +1,10 @@
 
 <div class="col-md-12 nopadding" >
   <!--<legend style="font-weight: 500">Email Solicitation Point of Contact</legend>-->
-  <form [formGroup]="myForm" (ngSubmit)="emailContact()">
+  <div class="alert alert-success" *ngIf="emailSent" style="max-width: 1000px; font-weight: 500">
+    <strong>Success!</strong> Your email is successfully sent to the designated recipient(s), you will receive an email notification when the solicitation is updated on FedBizOpps.
+  </div>
+  <form *ngIf="!emailSent" [formGroup]="myForm" (ngSubmit)="emailContact()">
 
       <div style="max-width: 1000px; font-weight: 500">
           <div class="form-group">
@@ -28,6 +31,7 @@
           <div class="form-group" style="padding-bottom: 20px">
               <label for="message" style="padding-bottom: 10px">Message:</label>
               <textarea id="maessage"
+                    [froalaEditor]
                     style="min-height: calc(100vh - 585px)"
                     rows="10"
                     cols="100"
@@ -37,4 +41,5 @@
         <button type="submit" class="srt-button">Send Email</button>
     </div>
   </form>
+  
 </div>

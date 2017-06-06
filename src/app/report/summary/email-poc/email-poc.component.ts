@@ -22,7 +22,7 @@ export class EmailPocComponent implements OnInit {
   solicitation: Solicitation;
   private subscription: Subscription;
   private solicitationIndex: String;
-
+  public emailSent = false;
   constructor(private solicitationService: SolicitationService,
               private route: ActivatedRoute
 ) { }
@@ -52,6 +52,7 @@ export class EmailPocComponent implements OnInit {
               console.log(err);
             });
         });
+
   }
 
 emailContact() {
@@ -65,12 +66,15 @@ emailContact() {
     );
 
     var now = new Date().toLocaleDateString();
-    var r = this.solicitation.history.push({'date': now, 'action': "Email Sent to PoC"});
+    var user = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
+    var r = this.solicitation.history.push({'date': now, 'action': "sent email to POC", 'user': user , 'status' : 'Email Sent to POC'});
 
     this.solicitationService.sendContactEmail(emailContent)
       .subscribe(
         msg => {
+          debugger
           console.log(msg);
+          this.emailSent = true;
         },
         err => {
           console.log(err);

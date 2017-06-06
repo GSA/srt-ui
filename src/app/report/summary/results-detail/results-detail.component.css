@@ -8,13 +8,13 @@
 }
 
 .list-title {
-    font-weight: 600;
+    font-weight: 400;
     display: inline-block;
     vertical-align: baseline;
 }
 
 .list-content {
-    font-weight: 400;
+    font-weight: 600;
     display: inline-block;
     vertical-align: baseline;
 }

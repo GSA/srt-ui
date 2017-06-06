@@ -37,6 +37,8 @@ import { DeniedComponent } from './admin/denied/denied.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PasswordComponent } from './password/password.component';
 
+import {TooltipModule} from "ng2-tooltip";
+import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 
 @NgModule({
   declarations: [
@@ -75,7 +77,10 @@ import { PasswordComponent } from './password/password.component';
     SharedModule,
     ButtonModule,
     DropdownModule,
-    ChartsModule
+    ChartsModule,
+    TooltipModule,
+    FroalaEditorModule.forRoot(), 
+    FroalaViewModule.forRoot()
   ],
   providers: [
     SolicitationService,

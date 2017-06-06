@@ -4,7 +4,7 @@
     </div>
     <div class="list-content">
         <ul *ngIf="history" class="nopadding">
-            <li *ngFor="let action of history" style="list-style: none;">{{action.date}} - {{action.action}}</li>
+            <li *ngFor="let action of history" style="list-style: none;">{{action.date}} - <span style="font-weight: 600">{{action.user}}</span> {{action.action}}</li>
         </ul>
     </div>
   

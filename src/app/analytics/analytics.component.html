@@ -38,12 +38,18 @@
             <div class="row-eq-height">
                 <div class="col-md-7 nopadding">
                     <div style="padding-right: 40px; border-right: 0.5px solid #dadada;">
-                        <div style="font-size: 20px; margin-bottom: 40px; font-weight: 600" class="srt-blue">
+                        <div id="analyticTitle" style="font-size: 20px; margin-bottom: 40px; font-weight: 600" class="srt-blue">
                             {{barTitle}}&nbsp;&nbsp;
-                            <sup style="font-size: 20px;"><i *ngIf="isGovernomentWide" class="fa fa-info-circle info" aria-hidden="true" 
-                                title="The agencies ranking is sorted by Compliance Rate*. 
-* Compliance Rate = (Number of compliant solicitations / Total ICT solicitations) %"></i>
+                            <sup style="font-size: 20px;"
+                                [tooltip]="chart" tooltipPlacement="bottom">
+                                <i *ngIf="isGovernomentWide" class="fa fa-info-circle info" aria-hidden="true" ></i>
                             </sup>
+
+                            <tooltip-content #chart [animation]="true">
+                                <div>The agencies ranking is sorted by Compliance Rate*.</div>
+                                <div>* Compliance Rate = (Number of compliant solicitations / Total ICT solicitations) %</div>
+                            </tooltip-content>  
+
                         </div>
                         <!-- bar chart -->
                         <div style="width: 100%; position: relative; font-size: 18px; margin-bottom: 60px; height: 191px; display: table; text-align: center" *ngIf="noData">
@@ -82,12 +88,13 @@
                                 </tfoot>
                                 <tbody style="border-bottom: 1px solid black;">
                                     <tr>
-                                        <td *ngFor="let num of barData | slice:indexFrom:indexTo" style="vertical-align: bottom">
+                                        <td *ngFor="let num of barData | slice:indexFrom:indexTo " style="vertical-align: bottom; position: relative">
                                             <div class="analyric-bar" style="margin: 0px auto; position: relative" 
                                             [style.width]="selectedPeriod=='This Month' && selectedGovernment != 'Government-wide'? '20px' : '40px'"
                                             title="Total: {{num[3]}} 
 Compliant Solicitations: {{num[2]}}
 Non-Compliant Solicitations: {{(num[3] - num[2])}}">
+
                                                 <!-- Compliant solicitation -->
                                                 <div style="background-color:#2C81C0"
                                                     [ngStyle]="{'height': num[2]/maxSolicitation * 150 + 'px'}">
@@ -98,6 +105,11 @@ Non-Compliant Solicitations: {{(num[3] - num[2])}}">
                                                 <div style="position: absolute; top: -25px; width: 100%; text-align: center;" [hidden]="num[3]==0">
                                                     {{num[1] | percent:'.0-0'}}
                                                 </div>
+                                                
+                                                <div style="position: absolute; top: 50%; right: 0px;">
+                                                    
+                                                </div>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -130,16 +142,28 @@ Non-Compliant Solicitations: {{(num[3] - num[2])}}">
                     <div style="padding-left: 40px;">
                         
                         
-                        <div style="font-size: 16px; width: 100%; max-width: 600px; margin: 0px auto">
+                        <div id="overview" style="font-size: 16px; width: 100%; max-width: 600px; margin: 0px auto">
 
                             <div style="font-size: 20px; margin-bottom: 40px; font-weight: 600" class="srt-blue">
                                 Activities Overview
                             </div>
+                            <!--<span [tooltip]="overView">
+                                element on which this tooltip is applied.
+                            </span>
+                            <tooltip-content #overView [animation]="true" placement="left">
+                                <div style="color: red;">aaa</div>
+                            </tooltip-content>-->
 
                             <!-- Total ICT Solicitations -->
                             <div class="clearfix analytic-overview-name">
-                                <div style="float: left">Total ICT Solicitations&nbsp;&nbsp;
-                                    <sup style="font-size: 20px"><i class="fa fa-info-circle info" aria-hidden="true" title="Total number of ICT solicitations scanned from FedBizOpps for all federal agencies."></i></sup>    
+                                <div style="float: left;">Total ICT Solicitations&nbsp;&nbsp;
+                                    <sup style="font-size: 20px;" 
+                                        [tooltip]="TotalICT" tooltipPlacement="bottom">
+                                        <i class="fa fa-info-circle info" aria-hidden="true" ></i>
+                                    </sup>  
+                                    <tooltip-content #TotalICT [animation]="true">
+                                        <div>Total number of ICT solicitations scanned from FedBizOpps for all federal agencies.</div>
+                                    </tooltip-content> 
                                 </div> 
                                 <div style="float: right">{{solicitationNumber}}</div> 
                             </div>
@@ -150,7 +174,13 @@ Non-Compliant Solicitations: {{(num[3] - num[2])}}">
                             <!-- # Solicitations Reviewed by 508 Coordinators -->
                             <div class="clearfix analytic-overview-name">
                                 <div style="float: left"># Solicitations Reviewed by 508 Coordinators&nbsp;&nbsp;
-                                    <sup style="font-size: 20px"><i class="fa fa-info-circle info" aria-hidden="true" title="Number of FebBizOpps solicitation links accessed through SRT by Section 508 coordinators. The solicitation links are visited for further review of SRT results prior to contacting the Point of Contact (PoC)."></i></sup>    
+                                    <sup style="font-size: 20px"
+                                        [tooltip]="Reviewed" tooltipPlacement="bottom">
+                                        <i class="fa fa-info-circle info" aria-hidden="true"></i>
+                                    </sup>   
+                                    <tooltip-content #Reviewed [animation]="true">
+                                        <div>Number of FebBizOpps solicitation links accessed through SRT by Section 508 coordinators. The solicitation links are visited for further review of SRT results prior to contacting the Point of Contact (PoC).</div>
+                                    </tooltip-content>  
                                 </div> 
                                 <div style="float: right">{{reviewed}}</div> 
                             </div>
@@ -161,7 +191,13 @@ Non-Compliant Solicitations: {{(num[3] - num[2])}}">
                             <!-- # Emails Sent to PoC -->
                             <div class="clearfix analytic-overview-name">
                                 <div style="float: left"># Emails Sent to PoC&nbsp;&nbsp;
-                                    <sup style="font-size: 20px"><i class="fa fa-info-circle info" aria-hidden="true" title="Number of e-mails sent from Section 508 Coordinators to solicitations Point of Contact (PoC). "></i></sup>      
+                                    <sup style="font-size: 20px"
+                                        [tooltip]="Emails" tooltipPlacement="bottom">
+                                        <i class="fa fa-info-circle info" aria-hidden="true"></i>
+                                    </sup>   
+                                    <tooltip-content #Emails [animation]="true">
+                                        <div>Number of e-mails sent from Section 508 Coordinators to solicitations Point of Contact (PoC).</div>
+                                    </tooltip-content>   
                                 </div> 
                                 <div style="float: right">{{emailSend}}</div> 
                             </div>
@@ -172,7 +208,13 @@ Non-Compliant Solicitations: {{(num[3] - num[2])}}">
                             <!-- # Updated Solicitations -->
                             <div class="clearfix analytic-overview-name">
                                 <div style="float: left"># Updated Solicitations&nbsp;&nbsp;
-                                    <sup style="font-size: 20px"><i class="fa fa-info-circle info" aria-hidden="true" title="Number of ICT solicitations that have been re-scanned from FedBizOpps."></i></sup>      
+                                    <sup style="font-size: 20px"
+                                        [tooltip]="Updated0" tooltipPlacement="bottom">
+                                        <i class="fa fa-info-circle info" aria-hidden="true"></i>
+                                    </sup>    
+                                    <tooltip-content #Updated0 [animation]="true">
+                                        <div>Number of ICT solicitations that have been re-scanned from FedBizOpps.</div>
+                                    </tooltip-content>   
                                 </div> 
                                 <div style="float: right">0</div> 
                             </div>
@@ -183,7 +225,13 @@ Non-Compliant Solicitations: {{(num[3] - num[2])}}">
                             <!-- # Updated Non-compliant Solicitations -->
                             <div class="clearfix analytic-overview-name">
                                 <div style="float: left"># Updated Non-compliant Solicitations&nbsp;&nbsp;
-                                    <sup style="font-size: 20px"><i class="fa fa-info-circle info" aria-hidden="true" title="Number of ICT solicitations that have been re-scanned from FedBizOpps and remained non-compliant on SRT. "></i></sup>      
+                                    <sup style="font-size: 20px"
+                                        [tooltip]="Updated1" tooltipPlacement="bottom">
+                                        <i class="fa fa-info-circle info" aria-hidden="true"></i>
+                                    </sup>     
+                                    <tooltip-content #Updated1 [animation]="true">
+                                        <div>Number of ICT solicitations that have been re-scanned from FedBizOpps and remained non-compliant on SRT.</div>
+                                    </tooltip-content>    
                                 </div> 
                                 <div style="float: right">0</div> 
                             </div>
@@ -194,7 +242,13 @@ Non-Compliant Solicitations: {{(num[3] - num[2])}}">
                             <!-- # Updated Compliant Solicitations -->
                             <div class="clearfix analytic-overview-name">
                                 <div style="float: left"># Updated Compliant Solicitations&nbsp;&nbsp;
-                                    <sup style="font-size: 20px"><i class="fa fa-info-circle info" aria-hidden="true" title="Number of ICT solicitations that have been re-scanned from FedBizOpps and updated as compliant on SRT"></i></sup>      
+                                    <sup style="font-size: 20px"
+                                        [tooltip]="Updated2" tooltipPlacement="bottom">
+                                        <i class="fa fa-info-circle info" aria-hidden="true"></i>
+                                    </sup>   
+                                    <tooltip-content #Updated2 [animation]="true">
+                                        <div>Number of ICT solicitations that have been re-scanned from FedBizOpps and updated as compliant on SRT.</div>
+                                    </tooltip-content>      
                                 </div> 
                                 <div style="float: right">0</div> 
                             </div>

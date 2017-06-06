@@ -38,3 +38,14 @@
 .us-tab-item-slide a:hover {
     text-decoration: none; 
 }
+
+ul.summary-steps {
+    padding: 0px;
+    font-size: 16px;
+    margin: 0px;
+    font-weight: 500;
+}
+
+ul.summary-steps li {
+    list-style: none;
+}

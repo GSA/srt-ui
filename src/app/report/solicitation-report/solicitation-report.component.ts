@@ -86,9 +86,9 @@ export class SolicitationReportComponent implements OnInit {
   // Manual review button kicks this off.  navigates to solicitation review page
   selectSol(solicitation: any) {
     console.log("selected sol is ",solicitation);
-    
     var now = new Date().toLocaleDateString();
-    var r = solicitation.history.push({'date': now, 'action': "Reviewed Action Requested Summary"});
+    var user = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
+    var r = solicitation.history.push({'date': now, 'action': "reviewed solicitation action requested summary", 'user': user, 'status' : ''});
     this.solicitationService.updateHistory(solicitation)
         .subscribe(
             msg => {

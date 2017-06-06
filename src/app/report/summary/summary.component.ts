@@ -27,6 +27,10 @@ export class SummaryComponent implements OnInit {
   private subscription: Subscription;
   private solicitationIndex: String;
 
+  public step1:Boolean = false;
+  public step2:Boolean = false;
+  public step4:Boolean = false;
+
   ngOnInit() {
 
     // listen for the activated route and use the 'id'  to pull chosen solicitation from mongo
@@ -39,27 +43,44 @@ export class SummaryComponent implements OnInit {
           .subscribe(
             solicitation => {
               console.log(solicitation);
+              solicitation.parseStatus.forEach(element => {
+                  if (element.status == "successfully parsed") element.status = "Yes";
+                  else if (element.status == "processing error")  element.status = "No";
+              });       
+
+              this.step1 = solicitation.history.filter(function(e){return e["action"].indexOf('reviewed solicitation action requested summary') > -1}).length > 0
+              this.step2 = solicitation.history.filter(function(e){return e["action"].indexOf('sent email to POC') > -1}).length > 0
+              
+              
               this.solicitation = solicitation;
               this.emailTo = "srttestuser@gmail.com";    
               this.emailCC = localStorage.getItem("email");        
               this.subject = "Section 508 Requirements Assessment of " + this.solicitation.solNum + ", reviewed on " + now;              
               this.emailBody = 
-                              "Solicitation Title: " + this.solicitation.title  + "\n" + 
-                              "Link: " + this.solicitation.url + "\n\n" +
-                              "Dear Acquisition Professional:\n\n" + 
-                              "You are receiving this letter as the point of contact for the solicitation referenced above.\n\n" +                               
-                              "Your solicitation appears to describe requirements for Information and Communication Technology (ICT) deliverables, but according to the GSA Solicitation Review Tool (SRT), " + 
-                              "it does not appear to be in compliance with Section 508 requirements. Section 508 requires that individuals with disabilities have access to and use of information and data that is comparable to those who are not individuals with disabilities. Please find the SRT’s solicitation assessment results attached. It can also be accessed at " + 
-                              "“Solicitation Review Result Summary”. \n\n" +   
-                              "[Please insert here your subject matter expert feedback specific to the solicitation to help with the compliance improvement] * \n\n" +                            
-                              "To assist your efforts in addressing Section 508, please refer to the Section 508 Guidelines.  Also, GSA provides free tools and resources.  The BuyAccessible Wizard is a web-based tool that guides users through a process of gathering Section 508 and market research data for ICT purchases and provides complete documentation of due diligence.\n\n" + 
-                              "For additional support on Section 508 requirements or concerns about the assessment of the solicitation, please reach out to the Section 508 Coordinator copied on this email." +                               
-                              "\n\n\n" +
-                              "Sincerely\n\n" + 
+                              "<div>Solicitation Title: " + this.solicitation.title  + "</div>" + 
+                              "<div style='padding-bottom: 20px;'>Link: " + "<a href=" + this.solicitation.url + ">" + this.solicitation.url + "</a></div>" +
+                              "<div style='padding-bottom: 15px;'>Dear Acquisition Professional:</div>" + 
+                              "<div style='padding-bottom: 15px;'>You are receiving this letter as the point of contact for the solicitation referenced above.</div>" +      
+
+                              "<div style='padding-bottom: 15px;'>Your solicitation appears to be related to Information and Communication Technology (ICT) deliverables as " + 
+                              "defined by the Access Board in the Section 508 Standard. The GSA Solicitation Review Tool (SRT) has flagged " + 
+                              "your solicitation because it <i style='text-decoration: underline;'><b>does not appear to be in compliance with Section 508</b></i>. Section 508 of the " +
+                              "Rehabilitation Act requires that any ICT that is ‘developed, procured, maintained, or used by the Federal " + 
+                              "government conform to the Section 508 Standards.  This means that Section 508 technical criteria MUST be " +
+                              "included in the requirements document in order to inform the vendor of the Section 508 deliverables to meet the " +
+                              "contractual requirements. Please find the SRT’s solicitation assessment results attached. They may also be " +
+                              "accessed at “Solicitation Review Result Summary”. </div>" + 
+
+                              "<div style='padding-bottom: 15px;'>To assist your efforts in addressing Section 508, please refer to the <a href='https://section508.gov/content/guidance'>Section 508 Guidelines</a>. GSA also provides free tools and resources. <a href='https://www.section508.gov/content/buy'>The BuyAccessible Tool</a> is a web-based tool that guides users through the process of gathering Section 508 requirements for ICT procurements  and provides documentation of due diligence.</div>" + 
+                              "<div style='padding-bottom: 15px;'>For additional assistance with Section 508 requirements or concerns about the assessment of this solicitation, please reach out to the Section 508 Coordinator copied on this email or contact us at <a href='mailto:section.508@gsa.gov'>section.508@gsa.gov</a>.</div>" +                                                
+                              "<div style='padding-bottom: 20px;'>Sincerely</div>" + 
+                              "<div>" +
                               localStorage.getItem("firstName") + " " + 
-                              localStorage.getItem("lastName") + "\n" +
+                              localStorage.getItem("lastName") + "</div>" +
+                              "<div>" + 
                               // localStorage.getItem("position") + "," + 
-                              localStorage.getItem("agency") +"."
+                              localStorage.getItem("agency") +"</div>" 
+                            
             },
             err => {
               console.log(err);

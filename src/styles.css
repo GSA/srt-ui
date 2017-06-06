@@ -108,3 +108,54 @@ button.srt-button {
 .srt-banner p {
     font-size: 16px;
 }
+
+
+/* Override bootstrap tooptip style */
+
+.tooltip-inner {
+    max-width: 200px;
+    padding: 3px 8px;
+    color: black !important;
+    text-align: left;
+    background-color: white !important;
+    border-radius: 4px;
+    border: 1px solid #dadada;
+}
+
+#analyticTitle .tooltip-inner {
+    max-width: 400px;
+    padding: 3px 8px;
+    color: black !important;
+    text-align: left;
+    background-color: white !important;
+    border-radius: 4px;
+    border: 1px solid #dadada;
+}
+
+#overview .tooltip-inner {
+    max-width: 300px;
+    padding: 3px 8px;
+    color: black !important;
+    text-align: left;
+    background-color: white !important;
+    border-radius: 4px;
+    border: 1px solid #dadada;
+}
+
+
+
+.tooltip-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+}
+
+.tooltip.right .tooltip-arrow {    
+    border-right-color: white;
+}
+
+.tooltip.bottom .tooltip-arrow {    
+    border-bottom-color: white;
+}

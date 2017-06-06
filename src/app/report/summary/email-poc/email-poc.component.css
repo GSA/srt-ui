@@ -16,3 +16,7 @@ input.form-control {
 label {
     width: 65px;
 }
+
+/*.fr-toolbar.fr-desktop.fr-top.fr-basic.fr-sticky-off {
+    display: none !important
+}*/

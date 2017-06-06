@@ -1,13 +1,35 @@
 <div style="padding: 20px 40px">
 
-  <div class="srt-title-padding">
-      <a [routerLink]="['/report']" style="font-weight: 500"> < Back to Solicitation Review Results for Section 508 Requirements</a>
-  </div>
+    <div class="srt-title-padding">
+        <a [routerLink]="['/report']" style="font-weight: 500"> < Back to Solicitation Review Results for Section 508 Requirements</a>
+    </div>
 
     <div class="srt-page-title srt-title-padding">
         Solicitation Review Result Summary
     </div>
-  
+
+    <div style="padding: 20px; background-color: #e7f4f8; margin-bottom: 10px">
+        <div style="font-size: 20px; font-weight: 700; padding-bottom: 15px;"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Solicitation Review Intruction</div>
+        <ul class="summary-steps">
+            <li>
+                <i class="fa fa-check" aria-hidden="true" style="color: #1f66a3" [ngStyle]="{'opacity' : step1 ? '1' : '0'}"></i>&nbsp;
+                <span>Step 1 - Review detailed result for the solicitation;</span>
+            </li>
+            <li>
+                <i class="fa fa-check" aria-hidden="true" style="color: #1f66a3" [ngStyle]="{'opacity' : step2 ? '1' : '0'}"></i>&nbsp;
+                <span>Step 2 - Click on the “Email POC” button to share the result with the Contracting Officer, if any action is required; </span>
+            </li>
+            <li>
+                <i class="fa fa-check" aria-hidden="true" style="color: #1f66a3" [ngStyle]="{'opacity' : step2 ? '1' : '0'}"></i>&nbsp;
+                <span>Step 3 - Carefully edit the prepopulated email template with your custom message and click “Send Email”; and</span>
+            </li>
+            <li>
+                <i class="fa fa-check" aria-hidden="true" style="color: #1f66a3" [ngStyle]="{'opacity' : step4 ? '1' : '0'}"></i>&nbsp;
+                <span>Step 4 - Click on the “Provide feedback to make SRT smarter” link to fill out a short survey regarding the current solicitation, which helps improve the accuracy of the prediction. </span>
+            </li>
+
+        </ul>
+    </div>
 
   <!-- Tabs -->
     <div class="active-tabs" ng-if="showActivitySelection()">
@@ -19,7 +41,7 @@
                     <a>Detailed Result</a>
                 </li>
                 <li id="tab1" class="us-tab-item-slide" (click)="ChangeDisplayTab('1')" [ngClass]="{'active':displayTab=='1'}">
-                    <a>Contact PoC</a>
+                    <a>Email PoC</a>
                 </li>
                 <li id="tab2" class="us-tab-item-slide" (click)="ChangeDisplayTab('2')" [ngClass]="{'active':displayTab=='2'}">
                     <a>History</a>

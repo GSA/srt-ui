@@ -2,7 +2,11 @@ import { Component, OnInit, ViewChild, Directive } from '@angular/core';
 import { Router } from '@angular/router';
 import { SolicitationService } from '../solicitation.service';
 import { BaseChartDirective } from 'ng2-charts/ng2-charts';
-import {ChartsModule, Color} from 'ng2-charts/ng2-charts';
+import { ChartsModule, Color } from 'ng2-charts/ng2-charts';
+
+import {TooltipModule} from "ng2-tooltip";
+
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-analytics',
@@ -14,6 +18,7 @@ import {ChartsModule, Color} from 'ng2-charts/ng2-charts';
 
 export class AnalyticsComponent implements OnInit {
         
+  
     @ViewChild(BaseChartDirective) private baseChart;   
     
     solicitationNumber = 0;
@@ -374,11 +379,11 @@ export class AnalyticsComponent implements OnInit {
     {
         this.solicitationNumber = this.ICTforDisplay.length;   
         var reviewedSolicitation = this.ICTforDisplay.filter(function(d){
-             return (d.history.filter(function(e){return e["action"] == 'Reviewed Action Requested Summary'}).length > 0)
+             return (d.history.filter(function(e){return e["action"].indexOf('reviewed solicitation action requested summary') > -1 }).length > 0)
         });
         this.reviewed = reviewedSolicitation.length;
         var emailSentSolicitation = this.ICTforDisplay.filter(function(d){
-             return (d.history.filter(function(e){return e["action"] == 'Email Sent to PoC'}).length > 0)
+             return (d.history.filter(function(e){return e["action"].indexOf('sent email to POC') > -1}).length > 0)
         });
         this.emailSend = emailSentSolicitation.length;
     }

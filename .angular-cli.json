@@ -22,10 +22,13 @@
         "styles.css",
         "../node_modules/primeng/resources/primeng.min.css",
         "../node_modules/primeng/resources/themes/omega/theme.css",
-        "../node_modules/font-awesome/css/font-awesome.min.css"
+        "../node_modules/font-awesome/css/font-awesome.min.css",
+        "../node_modules/froala-editor/css/froala_editor.pkgd.min.css"
       ],
       "scripts": [
-        "../node_modules/chart.js/dist/Chart.bundle.min.js"
+        "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/chart.js/dist/Chart.bundle.min.js",
+        "../node_modules/froala-editor/js/froala_editor.pkgd.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
