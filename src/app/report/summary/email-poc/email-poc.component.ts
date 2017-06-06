@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -18,6 +18,7 @@ export class EmailPocComponent implements OnInit {
   @Input() emailCC: String;
   @Input() subject: String;
   @Input() emailBody: String;
+  @Output() update: EventEmitter<string> = new EventEmitter();
   myForm: FormGroup;
   solicitation: Solicitation;
   private subscription: Subscription;
@@ -30,7 +31,6 @@ export class EmailPocComponent implements OnInit {
   ngOnInit() {
     
     this.emailCC = localStorage.getItem("email");
-
     this.myForm = new FormGroup({
       emailTo: new FormControl("srttestuser@gmail.com", Validators.required),
       emailCC: new FormControl(this.emailCC , Validators.required),
@@ -46,7 +46,9 @@ export class EmailPocComponent implements OnInit {
           .subscribe(
             solicitation => {
               this.solicitation = solicitation;
-              console.log("solicitation", this.solicitation);
+              // check if current user has sent email already 
+              var user = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
+              this.emailSent = solicitation.history.filter(function(e){return ((e["action"].indexOf('sent email to POC') > -1) && (e["user"].indexOf(user) > -1))}).length > 0;              
             },
             err => {
               console.log(err);
@@ -68,13 +70,12 @@ emailContact() {
     var now = new Date().toLocaleDateString();
     var user = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
     var r = this.solicitation.history.push({'date': now, 'action': "sent email to POC", 'user': user , 'status' : 'Email Sent to POC'});
-
     this.solicitationService.sendContactEmail(emailContent)
       .subscribe(
         msg => {
-          debugger
           console.log(msg);
           this.emailSent = true;
+          this.update.emit();
         },
         err => {
           console.log(err);

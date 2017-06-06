@@ -122,6 +122,12 @@ button.srt-button {
     border: 1px solid #dadada;
 }
 
+#analyticTitle .tooltip.in,
+#overview .tooltip.in,
+.tooltip.in {
+    opacity: 1 !important;;
+}
+
 #analyticTitle .tooltip-inner {
     max-width: 400px;
     padding: 3px 8px;

@@ -39,8 +39,8 @@ export class SolicitationReportComponent implements OnInit {
 
     this.solicitationService.getFilteredSolicitations(this.filterParams)
     .subscribe(
-        solicitations => {
-          this.solicitations = solicitations;  
+        solicitations => {          
+          this.solicitations = solicitations; 
         },
         err => {
             console.log(err);
@@ -89,6 +89,7 @@ export class SolicitationReportComponent implements OnInit {
     var now = new Date().toLocaleDateString();
     var user = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
     var r = solicitation.history.push({'date': now, 'action': "reviewed solicitation action requested summary", 'user': user, 'status' : ''});
+    
     this.solicitationService.updateHistory(solicitation)
         .subscribe(
             msg => {

@@ -35,7 +35,7 @@
           <div style="display: table-cell; vertical-align: middle; width: 40px;"><img id="csvlogo" src="../../../assets/downloadcsv.jpeg" style="float:left" (click)="dt.exportCSV()"></div>
       </div>
       
-      <div style="font-weight: 500; float: left; color: #186ba0">Last scanned date: 05/23/2017</div>
+      <div style="font-weight: 500; float: left; color: #186ba0">Last scanned date: 05/29/2017</div>
   </div>
 
     
@@ -95,8 +95,8 @@
         </ng-template>
         <ng-template let-sol="rowData" pTemplate="body">
           <div *ngIf="sol.predictions.value == 'RED'">
-            <div *ngIf="sol.eitLikelihood.value == 'Yes'">
-              <span [style.color]="sol.predictions.value"><button class="button" (click)="selectSol(sol)"><i class="fa fa-exclamation-triangle"></i> Action Requested</button></span>
+            <div *ngIf="sol.eitLikelihood.value == 'Yes'" style="text-align: center;">
+              <span [style.color]="sol.predictions.value"><button class="button" (click)="selectSol(sol)" style="border: none;"><i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;<span style="text-decoration: underline;">Action Requested</span></button></span>
             </div>
             <div *ngIf="sol.eitLikelihood.value == 'No'">
               <span>Not Applicable</span>

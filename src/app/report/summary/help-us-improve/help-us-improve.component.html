@@ -39,194 +39,191 @@
     </div>
 </div>
 
-<div class="container" style="font-size: 16px; line-height: 1.5em; font-weight: 500;" *ngIf="solicitation"> 
-    <div style="padding: 40px 0px" class="clearfix">
-        <div style="padding-bottom: 20px;">
-            <div class="srt-section-title" style="text-transform: uppercase; padding-bottom: 20px;">
-                solicitation review result
-            </div>
-            <div class="list">
-                <div class="list-title">Solicitation Title:&nbsp;</div>
-                <div class="list-content">{{solicitation.title}}</div>
-            </div>
-            <div class="list">
-                <div class="list-title">Solicitation Number:&nbsp;</div>
-                <div class="list-content">{{solicitation.solNum}}</div>
-            </div>
-            <div class="list">
-                <div class="list-title" style="width: 100%">Prediction Results:&nbsp; </div>
-                <div class="list-content">
-                    <ul class="nopadding">
-                        <li style="list-style: none; line-height: 18px;">Document Name: This document is not Section 508 compliant.</li>
-                        <li style="list-style: none; line-height: 18px;">Insufficient Section 508 requirements found in solicitation documents.</li>        
-                    </ul>
+
+    <div class="container" style="font-size: 16px; line-height: 1.5em; font-weight: 500;" *ngIf="solicitation"> 
+        <div style="padding: 40px 0px" class="clearfix">
+            <div style="padding-bottom: 20px;">
+                <div class="srt-section-title" style="text-transform: uppercase; padding-bottom: 20px;">
+                    solicitation review result
                 </div>
-            </div>
-        </div>
-
-
-        <div style="padding-bottom: 20px; ">
-            <div class="srt-section-title" style="text-transform: uppercase; padding-bottom: 20px;">
-                Section 508 Subject Matter Expert Review Result
-            </div>
-            <!--<div class="list">
-                <div class="list-title">Solicitation ID:&nbsp;</div>
-                <div class="list-content">{{solicitation._id}}</div>
-            </div>-->
-
-            <div style="display: table; width: 500px;">               
-                <div style="display: table-row">
-                    <div style="display: table-cell">Is this an ICT solicitation?</div>                    
-                    <div style="display: table-cell">
-                        <input id="ict1" style="display: none;" type="checkbox" [ngModel]="ICT == true" (ngModelChange)="RadioICT(true)" value="1" />
-                        <label for="ict1">Yes</label>
-                    </div>
-                    <div style="display: table-cell">
-                        <input id="ict0" style="display: none;"  type="checkbox" [ngModel]="ICT == false"  (ngModelChange)="RadioICT(false)" value="0" />
-                        <label for="ict0">No</label>
-                    </div>
+                <div class="list">
+                    <div class="list-title">Solicitation Title:&nbsp;</div>
+                    <div class="list-content">{{solicitation.title}}</div>
                 </div>
-                <div style="display: table-row">
-                    <div style="display: table-cell">Does the result match the prediction? </div>                    
-                    <div style="display: table-cell">
-                        <input id="prediction1" style="display: none;" type="checkbox" [ngModel]="Prediction == true" (ngModelChange)="RadioPrediction(true)" value="1" />
-                        <label for="prediction1">Yes</label>
-                    </div>
-                    <div style="display: table-cell">
-                        <input id="prediction0" style="display: none;" type="checkbox" [ngModel]="Prediction == false" (ngModelChange)="RadioPrediction(false)" value="0" />
-                        <label for="prediction0">No</label>
+                <div class="list">
+                    <div class="list-title">Solicitation Number:&nbsp;</div>
+                    <div class="list-content">{{solicitation.solNum}}</div>
+                </div>
+                <div class="list">
+                    <div class="list-title" style="width: 100%">Prediction Results:&nbsp; </div>
+                    <div class="list-content">
+                        <ul class="nopadding">
+                            <li style="list-style: none; line-height: 18px;">This solicitation may not contain sufficient Section 508 requirements.</li>       
+                        </ul>
                     </div>
                 </div>
             </div>
-          
-        </div>
 
-        <div >
-            <div style="display: table; width: 100%;">
-                <div style="display: table-header-group">
-                    <div style="display: table-row; font-weight: 700;">
-                        <div style="display: table-cell; height: 40px;">Please answer the following questions based on the review result of the solicitation</div>
-                        <div class="survey-radio-option">Yes</div>
-                        <div class="survey-radio-option">No</div>
-                    </div>
+
+            <div style="padding-bottom: 20px; ">
+                <div class="srt-section-title" style="text-transform: uppercase; padding-bottom: 20px;">
+                    Section 508 Subject Matter Expert Review Result
                 </div>
-                <div style="display: table-row-group">  
+                <!--<div class="list">
+                    <div class="list-title">Solicitation ID:&nbsp;</div>
+                    <div class="list-content">{{solicitation._id}}</div>
+                </div>-->
 
+                <div style="display: table; width: 500px;">               
                     <div style="display: table-row">
-                        <div style="display: table-cell">1.  Is the solicitation and any associated documents and attachments in an accessible format? </div>                    
-                        <div class="survey-radio-option">
-                            <input id="q11" style="display: none" type="checkbox" [ngModel]="q1 == true" (ngModelChange)="Radioq1(true)" value="1" />
-                            <label for="q11"></label>
+                        <div style="display: table-cell">Is this an ICT solicitation?</div>                    
+                        <div style="display: table-cell">
+                            <input id="ict1" style="display: none;" type="checkbox" [ngModel]="ICT == true" (ngModelChange)="RadioICT(true)" value="1" />
+                            <label for="ict1">Yes</label>
                         </div>
-                        <div class="survey-radio-option">
-                            <input id="q10" style="display: none" type="checkbox" [ngModel]="q1 == false" (ngModelChange)="Radioq1(false)" value="0" />
-                            <label for="q10"></label>
-                        </div>
-                    </div>
-
-                     <div style="display: table-row">
-                        <div style="display: table-cell">2.  Is there a statement that Section 508 relevance must be determined by the government? </div>                    
-                        <div class="survey-radio-option">
-                            <input id="q21" style="display: none" type="checkbox" [ngModel]="q2 == true" (ngModelChange)="Radioq2(true)" value="1" />
-                            <label for="q21"></label>
-                        </div>
-                        <div class="survey-radio-option">
-                            <input id="q20" style="display: none"type="checkbox" [ngModel]="q2 == false" (ngModelChange)="Radioq2(false)" value="0" />
-                            <label for="q20"></label>
+                        <div style="display: table-cell">
+                            <input id="ict0" style="display: none;"  type="checkbox" [ngModel]="ICT == false"  (ngModelChange)="RadioICT(false)" value="0" />
+                            <label for="ict0">No</label>
                         </div>
                     </div>
-
-                     <div style="display: table-row">
-                        <div style="display: table-cell">3.  Is there a statement that Section 508 exceptions must be determined by the government?</div>                    
-                        <div class="survey-radio-option">
-                            <input id="q31" style="display: none" type="checkbox" [ngModel]="q3 == true" (ngModelChange)="Radioq3(true)" value="1" />
-                            <label for="q31"></label>
-                        </div>
-                        <div class="survey-radio-option">
-                            <input id="q30" style="display: none" type="checkbox" [ngModel]="q3 == false" (ngModelChange)="Radioq3(false)" value="0" />
-                            <label for="q30"></label>
-                        </div>
-                    </div>
-
-                     <div style="display: table-row">
-                        <div style="display: table-cell">4.  Is there a statement that Section 508 applicability must be determined by the government?</div>                    
-                        <div class="survey-radio-option">
-                            <input id="q41" style="display: none" type="checkbox" [ngModel]="q4 == true" (ngModelChange)="Radioq4(true)" value="1" />
-                            <label for="q41"></label>
-                        </div>
-                        <div class="survey-radio-option">
-                            <input id="q40" style="display: none" type="checkbox" [ngModel]="q4 == false" (ngModelChange)="Radioq4(false)" value="0" />
-                            <label for="q40"></label>
-                        </div>
-                    </div>
-
-                     <div style="display: table-row">
-                        <div style="display: table-cell">5.  For ICT contract deliverables is there a general statement of applicability of Section 1194 subpart c OR specific provisions within 1194.31(x)? </div>                    
-                        <div class="survey-radio-option">
-                            <input id="q51" style="display: none" type="checkbox" [ngModel]="q5 == true" (ngModelChange)="Radioq5(true)" value="1" />
-                            <label for="q51"></label>
-                        </div>
-                        <div class="survey-radio-option">
-                            <input id="q50" style="display: none" type="checkbox" [ngModel]="q5 == false" (ngModelChange)="Radioq5(false)" value="0" />
-                            <label for="q50"></label>
-                        </div>
-                     </div>
-
-                     <div style="display: table-row">
-                        <div style="display: table-cell">6.  For ICT contract deliverables is there a general statement of applicability of Section 1194 subpart d OR specific provisions within 1194.41(x)? </div>                    
-                        <div class="survey-radio-option">
-                            <input id="q61" style="display: none" type="checkbox" [ngModel]="q6 == true" (ngModelChange)="Radioq6(true)" value="1" />
-                            <label for="q61"></label>
-                        </div>
-                        <div class="survey-radio-option">
-                            <input id="q60" style="display: none" type="checkbox" [ngModel]="q6 == false" (ngModelChange)="Radioq6(false)" value="0" />
-                            <label for="q60"></label>
-                        </div>
-                     </div>
-
-                     <div style="display: table-row">
-                        <div style="display: table-cell; height: 40px;">7.  Is there any mention of ICT deliverable accessibility certification of compliance?</div>                    
-                        <div class="survey-radio-option">
-                            <input id="q71" style="display: none" type="checkbox" [ngModel]="q7 == true" (ngModelChange)="Radioq7(true)" value="1" />
-                            <label for="q71"></label>
-                        </div>
-                        <div class="survey-radio-option">
-                            <input id="q70" style="display: none" type="checkbox" [ngModel]="q7 == false" (ngModelChange)="Radioq7(false)" value="0" />
-                            <label for="q70"></label>
-                        </div>
-                    </div>
-
                     <div style="display: table-row">
-                        <div style="padding-bottom: 10px">8.  For ICT contract deliverables, is there a general statement of applicability of Section 1194 subpart b OR of applicable technical sections (e.g. 1194.2x) or applicable provisions (e.g. 1194.2x(y))? </div>                    
-                        <div>
-                            <input id="q80" style="display: none" type="checkbox" [ngModel]="q8 == 0" (ngModelChange)="Radioq8(0)" value="1" />
-                            <label for="q80" style="font-weight: 500">High level General Statement Mention</label>
+                        <div style="display: table-cell">Does the result match the prediction? </div>                    
+                        <div style="display: table-cell">
+                            <input id="prediction1" style="display: none;" type="checkbox" [ngModel]="Prediction == true" (ngModelChange)="RadioPrediction(true)" value="1" />
+                            <label for="prediction1">Yes</label>
                         </div>
-                        <div>
-                            <input id="q81" style="display: none" type="checkbox" [ngModel]="q8 == 1" (ngModelChange)="Radioq8(1)" value="0" />
-                            <label for="q81" style="font-weight: 500">Specific Sections or Individual Technical Provisions or that subpart b does not apply</label>
-                        </div>
-                        <div>
-                            <input id="q82" style="display: none" type="checkbox" [ngModel]="q8 == 2" (ngModelChange)="Radioq8(2)" value="0" />
-                            <label for="q82" style="font-weight: 500">No or Non-specific Reference</label>
+                        <div style="display: table-cell">
+                            <input id="prediction0" style="display: none;" type="checkbox" [ngModel]="Prediction == false" (ngModelChange)="RadioPrediction(false)" value="0" />
+                            <label for="prediction0">No</label>
                         </div>
                     </div>
-                  
+                </div>
+            
+            </div>
+
+            <div >
+                <div style="display: table; width: 100%;">
+                    <div style="display: table-header-group">
+                        <div style="display: table-row; font-weight: 700;">
+                            <div style="display: table-cell; height: 40px;">Please answer the following questions based on the review result of the solicitation</div>
+                            <div class="survey-radio-option">Yes</div>
+                            <div class="survey-radio-option">No</div>
+                        </div>
+                    </div>
+                    <div style="display: table-row-group">  
+
+                        <div style="display: table-row">
+                            <div style="display: table-cell">1.  Is the solicitation and any associated documents and attachments in an accessible format? </div>                    
+                            <div class="survey-radio-option">
+                                <input id="q11" style="display: none" type="checkbox" [ngModel]="q1 == true" (ngModelChange)="Radioq1(true)" value="1" />
+                                <label for="q11"></label>
+                            </div>
+                            <div class="survey-radio-option">
+                                <input id="q10" style="display: none" type="checkbox" [ngModel]="q1 == false" (ngModelChange)="Radioq1(false)" value="0" />
+                                <label for="q10"></label>
+                            </div>
+                        </div>
+
+                        <div style="display: table-row">
+                            <div style="display: table-cell">2.  Is there a statement that Section 508 relevance must be determined by the government? </div>                    
+                            <div class="survey-radio-option">
+                                <input id="q21" style="display: none" type="checkbox" [ngModel]="q2 == true" (ngModelChange)="Radioq2(true)" value="1" />
+                                <label for="q21"></label>
+                            </div>
+                            <div class="survey-radio-option">
+                                <input id="q20" style="display: none"type="checkbox" [ngModel]="q2 == false" (ngModelChange)="Radioq2(false)" value="0" />
+                                <label for="q20"></label>
+                            </div>
+                        </div>
+
+                        <div style="display: table-row">
+                            <div style="display: table-cell">3.  Is there a statement that Section 508 exceptions must be determined by the government?</div>                    
+                            <div class="survey-radio-option">
+                                <input id="q31" style="display: none" type="checkbox" [ngModel]="q3 == true" (ngModelChange)="Radioq3(true)" value="1" />
+                                <label for="q31"></label>
+                            </div>
+                            <div class="survey-radio-option">
+                                <input id="q30" style="display: none" type="checkbox" [ngModel]="q3 == false" (ngModelChange)="Radioq3(false)" value="0" />
+                                <label for="q30"></label>
+                            </div>
+                        </div>
+
+                        <div style="display: table-row">
+                            <div style="display: table-cell">4.  Is there a statement that Section 508 applicability must be determined by the government?</div>                    
+                            <div class="survey-radio-option">
+                                <input id="q41" style="display: none" type="checkbox" [ngModel]="q4 == true" (ngModelChange)="Radioq4(true)" value="1" />
+                                <label for="q41"></label>
+                            </div>
+                            <div class="survey-radio-option">
+                                <input id="q40" style="display: none" type="checkbox" [ngModel]="q4 == false" (ngModelChange)="Radioq4(false)" value="0" />
+                                <label for="q40"></label>
+                            </div>
+                        </div>
+
+                        <div style="display: table-row">
+                            <div style="display: table-cell">5.  For ICT contract deliverables is there a general statement of applicability of Section 1194 subpart c OR specific provisions within 1194.31(x)? </div>                    
+                            <div class="survey-radio-option">
+                                <input id="q51" style="display: none" type="checkbox" [ngModel]="q5 == true" (ngModelChange)="Radioq5(true)" value="1" />
+                                <label for="q51"></label>
+                            </div>
+                            <div class="survey-radio-option">
+                                <input id="q50" style="display: none" type="checkbox" [ngModel]="q5 == false" (ngModelChange)="Radioq5(false)" value="0" />
+                                <label for="q50"></label>
+                            </div>
+                        </div>
+
+                        <div style="display: table-row">
+                            <div style="display: table-cell">6.  For ICT contract deliverables is there a general statement of applicability of Section 1194 subpart d OR specific provisions within 1194.41(x)? </div>                    
+                            <div class="survey-radio-option">
+                                <input id="q61" style="display: none" type="checkbox" [ngModel]="q6 == true" (ngModelChange)="Radioq6(true)" value="1" />
+                                <label for="q61"></label>
+                            </div>
+                            <div class="survey-radio-option">
+                                <input id="q60" style="display: none" type="checkbox" [ngModel]="q6 == false" (ngModelChange)="Radioq6(false)" value="0" />
+                                <label for="q60"></label>
+                            </div>
+                        </div>
+
+                        <div style="display: table-row">
+                            <div style="display: table-cell; height: 40px;">7.  Is there any mention of ICT deliverable accessibility certification of compliance?</div>                    
+                            <div class="survey-radio-option">
+                                <input id="q71" style="display: none" type="checkbox" [ngModel]="q7 == true" (ngModelChange)="Radioq7(true)" value="1" />
+                                <label for="q71"></label>
+                            </div>
+                            <div class="survey-radio-option">
+                                <input id="q70" style="display: none" type="checkbox" [ngModel]="q7 == false" (ngModelChange)="Radioq7(false)" value="0" />
+                                <label for="q70"></label>
+                            </div>
+                        </div>
+
+                        <div style="display: table-row">
+                            <div style="padding-bottom: 10px">8.  For ICT contract deliverables, is there a general statement of applicability of Section 1194 subpart b OR of applicable technical sections (e.g. 1194.2x) or applicable provisions (e.g. 1194.2x(y))? </div>                    
+                            <div>
+                                <input id="q80" style="display: none" type="checkbox" [ngModel]="q8 == 0" (ngModelChange)="Radioq8(0)" value="1" />
+                                <label for="q80" style="font-weight: 500">High level General Statement Mention</label>
+                            </div>
+                            <div>
+                                <input id="q81" style="display: none" type="checkbox" [ngModel]="q8 == 1" (ngModelChange)="Radioq8(1)" value="0" />
+                                <label for="q81" style="font-weight: 500">Specific Sections or Individual Technical Provisions or that subpart b does not apply</label>
+                            </div>
+                            <div>
+                                <input id="q82" style="display: none" type="checkbox" [ngModel]="q8 == 2" (ngModelChange)="Radioq8(2)" value="0" />
+                                <label for="q82" style="font-weight: 500">No or Non-specific Reference</label>
+                            </div>
+                        </div>
+                    
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div style="font-weight: 700; padding: 20px 0px 5px 0px; width: 100%;">
-            Additional Feedback:
-        </div>
-        <div style="padding-bottom: 20px;">
-            <textarea class="form-control" style="min-height: 200px"></textarea>
-        </div>
+            <div style="font-weight: 700; padding: 20px 0px 5px 0px; width: 100%;">
+                Additional Feedback:
+            </div>
+            <div style="padding-bottom: 20px;">
+                <textarea class="form-control" style="min-height: 200px"></textarea>
+            </div>
 
-        <div class="srt-button">
-            <div>Submit</div>
+            <button type="submit" class="srt-button" (click)="feedback()">Submit</button>
+            
         </div>
     </div>
-</div>
-
-

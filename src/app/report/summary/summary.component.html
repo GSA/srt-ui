@@ -8,8 +8,8 @@
         Solicitation Review Result Summary
     </div>
 
-    <div style="padding: 20px; background-color: #e7f4f8; margin-bottom: 10px">
-        <div style="font-size: 20px; font-weight: 700; padding-bottom: 15px;"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Solicitation Review Intruction</div>
+    <div style="padding: 20px; background-color: #e7f4f8; margin-bottom: 30px">
+        <div style="font-size: 20px; font-weight: 700; padding-bottom: 15px;"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Solicitation Review Instruction</div>
         <ul class="summary-steps">
             <li>
                 <i class="fa fa-check" aria-hidden="true" style="color: #1f66a3" [ngStyle]="{'opacity' : step1 ? '1' : '0'}"></i>&nbsp;
@@ -34,9 +34,9 @@
   <!-- Tabs -->
     <div class="active-tabs" ng-if="showActivitySelection()">
         
-        <div style="width: 100%; height: 50px;">
+        <div style="width: 100%; height: 60px; position: relative">
             <!-- min-width = (80 + 5) * number of tab -->
-            <ul class="us-tab-slide nopadding" style="padding: 0px;">
+            <ul class="us-tab-slide nopadding" style="padding: 0px; max-width: 340px; float: left">
                 <li id="tab0" class="us-tab-item-slide" (click)="ChangeDisplayTab('0')"  [ngClass]="{'active':displayTab=='0'}">
                     <a>Detailed Result</a>
                 </li>
@@ -47,22 +47,22 @@
                     <a>History</a>
                 </li>
             </ul>
-            <div style="float: right; clear: both; cursor: pointer; padding-bottom: 5px; font-size: 16px" (click)="HelpUsImprove(solicitation)">
-                <a style="font-weight: 600">Provide feedback to make SRT smarter</a>
+            <div style="float: right; cursor: pointer; padding-bottom: 10px; font-size: 16px; position: absolute; bottom: 0px; right: 0px; " (click)="HelpUsImprove(solicitation)">
+                <a style="font-weight: 600;">Provide feedback to make SRT smarter</a>
             </div>
         </div>
     </div>
 
  
 
-    <div style="border: 1px solid #aaaaaa; padding: 30px 40px; height: calc(100vh - 267px); overflow: auto; clear: both" class="clearfix">
+    <div style="border: 1px solid #aaaaaa; padding: 30px 40px; height: calc(100vh - 500px); overflow: auto; clear: both" class="clearfix">
 
         <div *ngIf="displayTab=='0'">
             <app-results-detail [solicitation]="solicitation" (displayType)="ChangeDisplayTab($event)"></app-results-detail>
         </div>
 
         <div *ngIf="displayTab=='1'">
-            <app-email-poc [emailBody]="emailBody" [subject]="subject" [emailTo]="emailTo" [emailCC] ="emailCC"></app-email-poc>
+            <app-email-poc [emailBody]="emailBody" [subject]="subject" [emailTo]="emailTo" [emailCC] ="emailCC" (update)="ngOnInit()"></app-email-poc>
         </div>
 
         <div *ngIf="displayTab=='2'">

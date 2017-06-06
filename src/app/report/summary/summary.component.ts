@@ -50,7 +50,7 @@ export class SummaryComponent implements OnInit {
 
               this.step1 = solicitation.history.filter(function(e){return e["action"].indexOf('reviewed solicitation action requested summary') > -1}).length > 0
               this.step2 = solicitation.history.filter(function(e){return e["action"].indexOf('sent email to POC') > -1}).length > 0
-              
+              this.step4 = solicitation.history.filter(function(e){return e["action"].indexOf('provided feedback on the solicitation prediction result') > -1}).length > 0
               
               this.solicitation = solicitation;
               this.emailTo = "srttestuser@gmail.com";    
@@ -65,7 +65,7 @@ export class SummaryComponent implements OnInit {
                               "<div style='padding-bottom: 15px;'>Your solicitation appears to be related to Information and Communication Technology (ICT) deliverables as " + 
                               "defined by the Access Board in the Section 508 Standard. The GSA Solicitation Review Tool (SRT) has flagged " + 
                               "your solicitation because it <i style='text-decoration: underline;'><b>does not appear to be in compliance with Section 508</b></i>. Section 508 of the " +
-                              "Rehabilitation Act requires that any ICT that is ‘developed, procured, maintained, or used by the Federal " + 
+                              "Rehabilitation Act requires that any ICT that is developed, procured, maintained, or used by the Federal " + 
                               "government conform to the Section 508 Standards.  This means that Section 508 technical criteria MUST be " +
                               "included in the requirements document in order to inform the vendor of the Section 508 deliverables to meet the " +
                               "contractual requirements. Please find the SRT’s solicitation assessment results attached. They may also be " +

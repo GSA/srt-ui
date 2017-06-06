@@ -204,6 +204,9 @@ export class AnalyticsComponent implements OnInit {
         else if (name == "Department of Health and Human Services") return "DHHS";
         else if (name == "Department of Commerce") return "DOC";
         else if (name == "Department of Labor") return "DOL";
+        else if (name == "National Aeronautics and Space Administration") return "NASA";
+        else if (name == "Library of Congress") return "LOC";
+        else if (name == "Department of the Treasury") return "Treasury";
         else if (name == "1" && this.selectedPeriod == "This Year") return "Jan.";
         else if (name == "2" && this.selectedPeriod == "This Year") return "Feb.";
         else if (name == "3" && this.selectedPeriod == "This Year") return "Mar.";

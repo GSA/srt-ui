@@ -39,7 +39,8 @@ export class HelpUsImproveComponent implements OnInit {
         // pull chosen solicitation from mongo
         this.solicitationService.getSolicitation(this.solicitationIndex)
           .subscribe(
-            solicitation => {              
+            solicitation => {   
+              debugger           
               this.solicitation = solicitation;   
             },
             err => {
@@ -59,4 +60,21 @@ export class HelpUsImproveComponent implements OnInit {
   Radioq6 (selected) { this.q6 = selected;}
   Radioq7 (selected) { this.q7 = selected;}
   Radioq8 (selected) { this.q8 = selected;}
+
+  feedback(){
+    
+      var now = new Date().toLocaleDateString();
+      var user = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
+      var r = this.solicitation.history.push({'date': now, 'action': "provided feedback on the solicitation prediction result", 'user': user , 'status' : ''});
+
+      this.solicitationService.updateHistory(this.solicitation)
+      .subscribe(
+        msg => {
+          console.log(msg);
+        },
+        err => {
+          console.log(err);
+        });
+  }
+
 }
