@@ -9,6 +9,10 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { AppComponent } from './app.component';
 import { SolicitationReportComponent } from './report/solicitation-report/solicitation-report.component';
+
+// Services
+import { AgencyService } from './agency.service';
+import { AuthService } from './auth/auth.service';
 import { SolicitationService } from './solicitation.service';
 import { UserService } from './user.service';
 
@@ -16,7 +20,6 @@ import { DataTableModule,SharedModule, ButtonModule, DropdownModule} from 'prime
 import { routing } from './app.routing';
 import { HeaderComponent } from './header/header.component';
 import { AuthComponent } from './auth/auth.component';
-import { AuthService } from './auth/auth.service';
 import { UserloginComponent } from './auth/userlogin/userlogin.component';
 import { UserregistrationComponent } from './auth/userregistration/userregistration.component';
 import { SolicitationReviewComponent } from './solicitation-review/solicitation-review.component';
@@ -38,7 +41,11 @@ import { ProfileComponent } from './profile/profile.component';
 import { PasswordComponent } from './password/password.component';
 
 import {TooltipModule} from "ng2-tooltip";
+
+// HTML editor
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
+// Auto Complete
+import { Ng2CompleterModule } from "ng2-completer";
 
 @NgModule({
   declarations: [
@@ -80,12 +87,14 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
     ChartsModule,
     TooltipModule,
     FroalaEditorModule.forRoot(), 
-    FroalaViewModule.forRoot()
+    FroalaViewModule.forRoot(),
+    Ng2CompleterModule
   ],
   providers: [
     SolicitationService,
     AuthService,
-    UserService
+    UserService,
+    AgencyService
   ],
   bootstrap: [AppComponent]
 })

@@ -7,6 +7,8 @@
       <div>New to Solicitation Review Tool?</div>
       <div style="color: #BE3430; font-size: 14px; padding: 5px; font-weight: 300;"><sup>*</sup>Required fields</div>
   </div>
+
+
   <form [formGroup]="myForm" (ngSubmit)="onSubmit()" *ngIf="!registerSuccess">
 
 
@@ -64,15 +66,19 @@
 
     <!-- agency -->
     <div class="form-group" style="margin-bottom: 40px;">
+     
       <label for="agency">Agency
           <span style="color: #BE3430; padding-left: 5px;"><sup>*</sup></span>
           <span style="color: #BE3430; font-weight: bold; float: right" *ngIf="errorMessage && (myForm.value.agency == null || myForm.value.agency == '')">Please fill in requred field</span>
       </label>
-      <input type="text"
+      <ng2-completer id="agency" [(ngModel)]="searchStr" [datasource]="dataService" [minSearchLength]="0" 
+            formControlName="agency" [placeholder]="placeholder" [textSearching]="textSearching" [pause]="500" matchClass="match" (keydown)="open()"
+      ></ng2-completer>
+      <!--<input type="text"
              id="agency"
              class="form-control"
              [ngClass]="{'error-form': errorMessage && (myForm.value.agency == null || myForm.value.agency == '')}"
-             formControlName="agency">
+             formControlName="agency">-->
     </div>
 
     <!-- password -->

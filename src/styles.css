@@ -165,3 +165,66 @@ button.srt-button {
 .tooltip.bottom .tooltip-arrow {    
     border-bottom-color: white;
 }
+
+
+/* autocomplete  ng2-completer package*/
+
+
+.completer-input  {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.completer-dropdown-holder {
+    width: 100%;
+    position: relative;
+}
+
+.completer-dropdown {
+    border-color: #ececec;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 2px;
+    width: 100% !important;
+    padding: 3px 5px;
+    cursor: pointer;
+    z-index: 9999;
+    position: absolute;
+    margin-top: 0px !important;
+    background-color: #ffffff;
+    max-height: 200px !important;
+    overflow: auto !important;
+}
+
+.completer-row {
+    padding: 5px;
+    color: #000000;
+    margin-bottom: 4px;
+    clear: both;
+    display: inline-block;
+    width: 100% !important;;
+}
+
+.completer-selected-row {
+    background-color: #337ab7 !important;
+    color: #ffffff !important;
+}
+
+.match {
+    color: #BE3430 !important;
+    font-weight: 500;
+}
