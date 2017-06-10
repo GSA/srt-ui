@@ -46,6 +46,11 @@ import {TooltipModule} from "ng2-tooltip";
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 // Auto Complete
 import { Ng2CompleterModule } from "ng2-completer";
+import { TopSrtActionsComponent } from './analytics/top-srt-actions/top-srt-actions.component';
+import { TopAgenciesComponent } from './analytics/top-agencies/top-agencies.component';
+import { ScannedSolicitationComponent } from './analytics/scanned-solicitation/scanned-solicitation.component';
+import { ComplianceRateComponent } from './analytics/compliance-rate/compliance-rate.component';
+import { ConversionRateComponent } from './analytics/conversion-rate/conversion-rate.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +77,11 @@ import { Ng2CompleterModule } from "ng2-completer";
     DeniedComponent,
     ProfileComponent,
     PasswordComponent,
+    TopSrtActionsComponent,
+    TopAgenciesComponent,
+    ScannedSolicitationComponent,
+    ComplianceRateComponent,
+    ConversionRateComponent,
   ],
   imports: [
     BrowserModule,

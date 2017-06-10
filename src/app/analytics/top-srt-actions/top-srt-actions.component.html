@@ -1,0 +1,130 @@
+<div style="padding: 0px 20px">
+      
+      <div id="overview" style="font-size: 16px; width: 100%;">
+
+          <div style="font-size: 20px; margin-bottom: 40px; font-weight: 600" class="srt-blue">
+              Top SRT Actions
+          </div>
+
+          <!-- Total ICT Solicitations -->
+          <div class="clearfix analytic-overview-name">
+              <div style="float: left;">Total ICT Solicitations Scanned&nbsp;&nbsp;
+                  <sup style="font-size: 20px;" 
+                      [tooltip]="TotalICT" tooltipPlacement="bottom">
+                      <i class="fa fa-info-circle info" aria-hidden="true" ></i>
+                  </sup>  
+                  <tooltip-content #TotalICT [animation]="true">
+                      <div>Total number of ICT solicitations scanned from FedBizOpps for all federal agencies.</div>
+                  </tooltip-content> 
+              </div> 
+              <div style="float: right">{{solicitationNumber}}</div> 
+          </div>
+          <div style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px;">
+              <div style="background-color: #2C81C0; height: 8px" [ngStyle]="{'width': solicitationNumber==0 ? '0px' : solicitationNumber/solicitationNumber * 100 + '%'}"></div>
+          </div>                        
+
+          <!-- Total Non-compliant ICT Solicitations -->
+          <div class="clearfix analytic-overview-name">
+              <div style="float: left;">Total Non-Compliant ICT Solicitations&nbsp;&nbsp;
+                  <sup style="font-size: 20px;" 
+                      [tooltip]="TotalNonCompliantICT" tooltipPlacement="bottom">
+                      <i class="fa fa-info-circle info" aria-hidden="true" ></i>
+                  </sup>  
+                  <tooltip-content #TotalNonCompliantICT [animation]="true">
+                      <div>Total number of non-compliant ICT solicitations scanned from FedBizOpps for all federal agencies.</div>
+                  </tooltip-content> 
+              </div> 
+              <div style="float: right">{{nonCompliantICTNumber}}</div> 
+          </div>
+          <div style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px;">
+              <div style="background-color: #2C81C0; height: 8px" [ngStyle]="{'width': solicitationNumber==0 ? '0px' : nonCompliantICTNumber/solicitationNumber * 100 + '%'}"></div>
+          </div>
+
+          <!-- # Solicitations Reviewed by 508 Coordinators -->
+          <div class="clearfix analytic-overview-name">
+              <div style="float: left"># Solicitations Reviewed by 508 Coordinators&nbsp;&nbsp;
+                  <sup style="font-size: 20px"
+                      [tooltip]="Reviewed" tooltipPlacement="bottom">
+                      <i class="fa fa-info-circle info" aria-hidden="true"></i>
+                  </sup>   
+                  <tooltip-content #Reviewed [animation]="true">
+                      <div>Number of FebBizOpps solicitation links accessed through SRT by Section 508 coordinators. The solicitation links are visited for further review of SRT results prior to contacting the Point of Contact (PoC).</div>
+                  </tooltip-content>  
+              </div> 
+              <div style="float: right">{{reviewed}}</div> 
+          </div>
+          <div style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px">
+              <div style="background-color: #2C81C0; height: 8px;" [ngStyle]="{'width': solicitationNumber==0 ? '0px' : reviewed/solicitationNumber * 100 + '%'}"></div>
+          </div>                        
+
+          <!-- # Emails Sent to PoC -->
+          <div class="clearfix analytic-overview-name">
+              <div style="float: left"># Emails Sent to PoC&nbsp;&nbsp;
+                  <sup style="font-size: 20px"
+                      [tooltip]="Emails" tooltipPlacement="bottom">
+                      <i class="fa fa-info-circle info" aria-hidden="true"></i>
+                  </sup>   
+                  <tooltip-content #Emails [animation]="true">
+                      <div>Number of e-mails sent from Section 508 Coordinators to solicitations Point of Contact (PoC).</div>
+                  </tooltip-content>   
+              </div> 
+              <div style="float: right">{{emailSend}}</div> 
+          </div>
+          <div style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px">
+              <div style="background-color: #2C81C0; height: 8px;" [ngStyle]="{'width': solicitationNumber==0 ? '0px' : emailSend/solicitationNumber * 100 + '%'}"></div>
+          </div>                        
+
+          <!-- # Updated Solicitations -->
+          <div class="clearfix analytic-overview-name">
+              <div style="float: left"># Updated Solicitations&nbsp;&nbsp;
+                  <sup style="font-size: 20px"
+                      [tooltip]="Updated0" tooltipPlacement="bottom">
+                      <i class="fa fa-info-circle info" aria-hidden="true"></i>
+                  </sup>    
+                  <tooltip-content #Updated0 [animation]="true">
+                      <div>Number of ICT solicitations that have been re-scanned from FedBizOpps.</div>
+                  </tooltip-content>   
+              </div> 
+              <div style="float: right">0</div> 
+          </div>
+          <div style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px">
+              <div style="background-color: #2C81C0; height: 8px; width: 0px"></div>
+          </div>                        
+
+          <!-- # Updated Non-compliant Solicitations -->
+          <div class="clearfix analytic-overview-name">
+              <div style="float: left"># Updated Non-compliant Solicitations&nbsp;&nbsp;
+                  <sup style="font-size: 20px"
+                      [tooltip]="Updated1" tooltipPlacement="bottom">
+                      <i class="fa fa-info-circle info" aria-hidden="true"></i>
+                  </sup>     
+                  <tooltip-content #Updated1 [animation]="true">
+                      <div>Number of ICT solicitations that have been re-scanned from FedBizOpps and remained non-compliant on SRT.</div>
+                  </tooltip-content>    
+              </div> 
+              <div style="float: right">0</div> 
+          </div>
+          <div style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px">
+              <div style="background-color: #2C81C0; height: 8px; width: 0px"></div>
+          </div>                        
+
+          <!-- # Updated Compliant Solicitations -->
+          <div class="clearfix analytic-overview-name">
+              <div style="float: left"># Updated Compliant Solicitations&nbsp;&nbsp;
+                  <sup style="font-size: 20px"
+                      [tooltip]="Updated2" tooltipPlacement="bottom">
+                      <i class="fa fa-info-circle info" aria-hidden="true"></i>
+                  </sup>   
+                  <tooltip-content #Updated2 [animation]="true">
+                      <div>Number of ICT solicitations that have been re-scanned from FedBizOpps and updated as compliant on SRT.</div>
+                  </tooltip-content>      
+              </div> 
+              <div style="float: right">0</div> 
+          </div>
+          <div class="clearfix" style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px">
+              <div style="background-color: #2C81C0; height: 8px; width: 0px"></div>
+          </div>                        
+      </div>
+
+
+  </div>

@@ -1,0 +1,29 @@
+<div style="max-width: 250px; padding: 0px 15px">
+  <div style="font-size: 20px; margin-bottom: 20px; font-weight: 600" class="srt-blue">
+      Conversion Rate
+      <sup style="font-size: 20px;" 
+          [tooltip]="ConversionRate" tooltipPlacement="bottom">
+          <i class="fa fa-info-circle info" aria-hidden="true" ></i>
+      </sup>  
+      <tooltip-content #ConversionRate [animation]="true">
+          <div>Conversion Rate = (# updated compliant solicitations / Total non-compliant ICT solicitations) * 100%</div>
+      </tooltip-content> 
+  </div>  
+
+  <div style="display: block; margin: 0px auto; height: 200px">
+    <canvas baseChart
+            [data]="doughnutChartData"
+            [labels]="doughnutChartLabels"
+            [options]="options"
+            [colors]="colorsOverride"
+            [chartType]="doughnutChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+  </div>
+
+   <div style="padding: 30px 10px; text-align: center; font-size: 16px; color: #1768d7; font-weight: 500">
+    <span style="font-size: 1.5em; font-weight: 700">{{updatedCompliant}}</span> out of 
+      <span style="font-size: 1.5em; font-weight: 700">{{TotalNonCompliant}}</span> 
+      non-compliant ICT solicitations have became compliant after they were updated on FedBizOpps.gov
+  </div>
+</div>

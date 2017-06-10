@@ -166,6 +166,10 @@ button.srt-button {
     border-bottom-color: white;
 }
 
+.info {
+    color: #333;
+    font-size: 16px !important
+}
 
 /* autocomplete  ng2-completer package*/
 

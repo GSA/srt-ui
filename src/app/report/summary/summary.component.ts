@@ -42,7 +42,6 @@ export class SummaryComponent implements OnInit {
         this.solicitationService.getSolicitation(this.solicitationIndex)
           .subscribe(
             solicitation => {
-              console.log(solicitation);
               solicitation.parseStatus.forEach(element => {
                   if (element.status == "successfully parsed") element.status = "Yes";
                   else if (element.status == "processing error")  element.status = "No";

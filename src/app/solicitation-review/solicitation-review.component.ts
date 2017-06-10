@@ -45,7 +45,6 @@ export class SolicitationReviewComponent implements OnInit {
       .subscribe(
         solicitation => {
           this.solicitation.push(solicitation);
-          console.log(this.solicitation);
       },
       err => {
           console.log(err);
