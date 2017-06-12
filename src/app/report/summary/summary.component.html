@@ -5,16 +5,17 @@
         <div style="font-size: 20px; padding-bottom: 15px;">Solicitation Review Instructions and Next Steps:</div>
         <ul class="summary-steps">
             <li>
-                <i class="fa fa-check" aria-hidden="true" style="color: #f7f7f7" [ngStyle]="{'opacity' : step1 ? '1' : '0'}"></i>&nbsp;
-                <span>STEP 1 - Review detailed results for the solicitation;</span>
+                <div style="display: inline-block; vertical-align: top"><i class="fa fa-check" aria-hidden="true" style="color: #f7f7f7" [ngStyle]="{'opacity' : step1 ? '1' : '0'}"></i>&nbsp;&nbsp;STEP 1 - </div>
+                <div style="display: inline-block; vertical-align: top; width: calc(100% - 80px)">Review detailed results for the solicitation;</div>
             </li>
             <li>
-                <i class="fa fa-check" aria-hidden="true" style="color: #f7f7f7" [ngStyle]="{'opacity' : step2 ? '1' : '0'}"></i>&nbsp;
-                <span>STEP 2 - Click on the “Email POC” button to share the results with the Point of Contact (POC) listed in the solicitation. Edit the proposed email message with any additional feedback to help improve the 508 compliance of the solicitation, click “Send Email”; and</span>
+                <div style="display: inline-block; vertical-align: top"><i class="fa fa-check" aria-hidden="true" style="color: #f7f7f7" [ngStyle]="{'opacity' : step2 ? '1' : '0'}"></i>&nbsp;&nbsp;STEP 2 - </div>
+                <div style="display: inline-block; vertical-align: top; width: calc(100% - 80px)">Click on the “Email POC” button to share the results with the Point of Contact (POC) listed in the solicitation. Edit the proposed email message with any additional feedback to help improve the 508 compliance of the solicitation, click “Send Email”; and</div>
             </li>
             <li>
-                <i class="fa fa-check" aria-hidden="true" style="color: #f7f7f7" [ngStyle]="{'opacity' : step3 ? '1' : '0'}"></i>&nbsp;
-                <span>STEP 3 - Click on the “Provide feedback to make SRT smarter” link to fill out a short survey regarding the current solicitation, which helps improve the accuracy of the prediction.</span>
+                <div style="display: inline-block; vertical-align: top"><i class="fa fa-check" aria-hidden="true" style="color: #f7f7f7" [ngStyle]="{'opacity' : step3 ? '1' : '0'}"></i>&nbsp;&nbsp;STEP 3 - </div>
+                <div style="display: inline-block; vertical-align: top; width: calc(100% - 80px)">Click on the “MAKE SRT SMARTER” tab to fill out a short survey regarding the current solicitation, which helps improve the accuracy of the prediction.</div>
+                
             </li>
         </ul>
     </div>
@@ -61,7 +62,7 @@
         </div>
 
         <div *ngIf="displayTab=='2'">
-            <app-help-us-improve [solicitation]="solicitation"></app-help-us-improve>
+            <app-help-us-improve [solicitation]="solicitation" (update)="ngOnInit()"></app-help-us-improve>
         </div>
 
         <div *ngIf="displayTab=='3'">

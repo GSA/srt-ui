@@ -1,6 +1,34 @@
-<div style="width: 100%; height: 200px; margin-top: 20px; 
+<!--<div style="width: 100%; height: 200px; margin-top: 20px; 
             background-image: url(https://s3.amazonaws.com/srt.bucket/assets/user-login.png); 
             background-repeat: no-repeat; 
             background-size: contain; 
             background-position: left">
+</div>-->
+
+<div style="font-size: 20px; margin-bottom: 40px; font-weight: 600" class="srt-blue">
+    SRT User Login Activities
+    <!--<sup style="font-size: 20px;" 
+        [tooltip]="Scanned" tooltipPlacement="bottom">
+        <i class="fa fa-info-circle info" aria-hidden="true" ></i>
+    </sup>  
+    <tooltip-content #Scanned [animation]="true">
+        <div></div>
+    </tooltip-content> -->
+</div>  
+
+
+<div style="padding-left: 40px; position: relative">
+    <div style="position: absolute; left: 0px; top: 0px; transform: rotate(-90deg); font-size: 16px; font-weight: 600; text-align: center; height: 180px; width: 180px;"># Users</div>
+    <div style="position: absolute; bottom: -30px; font-size: 16px; font-weight: 600; text-align: center; width: 100%">Date</div>
+    <div style="position: absolute; right: 20px; top: -30px; font-size: 16px; font-weight: 600; color: #1768d7">
+        <span style="font-size: 1.5em; font-weight: 700;">{{currentLoginUsers}}</span> users on the site now
+    </div>
+    <div style="display: block; margin: 0px auto; height: 200px; transform: translateZ(0);"> 
+        <canvas baseChart
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="options"
+                [colors]="colorsOverride"
+                [chartType]="lineChartType"></canvas>
+    </div>
 </div>

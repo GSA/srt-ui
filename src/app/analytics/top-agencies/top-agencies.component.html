@@ -122,7 +122,7 @@ Non-Compliant Solicitations: {{(num[3] - num[2])}}">
             [ngStyle]="{'width': (indexTo - indexFrom) * 30 + 'px', 'height': (indexTo - indexFrom) * 30 + 'px'}">
             {{xAxis}}
         </div>
-        <table style="width: 100%; ">
+        <table style="width: 100%; transform: translateZ(0);">
             <tbody>
                 <tr *ngFor="let num of barData | slice:indexFrom:indexTo " style="width: 100%;" title="Total: {{num[3]}} 
 Compliant Solicitations: {{num[2]}}

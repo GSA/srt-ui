@@ -67,8 +67,8 @@ export class SummaryComponent implements OnInit {
 
                     "<p>Your solicitation appears to be related to Information and Communication Technology (ICT) deliverables as " + 
                     "defined by the Access Board in the Section 508 Standard. The GSA Solicitation Review Tool (SRT) has flagged " + 
-                    "your solicitation because it <i style='text-decoration: underline;'><b>does not appear to be in compliance with Section 508</b></i>. Section 508 of the " +
-                    "Rehabilitation Act requires that any ICT that is developed, procured, maintained, or used by the Federal " + 
+                    "your solicitation because it <i style='text-decoration: underline;'><b>does not appear to be in compliance with Section 508 of the Rehabilitation Act </b></i>. Section 508 " +
+                    "requires that any ICT that is developed, procured, maintained, or used by the Federal " + 
                     "government conform to the Section 508 Standards.  This means that Section 508 technical criteria MUST be " +
                     "included in the requirements document in order to inform the vendor of the Section 508 deliverables to meet the " +
                     "contractual requirements. Please find the SRT’s solicitation assessment results attached. They may also be " +

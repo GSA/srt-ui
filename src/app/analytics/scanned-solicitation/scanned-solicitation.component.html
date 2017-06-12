@@ -10,15 +10,19 @@
     </tooltip-content> 
 </div>  
 
-<div style="display: block; height: 200px;" *ngIf="hasValue"> 
-  
-  <canvas baseChart
-          [datasets]="barChartData"
-          [labels]="barChartLabels"
-          [options]="barChartOptions"
-          [legend]="barChartLegend"
-          [colors]="colorsOverride"
-          [chartType]="barChartType"
-          (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)"></canvas>
+<div style="padding-left: 40px; position: relative">
+    <div style="position: absolute; left: 0px; top: 0px; transform: rotate(-90deg); font-size: 16px; font-weight: 600; text-align: center; height: 180px; width: 180px;"># Solicitation</div>
+    <div style="position: absolute; bottom: -30px; font-size: 16px; font-weight: 600; text-align: center; width: 100%">Date</div>
+    <div style="display: block; margin: 0px auto; height: 200px; transform: translateZ(0);" *ngIf="hasValue"> 
+    
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [colors]="colorsOverride"
+            [chartType]="barChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+    </div>
 </div>

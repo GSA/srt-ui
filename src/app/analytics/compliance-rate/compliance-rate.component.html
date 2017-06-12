@@ -1,30 +1,39 @@
 
 <div style="max-width: 250px; padding: 0px 15px">
-  <div style="font-size: 20px; margin-bottom: 20px; font-weight: 600" class="srt-blue">
-      Compliance Rate
-      <sup style="font-size: 20px;" 
-          [tooltip]="ComplianceRate" tooltipPlacement="bottom">
-          <i class="fa fa-info-circle info" aria-hidden="true" ></i>
-      </sup>  
-      <tooltip-content #ComplianceRate [animation]="true">
-          <div>Compliance Rate = (Total compliant ICT solicitations / Total ICT solicitations scanned) * 100%</div>
-      </tooltip-content> 
-  </div>  
+    
+    <div style="font-size: 20px; margin-bottom: 20px; font-weight: 600" class="srt-blue">
+        Compliance Rate
+        <sup style="font-size: 20px;" 
+            [tooltip]="ComplianceRate" tooltipPlacement="bottom">
+            <i class="fa fa-info-circle info" aria-hidden="true" ></i>
+        </sup>  
+        <tooltip-content #ComplianceRate [animation]="true">
+            <div>Compliance Rate = (Total compliant ICT solicitations / Total ICT solicitations scanned) * 100%</div>
+        </tooltip-content> 
+    </div>  
+
+    <div style="position: relative; ">
+        <div style="position: absolute; top: 79px; width: 100%; text-align: center; font-size: 30px; color: #2C81C0" class="compliance-count">
+            {{percentage}}%
+        </div>
+        <div style="display: block; margin: 0px auto; height: 200px">
+            <canvas baseChart
+                    [data]="doughnutChartData"
+                    [labels]="doughnutChartLabels"
+                    [options]="options"
+                    [colors]="colorsOverride"
+                    [chartType]="doughnutChartType"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)">
+            </canvas>
+        </div>
+    </div>
+  
 
 
-  <div style="display: block; margin: 0px auto; height: 200px">
-    <canvas baseChart
-            [data]="doughnutChartData"
-            [labels]="doughnutChartLabels"
-            [options]="options"
-            [colors]="colorsOverride"
-            [chartType]="doughnutChartType"
-            (chartHover)="chartHovered($event)"
-            (chartClick)="chartClicked($event)"></canvas>
-  </div>
-  <div style="padding: 30px 10px; text-align: center; font-size: 16px; color: #1768d7; font-weight: 500">
-      <span style="font-size: 1.5em; font-weight: 700">{{compliance}}</span> out of 
-      <span style="font-size: 1.5em; font-weight: 700">{{totalICT}}</span> 
-      ICT solicitations scanned by SRT are Section 508 compliant solicitations
-  </div>
+    <div style="padding: 30px 10px; text-align: center; font-size: 16px; color: #1768d7; font-weight: 500">
+        <span style="font-size: 1.5em; font-weight: 700">{{compliance}}</span> out of 
+        <span style="font-size: 1.5em; font-weight: 700">{{totalICT}}</span> 
+        ICT solicitations scanned by SRT are Section 508 compliant solicitations
+    </div>
 </div>

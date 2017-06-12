@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
@@ -13,6 +13,8 @@ import { Solicitation } from '../../../shared/solicitation';
 export class HelpUsImproveComponent implements OnInit {
 
   @Input() solicitation:Solicitation;
+  @Output() update: EventEmitter<string> = new EventEmitter();
+
   constructor(private solicitationService: SolicitationService,
               private route: ActivatedRoute) { }
 
@@ -21,6 +23,7 @@ export class HelpUsImproveComponent implements OnInit {
 
   public ICT:boolean;
   public Prediction:boolean;
+  public feedbackSent:boolean = false;
 
   public q1:boolean;
   public q2:boolean;
@@ -32,6 +35,10 @@ export class HelpUsImproveComponent implements OnInit {
   public q8:number;
 
   ngOnInit() {
+
+    var user = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
+    this.feedbackSent = this.solicitation.history.filter(function(e){return ((e["action"].indexOf('provided feedback on the solicitation prediction result') > -1) && (e["user"].indexOf(user) > -1))}).length > 0;   
+
     // listen for the activated route and use the 'id'  to pull chosen solicitation from mongo
     // this.subscription = this.route.params.subscribe(
     //   (params: any) => {
@@ -71,6 +78,8 @@ export class HelpUsImproveComponent implements OnInit {
       .subscribe(
         msg => {
           console.log(msg);
+          this.feedbackSent = true;
+          this.update.emit();
         },
         err => {
           console.log(err);
