@@ -1,51 +1,72 @@
 
 <div class="col-md-12 nopadding" >
   <!--<legend style="font-weight: 500">Email Solicitation Point of Contact</legend>-->
-  <div class="alert alert-success" *ngIf="emailSent" style="max-width: 1000px; font-weight: 500">
+  <div class="alert alert-success" *ngIf="emailSent" style="font-weight: 500">
         Your email is successfully sent to the designated recipient(s), you will receive an email notification when the solicitation is updated on FedBizOpps.
   </div>
-  <div *ngIf="emailSent"  style="max-width: 1000px; font-weight: 500">
+  <div *ngIf="emailSent"  style="font-weight: 500">
     <a (click)="emailSent = false" style="font-size: 16px; cursor: pointer; float: right">
         Send another email
     </a>
   </div>
 
-  <form [formGroup]="myForm" (ngSubmit)="emailContact()" [ngStyle]="{'display': emailSent ? 'none': 'block'}">
-
-      <div style="max-width: 1000px; font-weight: 500">
-          <div class="form-group">
-              <label for="emailTo">To:</label>
-              <input type="text"
-                      id="emailTo"
-                      class="form-control"
-                      formControlName="emailTo">
-          </div>
-          <div class="form-group">
-              <label for="emailCC">CC:</label>
-              <input type="text"
-                    id="emailCC"
-                    class="form-control"
-                    formControlName="emailCC">
-          </div>
-          <div class="form-group">
-              <label for="subject">Subject:</label>
-              <input type="text"
-                    id="subject"
-                    class="form-control"
-                    formControlName="subject">
-          </div>
-          <div class="form-group" style="padding-bottom: 20px">
-              <label for="message" style="padding-bottom: 10px">Message:</label>
-              <textarea id="maessage"
-                    [froalaEditor]
-                    style="min-height: calc(100vh - 585px)"
-                    rows="10"
-                    cols="100"
-                    class="form-control"
-                    formControlName="message"></textarea>
-        </div>        
-        <button type="submit" class="srt-button">Send Email</button>
-    </div>
-  </form>
   
+    <form [formGroup]="myForm" (ngSubmit)="emailContact()" [ngStyle]="{'display': emailSent ? 'none': 'block'}">
+        <div style="font-weight: 500; display: inline-block; width: calc(100% - 170px); vertical-align: top">
+            <div>
+                <div class="form-group">
+                    <label for="emailTo">To:</label>
+                    <input type="text"
+                            id="emailTo"
+                            class="form-control"
+                            formControlName="emailTo">
+                </div>
+                <div class="form-group">
+                    <label for="emailCC">CC:</label>
+                    <input type="text"
+                            id="emailCC"
+                            class="form-control"
+                            formControlName="emailCC">
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject:</label>
+                    <input type="text"
+                            id="subject"
+                            class="form-control"
+                            formControlName="subject">
+                </div>
+                <div class="form-group" style="padding-bottom: 20px">
+                    <label for="message" style="padding-bottom: 10px">Message:</label>
+                    <!--<textarea id="maessage"
+                            style="min-height: calc(100vh - 585px)"
+                            rows="10"
+                            cols="100"
+                            class="form-control"
+                            formControlName="message"></textarea>-->
+
+                    <quill-editor 
+                        id="maessage"
+                        style="min-height: calc(100vh - 585px)"
+                        formControlName="message"
+                        [options]="editorOptions"></quill-editor>
+
+                    <!--<quill-editor 
+                        id="maessage"
+                        style="min-height: calc(100vh - 585px)"
+                        formControlName="message"
+                        [options]="editorOptions"
+                        (blur)="onEditorBlured($event)"
+                        (focus)="onEditorFocused($event)"
+                        (ready)="onEditorCreated($event)"
+                        (change)="onContentChanged($event)"></quill-editor>-->
+                </div>     
+                   
+            </div>
+        </div>
+        <div style="display: inline-block; width: 150px; vertical-align: top; float: right">
+            <button type="submit" class="srt-button">Send Email</button>
+        </div>
+    </form>
+    
+
 </div>

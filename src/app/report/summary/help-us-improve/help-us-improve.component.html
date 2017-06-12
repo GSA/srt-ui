@@ -1,47 +1,17 @@
-<div class="srt-banner blue" style=" padding-bottom: 40px;">
-    <div class="container">
-        <h1>Help Us Improve</h1>       
-        <p style="padding-bottom: 10px">The SRT Team welcome your Subject Matter Expertise to make our tool better for all. To review scanned solicitation and provide your SME feedback, please follow the steps below:</p> 
-        <div class="row">
-            <div class="col-md-6" style="display: table; margin-bottom: 0px;">
-                <div style="display: table-cell; vertical-align: top; width: 50px;">
-                    <div style="display: table; text-align: center; background-color: #009ed1; height: 35px; width: 35px; border-radius: 50%">
-                        <div style="display: table-cell; vertical-align: middle;">1</div>
-                    </div>
-                </div>
-                <div style="display: table-cell; vertical-align: top"><p>Access fbo.gov to download all solicitation documents</p></div>
-            </div>
-            <div class="col-md-6" style="display: table; margin-bottom: 0px;">
-                <div style="display: table-cell; vertical-align: top; width: 50px;">
-                    <div style="display: table; text-align: center; background-color: #009ed1; height: 35px; width: 35px; border-radius: 50%">
-                        <div style="display: table-cell; vertical-align: middle;">2</div>
-                    </div>
-                </div>
-                <div style="display: table-cell; vertical-align: top"><p>Manually evaluate all documents answering all 8 questions below. Assign only one result to all documents</p></div>
-            </div>
-            <div class="col-md-6" style="display: table; margin-bottom: 0px;">
-                <div style="display: table-cell; vertical-align: top; width: 50px;">
-                    <div style="display: table; text-align: center; background-color: #009ed1; height: 35px; width: 35px; border-radius: 50%">
-                        <div style="display: table-cell; vertical-align: middle;">3</div>
-                    </div>
-                </div>
-                <div style="display: table-cell; vertical-align: top"><p>Provide additional feedback, if needed</p></div>
-            </div>
-            <div class="col-md-6" style="display: table; margin-bottom: 0px;">
-                <div style="display: table-cell; vertical-align: top; width: 50px;">
-                    <div style="display: table; text-align: center; background-color: #009ed1; height: 35px; width: 35px; border-radius: 50%">
-                        <div style="display: table-cell; vertical-align: middle;">4</div>
-                    </div>
-                </div>
-                <div style="display: table-cell; vertical-align: top"><p>Click submit to send out your evaluation to the SRT Team</p></div>
-            </div>
-        </div>
+
+    <div style="font-weight: 600; font-size: 16px; padding: 20px 30px; border: 1px solid #dadada">    
+        <div style="padding-bottom: 10px">The SRT Team welcome your Subject Matter Expertise to make our tool better for all. To review scanned solicitation and provide your SME feedback, please follow the steps below:</div> 
+        
+        <div>1) Access fbo.gov to download all solicitation documents</div>
+        <div>2) Manually evaluate all documents answering all 8 questions below. Assign only one result to all documents</div>
+        <div>3) Provide additional feedback, if needed</div>
+        <div>4) Click submit to send out your evaluation to the SRT Team</div>
+       
     </div>
-</div>
 
 
-    <div class="container" style="font-size: 16px; line-height: 1.5em; font-weight: 500;" *ngIf="solicitation"> 
-        <div style="padding: 40px 0px" class="clearfix">
+    <div style="font-size: 16px; line-height: 1.5em; font-weight: 500; padding: 40px 0px;" *ngIf="solicitation"  class="clearfix"> 
+        <div style=" width: calc(100% - 170px);display: inline-block; vertical-align: top">
             <div style="padding-bottom: 20px;">
                 <div class="srt-section-title" style="text-transform: uppercase; padding-bottom: 20px;">
                     solicitation review result
@@ -222,8 +192,11 @@
             <div style="padding-bottom: 20px;">
                 <textarea class="form-control" style="min-height: 200px"></textarea>
             </div>
-
-            <button type="submit" class="srt-button" (click)="feedback()">Submit</button>
             
         </div>
+
+        
+
+        <button type="submit" class="srt-button" style="width: 170px; display: inline-block; vertical-align: top" (click)="feedback()">Submit</button>
+
     </div>

@@ -40,15 +40,49 @@
 
    <!-- position -->
    <div class="form-group">
-      <label for="position">Position
-          <span style="color: #BE3430; padding-left: 5px;"><sup>*</sup></span>
-          <span style="color: #BE3430; font-weight: bold; float: right" *ngIf="errorMessage && (myForm.value.position == null || myForm.value.position == '')">Please fill in requred field</span>
-      </label>
+        <label for="position">Position
+            <span style="color: #BE3430; padding-left: 5px;"><sup>*</sup></span>
+            <span style="color: #BE3430; font-weight: bold; float: right" *ngIf="errorMessage && (myForm.value.position == null || myForm.value.position == '')">Please fill in requred field</span>
+        </label>
+        <div class="dropdown">
+            <div class="form-control dropdown-toggle" 
+                id="dropdownMenuButton" 
+                data-toggle="dropdown" 
+                aria-haspopup="true" 
+                aria-expanded="false"
+                style="cursor: pointer"
+                [ngClass]="{'error-form': errorMessage && selectedPosition == 'Position'}">{{selectedPosition}}</div>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%" >
+                <div class="dropdown-item" style="cursor: pointer; padding: 6px 12px" 
+                    (click)="onChangePosition('Section 508 Coordinator')" 
+                    [ngClass]="{'active' : selectedPosition == 'Section 508 Coordinator'}">Section 508 Coordinator</div>
+                <div class="dropdown-item" style="cursor: pointer; padding: 6px 12px" 
+                    (click)="onChangePosition('Contracting Officer')" 
+                    [ngClass]="{'active' : selectedPosition == 'Contracting Officer'}">Contracting Officer</div>
+                <div class="dropdown-item" style="cursor: pointer; padding: 6px 12px"
+                    (click)="onChangePosition('Contracting Officer Representative')"
+                    [ngClass]="{'active' : selectedPosition == 'Contracting Officer Representative'}">Contracting Officer Representative</div>
+                <div class="dropdown-item" style="cursor: pointer; padding: 6px 12px"
+                    (click)="onChangePosition('Program Manager')" 
+                    [ngClass]="{'active' : selectedPosition == 'Program Manager'}">Program Manager</div>
+            </div>
+        </div>
+        <!--<div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown button
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+        </div>-->
+<!--
       <input type="text"
              id="position"
-             class="form-control"
-             [ngClass]="{'error-form': errorMessage && (myForm.value.position == null || myForm.value.position == '')}"
-             formControlName="position">
+             style="display: none";
+             class="form-control"             
+             formControlName="position">-->
     </div>
 
     <!-- email -->

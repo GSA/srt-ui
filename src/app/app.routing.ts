@@ -29,7 +29,7 @@ const APP_ROUTES: Routes = [
   {path: 'feedback', component: SolicitationReviewComponent},
   {path: 'faq', component: FaqComponent},
   {path: 'contactus', component: ContactUsComponent},
-  {path: 'solicitation-feedback/:id', component: HelpUsImproveComponent},
+  //{path: 'solicitation-feedback/:id', component: HelpUsImproveComponent},
 ];
 
 export const routing = RouterModule.forRoot(APP_ROUTES);

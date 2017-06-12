@@ -5,12 +5,12 @@
         <div style="font-size: 24px; padding-bottom: 15px;">{{solicitation.title}}</div>
         <div style="padding-bottom: 5px"><a target="_blank" href="{{solicitation.url}}" (click)="ReviewSolicitation()">{{solicitation.url}}</a></div>
         <div style="padding-bottom: 5px">
-            <span style="font-weight:300">Results:&nbsp;</span>
+            <span style="font-weight:600">Results:&nbsp;</span>
             <span style="font-weight:500">This solicitation may not contain sufficient Section 508 requirements.</span> 
         </div>              
     </div>
-    <div style="display: inline-block; vertical-align: top; float: right">
-        <div (click)="EmailPoc()" class="srt-button">
+    <div style="display: inline-block;vertical-align: top; float: right">
+        <div (click)="EmailPoc()" class="srt-button" style="width: 150px; ">
             <div>
                 Email PoC
             </div>
@@ -53,12 +53,12 @@
                 <div class="list-content">{{solicitation.eitLikelihood.value}}</div>
             </div>
 
-            <div class="list">
+            <div class="list" *ngIf="solicitation.numDocs != '0'">
                 <div class="list-title">Total Documents Scanned:&nbsp;</div>
                 <div class="list-content">{{solicitation.numDocs}}</div>
             </div>
 
-            <div class="list">
+            <div class="list" *ngIf="solicitation.parseStatus.length != '0'">
                 <div class="list-title" style="width: 100%">Machine Readable (Yes/No):
                     <sup [tooltip]="Machine" tooltipPlacement="right">
                         <i class="fa fa-info-circle" aria-hidden="true"></i>

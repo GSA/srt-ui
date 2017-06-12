@@ -29,7 +29,7 @@ export class SummaryComponent implements OnInit {
 
   public step1:Boolean = false;
   public step2:Boolean = false;
-  public step4:Boolean = false;
+  public step3:Boolean = false;
 
   ngOnInit() {
 
@@ -49,36 +49,52 @@ export class SummaryComponent implements OnInit {
 
               this.step1 = solicitation.history.filter(function(e){return e["action"].indexOf('reviewed solicitation action requested summary') > -1}).length > 0
               this.step2 = solicitation.history.filter(function(e){return e["action"].indexOf('sent email to POC') > -1}).length > 0
-              this.step4 = solicitation.history.filter(function(e){return e["action"].indexOf('provided feedback on the solicitation prediction result') > -1}).length > 0
+              this.step3 = solicitation.history.filter(function(e){return e["action"].indexOf('provided feedback on the solicitation prediction result') > -1}).length > 0
               
               this.solicitation = solicitation;
               this.emailTo = "srttestuser@gmail.com";    
               this.emailCC = localStorage.getItem("email");        
               this.subject = "Section 508 Requirements Assessment of " + this.solicitation.solNum + ", reviewed on " + now;              
               this.emailBody = 
-                              "<div>Solicitation Title: " + this.solicitation.title  + "</div>" + 
-                              "<div style='padding-bottom: 20px;'>Link: " + "<a href=" + this.solicitation.url + ">" + this.solicitation.url + "</a></div>" +
-                              "<div style='padding-bottom: 15px;'>Dear Acquisition Professional:</div>" + 
-                              "<div style='padding-bottom: 15px;'>You are receiving this letter as the point of contact for the solicitation referenced above.</div>" +      
+                    "<p>Solicitation Title: " + this.solicitation.title  + "</p>" + 
+                    "<p>Link: " + "<a href=" + this.solicitation.url + ">" + this.solicitation.url + "</a></p>" +
+                    "<p>&nbsp;</p>" +
 
-                              "<div style='padding-bottom: 15px;'>Your solicitation appears to be related to Information and Communication Technology (ICT) deliverables as " + 
-                              "defined by the Access Board in the Section 508 Standard. The GSA Solicitation Review Tool (SRT) has flagged " + 
-                              "your solicitation because it <i style='text-decoration: underline;'><b>does not appear to be in compliance with Section 508</b></i>. Section 508 of the " +
-                              "Rehabilitation Act requires that any ICT that is developed, procured, maintained, or used by the Federal " + 
-                              "government conform to the Section 508 Standards.  This means that Section 508 technical criteria MUST be " +
-                              "included in the requirements document in order to inform the vendor of the Section 508 deliverables to meet the " +
-                              "contractual requirements. Please find the SRT’s solicitation assessment results attached. They may also be " +
-                              "accessed at “Solicitation Review Result Summary”. </div>" + 
+                    "<p>Dear Acquisition Professional:</p>" + 
+                    "<p>&nbsp;</p>" +
 
-                              "<div style='padding-bottom: 15px;'>To assist your efforts in addressing Section 508, please refer to the <a href='https://section508.gov/content/guidance'>Section 508 Guidelines</a>. GSA also provides free tools and resources. <a href='https://www.section508.gov/content/buy'>The BuyAccessible Tool</a> is a web-based tool that guides users through the process of gathering Section 508 requirements for ICT procurements  and provides documentation of due diligence.</div>" + 
-                              "<div style='padding-bottom: 15px;'>For additional assistance with Section 508 requirements or concerns about the assessment of this solicitation, please reach out to the Section 508 Coordinator copied on this email or contact us at <a href='mailto:section.508@gsa.gov'>section.508@gsa.gov</a>.</div>" +                                                
-                              "<div style='padding-bottom: 20px;'>Sincerely</div>" + 
-                              "<div>" +
-                              localStorage.getItem("firstName") + " " + 
-                              localStorage.getItem("lastName") + "</div>" +
-                              "<div>" + 
-                              // localStorage.getItem("position") + "," + 
-                              localStorage.getItem("agency") +"</div>" 
+                    "<p>You are receiving this letter as the point of contact for the solicitation referenced above.</p>" +     
+
+                    "<p>Your solicitation appears to be related to Information and Communication Technology (ICT) deliverables as " + 
+                    "defined by the Access Board in the Section 508 Standard. The GSA Solicitation Review Tool (SRT) has flagged " + 
+                    "your solicitation because it <i style='text-decoration: underline;'><b>does not appear to be in compliance with Section 508</b></i>. Section 508 of the " +
+                    "Rehabilitation Act requires that any ICT that is developed, procured, maintained, or used by the Federal " + 
+                    "government conform to the Section 508 Standards.  This means that Section 508 technical criteria MUST be " +
+                    "included in the requirements document in order to inform the vendor of the Section 508 deliverables to meet the " +
+                    "contractual requirements. Please find the SRT’s solicitation assessment results attached. They may also be " +
+                    "accessed at “Solicitation Review Result Summary”. </p>" + 
+                    "<p>&nbsp;</p>" +
+
+                    "<p>To assist your efforts in addressing Section 508, please refer to the " + 
+                    "<a href='https://section508.gov/content/guidance'>Section 508 Guidelines</a>. GSA also provides free tools and resources. " + 
+                    "<a href='https://www.section508.gov/content/buy'>The BuyAccessible Tool</a> is a web-based tool that guides users through the " + 
+                    "process of gathering Section 508 requirements for ICT procurements  and provides documentation of due diligence.</p>" + 
+                    "<p>&nbsp;</p>" +
+
+                    "<p>For additional assistance with Section 508 requirements or concerns about the assessment of this solicitation, " + 
+                    "please reach out to the Section 508 Coordinator copied on this email or contact us at <a href='mailto:section.508@gsa.gov'>section.508@gsa.gov</a>.</p>" +
+                    "<p>&nbsp;</p>" +
+
+                    "<p>Sincerely</p>" + 
+                    "<p>&nbsp;</p>" +
+
+                    "<p>" +
+                    localStorage.getItem("firstName") + " " + 
+                    localStorage.getItem("lastName") + "</p>" +
+
+                    "<p>" + 
+                    // localStorage.getItem("position") + "," + 
+                    localStorage.getItem("agency") +"</p>" 
                             
             },
             err => {

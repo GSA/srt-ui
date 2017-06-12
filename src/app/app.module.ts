@@ -43,7 +43,8 @@ import { PasswordComponent } from './password/password.component';
 import {TooltipModule} from "ng2-tooltip";
 
 // HTML editor
-import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
+//import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
+import { QuillEditorModule } from 'ngx-quill-editor';
 // Auto Complete
 import { Ng2CompleterModule } from "ng2-completer";
 import { TopSrtActionsComponent } from './analytics/top-srt-actions/top-srt-actions.component';
@@ -51,6 +52,7 @@ import { TopAgenciesComponent } from './analytics/top-agencies/top-agencies.comp
 import { ScannedSolicitationComponent } from './analytics/scanned-solicitation/scanned-solicitation.component';
 import { ComplianceRateComponent } from './analytics/compliance-rate/compliance-rate.component';
 import { ConversionRateComponent } from './analytics/conversion-rate/conversion-rate.component';
+import { UserLoginComponent } from './analytics/user-login/user-login.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +84,7 @@ import { ConversionRateComponent } from './analytics/conversion-rate/conversion-
     ScannedSolicitationComponent,
     ComplianceRateComponent,
     ConversionRateComponent,
+    UserLoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,9 +99,10 @@ import { ConversionRateComponent } from './analytics/conversion-rate/conversion-
     DropdownModule,
     ChartsModule,
     TooltipModule,
-    FroalaEditorModule.forRoot(), 
-    FroalaViewModule.forRoot(),
-    Ng2CompleterModule
+    // FroalaEditorModule.forRoot(), 
+    // FroalaViewModule.forRoot(),
+    Ng2CompleterModule,
+    QuillEditorModule
   ],
   providers: [
     SolicitationService,

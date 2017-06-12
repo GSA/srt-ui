@@ -17,6 +17,10 @@ label {
     width: 65px;
 }
 
+.ql-toolbar.ql-snow {
+    display: none !important;
+}
+
 /*.fr-toolbar.fr-desktop.fr-top.fr-basic.fr-sticky-off {
     display: none !important
 }*/

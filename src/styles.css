@@ -224,11 +224,11 @@ button.srt-button {
 }
 
 .completer-selected-row {
-    background-color: #337ab7 !important;
-    color: #ffffff !important;
+    background-color: #f1f1f1 !important;
+    color: #0071bc !important;
+    font-weight: 700 !important;
 }
 
 .match {
     color: #BE3430 !important;
-    font-weight: 500;
 }

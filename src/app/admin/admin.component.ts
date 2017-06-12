@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  public displayTab:number = 0;
+  public displayTab:number = 1;
   
   constructor() { }
 

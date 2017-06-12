@@ -26,7 +26,7 @@ export class UserregistrationComponent implements OnInit {
     public searchStr: string;
     public placeholder = "Click and begin typing to initiate search...";
     public textSearching = "Searhing for agency...";
-
+    public selectedPosition = "Click to select your position";
     protected dataService: CompleterData;
     
     constructor(
@@ -38,7 +38,7 @@ export class UserregistrationComponent implements OnInit {
     // sets up data template for  registration form
     ngOnInit() {
         this.myForm = new FormGroup({
-            position: new FormControl(null, Validators.required),
+            //position: new FormControl(null, Validators.required),
             firstName: new FormControl(null, Validators.required),
             lastName: new FormControl(null, Validators.required),
             email: new FormControl(null, Validators.required),
@@ -62,11 +62,10 @@ export class UserregistrationComponent implements OnInit {
     }
     // requests user account for SRT
     onSubmit() {
-
         const user = new User(
             this.myForm.value.email,
             this.myForm.value.password,
-            this.myForm.value.position,
+            this.selectedPosition,
             this.myForm.value.firstName,
             this.myForm.value.lastName,
             this.myForm.value.agency
@@ -74,7 +73,7 @@ export class UserregistrationComponent implements OnInit {
 
         if (this.myForm.value.email == null ||
             this.myForm.value.password == null ||
-            this.myForm.value.position == null ||
+            this.selectedPosition == "Position" ||
             this.myForm.value.firstName == null ||
             this.myForm.value.lastName == null ||
             this.myForm.value.agency == null)
@@ -98,5 +97,10 @@ export class UserregistrationComponent implements OnInit {
 
       open() {
         debugger
+      }
+
+      onChangePosition(position) {
+          this.selectedPosition = position;
+          //this.myForm.value.position
       }
 }

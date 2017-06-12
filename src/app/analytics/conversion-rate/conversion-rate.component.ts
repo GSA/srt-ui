@@ -17,7 +17,7 @@ export class ConversionRateComponent implements OnInit {
   @Input() nonCompliantICT;
   public canvas;
   public ctx;   
-  public updatedCompliant:any = 3;
+  public updatedCompliant:any = 0;
   public TotalNonCompliant:any = 0;
    
 
@@ -52,7 +52,7 @@ export class ConversionRateComponent implements OnInit {
       this.ctx.textBaseline = "middle";
       this.ctx.fillStyle = "#2C81C0";
       this.ctx.textAlign = "center";
-      var text = Math.round(this.updatedCompliant / this.TotalNonCompliant * 100) + "%";
+      var text =  this.TotalNonCompliant == 0 ? "0%" : Math.round(this.updatedCompliant / this.TotalNonCompliant * 100) + "%";
       this.ctx.fillText(text, this.canvas.width/2, this.canvas.height /2);      
   }
 

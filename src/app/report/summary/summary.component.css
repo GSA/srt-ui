@@ -43,9 +43,48 @@ ul.summary-steps {
     padding: 0px;
     font-size: 16px;
     margin: 0px;
-    font-weight: 500;
 }
 
 ul.summary-steps li {
     list-style: none;
 }
+
+
+
+.srt-tabs {
+    border-top: 1px solid #f7f7f7; 
+    border-bottom: 1px solid #f7f7f7;
+    background-color: #00336f;
+}
+
+.srt-tabs li {
+    list-style: none;
+    border-left: 1px solid #f7f7f7;
+    text-align: center;
+    float: left;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+.srt-tabs li a {
+    color: #f7f7f7;
+}
+
+.srt-tabs li a:hover {
+    text-decoration: none;
+}
+
+.srt-tabs li.active {
+    background-color: #f7f7f7
+}
+
+.srt-tabs li.active a {
+    color: #00336f;
+    font-weight: 700;
+}
+
+.srt-tabs li:last-child {
+    border-right: 1px solid #f7f7f7;
+}
+

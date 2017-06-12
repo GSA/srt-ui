@@ -14,3 +14,14 @@
     border: 2px solid #BE3430 !important;
     border-radius: 0px;
 }
+
+/*.dropdown-item.active {
+    font-weight: 700;
+    color: #0071bc;
+}*/
+
+.dropdown-item:hover {
+    background-color: #f1f1f1;
+    color: #0071bc;
+    font-weight: 700;
+}

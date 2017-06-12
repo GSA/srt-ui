@@ -108,6 +108,6 @@ export class ComplianceRateComponent implements OnInit {
 
   @ViewChild(BaseChartDirective) private baseChart; 
 
-    
+
 
 }

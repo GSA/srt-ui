@@ -5,7 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { SolicitationService } from '../../../solicitation.service';
 import { Solicitation } from '../../../shared/solicitation';
-import { Email } from './email';
+import { Email } from './email';  
 
 
 @Component({
@@ -18,18 +18,22 @@ export class EmailPocComponent implements OnInit {
   @Input() emailCC: String;
   @Input() subject: String;
   @Input() emailBody: String;
+  @Input() solicitation: Solicitation;
   @Output() update: EventEmitter<string> = new EventEmitter();
+  @Output() displayType:EventEmitter<string> = new EventEmitter();
   myForm: FormGroup;
-  solicitation: Solicitation;
+  //solicitation: Solicitation;
   private subscription: Subscription;
   private solicitationIndex: String;
   public emailSent = false;
+  public helpUsImproveType = "2";
   constructor(private solicitationService: SolicitationService,
               private route: ActivatedRoute
 ) { }
 
   ngOnInit() {
-    
+   
+
     this.emailCC = localStorage.getItem("email");
     this.myForm = new FormGroup({
       emailTo: new FormControl("srttestuser@gmail.com", Validators.required),
@@ -37,23 +41,28 @@ export class EmailPocComponent implements OnInit {
       subject: new FormControl(this.subject, Validators.required),
       message: new FormControl(this.emailBody, Validators.required)
     });
+
+    var user = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
+    this.emailSent = this.solicitation.history.filter(function(e){return ((e["action"].indexOf('sent email to POC') > -1) && (e["user"].indexOf(user) > -1))}).length > 0;    
+
+
     // listen for the activated route and use the 'id'  to pull chosen solicitation from mongo
-    this.subscription = this.route.params.subscribe(
-      (params: any) => {
-        this.solicitationIndex = params['id'];
-        // pull chosen solicitation from mongo
-        this.solicitationService.getSolicitation(this.solicitationIndex)
-          .subscribe(
-            solicitation => {
-              this.solicitation = solicitation;
-              // check if current user has sent email already 
-              var user = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
-              this.emailSent = solicitation.history.filter(function(e){return ((e["action"].indexOf('sent email to POC') > -1) && (e["user"].indexOf(user) > -1))}).length > 0;              
-            },
-            err => {
-              console.log(err);
-            });
-        });
+    // this.subscription = this.route.params.subscribe(
+    //   (params: any) => {
+    //     this.solicitationIndex = params['id'];
+    //     // pull chosen solicitation from mongo
+    //     this.solicitationService.getSolicitation(this.solicitationIndex)
+    //       .subscribe(
+    //         solicitation => {
+    //           this.solicitation = solicitation;
+    //           // check if current user has sent email already 
+    //           var user = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
+    //           this.emailSent = solicitation.history.filter(function(e){return ((e["action"].indexOf('sent email to POC') > -1) && (e["user"].indexOf(user) > -1))}).length > 0;              
+    //         },
+    //         err => {
+    //           console.log(err);
+    //         });
+    //     });
 
   }
 
@@ -76,6 +85,7 @@ emailContact() {
           console.log(msg);
           this.emailSent = true;
           this.update.emit();
+          this.displayType.emit(this.helpUsImproveType);
         },
         err => {
           console.log(err);
@@ -90,5 +100,34 @@ emailContact() {
           console.log(err);
         });
   }
+
+
+  public editor;
+  public editorContent = `<h3>I am Example content</h3>`;
+  public editorOptions = {
+      placeholder: "insert content...",
+      modules: {
+        toolbar: false
+      }, 
+  };
+
+  // onEditorBlured(quill) {
+  //   console.log('editor blur!', quill);
+  // }
+
+  // onEditorFocused(quill) {
+  //   console.log('editor focus!', quill);
+  // }
+
+  // onEditorCreated(quill) {
+  //   this.editor = quill;
+  //   console.log('quill is ready! this is current quill instance object', quill);
+  // }
+
+  // onContentChanged({ quill, html, text }) {
+  //   console.log('quill content is changed!', quill, html, text);
+  // }
+
+
 
 }

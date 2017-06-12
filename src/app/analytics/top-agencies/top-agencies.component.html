@@ -124,7 +124,9 @@ Non-Compliant Solicitations: {{(num[3] - num[2])}}">
         </div>
         <table style="width: 100%; ">
             <tbody>
-                <tr *ngFor="let num of barData | slice:indexFrom:indexTo " style="width: 100%;">
+                <tr *ngFor="let num of barData | slice:indexFrom:indexTo " style="width: 100%;" title="Total: {{num[3]}} 
+Compliant Solicitations: {{num[2]}}
+Non-Compliant Solicitations: {{(num[3] - num[2])}}">
                     <td style="border-right:1px solid #4a4a4a; padding-right: 20px; width: 40px; height: 30px; font-weight: 500">{{GetAbbr(num[0])}}&nbsp;&nbsp;&nbsp;</td>
                     <td style="vertical-align: middle">
                      
