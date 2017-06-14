@@ -11,14 +11,17 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr *ngFor="let user of users; let even = even; let odd = odd"  [ngClass]="{ odd: odd, even: even }">
+            <td>{{user.firstName}} {{user.lastName}}</td>
+            <td>{{user.position}} </td>
+            <td>{{user.agency}}</td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{user.email}}</td>
+            <td>{{user.creationDate}}</td>
+            <td>
+                <span style="color: #0a831e; cursor: pointer" (click)="Approve(user)">Approve</span>&nbsp;&nbsp;&nbsp;
+                <span style="color: #ff0202; cursor: pointer" (click)="Reject(user)">Deny</span>
+            </td>
         </tr>
     </tbody>
 </table>

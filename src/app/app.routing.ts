@@ -18,7 +18,7 @@ import { PasswordComponent } from './password/password.component';
 const APP_ROUTES: Routes = [
   {path: '', redirectTo: 'auth', pathMatch: 'full'},
   {path: 'auth', component: AuthComponent},
-  {path: 'profile', component: ProfileComponent},
+  {path: 'profile/:id', component: ProfileComponent},
   {path: 'password', component: PasswordComponent},
   {path: 'report/:id', component: SummaryComponent},
   {path: 'report', component: SolicitationReportComponent},

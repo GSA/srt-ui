@@ -15,7 +15,7 @@
                         <select id="select" style="height: 32px; padding: 5px 30px 5px 15px; font-size: 16px; border: none; border-bottom: 1px solid #4a4a4a;"
                             (change)="onPeriodChange($event.target.value)"
                             [ngModel]="selectedPeriod">
-                            <option value="All">All</option>
+                            <option value="All" *ngIf="selectedGovernment == 'Government-wide'">All</option>
                             <!--<option value="This Week">This Week</option>-->
                             <option value="This Month">This Month</option>
                             <option value="This Year">This Year</option>
@@ -43,12 +43,21 @@
                         <app-compliance-rate [ICTforDisplay]="ICTforDisplay"></app-compliance-rate>
                     </div>
                     <div class="col-md-6 nopadding">
-                        <app-conversion-rate [ICTforDisplay]="ICTforDisplay" [nonCompliantICT]="nonCompliantICT"></app-conversion-rate>
+                        <app-conversion-rate 
+                            [ICTforDisplay]="ICTforDisplay" 
+                            [nonCompliantICT]="nonCompliantICT"
+                            [updatedCompliantICT]="updatedCompliantICT"></app-conversion-rate>
                     </div>
                 </div>
 
                 <div class="col-md-6 nopadding">
-                    <app-top-srt-actions [ICTforDisplay]="ICTforDisplay" [nonCompliantICT]="nonCompliantICT"></app-top-srt-actions>
+                    <app-top-srt-actions 
+                        [ICTforDisplay]="ICTforDisplay" 
+                        [nonCompliantICT]="nonCompliantICT"
+                        [updatedICT]="updatedICT"
+                        [updatedCompliantICT]="updatedCompliantICT"
+                        [updatedNonCompliantICT]="updatedNonCompliantICT"
+                        ></app-top-srt-actions>
                 </div>
             </div>
         </div>

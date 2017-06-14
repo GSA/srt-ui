@@ -9,6 +9,7 @@ import * as $ from 'jquery';
 })
 export class FaqComponent implements OnInit {
 
+  public metrix = "{ (1) ∪ { (2) ∩ (3) } }"
   constructor() { }
 
   ngOnInit() {

@@ -40,6 +40,10 @@ body {
     padding-bottom: 20px;
 }
 
+.srt-color {
+    color: #2C81C0;
+}
+
 /* button */
 
 .sticky-button-bottom {
@@ -231,4 +235,39 @@ button.srt-button {
 
 .match {
     color: #BE3430 !important;
+}
+
+
+
+/* dropdown */
+.dropdown-toggle {
+    cursor: pointer;
+}
+
+.srt.dropdown-menu {
+    padding: 0px;
+}
+
+.srt.dropdown-menu .dropdown-item {
+    width: 100%;
+    padding: 5px 15px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 16px;
+    color: #2C81C0;
+}
+
+.srt.dropdown-menu .dropdown-item.remove {  
+    color: #BE3430;
+}
+
+
+.srt.dropdown-menu .dropdown-item:hover {
+    font-weight: 600;
+}
+
+.srt.dropdown-menu .dropdown-divider {
+    height: 1px;
+    background-color: #dadada;
 }

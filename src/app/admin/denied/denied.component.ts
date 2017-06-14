@@ -9,21 +9,52 @@ import { UserService } from '../../user.service';
 })
 export class DeniedComponent implements OnInit {
 
-  filterParams = {}
-  public users: any[];
-  constructor(private user: UserService) { }
+    filterParams = {
+        isAccepted: false,
+        isRejected: true
+    }
+    public users: any[];
+    constructor(private user: UserService) { }
 
-  ngOnInit() {
-      
-      this.user.GetUsers(this.filterParams).subscribe(
-          data => {
-            this.users = data;
-          },
-          error => {          
-            console.log(error)
-          }
-      )
-    
-  }
+    ngOnInit() {
+        this.GetUsers()
+    }
+
+    Approve(user) {      
+        user.isAccepted = true;
+        user.isRejected = false;
+        this.user.UpdateUser(user).subscribe(
+            data => {
+              this.GetUsers()
+            },
+            error => {          
+              console.log(error)
+            }
+        )
+    }
+
+    Reject(user) {      
+        user.isAccepted = false;
+        user.isRejected = true
+        this.user.UpdateUser(user).subscribe(
+            data => {
+              this.GetUsers()
+            },
+            error => {          
+              console.log(error)
+            }
+        )
+    }
+
+    GetUsers() {
+        this.user.GetUsers(this.filterParams).subscribe(
+            data => {
+              this.users = data;
+            },
+            error => {          
+              console.log(error)
+            }
+        )
+    }
 
 }

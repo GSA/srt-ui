@@ -12,8 +12,15 @@ export class TopSrtActionsComponent implements OnInit {
 
   @Input() ICTforDisplay;
   @Input() nonCompliantICT;
+  @Input() updatedICT;
+  @Input() updatedCompliantICT;
+  @Input() updatedNonCompliantICT;
+ 
   public solicitationNumber = 0;
   public nonCompliantICTNumber = 0;
+  public updatedCompliantICTNumber = 0;
+  public updatedNonCompliantICTNumber = 0;
+  public updatedICTNumber = 0;
   public reviewed:number;
   public emailSend: number;
 
@@ -34,6 +41,9 @@ export class TopSrtActionsComponent implements OnInit {
             return (d.history.filter(function(e){return e["action"].indexOf('sent email to POC') > -1}).length > 0)
       });
       this.emailSend = emailSentSolicitation.length;
+      this.updatedICTNumber = this.updatedICT.length;
+      this.updatedCompliantICTNumber = this.updatedCompliantICT.length;
+      this.updatedNonCompliantICTNumber = this.updatedNonCompliantICT.length;
   }
 
 }

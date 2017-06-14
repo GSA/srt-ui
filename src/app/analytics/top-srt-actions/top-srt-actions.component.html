@@ -85,10 +85,10 @@
                       <div>Number of ICT solicitations that have been re-scanned from FedBizOpps.</div>
                   </tooltip-content>   
               </div> 
-              <div style="float: right">0</div> 
+              <div style="float: right">{{updatedICTNumber}}</div> 
           </div>
           <div style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px">
-              <div style="background-color: #2C81C0; height: 8px; width: 0px"></div>
+              <div style="background-color: #2C81C0; height: 8px;" [ngStyle]="{'width': solicitationNumber==0 ? '0px' : updatedICTNumber/solicitationNumber * 100 + '%'}"></div>
           </div>                        
 
           <!-- # Updated Non-compliant Solicitations -->
@@ -102,10 +102,10 @@
                       <div>Number of ICT solicitations that have been re-scanned from FedBizOpps and remained non-compliant on SRT.</div>
                   </tooltip-content>    
               </div> 
-              <div style="float: right">0</div> 
+              <div style="float: right">{{updatedNonCompliantICTNumber}}</div> 
           </div>
           <div style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px">
-              <div style="background-color: #2C81C0; height: 8px; width: 0px"></div>
+              <div style="background-color: #2C81C0; height: 8px;"  [ngStyle]="{'width': solicitationNumber==0 ? '0px' : updatedNonCompliantICTNumber/solicitationNumber * 100 + '%'}"></div>
           </div>                        
 
           <!-- # Updated Compliant Solicitations -->
@@ -119,10 +119,10 @@
                       <div>Number of ICT solicitations that have been re-scanned from FedBizOpps and updated as compliant on SRT.</div>
                   </tooltip-content>      
               </div> 
-              <div style="float: right">0</div> 
+              <div style="float: right">{{updatedCompliantICTNumber}}</div> 
           </div>
           <div class="clearfix" style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px">
-              <div style="background-color: #2C81C0; height: 8px; width: 0px"></div>
+              <div style="background-color: #2C81C0; height: 8px;"  [ngStyle]="{'width': solicitationNumber==0 ? '0px' : updatedCompliantICTNumber/solicitationNumber * 100 + '%'}"></div>
           </div>                        
       </div>
 

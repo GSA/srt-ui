@@ -207,6 +207,10 @@ export class TopAgenciesComponent implements OnInit {
         else if (name == "National Aeronautics and Space Administration") return "NASA";
         else if (name == "Library of Congress") return "LOC";
         else if (name == "Department of the Treasury") return "Treasury";
+        else if (name == "Consumer Financial Protection Bureau") return "CFPB";
+        else if (name == "Department of Education") return "ED";
+        else if (name == "Pension Benefit Guaranty Corporation") return "PBGC";
+        else if (name == "Department of State") return "DOS";
         else if (name == "1" && this.selectedPeriod == "This Year") return "Jan.";
         else if (name == "2" && this.selectedPeriod == "This Year") return "Feb.";
         else if (name == "3" && this.selectedPeriod == "This Year") return "Mar.";

@@ -16,6 +16,7 @@ export class ComplianceRateComponent implements OnInit {
 
     @ViewChild(BaseChartDirective) private baseChart; 
     @Input() ICTforDisplay; 
+
     public canvas;
     public ctx;
     public compliance:any = 0;
@@ -70,29 +71,27 @@ export class ComplianceRateComponent implements OnInit {
 
     ngOnInit() {}
 
-    ngOnChanges() {      
-        if ( this.ICTforDisplay.length > 0)
-        {     
-            this.totalICT = this.ICTforDisplay.length;
-            this.compliance = this.ICTforDisplay.filter(function(e){ return e.predictions.value=="GREEN"}).length;
-            this.nonCompliance = this.totalICT - this.compliance;  
-            this.doughnutChartData = [this.compliance, this.nonCompliance];
-            this.percentage = Math.round(this.compliance / this.totalICT * 100);
+    ngOnChanges() {  
 
-            var CountTo = this.percentage;
-            
-            $('.compliance-count').each(function () {
-                $(this).prop('Counter',0).animate({
-                    Counter: ""+CountTo
-                }, {
-                    duration: 500,
-                    easing: 'swing',
-                    step: function (now) {                                        
-                        $(this).text(Math.ceil(now) + "%");
-                    }
-                });
-            });        
-        }      
+        this.totalICT = this.ICTforDisplay.length;
+        this.compliance = this.ICTforDisplay.filter(function(e){ return e.predictions.value=="GREEN"}).length;
+        this.nonCompliance = this.totalICT - this.compliance;  
+        this.doughnutChartData = [this.compliance, this.nonCompliance];            
+        this.percentage = this.totalICT == 0 ? 0 : Math.round(this.compliance / this.totalICT * 100);
+        var CountTo = this.percentage;
+        
+        $('.compliance-count').each(function () {
+            $(this).prop('Counter',0).animate({
+                Counter: ""+CountTo
+            }, {
+                duration: 500,
+                easing: 'swing',
+                step: function (now) {                                        
+                    $(this).text(Math.ceil(now) + "%");
+                }
+            });
+        });        
+        
     }
 
 

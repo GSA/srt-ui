@@ -14,7 +14,7 @@
                     <li data-toggle="tab" [routerLink]="['/admin']" [ngClass]="{'active': GetHash('admin')}"><a>Manage Access Requests</a></li>
                 <!--    <li data-toggle="tab"><a href="#">Help Us Improve</a></li> -->
                     <li data-toggle="tab" [routerLink]="['/contactus']" [ngClass]="{'active': GetHash('contactus')}"><a>Contact Us</a></li>
-                    <li data-toggle="tab" [routerLink]="['/faq']" [ngClass]="{'active': GetHash('faq')}"><a>FAQ</a></li>
+                    <li data-toggle="tab" [routerLink]="['/faq']" [ngClass]="{'active': GetHash('faq')}"><a>FAQs</a></li>
 
                 </ul>
                 <div class=" gsa_logo">
@@ -34,7 +34,7 @@
                                     aria-expanded="false">Hello, {{firstName}}<span class="caret"></span></a>
 
                         <ul class="dropdown-menu">
-                            <li><a [routerLink]="['/profile']" style="padding: 10px 20px;">Profile</a></li>
+                            <li><a [routerLink]="['/profile', currentID]" style="padding: 10px 20px;">Profile</a></li>
                             <li><a [routerLink]="['/password']" style="padding: 10px 20px;">Password</a></li>
                             <li><button class="dropdown-item" type="button" style="padding: 10px 20px;" (click)="onLogout()">Log Out</button></li>
                       </ul>

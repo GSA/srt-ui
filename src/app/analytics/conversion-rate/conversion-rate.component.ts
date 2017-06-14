@@ -16,9 +16,10 @@ export class ConversionRateComponent implements OnInit {
 
     @Input() ICTforDisplay;
     @Input() nonCompliantICT;
+    @Input() updatedCompliantICT;
     public canvas;
     public ctx;   
-    public updatedCompliant:any = 0;
+    public updatedCompliantICTNumber:any = 0;
     public TotalNonCompliant:any = 0;
     public percentage:Number = 0;  
 
@@ -33,8 +34,9 @@ export class ConversionRateComponent implements OnInit {
 
     ngOnChanges() {
         this.TotalNonCompliant = this.nonCompliantICT.length;
-        this.doughnutChartData = [this.updatedCompliant, this.TotalNonCompliant];
-        this.percentage = this.TotalNonCompliant == 0 ? 0 : Math.round(this.updatedCompliant / this.TotalNonCompliant * 100);
+        this.updatedCompliantICTNumber = this.updatedCompliantICT.length;        
+        this.doughnutChartData = [this.updatedCompliantICTNumber, this.TotalNonCompliant];
+        this.percentage = this.TotalNonCompliant == 0 ? 0 : Math.round(this.updatedCompliantICTNumber / this.TotalNonCompliant * 100);
         var CountTo = this.percentage;        
 
         $('.conversion-count').each(function () {

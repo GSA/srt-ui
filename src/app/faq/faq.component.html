@@ -4,7 +4,7 @@
         <h1>Frequently Asked Questions</h1>
         <!--<div class="srt-section-title">About Solicitation Review Tool</div>       -->
         <p>Solicitation Review Tool (SRT) is an automated predictive analysis application that performs scans of the Federal Business Opportunities /FedBizOpps website and delivers: (1) a report containing all of the new solicitations for the previous day; (2) a report of flagged solicitations that require manual review for specific regulatory requirements and compliance; (3) a web-based portal for agency SMEs to perform manual reviews of flagged solicitations and to communicate with contracting POCs for improvement; and (4) analytics and trending of flagged solicitations overtime by agency and government-wide.</p> 
-        <p>SRT uses natural language processing, text mining, and machine learning algorithms to automatically identify whether a solicitation contains sufficient compliance requirements for a particular use case (e.g. Section 508 Technical Requirements).   Learn more about SRT from the FAQ below. </p> 
+        <p>SRT uses natural language processing, text mining, and machine learning algorithms to automatically identify whether a solicitation contains sufficient compliance requirements for a particular use case (e.g. Section 508 Technical Requirements).   Learn more about SRT from the FAQs below. </p> 
     </div>
 </div>
 
@@ -20,7 +20,7 @@
         <!--<h1 style="margin-bottom: 35px;">Frequently Asked Questions</h1>-->
         <div style="display: table; float: right">
             <div style="display: table-cell; vertical-align: middle">
-                <input id="search" class="search-input" placeholder="Search FAQ" (keyup)="faqSearch()"/>
+                <input id="search" class="search-input" placeholder="Search FAQs" (keyup)="faqSearch()"/>
             </div>
             <div style="display: table-cell; vertical-align: middle; cursor: pointer" (click)="faqSearch()" class="search-button">
                 Search
@@ -89,11 +89,22 @@
                                     </h4>
                                 </div>
                                 <div id="mostView3" class="panel-collapse collapse">
-                                    <div class="panel-body">
+                                    <div class="panel-body">                                        
                                         <a href="https://s3.amazonaws.com/srt.bucket/assets/SRT_DataScience.jpg" target="_blank">
                                             <div style="background-image: url(https://s3.amazonaws.com/srt.bucket/assets/SRT_DataScience.jpg); 
                                             height: 500px; background-repeat: no-repeat; background-size: contain; background-position: center"></div>
                                         </a>
+                                        <br>
+                                        <p>
+                                            A group of accessibility experts created a training model by manually reviewing about 1,000 federal solicitations and marking each as either red or green.  We parsed the training model, calculated the frequencies of all the unique words, and generated a word count table that contains the frequency of each unique words in every red and green solicitation. Around one million words were identified at the stage. <span style="color: rgb(44, 129, 192)">(STEP 1)</span>
+                                        </p>
+                                        <p>
+                                            Using the <b>TF-IDF</b>, we were able to pre-process/normalize the results of word count table in preparation of identifying the controlled vocabulary and building the classification/prediction model.  Term Frequency–Inverse Document Frequency (TF-IDF), is a numerical statistic that is intended to reflect how important a word is to a document as well as in the collection or corpus that the document belongs to.  To generate the controlled vocabulary, which serves as critical indicators in the classification model, we used the three sources.  First, for each unique word extracted from the training data set, moderated t-test, false positive rate (FDR) multiple testing methods, etc. are used to determine the similarities of the frequencies in red versus green solicitations.  Second, we conducted empirical testing among Section 508 regulation documents versus other irrelevant documents, and look for the words with significant higher frequencies in the regulation documents. Third, we compared the unique words and the frequency of the words appeared in all the green solicitations versus the irrelevant documents.  Among the results of all three sources, we run through the metrics: <b>{{metrix}}</b> to get the final controlled vocabulary. <span style="color: rgb(44, 129, 192)">(STEP 2)</span>  
+                                        </p>
+                                        <p>
+                                            Then we built the prediction model by using the selected best-performance classification algorithm from many which were evaluated by cross-validation <span style="color: rgb(44, 129, 192)">(STEP 3)</span>.  The system used the trained prediction model to analyze the solicitation and generate a red or green prediction result for each solicitation posted on fedbizopps.gov <span style="color: rgb(44, 129, 192)">(STEP 4)</span>.  Section 508 Coordinators go into platform to review the results of all solicitations from his or her agency and provide feedback on the prediction result for the specific solicitation based on his or her manual review. The feedback will become a new training data set to improve the prediction results.  <span style="color: rgb(44, 129, 192)">(STEP 5 & 6)</span>               
+                                        </p>
+
                                     </div>
                                 </div>
                             </div>
@@ -392,6 +403,16 @@
                                             <div style="background-image: url(https://s3.amazonaws.com/srt.bucket/assets/SRT_DataScience.jpg); 
                                             height: 500px; background-repeat: no-repeat; background-size: contain; background-position: center"></div>
                                         </a>
+                                        <br>
+                                        <p>
+                                            A group of accessibility experts created a training model by manually reviewing about 1,000 federal solicitations and marking each as either red or green.  We parsed the training model, calculated the frequencies of all the unique words, and generated a word count table that contains the frequency of each unique words in every red and green solicitation. Around one million words were identified at the stage. <span style="color: rgb(44, 129, 192)">(STEP 1)</span>
+                                        </p>
+                                        <p>
+                                            Using the <b>TF-IDF</b>, we were able to pre-process/normalize the results of word count table in preparation of identifying the controlled vocabulary and building the classification/prediction model.  Term Frequency–Inverse Document Frequency (TF-IDF), is a numerical statistic that is intended to reflect how important a word is to a document as well as in the collection or corpus that the document belongs to.  To generate the controlled vocabulary, which serves as critical indicators in the classification model, we used the three sources.  First, for each unique word extracted from the training data set, moderated t-test, false positive rate (FDR) multiple testing methods, etc. are used to determine the similarities of the frequencies in red versus green solicitations.  Second, we conducted empirical testing among Section 508 regulation documents versus other irrelevant documents, and look for the words with significant higher frequencies in the regulation documents. Third, we compared the unique words and the frequency of the words appeared in all the green solicitations versus the irrelevant documents.  Among the results of all three sources, we run through the metrics: <b>{{metrix}}</b> to get the final controlled vocabulary. <span style="color: rgb(44, 129, 192)">(STEP 2)</span>  
+                                        </p>
+                                        <p>
+                                            Then we built the prediction model by using the selected best-performance classification algorithm from many which were evaluated by cross-validation <span style="color: rgb(44, 129, 192)">(STEP 3)</span>.  The system used the trained prediction model to analyze the solicitation and generate a red or green prediction result for each solicitation posted on fedbizopps.gov <span style="color: rgb(44, 129, 192)">(STEP 4)</span>.  Section 508 Coordinators go into platform to review the results of all solicitations from his or her agency and provide feedback on the prediction result for the specific solicitation based on his or her manual review. The feedback will become a new training data set to improve the prediction results.  <span style="color: rgb(44, 129, 192)">(STEP 5 & 6)</span>               
+                                        </p>
                                     </div>
                                 </div>
                             </div>

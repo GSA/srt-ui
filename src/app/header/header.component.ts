@@ -18,7 +18,7 @@ import { UserService } from '../user.service';
 export class HeaderComponent implements OnInit {
   // firstName is displayed in the welcome message on the navbar
   private firstName = "";
-
+  public currentID = "";
 // UserService propogates the firstName and agency to peer components
   constructor(private authService: AuthService,
               private router: Router,
@@ -30,7 +30,8 @@ export class HeaderComponent implements OnInit {
       }
   }
 
-  ngOnInit() {
+  ngOnInit() {    
+      this.currentID = localStorage.getItem("id");    
   }
 
 // clear user information and remove jwt

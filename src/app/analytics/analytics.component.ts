@@ -38,8 +38,13 @@ export class AnalyticsComponent implements OnInit {
     public isGovernomentWide = true;
     public noData = true;    
 
+    // data
     public nonCompliantICT = [];
     public compliantICT = [];
+    public updatedICT = [];
+    public updatedNonCompliantICT = [];
+    public updatedCompliantICT = [];
+
     // doughnut
     // solicitationType = {};   
     // public doughnutChartLabels:string[] = [];
@@ -135,10 +140,12 @@ export class AnalyticsComponent implements OnInit {
             case "This Year":
                 this.formPeriod = new Date(new Date().getFullYear(), 0, 1);
                 this.toPeriod = new Date(new Date().getFullYear(), 11, 31);
+                this.xAxis = "Month";
                 break;
             case "This Month":
                 this.formPeriod = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
                 this.toPeriod = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
+                this.xAxis = "Date";
                 break;
             case "This Week":
                 var curr = new Date; // get current date
@@ -152,6 +159,9 @@ export class AnalyticsComponent implements OnInit {
                 this.toPeriod = new Date(2100,0,1);
                 break;
         }
+
+        if (this.selectedGovernment == "Government-wide") this.xAxis = "Agency";
+
         
         this.GetTotalData();        
     }
@@ -204,10 +214,14 @@ export class AnalyticsComponent implements OnInit {
                         }                   
                     }          
                 } 
-                this.ICTforDisplay = filteredData;                
-                this.nonCompliantICT = this.ICTforDisplay.filter( d => d.predictions.value=="RED");
+                this.ICTforDisplay = filteredData;    
+                
+                this.updatedICT = this.ICTforDisplay.filter(d => d.history.filter(function(e){return e["action"].indexOf('Solicitation Updated on FBO.gov') > -1 }).length > 0)
+                this.nonCompliantICT = this.ICTforDisplay.filter( d => d.predictions.value=="RED");     
                 this.compliantICT = this.ICTforDisplay.filter( d => d.predictions.value=="GREEN");
-
+                this.updatedNonCompliantICT = this.nonCompliantICT.filter(d => d.history.filter(function(e){return e["action"].indexOf('Solicitation Updated on FBO.gov') > -1 }).length > 0)
+                this.updatedCompliantICT = this.compliantICT.filter(d => d.history.filter(function(e){return e["action"].indexOf('Solicitation Updated on FBO.gov') > -1 }).length > 0)
+                
                 this.noData = Object.keys(this.ICTforDisplay).length == 0;
             },
             err => {
@@ -217,7 +231,7 @@ export class AnalyticsComponent implements OnInit {
 
     // Analytic get data
     ngOnInit() {    
-        this.GetTotalData();        
+        this.GetTotalData();     
     }    
       
     

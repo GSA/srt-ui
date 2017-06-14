@@ -19,7 +19,7 @@ export class SolicitationService {
   private ICTUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/ICT';
   private solicitationsFilterUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/predictions/filter';
   private solicitationUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/solicitation/';
-  emailUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/email/';
+  private emailUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/email/';
 
   //  private solicitationsUrl = 'http://localhost:3000/predictions';
   //  private ICTUrl = 'http://localhost:3000/ICT';   

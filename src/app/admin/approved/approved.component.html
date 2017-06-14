@@ -7,18 +7,35 @@
             <th>Office</th>
             <th>Email</th>
             <th>Request Date/Time</th>
-            <th>Action</th>
+            <th>Security Access</th>
+            <th>&nbsp;</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let user of users; let even = even; let odd = odd"  [ngClass]="{ odd: odd, even: even }">
             <td>{{user.firstName}} {{user.lastName}}</td>
-            <td></td>
+            <td>{{user.position}}</td>
             <td>{{user.agency}}</td>
             <td></td>
             <td>{{user.email}}</td>
-            <td></td>
-            <td></td>
+            <td>{{user.creationDate}}</td>
+            <td>
+                <!--{{user._id}}-->
+                <!--<span style="color: #0a831e; cursor: pointer" (click)="Approve(user)">Approve</span>&nbsp;&nbsp;&nbsp;
+                <span style="color: #ff0202; cursor: pointer" (click)="Reject(user)">Deny</span>-->
+            </td>
+            <td>
+                <div class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                    </a>
+                    <div class="srt dropdown-menu" style="right: 0px; left: auto">
+                        <div class="dropdown-item"[routerLink]="['/profile', user._id]">Edit</div>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-item remove" (click)="Remove(user)">Remove</div>
+                    </div>
+                </div>         
+            </td>
         </tr>
     </tbody>
 </table>

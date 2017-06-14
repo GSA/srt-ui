@@ -32,12 +32,15 @@ export class UserloginComponent implements OnInit {
     this.authService.login(user)
       .subscribe(
         data => { 
+          debugger
           localStorage.setItem('token', data.token);       
           localStorage.setItem('firstName', data.firstName);
           localStorage.setItem('lastName', data.lastName);
           localStorage.setItem('agency', data.agency); // ToDo: clean this up and use user service
           localStorage.setItem('email', data.email);
           localStorage.setItem('position', data.position);
+          localStorage.setItem('id', data.id);
+          
           var currentUser = new Currentuser(data.firstName, data.lastName, data.agency, data.email, data.position);
           this.user.saveUser(currentUser);
           this.router.navigateByUrl('srt');
