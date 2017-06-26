@@ -44,15 +44,31 @@
                     </div>
                 </div>
 
-
+                <ul *ngFor="let survey of surveys; let i = index" style="padding: 0px;">
+                    <li style="list-style: none;">Q{{i+1}}. {{survey.Question}} <span style="color: #899197">{{survey.Note}}</span>  <span *ngIf="survey.Type=='scale'" ><input class="input-percentage" [ngModel]="surveyModel[i]" (ngModelChange)="inputPercent(survey, $event)" />%</span>
+                        <ul style="padding: 5px 0px 0px 0px;">                            
+                            <li *ngFor="let choice of survey.Choices; let c=index" style="list-style: none; padding: 0px 15px;" 
+                                [ngStyle]="{'display': survey.Type=='multiple choice' ? 'inline-block' : 'block'}">
+                                <input id="{{survey.ID}}{{choice}}" style="display: none;" [ngModel]="surveyModel[i]==survey.Choices[c]" (ngModelChange)="checkBox(survey, choice, $event)" type="checkbox" value="{{choice}}"/>
+                                <label for="{{survey.ID}}{{choice}}">{{choice}} 
+                                    <span *ngIf='survey.ChoicesNote.length > 0' style="color: #899197">({{survey.ChoicesNote[c]}})</span>
+                                </label> 
+                            </li>  
+                            <li *ngIf="survey.Type=='essay'" style="list-style: none; padding: 0px 15px;">
+                                <textarea class="form-control" 
+                                [ngModel]="surveyModel[i]" 
+                                (ngModelChange)="textarea(survey, $event)"
+                                [ngStyle]="{'min-height':survey.Question == 'Additional feedback:' ? '150px' : 'auto' }"> </textarea>   
+                            </li>         
+                                            
+                        </ul>                        
+                    </li>
+                </ul>            
+<!--
                 <div style="padding-bottom: 20px; ">
                     <div class="srt-section-title" style="text-transform: uppercase; padding-bottom: 20px;">
                         Section 508 Subject Matter Expert Review Result
                     </div>
-                    <!--<div class="list">
-                        <div class="list-title">Solicitation ID:&nbsp;</div>
-                        <div class="list-content">{{solicitation._id}}</div>
-                    </div>-->
 
                     <div style="display: table; width: 500px;">               
                         <div style="display: table-row">
@@ -194,15 +210,7 @@
                         
                         </div>
                     </div>
-                </div>
-
-                <div style="font-weight: 700; padding: 20px 0px 5px 0px; width: 100%;">
-                    Additional Feedback:
-                </div>
-                <div style="padding-bottom: 20px;">
-                    <textarea class="form-control" style="min-height: 200px"></textarea>
-                </div>
-                
+                </div>-->
             </div>
 
             

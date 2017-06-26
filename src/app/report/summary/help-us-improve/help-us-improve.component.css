@@ -66,3 +66,8 @@ input[type="checkbox"], input[type="radio"] {
     width: 1.8rem;
 }
 
+.input-percentage {
+    width: 40px;
+    height: 23px; 
+    margin-left: 15px;
+}

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
 import { SolicitationService } from '../../../solicitation.service';
+import { SurveyService } from '../../../survey.service';
 import { Solicitation } from '../../../shared/solicitation';
 
 @Component({
@@ -16,64 +17,87 @@ export class HelpUsImproveComponent implements OnInit {
   @Output() update: EventEmitter<string> = new EventEmitter();
 
   constructor(private solicitationService: SolicitationService,
+              private surveyService:SurveyService,
               private route: ActivatedRoute) { }
 
   private solicitationIndex: String;
   private subscription: Subscription;
-
-  public ICT:boolean;
-  public Prediction:boolean;
+  public surveys;
+  public surveyModel = [];
+  // public ICT:boolean;
+  // public Prediction:boolean;
   public feedbackSent:boolean = false;
 
-  public q1:boolean;
-  public q2:boolean;
-  public q3:boolean;
-  public q4:boolean;
-  public q5:boolean;
-  public q6:boolean;
-  public q7:boolean;
-  public q8:number;
-
   ngOnInit() {
-
     var user = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
     this.feedbackSent = this.solicitation.history.filter(function(e){return ((e["action"].indexOf('provided feedback on the solicitation prediction result') > -1) && (e["user"].indexOf(user) > -1))}).length > 0;   
-
-    // listen for the activated route and use the 'id'  to pull chosen solicitation from mongo
-    // this.subscription = this.route.params.subscribe(
-    //   (params: any) => {
-    //     this.solicitationIndex = params['id'];        
-    //     // pull chosen solicitation from mongo
-    //     this.solicitationService.getSolicitation(this.solicitationIndex)
-    //       .subscribe(
-    //         solicitation => {   
-    //           debugger           
-    //           this.solicitation = solicitation;   
-    //         },
-    //         err => {
-    //           console.log(err);
-    //         });
-    //     });
+    this.GetSurveys();
   }
 
-  RadioICT (selected) { this.ICT = selected;}
-  RadioPrediction (selected) { this.Prediction = selected;}
+  inputPercent(survey, answer) {
+    debugger
+    survey.Answer = answer;
+    this.surveyModel[survey.ID] = answer;
+  }
 
-  Radioq1 (selected) { this.q1 = selected;}
-  Radioq2 (selected) { this.q2 = selected;}
-  Radioq3 (selected) { this.q3 = selected;}
-  Radioq4 (selected) { this.q4 = selected;}
-  Radioq5 (selected) { this.q5 = selected;}
-  Radioq6 (selected) { this.q6 = selected;}
-  Radioq7 (selected) { this.q7 = selected;}
-  Radioq8 (selected) { this.q8 = selected;}
+  textarea(survey, answer) {
+    survey.Answer = answer;
+    this.surveyModel[survey.ID] = answer;
+  }
+
+  checkBox(survey, answer, checked) {    
+      if (checked)
+      {
+          if (survey.Type != 'multiple response')
+          {
+            survey.Answer = answer;
+            this.surveyModel[survey.ID] = answer;
+          }
+          else {
+            survey.Answer = survey.Answer=='' ? answer : survey.Answer+","+answer; 
+            this.surveyModel[survey.ID] =  survey.Answer=='' ? answer : survey.Answer+","+answer; 
+          }
+      }      
+      
+  }
+
+  GetSurveys() {
+      this.surveyService.GetSurveys().subscribe(
+        data => {
+          this.surveys = data.sort(function(a,b){
+            var anum = +a.ID;
+            var bnum = +b.ID;
+            if (anum> bnum) return 1;
+            else return -1;
+          });
+          console.log(this.surveys);
+          for (var i = 0; i < data.length; i++) {
+            this.surveyModel.push("");
+          }
+        }
+      )
+  }
+
 
   feedback(){
-    
       var now = new Date().toLocaleDateString();
       var user = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
       var r = this.solicitation.history.push({'date': now, 'action': "provided feedback on the solicitation prediction result", 'user': user , 'status' : ''});
-
+      
+      this.surveys.forEach(element => {   
+        debugger
+          if(this.solicitation.feedback == null)
+          {
+              this.solicitation.feedback = [{'questionID': element.ID, 'question': element.Question, 'answer': element.Answer}];
+          }
+          else
+          {
+              this.solicitation.feedback.push({'questionID': element.ID, 'question': element.Question, 'answer': element.Answer})
+          }
+      });
+      
+      console.log(this.solicitation)
+      
       this.solicitationService.updateHistory(this.solicitation)
       .subscribe(
         msg => {

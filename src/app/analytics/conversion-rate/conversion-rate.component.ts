@@ -33,6 +33,7 @@ export class ConversionRateComponent implements OnInit {
 
 
     ngOnChanges() {
+        
         this.TotalNonCompliant = this.nonCompliantICT.length;
         this.updatedCompliantICTNumber = this.updatedCompliantICT.length;        
         this.doughnutChartData = [this.updatedCompliantICTNumber, this.TotalNonCompliant];
@@ -45,8 +46,7 @@ export class ConversionRateComponent implements OnInit {
             }, {
                 duration: 500,
                 easing: 'swing',
-                step: function (now) {  
-                    debugger                  
+                step: function (now) {         
                     $(this).text(Math.ceil(now) + "%");
                 }
             });

@@ -14,6 +14,7 @@ import { SolicitationReportComponent } from './report/solicitation-report/solici
 import { AgencyService } from './agency.service';
 import { AuthService } from './auth/auth.service';
 import { SolicitationService } from './solicitation.service';
+import { SurveyService } from './survey.service';
 import { UserService } from './user.service';
 
 import { DataTableModule,SharedModule, ButtonModule, DropdownModule} from 'primeng/primeng';
@@ -108,7 +109,8 @@ import { UserLoginComponent } from './analytics/user-login/user-login.component'
     SolicitationService,
     AuthService,
     UserService,
-    AgencyService
+    AgencyService,
+    SurveyService
   ],
   bootstrap: [AppComponent]
 })

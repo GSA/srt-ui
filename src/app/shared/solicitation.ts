@@ -20,6 +20,11 @@ export class Solicitation {
           action: String,          
           user: String,          
           status: String
-        }]
+        }],
+        public feedback: [{
+          questionID: String,
+          question: String,
+          answer: String,
+        }],
     ) {}
 }

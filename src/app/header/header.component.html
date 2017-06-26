@@ -34,7 +34,7 @@
                                     aria-expanded="false">Hello, {{firstName}}<span class="caret"></span></a>
 
                         <ul class="dropdown-menu">
-                            <li><a [routerLink]="['/profile', currentID]" style="padding: 10px 20px;">Profile</a></li>
+                            <li><a [routerLink]="['/profile']" style="padding: 10px 20px;">Profile</a></li>
                             <li><a [routerLink]="['/password']" style="padding: 10px 20px;">Password</a></li>
                             <li><button class="dropdown-item" type="button" style="padding: 10px 20px;" (click)="onLogout()">Log Out</button></li>
                       </ul>

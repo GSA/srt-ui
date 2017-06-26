@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import {TooltipModule} from "ng2-tooltip";
 import * as $ from 'jquery';
+import * as _ from 'underscore';
 
 @Component({
   selector: 'app-top-agencies',
@@ -23,6 +24,8 @@ export class TopAgenciesComponent implements OnInit {
     angencyTotal = {}
     angencyPass = {}
     angency = {};
+    public xAxisUnit = 5;
+    public xAxisBreakPoint = [];
     public indexFrom = 0;
     public indexTo = 10;
     public maxSolicitation:number = 0;
@@ -74,11 +77,8 @@ export class TopAgenciesComponent implements OnInit {
                 else
                 {
                     this.barData.push([key, this.angencyPass[key] / this.angencyTotal[key], this.angencyPass[key], this.angencyTotal[key]]);
-                }              
-                if (this.maxSolicitation <= this.angencyTotal[key]) this.maxSolicitation = this.angencyTotal[key];            
-                
+                }       
             }
-
 
             // Sorting by rate        
             this.barData.sort(function(a, b) {
@@ -103,6 +103,14 @@ export class TopAgenciesComponent implements OnInit {
                 }
             });   
             
+            var i = this.indexFrom;
+            this.barData.forEach(element => {
+                if (i <= this.indexTo)
+                    if (this.maxSolicitation <= element[3]) 
+                        this.maxSolicitation = element[3];  
+                i++
+            });
+
         }
         else
         {    
@@ -183,6 +191,12 @@ export class TopAgenciesComponent implements OnInit {
             }
         }
         this.noData = Object.keys(this.ICTforDisplay).length == 0;
+        
+        var remain = this.maxSolicitation % this.xAxisUnit;
+        this.maxSolicitation = remain != 0 ? (this.maxSolicitation - remain + this.xAxisUnit) :  this.maxSolicitation;
+        var a = this.maxSolicitation / this.xAxisUnit;
+        this.xAxisBreakPoint = _.range(a + 1);        
+        
     }
 
 
@@ -211,6 +225,9 @@ export class TopAgenciesComponent implements OnInit {
         else if (name == "Department of Education") return "ED";
         else if (name == "Pension Benefit Guaranty Corporation") return "PBGC";
         else if (name == "Department of State") return "DOS";
+        else if (name == "General Services Administration") return "GSA";
+        else if (name == "Millennium Challenge Corporation") return "MCC";
+        else if (name == "Office of Personnel Management") return "OPM"
         else if (name == "1" && this.selectedPeriod == "This Year") return "Jan.";
         else if (name == "2" && this.selectedPeriod == "This Year") return "Feb.";
         else if (name == "3" && this.selectedPeriod == "This Year") return "Mar.";

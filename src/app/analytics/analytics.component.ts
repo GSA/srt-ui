@@ -170,8 +170,8 @@ export class AnalyticsComponent implements OnInit {
     GetTotalData() 
     {
 
-        this.nonCompliantICT = [];
-        this.compliantICT = [];
+        // this.nonCompliantICT = [];
+        // this.compliantICT = [];
 
         this.SolicitationService.getICT()
         .subscribe(
