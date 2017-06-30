@@ -12,10 +12,10 @@
         <div style="font-weight: 600; font-size: 16px; padding: 20px 30px; border: 1px solid #dadada">    
             <div style="padding-bottom: 10px">The SRT Team welcome your Subject Matter Expertise to make our tool better for all. To review scanned solicitation and provide your SME feedback, please follow the steps below:</div> 
             
-            <div>1) Access fbo.gov to download all solicitation documents</div>
-            <div>2) Manually evaluate all documents answering all 8 questions below. Assign only one result to all documents</div>
-            <div>3) Provide additional feedback, if needed</div>
-            <div>4) Click submit to send out your evaluation to the SRT Team</div>
+            <div>1) Access fbo.gov to download all solicitation documents;</div>
+            <div>2) Manually evaluate all documents answering all 8 questions below. Assign only one result to all documents;</div>
+            <div>3) Provide additional feedback, if needed; and</div>
+            <div>4) Click submit to send out your evaluation to the SRT Team.</div>
         
         </div>
 
@@ -45,25 +45,28 @@
                 </div>
 
                 <ul *ngFor="let survey of surveys; let i = index" style="padding: 0px;">
-                    <li style="list-style: none;">Q{{i+1}}. {{survey.Question}} <span style="color: #899197">{{survey.Note}}</span>  <span *ngIf="survey.Type=='scale'" ><input class="input-percentage" [ngModel]="surveyModel[i]" (ngModelChange)="inputPercent(survey, $event)" />%</span>
+                    <li style="list-style: none;"><span *ngIf="survey.Question != 'Additional feedback:'">Q{{i+1}}. </span>{{survey.Question}} <br> 
+                            <span style="color: #899197">{{survey.Note}}</span>  
                         <ul style="padding: 5px 0px 0px 0px;">                            
-                            <li *ngFor="let choice of survey.Choices; let c=index" style="list-style: none; padding: 0px 15px;" 
+                            <li *ngFor="let choice of survey.Choices; let c=index" style="list-style: none; padding: 0px 15px 0px 0px;" 
                                 [ngStyle]="{'display': survey.Type=='multiple choice' ? 'inline-block' : 'block'}">
                                 <input id="{{survey.ID}}{{choice}}" style="display: none;" [ngModel]="surveyModel[i]==survey.Choices[c]" (ngModelChange)="checkBox(survey, choice, $event)" type="checkbox" value="{{choice}}"/>
                                 <label for="{{survey.ID}}{{choice}}">{{choice}} 
                                     <span *ngIf='survey.ChoicesNote.length > 0' style="color: #899197">({{survey.ChoicesNote[c]}})</span>
                                 </label> 
                             </li>  
-                            <li *ngIf="survey.Type=='essay'" style="list-style: none; padding: 0px 15px;">
+                            <li *ngIf="survey.Type=='essay'" style="list-style: none; padding: 0px 15px 0px 0px;">
                                 <textarea class="form-control" 
                                 [ngModel]="surveyModel[i]" 
                                 (ngModelChange)="textarea(survey, $event)"
                                 [ngStyle]="{'min-height':survey.Question == 'Additional feedback:' ? '150px' : 'auto' }"> </textarea>   
-                            </li>         
-                                            
+                            </li>           
                         </ul>                        
                     </li>
                 </ul>            
+                <div style="padding: 15px;">
+                    <button type="submit" class="srt-button" style="width: 170px; display: inline-block; vertical-align: top" (click)="feedback()">Submit</button>
+                </div>
 <!--
                 <div style="padding-bottom: 20px; ">
                     <div class="srt-section-title" style="text-transform: uppercase; padding-bottom: 20px;">
@@ -215,7 +218,7 @@
 
             
 
-            <button type="submit" class="srt-button" style="width: 170px; display: inline-block; vertical-align: top" (click)="feedback()">Submit</button>
+            
 
         </div>
     </div>

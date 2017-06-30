@@ -10,7 +10,7 @@ export class SurveyService {
 
   // productionURL
   private surveysURL = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/surveys';
-  //private surveysURL = 'http://localhost:3000/surveys';
+  // private surveysURL = 'http://localhost:3000/surveys';
 
   constructor(private http:Http) { }
 

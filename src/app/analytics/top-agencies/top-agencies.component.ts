@@ -105,11 +105,11 @@ export class TopAgenciesComponent implements OnInit {
             
             var i = this.indexFrom;
             this.barData.forEach(element => {
-                if (i <= this.indexTo)
+                if (i < this.indexTo)
                     if (this.maxSolicitation <= element[3]) 
                         this.maxSolicitation = element[3];  
                 i++
-            });
+            });           
 
         }
         else
@@ -192,6 +192,7 @@ export class TopAgenciesComponent implements OnInit {
         }
         this.noData = Object.keys(this.ICTforDisplay).length == 0;
         
+
         var remain = this.maxSolicitation % this.xAxisUnit;
         this.maxSolicitation = remain != 0 ? (this.maxSolicitation - remain + this.xAxisUnit) :  this.maxSolicitation;
         var a = this.maxSolicitation / this.xAxisUnit;
@@ -228,6 +229,9 @@ export class TopAgenciesComponent implements OnInit {
         else if (name == "General Services Administration") return "GSA";
         else if (name == "Millennium Challenge Corporation") return "MCC";
         else if (name == "Office of Personnel Management") return "OPM"
+        else if (name == "National Archives and Records Administration") return "NARA";
+        else if (name == "Export - Import Bank of the United States") return "EXIM";
+        else if (name == "Department of Justice") return "DOJ";
         else if (name == "1" && this.selectedPeriod == "This Year") return "Jan.";
         else if (name == "2" && this.selectedPeriod == "This Year") return "Feb.";
         else if (name == "3" && this.selectedPeriod == "This Year") return "Mar.";

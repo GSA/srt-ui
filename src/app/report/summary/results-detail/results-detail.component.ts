@@ -18,6 +18,7 @@ export class ResultsDetailComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
+    console.log(this.solicitation);
   }
 
   EmailPoc() {

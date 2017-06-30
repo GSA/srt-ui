@@ -9,7 +9,8 @@ export class SrtComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+
+  ngOnInit() {    
   }
 
 }

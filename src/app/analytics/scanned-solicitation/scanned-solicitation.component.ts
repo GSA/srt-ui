@@ -20,12 +20,11 @@ export class ScannedSolicitationComponent implements OnInit {
     @ViewChild(BaseChartDirective) private baseChart; 
 
     // Get 30 days range
-    public toPeriod:Date = new Date();
-    public fromPeriod:Date = new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 31 ));
+    public toPeriod:Date = new Date(new Date().getTime() - (1000 * 60 * 60 * 24 ));
+    public fromPeriod:Date = new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 32 ));
     public hasValue = false;
     public date:number[] = Array.apply(null, new Array(32)).map(Number.prototype.valueOf,0);
     public outputData:number[] = [];
-  
   
     // chart config.
     public barChartOptions:any = {
@@ -79,8 +78,8 @@ export class ScannedSolicitationComponent implements OnInit {
                 
                 if (elementDate.getTime() > this.fromPeriod.getTime() && elementDate.getTime() < this.toPeriod.getTime()) 
                 {
-                        var day = +element.date.split('/')[1];
-                        this.date[day] = this.date[day] + 1;  
+                    var day = +element.date.split('/')[1];
+                    this.date[day] = this.date[day] + 1;  
                 }      
             });
 

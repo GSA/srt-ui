@@ -58,10 +58,10 @@ export class SummaryComponent implements OnInit {
               this.emailBody = 
                     "<p>Solicitation Title: " + this.solicitation.title  + "</p>" + 
                     "<p>Link: " + "<a href=" + this.solicitation.url + ">" + this.solicitation.url + "</a></p>" +
-                    "<p>&nbsp;</p>" +
+                    "<br>" +
 
                     "<p>Dear Acquisition Professional:</p>" + 
-                    "<p>&nbsp;</p>" +
+                    "<br>" +
 
                     "<p>You are receiving this letter as the point of contact for the solicitation referenced above.</p>" +     
 
@@ -73,27 +73,27 @@ export class SummaryComponent implements OnInit {
                     "included in the requirements document in order to inform the vendor of the Section 508 deliverables to meet the " +
                     "contractual requirements. Please find the SRT’s solicitation assessment results attached. They may also be " +
                     "accessed at “Solicitation Review Result Summary”. </p>" + 
-                    "<p>&nbsp;</p>" +
+                    "<br>" +
 
                     "<p>To assist your efforts in addressing Section 508, please refer to the " + 
                     "<a href='https://section508.gov/content/guidance'>Section 508 Guidelines</a>. GSA also provides free tools and resources. " + 
                     "<a href='https://www.section508.gov/content/buy'>The BuyAccessible Tool</a> is a web-based tool that guides users through the " + 
                     "process of gathering Section 508 requirements for ICT procurements  and provides documentation of due diligence.</p>" + 
-                    "<p>&nbsp;</p>" +
+                    "<br>" +
 
                     "<p>For additional assistance with Section 508 requirements or concerns about the assessment of this solicitation, " + 
                     "please reach out to the Section 508 Coordinator copied on this email or contact us at <a href='mailto:section.508@gsa.gov'>section.508@gsa.gov</a>.</p>" +
-                    "<p>&nbsp;</p>" +
+                    "<br>" +
 
                     "<p>Sincerely</p>" + 
-                    "<p>&nbsp;</p>" +
+                    "<br>" +
 
                     "<p>" +
                     localStorage.getItem("firstName") + " " + 
                     localStorage.getItem("lastName") + "</p>" +
 
                     "<p>" + 
-                    // localStorage.getItem("position") + "," + 
+                    localStorage.getItem("position") + "," + 
                     localStorage.getItem("agency") +"</p>" 
                             
             },
