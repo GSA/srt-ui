@@ -1,0 +1,32 @@
+<div style="max-width: 250px; padding: 0px 15px">
+
+    <div style="font-size: 20px; margin-bottom: 20px; font-weight: 600" class="srt-blue">
+        Machine Readable
+        <sup style="font-size: 20px;" 
+            [tooltip]="MachineReadable" tooltipPlacement="bottom">
+            <i class="fa fa-info-circle info" aria-hidden="true" ></i>
+        </sup>  
+        <tooltip-content #MachineReadable [animation]="true">
+            <div></div>
+        </tooltip-content> 
+    </div>  
+   
+    <div style="position: relative; ">
+      <div style="display: block; margin: 0px auto; height: 200px; transform: translateZ(0)">
+          <canvas baseChart
+                  [data]="doughnutChartData"
+                  [labels]="doughnutChartLabels"
+                  [options]="options"
+                  [colors]="colorsOverride"
+                  [chartType]="doughnutChartType">
+          </canvas>
+      </div>
+    </div>
+    <!--<div style="padding: 30px 10px; text-align: center; font-size: 16px; color: #1768d7; font-weight: 500">
+        <span style="font-size: 1.5em; font-weight: 700">{{updatedCompliantICTNumber}}</span> out of 
+        <span style="font-size: 1.5em; font-weight: 700">{{TotalNonCompliant}}</span> 
+        non-compliant ICT solicitations have became compliant after they were updated on FedBizOpps.gov
+    </div>-->
+
+</div>
+

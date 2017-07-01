@@ -40,37 +40,46 @@ export class SolicitationReportComponent implements OnInit {
     this.solicitationService.getFilteredSolicitations(this.filterParams)
     .subscribe(
         solicitations => {          
-          this.solicitations = solicitations; 
+          this.solicitations = solicitations;
         },
         err => {
             console.log(err);
-        });
+    });
         //do I still need this?
-  this.solicitationService.pushedSolicitations.subscribe(
-    solicitations => this.solicitations = solicitations);
+    this.solicitationService.pushedSolicitations.subscribe(
+      solicitations => this.solicitations = solicitations);
 
-  this.ict.push({label: 'All', value: null});
-  this.ict.push({label: 'Yes', value: 'Yes'});
-  this.ict.push({label: 'No', value: 'No'});
-
-
-  this.solType.push({label: 'Any', value: null});
-  this.solType.push({label: 'Award Notice', value: 'Award Notice'});
-  this.solType.push({label: 'Combined Synopsis/Solicitation', value: 'Combined Synopsis/Solicitation'});
-  this.solType.push({label: 'Fair Opportunity / Limited Sources Justification', value: 'Fair Opportunity / Limited Sources Justification'});
-  this.solType.push({label: 'Foreign Government Standard', value: 'Foreign Government Standard'});
-  this.solType.push({label: 'Intent to Bundle Requirements(DoD-Funded)', value: 'Intent to Bundle Requirements(DoD-Funded)'});
-  this.solType.push({label: 'Justification and Approval(J&A)', value: 'Justification and Approval(J&A)'});
-  this.solType.push({label: 'Modification/Amendment/Cancel', value: 'Modification/Amendment/Cancel'});
-  this.solType.push({label: 'Presolicitation', value: 'Presolicitation'});
-  this.solType.push({label: 'Sale of Surplus Property', value: 'Sale of Surplus Property'});
-  this.solType.push({label: 'Special Notice', value: 'Special Notice'});
-  this.solType.push({label: 'Sources Sought', value: 'Sources Sought'});
+    this.ict.push({label: 'All', value: null});
+    this.ict.push({label: 'Yes', value: 'Yes'});
+    this.ict.push({label: 'No', value: 'No'});
 
 
-  this.revResult.push({label: 'All', value: null});
-  this.revResult.push({label: 'Action Requested', value: 'RED'});
-  this.revResult.push({label: 'Pass', value: 'GREEN'});
+    this.solType.push({label: 'Any', value: null});
+    this.solType.push({label: 'Award Notice', value: 'Award Notice'});
+    this.solType.push({label: 'Combined Synopsis/Solicitation', value: 'Combined Synopsis/Solicitation'});
+    this.solType.push({label: 'Fair Opportunity / Limited Sources Justification', value: 'Fair Opportunity / Limited Sources Justification'});
+    this.solType.push({label: 'Foreign Government Standard', value: 'Foreign Government Standard'});
+    this.solType.push({label: 'Intent to Bundle Requirements(DoD-Funded)', value: 'Intent to Bundle Requirements(DoD-Funded)'});
+    this.solType.push({label: 'Justification and Approval(J&A)', value: 'Justification and Approval(J&A)'});
+    this.solType.push({label: 'Modification/Amendment/Cancel', value: 'Modification/Amendment/Cancel'});
+    this.solType.push({label: 'Presolicitation', value: 'Presolicitation'});
+    this.solType.push({label: 'Sale of Surplus Property', value: 'Sale of Surplus Property'});
+    this.solType.push({label: 'Special Notice', value: 'Special Notice'});
+    this.solType.push({label: 'Sources Sought', value: 'Sources Sought'});
+
+
+    this.revResult.push({label: 'All', value: null});
+    this.revResult.push({label: 'Action Requested', value: 'RED'});
+    this.revResult.push({label: 'Pass', value: 'GREEN'});
+
+    // this.solicitations = this.solicitations.sort(function(a,b){
+    //         var aDate = new Date(a.date);
+    //         var bDate = new Date(b.date);            
+    //         if (aDate > bDate) return -1;
+    //         else if (aDate < bDate) return 1;
+    //         else return 0;
+    //       }); 
+
   }
 
   // set initial params based upon logged in user

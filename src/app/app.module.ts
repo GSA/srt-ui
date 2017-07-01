@@ -54,6 +54,7 @@ import { ScannedSolicitationComponent } from './analytics/scanned-solicitation/s
 import { ComplianceRateComponent } from './analytics/compliance-rate/compliance-rate.component';
 import { ConversionRateComponent } from './analytics/conversion-rate/conversion-rate.component';
 import { UserLoginComponent } from './analytics/user-login/user-login.component';
+import { MachineReadableComponent } from './analytics/machine-readable/machine-readable.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { UserLoginComponent } from './analytics/user-login/user-login.component'
     ComplianceRateComponent,
     ConversionRateComponent,
     UserLoginComponent,
+    MachineReadableComponent,
   ],
   imports: [
     BrowserModule,

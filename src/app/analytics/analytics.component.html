@@ -3,7 +3,13 @@
         
 
         <div class="col-md-12 nopadding" style="margin-bottom: 60px !important">
-            <app-scanned-solicitation [ICT]="ICT"></app-scanned-solicitation>
+            <div class="col-lg-9 col-md-8">
+                <app-scanned-solicitation [ICT]="ICT"></app-scanned-solicitation>      
+            </div>
+            <div class="col-lg-3 col-md-4" style="float: right">
+                <app-machine-readable [ICT]="ICT" ></app-machine-readable>
+            </div>
+            
         </div>
 
 
@@ -78,6 +84,7 @@
         <div class="col-md-12 nopadding" style="margin-bottom: 40px !important; padding: 30px 0px 10px 0px !important; border-top: 1px solid #dadada;">
             <app-user-login></app-user-login>
         </div>
+
 
     </div>
 </div>
