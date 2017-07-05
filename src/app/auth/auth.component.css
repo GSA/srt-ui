@@ -1,0 +1,24 @@
+ul.register {
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+    width: 100%;
+}
+
+ul.register li {
+    float: left;
+    font-size: 20px;
+    width: 50%;
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+    border-bottom: 1px solid #dadada;
+}
+
+ul.register li.active {
+    background: #112e51;
+    color: #fff;
+    font-weight: 700;
+    transform: scaleY(1.1);
+    border: none;
+}

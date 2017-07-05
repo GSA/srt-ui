@@ -10,11 +10,11 @@
 
     <div *ngIf="!feedbackSent">
         <div style="font-weight: 600; font-size: 16px; padding: 20px 30px; border: 1px solid #dadada">    
-            <div style="padding-bottom: 10px">The SRT Team welcome your Subject Matter Expertise to make our tool better for all. To review scanned solicitation and provide your SME feedback, please follow the steps below:</div> 
+            <div style="padding-bottom: 10px">The SRT Team welcome your Subject Matter Expertise to make our tool better for all.  To review scanned solicitation and provide your feedback, please follow the steps below:</div> 
             
-            <div>1) Access fbo.gov to download all solicitation documents;</div>
-            <div>2) Manually evaluate all documents answering all 8 questions below. Assign only one result to all documents;</div>
-            <div>3) Provide additional feedback, if needed; and</div>
+            <div>1) Click on the solicitation’s “FBO Link” provided below to access the solicitation on FedBizOpps website and download the solicitation documents;</div>
+            <div>2) Evaluate the documents’ Section 508 conformance languages (here are some suggested keywords to search for in the documents: Section 508, accessibility, EIT, compliance, conform, conformance, GPAT, VPAT, Section 508 requirements, and Buy Accessible);</div>
+            <div>3) Answer the short survey below to provide manual review feedback; and</div>
             <div>4) Click submit to send out your evaluation to the SRT Team.</div>
         
         </div>
@@ -29,13 +29,17 @@
                     <div class="list">
                         <div class="list-title">Solicitation Title:&nbsp;</div>
                         <div class="list-content">{{solicitation.title}}</div>
-                    </div>
+                    </div>                   
                     <div class="list">
                         <div class="list-title">Solicitation Number:&nbsp;</div>
                         <div class="list-content">{{solicitation.solNum}}</div>
                     </div>
+                     <div class="list">
+                        <div class="list-title">FBO Link:&nbsp;</div>
+                        <div class="list-content"><a href="{{solicitation.url}}" target="_blank">{{solicitation.url}}</a></div>
+                    </div>
                     <div class="list">
-                        <div class="list-title" style="width: 100%">Prediction Results:&nbsp; </div>
+                        <div class="list-title">Prediction Results:&nbsp; </div>
                         <div class="list-content">
                             <ul class="nopadding">
                                 <li style="list-style: none; line-height: 18px;">This solicitation may not contain sufficient Section 508 requirements.</li>       

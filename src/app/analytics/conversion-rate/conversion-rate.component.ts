@@ -53,13 +53,14 @@ export class ConversionRateComponent implements OnInit {
         }); 
     }
 
-    @ViewChild(BaseChartDirective) private baseChart;   
-        // Doughnut
-        public doughnutChartLabels:string[] = ['Download Sales', 'In-Store Sales'];
-        public doughnutChartData:any[] = [17, 83];
+    @ViewChild(BaseChartDirective) private baseChart;  
+     
+    // Doughnut
+    public doughnutChartLabels:string[] = ['Download Sales', 'In-Store Sales'];
+    public doughnutChartData:any[] = [17, 83];
 
-        public doughnutChartType:string = 'doughnut';
-        public options:any = {
+    public doughnutChartType:string = 'doughnut';
+    public options:any = {
         cutoutPercentage: 85,
         // rotation: 2 * Math.PI,
         // circumference: 2/3 * Math.PI,

@@ -46,7 +46,16 @@ export class ScannedSolicitationComponent implements OnInit {
                     },
                 }],
             labelString: 'probability'
-        }
+        },
+        tooltips: {
+            enabled: true,
+            callbacks: {
+                label :function(tooltipItem, data) {   
+                    return "# scanned solicitations: " + data.datasets[0].data[tooltipItem.index];
+                }
+            },
+            opacity: 1,
+        },
     };
 
     public barChartLabels:string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];

@@ -26,7 +26,7 @@ export class UserregistrationComponent implements OnInit {
     public searchStr: string;
     public placeholder = "Click and begin typing to initiate search...";
     public textSearching = "Searhing for agency...";
-    public selectedPosition = "Click to select your position";
+    public selectedUserRole = "Select your request access level";
     protected dataService: CompleterData;
     
     constructor(
@@ -38,7 +38,7 @@ export class UserregistrationComponent implements OnInit {
     // sets up data template for  registration form
     ngOnInit() {
         this.myForm = new FormGroup({
-            //position: new FormControl(null, Validators.required),
+            position: new FormControl(null, Validators.required),
             firstName: new FormControl(null, Validators.required),
             lastName: new FormControl(null, Validators.required),
             email: new FormControl(null, Validators.required),
@@ -65,18 +65,20 @@ export class UserregistrationComponent implements OnInit {
         const user = new User(
             this.myForm.value.email,
             this.myForm.value.password,
-            this.selectedPosition,
+            this.myForm.value.position,
             this.myForm.value.firstName,
             this.myForm.value.lastName,
-            this.myForm.value.agency
+            this.myForm.value.agency,            
+            this.selectedUserRole
         );    
 
         if (this.myForm.value.email == null ||
             this.myForm.value.password == null ||
-            this.selectedPosition == "Position" ||
+            this.myForm.value.position == null ||
             this.myForm.value.firstName == null ||
             this.myForm.value.lastName == null ||
-            this.myForm.value.agency == null)
+            this.myForm.value.agency == null ||
+            this.selectedUserRole == "Select your request access level")
         {        
             this.errorMessage = true;
         }
@@ -99,8 +101,12 @@ export class UserregistrationComponent implements OnInit {
         debugger
       }
 
-      onChangePosition(position) {
-          this.selectedPosition = position;
-          //this.myForm.value.position
+      onChangeAccessLevel(userRole) {
+          this.selectedUserRole = userRole;
       }
+
+      onFocus() {
+          $('#dropdownMenuButton').click();
+      }
+
 }

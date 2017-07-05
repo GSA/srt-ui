@@ -12,14 +12,20 @@
     </div>  
    
     <div style="position: relative; ">
-      <div style="display: block; margin: 0px auto; height: 200px; transform: translateZ(0)">
+      <div style="display: block; margin: 0px auto; height: 280px; transform: translateZ(0); font-weight: 300">
           <canvas baseChart
-                  [data]="doughnutChartData"
-                  [labels]="doughnutChartLabels"
+                  [data]="pieChartData"
+                  [labels]="pieChartLabels"
                   [options]="options"
                   [colors]="colorsOverride"
-                  [chartType]="doughnutChartType">
+                  [chartType]="pieChartType">
           </canvas>
+      </div>
+      <div style="position: absolute; font-size: 20px; color: #000; top: -20px; right: calc(50%)">
+            {{displayUnreadable}}
+      </div>
+      <div style="position: absolute; font-size: 20px; color: #000; bottom: 45px; left: calc(50% + 40px)">
+            {{displayReadable}}
       </div>
     </div>
     <!--<div style="padding: 30px 10px; text-align: center; font-size: 16px; color: #1768d7; font-weight: 500">

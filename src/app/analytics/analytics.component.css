@@ -80,8 +80,8 @@ option {
 
 .machine-readable {
     width: 250px; 
-    float: left;
-    margin-bottom: 60px !important
+    float: right;
+    margin-bottom: 40px !important;
 }
 
 

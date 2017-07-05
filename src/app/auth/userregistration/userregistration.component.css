@@ -23,5 +23,9 @@
 .dropdown-item:hover {
     background-color: #f1f1f1;
     color: #0071bc;
-    font-weight: 700;
+}
+
+.dropdown-item:hover  div {
+    background-color: #f1f1f1;
+    color: #0071bc !important;
 }

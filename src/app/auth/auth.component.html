@@ -1,6 +1,28 @@
-<div class="row spacing nopadding">
-    <div style="padding: 40px;"> 
-        <app-userlogin></app-userlogin>
-        <app-userregistration></app-userregistration>
+<div class="container">
+    <div class="row spacing nopadding">
+        <div class="row-eq-height" style="padding-top: 60px">
+            <div class="col-md-6">
+                <div style="padding: 40px;" class="srt-blue">           
+                    <h1 style="font-weight: 700;">Solicitation Review Tool </h1>
+                    <h3>The Solicitation Review Tool (SRT) is provided to allow agencies to evaluate the overall solicitation compliance with accessibility, cyber security, and other regulations and requirements.</h3>                
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div  style="border: 1px solid #dadada; box-shadow: 1px 1px 10px 0px #dadada">
+                    <ul class="register clearfix">
+                        <li class="active" (click)="ChangeDisplay('singin')" data-toggle="tab">Sign In</li>
+                        <li  (click)="ChangeDisplay('signup')"data-toggle="tab">Sign Up</li>
+                    </ul>
+                    <div style="padding: 40px;" class="clearfix">
+                        <div *ngIf="displayTab=='singin'">
+                                <app-userlogin></app-userlogin>
+                        </div>
+                        <div *ngIf="displayTab=='signup'">
+                            <app-userregistration></app-userregistration>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent implements OnInit {
 
+  displayTab = 'singin';
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ChangeDisplay(arg) {
+    this.displayTab = arg;
   }
 
 }

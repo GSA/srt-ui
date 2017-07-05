@@ -7,6 +7,6 @@ export class User {
           public firstName?: String,
           public lastName?: String,
           public agency?: String,
-
+          public userRole?: String
       ) {}
 }
