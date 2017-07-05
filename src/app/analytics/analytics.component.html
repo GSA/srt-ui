@@ -2,18 +2,18 @@
     <div class="clearfix">
         
 
-        <div class="col-md-12 nopadding" style="margin-bottom: 60px !important">
-            <div class="col-lg-9 col-md-8">
+        <div class="col-md-12 nopadding clearfix">
+            <div class="scanned-solicitation">
                 <app-scanned-solicitation [ICT]="ICT"></app-scanned-solicitation>      
             </div>
-            <div class="col-lg-3 col-md-4" style="float: right">
+            <div class="machine-readable">
                 <app-machine-readable [ICT]="ICT" ></app-machine-readable>
             </div>
             
         </div>
 
 
-        <div class="col-md-12 nopadding" style="margin-bottom: 40px !important">
+        <div class="col-md-12 nopadding clearfix" style="margin-bottom: 40px !important">
             <div style="padding: 30px 0px 10px 0px; border-top: 1px solid #dadada;" class="clearfix">                   
 
                 <div style="float: right; padding: 0px 20px;">
@@ -42,7 +42,7 @@
             </div>
         </div>
         
-        <div class="col-md-12 nopadding" style="margin-bottom: 40px !important">
+        <div class="col-md-12 nopadding clearfix" style="margin-bottom: 40px !important">
             <div class="row-eq-height">
                 <div class="col-md-6 nopadding">
                     <div class="col-md-6 nopadding">
@@ -69,7 +69,7 @@
         </div>
         
 
-        <div class="col-md-12 nopadding" style="margin-bottom: 40px !important">
+        <div class="col-md-12 nopadding clearfix" style="margin-bottom: 40px !important">
             <app-top-agencies 
                 [isGovernomentWide]="isGovernomentWide" 
                 [ICTforDisplay]="ICTforDisplay" 
@@ -81,7 +81,7 @@
                 [xAxis]="xAxis"></app-top-agencies>
         </div>
 
-        <div class="col-md-12 nopadding" style="margin-bottom: 40px !important; padding: 30px 0px 10px 0px !important; border-top: 1px solid #dadada;">
+        <div class="col-md-12 nopadding clearfix" style="margin-bottom: 40px !important; padding: 30px 0px 10px 0px !important; border-top: 1px solid #dadada;">
             <app-user-login></app-user-login>
         </div>
 

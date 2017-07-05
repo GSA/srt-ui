@@ -72,6 +72,19 @@ option {
     display: flex;
 }
 
+.scanned-solicitation {
+    width: calc(100% - 300px); 
+    float: left;
+    margin-bottom: 60px !important
+}
+
+.machine-readable {
+    width: 250px; 
+    float: left;
+    margin-bottom: 60px !important
+}
+
+
 
 
 @media (max-width: 992px) 
@@ -79,6 +92,14 @@ option {
     .row-eq-height {
         -webkit-flex-wrap: wrap;
         flex-wrap: wrap;
+    }
+
+    .scanned-solicitation {
+        width: 100%; 
+    }
+
+    .machine-readable {
+        width: 100%; 
     }
 }
 

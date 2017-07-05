@@ -53,11 +53,11 @@ export class MachineReadableComponent implements OnInit {
   colorsOverride: Array<Color> = [{
       backgroundColor: [
           "#2C81C0",
-          "#800000"
+          "#ff0000"
       ],
       hoverBackgroundColor: [
           "#2C81C0",
-          "#800000"
+          "#ff0000"
       ],
   }];
 
