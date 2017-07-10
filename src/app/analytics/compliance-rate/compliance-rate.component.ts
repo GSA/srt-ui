@@ -76,7 +76,9 @@ export class ComplianceRateComponent implements OnInit {
         this.totalICT = this.ICTforDisplay.length;
         this.compliance = this.ICTforDisplay.filter(function(e){ return e.predictions.value=="GREEN"}).length;
         this.nonCompliance = this.totalICT - this.compliance;  
-        this.doughnutChartData = [this.compliance, this.nonCompliance];            
+        this.doughnutChartData = [this.compliance, this.nonCompliance];    
+        console.log("GREEN: " + this.compliance);
+        console.log("RED: " + this.nonCompliance )        
         this.percentage = this.totalICT == 0 ? 0 : Math.round(this.compliance / this.totalICT * 100);
         var CountTo = this.percentage;
         

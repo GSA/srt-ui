@@ -44,6 +44,7 @@ export class AnalyticsComponent implements OnInit {
     public updatedICT = [];
     public updatedNonCompliantICT = [];
     public updatedCompliantICT = [];
+    public undeterminedICT = [];
 
     // doughnut
     // solicitationType = {};   
@@ -214,7 +215,12 @@ export class AnalyticsComponent implements OnInit {
                         }                   
                     }          
                 } 
-                this.ICTforDisplay = filteredData;    
+                console.log("All ICT: " + this.ICTforDisplay.length);
+                this.undeterminedICT = filteredData.filter(d => d.undetermined == true);
+                console.log("Undetermined ICT: " + this.undeterminedICT.length);
+                // get rid of undetermined results.
+                this.ICTforDisplay = filteredData.filter(d => d.undetermined == false);  
+                console.log("Determined ICT: " + this.ICTforDisplay.length);
                 
                 this.updatedICT = this.ICTforDisplay.filter(d => d.history.filter(function(e){return e["action"].indexOf('Solicitation Updated on FBO.gov') > -1 }).length > 0)
                 this.nonCompliantICT = this.ICTforDisplay.filter( d => d.predictions.value=="RED");     
@@ -223,6 +229,7 @@ export class AnalyticsComponent implements OnInit {
                 this.updatedCompliantICT = this.compliantICT.filter(d => d.history.filter(function(e){return e["action"].indexOf('Solicitation Updated on FBO.gov') > -1 }).length > 0)
                 
                 this.noData = Object.keys(this.ICTforDisplay).length == 0;
+
             },
             err => {
                 console.log(err);

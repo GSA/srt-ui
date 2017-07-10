@@ -23,7 +23,7 @@ const APP_ROUTES: Routes = [
   {path: 'report/:id', component: SummaryComponent},
   {path: 'report', component: SolicitationReportComponent},
   {path: 'email/:id', component: EmailPocComponent},
-  {path: 'srt', component: SrtComponent},
+  {path: 'home', component: SrtComponent},
   {path: 'admin', component: AdminComponent},
   {path: 'analytics', component: AnalyticsComponent},
   {path: 'feedback', component: SolicitationReviewComponent},

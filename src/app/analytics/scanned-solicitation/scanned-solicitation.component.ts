@@ -23,7 +23,7 @@ export class ScannedSolicitationComponent implements OnInit {
     public toPeriod:Date = new Date(new Date().getTime() - (1000 * 60 * 60 * 24 ));
     public fromPeriod:Date = new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 32 ));
     public hasValue = false;
-    public date:number[] = Array.apply(null, new Array(32)).map(Number.prototype.valueOf,0);
+    public date = {};
     public outputData:number[] = [];
   
     // chart config.
@@ -79,22 +79,23 @@ export class ScannedSolicitationComponent implements OnInit {
     ngOnChanges() {    
         // Only need to run this loop once since this is not affected by filter.
         if (this.ICT.length > 0 && !this.hasValue)
-        {          
-
+        {    
             this.barChartLabels = [];
             this.ICT.forEach(element => {  
                 var elementDate = new Date(element.date);
                 
                 if (elementDate.getTime() > this.fromPeriod.getTime() && elementDate.getTime() < this.toPeriod.getTime()) 
-                {
-                    var day = +element.date.split('/')[1];
-                    this.date[day] = this.date[day] + 1;  
+                {                    
+                    var day = +(element.date.split('/')[0] + element.date.split('/')[1]);
+                    if (this.date[day] == null) this.date[day] = 1;
+                    else this.date[day] = this.date[day] + 1;  
                 }      
             });
-
+            //console.log(this.date);
             var i = 0;
-            for(var d = this.fromPeriod; d <= this.toPeriod && i < 32; d.setDate(d.getDate() + 1)){            
-                this.outputData[i] = this.date[d.getDate()];
+            for(var d = this.fromPeriod; d <= this.toPeriod && i < 32; d.setDate(d.getDate() + 1)){    
+                var formattedNumber = ("0" + d.getDate()).slice(-2);                   
+                this.outputData[i] = this.date[+((d.getMonth()+1).toString() + formattedNumber)];
                 this.barChartLabels.push(d.getMonth()+1 + "/" + d.getDate());              
                 i++;
             }           

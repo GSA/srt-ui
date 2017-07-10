@@ -21,11 +21,11 @@ export class SolicitationService {
   private solicitationUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/solicitation/';
   private emailUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/email/';
 
-  //  private solicitationsUrl = 'http://localhost:3000/predictions';
-  //  private ICTUrl = 'http://localhost:3000/ICT';   
-  //  private solicitationsFilterUrl = 'http://localhost:3000/predictions/filter';
-  //  private solicitationUrl = 'http://localhost:3000/solicitation/';
-  //  private emailUrl = 'http://localhost:3000/email/';
+  // private solicitationsUrl = 'http://localhost:3000/predictions';
+  // private ICTUrl = 'http://localhost:3000/ICT';   
+  // private solicitationsFilterUrl = 'http://localhost:3000/predictions/filter';
+  // private solicitationUrl = 'http://localhost:3000/solicitation/';
+  // private emailUrl = 'http://localhost:3000/email/';
 
   getFilteredSolicitations(body) {
   	return this.http.post(this.solicitationsFilterUrl, body)

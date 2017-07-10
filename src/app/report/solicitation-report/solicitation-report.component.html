@@ -35,7 +35,7 @@
           <div style="display: table-cell; vertical-align: middle; width: 40px;"><img id="csvlogo" src="../../../assets/downloadcsv.jpeg" style="float:left" (click)="dt.exportCSV()"></div>
       </div>
       
-      <div style="font-weight: 500; float: left; color: #186ba0">Last scanned date: 07/05/2017</div>
+      <div style="font-weight: 500; float: left; color: #186ba0">Last scanned date: 07/08/2017</div>
   </div>
 
     
@@ -89,21 +89,27 @@
       
       <p-column field="date" header="Date Posted on FedBizOpps" [sortable]="true" [style]="{'width': '150px'}" filterPlaceholder="Search"></p-column>
       
-      <p-column field="predictions.value" header="SRT Review Result" [sortable]="true" [filter]="true" [style]="{'overflow': 'visible', 'width': '200px'}" filterPlaceholder="Search">
+      <p-column field="reviewRec" header="SRT Review Result" [sortable]="true" [filter]="true" [style]="{'overflow': 'visible', 'width': '200px'}" filterPlaceholder="Search">
         <ng-template pTemplate="filter" let-col>
             <p-dropdown [options]="revResult" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
         </ng-template>
         <ng-template let-sol="rowData" pTemplate="body">
           <div *ngIf="sol.predictions.value == 'RED'">
-            <div *ngIf="sol.eitLikelihood.value == 'Yes'" style="text-align: center;">
-              <span [style.color]="sol.predictions.value"><button class="button" (click)="selectSol(sol)" style="border: none;"><i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;<span style="text-decoration: underline;">Action Requested</span></button></span>
+            <div style="text-align: center;">
+                <span *ngIf="sol.eitLikelihood.value == 'Yes'" [ngStyle]="{'color' : sol.undetermined ? 'black' : 'red'}">
+                    <button class="button" (click)="selectSol(sol)" style="border: none;">
+                        <i class="fa fa-exclamation-triangle"></i>
+                        &nbsp;&nbsp;
+                        <span style="text-decoration: underline;">{{sol.reviewRec}}</span>
+                    </button>
+                </span>
             </div>
             <div *ngIf="sol.eitLikelihood.value == 'No'">
               <span>Not Applicable</span>
             </div>
           </div>
           <div *ngIf="sol.predictions.value == 'GREEN'">
-            <span [style.color]="sol.predictions.value"><i class="fa fa-check"></i> Pass</span>
+            <span style="color: green"><i class="fa fa-check"></i>&nbsp;&nbsp;{{sol.reviewRec}}</span>
           </div>
         </ng-template>
       </p-column>

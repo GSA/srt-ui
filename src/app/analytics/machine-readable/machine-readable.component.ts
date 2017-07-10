@@ -42,6 +42,8 @@ export class MachineReadableComponent implements OnInit {
       this.displayReadable = machineReadablePercentage + "%";
       this.displayUnreadable = machineUnreadablePercentage + "%";
       this.pieChartData = [this.machineReadable, this.machineUnreadable];
+      console.log("Machine readable documents: " + this.machineReadable);
+      console.log("Non-machine readable documents: " + this.machineUnreadable);
       //this.pieChartLabels = ['Machine Readable (' + machineReadablePercentage + "%)", 'Non Machine Readable (' + machineUnreadablePercentage + "%)"];
       this.forceChartRefresh();  
     }
@@ -69,7 +71,7 @@ export class MachineReadableComponent implements OnInit {
               return  label;
             },
             label :function(tooltipItem, data) {                           
-              return  data.datasets[0].data[tooltipItem.index] + " solicitations"
+              return  data.datasets[0].data[tooltipItem.index] + " documents"
             }
         }
     },

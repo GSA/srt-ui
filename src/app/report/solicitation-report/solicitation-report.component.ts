@@ -41,6 +41,7 @@ export class SolicitationReportComponent implements OnInit {
     .subscribe(
         solicitations => {          
           this.solicitations = solicitations;
+          console.log(solicitations);
         },
         err => {
             console.log(err);
@@ -69,8 +70,9 @@ export class SolicitationReportComponent implements OnInit {
 
 
     this.revResult.push({label: 'All', value: null});
-    this.revResult.push({label: 'Action Requested', value: 'RED'});
-    this.revResult.push({label: 'Pass', value: 'GREEN'});
+    this.revResult.push({label: 'Noncomploant - Action Required', value: "Noncompliant - Action Required"});
+    this.revResult.push({label: 'Undetermined Status', value: 'Undetermined Status'});
+    this.revResult.push({label: 'Section 508 compliant', value: "Section 508 compliant"});
 
     // this.solicitations = this.solicitations.sort(function(a,b){
     //         var aDate = new Date(a.date);

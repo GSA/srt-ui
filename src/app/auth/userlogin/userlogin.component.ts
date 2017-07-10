@@ -43,7 +43,7 @@ export class UserloginComponent implements OnInit {
           
           var currentUser = new Currentuser(data.firstName, data.lastName, data.agency, data.email, data.position);
           this.user.saveUser(currentUser);
-          this.router.navigateByUrl('srt');
+          this.router.navigateByUrl('home');
         },
         error => {          
           this.errorMessage = true;

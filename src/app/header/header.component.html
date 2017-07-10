@@ -3,12 +3,12 @@
   <nav class="us-navbar navbar-default">
         <div class="container-fluid" style="padding: 0px;">
             <div class="navbar-header nopadding" style="height: 60px">
-                <a class="navbar-left" [routerLink]="['/srt']"><img id="srtlogo" src="../../assets/srtlogo.png"></a>
+                <a class="navbar-left" [routerLink]="['/home']"><img id="srtlogo" src="../../assets/srtlogo.png"></a>
             </div>
 
         <div class="collapse navbar-collapse" id="navbar" style="padding: 0px;">
                 <ul *ngIf="firstName" class="nav navbar-nav">
-                    <li data-toggle="tab" [routerLink]="['/srt']" [ngClass]="{'active': GetHash('srt')}"><a>Home</a></li>
+                    <li data-toggle="tab" [routerLink]="['/home']" [ngClass]="{'active': GetHash('home')}"><a>Home</a></li>
                     <li data-toggle="tab" [routerLink]="['/report']" [ngClass]="{'active': GetHash('report')}"><a>Manage/Review Workload</a></li>
                     <li data-toggle="tab" [routerLink]="['/analytics']" [ngClass]="{'active': GetHash('analytics')}"><a>View Analytics</a></li>
                     <li data-toggle="tab" [routerLink]="['/admin']" [ngClass]="{'active': GetHash('admin')}"><a>Manage Access Requests</a></li>

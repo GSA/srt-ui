@@ -26,5 +26,6 @@ export class Solicitation {
           question: String,
           answer: String,
         }],
+        public undetermined: Boolean
     ) {}
 }
