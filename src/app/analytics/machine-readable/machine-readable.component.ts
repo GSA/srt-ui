@@ -13,46 +13,12 @@ import * as $ from 'jquery';
 @Directive({selector: 'baseChart'})
 export class MachineReadableComponent implements OnInit {
 
-  @Input() ICT;
+  @Input() MachineReadableChart;
   @ViewChild(BaseChartDirective) private baseChart;  
-  machineReadable = 0;
-  machineUnreadable = 0;
-  displayReadable = "";
-  displayUnreadable = "";
-  constructor() { }
 
-  ngOnInit() {
-    
-  }
-
-
-  ngOnChanges() {
-    if (this.machineUnreadable == 0 && this.machineReadable == 0)
-    {
-      this.machineUnreadable = 0;
-      this.machineReadable = 0;
-      this.ICT.forEach(element => {
-        element.parseStatus.forEach(ele => {        
-          if (ele.status == "successfully parsed") this.machineReadable++;
-          else this.machineUnreadable++;
-        });
-      });
-      var machineReadablePercentage = Math.round((this.machineReadable / (this.machineReadable + this.machineUnreadable)) * 10000) / 100;
-      var machineUnreadablePercentage = Math.round((this.machineUnreadable / (this.machineReadable + this.machineUnreadable)) * 10000) / 100;
-      this.displayReadable = machineReadablePercentage + "%";
-      this.displayUnreadable = machineUnreadablePercentage + "%";
-      this.pieChartData = [this.machineReadable, this.machineUnreadable];
-      console.log("Machine readable documents: " + this.machineReadable);
-      console.log("Non-machine readable documents: " + this.machineUnreadable);
-      //this.pieChartLabels = ['Machine Readable (' + machineReadablePercentage + "%)", 'Non Machine Readable (' + machineUnreadablePercentage + "%)"];
-      this.forceChartRefresh();  
-    }
-     
-  }
-
-  // Doughnut
+  public hasValue = false;
   public pieChartLabels:string[] = ['Machine Readable', 'Non Machine Readable'];
-  public pieChartData:any[] = [17, 83];
+  public pieChartData:any[] = [0, 0];
 
   public pieChartType:string = 'pie';
   public options:any = {
@@ -90,20 +56,33 @@ export class MachineReadableComponent implements OnInit {
       ],
   }];
 
+  public displayUnreadable = "";
+  public displayReadable = ""
 
+  constructor() { }
+
+  ngOnInit() {
+    
+  }
+
+  ngOnChanges() {
+
+    if (this.MachineReadableChart && !this.hasValue)
+    {
+        var readable = this.MachineReadableChart.machineReadable;
+        var unreadable = this.MachineReadableChart.machineUnreadable;
+        var total = readable + unreadable;
+        this.pieChartData = [this.MachineReadableChart.machineReadable, this.MachineReadableChart.machineUnreadable];
+        this.displayReadable = Math.round(readable / total * 1000) / 10 + "%";
+        this.displayUnreadable = Math.round(unreadable / total * 1000) / 10 + "%";
+        this.hasValue = true;
+        this.forceChartRefresh();  
+    }
+  }
   // refresh the charts
   forceChartRefresh() {
       setTimeout(() => {
           this.baseChart.refresh();
       }, 10);
   }
-
-  // // events
-  // public pieChartClicked(e:any):void {
-  //   console.log(e);
-  // }
- 
-  // public pieChartHovered(e:any):void {
-  //   console.log(e);
-  // }
 }

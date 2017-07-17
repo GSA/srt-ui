@@ -35,7 +35,7 @@
           <div style="display: table-cell; vertical-align: middle; width: 40px;"><img id="csvlogo" src="../../../assets/downloadcsv.jpeg" style="float:left" (click)="dt.exportCSV()"></div>
       </div>
       
-      <div style="font-weight: 500; float: left; color: #186ba0">Last scanned date: 07/08/2017</div>
+      <div style="font-weight: 500; float: left; color: #186ba0">Last scanned date: 07/16/2017</div>
   </div>
 
     
@@ -98,7 +98,7 @@
             <div style="text-align: center;">
                 <span *ngIf="sol.eitLikelihood.value == 'Yes'" [ngStyle]="{'color' : sol.undetermined ? 'black' : 'red'}">
                     <button class="button" (click)="selectSol(sol)" style="border: none;">
-                        <i class="fa fa-exclamation-triangle"></i>
+                        <i class="fa fa-exclamation-triangle" *ngIf="!sol.undetermined"></i>
                         &nbsp;&nbsp;
                         <span style="text-decoration: underline;">{{sol.reviewRec}}</span>
                     </button>

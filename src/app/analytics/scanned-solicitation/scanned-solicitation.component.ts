@@ -16,14 +16,13 @@ import * as _ from 'underscore';
 
 export class ScannedSolicitationComponent implements OnInit {
 
-    @Input() ICT;
+    @Input() ScannedSolicitationChart;
     @ViewChild(BaseChartDirective) private baseChart; 
 
     // Get 30 days range
     public toPeriod:Date = new Date(new Date().getTime() - (1000 * 60 * 60 * 24 ));
     public fromPeriod:Date = new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 32 ));
     public hasValue = false;
-    public date = {};
     public outputData:number[] = [];
   
     // chart config.
@@ -77,42 +76,20 @@ export class ScannedSolicitationComponent implements OnInit {
     }
     
     ngOnChanges() {    
-        // Only need to run this loop once since this is not affected by filter.
-        if (this.ICT.length > 0 && !this.hasValue)
-        {    
+        if (this.ScannedSolicitationChart && !this.hasValue)
+        {
             this.barChartLabels = [];
-            this.ICT.forEach(element => {  
-                var elementDate = new Date(element.date);
-                
-                if (elementDate.getTime() > this.fromPeriod.getTime() && elementDate.getTime() < this.toPeriod.getTime()) 
-                {                    
-                    var day = +(element.date.split('/')[0] + element.date.split('/')[1]);
-                    if (this.date[day] == null) this.date[day] = 1;
-                    else this.date[day] = this.date[day] + 1;  
-                }      
-            });
-            //console.log(this.date);
             var i = 0;
             for(var d = this.fromPeriod; d <= this.toPeriod && i < 32; d.setDate(d.getDate() + 1)){    
                 var formattedNumber = ("0" + d.getDate()).slice(-2);                   
-                this.outputData[i] = this.date[+((d.getMonth()+1).toString() + formattedNumber)];
+                this.outputData[i] = this.ScannedSolicitationChart.scannedData[+((d.getMonth()+1).toString() + formattedNumber)];
                 this.barChartLabels.push(d.getMonth()+1 + "/" + d.getDate());              
                 i++;
-            }           
+            }         
             this.barChartData = [{data: this.outputData, label:''}];
-
-            this.forceChartRefresh();
-            this.hasValue = true;           
-        }     
-    }
-
-    // events
-    public chartClicked(e:any):void {
-        console.log(e);
-    }
-    
-    public chartHovered(e:any):void {
-        console.log(e);
+            this.hasValue = true;      
+            this.forceChartRefresh();                 
+        }  
     }
 
    // refresh the charts

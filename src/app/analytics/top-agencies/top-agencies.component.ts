@@ -12,7 +12,7 @@ import * as _ from 'underscore';
 export class TopAgenciesComponent implements OnInit {
 
     @Input() isGovernomentWide:Boolean;
-    @Input() ICTforDisplay;
+    @Input() TopAgenciesChart;
     @Input() selectedGovernment;
     @Input() barTitle; 
     @Input() selectedPeriod;
@@ -38,159 +38,146 @@ export class TopAgenciesComponent implements OnInit {
 
     ngOnChanges(){
         /*   Bar Chart   */
-            
-        this.angencyTotal = {};
-        this.angencyPass = {};
-        this.maxSolicitation = 0;
-        this.barData = [];
-        if (this.selectedGovernment == "Government-wide")
-        {   
-            this.indexFrom = 0;
-            this.indexTo = 10;
-            this.barTitle = "Top 10 Section 508 Compliant Agencies";
-            // Filter by date      
-            for (let item of this.ICTforDisplay)
+
+        if (this.TopAgenciesChart)
+        {
+            this.angencyTotal = {};
+            this.angencyPass = {};
+            this.maxSolicitation = 0;
+            this.barData = [];
+            if (this.selectedGovernment == "Government-wide")
             {   
-                // Gathering data by noticeType
-                if (this.angencyTotal[item.agency] == null)
-                {                        
-                    this.angencyTotal[item.agency] = 1;
-                    if (item.predictions.value == "GREEN") this.angencyPass[item.agency] = 1;  
-                    else this.angencyPass[item.agency] = 0; 
+                this.indexFrom = 0;
+                this.indexTo = 10;
+                this.barTitle = "Top 10 Section 508 Compliant Agencies";          
 
-                } 
-                else {
-                    this.angencyTotal[item.agency]++;
-                    if (item.predictions.value == "GREEN") this.angencyPass[item.agency]++;
-                } 
-                    
-            } 
-
-
-            // Insert data to the chart
-            for (var key in this.angencyTotal) { 
-                // if angency doesn't have any passed solicitation                    
-                if (this.angencyPass[key] == null) 
-                {
-                    this.barData.push([key, 0, this.angencyPass[key], this.angencyTotal[key]]);                
+                // Insert data to the chart
+                for (var key in this.TopAgenciesChart.topAgencies) {                     
+                    this.barData.push(
+                        [ key, 
+                          this.TopAgenciesChart.topAgencies[key]["green"] / (this.TopAgenciesChart.topAgencies[key]["green"] + this.TopAgenciesChart.topAgencies[key]["red"]),
+                          this.TopAgenciesChart.topAgencies[key]["green"],
+                          (this.TopAgenciesChart.topAgencies[key]["green"] + this.TopAgenciesChart.topAgencies[key]["red"])
+                        ]);
                 }
-                else
-                {
-                    this.barData.push([key, this.angencyPass[key] / this.angencyTotal[key], this.angencyPass[key], this.angencyTotal[key]]);
-                }       
-            }
-
-            // Sorting by rate        
-            this.barData.sort(function(a, b) {
-                if (b[1] > a[1])
-                {
-                    return 1;
-                }
-                else if (b[1] < a[1])
-                {
-                    return -1;
-                }
-                else if (b[1] == a[1])
-                {
-                    if (b[3] > a[3])
+                // Sorting by rate        
+                this.barData.sort(function(a, b) {
+                    if (b[1] > a[1])
                     {
                         return 1;
                     }
-                    else if (b[3] < a[3])
+                    else if (b[1] < a[1])
                     {
                         return -1;
                     }
+                    else if (b[1] == a[1])
+                    {
+                        if (b[3] > a[3])
+                        {
+                            return 1;
+                        }
+                        else if (b[3] < a[3])
+                        {
+                            return -1;
+                        }
+                    }
+                });   
+                
+                var i = this.indexFrom;
+                this.barData.forEach(element => {
+                    if (i < this.indexTo)
+                        if (this.maxSolicitation <= element[3]) 
+                            this.maxSolicitation = element[3];  
+                    i++
+                });           
+
+            }
+            else
+            {    
+                // Chagne year x-axis format
+                if (this.selectedPeriod == "This Year" || this.selectedPeriod =="All")
+                {
+                    this.indexFrom = 1;
+                    this.indexTo = 13;
+                    this.barTitle = this.selectedGovernment;
+
+                    debugger
+                    // Filter by year and agency                
+                    for (let item of this.TopAgenciesChart.topAgencies[this.selectedGovernment])
+                    {  
+                        if (item.date != null)
+                        {
+                            var month = +item.date.split('/')[0];                
+                            if (this.angencyTotal[month] == null)
+                            {
+                                this.angencyTotal[month] = 1;
+                                if (item.predictions.value == "GREEN") this.angencyPass[month] = 1;  
+                                else this.angencyPass[month] = 0; 
+                            }  
+                            else {
+                                this.angencyTotal[month]++;
+                                if (item.predictions.value == "GREEN") this.angencyPass[month]++;
+                            }  
+                        }
+                    }
+
+                    for (var i = 0;  i < 13; i ++)
+                    {
+                        if (this.angencyPass[i] == null) {
+                            this.barData.push([i, 0, 0, 0]);  
+                        }
+                        else
+                        {
+                            this.barData.push([i, this.angencyPass[i] / this.angencyTotal[i], this.angencyPass[i], this.angencyTotal[i]]);
+                        }
+                        if (this.maxSolicitation <= this.angencyTotal[i]) this.maxSolicitation = this.angencyTotal[i];     
+                    }
+                    
                 }
-            });   
+                else if (this.selectedPeriod == "This Month") 
+                {
+                    this.indexFrom = 1;                
+                    this.indexTo = this.toPeriod.getDate() + 1;
+                    
+                    this.barTitle = this.selectedGovernment;
+                    // Filter by year and agency                
+                    for (let item of this.TopAgenciesChart.topAgencies[this.selectedGovernment])
+                    {  
+                        if (item.date != null)
+                        {
+                            var date = +item.date.split('/')[1];                
+                            if (this.angencyTotal[date] == null)
+                            {
+                                this.angencyTotal[date] = 1;
+                                if (item.predictions.value == "GREEN") this.angencyPass[date] = 1;  
+                                else this.angencyPass[date] = 0; 
+                            }  
+                            else {
+                                this.angencyTotal[date]++;
+                                if (item.predictions.value == "GREEN") this.angencyPass[date]++;
+                            }  
+                        }
+                    }
+                    
+                    for (var i = 0;  i < this.indexTo + 1; i ++)
+                    {
+                        if (this.angencyPass[i] == null) {
+                            this.barData.push([i, 0, 0, 0]);  
+                        }
+                        else
+                        {
+                            this.barData.push([i, this.angencyPass[i] / this.angencyTotal[i], this.angencyPass[i], this.angencyTotal[i]]);
+                        }
+                        if (this.maxSolicitation <= this.angencyTotal[i]) this.maxSolicitation = this.angencyTotal[i];     
+                    }
+                }
+            }
+
+            this.noData = Object.keys(this.TopAgenciesChart).length == 0;
+        }
             
-            var i = this.indexFrom;
-            this.barData.forEach(element => {
-                if (i < this.indexTo)
-                    if (this.maxSolicitation <= element[3]) 
-                        this.maxSolicitation = element[3];  
-                i++
-            });           
-
-        }
-        else
-        {    
-            // Chagne year x-axis format
-            if (this.selectedPeriod == "This Year" || this.selectedPeriod =="All")
-            {
-                this.indexFrom = 1;
-                this.indexTo = 13;
-                this.barTitle = this.selectedGovernment;
-                // Filter by year and agency                
-                for (let item of this.ICTforDisplay)
-                {  
-                    if (item.date != null)
-                    {
-                        var month = +item.date.split('/')[0];                
-                        if (this.angencyTotal[month] == null)
-                        {
-                            this.angencyTotal[month] = 1;
-                            if (item.predictions.value == "GREEN") this.angencyPass[month] = 1;  
-                            else this.angencyPass[month] = 0; 
-                        }  
-                        else {
-                            this.angencyTotal[month]++;
-                            if (item.predictions.value == "GREEN") this.angencyPass[month]++;
-                        }  
-                    }
-                }
-
-                for (var i = 0;  i < 13; i ++)
-                {
-                    if (this.angencyPass[i] == null) {
-                        this.barData.push([i, 0, 0, 0]);  
-                    }
-                    else
-                    {
-                        this.barData.push([i, this.angencyPass[i] / this.angencyTotal[i], this.angencyPass[i], this.angencyTotal[i]]);
-                    }
-                    if (this.maxSolicitation <= this.angencyTotal[i]) this.maxSolicitation = this.angencyTotal[i];     
-                }
-                
-            }
-            else if (this.selectedPeriod == "This Month") 
-            {
-                this.indexFrom = 1;                
-                this.indexTo = this.toPeriod.getDate() + 1;
-                
-                this.barTitle = this.selectedGovernment;
-                // Filter by year and agency                
-                for (let item of this.ICTforDisplay)
-                {  
-                    if (item.date != null)
-                    {
-                        var date = +item.date.split('/')[1];                
-                        if (this.angencyTotal[date] == null)
-                        {
-                            this.angencyTotal[date] = 1;
-                            if (item.predictions.value == "GREEN") this.angencyPass[date] = 1;  
-                            else this.angencyPass[date] = 0; 
-                        }  
-                        else {
-                            this.angencyTotal[date]++;
-                            if (item.predictions.value == "GREEN") this.angencyPass[date]++;
-                        }  
-                    }
-                }
-                
-                for (var i = 0;  i < this.indexTo + 1; i ++)
-                {
-                    if (this.angencyPass[i] == null) {
-                        this.barData.push([i, 0, 0, 0]);  
-                    }
-                    else
-                    {
-                        this.barData.push([i, this.angencyPass[i] / this.angencyTotal[i], this.angencyPass[i], this.angencyTotal[i]]);
-                    }
-                    if (this.maxSolicitation <= this.angencyTotal[i]) this.maxSolicitation = this.angencyTotal[i];     
-                }
-            }
-        }
-        this.noData = Object.keys(this.ICTforDisplay).length == 0;
+        
+        
         
 
         var remain = this.maxSolicitation % this.xAxisUnit;

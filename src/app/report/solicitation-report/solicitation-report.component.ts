@@ -70,9 +70,12 @@ export class SolicitationReportComponent implements OnInit {
 
 
     this.revResult.push({label: 'All', value: null});
-    this.revResult.push({label: 'Noncomploant - Action Required', value: "Noncompliant - Action Required"});
-    this.revResult.push({label: 'Undetermined Status', value: 'Undetermined Status'});
-    this.revResult.push({label: 'Section 508 compliant', value: "Section 508 compliant"});
+    this.revResult.push({label: 'Non-compliant (Action Required)', value: "Non-compliant (Action Required)"});
+    this.revResult.push({label: 'Undetermined', value: 'Undetermined'});
+    this.revResult.push({label: 'Compliant', value: "Compliant"});
+    // this.revResult.push({label: 'Noncomploant - Action Required', value: "Noncompliant - Action Required"});
+    // this.revResult.push({label: 'Undetermined Status', value: 'Undetermined Status'});
+    // this.revResult.push({label: 'Section 508 compliant', value: "Section 508 compliant"});
 
     // this.solicitations = this.solicitations.sort(function(a,b){
     //         var aDate = new Date(a.date);

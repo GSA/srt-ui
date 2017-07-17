@@ -26,8 +26,8 @@ export class AnalyticsComponent implements OnInit {
     // Filter 
     public selectedGovernment = "Government-wide";
     public selectedPeriod = "All";
-    public formPeriod:Date = new Date(new Date().getFullYear(), 0, 1);
-    public toPeriod:Date = new Date(new Date().getFullYear(), 11, 31);
+    public formPeriod:Date = new Date(1900, 0, 1);
+    public toPeriod:Date = new Date(2100, 11, 31);
     public xAxis = "Agency";
     
     ICT = [];
@@ -36,71 +36,35 @@ export class AnalyticsComponent implements OnInit {
     // bar
     public barTitle = "Top 10 Section 508 Compliant Agencies";
     public isGovernomentWide = true;
-    public noData = true;    
+    // public noData = true;    
 
     // data
-    public nonCompliantICT = [];
-    public compliantICT = [];
-    public updatedICT = [];
-    public updatedNonCompliantICT = [];
-    public updatedCompliantICT = [];
-    public undeterminedICT = [];
+    // public nonCompliantICT = [];
+    // public compliantICT = [];
+    // public updatedICT = [];
+    // public updatedNonCompliantICT = [];
+    // public updatedCompliantICT = [];
+    // public undeterminedICT = [];
 
-    // doughnut
-    // solicitationType = {};   
-    // public doughnutChartLabels:string[] = [];
-    // public doughnutChartData:number[] = [];
-    // public doughnutChartType:string = 'doughnut';
-    // public datasets: any[];   
 
+
+
+    // redo
+    public params = {};
+    public ScannedSolicitationChart = null;
+    public MachineReadableChart = null;
+    public ComplianceRateChart = null;
+    public ConversionRateChart = null;
+    public TopSRTActionChart = null;
+    public TopAgenciesChart = null;       
+    public PredictResultChart = null;
 
     constructor(
         private SolicitationService: SolicitationService,
         private router: Router
     ) { }
-
-    // Analytic chart     
-
-    //Change analytic color
-    // colorsOverride: Array<Color> = [{
-    //     backgroundColor: [
-    //         "#2C81C0",
-    //         "#53A9DE",
-    //         "#77DDFC",
-    //         "#DCEBF9",
-    //     ],
-    //     hoverBackgroundColor: [
-    //         "#2C81C0",
-    //         "#53A9DE",
-    //         "#77DDFC",
-    //         "#DCEBF9",
-    //     ],
-    // }];
-
-    // barColorsOverride: Array<Color> = [
-    //     { backgroundColor: ['#2C81C0', '#2C81C0', '#2C81C0', '#2C81C0', '#2C81C0', '#2C81C0', '#2C81C0', '#2C81C0', '#2C81C0', '#2C81C0',] }, 
-    //     { backgroundColor: ['#53A9DE', '#53A9DE', '#53A9DE', '#53A9DE', '#53A9DE', '#53A9DE', '#53A9DE', '#53A9DE', '#53A9DE', '#53A9DE'] }, 
-    // ];
-
-    // events
-    // public pieChartClicked(e:any):void {
-    //     console.log(e);
-    // }
-
-    // public pieChartHovered(e:any):void {
-    //     console.log(e);
-    // }
   
-    public agencyList:string[] = [];   
-
-    // events
-    // public chartClicked(e:any):void {
-    //     console.log(e);
-    // }
-
-    // public chartHovered(e:any):void {
-    //     console.log(e);
-    // }    
+    public agencyList:string[] = [];         
 
     onChange(str)
     {
@@ -167,78 +131,118 @@ export class AnalyticsComponent implements OnInit {
         this.GetTotalData();        
     }
 
-    
-    GetTotalData() 
-    {
-
-        // this.nonCompliantICT = [];
-        // this.compliantICT = [];
-
-        this.SolicitationService.getICT()
+    GetTopAgencies() {
+        this.SolicitationService.GetAgencies()
         .subscribe(
-            solicitation => {   
-                console.log(solicitation.length)                           
-               this.ICT = solicitation.filter( d => d.eitLikelihood.value == "Yes" );
-               // following variable will be affected by filter   
-               this.ICTforDisplay =  solicitation.filter( d => d.eitLikelihood.value == "Yes" );
-
-                // get total agency list
-               this.agencyList = []; 
-               var map = new Object();
-               for (let item of this.ICTforDisplay) 
-               {
-                   if (!map.hasOwnProperty(item.agency))
-                   {
-                        map[item.agency] = item.agency;
-                        this.agencyList.push(item.agency)
-                   }
-               }               
-               this.agencyList.sort();    
-              
-
-               if (this.selectedGovernment != "Government-wide")  
-               {
-                    this.ICTforDisplay =  this.ICTforDisplay.filter( d => d.agency == this.selectedGovernment );   
-               }
-               
-               var filteredData = [];
-                for (let item of this.ICTforDisplay)
-                {          
-                    if (item.date != null)
-                    {       
-                        //var dateSpliiter = item.date.split('/');
-                        var date = new Date(item.date);
-                        // Filter by time
-                        if (date > this.formPeriod && date < this.toPeriod)
-                        {
-                            filteredData.push(item);
-                        }                   
-                    }          
-                } 
-                console.log("All ICT: " + this.ICTforDisplay.length);
-                this.undeterminedICT = filteredData.filter(d => d.undetermined == true);
-                console.log("Undetermined ICT: " + this.undeterminedICT.length);
-                // get rid of undetermined results.
-                this.ICTforDisplay = filteredData.filter(d => d.undetermined == false);  
-                console.log("Determined ICT: " + this.ICTforDisplay.length);
-                
-                this.updatedICT = this.ICTforDisplay.filter(d => d.history.filter(function(e){return e["action"].indexOf('Solicitation Updated on FBO.gov') > -1 }).length > 0)
-                this.nonCompliantICT = this.ICTforDisplay.filter( d => d.predictions.value=="RED");     
-                this.compliantICT = this.ICTforDisplay.filter( d => d.predictions.value=="GREEN");
-                this.updatedNonCompliantICT = this.nonCompliantICT.filter(d => d.history.filter(function(e){return e["action"].indexOf('Solicitation Updated on FBO.gov') > -1 }).length > 0)
-                this.updatedCompliantICT = this.compliantICT.filter(d => d.history.filter(function(e){return e["action"].indexOf('Solicitation Updated on FBO.gov') > -1 }).length > 0)
-                
-                this.noData = Object.keys(this.ICTforDisplay).length == 0;
-
+            data => {
+                this.agencyList = data;
             },
             err => {
                 console.log(err);
-        }); 
+            }
+        )
+    }
+
+
+    GetTotalData() 
+    {
+        //console.log(this.formPeriod.toLocaleDateString());
+        this.params = {
+            fromPeriod: this.formPeriod.toLocaleDateString(),
+            toPeriod: this.toPeriod.toLocaleDateString(),
+            agency: this.selectedGovernment
+        }
+        this.SolicitationService.getAnalytics(this.params)
+        .subscribe(
+            data => {
+                this.ScannedSolicitationChart = data.ScannedSolicitationChart;
+                this.MachineReadableChart = data.MachineReadableChart;
+                this.ComplianceRateChart = data.ComplianceRateChart;
+                this.ConversionRateChart = data.ConversionRateChart;
+                this.TopSRTActionChart = data.TopSRTActionChart;
+                this.TopAgenciesChart = data.TopAgenciesChart;
+                this.PredictResultChart = data.PredictResultChart;
+                console.log(data);
+            },
+            err => {
+                console.log(err);
+            }
+        )
+        // this.SolicitationService.getICT()
+        // .subscribe(
+        //     solicitation => {   
+        //         console.log(solicitation.length)                           
+        //        this.ICT = solicitation.filter( d => d.eitLikelihood.value == "Yes" );
+        //        // following variable will be affected by filter   
+        //        this.ICTforDisplay =  solicitation.filter( d => d.eitLikelihood.value == "Yes" );
+
+        //         // get total agency list
+        //        this.agencyList = []; 
+        //        var map = new Object();
+        //        for (let item of this.ICTforDisplay) 
+        //        {
+        //            if (!map.hasOwnProperty(item.agency))
+        //            {
+        //                 map[item.agency] = item.agency;
+        //                 this.agencyList.push(item.agency)
+        //            }
+        //        }               
+        //        this.agencyList.sort();    
+              
+
+        //        if (this.selectedGovernment != "Government-wide")  
+        //        {
+        //             this.ICTforDisplay =  this.ICTforDisplay.filter( d => d.agency == this.selectedGovernment );   
+        //        }
+               
+        //        var filteredData = [];
+        //         for (let item of this.ICTforDisplay)
+        //         {          
+        //             if (item.date != null)
+        //             {       
+        //                 //var dateSpliiter = item.date.split('/');
+        //                 var date = new Date(item.date);
+        //                 // Filter by time
+        //                 if (date > this.formPeriod && date < this.toPeriod)
+        //                 {
+        //                     filteredData.push(item);
+        //                 }   
+        //                 else {
+        //                     console.log(item.solNum);
+        //                 }               
+        //             }   
+        //             else
+        //             {
+        //                 console.log(item.solNum);
+        //             }      
+        //         } 
+        //         console.log("All ICT: " + filteredData.length);
+        //         this.undeterminedICT = filteredData.filter(d => d.undetermined == true);
+        //         debugger
+        //         console.log("Undetermined ICT: " + this.undeterminedICT.length);
+        //         // get rid of undetermined results.
+        //         this.ICTforDisplay = filteredData.filter(d => d.undetermined == false);  
+        //         console.log("Determined ICT: " + this.ICTforDisplay.length);
+                
+        //         this.updatedICT = this.ICTforDisplay.filter(d => d.history.filter(function(e){return e["action"].indexOf('Solicitation Updated on FBO.gov') > -1 }).length > 0)
+        //         this.nonCompliantICT = this.ICTforDisplay.filter( d => d.predictions.value=="RED");     
+        //         this.compliantICT = this.ICTforDisplay.filter( d => d.predictions.value=="GREEN");
+        //         this.updatedNonCompliantICT = this.nonCompliantICT.filter(d => d.history.filter(function(e){return e["action"].indexOf('Solicitation Updated on FBO.gov') > -1 }).length > 0)
+        //         this.updatedCompliantICT = this.compliantICT.filter(d => d.history.filter(function(e){return e["action"].indexOf('Solicitation Updated on FBO.gov') > -1 }).length > 0)
+                
+        //         this.noData = Object.keys(this.ICTforDisplay).length == 0;
+
+        //     },
+        //     err => {
+        //         console.log(err);
+        //     }
+        // ); 
     }
 
     // Analytic get data
     ngOnInit() {    
-        this.GetTotalData();     
+        this.GetTopAgencies();
+        this.GetTotalData();  
     }    
       
     

@@ -10,11 +10,7 @@ import * as $ from 'jquery';
 })
 export class TopSrtActionsComponent implements OnInit {
 
-  @Input() ICTforDisplay;
-  @Input() nonCompliantICT;
-  @Input() updatedICT;
-  @Input() updatedCompliantICT;
-  @Input() updatedNonCompliantICT;
+  @Input() TopSRTActionChart;
  
   public solicitationNumber = 0;
   public nonCompliantICTNumber = 0;
@@ -30,20 +26,18 @@ export class TopSrtActionsComponent implements OnInit {
     
   }
 
-  ngOnChanges() {      
-      this.solicitationNumber = this.ICTforDisplay.length;  
-      this.nonCompliantICTNumber = this.nonCompliantICT.length;
-      var reviewedSolicitation = this.ICTforDisplay.filter(function(d){
-            return (d.history.filter(function(e){return e["action"].indexOf('reviewed solicitation action requested summary') > -1 }).length > 0)
-      });
-      this.reviewed = reviewedSolicitation.length;
-      var emailSentSolicitation = this.ICTforDisplay.filter(function(d){
-            return (d.history.filter(function(e){return e["action"].indexOf('sent email to POC') > -1}).length > 0)
-      });
-      this.emailSend = emailSentSolicitation.length;
-      this.updatedICTNumber = this.updatedICT.length;
-      this.updatedCompliantICTNumber = this.updatedCompliantICT.length;
-      this.updatedNonCompliantICTNumber = this.updatedNonCompliantICT.length;
+  ngOnChanges() {  
+    if (this.TopSRTActionChart) 
+    {
+      this.solicitationNumber = this.TopSRTActionChart.determinedICT;
+      this.nonCompliantICTNumber = this.TopSRTActionChart.uncompliance;
+      this.reviewed = this.TopSRTActionChart.review;
+      this.emailSend = this.TopSRTActionChart.email;
+      this.updatedICTNumber = this.TopSRTActionChart.updatedICT;
+      this.updatedCompliantICTNumber = this.TopSRTActionChart.updatedCompliantICT;
+      this.updatedNonCompliantICTNumber = this.TopSRTActionChart.updatedNonCompliantICT;
+    }    
+      
   }
 
 }

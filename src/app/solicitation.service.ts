@@ -15,17 +15,21 @@ export class SolicitationService {
 
   constructor ( private http: Http ){};
   // productionURL
-  private solicitationsUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/predictions';
-  private ICTUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/ICT';
-  private solicitationsFilterUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/predictions/filter';
-  private solicitationUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/solicitation/';
-  private emailUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/email/';
+  // private solicitationsUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/predictions';
+  // private ICTUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/ICT';
+  // private AgencyUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/Agencies';   
+  // private AnalyticUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/Analytics'; 
+  // private solicitationsFilterUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/predictions/filter';
+  // private solicitationUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/solicitation/';
+  // private emailUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/email/';
 
-  // private solicitationsUrl = 'http://localhost:3000/predictions';
-  // private ICTUrl = 'http://localhost:3000/ICT';   
-  // private solicitationsFilterUrl = 'http://localhost:3000/predictions/filter';
-  // private solicitationUrl = 'http://localhost:3000/solicitation/';
-  // private emailUrl = 'http://localhost:3000/email/';
+  private solicitationsUrl = 'http://localhost:3000/predictions';
+  private ICTUrl = 'http://localhost:3000/ICT';   
+  private AnalyticUrl = 'http://localhost:3000/Analytics';   
+  private AgencyUrl = 'http://localhost:3000/Agencies';   
+  private solicitationsFilterUrl = 'http://localhost:3000/predictions/filter';
+  private solicitationUrl = 'http://localhost:3000/solicitation/';
+  private emailUrl = 'http://localhost:3000/email/';
 
   getFilteredSolicitations(body) {
   	return this.http.post(this.solicitationsFilterUrl, body)
@@ -52,15 +56,24 @@ export class SolicitationService {
 
 
   getData() {
-      // Get whole whole data set
       var data =  this.http.get(this.solicitationsUrl).map((res: Response) => res.json());
       return data
   }
 
   getICT() {
-      // Get whole whole data set
-      var data =  this.http.get(this.ICTUrl).map((res: Response) => res.json());
+      var data =  this.http.get(this.ICTUrl).map((res: Response) => res.json());    
       return data
+  }
+
+  getAnalytics(param) {      
+      return this.http.post(this.AnalyticUrl, param)
+          .map((res: Response) => res.json())
+          .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
+  }
+
+  GetAgencies(){
+    var data =  this.http.get(this.AgencyUrl).map((res: Response) => res.json());    
+    return data
   }
 
   

@@ -4,10 +4,10 @@
 
         <div class="col-md-12 nopadding clearfix">
             <div class="scanned-solicitation">
-                <app-scanned-solicitation [ICT]="ICT"></app-scanned-solicitation>      
+                <app-scanned-solicitation [ScannedSolicitationChart]="ScannedSolicitationChart"></app-scanned-solicitation>      
             </div>
-            <div class="machine-readable">
-                <app-machine-readable [ICT]="ICT" ></app-machine-readable>
+            <div class="prediction-result">
+                <app-prediction-result [PredictResultChart]="PredictResultChart"></app-prediction-result>
             </div>
             
         </div>
@@ -15,22 +15,10 @@
 
         <div class="col-md-12 nopadding clearfix" style="margin-bottom: 40px !important">
             <div style="padding: 30px 0px 10px 0px; border-top: 1px solid #dadada;" class="clearfix">                   
-
-                <div style="float: right; padding: 0px 20px;">
-                    <div style="display: inline-block; vertical-align: middle; "> 
-                        <select id="select" style="height: 32px; padding: 5px 30px 5px 15px; font-size: 16px; border: none; border-bottom: 1px solid #4a4a4a;"
-                            (change)="onPeriodChange($event.target.value)"
-                            [ngModel]="selectedPeriod">
-                            <option value="All" *ngIf="selectedGovernment == 'Government-wide'">All</option>
-                            <!--<option value="This Week">This Week</option>-->
-                            <option value="This Month">This Month</option>
-                            <option value="This Year">This Year</option>
-                        </select>                       
-                    </div>
-                </div>  
                 
-                 <div style="float: right; padding: 0px 20px; ">
-                    <div style="display: inline-block; vertical-align: middle; "> 
+                <div style="float: left; padding: 0px 20px; ">
+                    <div style="display: inline-block; vertical-align: middle; padding-right: 10px; font-size: 16px;">Select your agency</div>
+                    <div style="display: inline-block; vertical-align: middle;"> 
                         <select style="height: 32px; padding: 5px 30px 5px 15px; font-size: 16px; border: none; border-bottom: 1px solid #4a4a4a;" 
                                 [ngModel]="selectedGovernment"
                                 (ngModelChange)="onChange($event)">
@@ -38,7 +26,21 @@
                             <option val="data" *ngFor="let data of agencyList">{{data}}</option>
                         </select>
                     </div>
-                </div>            
+                </div>  
+
+                <div style="float: left; padding: 0px 20px;">
+                    <div style="display: inline-block; vertical-align: middle; padding-right: 10px; font-size: 16px;">Select your date filter</div>
+                    <div style="display: inline-block; vertical-align: middle; "> 
+                        <select id="select" style="height: 32px; padding: 5px 30px 5px 15px; font-size: 16px; border: none; border-bottom: 1px solid #4a4a4a;"
+                            (change)="onPeriodChange($event.target.value)"
+                            [ngModel]="selectedPeriod">
+                            <option value="All" *ngIf="selectedGovernment == 'Government-wide'">All</option>
+                            <option value="This Month">This Month</option>
+                            <option value="This Year">This Year</option>
+                        </select>                       
+                    </div>
+                </div>  
+                          
             </div>
         </div>
         
@@ -46,43 +48,48 @@
             <div class="row-eq-height">
                 <div class="col-md-6 nopadding">
                     <div class="col-md-6 nopadding">
-                        <app-compliance-rate [ICTforDisplay]="ICTforDisplay"></app-compliance-rate>
+                        <app-compliance-rate [ComplianceRateChart]="ComplianceRateChart"></app-compliance-rate>
                     </div>
                     <div class="col-md-6 nopadding">
-                        <app-conversion-rate 
-                            [ICTforDisplay]="ICTforDisplay" 
-                            [nonCompliantICT]="nonCompliantICT"
-                            [updatedCompliantICT]="updatedCompliantICT"></app-conversion-rate>
+                        <app-conversion-rate [ConversionRateChart]="ConversionRateChart"></app-conversion-rate>
                     </div>
                 </div>
 
                 <div class="col-md-6 nopadding">
-                    <app-top-srt-actions 
-                        [ICTforDisplay]="ICTforDisplay" 
-                        [nonCompliantICT]="nonCompliantICT"
-                        [updatedICT]="updatedICT"
-                        [updatedCompliantICT]="updatedCompliantICT"
-                        [updatedNonCompliantICT]="updatedNonCompliantICT"
-                        ></app-top-srt-actions>
+                    <app-top-srt-actions [TopSRTActionChart]="TopSRTActionChart"></app-top-srt-actions>
                 </div>
             </div>
         </div>
         
 
         <div class="col-md-12 nopadding clearfix" style="margin-bottom: 40px !important">
-            <app-top-agencies 
+            <!--<app-top-agencies 
                 [isGovernomentWide]="isGovernomentWide" 
-                [ICTforDisplay]="ICTforDisplay" 
+                [TopAgenciesChart]="TopAgenciesChart" 
                 [selectedGovernment]="selectedGovernment" 
                 [barTitle]="barTitle"
                 [selectedPeriod]="selectedPeriod"
                 [toPeriod]="toPeriod"
                 [fromPeriod]="fromPeriod"
-                [xAxis]="xAxis"></app-top-agencies>
+                [xAxis]="xAxis"></app-top-agencies>-->
+                <app-top-agencies-percentage 
+                    [isGovernomentWide]="isGovernomentWide" 
+                    [TopAgenciesChart]="TopAgenciesChart" 
+                    [selectedGovernment]="selectedGovernment" 
+                    [barTitle]="barTitle"
+                    [selectedPeriod]="selectedPeriod"
+                    [toPeriod]="toPeriod"
+                    [fromPeriod]="fromPeriod"
+                    [xAxis]="xAxis"></app-top-agencies-percentage>
         </div>
 
         <div class="col-md-12 nopadding clearfix" style="margin-bottom: 40px !important; padding: 30px 0px 10px 0px !important; border-top: 1px solid #dadada;">
-            <app-user-login></app-user-login>
+            <div class="user-login">
+                <app-user-login></app-user-login>
+            </div>
+            <div class="machine-readable">
+                <app-machine-readable [MachineReadableChart]="MachineReadableChart" ></app-machine-readable>
+            </div>
         </div>
 
 

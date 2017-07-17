@@ -55,6 +55,8 @@ import { ComplianceRateComponent } from './analytics/compliance-rate/compliance-
 import { ConversionRateComponent } from './analytics/conversion-rate/conversion-rate.component';
 import { UserLoginComponent } from './analytics/user-login/user-login.component';
 import { MachineReadableComponent } from './analytics/machine-readable/machine-readable.component';
+import { PredictionResultComponent } from './analytics/prediction-result/prediction-result.component';
+import { TopAgenciesPercentageComponent } from './analytics/top-agencies-percentage/top-agencies-percentage.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +90,8 @@ import { MachineReadableComponent } from './analytics/machine-readable/machine-r
     ConversionRateComponent,
     UserLoginComponent,
     MachineReadableComponent,
+    PredictionResultComponent,
+    TopAgenciesPercentageComponent,
   ],
   imports: [
     BrowserModule,

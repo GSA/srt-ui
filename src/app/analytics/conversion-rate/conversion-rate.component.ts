@@ -14,50 +14,12 @@ import * as $ from 'jquery';
 
 export class ConversionRateComponent implements OnInit {
 
-    @Input() ICTforDisplay;
-    @Input() nonCompliantICT;
-    @Input() updatedCompliantICT;
-    public canvas;
-    public ctx;   
-    public updatedCompliantICTNumber:any = 0;
-    public TotalNonCompliant:any = 0;
-    public percentage:Number = 0;  
-
-
-    constructor() { }  
-
-
-    ngOnInit() {    
-        
-    }
-
-
-    ngOnChanges() {
-        
-        this.TotalNonCompliant = this.nonCompliantICT.length;
-        this.updatedCompliantICTNumber = this.updatedCompliantICT.length;        
-        this.doughnutChartData = [this.updatedCompliantICTNumber, this.TotalNonCompliant];
-        this.percentage = this.TotalNonCompliant == 0 ? 0 : Math.round(this.updatedCompliantICTNumber / this.TotalNonCompliant * 100);
-        var CountTo = this.percentage;        
-
-        $('.conversion-count').each(function () {
-            $(this).prop('Counter',0).animate({
-                Counter: ""+CountTo
-            }, {
-                duration: 500,
-                easing: 'swing',
-                step: function (now) {         
-                    $(this).text(Math.ceil(now) + "%");
-                }
-            });
-        }); 
-    }
-
+    @Input() ConversionRateChart;
     @ViewChild(BaseChartDirective) private baseChart;  
      
     // Doughnut
     public doughnutChartLabels:string[] = ['Download Sales', 'In-Store Sales'];
-    public doughnutChartData:any[] = [17, 83];
+    public doughnutChartData:any[] = [0, 1];
 
     public doughnutChartType:string = 'doughnut';
     public options:any = {
@@ -87,14 +49,44 @@ export class ConversionRateComponent implements OnInit {
             "#f7f7f7"
         ],
     }];
-    
-    // events
-    public chartClicked(e:any):void {
-        console.log(e);
+
+    public percentage:Number = 0;  
+    public updatedCompliantICTNumber:Number = 0;
+    public TotalNonCompliant:Number = 0;
+
+    constructor() { }  
+
+
+    ngOnInit() {    
+        
     }
 
-    public chartHovered(e:any):void {
-        console.log(e);
+
+    ngOnChanges() {
+        
+        if (this.ConversionRateChart) 
+        {            
+            this.updatedCompliantICTNumber = this.ConversionRateChart.updatedCompliantICT;
+            this.TotalNonCompliant = this.ConversionRateChart.uncompliance;
+            this.doughnutChartData = [this.ConversionRateChart.updatedCompliantICT, this.ConversionRateChart.uncompliance];
+            this.percentage = this.ConversionRateChart.uncompliance == 0 ? 0 : Math.round(this.ConversionRateChart.updatedCompliantICT / this.ConversionRateChart.uncompliance * 100);
+            var CountTo = this.percentage;        
+
+            $('.conversion-count').each(function () {
+                $(this).prop('Counter',0).animate({
+                    Counter: ""+CountTo
+                }, {
+                    duration: 500,
+                    easing: 'swing',
+                    step: function (now) {         
+                        $(this).text(Math.ceil(now) + "%");
+                    }
+                });
+            });
+        }  
+         
     }
+
+    
 
 }

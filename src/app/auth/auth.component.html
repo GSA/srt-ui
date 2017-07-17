@@ -1,14 +1,20 @@
-<div class="container">
+<div style="background-image:url(https://s3.amazonaws.com/srt.bucket/assets/login.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            height: calc(100vh - 83px);
+            box-shadow: inset 1000px 1000px 1000px rgba(255,255,255,0.8)">
+   
     <div class="row spacing nopadding">
-        <div class="row-eq-height" style="padding-top: 60px">
-            <div class="col-md-6">
+        <div class="row-eq-height" style="padding-top: 100px">
+            <div class="col-lg-5 col-lg-offset-1 col-md-6 col-sm-12" >
                 <div style="padding: 40px;" class="srt-blue">           
                     <h1 style="font-weight: 700;">Solicitation Review Tool </h1>
                     <h3>The Solicitation Review Tool (SRT) is provided to allow agencies to evaluate the overall solicitation compliance with accessibility, cyber security, and other regulations and requirements.</h3>                
                 </div>
             </div>
-            <div class="col-md-6">
-                <div  style="border: 1px solid #dadada; box-shadow: 1px 1px 10px 0px #dadada">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div style="border: 1px solid #dadada; box-shadow: 1px 1px 10px 0px #dadada; background-color: white">
                     <ul class="register clearfix">
                         <li class="active" (click)="ChangeDisplay('singin')" data-toggle="tab">Sign In</li>
                         <li  (click)="ChangeDisplay('signup')"data-toggle="tab">Sign Up</li>

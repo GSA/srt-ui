@@ -72,14 +72,28 @@ option {
     display: flex;
 }
 
+
 .scanned-solicitation {
     width: calc(100% - 300px); 
     float: left;
     margin-bottom: 60px !important
 }
 
-.machine-readable {
+.prediction-result {
     width: 250px; 
+    float: right;
+    margin-bottom: 40px !important;
+}
+
+
+.user-login {
+    width: calc(100% - 400px); 
+    float: left;
+    margin-bottom: 60px !important
+}
+
+.machine-readable {
+    width: 350px; 
     float: right;
     margin-bottom: 40px !important;
 }
