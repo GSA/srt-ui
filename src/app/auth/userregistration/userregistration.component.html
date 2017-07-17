@@ -98,7 +98,7 @@
                 (focus)="onFocus()"
                 placeholder="Select your request access level" 
                 value="{{selectedUserRole}}"/>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%; font-weight: 500" >
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%; font-weight: 500; top: auto; bottom: 100%" >
                 <div class="dropdown-item" style="cursor: pointer; padding: 6px 12px" 
                     (click)="onChangeAccessLevel('Administrator')" 
                     [ngClass]="{'active' : selectedUserRole == 'Administrator'}">
