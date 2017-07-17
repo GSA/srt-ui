@@ -17,7 +17,8 @@ export class SolicitationService {
   // productionURL
   // private solicitationsUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/predictions';
   // private ICTUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/ICT';
-  // private AgencyUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/Agencies';   
+  // private AgencyUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/Agencies';  
+  //private AgencyListUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/AgencyList';    
   // private AnalyticUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/Analytics'; 
   // private solicitationsFilterUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/predictions/filter';
   // private solicitationUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/solicitation/';
@@ -27,6 +28,7 @@ export class SolicitationService {
   private ICTUrl = 'http://localhost:3000/ICT';   
   private AnalyticUrl = 'http://localhost:3000/Analytics';   
   private AgencyUrl = 'http://localhost:3000/Agencies';   
+  private AgencyListUrl = 'http://localhost:3000/AgencyList';   
   private solicitationsFilterUrl = 'http://localhost:3000/predictions/filter';
   private solicitationUrl = 'http://localhost:3000/solicitation/';
   private emailUrl = 'http://localhost:3000/email/';
@@ -71,8 +73,8 @@ export class SolicitationService {
           .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
   }
 
-  GetAgencies(){
-    var data =  this.http.get(this.AgencyUrl).map((res: Response) => res.json());    
+  GetAgencyList(){
+    var data =  this.http.get(this.AgencyListUrl).map((res: Response) => res.json());    
     return data
   }
 

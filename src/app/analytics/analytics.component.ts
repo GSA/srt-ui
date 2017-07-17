@@ -131,8 +131,9 @@ export class AnalyticsComponent implements OnInit {
         this.GetTotalData();        
     }
 
-    GetTopAgencies() {
-        this.SolicitationService.GetAgencies()
+    // Get Agencies list for dropdown
+    GetAgencyList() {
+        this.SolicitationService.GetAgencyList()
         .subscribe(
             data => {
                 this.agencyList = data;
@@ -241,7 +242,7 @@ export class AnalyticsComponent implements OnInit {
 
     // Analytic get data
     ngOnInit() {    
-        this.GetTopAgencies();
+        this.GetAgencyList();
         this.GetTotalData();  
     }    
       

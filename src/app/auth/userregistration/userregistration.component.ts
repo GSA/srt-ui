@@ -49,10 +49,12 @@ export class UserregistrationComponent implements OnInit {
         this.agencyService.GetAgencies()
             .subscribe(
               data => {            
+                  debugger
                   this.data = [];                  
                   data.forEach(element => {                    
                       this.data.push(element.Agency + " (" + element.Acronym + ")");
                   });    
+                  console.log(this.dataService)
                   this.dataService = this.completerService.local(this.data);
               },
               error => console.log(error)
@@ -98,7 +100,7 @@ export class UserregistrationComponent implements OnInit {
       }
 
       open() {
-        debugger
+        
       }
 
       onChangeAccessLevel(userRole) {

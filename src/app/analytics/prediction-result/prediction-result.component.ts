@@ -47,11 +47,13 @@ export class PredictionResultComponent implements OnInit {
   colorsOverride: Array<Color> = [{
       backgroundColor: [
           "#2C81C0",
-          "#ff0000"
+          "#ff0000",
+          "#696969"
       ],
       hoverBackgroundColor: [
           "#2C81C0",
-          "#ff0000"
+          "#ff0000",
+          "#696969"
       ],
   }];
 

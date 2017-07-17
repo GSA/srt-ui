@@ -95,11 +95,10 @@
         </ng-template>
         <ng-template let-sol="rowData" pTemplate="body">
           <div *ngIf="sol.predictions.value == 'RED'">
-            <div style="text-align: center;">
+            <div>
                 <span *ngIf="sol.eitLikelihood.value == 'Yes'" [ngStyle]="{'color' : sol.undetermined ? 'black' : 'red'}">
-                    <button class="button" (click)="selectSol(sol)" style="border: none;">
-                        <i class="fa fa-exclamation-triangle" *ngIf="!sol.undetermined"></i>
-                        &nbsp;&nbsp;
+                    <button class="button" (click)="selectSol(sol)" style="border: none; text-align: left; padding: 0px;">
+                        <i class="fa fa-exclamation-triangle" style="padding-right: 5px;" *ngIf="!sol.undetermined"></i>                      
                         <span style="text-decoration: underline;">{{sol.reviewRec}}</span>
                     </button>
                 </span>
@@ -109,7 +108,7 @@
             </div>
           </div>
           <div *ngIf="sol.predictions.value == 'GREEN'">
-            <span style="color: green"><i class="fa fa-check"></i>&nbsp;&nbsp;{{sol.reviewRec}}</span>
+            <span style="color: green" ><i class="fa fa-check" style="padding-right: 5px;"></i>{{sol.reviewRec}}</span>
           </div>
         </ng-template>
       </p-column>

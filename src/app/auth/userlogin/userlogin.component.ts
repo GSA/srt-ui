@@ -31,8 +31,7 @@ export class UserloginComponent implements OnInit {
     const user = new User(this.myForm.value.email, this.myForm.value.password);    
     this.authService.login(user)
       .subscribe(
-        data => { 
-          debugger
+        data => {           
           localStorage.setItem('token', data.token);       
           localStorage.setItem('firstName', data.firstName);
           localStorage.setItem('lastName', data.lastName);

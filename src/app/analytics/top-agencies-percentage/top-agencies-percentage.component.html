@@ -59,7 +59,7 @@ Non-Compliant Solicitations: {{(num[3] - num[2])}}">
                     <td style="vertical-align: middle">                     
                         <div style="background-color:#2C81C0; height: 10px; float: left" [ngStyle]="{'width': (num[2]/num[3]) * (num[2]/num[3]) * 100 + '%'}"></div>
                         <div style="background-color:#eeeeee; height: 10px; float: left; position: relative" [ngStyle]="{'width': ((num[3] - num[2])/num[3]) * (num[2]/num[3]) * 100 + '%'}">
-                            <div style="position: absolute; right: -40px; top: -5px;" [hidden]="num[3]==0">
+                            <div style="position: absolute; right: -40px; top: -5px;" [hidden]="num[1]==0">
                                 {{num[1] | percent:'.0-0'}}
                             </div>
                         </div>  
