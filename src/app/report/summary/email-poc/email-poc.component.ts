@@ -43,7 +43,7 @@ export class EmailPocComponent implements OnInit {
     });
 
     var user = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
-    this.emailSent = this.solicitation.history.filter(function(e){return ((e["action"].indexOf('sent email to POC') > -1) && (e["user"].indexOf(user) > -1))}).length > 0;    
+    this.emailSent = this.solicitation.history.filter(function(e){return ((e["action"].indexOf('sent email to POC') > -1) )}).length > 0;    
 
 
     // listen for the activated route and use the 'id'  to pull chosen solicitation from mongo

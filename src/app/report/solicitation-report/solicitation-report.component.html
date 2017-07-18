@@ -56,16 +56,33 @@
     </p-dataTable>
 </div>-->
 
-<div style="padding: 0px 20px">
+<div *ngIf="!solicitations"  style="height: calc(100vh - 300px); display: table; width: 100%">
+    <div style="display: table-cell; vertical-align: middle;">
+        <ul class="cb-slideshow">        
+            <i class="fa fa-cog fa-spin" style="color: #4a4a4a"></i>
+            <li><span>L</span></li>
+            <li><span>O</span></li>
+            <li><span>A</span></li>
+            <li><span>D</span></li>
+            <li><span>I</span></li>
+            <li><span>N</span></li>
+            <li><span>G</span></li>
+            <li><span>.</span></li>
+            <li><span>.</span></li>
+            <li><span>.</span></li>
+        </ul>
+    </div>
+</div>
+<div style="padding: 0px 20px" *ngIf="solicitations">
 
     <p-dataTable styleClass="myStyle" #dt
                      sortField="predictions.value"
                      sortOrder="-1"
                      [value]="solicitations"
-                     [rows]="15"
+                     [rows]="10"
                      [paginator]="true"
                      [pageLinks]="4"
-                     [rowsPerPageOptions]="[10, 15, 20]"
+                     [rowsPerPageOptions]="[10, 20, 30, 40, 50]"
                      [globalFilter]="gb">
       
       <p-column field="solNum" header="Solicitation ID" [sortable]="true" [filter]="false" filterPlaceholder="Search" [style]="{'width': '170px'}"></p-column>

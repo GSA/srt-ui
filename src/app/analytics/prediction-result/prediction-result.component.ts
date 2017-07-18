@@ -48,12 +48,12 @@ export class PredictionResultComponent implements OnInit {
       backgroundColor: [
           "#2C81C0",
           "#ff0000",
-          "#696969"
+          "#e8e8e8"
       ],
       hoverBackgroundColor: [
           "#2C81C0",
           "#ff0000",
-          "#696969"
+          "#e8e8e8"
       ],
   }];
 
