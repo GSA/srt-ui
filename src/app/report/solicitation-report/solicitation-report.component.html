@@ -1,21 +1,4 @@
 <div class="row nopadding">
-  <!--<table style="width: calc(100% - 20px); margin: 40px 0px 20px 0px">
-        <tr>
-          <td id="soltitle" style="vertical-align: middle; font-size: 28px; color: #112e51 ">Solicitation Review Results for Section 508 Requirements</td>
-          <td style="vertical-align: middle;  text-align: right; padding-right: 20px;"> Keyword Search:  </td>
-          <td style="vertical-align: middle; width: 400px">
-               <div class="input-group" id="solsearch">
-                  <span class="input-group-btn">
-                      <button class="btn btn-primary" type="button">
-                          <span class=" glyphicon glyphicon-search"></span>
-                      </button>
-                  </span>
-                  <input #gb type="text" class="search-query form-control" placeholder="Global Filter" />
-              </div>
-          </td>
-          <td > </td>
-      </tr>
-  </table>-->
   
   <div style="padding: 20px" class="clearfix">
       <div class="srt-page-title srt-blue" style="padding-bottom: 5px;">Solicitation Review Results for Section 508 Requirements</div>
@@ -39,27 +22,39 @@
   </div>
 
     
-  <!-- <div class="usa-width-one-half">
-    <h4 id="soltitle" style="vertical-align: middle; font-size: 28px; color: #112e51 ">Solicitation Review Results for Section 508 Requirements</h4>
-   </div>
-    <div class="usa-width-one-half">
-      <div class="report-header" style="display: inline-block;">
-        <div id="csv" style="float: right"> Export As:<img id="csvlogo" src="../../../assets/downloadcsv.jpeg" (click)="dt.exportCSV()"></div>
-
-        <div id="solsearch"> Keyword Search:
-          <div class="input-group" id="solsearch">
-           <span class="input-group-btn">
-               <button class="btn btn-primary" type="button">
-                   <span class=" glyphicon glyphicon-search"></span>
-               </button>
-           </span>
-           <input #gb type="text" class="search-query form-control" placeholder="Global Filter" />
-       </div>
-       </div>
-      </div>
-    </div> -->
 
 </div>
+
+<!--<div style="padding: 0px 20px">
+    <p-dataTable [value]="solicitations" 
+                [responsive]="true"
+                [rows]="15"
+                [paginator]="true"
+                [pageLinks]="4"
+                [globalFilter]="gb"
+                scrollable="true" 
+                scrollHeight="calc(100vh - 300px)">
+        <p-header>Solicitations</p-header>
+        <!-- solicitation ID ->
+        <p-column field="solNum" header="Solicitation ID" [sortable]="true"></p-column>
+        <!-- solicitation Title ->
+        <p-column field="title" header="Solicitation Title" [sortable]="true"></p-column>
+        <!-- solicitation Type ->
+        <p-column field="noticeType" header="Notice Type" [sortable]="true"></p-column>
+        <!-- solicitation Date ->
+        <p-column field="date" header="Date Posted on FedBizOpps" [sortable]="true"></p-column>
+        <!-- Prediction Status ->
+        <p-column field="reviewRec" header="SRT Review Result" [sortable]="true"></p-column>
+        <!-- Action Status ->
+        <p-column field="actionStatus" header="Action Status" [sortable]="true"></p-column>
+        <!-- Action Date ->
+        <p-column field="actionDate" header="Latest Action Date" [sortable]="true"></p-column>
+        <!-- Agency ->
+        <p-column field="agency" header="Agency" [sortable]="true"></p-column>
+        <!-- Office ->
+        <p-column field="office" header="Office" [sortable]="true"></p-column>
+    </p-dataTable>
+</div>-->
 
 <div style="padding: 0px 20px">
 

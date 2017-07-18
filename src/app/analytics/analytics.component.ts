@@ -58,6 +58,7 @@ export class AnalyticsComponent implements OnInit {
     public TopSRTActionChart = null;
     public TopAgenciesChart = null;       
     public PredictResultChart = null;
+    public filterActionChange = false;
 
     constructor(
         private SolicitationService: SolicitationService,
@@ -68,7 +69,8 @@ export class AnalyticsComponent implements OnInit {
 
     onChange(str)
     {
-        this.selectedGovernment = str;   
+        this.selectedGovernment = str;  
+        this.filterActionChange = true; 
         if (str == "Government-wide")
         {
             this.ICTforDisplay = this.ICT;
@@ -98,7 +100,7 @@ export class AnalyticsComponent implements OnInit {
     
     onPeriodChange(str) {
         this.selectedPeriod = str;
-
+        this.filterActionChange = true;
         // Get time period to filter.
         switch(str)
         {
@@ -153,22 +155,52 @@ export class AnalyticsComponent implements OnInit {
             toPeriod: this.toPeriod.toLocaleDateString(),
             agency: this.selectedGovernment
         }
-        this.SolicitationService.getAnalytics(this.params)
-        .subscribe(
-            data => {
-                this.ScannedSolicitationChart = data.ScannedSolicitationChart;
-                this.MachineReadableChart = data.MachineReadableChart;
-                this.ComplianceRateChart = data.ComplianceRateChart;
-                this.ConversionRateChart = data.ConversionRateChart;
-                this.TopSRTActionChart = data.TopSRTActionChart;
-                this.TopAgenciesChart = data.TopAgenciesChart;
-                this.PredictResultChart = data.PredictResultChart;
-                console.log(data);
-            },
-            err => {
-                console.log(err);
-            }
-        )
+
+        
+        if ((!this.SolicitationService.analytics.ScannedSolicitationChart &&
+            !this.SolicitationService.analytics.MachineReadableChart &&
+            !this.SolicitationService.analytics.ComplianceRateChart &&
+            !this.SolicitationService.analytics.ConversionRateChart &&
+            !this.SolicitationService.analytics.TopSRTActionChart &&
+            !this.SolicitationService.analytics.TopAgenciesChart &&
+            !this.SolicitationService.analytics.PredictResultChart) || this.filterActionChange )
+        {
+             this.SolicitationService.getAnalytics(this.params)
+                .subscribe(
+                    data => {
+                        this.ScannedSolicitationChart = data.ScannedSolicitationChart;
+                        this.MachineReadableChart = data.MachineReadableChart;
+                        this.ComplianceRateChart = data.ComplianceRateChart;
+                        this.ConversionRateChart = data.ConversionRateChart;
+                        this.TopSRTActionChart = data.TopSRTActionChart;
+                        this.TopAgenciesChart = data.TopAgenciesChart;
+                        this.PredictResultChart = data.PredictResultChart;
+                        // only cached total data
+                        if (this.selectedGovernment == "Government-wide" && this.selectedPeriod == "All")
+                        {
+                            this.SolicitationService.analytics = data;
+                        }
+                        this.filterActionChange = false;
+                        console.log(data);
+                    },
+                    err => {
+                        console.log(err);
+                    }
+                )
+        }
+        else
+        {
+            this.ScannedSolicitationChart = this.SolicitationService.analytics.ScannedSolicitationChart;
+            this.MachineReadableChart = this.SolicitationService.analytics.MachineReadableChart;
+            this.ComplianceRateChart = this.SolicitationService.analytics.ComplianceRateChart;
+            this.ConversionRateChart = this.SolicitationService.analytics.ConversionRateChart;
+            this.TopSRTActionChart = this.SolicitationService.analytics.TopSRTActionChart;
+            this.TopAgenciesChart = this.SolicitationService.analytics.TopAgenciesChart;
+            this.PredictResultChart = this.SolicitationService.analytics.PredictResultChart;
+        }
+
+
+       
         // this.SolicitationService.getICT()
         // .subscribe(
         //     solicitation => {   

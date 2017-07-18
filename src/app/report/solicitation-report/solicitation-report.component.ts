@@ -37,15 +37,24 @@ export class SolicitationReportComponent implements OnInit {
   ngOnInit() {
     this.initFilterParams();
 
-    this.solicitationService.getFilteredSolicitations(this.filterParams)
-    .subscribe(
-        solicitations => {          
-          this.solicitations = solicitations;
-          console.log(solicitations);
-        },
-        err => {
-            console.log(err);
-    });
+    // Cache Data
+    if (!this.solicitationService.solicitations)
+    {
+      this.solicitationService.getFilteredSolicitations(this.filterParams)
+        .subscribe(
+            solicitations => {          
+              this.solicitations = solicitations;
+              this.solicitationService.solicitations = solicitations;
+            },
+            err => {
+                console.log(err);
+        });
+    }
+    else
+    {
+      this.solicitations = this.solicitationService.solicitations;
+    }
+    
         //do I still need this?
     this.solicitationService.pushedSolicitations.subscribe(
       solicitations => this.solicitations = solicitations);

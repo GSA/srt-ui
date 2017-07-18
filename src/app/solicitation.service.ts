@@ -12,7 +12,16 @@ import { Solicitation } from './shared/solicitation';
 export class SolicitationService {
   pushedSolicitations = new EventEmitter();
   pushedSolicitation = new EventEmitter();
-
+  solicitations: any[];
+  analytics = {
+    ScannedSolicitationChart: null,
+    MachineReadableChart: null,
+    ComplianceRateChart: null,
+    ConversionRateChart: null,
+    TopSRTActionChart: null,
+    TopAgenciesChart: null,
+    PredictResultChart: null
+  }
   constructor ( private http: Http ){};
   // productionURL
   // private solicitationsUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/predictions';
@@ -35,8 +44,9 @@ export class SolicitationService {
 
   getFilteredSolicitations(body) {
   	return this.http.post(this.solicitationsFilterUrl, body)
-	  	.map((res: Response) => res.json())
-		.catch((error:any) => Observable.throw(error.json().error || 'Server Error'));  }
+        .map((res: Response) => res.json())
+        .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));  
+  }
 
 // still using?
   pushSolicitations(solicitations: Solicitation[]) {
