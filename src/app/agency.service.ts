@@ -9,8 +9,8 @@ import { Agency } from './shared/agency';
 export class AgencyService {
 
   // productionURL
-  private agenciesUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/agencies';
-  // private agenciesUrl = 'http://localhost:3000/agencies';
+  // private agenciesUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/agencies';
+  private agenciesUrl = 'http://localhost:3000/agencies';
 
   constructor(private http: Http) { }
 
