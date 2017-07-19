@@ -13,6 +13,7 @@ export class SolicitationService {
   pushedSolicitations = new EventEmitter();
   pushedSolicitation = new EventEmitter();
   solicitations: any[];
+  reloadSolicitations = true;
   analytics = {
     ScannedSolicitationChart: null,
     MachineReadableChart: null,
@@ -25,14 +26,14 @@ export class SolicitationService {
   constructor ( private http: Http ){};
 
   // productionURL
-  //private link = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000';
-  private link = 'http://localhost:3000';
+  private link = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000';
+  // private link = 'http://localhost:3000';
 
   private solicitationsUrl = this.link + '/predictions';
-  private ICTUrl = this.link + '/ICT';
-  private AgencyUrl = this.link + '/Agencies';  
-  private AgencyListUrl = this.link + '/AgencyList';    
+  private ICTUrl = this.link + '/ICT';  
   private AnalyticUrl = this.link + '/Analytics'; 
+  private AgencyUrl = this.link + '/Agencies';  
+  private AgencyListUrl = this.link + '/AgencyList';  
   private solicitationsFilterUrl = this.link + '/predictions/filter';
   private solicitationUrl = this.link + '/solicitation/';
   private emailUrl = this.link + '/email/';
@@ -94,6 +95,7 @@ export class SolicitationService {
 
   
   updateHistory(solicitation) {
+    this.reloadSolicitations = true;
     return this.http.post(this.solicitationUrl, solicitation)
       .map((res: Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));

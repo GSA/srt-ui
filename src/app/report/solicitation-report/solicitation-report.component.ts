@@ -38,13 +38,14 @@ export class SolicitationReportComponent implements OnInit {
     this.initFilterParams();
 
     // Cache Data
-    if (!this.solicitationService.solicitations)
+    if (!this.solicitationService.solicitations || this.solicitationService.reloadSolicitations)
     {
       this.solicitationService.getFilteredSolicitations(this.filterParams)
         .subscribe(
             solicitations => {          
               this.solicitations = solicitations;
               this.solicitationService.solicitations = solicitations;
+              this.solicitationService.reloadSolicitations = false;
             },
             err => {
                 console.log(err);
