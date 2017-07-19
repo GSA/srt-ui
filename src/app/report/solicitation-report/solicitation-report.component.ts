@@ -66,7 +66,7 @@ export class SolicitationReportComponent implements OnInit {
 
     this.solType.push({label: 'Any', value: null});
     this.solType.push({label: 'Award Notice', value: 'Award Notice'});
-    this.solType.push({label: 'Combined Synopsis/Solicitation', value: 'Combined Synopsis/Solicitation'});
+    this.solType.push({label: 'Combined Synopsis / Solicitation', value: 'Combined Synopsis / Solicitation'});
     this.solType.push({label: 'Fair Opportunity / Limited Sources Justification', value: 'Fair Opportunity / Limited Sources Justification'});
     this.solType.push({label: 'Foreign Government Standard', value: 'Foreign Government Standard'});
     this.solType.push({label: 'Intent to Bundle Requirements(DoD-Funded)', value: 'Intent to Bundle Requirements(DoD-Funded)'});

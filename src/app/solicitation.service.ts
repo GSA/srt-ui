@@ -23,24 +23,28 @@ export class SolicitationService {
     PredictResultChart: null
   }
   constructor ( private http: Http ){};
-  // productionURL
-  // private solicitationsUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/predictions';
-  // private ICTUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/ICT';
-  // private AgencyUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/Agencies';  
-  // private AgencyListUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/AgencyList';    
-  // private AnalyticUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/Analytics'; 
-  // private solicitationsFilterUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/predictions/filter';
-  // private solicitationUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/solicitation/';
-  // private emailUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/email/';
 
-  private solicitationsUrl = 'http://localhost:3000/predictions';
-  private ICTUrl = 'http://localhost:3000/ICT';   
-  private AnalyticUrl = 'http://localhost:3000/Analytics';   
-  private AgencyUrl = 'http://localhost:3000/Agencies';   
-  private AgencyListUrl = 'http://localhost:3000/AgencyList';   
-  private solicitationsFilterUrl = 'http://localhost:3000/predictions/filter';
-  private solicitationUrl = 'http://localhost:3000/solicitation/';
-  private emailUrl = 'http://localhost:3000/email/';
+  // productionURL
+  //private link = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000';
+  private link = 'http://localhost:3000';
+
+  private solicitationsUrl = this.link + '/predictions';
+  private ICTUrl = this.link + '/ICT';
+  private AgencyUrl = this.link + '/Agencies';  
+  private AgencyListUrl = this.link + '/AgencyList';    
+  private AnalyticUrl = this.link + '/Analytics'; 
+  private solicitationsFilterUrl = this.link + '/predictions/filter';
+  private solicitationUrl = this.link + '/solicitation/';
+  private emailUrl = this.link + '/email/';
+
+  // private solicitationsUrl = 'http://localhost:3000/predictions';
+  // private ICTUrl = 'http://localhost:3000/ICT';   
+  // private AnalyticUrl = 'http://localhost:3000/Analytics';   
+  // private AgencyUrl = 'http://localhost:3000/Agencies';   
+  // private AgencyListUrl = 'http://localhost:3000/AgencyList';   
+  // private solicitationsFilterUrl = 'http://localhost:3000/predictions/filter';
+  // private solicitationUrl = 'http://localhost:3000/solicitation/';
+  // private emailUrl = 'http://localhost:3000/email/';
 
   getFilteredSolicitations(body) {
   	return this.http.post(this.solicitationsFilterUrl, body)

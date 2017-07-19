@@ -2,7 +2,7 @@
     <div class="clearfix">
         
 
-        <div class="col-md-12 nopadding clearfix">
+        <div class="col-md-12 nopadding clearfix" style="padding: 0px 40px !important">
             <div class="scanned-solicitation">
                 <app-scanned-solicitation [ScannedSolicitationChart]="ScannedSolicitationChart"></app-scanned-solicitation>      
             </div>
@@ -13,11 +13,11 @@
         </div>
 
 
-        <div class="col-md-12 nopadding clearfix" style="margin-bottom: 40px !important">
-            <div style="padding: 30px 0px 10px 0px; border-top: 1px solid #dadada;" class="clearfix">                   
+        <div class="col-md-12 nopadding clearfix" style="padding: 0px 40px 40px 40px !important; background-color: #fbfcff; border-top: 1px solid #dadada;">
+            <div style="padding: 30px 0px 10px 0px; " class="clearfix">                   
                 
-                <div style="float: left; padding: 0px 20px; ">
-                    <div style="display: inline-block; vertical-align: middle; padding-right: 10px; font-size: 16px;">Select your agency</div>
+                <div style="float: left; padding: 0px 15px 0px 0px; ">
+                    <div style="display: inline-block; vertical-align: middle; padding-right: 10px; font-size: 16px; font-size: 24px; font-weight: 600" class="srt-blue">Select your agency</div>
                     <div style="display: inline-block; vertical-align: middle;"> 
                         <select style="height: 32px; padding: 5px 30px 5px 15px; font-size: 16px; border: none; border-bottom: 1px solid #4a4a4a;" 
                                 [ngModel]="selectedGovernment"
@@ -28,8 +28,8 @@
                     </div>
                 </div>  
 
-                <div style="float: left; padding: 0px 20px;">
-                    <div style="display: inline-block; vertical-align: middle; padding-right: 10px; font-size: 16px;">Select your time period</div>
+                <div style="float: left; padding: 0px 15px 0px 0px;">
+                    <div style="display: inline-block; vertical-align: middle; padding-right: 10px; font-size: 16px; font-size: 24px; font-weight: 600" class="srt-blue">Time period</div>
                     <div style="display: inline-block; vertical-align: middle; "> 
                         <select id="select" style="height: 32px; padding: 5px 30px 5px 15px; font-size: 16px; border: none; border-bottom: 1px solid #4a4a4a;"
                             (change)="onPeriodChange($event.target.value)"
@@ -44,7 +44,7 @@
             </div>
         </div>
         
-        <div class="col-md-12 nopadding clearfix" style="margin-bottom: 40px !important">
+        <div class="col-md-12 nopadding clearfix" style="padding: 0px 40px 40px 40px !important; background-color: #fbfcff">
             <div class="row-eq-height">
                 <div class="col-md-6 nopadding">
                     <div class="col-md-6 nopadding">
@@ -62,7 +62,7 @@
         </div>
         
 
-        <div class="col-md-12 nopadding clearfix" style="margin-bottom: 40px !important">
+        <div class="col-md-12 nopadding clearfix" style="padding: 0px 40px 40px 40px !important; background-color: #fbfcff">
             <!--<app-top-agencies 
                 [isGovernomentWide]="isGovernomentWide" 
                 [TopAgenciesChart]="TopAgenciesChart" 
@@ -83,7 +83,7 @@
                     [xAxis]="xAxis"></app-top-agencies-percentage>
         </div>
 
-        <div class="col-md-12 nopadding clearfix" style="margin-bottom: 40px !important; padding: 30px 0px 10px 0px !important; border-top: 1px solid #dadada;">
+        <div class="col-md-12 nopadding clearfix" style="margin-bottom: 40px !important; padding: 40px 40px 10px 40px !important; border-top: 1px solid #dadada;">
             <div class="user-login">
                 <app-user-login></app-user-login>
             </div>

@@ -18,7 +18,7 @@
           <div style="display: table-cell; vertical-align: middle; width: 40px;"><img id="csvlogo" src="../../../assets/downloadcsv.jpeg" style="float:left" (click)="dt.exportCSV()"></div>
       </div>
       
-      <div style="font-weight: 500; float: left; color: #186ba0">Last scanned date: 07/16/2017</div>
+      <div style="font-weight: 500; float: left; color: #186ba0">Last scanned date: 07/17/2017</div>
   </div>
 
     
@@ -56,8 +56,8 @@
     </p-dataTable>
 </div>-->
 
-<div *ngIf="!solicitations"  style="height: calc(100vh - 300px); display: table; width: 100%">
-    <div style="display: table-cell; vertical-align: middle;">
+<div *ngIf="!solicitations" style="height: calc(100vh - 300px); display: table; width: 100%;">
+    <div style="display:table-cell;vertical-align:middle">
         <ul class="cb-slideshow">        
             <i class="fa fa-cog fa-spin" style="color: #4a4a4a"></i>
             <li><span>L</span></li>
@@ -79,10 +79,10 @@
                      sortField="predictions.value"
                      sortOrder="-1"
                      [value]="solicitations"
-                     [rows]="10"
+                     [rows]="15"
                      [paginator]="true"
                      [pageLinks]="4"
-                     [rowsPerPageOptions]="[10, 20, 30, 40, 50]"
+                     [rowsPerPageOptions]="[15, 25, 35, 45]"
                      [globalFilter]="gb">
       
       <p-column field="solNum" header="Solicitation ID" [sortable]="true" [filter]="false" filterPlaceholder="Search" [style]="{'width': '170px'}"></p-column>

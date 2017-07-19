@@ -9,12 +9,11 @@ import { User } from './user';
 export class AuthService {
 
   // productionURL
-  // private userUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/user';
-  // private loginUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/user/login';
-  private userUrl = 'http://localhost:3000/user';
-  private loginUrl = 'http://localhost:3000/user/login';
+  //private link = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000';
+  private link = 'http://localhost:3000';
   
-
+  private userUrl = this.link + '/user';
+  private loginUrl =  this.link + '/user/login';
   // register a new user
   signup(user: User){
     const body = JSON.stringify(user);
