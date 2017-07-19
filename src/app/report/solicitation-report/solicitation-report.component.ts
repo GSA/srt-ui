@@ -17,7 +17,7 @@ export class SolicitationReportComponent implements OnInit {
   ict: SelectItem[] = [];
   solType: SelectItem[] = [];
   revResult: SelectItem[] = [];
-
+  multiSortMeta: any[];
 
   filterParams = {
       agency: '',
@@ -46,6 +46,19 @@ export class SolicitationReportComponent implements OnInit {
               this.solicitations = solicitations;
               this.solicitationService.solicitations = solicitations;
               this.solicitationService.reloadSolicitations = false;
+
+              this.solicitations = this.solicitations.sort(
+                function(a,b){
+                  var aDate = new Date(a.date);
+                  var bDate = new Date(b.date);            
+                  if (aDate > bDate) return -1;
+                  else if (aDate < bDate) return 1;
+                  else return 0;
+                }                
+              )
+              
+              // sorting
+              this.solicitations = this.sortByReviewResult(this.solicitations)
             },
             err => {
                 console.log(err);
@@ -53,7 +66,8 @@ export class SolicitationReportComponent implements OnInit {
     }
     else
     {
-      this.solicitations = this.solicitationService.solicitations;
+      // sorting
+      this.solicitations = this.sortByReviewResult(this.solicitationService.solicitations)
     }
     
         //do I still need this?
@@ -124,5 +138,20 @@ export class SolicitationReportComponent implements OnInit {
               console.log(err);
         });
   }
+
+
+  sortByReviewResult(solicitations) {    
+    var Undetermined = solicitations.filter(d => d.reviewRec == 'Undetermined');
+    var Noncompliant = solicitations.filter(d => d.reviewRec == 'Non-compliant (Action Required)');
+    var Compliant = solicitations.filter(d => d.reviewRec == 'Compliant');
+    solicitations = Noncompliant.concat(Compliant).concat(Undetermined);
+    return solicitations;
+  }
+
+  // mysort(event) {
+  //   debugger
+  //     //event.field = Field to sort
+  //     //event.order = Sort order
+  // }
 
 }

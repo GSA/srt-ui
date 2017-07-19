@@ -75,9 +75,7 @@
 </div>
 <div style="padding: 0px 20px" *ngIf="solicitations">
 
-    <p-dataTable styleClass="myStyle" #dt
-                     sortField="predictions.value"
-                     sortOrder="-1"
+    <p-dataTable styleClass="myStyle" #dt             
                      [value]="solicitations"
                      [rows]="15"
                      [paginator]="true"

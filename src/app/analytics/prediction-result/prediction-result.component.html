@@ -2,13 +2,13 @@
 
     <div style="font-size: 20px; margin-bottom: 20px; font-weight: 600" class="srt-blue">
         Overall Prediction Results
-        <!--<sup style="font-size: 20px;" 
-            [tooltip]="MachineReadable" tooltipPlacement="bottom">
+        <sup style="font-size: 20px;" 
+            [tooltip]="predictionResult" tooltipPlacement="bottom">
             <i class="fa fa-info-circle info" aria-hidden="true" ></i>
         </sup>  
-        <tooltip-content #MachineReadable [animation]="true">
-            <div></div>
-        </tooltip-content> -->
+        <tooltip-content #predictionResult [animation]="true">
+            <div>Undetermined solicitations are solicitations that contained 0 documents or the solicitations with attachments that are non-machine-readable and/or are currently failed to be accessed by the system due to various reasons (e.g., security redirect).</div>
+        </tooltip-content> 
     </div>  
    
     <div style="position: relative; ">
