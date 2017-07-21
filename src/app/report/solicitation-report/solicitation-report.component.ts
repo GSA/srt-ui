@@ -82,32 +82,21 @@ export class SolicitationReportComponent implements OnInit {
     this.solType.push({label: 'Any', value: null});
     this.solType.push({label: 'Award Notice', value: 'Award Notice'});
     this.solType.push({label: 'Combined Synopsis / Solicitation', value: 'Combined Synopsis / Solicitation'});
-    this.solType.push({label: 'Fair Opportunity / Limited Sources Justification', value: 'Fair Opportunity / Limited Sources Justification'});
+    this.solType.push({label: 'Fair Opportunity / Limited Sources Justification / Cancelled', value: 'Fair Opportunity / Limited Sources Justification / Cancelled'});
     this.solType.push({label: 'Foreign Government Standard', value: 'Foreign Government Standard'});
-    this.solType.push({label: 'Intent to Bundle Requirements(DoD-Funded)', value: 'Intent to Bundle Requirements(DoD-Funded)'});
+    //this.solType.push({label: 'Intent to Bundle Requirements(DoD-Funded)', value: 'Intent to Bundle Requirements(DoD-Funded)'});
     this.solType.push({label: 'Justification and Approval(J&A)', value: 'Justification and Approval(J&A)'});
     this.solType.push({label: 'Modification/Amendment/Cancel', value: 'Modification/Amendment/Cancel'});
     this.solType.push({label: 'Presolicitation', value: 'Presolicitation'});
     this.solType.push({label: 'Sale of Surplus Property', value: 'Sale of Surplus Property'});
     this.solType.push({label: 'Special Notice', value: 'Special Notice'});
-    this.solType.push({label: 'Sources Sought', value: 'Sources Sought'});
+    // this.solType.push({label: 'Sources Sought', value: 'Sources Sought'});
 
 
     this.revResult.push({label: 'All', value: null});
     this.revResult.push({label: 'Non-compliant (Action Required)', value: "Non-compliant (Action Required)"});
     this.revResult.push({label: 'Undetermined', value: 'Undetermined'});
     this.revResult.push({label: 'Compliant', value: "Compliant"});
-    // this.revResult.push({label: 'Noncomploant - Action Required', value: "Noncompliant - Action Required"});
-    // this.revResult.push({label: 'Undetermined Status', value: 'Undetermined Status'});
-    // this.revResult.push({label: 'Section 508 compliant', value: "Section 508 compliant"});
-
-    // this.solicitations = this.solicitations.sort(function(a,b){
-    //         var aDate = new Date(a.date);
-    //         var bDate = new Date(b.date);            
-    //         if (aDate > bDate) return -1;
-    //         else if (aDate < bDate) return 1;
-    //         else return 0;
-    //       }); 
 
   }
 
@@ -148,8 +137,19 @@ export class SolicitationReportComponent implements OnInit {
     return solicitations;
   }
 
-  // mysort(event) {
-  //   debugger
+  // soryByDate(event) {
+  //   var moment
+  //    let comparer = function (a, b): number {
+  //      debugger
+  //     let formatedA = moment(a.date, "DD.MM.YYYY").format('YYYY-MM-DD');
+  //     let formatedB = moment(b.date, "DD.MM.YYYY").format('YYYY-MM-DD');
+  //     let result: number = -1;
+
+  //     if (moment(formatedB).isBefore(formatedA, 'day')) result = 1;
+  //     return result * event.order;
+  //   };
+
+  //   //this.appointments.sort(comparer);
   //     //event.field = Field to sort
   //     //event.order = Sort order
   // }

@@ -16,8 +16,8 @@ export class PredictionResultComponent implements OnInit {
   @ViewChild(BaseChartDirective) private baseChart;  
 
   public hasValue = false;
-  public pieChartLabels:string[] = ['Compliant', 'Non-compliant', 'Undetermined'];
-  public pieChartData:any[] = [0, 0, 0];
+  public pieChartLabels:string[] = ['Compliant', 'Non-compliant'];
+  public pieChartData:any[] = [0, 0];
 
   public pieChartType:string = 'pie';
   public options:any = {
@@ -47,13 +47,15 @@ export class PredictionResultComponent implements OnInit {
   colorsOverride: Array<Color> = [{
       backgroundColor: [
           "#2C81C0",
-          "#ff0000",
-          "#e8e8e8"
+          //"#ff0000",
+          "#f38084"
+          //"#e8e8e8"
       ],
       hoverBackgroundColor: [
           "#2C81C0",
-          "#ff0000",
-          "#e8e8e8"
+          //"#ff0000",
+          "#f38084"
+          //"#e8e8e8"
       ],
   }];
 
@@ -69,14 +71,12 @@ export class PredictionResultComponent implements OnInit {
 
     if (this.PredictResultChart && !this.hasValue)
     {
-       var compliance = this.PredictResultChart.compliance;
-       var uncompliance = this.PredictResultChart.uncompliance;
-       var undetermined = this.PredictResultChart.undetermined;
-       var total = compliance + uncompliance + undetermined;
-       this.pieChartData = [compliance, uncompliance, undetermined];
-       this.displayCompliance = Math.round(compliance / total * 1000) / 10 + "%";
-       this.displayUncompliance = Math.round(uncompliance / total * 1000) / 10 + "%";
-       this.displayUndetermined = Math.round(undetermined / total * 1000) / 10 + "%";
+        var compliance = this.PredictResultChart.compliance;
+        var uncompliance = this.PredictResultChart.uncompliance;
+        var total = compliance + uncompliance ;
+        this.pieChartData = [compliance, uncompliance];
+        this.displayCompliance = Math.round(compliance / total * 1000) / 10 + "%";
+        this.displayUncompliance = Math.round(uncompliance / total * 1000) / 10 + "%";
         this.hasValue = true;
         this.forceChartRefresh();  
     }

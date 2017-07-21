@@ -58,6 +58,7 @@ import { MachineReadableComponent } from './analytics/machine-readable/machine-r
 import { PredictionResultComponent } from './analytics/prediction-result/prediction-result.component';
 import { TopAgenciesPercentageComponent } from './analytics/top-agencies-percentage/top-agencies-percentage.component';
 import { SolicitationTableComponent } from './solicitation-table/solicitation-table.component';
+import { UndeterminedSolicitationsComponent } from './analytics/undetermined-solicitations/undetermined-solicitations.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { SolicitationTableComponent } from './solicitation-table/solicitation-ta
     PredictionResultComponent,
     TopAgenciesPercentageComponent,
     SolicitationTableComponent,
+    UndeterminedSolicitationsComponent,
   ],
   imports: [
     BrowserModule,

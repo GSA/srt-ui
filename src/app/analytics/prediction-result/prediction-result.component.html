@@ -1,14 +1,14 @@
 <div style="max-width: 350px; padding: 0px 15px">
 
     <div style="font-size: 20px; margin-bottom: 20px; font-weight: 600" class="srt-blue">
-        Overall Prediction Results
-        <sup style="font-size: 20px;" 
+        Prediction Results
+        <!-- <sup style="font-size: 20px;" 
             [tooltip]="predictionResult" tooltipPlacement="bottom">
             <i class="fa fa-info-circle info" aria-hidden="true" ></i>
         </sup>  
         <tooltip-content #predictionResult [animation]="true">
-            <div>Undetermined solicitations are solicitations that contained 0 documents or the solicitations with attachments that are non-machine-readable and/or are currently failed to be accessed by the system due to various reasons (e.g., security redirect).</div>
-        </tooltip-content> 
+            <div>Undetermined solicitations are solicitations with attachments that are non-machine-readable and/or are currently failed to be accessed by the system due to various reasons (e.g., security redirect).</div>
+        </tooltip-content>  -->
     </div>  
    
     <div style="position: relative; ">
@@ -24,11 +24,8 @@
       <div style="position: absolute; font-size: 20px; color: #000; top: -20px; left: calc(50% + 10px)">
             {{displayCompliance}}
       </div>
-      <div style="position: absolute; font-size: 20px; color: #000; top: 125px; left: calc(50% + 110px)">
+      <div style="position: absolute; font-size: 20px; color: #000; top: 125px; left: calc(50% + 120px)">
             {{displayUncompliance}}
-      </div>
-      <div style="position: absolute; font-size: 20px; color: #000; top: 85px; right: calc(50% + 110px)">
-            {{displayUndetermined}}
       </div>
     </div>
     <!--<div style="padding: 30px 10px; text-align: center; font-size: 16px; color: #1768d7; font-weight: 500">
