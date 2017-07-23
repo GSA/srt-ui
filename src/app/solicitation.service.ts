@@ -21,7 +21,8 @@ export class SolicitationService {
     ConversionRateChart: null,
     TopSRTActionChart: null,
     TopAgenciesChart: null,
-    PredictResultChart: null
+    PredictResultChart: null,
+    UndeterminedSolicitationChart: null
   }
   constructor ( private http: Http ){};
 

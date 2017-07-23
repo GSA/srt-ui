@@ -58,6 +58,7 @@ export class AnalyticsComponent implements OnInit {
     public TopSRTActionChart = null;
     public TopAgenciesChart = null;       
     public PredictResultChart = null;
+    public UndeterminedSolicitationChart = null;
     public filterActionChange = false;
 
     constructor(
@@ -163,7 +164,8 @@ export class AnalyticsComponent implements OnInit {
             !this.SolicitationService.analytics.ConversionRateChart &&
             !this.SolicitationService.analytics.TopSRTActionChart &&
             !this.SolicitationService.analytics.TopAgenciesChart &&
-            !this.SolicitationService.analytics.PredictResultChart) || this.filterActionChange )
+            !this.SolicitationService.analytics.PredictResultChart && 
+            !this.SolicitationService.analytics.UndeterminedSolicitationChart) || this.filterActionChange )
         {
              this.SolicitationService.getAnalytics(this.params)
                 .subscribe(
@@ -175,12 +177,14 @@ export class AnalyticsComponent implements OnInit {
                         this.TopSRTActionChart = data.TopSRTActionChart;
                         this.TopAgenciesChart = data.TopAgenciesChart;
                         this.PredictResultChart = data.PredictResultChart;
+                        this.UndeterminedSolicitationChart = data.UndeterminedSolicitationChart;
                         // only cached total data
                         if (this.selectedGovernment == "Government-wide" && this.selectedPeriod == "All")
                         {
                             this.SolicitationService.analytics = data;
                         }
                         this.filterActionChange = false;
+                        console.log( "get analytics" );
                         console.log(data);
                     },
                     err => {
@@ -197,6 +201,7 @@ export class AnalyticsComponent implements OnInit {
             this.TopSRTActionChart = this.SolicitationService.analytics.TopSRTActionChart;
             this.TopAgenciesChart = this.SolicitationService.analytics.TopAgenciesChart;
             this.PredictResultChart = this.SolicitationService.analytics.PredictResultChart;
+            this.UndeterminedSolicitationChart = this.SolicitationService.analytics.UndeterminedSolicitationChart;
         }
 
 

@@ -101,7 +101,7 @@ export class TopAgenciesPercentageComponent implements OnInit {
                     this.indexTo = 13;
                     this.barTitle = this.selectedGovernment;
 
-                    debugger
+                    console.log(this.TopAgenciesChart.topAgencies[this.selectedGovernment])
                     // Filter by year and agency                
                     for (let item of this.TopAgenciesChart.topAgencies[this.selectedGovernment])
                     {  

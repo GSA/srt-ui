@@ -86,13 +86,19 @@ option {
 }
 */
 
-.user-login, .scanned-solicitation {
+.scanned-solicitation {
     width: calc(100% - 400px); 
     float: left;
     margin-bottom: 60px !important
 }
 
-.machine-readable, .prediction-result  {
+.user-login {
+    width: calc(100% - 800px); 
+    float: left;
+    margin-bottom: 60px !important
+}
+
+.machine-readable, .prediction-result, .exclude  {
     width: 350px; 
     float: right;
     margin-bottom: 40px !important;
