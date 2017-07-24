@@ -47,13 +47,15 @@ export class UndeterminedSolicitationsComponent implements OnInit {
           "#2C81C0",
           "#ff0000",
           "#e8e8e8",
-          "#f38084"
+          //"#f38084",
+          "#FFB300"
       ],
       hoverBackgroundColor: [
           "#2C81C0",
           "#ff0000",
           "#e8e8e8",
-          "#f38084"
+          //"#f38084",
+          "#FFB300"
       ],
   }];
 
