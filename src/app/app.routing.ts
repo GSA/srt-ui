@@ -14,7 +14,6 @@ import { HelpUsImproveComponent } from './report/summary/help-us-improve/help-us
 
 import { ProfileComponent } from './profile/profile.component';
 import { PasswordComponent } from './password/password.component';
-import { SolicitationTableComponent } from './solicitation-table/solicitation-table.component';
 
 const APP_ROUTES: Routes = [
   {path: '', redirectTo: 'auth', pathMatch: 'full'},
@@ -30,7 +29,6 @@ const APP_ROUTES: Routes = [
   {path: 'feedback', component: SolicitationReviewComponent},
   {path: 'faq', component: FaqComponent},
   {path: 'contactus', component: ContactUsComponent},
-  {path: 'table', component: SolicitationTableComponent},
   //{path: 'solicitation-feedback/:id', component: HelpUsImproveComponent},
 ];
 

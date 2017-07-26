@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { SolicitationService } from '../../solicitation.service';
 import { SelectItem } from 'primeng/primeng';
+import * as $ from 'jquery';
 
 
 @Component({
@@ -17,7 +18,18 @@ export class SolicitationReportComponent implements OnInit {
   ict: SelectItem[] = [];
   solType: SelectItem[] = [];
   revResult: SelectItem[] = [];
-  multiSortMeta: any[];
+  
+  
+  dateSorting:number = 1;
+  stacked:Boolean = false;  
+  
+  dateFrom:Date;
+  dateTo:Date;
+  today:Date = new Date();
+  maxDate:Date = new Date();;
+  minDate:Date;
+
+  dateScan: String = "";
 
   filterParams = {
       agency: '',
@@ -35,6 +47,10 @@ export class SolicitationReportComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
+    // Mobile responsive
+    this.stacked = window.matchMedia("(max-width: 992px)").matches
+
     this.initFilterParams();
 
     // Cache Data
@@ -57,8 +73,11 @@ export class SolicitationReportComponent implements OnInit {
                 }                
               )
               
+              this.dateScan = this.solicitations[0].date;
+              $('.pDataTable').show();
               // sorting
               this.solicitations = this.sortByReviewResult(this.solicitations)
+              this.getNoticeTypes(this.solicitations);
             },
             err => {
                 console.log(err);
@@ -68,6 +87,8 @@ export class SolicitationReportComponent implements OnInit {
     {
       // sorting
       this.solicitations = this.sortByReviewResult(this.solicitationService.solicitations)
+      this.getNoticeTypes(this.solicitationService.solicitations);
+      this.dateScan = this.solicitations[0].date;      
     }
     
         //do I still need this?
@@ -78,25 +99,27 @@ export class SolicitationReportComponent implements OnInit {
     this.ict.push({label: 'Yes', value: 'Yes'});
     this.ict.push({label: 'No', value: 'No'});
 
+  
+    
+    
 
     this.solType.push({label: 'Any', value: null});
-    this.solType.push({label: 'Award Notice', value: 'Award Notice'});
-    this.solType.push({label: 'Combined Synopsis / Solicitation', value: 'Combined Synopsis / Solicitation'});
-    this.solType.push({label: 'Fair Opportunity / Limited Sources Justification / Cancelled', value: 'Fair Opportunity / Limited Sources Justification / Cancelled'});
-    this.solType.push({label: 'Foreign Government Standard', value: 'Foreign Government Standard'});
-    //this.solType.push({label: 'Intent to Bundle Requirements(DoD-Funded)', value: 'Intent to Bundle Requirements(DoD-Funded)'});
-    this.solType.push({label: 'Justification and Approval(J&A)', value: 'Justification and Approval(J&A)'});
-    this.solType.push({label: 'Modification/Amendment/Cancel', value: 'Modification/Amendment/Cancel'});
-    this.solType.push({label: 'Presolicitation', value: 'Presolicitation'});
-    this.solType.push({label: 'Sale of Surplus Property', value: 'Sale of Surplus Property'});
-    this.solType.push({label: 'Special Notice', value: 'Special Notice'});
-    // this.solType.push({label: 'Sources Sought', value: 'Sources Sought'});
+    // this.solType.push({label: 'Award Notice', value: 'Award Notice'});
+    // this.solType.push({label: 'Combined Synopsis / Solicitation', value: 'Combined Synopsis / Solicitation'});
+    // this.solType.push({label: 'Fair Opportunity / Limited Sources Justification / Cancelled', value: 'Fair Opportunity / Limited Sources Justification / Cancelled'});
+    // this.solType.push({label: 'Foreign Government Standard', value: 'Foreign Government Standard'});
+    // this.solType.push({label: 'Justification and Approval(J&A)', value: 'Justification and Approval(J&A)'});
+    // this.solType.push({label: 'Modification/Amendment/Cancel', value: 'Modification/Amendment/Cancel'});
+    // this.solType.push({label: 'Presolicitation', value: 'Presolicitation'});
+    // this.solType.push({label: 'Sale of Surplus Property', value: 'Sale of Surplus Property'});
+    // this.solType.push({label: 'Special Notice', value: 'Special Notice'});
 
 
     this.revResult.push({label: 'All', value: null});
     this.revResult.push({label: 'Non-compliant (Action Required)', value: "Non-compliant (Action Required)"});
     this.revResult.push({label: 'Undetermined', value: 'Undetermined'});
     this.revResult.push({label: 'Compliant', value: "Compliant"});
+
 
   }
 
@@ -137,21 +160,76 @@ export class SolicitationReportComponent implements OnInit {
     return solicitations;
   }
 
-  // soryByDate(event) {
-  //   var moment
-  //    let comparer = function (a, b): number {
-  //      debugger
-  //     let formatedA = moment(a.date, "DD.MM.YYYY").format('YYYY-MM-DD');
-  //     let formatedB = moment(b.date, "DD.MM.YYYY").format('YYYY-MM-DD');
-  //     let result: number = -1;
+  getNoticeTypes(solicitations) {
+    var map = {};
+    if ( solicitations)
+    {
+      solicitations.forEach(element => {        
+        var label:String = element.noticeType;
+        var value:String = element.noticeType;
+        var count:Number = 1;
+        if (map.hasOwnProperty(element.noticeType))
+        {          
+          count =  map[element.noticeType].count+1;
+          map[element.noticeType] = {label: label, value: value, count: count};
+        }
+        else
+        {                    
+          count = 1;
+          map[element.noticeType] = {label: label, value: value, count: count};
+        }
+      });  
+      
+      for (var k in map) {
+        this.solType.push({label: map[k].label + ' (' +  map[k].count + ')', value: 'Special Notice'});
+      }
+    }
+  }
 
-  //     if (moment(formatedB).isBefore(formatedA, 'day')) result = 1;
-  //     return result * event.order;
-  //   };
-
-  //   //this.appointments.sort(comparer);
-  //     //event.field = Field to sort
-  //     //event.order = Sort order
+  filterDate(event) {
+     if (this.dateFrom && this.dateTo) {
+        this.minDate = this.dateFrom;
+        this.maxDate = this.dateTo;
+        this.solicitations = this.solicitationService.solicitations.filter(
+          d => {
+             var dDate = new Date(d.date);      
+             return dDate >= this.dateFrom && dDate <= this.dateTo;      
+          }
+        )      
+     }  
+  }
+  reset () {
+    if(!this.dateFrom && !this.dateTo)
+    {
+      this.solicitations = this.solicitationService.solicitations
+    }
+  }
+    
+  // ngDoCheck() {
+    
   // }
+
+  soryByDate(event:any) {
+     
+    if (this.dateSorting != event.order)
+    {
+        this.dateSorting = event.order;
+        this.solicitations = this.solicitations.sort(
+          function(a,b){
+            var aDate = new Date(a.date);
+            var bDate = new Date(b.date);    
+                    
+            if (aDate > bDate) return -1 * event.order;
+            else if (aDate < bDate) return 1 * event.order;
+            else return 0 * event.order;
+          }                
+        )
+    }
+
+
+
+    
+    
+  }
 
 }

@@ -53,12 +53,12 @@
                 <div class="list-content">{{solicitation.eitLikelihood.value}}</div>
             </div>
 
-            <div class="list" *ngIf="solicitation.numDocs != '0'">
+            <div class="list">
                 <div class="list-title">Total Documents Scanned:&nbsp;</div>
-                <div class="list-content">{{solicitation.numDocs}}</div>
+                <div class="list-content">{{solicitation.parseStatus.length}} <span *ngIf="lockDocs">out of {{solicitation.numDocs}}</span></div>
             </div>
 
-            <div class="list" *ngIf="solicitation.parseStatus.length != '0'">
+            <div class="list" *ngIf="solicitation.parseStatus.length != 0 || lockDocs">
                 <div class="list-title" style="width: 100%">Machine Readable (Yes/No):
                     <sup [tooltip]="Machine" tooltipPlacement="right">
                         <i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -69,7 +69,8 @@
                     &nbsp; </div>
                 <div class="list-content">
                     <ul class="nopadding">
-                        <li *ngFor="let doc of solicitation.parseStatus" style="list-style: none; line-height: 18px;">{{doc.name}} : {{doc.status}}</li>
+                        <li *ngFor="let doc of solicitation.parseStatus" style="list-style: none; line-height: 18px;">{{doc.name}} : {{doc.status}}</li>                        
+                        <li *ngFor="let lock of lockDocs" style="list-style: none; line-height: 18px;">solicitation_{{solicitation.solNum}}_document_lock{{lock}}: Lock</li> 
                     </ul>
                 </div>
             </div>

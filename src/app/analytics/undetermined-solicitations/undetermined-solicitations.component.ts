@@ -33,9 +33,10 @@ export class UndeterminedSolicitationsComponent implements OnInit {
             //   var label = tooltipItem[0].index == 0 ? "Non-compliant: " : "Compliant: "              
             //   return  label;
             // },
-            // label :function(tooltipItem, data) {                           
-            //   return  data.datasets[0].data[tooltipItem.index] + " documents"
-            // }
+            label :function(tooltipItem, data) {         
+                debugger                  
+              return  data.labels[tooltipItem.index] + ": " + data.datasets[0].data[tooltipItem.index] + " solicitation(s)"
+            }
         }
     },
     maintainAspectRatio: false,

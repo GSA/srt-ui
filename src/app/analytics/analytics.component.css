@@ -93,7 +93,7 @@ option {
 }
 
 .user-login {
-    width: calc(100% - 800px); 
+    width: calc(100% - 400px); 
     float: left;
     margin-bottom: 60px !important
 }

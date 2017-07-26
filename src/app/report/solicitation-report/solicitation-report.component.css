@@ -52,6 +52,11 @@ body {
 }
 
 
+.ui-calendar, .ui-calendar input {
+    width: 100% !important;
+}
+
+
 /*Animation */
 ul.cb-slideshow {
     padding-left: 0px;
@@ -63,6 +68,7 @@ ul.cb-slideshow li {
     list-style: none;
     display: inline;
 } 
+
 
 .cb-slideshow li span {
     opacity: 0.3;
@@ -314,4 +320,10 @@ ul.cb-slideshow li {
       opacity: 0.5;
       transform: scale(1.05);
   }
+}
+
+
+
+.pDataTable {
+    padding: 0px 20px;
 }

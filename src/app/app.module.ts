@@ -17,7 +17,7 @@ import { SolicitationService } from './solicitation.service';
 import { SurveyService } from './survey.service';
 import { UserService } from './user.service';
 
-import { DataTableModule,SharedModule, ButtonModule, DropdownModule} from 'primeng/primeng';
+import { DataTableModule,SharedModule, ButtonModule, DropdownModule, CalendarModule} from 'primeng/primeng';
 import { routing } from './app.routing';
 import { HeaderComponent } from './header/header.component';
 import { AuthComponent } from './auth/auth.component';
@@ -57,7 +57,6 @@ import { UserLoginComponent } from './analytics/user-login/user-login.component'
 import { MachineReadableComponent } from './analytics/machine-readable/machine-readable.component';
 import { PredictionResultComponent } from './analytics/prediction-result/prediction-result.component';
 import { TopAgenciesPercentageComponent } from './analytics/top-agencies-percentage/top-agencies-percentage.component';
-import { SolicitationTableComponent } from './solicitation-table/solicitation-table.component';
 import { UndeterminedSolicitationsComponent } from './analytics/undetermined-solicitations/undetermined-solicitations.component';
 
 @NgModule({
@@ -94,7 +93,6 @@ import { UndeterminedSolicitationsComponent } from './analytics/undetermined-sol
     MachineReadableComponent,
     PredictionResultComponent,
     TopAgenciesPercentageComponent,
-    SolicitationTableComponent,
     UndeterminedSolicitationsComponent,
   ],
   imports: [
@@ -110,6 +108,7 @@ import { UndeterminedSolicitationsComponent } from './analytics/undetermined-sol
     DropdownModule,
     ChartsModule,
     TooltipModule,
+    CalendarModule,
     // FroalaEditorModule.forRoot(), 
     // FroalaViewModule.forRoot(),
     Ng2CompleterModule,

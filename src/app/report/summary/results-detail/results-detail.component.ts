@@ -14,11 +14,38 @@ export class ResultsDetailComponent implements OnInit {
   @Output() displayType:EventEmitter<string> = new EventEmitter();
   @Output() review:EventEmitter<string> = new EventEmitter();
   private emailType:string = "1";
-
+  public lockDocs;
   constructor(private router: Router) { }
 
   ngOnInit() {
     console.log(this.solicitation);
+  }
+
+  ngOnChanges() {
+      
+    if (this.solicitation)
+    {
+        var totalDoc = Number(this.solicitation.numDocs);
+        if (!isNaN(totalDoc))
+        {
+          // doesn't have lock files
+          if (totalDoc == this.solicitation.parseStatus.length){
+            console.log("no lock files")
+          }
+          else
+          {
+            var lock = totalDoc - this.solicitation.parseStatus.length;
+            console.log("lock files found: " + lock);
+            lock = 5;
+            this.lockDocs = [];
+            for(var i = 1; i <= lock; i++){
+              this.lockDocs.push(i);
+            }
+          }
+        }
+    }
+    
+    
   }
 
   EmailPoc() {

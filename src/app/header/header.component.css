@@ -36,6 +36,12 @@
     cursor: pointer;
 }
 
+#navbar ul.nav.navbar-nav > li.active{
+    height: 60px;
+    cursor: pointer;
+    border-bottom: 2px solid #102c52;
+}
+
 #navbar ul.nav.navbar-nav > li > a{
     margin: 20px 15px;
     padding: 0px;
@@ -47,7 +53,7 @@
 #navbar ul.nav.navbar-nav > li.active > a{
     color: #102c52!important;
     font-weight: 700 !important;
-    border-bottom: 1px solid #102c52;
+    /* border-bottom: 1px solid #102c52; */
     padding-bottom: 5px!important;
     font-weight: 700;
     background-color: transparent !important;
