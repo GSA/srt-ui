@@ -34,7 +34,6 @@ export class UndeterminedSolicitationsComponent implements OnInit {
             //   return  label;
             // },
             label :function(tooltipItem, data) {         
-                debugger                  
               return  data.labels[tooltipItem.index] + ": " + data.datasets[0].data[tooltipItem.index] + " solicitation(s)"
             }
         }

@@ -49,7 +49,7 @@ export class UserregistrationComponent implements OnInit {
         this.agencyService.GetAgencies()
             .subscribe(
               data => {            
-                  debugger
+                  
                   this.data = [];                  
                   data.forEach(element => {                    
                       this.data.push(element.Agency + " (" + element.Acronym + ")");

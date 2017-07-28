@@ -100,8 +100,7 @@ export class TopAgenciesComponent implements OnInit {
                     this.indexFrom = 1;
                     this.indexTo = 13;
                     this.barTitle = this.selectedGovernment;
-
-                    debugger
+                    
                     // Filter by year and agency                
                     for (let item of this.TopAgenciesChart.topAgencies[this.selectedGovernment])
                     {  

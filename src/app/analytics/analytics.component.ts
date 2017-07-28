@@ -256,7 +256,7 @@ export class AnalyticsComponent implements OnInit {
         //         } 
         //         console.log("All ICT: " + filteredData.length);
         //         this.undeterminedICT = filteredData.filter(d => d.undetermined == true);
-        //         debugger
+        //         
         //         console.log("Undetermined ICT: " + this.undeterminedICT.length);
         //         // get rid of undetermined results.
         //         this.ICTforDisplay = filteredData.filter(d => d.undetermined == false);  

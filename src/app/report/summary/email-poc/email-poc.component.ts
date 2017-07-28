@@ -91,7 +91,7 @@ emailContact() {
           console.log(err);
         });
 
-    debugger
+    
     this.solicitationService.updateHistory(this.solicitation)
       .subscribe(
         msg => {

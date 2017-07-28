@@ -35,8 +35,7 @@ export class PredictionResultComponent implements OnInit {
             //   var label = tooltipItem[0].index == 0 ? "Non-compliant: " : "Compliant: "              
             //   return  label;
             // },
-            label :function(tooltipItem, data) {         
-                debugger                  
+            label :function(tooltipItem, data) {       
               return  data.labels[tooltipItem.index] + ": " + data.datasets[0].data[tooltipItem.index] + " solicitation(s)"
             }
         }

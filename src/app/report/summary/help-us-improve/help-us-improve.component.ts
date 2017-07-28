@@ -34,8 +34,7 @@ export class HelpUsImproveComponent implements OnInit {
     this.GetSurveys();
   }
 
-  inputPercent(survey, answer) {
-    debugger
+  inputPercent(survey, answer) {    
     survey.Answer = answer;
     this.surveyModel[survey.ID] = answer;
   }
@@ -84,8 +83,7 @@ export class HelpUsImproveComponent implements OnInit {
       var user = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
       var r = this.solicitation.history.push({'date': now, 'action': "provided feedback on the solicitation prediction result", 'user': user , 'status' : ''});
       
-      this.surveys.forEach(element => {   
-        debugger
+      this.surveys.forEach(element => {           
           if(this.solicitation.feedback == null)
           {
               this.solicitation.feedback = [{'questionID': element.ID, 'question': element.Question, 'answer': element.Answer}];

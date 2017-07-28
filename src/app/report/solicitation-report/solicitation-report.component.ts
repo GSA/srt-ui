@@ -181,7 +181,7 @@ export class SolicitationReportComponent implements OnInit {
       });  
       
       for (var k in map) {
-        this.solType.push({label: map[k].label + ' (' +  map[k].count + ')', value: 'Special Notice'});
+        this.solType.push({label: map[k].label + ' (' +  map[k].count + ')', value: map[k].label});
       }
     }
   }
@@ -198,19 +198,15 @@ export class SolicitationReportComponent implements OnInit {
         )      
      }  
   }
-  reset () {
+    
+  reset() {
     if(!this.dateFrom && !this.dateTo)
     {
       this.solicitations = this.solicitationService.solicitations
     }
   }
     
-  // ngDoCheck() {
-    
-  // }
-
-  soryByDate(event:any) {
-     
+  soryByDate(event:any) {     
     if (this.dateSorting != event.order)
     {
         this.dateSorting = event.order;
@@ -225,11 +221,6 @@ export class SolicitationReportComponent implements OnInit {
           }                
         )
     }
-
-
-
-    
-    
   }
 
 }
