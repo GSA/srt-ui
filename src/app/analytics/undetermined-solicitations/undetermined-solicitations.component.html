@@ -1,7 +1,7 @@
-<div style="max-width: 350px; padding: 0px 15px">
+<div style=" padding: 0px 15px">
 
     <div style="font-size: 20px; margin-bottom: 20px; font-weight: 600" class="srt-blue">
-        Excluded Solicitations from SRT Prediction Results (By Category)
+        Last 30 days Excluded Solicitations from SRT Prediction Results (By Category)
         <sup style="font-size: 20px;" 
             [tooltip]="predictionResult" tooltipPlacement="bottom">
             <i class="fa fa-info-circle info" aria-hidden="true" ></i>
@@ -11,7 +11,7 @@
         </tooltip-content>  
     </div>  
    
-    <div style="position: relative; ">
+    <div style="position: relative;  max-width: 350px;">
       <div style="display: block; margin: 0px auto; height: 280px; transform: translateZ(0); font-weight: 300">
           <canvas baseChart
                   [data]="pieChartData"
@@ -24,13 +24,13 @@
       <div style="position: absolute; font-size: 20px; color: #000; top: 120px; left: calc(50% + 110px)">
             {{displayPresolicitation}}
       </div>
-      <div style="position: absolute; font-size: 20px; color: #000; top: 30px; right: calc(50% + 90px)">
+      <div style="position: absolute; font-size: 20px; color: #000; top: -3px; right: calc(50% + 58px)">
             {{displayNonMachineReadable}}
       </div>
-      <div style="position: absolute; font-size: 20px; color: #000; top: -20px; right: calc(50% + 10px)">
+      <div style="position: absolute; font-size: 20px; color: #000; top: -23px; right: calc(50% - 6px)">
             {{displayNoDocument}}
       </div>
-      <div style="position: absolute; font-size: 20px; color: #000; top: 125px; right: calc(50% + 107px)">
+      <div style="position: absolute; font-size: 20px; color: #000; top: 80px; right: calc(50% + 107px)">
             {{displayOtherUndetermined}}
       </div>
     </div>

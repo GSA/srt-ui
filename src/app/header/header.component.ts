@@ -19,15 +19,19 @@ export class HeaderComponent implements OnInit {
   // firstName is displayed in the welcome message on the navbar
   private firstName = "";
   public currentID = "";
+  @Input() isLogin;
+
 // UserService propogates the firstName and agency to peer components
   constructor(private authService: AuthService,
               private router: Router,
               private user: UserService) {      
-// listen for the event letting the system know a user has logged in
+      
+                // listen for the event letting the system know a user has logged in
       user.updateCurrentUser.subscribe(currentUser => this.saveCurrentUser(currentUser));
       if (localStorage.getItem("firstName")) {
         this.firstName = localStorage.getItem("firstName");
       }
+
   }
 
   ngOnInit() {    

@@ -9,8 +9,8 @@ import { Currentuser } from './shared/currentuser';
 export class UserService {
 
   // productionURL
-  // private link = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000';
-  private link = 'http://localhost:3000';
+  private link = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000';
+  // private link = 'http://localhost:3000';
 
   private userUrl = this.link + '/user/filter';
   private updateUserUrl = this.link + '/user/update';
@@ -23,9 +23,9 @@ export class UserService {
     this.updateCurrentUser = new EventEmitter();
    }
 
-   public saveUser(currentUser: Currentuser){          
+  public saveUser(currentUser: Currentuser){          
      this.updateCurrentUser.emit(currentUser);
-   }
+  }
 
   // GetUsers()
   public GetUsers(filterParams) {          

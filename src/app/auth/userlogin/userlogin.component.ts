@@ -5,6 +5,8 @@ import { User } from '../user';
 import { Currentuser } from '../../shared/currentuser';
 import { AuthService } from '../auth.service';
 import { UserService } from '../../user.service';
+import { AuthGuard } from '../../auth-guard.service'
+import { AppComponent } from '../../app.component'
 
 @Component({
   selector: 'app-userlogin',
@@ -14,7 +16,9 @@ import { UserService } from '../../user.service';
 export class UserloginComponent implements OnInit {
   myForm: FormGroup;
   errorMessage = false;
-  constructor(private authService: AuthService,
+  constructor(private app: AppComponent,
+              private authGuard: AuthGuard,
+              private authService: AuthService,
               private router: Router,
               private user: UserService) { }
 
@@ -25,6 +29,7 @@ export class UserloginComponent implements OnInit {
       password: new FormControl(null, Validators.required)
     });
   }
+
 // submit authentication data.  uses local storage to hold encrypted json web token and user agency
 // the jwt is set to expire after 2 hours.
   onSubmit() {
@@ -38,8 +43,10 @@ export class UserloginComponent implements OnInit {
           localStorage.setItem('agency', data.agency); // ToDo: clean this up and use user service
           localStorage.setItem('email', data.email);
           localStorage.setItem('position', data.position);
-          localStorage.setItem('id', data.id);
+          localStorage.setItem('id', data.id);          
           
+          this.authGuard.isLogin = true;
+          this.app.isLogin = true;
           var currentUser = new Currentuser(data.firstName, data.lastName, data.agency, data.email, data.position);
           this.user.saveUser(currentUser);
           this.router.navigateByUrl('home');

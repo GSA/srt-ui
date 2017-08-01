@@ -15,20 +15,23 @@ import { HelpUsImproveComponent } from './report/summary/help-us-improve/help-us
 import { ProfileComponent } from './profile/profile.component';
 import { PasswordComponent } from './password/password.component';
 
+
+import { AuthGuard } from './auth-guard.service'
+
 const APP_ROUTES: Routes = [
   {path: '', redirectTo: 'auth', pathMatch: 'full'},
   {path: 'auth', component: AuthComponent},
-  {path: 'profile', component: ProfileComponent},
-  {path: 'password', component: PasswordComponent},
-  {path: 'report/:id', component: SummaryComponent},
-  {path: 'report', component: SolicitationReportComponent},
-  {path: 'email/:id', component: EmailPocComponent},
-  {path: 'home', component: SrtComponent},
-  {path: 'admin', component: AdminComponent},
-  {path: 'analytics', component: AnalyticsComponent},
-  {path: 'feedback', component: SolicitationReviewComponent},
-  {path: 'faq', component: FaqComponent},
-  {path: 'contactus', component: ContactUsComponent},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'password', component: PasswordComponent, canActivate: [AuthGuard]},
+  {path: 'report/:id', component: SummaryComponent, canActivate: [AuthGuard]},
+  {path: 'report', component: SolicitationReportComponent, canActivate: [AuthGuard]},
+  {path: 'email/:id', component: EmailPocComponent, canActivate: [AuthGuard]},
+  {path: 'home', component: SrtComponent, canActivate: [AuthGuard]},
+  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
+  {path: 'analytics', component: AnalyticsComponent, canActivate: [AuthGuard]},
+  {path: 'feedback', component: SolicitationReviewComponent, canActivate: [AuthGuard]},
+  {path: 'faq', component: FaqComponent, canActivate: [AuthGuard]},
+  {path: 'contactus', component: ContactUsComponent, canActivate: [AuthGuard]},
   //{path: 'solicitation-feedback/:id', component: HelpUsImproveComponent},
 ];
 

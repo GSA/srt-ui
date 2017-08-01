@@ -7,7 +7,7 @@
             </div>
 
         <div class="collapse navbar-collapse" id="navbar" style="padding: 0px;">
-                <ul *ngIf="firstName" class="nav navbar-nav">
+                <ul *ngIf="isLogin" class="nav navbar-nav">
                     <li data-toggle="tab" [routerLink]="['/home']" [ngClass]="{'active': GetHash('home')}"><a>Home</a></li>
                     <li data-toggle="tab" [routerLink]="['/report']" [ngClass]="{'active': GetHash('report')}"><a>Manage/Review Workload</a></li>
                     <li data-toggle="tab" [routerLink]="['/analytics']" [ngClass]="{'active': GetHash('analytics')}"><a>View Analytics</a></li>
@@ -24,9 +24,9 @@
                     </div>
                     </a>
                 </div>
-                <ul *ngIf="firstName" id="gsaDropdown" class="nav navbar-nav" style="float: right;">
+                <ul *ngIf="isLogin" id="gsaDropdown" class="nav navbar-nav" style="float: right;">
                     <li class="dropdown">
-                        <a *ngIf="firstName" href="#" class="dropdown-toggle"
+                        <a *ngIf="isLogin" href="#" class="dropdown-toggle"
                                     style="font-weight: 300"
                                     data-toggle="dropdown"
                                     role="button"

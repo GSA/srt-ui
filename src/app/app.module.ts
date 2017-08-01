@@ -59,6 +59,8 @@ import { PredictionResultComponent } from './analytics/prediction-result/predict
 import { TopAgenciesPercentageComponent } from './analytics/top-agencies-percentage/top-agencies-percentage.component';
 import { UndeterminedSolicitationsComponent } from './analytics/undetermined-solicitations/undetermined-solicitations.component';
 
+import { AuthGuard } from './auth-guard.service'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -119,7 +121,8 @@ import { UndeterminedSolicitationsComponent } from './analytics/undetermined-sol
     AuthService,
     UserService,
     AgencyService,
-    SurveyService
+    SurveyService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
