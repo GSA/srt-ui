@@ -16,6 +16,7 @@ import { AppComponent } from '../../app.component'
 export class UserloginComponent implements OnInit {
   myForm: FormGroup;
   errorMessage = false;
+  errorInformation = "";
   constructor(private app: AppComponent,
               private authGuard: AuthGuard,
               private authService: AuthService,
@@ -53,6 +54,7 @@ export class UserloginComponent implements OnInit {
         },
         error => {          
           this.errorMessage = true;
+          this.errorInformation = error.error.message
           console.log(error)
         }
       );

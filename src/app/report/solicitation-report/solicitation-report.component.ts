@@ -98,23 +98,7 @@ export class SolicitationReportComponent implements OnInit {
     this.ict.push({label: 'All', value: null});
     this.ict.push({label: 'Yes', value: 'Yes'});
     this.ict.push({label: 'No', value: 'No'});
-
-  
     
-    
-
-    this.solType.push({label: 'Any', value: null});
-    // this.solType.push({label: 'Award Notice', value: 'Award Notice'});
-    // this.solType.push({label: 'Combined Synopsis / Solicitation', value: 'Combined Synopsis / Solicitation'});
-    // this.solType.push({label: 'Fair Opportunity / Limited Sources Justification / Cancelled', value: 'Fair Opportunity / Limited Sources Justification / Cancelled'});
-    // this.solType.push({label: 'Foreign Government Standard', value: 'Foreign Government Standard'});
-    // this.solType.push({label: 'Justification and Approval(J&A)', value: 'Justification and Approval(J&A)'});
-    // this.solType.push({label: 'Modification/Amendment/Cancel', value: 'Modification/Amendment/Cancel'});
-    // this.solType.push({label: 'Presolicitation', value: 'Presolicitation'});
-    // this.solType.push({label: 'Sale of Surplus Property', value: 'Sale of Surplus Property'});
-    // this.solType.push({label: 'Special Notice', value: 'Special Notice'});
-
-
     this.revResult.push({label: 'All', value: null});
     this.revResult.push({label: 'Non-compliant (Action Required)', value: "Non-compliant (Action Required)"});
     this.revResult.push({label: 'Undetermined', value: 'Undetermined'});
@@ -161,28 +145,51 @@ export class SolicitationReportComponent implements OnInit {
   }
 
   getNoticeTypes(solicitations) {
-    var map = {};
+    var noticeTypeMap = {};
+    //var resultMap = {}
     if ( solicitations)
     {
       solicitations.forEach(element => {        
-        var label:String = element.noticeType;
-        var value:String = element.noticeType;
-        var count:Number = 1;
-        if (map.hasOwnProperty(element.noticeType))
+        var noticeTypelabel:String = element.noticeType;
+        var noticeTypevalue:String = element.noticeType;
+        var noticeCount:Number = 1;
+        if (noticeTypeMap.hasOwnProperty(element.noticeType))
         {          
-          count =  map[element.noticeType].count+1;
-          map[element.noticeType] = {label: label, value: value, count: count};
+          noticeCount =  noticeTypeMap[element.noticeType].count+1;
+          noticeTypeMap[element.noticeType] = {label: noticeTypelabel, value: noticeTypevalue, count: noticeCount};
         }
         else
         {                    
-          count = 1;
-          map[element.noticeType] = {label: label, value: value, count: count};
-        }
+          noticeCount = 1;
+          noticeTypeMap[element.noticeType] = {label: noticeTypelabel, value: noticeTypevalue, count: noticeCount};
+        }        
+        //var resultLabel:String = element.
+        // var resultLabel:String = element.reviewRec;
+        // var resultValue:String = element.reviewRec;
+        // var resultCount:Number = 1;
+        // if (resultMap.hasOwnProperty(element.reviewRec))
+        // {          
+        //   resultCount =  resultMap[element.reviewRec].count+1;
+        //   resultMap[element.reviewRec] = {label: resultLabel, value: resultValue, count: resultCount};
+        // }
+        // else
+        // {                    
+        //   resultCount = 1;
+        //   resultMap[element.reviewRec] = {label: resultLabel, value: resultValue, count: resultCount};
+        // }
       });  
-      
-      for (var k in map) {
-        this.solType.push({label: map[k].label + ' (' +  map[k].count + ')', value: map[k].label});
+        
+      this.solType = [];
+      this.solType.push({label: 'Any', value: null});
+      for (var k in noticeTypeMap) {
+        this.solType.push({label: noticeTypeMap[k].label + ' (' +  noticeTypeMap[k].count + ')', value: noticeTypeMap[k].label});
       }
+      // this.revResult = [];
+      // this.revResult.push({label: 'All', value: null});
+      // for (var k in resultMap) {
+      //   this.revResult.push({label: resultMap[k].label + ' (' +  resultMap[k].count + ')', value: resultMap[k].label});
+      // }
+
     }
   }
 
@@ -195,7 +202,8 @@ export class SolicitationReportComponent implements OnInit {
              var dDate = new Date(d.date);      
              return dDate >= this.dateFrom && dDate <= this.dateTo;      
           }
-        )      
+        )   
+        this.getNoticeTypes(this.solicitations);
      }  
   }
     
@@ -221,6 +229,7 @@ export class SolicitationReportComponent implements OnInit {
           }                
         )
     }
+    this.getNoticeTypes(this.solicitations);
   }
 
 }

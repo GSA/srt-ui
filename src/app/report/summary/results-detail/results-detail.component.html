@@ -31,6 +31,12 @@
                 <div class="list-content">{{solicitation.solNum}}</div>
             </div>
 
+            <div class="list">
+                <div class="list-title">Date Posted on FedBizOpps:&nbsp;</div>
+                <div class="list-content">{{solicitation.date}}</div>
+            </div>
+
+
              <div class="list">
                 <div class="list-title">Solicitation Type:&nbsp;</div>
                 <div class="list-content">{{solicitation.noticeType}}</div>
@@ -55,7 +61,22 @@
 
             <div class="list">
                 <div class="list-title">Total Documents Scanned:&nbsp;</div>
-                <div class="list-content">{{solicitation.parseStatus.length}} <span *ngIf="lockDocs">out of {{solicitation.numDocs}}</span></div>
+                <div class="list-content">
+                    <span *ngIf="solicitation.numDocs != 'No Document Links Found' &&
+                                solicitation.numDocs != 'Insecure Redirect: Unable to Download' &&
+                                solicitation.numDocs != 'Connection Failed' &&
+                                solicitation.numDocs != 'Failed to Load' &&
+                                solicitation.numDocs != '0'">
+                        {{solicitation.parseStatus.length}} <span *ngIf="lockDocs">out of {{solicitation.numDocs}}</span>
+                    </span>
+                    <span *ngIf="!(solicitation.numDocs != 'No Document Links Found' &&
+                                solicitation.numDocs != 'Insecure Redirect: Unable to Download' &&
+                                solicitation.numDocs != 'Connection Failed' &&
+                                solicitation.numDocs != 'Failed to Load' &&
+                                solicitation.numDocs != '0')">
+                        {{solicitation.numDocs}}
+                    </span>
+                </div>
             </div>
 
             <div class="list" *ngIf="solicitation.parseStatus.length != 0 || lockDocs">
@@ -70,7 +91,7 @@
                 <div class="list-content">
                     <ul class="nopadding">
                         <li *ngFor="let doc of solicitation.parseStatus" style="list-style: none; line-height: 18px;">{{doc.name}} : {{doc.status}}</li>                        
-                        <li *ngFor="let lock of lockDocs" style="list-style: none; line-height: 18px;">solicitation_{{solicitation.solNum}}_document_lock{{lock}}: Lock</li> 
+                        <li *ngFor="let lock of lockDocs" style="list-style: none; line-height: 18px;">solicitation_{{solicitation.solNum}}_document: Failed to Load</li> 
                     </ul>
                 </div>
             </div>

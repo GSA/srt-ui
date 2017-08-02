@@ -36,7 +36,6 @@ export class ResultsDetailComponent implements OnInit {
           {
             var lock = totalDoc - this.solicitation.parseStatus.length;
             console.log("lock files found: " + lock);
-            lock = 5;
             this.lockDocs = [];
             for(var i = 1; i <= lock; i++){
               this.lockDocs.push(i);

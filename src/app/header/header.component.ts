@@ -6,6 +6,9 @@ import { AuthService } from '../auth/auth.service';
 import { ReportComponent } from '../report/report.component';
 import { Currentuser } from '../shared/currentuser';
 import { UserService } from '../user.service';
+import { AppComponent } from '../app.component';
+import { AuthGuard } from '../auth-guard.service';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -22,7 +25,9 @@ export class HeaderComponent implements OnInit {
   @Input() isLogin;
 
 // UserService propogates the firstName and agency to peer components
-  constructor(private authService: AuthService,
+  constructor(private authGuard: AuthGuard,
+              private app: AppComponent,
+              private authService: AuthService,
               private router: Router,
               private user: UserService) {      
       
@@ -42,6 +47,8 @@ export class HeaderComponent implements OnInit {
   onLogout() {
     var u = new Currentuser("", "", "", "", "");
     this.user.saveUser(u);
+    this.authGuard.isLogin = false;
+    this.app.isLogin = false;
     this.authService.logout();
     this.router.navigateByUrl('auth');
   }
