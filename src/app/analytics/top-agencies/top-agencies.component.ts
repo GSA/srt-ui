@@ -218,6 +218,7 @@ export class TopAgenciesComponent implements OnInit {
         else if (name == "National Archives and Records Administration") return "NARA";
         else if (name == "Export - Import Bank of the United States") return "EXIM";
         else if (name == "Department of Justice") return "DOJ";
+        else if (name == "Social Security Administration") return "SSA";
         else if (name == "1" && this.selectedPeriod == "This Year") return "Jan.";
         else if (name == "2" && this.selectedPeriod == "This Year") return "Feb.";
         else if (name == "3" && this.selectedPeriod == "This Year") return "Mar.";

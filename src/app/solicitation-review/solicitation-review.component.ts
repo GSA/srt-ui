@@ -40,7 +40,6 @@ export class SolicitationReviewComponent implements OnInit {
       (params: any) => {
     this.solicitationIndex = params['id'];
     // pull chosen solicitation from mongo
-    console.log("solicitation index: ", this.solicitationIndex);
     this.solicitationService.getSolicitation(this.solicitationIndex)
       .subscribe(
         solicitation => {

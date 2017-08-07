@@ -101,37 +101,41 @@ export class TopAgenciesPercentageComponent implements OnInit {
                     this.indexTo = 13;
                     this.barTitle = this.selectedGovernment;
 
-                    console.log(this.TopAgenciesChart.topAgencies[this.selectedGovernment])
-                    // Filter by year and agency                
-                    for (let item of this.TopAgenciesChart.topAgencies[this.selectedGovernment])
-                    {  
-                        if (item.date != null)
-                        {
-                            var month = +item.date.split('/')[0];                
-                            if (this.angencyTotal[month] == null)
-                            {
-                                this.angencyTotal[month] = 1;
-                                if (item.predictions.value == "GREEN") this.angencyPass[month] = 1;  
-                                else this.angencyPass[month] = 0; 
-                            }  
-                            else {
-                                this.angencyTotal[month]++;
-                                if (item.predictions.value == "GREEN") this.angencyPass[month]++;
-                            }  
-                        }
-                    }
-
-                    for (var i = 0;  i < 13; i ++)
+                    // Filter by year and agency      
+                      
+                    //console.log(this.TopAgenciesChart)     
+                    if (this.TopAgenciesChart.topAgencies[this.selectedGovernment] != null)
                     {
-                        if (this.angencyPass[i] == null) {
-                            this.barData.push([i, 0, 0, 0]);  
+                        for (let item of this.TopAgenciesChart.topAgencies[this.selectedGovernment])
+                        {                              
+                            if (item.date != null)
+                            {
+                                var month = +item.date.split('/')[0];                
+                                if (this.angencyTotal[month] == null)
+                                {
+                                    this.angencyTotal[month] = 1;
+                                    if (item.predictions.value == "GREEN") this.angencyPass[month] = 1;  
+                                    else this.angencyPass[month] = 0; 
+                                }  
+                                else {
+                                    this.angencyTotal[month]++;
+                                    if (item.predictions.value == "GREEN") this.angencyPass[month]++;
+                                }  
+                            }
                         }
-                        else
+
+                        for (var i = 0;  i < 13; i ++)
                         {
-                            this.barData.push([i, this.angencyPass[i] / this.angencyTotal[i], this.angencyPass[i], this.angencyTotal[i]]);
+                            if (this.angencyPass[i] == null) {
+                                this.barData.push([i, 0, 0, 0]);  
+                            }
+                            else
+                            {
+                                this.barData.push([i, this.angencyPass[i] / this.angencyTotal[i], this.angencyPass[i], this.angencyTotal[i]]);
+                            }
+                            if (this.maxSolicitation <= this.angencyTotal[i]) this.maxSolicitation = this.angencyTotal[i];     
                         }
-                        if (this.maxSolicitation <= this.angencyTotal[i]) this.maxSolicitation = this.angencyTotal[i];     
-                    }
+                    }                    
                     
                 }
                 else if (this.selectedPeriod == "This Month") 
@@ -140,40 +144,45 @@ export class TopAgenciesPercentageComponent implements OnInit {
                     this.indexTo = this.toPeriod.getDate() + 1;
                     
                     this.barTitle = this.selectedGovernment;
-                    // Filter by year and agency                
-                    for (let item of this.TopAgenciesChart.topAgencies[this.selectedGovernment])
-                    {  
-                        if (item.date != null)
-                        {
-                            var date = +item.date.split('/')[1];                
-                            if (this.angencyTotal[date] == null)
-                            {
-                                this.angencyTotal[date] = 1;
-                                if (item.predictions.value == "GREEN") this.angencyPass[date] = 1;  
-                                else this.angencyPass[date] = 0; 
-                            }  
-                            else {
-                                this.angencyTotal[date]++;
-                                if (item.predictions.value == "GREEN") this.angencyPass[date]++;
-                            }  
-                        }
-                    }
-                    
-                    for (var i = 0;  i < this.indexTo + 1; i ++)
+                    // Filter by year and agency       
+                    if (this.TopAgenciesChart.topAgencies[this.selectedGovernment] != null)
                     {
-                        if (this.angencyPass[i] == null) {
-                            this.barData.push([i, 0, 0, 0]);  
+                        for (let item of this.TopAgenciesChart.topAgencies[this.selectedGovernment])
+                        {  
+                            if (item.date != null)
+                            {
+                                var date = +item.date.split('/')[1];                
+                                if (this.angencyTotal[date] == null)
+                                {
+                                    this.angencyTotal[date] = 1;
+                                    if (item.predictions.value == "GREEN") this.angencyPass[date] = 1;  
+                                    else this.angencyPass[date] = 0; 
+                                }  
+                                else {
+                                    this.angencyTotal[date]++;
+                                    if (item.predictions.value == "GREEN") this.angencyPass[date]++;
+                                }  
+                            }
                         }
-                        else
+                        
+                        for (var i = 0;  i < this.indexTo + 1; i ++)
                         {
-                            this.barData.push([i, this.angencyPass[i] / this.angencyTotal[i], this.angencyPass[i], this.angencyTotal[i]]);
+                            if (this.angencyPass[i] == null) {
+                                this.barData.push([i, 0, 0, 0]);  
+                            }
+                            else
+                            {
+                                this.barData.push([i, this.angencyPass[i] / this.angencyTotal[i], this.angencyPass[i], this.angencyTotal[i]]);
+                            }
+                            if (this.maxSolicitation <= this.angencyTotal[i]) this.maxSolicitation = this.angencyTotal[i];     
                         }
-                        if (this.maxSolicitation <= this.angencyTotal[i]) this.maxSolicitation = this.angencyTotal[i];     
-                    }
+                    }         
+                   
                 }
             }
             console.log(this.barData);
-            this.noData = Object.keys(this.TopAgenciesChart).length == 0;
+            this.noData = this.barData.length == 0;
+            
         }
             
         
@@ -220,6 +229,7 @@ export class TopAgenciesPercentageComponent implements OnInit {
         else if (name == "Export - Import Bank of the United States") return "EXIM";
         else if (name == "Department of Justice") return "DOJ";
         else if (name == "Agency for International Development") return "USAID";
+        else if (name == "Social Security Administration") return "SSA";
         else if (name == "1" && this.selectedPeriod == "This Year") return "Jan.";
         else if (name == "2" && this.selectedPeriod == "This Year") return "Feb.";
         else if (name == "3" && this.selectedPeriod == "This Year") return "Mar.";

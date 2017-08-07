@@ -27,8 +27,8 @@ export class SolicitationService {
   constructor ( private http: Http ){};
 
   // productionURL
-  private link = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000';
-  // private link = 'http://localhost:3000';
+  // private link = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000';
+  private link = 'http://localhost:3000';
 
   private solicitationsUrl = this.link + '/predictions';
   private ICTUrl = this.link + '/ICT';  

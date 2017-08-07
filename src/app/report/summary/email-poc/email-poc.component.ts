@@ -60,7 +60,6 @@ export class EmailPocComponent implements OnInit {
     //           this.emailSent = solicitation.history.filter(function(e){return ((e["action"].indexOf('sent email to POC') > -1) && (e["user"].indexOf(user) > -1))}).length > 0;              
     //         },
     //         err => {
-    //           console.log(err);
     //         });
     //     });
 
@@ -82,23 +81,22 @@ emailContact() {
     this.solicitationService.sendContactEmail(emailContent)
       .subscribe(
         msg => {
-          console.log(msg);
           this.emailSent = true;
           this.update.emit();
           this.displayType.emit(this.helpUsImproveType);
         },
         err => {
-          console.log(err);
+          //console.log(err);
         });
 
     
     this.solicitationService.updateHistory(this.solicitation)
       .subscribe(
         msg => {
-          console.log(msg);
+          //console.log(msg);
         },
         err => {
-          console.log(err);
+          //console.log(err);
         });
   }
 
@@ -111,24 +109,5 @@ emailContact() {
         toolbar: false
       }, 
   };
-
-  // onEditorBlured(quill) {
-  //   console.log('editor blur!', quill);
-  // }
-
-  // onEditorFocused(quill) {
-  //   console.log('editor focus!', quill);
-  // }
-
-  // onEditorCreated(quill) {
-  //   this.editor = quill;
-  //   console.log('quill is ready! this is current quill instance object', quill);
-  // }
-
-  // onContentChanged({ quill, html, text }) {
-  //   console.log('quill content is changed!', quill, html, text);
-  // }
-
-
 
 }

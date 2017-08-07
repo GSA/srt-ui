@@ -91,9 +91,9 @@ export class SolicitationReportComponent implements OnInit {
       this.dateScan = this.solicitations[0].date;      
     }
     
-        //do I still need this?
-    this.solicitationService.pushedSolicitations.subscribe(
-      solicitations => this.solicitations = solicitations);
+    // do I still need this?
+    // this.solicitationService.pushedSolicitations.subscribe(
+    //   solicitations => this.solicitations = solicitations);
 
     this.ict.push({label: 'All', value: null});
     this.ict.push({label: 'Yes', value: 'Yes'});
@@ -119,7 +119,6 @@ export class SolicitationReportComponent implements OnInit {
 
   // Manual review button kicks this off.  navigates to solicitation review page
   selectSol(solicitation: any) {
-    console.log("selected sol is ",solicitation);
     var now = new Date().toLocaleDateString();
     var user = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
     var r = solicitation.history.push({'date': now, 'action': "reviewed solicitation action requested summary", 'user': user, 'status' : ''});
@@ -127,7 +126,7 @@ export class SolicitationReportComponent implements OnInit {
     this.solicitationService.updateHistory(solicitation)
         .subscribe(
             msg => {
-              console.log(msg);
+              // console.log(msg);
               this.router.navigate(['/report', solicitation._id]);              
             },
             err => {
@@ -146,7 +145,6 @@ export class SolicitationReportComponent implements OnInit {
 
   getNoticeTypes(solicitations) {
     var noticeTypeMap = {};
-    //var resultMap = {}
     if ( solicitations)
     {
       solicitations.forEach(element => {        
@@ -163,20 +161,6 @@ export class SolicitationReportComponent implements OnInit {
           noticeCount = 1;
           noticeTypeMap[element.noticeType] = {label: noticeTypelabel, value: noticeTypevalue, count: noticeCount};
         }        
-        //var resultLabel:String = element.
-        // var resultLabel:String = element.reviewRec;
-        // var resultValue:String = element.reviewRec;
-        // var resultCount:Number = 1;
-        // if (resultMap.hasOwnProperty(element.reviewRec))
-        // {          
-        //   resultCount =  resultMap[element.reviewRec].count+1;
-        //   resultMap[element.reviewRec] = {label: resultLabel, value: resultValue, count: resultCount};
-        // }
-        // else
-        // {                    
-        //   resultCount = 1;
-        //   resultMap[element.reviewRec] = {label: resultLabel, value: resultValue, count: resultCount};
-        // }
       });  
         
       this.solType = [];
@@ -184,12 +168,6 @@ export class SolicitationReportComponent implements OnInit {
       for (var k in noticeTypeMap) {
         this.solType.push({label: noticeTypeMap[k].label + ' (' +  noticeTypeMap[k].count + ')', value: noticeTypeMap[k].label});
       }
-      // this.revResult = [];
-      // this.revResult.push({label: 'All', value: null});
-      // for (var k in resultMap) {
-      //   this.revResult.push({label: resultMap[k].label + ' (' +  resultMap[k].count + ')', value: resultMap[k].label});
-      // }
-
     }
   }
 

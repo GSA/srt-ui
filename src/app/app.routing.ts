@@ -19,7 +19,7 @@ import { PasswordComponent } from './password/password.component';
 import { AuthGuard } from './auth-guard.service'
 
 const APP_ROUTES: Routes = [
-  {path: '', redirectTo: 'auth', pathMatch: 'full'},
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'auth', component: AuthComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'password', component: PasswordComponent, canActivate: [AuthGuard]},

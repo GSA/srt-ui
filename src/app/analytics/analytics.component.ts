@@ -150,7 +150,6 @@ export class AnalyticsComponent implements OnInit {
 
     GetTotalData() 
     {
-        //console.log(this.formPeriod.toLocaleDateString());
         this.params = {
             fromPeriod: this.formPeriod.toLocaleDateString(),
             toPeriod: this.toPeriod.toLocaleDateString(),
@@ -184,7 +183,6 @@ export class AnalyticsComponent implements OnInit {
                             this.SolicitationService.analytics = data;
                         }
                         this.filterActionChange = false;
-                        console.log( "get analytics" );
                         console.log(data);
                     },
                     err => {
@@ -254,13 +252,10 @@ export class AnalyticsComponent implements OnInit {
         //                 console.log(item.solNum);
         //             }      
         //         } 
-        //         console.log("All ICT: " + filteredData.length);
         //         this.undeterminedICT = filteredData.filter(d => d.undetermined == true);
         //         
-        //         console.log("Undetermined ICT: " + this.undeterminedICT.length);
         //         // get rid of undetermined results.
         //         this.ICTforDisplay = filteredData.filter(d => d.undetermined == false);  
-        //         console.log("Determined ICT: " + this.ICTforDisplay.length);
                 
         //         this.updatedICT = this.ICTforDisplay.filter(d => d.history.filter(function(e){return e["action"].indexOf('Solicitation Updated on FBO.gov') > -1 }).length > 0)
         //         this.nonCompliantICT = this.ICTforDisplay.filter( d => d.predictions.value=="RED");     
@@ -272,7 +267,6 @@ export class AnalyticsComponent implements OnInit {
 
         //     },
         //     err => {
-        //         console.log(err);
         //     }
         // ); 
     }

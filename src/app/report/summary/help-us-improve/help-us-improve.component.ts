@@ -69,7 +69,6 @@ export class HelpUsImproveComponent implements OnInit {
             if (anum> bnum) return 1;
             else return -1;
           });
-          console.log(this.surveys);
           for (var i = 0; i < data.length; i++) {
             this.surveyModel.push("");
           }
