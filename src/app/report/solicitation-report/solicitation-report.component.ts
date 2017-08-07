@@ -52,44 +52,44 @@ export class SolicitationReportComponent implements OnInit {
     this.stacked = window.matchMedia("(max-width: 992px)").matches
 
     this.initFilterParams();
-
+    debugger
     // Cache Data
-    if (!this.solicitationService.solicitations || this.solicitationService.reloadSolicitations)
-    {
-      this.solicitationService.getFilteredSolicitations(this.filterParams)
-        .subscribe(
-            solicitations => {          
-              this.solicitations = solicitations;
-              this.solicitationService.solicitations = solicitations;
-              this.solicitationService.reloadSolicitations = false;
+    // if (!this.solicitationService.solicitations || this.solicitationService.reloadSolicitations)
+    // {
+    this.solicitationService.getFilteredSolicitations(this.filterParams)
+      .subscribe(
+          solicitations => {          
+            this.solicitations = solicitations;
+            this.solicitationService.solicitations = solicitations;
+            //this.solicitationService.reloadSolicitations = false;
 
-              this.solicitations = this.solicitations.sort(
-                function(a,b){
-                  var aDate = new Date(a.date);
-                  var bDate = new Date(b.date);            
-                  if (aDate > bDate) return -1;
-                  else if (aDate < bDate) return 1;
-                  else return 0;
-                }                
-              )
-              
-              this.dateScan = this.solicitations[0].date;
-              $('.pDataTable').show();
-              // sorting
-              this.solicitations = this.sortByReviewResult(this.solicitations)
-              this.getNoticeTypes(this.solicitations);
-            },
-            err => {
-                console.log(err);
-        });
-    }
-    else
-    {
-      // sorting
-      this.solicitations = this.sortByReviewResult(this.solicitationService.solicitations)
-      this.getNoticeTypes(this.solicitationService.solicitations);
-      this.dateScan = this.solicitations[0].date;      
-    }
+            this.solicitations = this.solicitations.sort(
+              function(a,b){
+                var aDate = new Date(a.date);
+                var bDate = new Date(b.date);            
+                if (aDate > bDate) return -1;
+                else if (aDate < bDate) return 1;
+                else return 0;
+              }                
+            )
+            
+            this.dateScan = this.solicitations[0].date;
+            $('.pDataTable').show();
+            // sorting
+            this.solicitations = this.sortByReviewResult(this.solicitations)
+            this.getNoticeTypes(this.solicitations);
+          },
+          err => {
+              console.log(err);
+      });
+    // }
+    // else
+    // {
+    //   // sorting
+    //   this.solicitations = this.sortByReviewResult(this.solicitationService.solicitations)
+    //   this.getNoticeTypes(this.solicitationService.solicitations);
+    //   this.dateScan = this.solicitations[0].date;      
+    // }
     
     // do I still need this?
     // this.solicitationService.pushedSolicitations.subscribe(
@@ -110,7 +110,7 @@ export class SolicitationReportComponent implements OnInit {
   // set initial params based upon logged in user
   initFilterParams() {
     var agency = localStorage.getItem("agency");
-    if (agency == "General Services Administration"){
+    if (agency.indexOf("General Services Administration") > -1){
       this.filterParams.agency = "";
     } else {
       this.filterParams.agency = localStorage.getItem("agency");

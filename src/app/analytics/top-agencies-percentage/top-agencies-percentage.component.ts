@@ -212,7 +212,7 @@ export class TopAgenciesPercentageComponent implements OnInit {
         else if (name == "Department of Homeland Security") return "DHS";
         else if (name == "Department of Veterans Affairs") return "DVA";    
         else if (name == "United States International Trade Commission") return "USITC";
-        else if (name == "Department of Health and Human Services") return "DHHS";
+        else if (name == "Department of Health and Human Services") return "HHS";
         else if (name == "Department of Commerce") return "DOC";
         else if (name == "Department of Labor") return "DOL";
         else if (name == "National Aeronautics and Space Administration") return "NASA";

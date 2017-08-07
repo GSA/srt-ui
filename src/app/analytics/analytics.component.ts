@@ -136,15 +136,25 @@ export class AnalyticsComponent implements OnInit {
 
     // Get Agencies list for dropdown
     GetAgencyList() {
-        this.SolicitationService.GetAgencyList()
-        .subscribe(
-            data => {
-                this.agencyList = data;
-            },
-            err => {
-                console.log(err);
-            }
-        )
+        var agency = localStorage.getItem("agency");
+        if (agency == '' || agency.indexOf('General Services Administration') > -1)
+        {
+            this.SolicitationService.GetAgencyList()
+            .subscribe(
+                data => {
+                    this.agencyList = data;
+                },
+                err => {
+                    console.log(err);
+                }
+            )
+        }
+        else
+        {
+            agency = agency.split(' (')[0];
+            this.agencyList = [agency];
+        }
+        
     }
 
 
