@@ -98,7 +98,6 @@ export class SummaryComponent implements OnInit {
                             
             },
             err => {
-              console.log(err);
             });
         });
   }

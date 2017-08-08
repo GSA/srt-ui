@@ -86,17 +86,14 @@ emailContact() {
           this.displayType.emit(this.helpUsImproveType);
         },
         err => {
-          //console.log(err);
         });
 
     
     this.solicitationService.updateHistory(this.solicitation)
       .subscribe(
         msg => {
-          //console.log(msg);
         },
         err => {
-          //console.log(err);
         });
   }
 

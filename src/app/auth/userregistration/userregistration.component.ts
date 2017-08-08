@@ -54,10 +54,8 @@ export class UserregistrationComponent implements OnInit {
                   data.forEach(element => {                    
                       this.data.push(element.Agency + " (" + element.Acronym + ")");
                   });    
-                  console.log(this.dataService)
                   this.dataService = this.completerService.local(this.data);
               },
-              error => console.log(error)
         );
 
 
@@ -92,7 +90,9 @@ export class UserregistrationComponent implements OnInit {
                   data => {
                     this.registerSuccess = true;
                   },
-                  error => console.log(error)
+                  error => {
+
+                  }
                 );
             this.myForm.reset();
         }

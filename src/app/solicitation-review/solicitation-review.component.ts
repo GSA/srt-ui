@@ -46,7 +46,6 @@ export class SolicitationReviewComponent implements OnInit {
           this.solicitation.push(solicitation);
       },
       err => {
-          console.log(err);
       });
     });
   }

@@ -145,7 +145,6 @@ export class AnalyticsComponent implements OnInit {
                     this.agencyList = data;
                 },
                 err => {
-                    console.log(err);
                 }
             )
         }
@@ -157,25 +156,28 @@ export class AnalyticsComponent implements OnInit {
         
     }
 
+    convertDate(date: Date) {        
+        return  date.getMonth() + 1  + "/" + date.getDay() +"/"+ date.getFullYear()
+    }
 
     GetTotalData() 
-    {
+    {        
         this.params = {
-            fromPeriod: this.formPeriod.toLocaleDateString(),
-            toPeriod: this.toPeriod.toLocaleDateString(),
+            fromPeriod: this.convertDate(this.formPeriod),
+            toPeriod: this.convertDate(this.toPeriod),
             agency: this.selectedGovernment
         }
 
         
-        if ((!this.SolicitationService.analytics.ScannedSolicitationChart &&
-            !this.SolicitationService.analytics.MachineReadableChart &&
-            !this.SolicitationService.analytics.ComplianceRateChart &&
-            !this.SolicitationService.analytics.ConversionRateChart &&
-            !this.SolicitationService.analytics.TopSRTActionChart &&
-            !this.SolicitationService.analytics.TopAgenciesChart &&
-            !this.SolicitationService.analytics.PredictResultChart && 
-            !this.SolicitationService.analytics.UndeterminedSolicitationChart) || this.filterActionChange )
-        {
+        // if ((!this.SolicitationService.analytics.ScannedSolicitationChart &&
+        //     !this.SolicitationService.analytics.MachineReadableChart &&
+        //     !this.SolicitationService.analytics.ComplianceRateChart &&
+        //     !this.SolicitationService.analytics.ConversionRateChart &&
+        //     !this.SolicitationService.analytics.TopSRTActionChart &&
+        //     !this.SolicitationService.analytics.TopAgenciesChart &&
+        //     !this.SolicitationService.analytics.PredictResultChart && 
+        //     !this.SolicitationService.analytics.UndeterminedSolicitationChart) || this.filterActionChange )
+        // {
              this.SolicitationService.getAnalytics(this.params)
                 .subscribe(
                     data => {
@@ -193,31 +195,28 @@ export class AnalyticsComponent implements OnInit {
                             this.SolicitationService.analytics = data;
                         }
                         this.filterActionChange = false;
-                        console.log(data);
                     },
                     err => {
-                        console.log(err);
                     }
                 )
-        }
-        else
-        {
-            this.ScannedSolicitationChart = this.SolicitationService.analytics.ScannedSolicitationChart;
-            this.MachineReadableChart = this.SolicitationService.analytics.MachineReadableChart;
-            this.ComplianceRateChart = this.SolicitationService.analytics.ComplianceRateChart;
-            this.ConversionRateChart = this.SolicitationService.analytics.ConversionRateChart;
-            this.TopSRTActionChart = this.SolicitationService.analytics.TopSRTActionChart;
-            this.TopAgenciesChart = this.SolicitationService.analytics.TopAgenciesChart;
-            this.PredictResultChart = this.SolicitationService.analytics.PredictResultChart;
-            this.UndeterminedSolicitationChart = this.SolicitationService.analytics.UndeterminedSolicitationChart;
-        }
+        // }
+        // else
+        // {
+        //     this.ScannedSolicitationChart = this.SolicitationService.analytics.ScannedSolicitationChart;
+        //     this.MachineReadableChart = this.SolicitationService.analytics.MachineReadableChart;
+        //     this.ComplianceRateChart = this.SolicitationService.analytics.ComplianceRateChart;
+        //     this.ConversionRateChart = this.SolicitationService.analytics.ConversionRateChart;
+        //     this.TopSRTActionChart = this.SolicitationService.analytics.TopSRTActionChart;
+        //     this.TopAgenciesChart = this.SolicitationService.analytics.TopAgenciesChart;
+        //     this.PredictResultChart = this.SolicitationService.analytics.PredictResultChart;
+        //     this.UndeterminedSolicitationChart = this.SolicitationService.analytics.UndeterminedSolicitationChart;
+        // }
 
 
        
         // this.SolicitationService.getICT()
         // .subscribe(
-        //     solicitation => {   
-        //         console.log(solicitation.length)                           
+        //     solicitation => {                            
         //        this.ICT = solicitation.filter( d => d.eitLikelihood.value == "Yes" );
         //        // following variable will be affected by filter   
         //        this.ICTforDisplay =  solicitation.filter( d => d.eitLikelihood.value == "Yes" );
@@ -254,12 +253,10 @@ export class AnalyticsComponent implements OnInit {
         //                     filteredData.push(item);
         //                 }   
         //                 else {
-        //                     console.log(item.solNum);
         //                 }               
         //             }   
         //             else
         //             {
-        //                 console.log(item.solNum);
         //             }      
         //         } 
         //         this.undeterminedICT = filteredData.filter(d => d.undetermined == true);

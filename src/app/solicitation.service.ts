@@ -27,8 +27,8 @@ export class SolicitationService {
   constructor ( private http: Http ){};
 
   // productionURL
-  private link = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000';
-  // private link = 'http://localhost:3000';
+  // private link = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000';
+  private link = 'http://localhost:3000';
 
   private solicitationsUrl = this.link + '/predictions';
   private ICTUrl = this.link + '/ICT';  
@@ -49,7 +49,6 @@ export class SolicitationService {
   // private emailUrl = 'http://localhost:3000/email/';
 
   getFilteredSolicitations(body) {
-    console.log(body)
   	return this.http.post(this.solicitationsFilterUrl, body)
         .map((res: Response) => res.json())
         .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));  

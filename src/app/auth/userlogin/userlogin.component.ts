@@ -55,7 +55,6 @@ export class UserloginComponent implements OnInit {
         error => {          
           this.errorMessage = true;
           this.errorInformation = error.error.message
-          console.log(error)
         }
       );
       

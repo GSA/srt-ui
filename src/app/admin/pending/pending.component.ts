@@ -29,7 +29,6 @@ export class PendingComponent implements OnInit {
               this.GetUsers()
             },
             error => {          
-              console.log(error)
             }
         )
     }
@@ -42,7 +41,6 @@ export class PendingComponent implements OnInit {
               this.GetUsers()
             },
             error => {          
-              console.log(error)
             }
         )
     }
@@ -53,7 +51,6 @@ export class PendingComponent implements OnInit {
               this.users = data;
             },
             error => {          
-              console.log(error)
             }
         )
     }

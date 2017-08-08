@@ -31,7 +31,6 @@ export class ApprovedComponent implements OnInit {
               this.GetUsers()
             },
             error => {          
-              console.log(error)
             }
         )
     }
@@ -44,7 +43,6 @@ export class ApprovedComponent implements OnInit {
               this.GetUsers()
             },
             error => {          
-              console.log(error)
             }
         )
     }
@@ -55,7 +53,6 @@ export class ApprovedComponent implements OnInit {
         //       this.GetUsers()
         //     },
         //     error => {          
-        //       console.log(error)
         //     }
         // )
     }
@@ -66,7 +63,6 @@ export class ApprovedComponent implements OnInit {
               this.users = data;
             },
             error => {          
-              console.log(error)
             }
         )      
     }

@@ -29,12 +29,10 @@ export class ResultsDetailComponent implements OnInit {
         {
           // doesn't have lock files
           if (totalDoc == this.solicitation.parseStatus.length){
-            console.log("no lock files")
           }
           else
           {
             var lock = totalDoc - this.solicitation.parseStatus.length;
-            console.log("lock files found: " + lock);
             this.lockDocs = [];
             for(var i = 1; i <= lock; i++){
               this.lockDocs.push(i);

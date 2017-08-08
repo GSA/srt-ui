@@ -92,18 +92,14 @@ export class HelpUsImproveComponent implements OnInit {
               this.solicitation.feedback.push({'questionID': element.ID, 'question': element.Question, 'answer': element.Answer})
           }
       });
-      
-      console.log(this.solicitation)
-      
+            
       this.solicitationService.updateHistory(this.solicitation)
       .subscribe(
         msg => {
-          console.log(msg);
           this.feedbackSent = true;
           this.update.emit();
         },
         err => {
-          console.log(err);
         });
   }
 

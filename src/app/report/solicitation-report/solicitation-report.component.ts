@@ -52,7 +52,7 @@ export class SolicitationReportComponent implements OnInit {
     this.stacked = window.matchMedia("(max-width: 992px)").matches
 
     this.initFilterParams();
-    debugger
+    
     // Cache Data
     // if (!this.solicitationService.solicitations || this.solicitationService.reloadSolicitations)
     // {
@@ -80,7 +80,6 @@ export class SolicitationReportComponent implements OnInit {
             this.getNoticeTypes(this.solicitations);
           },
           err => {
-              console.log(err);
       });
     // }
     // else
@@ -110,7 +109,8 @@ export class SolicitationReportComponent implements OnInit {
   // set initial params based upon logged in user
   initFilterParams() {
     var agency = localStorage.getItem("agency");
-    if (agency.indexOf("General Services Administration") > -1){
+    if (agency.indexOf("General Services Administration") > -1 
+      ){
       this.filterParams.agency = "";
     } else {
       this.filterParams.agency = localStorage.getItem("agency");
@@ -126,11 +126,9 @@ export class SolicitationReportComponent implements OnInit {
     this.solicitationService.updateHistory(solicitation)
         .subscribe(
             msg => {
-              // console.log(msg);
               this.router.navigate(['/report', solicitation._id]);              
             },
             err => {
-              console.log(err);
         });
   }
 

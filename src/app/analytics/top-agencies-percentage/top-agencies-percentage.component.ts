@@ -102,8 +102,7 @@ export class TopAgenciesPercentageComponent implements OnInit {
                     this.barTitle = this.selectedGovernment;
 
                     // Filter by year and agency      
-                      
-                    //console.log(this.TopAgenciesChart)     
+                        
                     if (this.TopAgenciesChart.topAgencies[this.selectedGovernment] != null)
                     {
                         for (let item of this.TopAgenciesChart.topAgencies[this.selectedGovernment])
@@ -180,7 +179,6 @@ export class TopAgenciesPercentageComponent implements OnInit {
                    
                 }
             }
-            console.log(this.barData);
             this.noData = this.barData.length == 0;
             
         }
