@@ -1,6 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
-import { AnalyticsComponent } from './analytics/analytics.component';
+import { AnalyticsComponent } from '../analytics/analytics.component';
+import { HelpComponent } from '../help/help.component'
 import { AuthComponent } from './auth/auth.component';
 import { SolicitationReportComponent } from './report/solicitation-report/solicitation-report.component';
 import { SolicitationReviewComponent } from './solicitation-review/solicitation-review.component';
@@ -8,8 +9,7 @@ import { SrtComponent } from './srt/srt.component';
 import { ResultsDetailComponent } from './report/summary/results-detail/results-detail.component';
 import { SummaryComponent } from './report/summary/summary.component';
 import { EmailPocComponent } from './report/summary/email-poc/email-poc.component';
-import { FaqComponent} from './faq/faq.component';
-import { ContactUsComponent } from './contact-us/contact-us.component';
+
 import { HelpUsImproveComponent } from './report/summary/help-us-improve/help-us-improve.component';
 
 import { ProfileComponent } from './profile/profile.component';
@@ -30,9 +30,7 @@ const APP_ROUTES: Routes = [
   {path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
   {path: 'analytics', component: AnalyticsComponent, canActivate: [AuthGuard]},
   {path: 'feedback', component: SolicitationReviewComponent, canActivate: [AuthGuard]},
-  {path: 'faq', component: FaqComponent, canActivate: [AuthGuard]},
-  {path: 'contactus', component: ContactUsComponent, canActivate: [AuthGuard]},
-  //{path: 'solicitation-feedback/:id', component: HelpUsImproveComponent},
+  {path: 'help', component: HelpComponent, canActivate: [AuthGuard]},
 ];
 
 export const routing = RouterModule.forRoot(APP_ROUTES);

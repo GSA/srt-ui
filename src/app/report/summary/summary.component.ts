@@ -71,8 +71,7 @@ export class SummaryComponent implements OnInit {
                     "requires that any ICT that is developed, procured, maintained, or used by the Federal " + 
                     "government conform to the Section 508 Standards.  This means that Section 508 technical criteria MUST be " +
                     "included in the requirements document in order to inform the vendor of the Section 508 deliverables to meet the " +
-                    "contractual requirements. Please find the SRT’s solicitation assessment results attached. They may also be " +
-                    "accessed at “Solicitation Review Result Summary”. </p>" + 
+                    "contractual requirements. </p>" + 
                     "<br>" +
 
                     "<p>To assist your efforts in addressing Section 508, please refer to the " + 

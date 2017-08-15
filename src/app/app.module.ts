@@ -1,3 +1,8 @@
+//
+// MODULES
+//
+
+//// Angular modules
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -5,30 +10,47 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Router } from '@angular/router';
 
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+//// Built modules
+import { AnalyticsModule } from '../analytics/analytics.module';
+import { HelpModule } from '../help/help.module'
 
-import { AppComponent } from './app.component';
-import { SolicitationReportComponent } from './report/solicitation-report/solicitation-report.component';
+//// Open Sources Modules
+import { DataTableModule,SharedModule, ButtonModule, DropdownModule, CalendarModule} from 'primeng/primeng';
+import { TooltipModule } from "ng2-tooltip";
+import { QuillEditorModule } from 'ngx-quill-editor';
+import { Ng2CompleterModule } from "ng2-completer";
 
-// Services
+//
+// SERVICES
+//
 import { AgencyService } from './agency.service';
 import { AuthService } from './auth/auth.service';
 import { SolicitationService } from './solicitation.service';
 import { SurveyService } from './survey.service';
 import { UserService } from './user.service';
+import { AuthGuard } from './auth-guard.service'
 
-import { DataTableModule,SharedModule, ButtonModule, DropdownModule, CalendarModule} from 'primeng/primeng';
+
+//
+// COMPONENTS
+//
+
+import { AppComponent } from './app.component';
+import { SolicitationReportComponent } from './report/solicitation-report/solicitation-report.component';
+
+
+// ROUTES
 import { routing } from './app.routing';
+import { HelpRoutes } from '../help/help.routing';
+
+
 import { HeaderComponent } from './header/header.component';
 import { AuthComponent } from './auth/auth.component';
 import { UserloginComponent } from './auth/userlogin/userlogin.component';
 import { UserregistrationComponent } from './auth/userregistration/userregistration.component';
 import { SolicitationReviewComponent } from './solicitation-review/solicitation-review.component';
 import { SrtComponent } from './srt/srt.component';
-import { AnalyticsComponent } from './analytics/analytics.component';
 import { AdminComponent } from './admin/admin.component';
-import { FaqComponent } from './faq/faq.component';
-import { ContactUsComponent } from './contact-us/contact-us.component';
 import { ReportComponent } from './report/report.component';
 import { SummaryComponent } from './report/summary/summary.component';
 import { ResultsDetailComponent } from './report/summary/results-detail/results-detail.component';
@@ -41,25 +63,9 @@ import { DeniedComponent } from './admin/denied/denied.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PasswordComponent } from './password/password.component';
 
-import {TooltipModule} from "ng2-tooltip";
 
-// HTML editor
-//import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
-import { QuillEditorModule } from 'ngx-quill-editor';
-// Auto Complete
-import { Ng2CompleterModule } from "ng2-completer";
-import { TopSrtActionsComponent } from './analytics/top-srt-actions/top-srt-actions.component';
-import { TopAgenciesComponent } from './analytics/top-agencies/top-agencies.component';
-import { ScannedSolicitationComponent } from './analytics/scanned-solicitation/scanned-solicitation.component';
-import { ComplianceRateComponent } from './analytics/compliance-rate/compliance-rate.component';
-import { ConversionRateComponent } from './analytics/conversion-rate/conversion-rate.component';
-import { UserLoginComponent } from './analytics/user-login/user-login.component';
-import { MachineReadableComponent } from './analytics/machine-readable/machine-readable.component';
-import { PredictionResultComponent } from './analytics/prediction-result/prediction-result.component';
-import { TopAgenciesPercentageComponent } from './analytics/top-agencies-percentage/top-agencies-percentage.component';
-import { UndeterminedSolicitationsComponent } from './analytics/undetermined-solicitations/undetermined-solicitations.component';
 
-import { AuthGuard } from './auth-guard.service'
+
 
 @NgModule({
   declarations: [
@@ -72,12 +78,9 @@ import { AuthGuard } from './auth-guard.service'
     UserregistrationComponent,
     SolicitationReviewComponent,
     SrtComponent,
-    AnalyticsComponent,
     AdminComponent,
     ResultsDetailComponent,
     EmailPocComponent,
-    FaqComponent,
-    ContactUsComponent,
     HelpUsImproveComponent,
     SummaryComponent,
     HistoryComponent,
@@ -86,16 +89,6 @@ import { AuthGuard } from './auth-guard.service'
     DeniedComponent,
     ProfileComponent,
     PasswordComponent,
-    TopSrtActionsComponent,
-    TopAgenciesComponent,
-    ScannedSolicitationComponent,
-    ComplianceRateComponent,
-    ConversionRateComponent,
-    UserLoginComponent,
-    MachineReadableComponent,
-    PredictionResultComponent,
-    TopAgenciesPercentageComponent,
-    UndeterminedSolicitationsComponent,
   ],
   imports: [
     BrowserModule,
@@ -108,13 +101,15 @@ import { AuthGuard } from './auth-guard.service'
     SharedModule,
     ButtonModule,
     DropdownModule,
-    ChartsModule,
     TooltipModule,
     CalendarModule,
     // FroalaEditorModule.forRoot(), 
     // FroalaViewModule.forRoot(),
     Ng2CompleterModule,
-    QuillEditorModule
+    QuillEditorModule,
+    AnalyticsModule,
+    HelpModule,
+    HelpRoutes,
   ],
   providers: [
     SolicitationService,

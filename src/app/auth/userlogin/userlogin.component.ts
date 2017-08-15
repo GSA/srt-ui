@@ -38,6 +38,8 @@ export class UserloginComponent implements OnInit {
     this.authService.login(user)
       .subscribe(
         data => {           
+          
+          console.log(data);
           localStorage.setItem('token', data.token);       
           localStorage.setItem('firstName', data.firstName);
           localStorage.setItem('lastName', data.lastName);
@@ -45,7 +47,7 @@ export class UserloginComponent implements OnInit {
           localStorage.setItem('email', data.email);
           localStorage.setItem('position', data.position);
           localStorage.setItem('id', data.id);          
-          
+          localStorage.setItem('userRole', data.userRole);
           this.authGuard.isLogin = true;
           this.app.isLogin = true;
           var currentUser = new Currentuser(data.firstName, data.lastName, data.agency, data.email, data.position);

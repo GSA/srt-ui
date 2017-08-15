@@ -109,8 +109,9 @@ export class SolicitationReportComponent implements OnInit {
   // set initial params based upon logged in user
   initFilterParams() {
     var agency = localStorage.getItem("agency");
-    if (agency.indexOf("General Services Administration") > -1 
-      ){
+    var userRole = localStorage.getItem("userRole");
+    if (agency.indexOf("General Services Administration") > -1 &&
+       ( userRole == 'Administrator' || userRole == 'SRT Program Manager')){
       this.filterParams.agency = "";
     } else {
       this.filterParams.agency = localStorage.getItem("agency");

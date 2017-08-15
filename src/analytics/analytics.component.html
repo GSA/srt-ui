@@ -1,9 +1,12 @@
-
+<!-- <router-outlet></router-outlet> -->
 
 <div class="row analytic-div" style="background-color: white; padding: 0px !important">
     <div class="clearfix">
         <div class="col-md-12 nopadding clearfix" style="padding: 10px 40px !important; background-color: #e7f4e4; font-weight: 500; font-size: 13px;">
-            The data on the dashboard include only ICT / E&IT solicitations.  The following are excluded from the data on the dashboard: pre-solicitations, 
+            The data on the dashboard include only 
+            <a [routerLink]="['/help/faq', 'ICT']">ICT</a> / 
+            <a [routerLink]="['/help/faq', 'EIT']">E&IT </a>
+            solicitations.  The following are excluded from the data on the dashboard: pre-solicitations, 
             sources sought, special notices, award notice, intent to bundle requirements, solicitations with zero and/or non-machine-readable document(s), 
             and other undetermined solicitations. 
         </div>
@@ -81,6 +84,7 @@
                 [fromPeriod]="fromPeriod"
                 [xAxis]="xAxis"></app-top-agencies>-->
                 <app-top-agencies-percentage 
+                    *ngIf="isGovernomentWide"
                     [isGovernomentWide]="isGovernomentWide" 
                     [TopAgenciesChart]="TopAgenciesChart" 
                     [selectedGovernment]="selectedGovernment" 
@@ -89,6 +93,14 @@
                     [toPeriod]="toPeriod"
                     [fromPeriod]="fromPeriod"
                     [xAxis]="xAxis"></app-top-agencies-percentage>
+                <app-line-charts
+                     *ngIf="!isGovernomentWide"
+                     [TopAgenciesChart]="TopAgenciesChart" 
+                     [selectedGovernment]="selectedGovernment" 
+                     [selectedPeriod]="selectedPeriod"
+                     [toPeriod]="toPeriod"
+                     [fromPeriod]="fromPeriod">
+                </app-line-charts>
         </div>
 
         <div class="col-md-12 nopadding clearfix" style="margin-bottom: 40px !important; padding: 40px 40px 10px 40px !important; border-top: 1px solid #dadada;">
