@@ -11,8 +11,8 @@ import 'rxjs/add/operator/toPromise';
 export class AnalyticsService {
 
   // productionURL
-  //private link = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000';
-  private link = 'http://localhost:3000';
+  private link = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000';
+  //private link = 'http://localhost:3000';
 
   private AnalyticUrl = this.link + '/Analytics'; 
   private AgencyListUrl = this.link + '/AgencyList';  
