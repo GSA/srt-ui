@@ -128,7 +128,7 @@ export class AnalyticsComponent implements OnInit {
         var userRole = localStorage.getItem("userRole");
 
         if (agency == '' ||  
-            (agency.indexOf("General Services Administration") > -1 && ( userRole == 'Administrator' || userRole == 'SRT Program Manager'))   
+          (agency.indexOf("General Services Administration") > -1 && ( userRole.indexOf('Administrator') > -1 || userRole.indexOf('SRT Program Manager') > -1))   
         )
         {
             this.AnalyticsService.GetAgencyList()

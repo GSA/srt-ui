@@ -20,8 +20,8 @@ export class LineChartsComponent implements OnInit {
   angencyPass = {}
   angencyTotal = {}
   barData = [];
-  xAxis = "";
-  yAxis = "";
+  xAxis = "Date";
+  yAxis = "Compliance Rate (%)";
   constructor() { }
 
   ngOnInit() {
@@ -29,6 +29,7 @@ export class LineChartsComponent implements OnInit {
 
 
   ngOnChanges() {    
+      debugger
     if (this.TopAgenciesChart.topAgencies[this.selectedGovernment] != null)
     {
         var array = this.TopAgenciesChart.topAgencies[this.selectedGovernment];
@@ -61,6 +62,7 @@ export class LineChartsComponent implements OnInit {
                   return "Non-Compliance Solicitation:" + no;  
               }
           }  
+          this.xAxis = "Month";
           this.forceChartRefresh();          
         }
         else if (this.selectedPeriod == "This Month")
@@ -71,9 +73,10 @@ export class LineChartsComponent implements OnInit {
           var pass:any[] = [];
           var total:any[] = [];
           this.lineChartLabels = [];
+          var month = new Date().getMonth() + 1
           for(var i = 1;  i < indexTo; i ++)
           {
-            this.lineChartLabels.push(i)
+            this.lineChartLabels.push(month+"/"+i)
             percentage.push(0);
             pass.push(0);
             total.push(0);
@@ -101,10 +104,18 @@ export class LineChartsComponent implements OnInit {
                   var no =  total[tooltipItem.index] - pass[tooltipItem.index]
                   return "Non-Compliance Solicitation:" + no;  
               }
-          }        
+          }    
+          this.xAxis = "Date";    
           this.forceChartRefresh();
         }
         
+    }
+    else
+    {
+        this.lineChartData = [
+            {data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: ''},      
+        ];
+        this.lineChartLabels = [];
     }
   }
 
