@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import * as $ from 'jquery';
+// Services
+import { HelpService } from "../services/help.service";
+import * as $ from 'jquery'
 
 @Component({
   selector: 'app-faq',
@@ -11,13 +13,19 @@ import * as $ from 'jquery';
 export class FaqComponent implements OnInit {
 
   public metrix = "{ (1) ∪ { (2) ∩ (3) } }"
-  constructor(
-      private route: ActivatedRoute
-  ) { }
   id = "";
   params: any;
+  faq: any[];
+
+  constructor(
+      private helpService:HelpService,
+      private route: ActivatedRoute
+  ) {}
+ 
 
   ngOnInit() {
+    //lifecycle hook
+
     this.id = this.route.snapshot.params['id'];
     if (this.id != null)
     {
@@ -29,10 +37,22 @@ export class FaqComponent implements OnInit {
         else if (this.id == "EIT") 
         {
             $('#search').val("What is \"Electronic and Information Technology\"(E&IT)?")
-        }      
-        $('.'+this.id).click();      
-        this.faqSearch();
+        }     
+        
+        // Wait for html
+        setTimeout(() => {            
+            $('.'+this.id).click();      
+            this.faqSearch();
+        }, 500);
+        
     }
+    
+    this.helpService.getPosts()
+        .subscribe (
+            data => this.faq = data,
+            error => console.log(error)
+    )
+  
   }
  
 
@@ -52,6 +72,7 @@ export class FaqComponent implements OnInit {
               $(this).hide();
       });
   }
+    
 
 
 

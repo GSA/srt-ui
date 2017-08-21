@@ -1,6 +1,6 @@
-<div style="max-width: 350px; padding: 0px 15px">
+<div class="chartcontainer">
 
-    <div style="font-size: 20px; margin-bottom: 20px; font-weight: 600;" class="srt-blue">
+    <div class="srt-blue piechart">
         Machine Readable Documents (%) <br /> &nbsp;
         <!--<sup style="font-size: 20px;" 
             [tooltip]="MachineReadable" tooltipPlacement="bottom">
@@ -11,8 +11,8 @@
         </tooltip-content> -->
     </div>  
    
-    <div style="position: relative; ">
-      <div style="display: block; margin: 0px auto; height: 280px; transform: translateZ(0); font-weight: 300">
+    <div style="position: relative">
+      <div class="pieposition">
           <canvas baseChart
                   [data]="pieChartData"
                   [labels]="pieChartLabels"
@@ -21,10 +21,10 @@
                   [chartType]="pieChartType">
           </canvas>
       </div>
-      <div style="position: absolute; font-size: 20px; color: #000; top: -20px; right: calc(50% + 10px)">
+      <div class="pieresultun">
             {{displayUnreadable}}
       </div>
-      <div style="position: absolute; font-size: 20px; color: #000; bottom: 45px; left: calc(50% + 40px)">
+      <div class="pieresult">
             {{displayReadable}}
       </div>
     </div>

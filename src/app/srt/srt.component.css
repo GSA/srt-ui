@@ -151,3 +151,130 @@ body{font-family:'Open Sans Condensed',sans-serif;font-size:18px}
     font-size: 18px;
     padding: 0px 30px;
 }
+
+.srt-homehead{
+    background-image: url('/assets/home-page-cover.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 350px;
+            width: 100%;
+            opacity: 0.85;
+            position: relative;
+}
+.srt-headposition{
+        position: absolute; 
+        top: 0px; 
+        right: 0px; 
+        bottom: 0px; 
+        left: 0px;
+}
+
+.srt-headtext{
+    text-align: right;  
+    display: table; 
+    height: 100%; 
+    width: 100%
+}
+.srt-headdisplay{
+    display: table-cell; 
+    vertical-align: middle;
+
+}
+.srt-headpadding{
+    padding: 0px 60px; 
+    max-width: 1000px; 
+    float: right
+}
+.srt-maintitle{
+    font-weight: 600; 
+    border-bottom: 0.5px solid #112e51; 
+    padding-bottom: 10px
+}
+.srt-textpadding{
+    padding-left: 100px; 
+    padding-top: 20px
+}
+.srt-beta-container{
+    position: absolute; 
+    bottom: -40px; 
+    right: 60px; 
+    background-color: rgba(0,0,0,0.7); 
+    width: 50%; 
+    max-width: 500px;
+}
+.srt-beta-position{
+    position: relative; 
+    color: white; 
+    display: table;
+}
+.srt-beta-padding{
+    display: table-cell; 
+    vertical-align: middle; 
+    padding: 15px 22px
+}
+.srt-betatitle{
+    padding-bottom: 5px; 
+    font-weight: 500; 
+    font-size: 16px; 
+    color: white;
+}
+
+.srt-marginbot{
+    margin-bottom: 30px
+}
+.srt-block-padding{
+    text-align: center; 
+    padding: 0px 25px
+}
+.srt-icon1{
+    background-image: url('/assets/review-manage-workflow.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%; 
+    width: 100%
+}
+.srt-icon2{
+    background-image: url('/assets/view-analytics.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%; 
+    width: 100%
+}
+.srt-icon3{
+    background-image: url('/assets/manage-srt-access-requests.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%; 
+    width: 100%
+}
+.srt-icon4{
+    background-image: url('/assets/get-additional-resourses.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%; 
+    width: 100%
+}
+.srt-icon5{
+    background-image: url('/assets/faq.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%; 
+    width: 100%
+}
+.srt-icon6{
+    background-image: url('/assets/settings.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%; 
+    width: 100%
+}
+.srt-iconpadding{
+    padding: 20px;
+}

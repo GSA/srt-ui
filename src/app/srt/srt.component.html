@@ -1,18 +1,11 @@
 
-<div style="background-image: url(../assets/home-page-cover.jpg);
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            height: 350px;
-            width: 100%;
-            opacity: 0.85;
-            position: relative">
-        <div style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px;">
-            <div style="text-align: right;  display: table; height: 100%; width: 100%">
-                <div  style="display: table-cell; vertical-align: middle;">
-                    <div style="padding: 0px 60px; max-width: 1000px; float: right">
-                        <h1 style="font-weight: 600; border-bottom: 0.5px solid #112e51; padding-bottom: 10px" class="srt-blue">Solicitation Review Tool</h1>
-                        <h3 style="padding-left: 100px; padding-top: 20px" class="srt-blue">
+<div class="srt-homehead">
+        <div class="srt-headposition">
+            <div class="srt-headtext">
+                <div class="srt-headdisplay">
+                    <div class="srt-headpadding">
+                        <h1 class="srt-blue srt-maintitle">Solicitation Review Tool</h1>
+                        <h3 class="srt-blue srt-textpadding">
                             The Solicitation Review Tool (SRT) is provided to help agencies evaluate the overall solicitation compliance with accessibility, cyber security, and other regulations and requirements.
                         </h3>                        
                     </div>
@@ -22,10 +15,10 @@
         </div>
 
         
-        <div style="position: absolute; bottom: -40px; right: 60px; background-color: rgba(0,0,0,0.7); width: 50%; max-width: 500px;">
-            <div style="position: relative; color: white; display: table;">
-                <div style="display: table-cell; vertical-align: middle; padding: 15px 22px">     
-                    <div style="padding-bottom: 5px; font-weight: 500; font-size: 16px; color: white;">Beta Disclaimer</div>
+        <div class="srt-beta-container">
+            <div class="srt-beta-position">
+                <div class="srt-beta-padding">     
+                    <div class="srt-betatitle">Beta Disclaimer</div>
                     <div style="font-size: 14px;">This is a beta version of the SRT platform. The results shown are preliminary only and should not be used or referenced in any official or internal reports.</div>
                 
                 </div>
@@ -39,19 +32,15 @@
         <div class="row">
             
             <!-- Review/Manage Workload -->
-            <div class="col-md-4 col-sm-6" style="margin-bottom: 30px">
+            <div class="col-md-4 col-sm-6 srt-marginbot">
                 <div class="srt-1-1">                
                     <div>
                         <div class="srt-main-box" [routerLink]="['/report']">
                             <!-- image -->
                             <div class="srt-9-20">                
                                 <div>
-                                    <div style="padding: 20px;">
-                                        <div style="background-image: url(../assets/review-manage-workflow.png);
-                                                    background-size: contain;
-                                                    background-repeat: no-repeat;
-                                                    background-position: center;
-                                                    height: 100%; width: 100%">
+                                    <div class="srt-iconpadding">
+                                        <div class="srt-icon1">
                                             
                                         </div>
                                      </div>
@@ -60,7 +49,7 @@
                             <!-- description -->
                             <div class="srt-11-20">                
                                 <div>
-                                    <div style="text-align: center; padding: 0px 25px">
+                                    <div class="srt-block-padding">
                                         <h3>Review/Manage Workload</h3>
                                         <p>Access and manage solicitation review results for your agency</p>
                                     </div>
@@ -72,19 +61,15 @@
             </div>
 
             <!-- View Analytic -->
-            <div class="col-md-4 col-sm-6" style="margin-bottom: 30px">
+            <div class="col-md-4 col-sm-6 srt-marginbot">
                 <div class="srt-1-1">
                     <div>
                         <div class="srt-main-box" [routerLink]="['/analytics']">
                             <!-- image -->
                             <div class="srt-9-20">                
                                 <div>
-                                    <div style="padding: 20px;">
-                                        <div style="background-image: url(../assets/view-analytics.png);
-                                                    background-size: contain;
-                                                    background-repeat: no-repeat;
-                                                    background-position: center;
-                                                    height: 100%; width: 100%">
+                                    <div class="srt-iconpadding">
+                                        <div class="srt-icon2">
                                             
                                         </div>
                                      </div>
@@ -93,7 +78,7 @@
                             <!-- description -->
                             <div class="srt-11-20">                
                                 <div>
-                                    <div style="text-align: center; padding: 0px 25px">
+                                    <div class="srt-block-padding">
                                         <h3>View Analytics</h3>
                                         <p>Visualize trend and discover insights from the analytics</p>
                                     </div>
@@ -105,19 +90,15 @@
             </div>
 
             <!-- Manage SRT Access Requests -->
-            <div class="col-md-4 col-sm-6" style="margin-bottom: 30px">
+            <div class="col-md-4 col-sm-6 srt-marginbot">
                 <div class="srt-1-1">
                     <div>
                         <div class="srt-main-box" [routerLink]="['/admin']">
                             <!-- image -->
                             <div class="srt-9-20">                
                                 <div>
-                                    <div style="padding: 20px;">
-                                        <div style="background-image: url(../assets/manage-srt-access-requests.png);
-                                                    background-size: contain;
-                                                    background-repeat: no-repeat;
-                                                    background-position: center;
-                                                    height: 100%; width: 100%">
+                                    <div class="srt-iconpadding">
+                                        <div class="srt-icon3">
                                             
                                         </div>
                                      </div>
@@ -126,7 +107,7 @@
                             <!-- description -->
                             <div class="srt-11-20">                
                                 <div>
-                                    <div style="text-align: center; padding: 0px 25px">
+                                    <div class="srt-block-padding">
                                         <h3>Manage SRT Access Requests</h3>
                                         <p>The Administrator manages new SRT sign up requests and current users settings</p>
                                     </div>
@@ -138,19 +119,15 @@
             </div>
       
             <!-- Get Additional Resourses -->      
-            <div class="col-md-4 col-sm-6" style="margin-bottom: 30px">
+            <div class="col-md-4 col-sm-6 srt-marginbot">
                 <div class="srt-1-1">                
                     <div>
                         <div class="srt-main-box" onclick="window.open('https://app.buyaccessible.gov/baw/Main.jsp')">
                             <!-- image -->
                             <div class="srt-9-20">                
                                 <div>
-                                    <div style="padding: 20px;">
-                                        <div style="background-image: url(../assets/get-additional-resourses.png);
-                                                    background-size: contain;
-                                                    background-repeat: no-repeat;
-                                                    background-position: center;
-                                                    height: 100%; width: 100%">
+                                    <div class="srt-iconpadding">
+                                        <div class="srt-icon4">
                                             
                                         </div>
                                      </div>
@@ -159,7 +136,7 @@
                             <!-- description -->
                             <div class="srt-11-20">                
                                 <div>
-                                    <div style="text-align: center; padding: 0px 25px">
+                                    <div class="srt-block-padding">
                                         <h3>Get Additional Resources</h3>
                                         <p>Need help with Accessiblity requirements? Buy Accessible Wizard can assist you with that</p>
                                     </div>
@@ -171,19 +148,15 @@
             </div>
 
             <!-- FAQ --> 
-            <div class="col-md-4 col-sm-6" style="margin-bottom: 30px">
+            <div class="col-md-4 col-sm-6 srt-marginbot">
                 <div class="srt-1-1">
                     <div>
                         <div class="srt-main-box" [routerLink]="['/help/faq']">
                             <!-- image -->
                             <div class="srt-9-20">                
                                 <div>
-                                    <div style="padding: 20px;">
-                                        <div style="background-image: url(../assets/faq.png);
-                                                    background-size: contain;
-                                                    background-repeat: no-repeat;
-                                                    background-position: center;
-                                                    height: 100%; width: 100%">
+                                    <div class="srt-iconpadding">
+                                        <div class="srt-icon5">
                                             
                                         </div>
                                      </div>
@@ -192,7 +165,7 @@
                             <!-- description -->
                             <div class="srt-11-20">                
                                 <div>
-                                    <div style="text-align: center; padding: 0px 25px">
+                                    <div class="srt-block-padding">
                                         <h3>FAQ</h3>
                                         <p>Review Frequently Asked Questions and learn more about SRT</p>
                                     </div>
@@ -204,19 +177,15 @@
             </div>
 
             <!-- Settings --> 
-            <div class="col-md-4 col-sm-6" style="margin-bottom: 30px">
+            <div class="col-md-4 col-sm-6 srt-marginbot">
                 <div class="srt-1-1">
                     <div>
                         <div class="srt-main-box" [routerLink]="['/profile']">
                             <!-- image -->
                             <div class="srt-9-20">                
                                 <div>
-                                    <div style="padding: 20px;">
-                                        <div style="background-image: url(../assets/settings.png);
-                                                    background-size: contain;
-                                                    background-repeat: no-repeat;
-                                                    background-position: center;
-                                                    height: 100%; width: 100%">
+                                    <div class="srt-iconpadding">
+                                        <div class="srt-icon6">
                                             
                                         </div>
                                      </div>
@@ -225,7 +194,7 @@
                             <!-- description -->
                             <div class="srt-11-20">                
                                 <div>
-                                    <div style="text-align: center; padding: 0px 25px">
+                                    <div class="srt-block-padding">
                                         <h3>Settings</h3>
                                         <p>Change your profile and/or password</p>
                                     </div>

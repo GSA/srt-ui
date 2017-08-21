@@ -1,7 +1,7 @@
 
-<div style="max-width: 300px; padding: 0px">
+<div class="chartcontainer">
     
-    <div style="font-size: 20px; margin-bottom: 20px; font-weight: 600" class="srt-blue">
+    <div class="srt-blue circlechart">
         Preliminary Compliance Rate
         <sup style="font-size: 20px;" 
             [tooltip]="ComplianceRate" tooltipPlacement="bottom">
@@ -13,10 +13,10 @@
     </div>  
 
     <div style="position: relative; ">
-        <div style="position: absolute; top: 79px; width: 100%; text-align: center; font-size: 30px; color: #2C81C0" class="compliance-count">
+        <div class="compliance-count percentage">
             {{percentage}}%
         </div>
-    <div style="display: block; margin: 0px auto; height: 200px">
+    <div class="perposition">
             <canvas baseChart
                     [data]="doughnutChartData"
                     [labels]="doughnutChartLabels"
@@ -31,9 +31,9 @@
   
 
 
-    <div style="padding: 30px 10px; text-align: center; font-size: 16px; color: #1768d7; font-weight: 500">
-        <span style="font-size: 1.5em; font-weight: 700">{{compliance}}</span> out of 
-        <span style="font-size: 1.5em; font-weight: 700">{{totalICT}}</span> 
+    <div class="perresult">
+        <span class="chartspan">{{compliance}}</span> out of 
+        <span class="chartspan">{{totalICT}}</span> 
         ICT/E&IT machine readable solicitations scanned by SRT are Section 508 compliant solicitations
     </div>
 </div>

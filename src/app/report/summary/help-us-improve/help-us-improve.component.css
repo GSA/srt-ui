@@ -71,3 +71,26 @@ input[type="checkbox"], input[type="radio"] {
     height: 23px; 
     margin-left: 15px;
 }
+.imsubmit{
+    width: 170px; 
+    display: inline-block; 
+    vertical-align: top
+}
+
+#instruction{
+    font-weight: 600; 
+    font-size: 16px; 
+    padding: 20px 30px; 
+    border: 1px solid #dadada
+}
+.impcontainer{
+    font-size: 16px; 
+    line-height: 1.5em; 
+    font-weight: 500; 
+    padding: 40px 0px;
+}
+.imppostion{
+    width: 100% ;
+    display: inline-block; 
+    vertical-align: top
+}

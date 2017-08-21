@@ -1,6 +1,6 @@
-<div style="max-width: 350px; padding: 0px 15px">
+<div class="chartcontainer">
 
-    <div style="font-size: 20px; margin-bottom: 20px; font-weight: 600" class="srt-blue">
+    <div class="srt-blue piechart">
         Preliminary Prediction Findings
         <!-- <sup style="font-size: 20px;" 
             [tooltip]="predictionResult" tooltipPlacement="bottom">
@@ -11,8 +11,8 @@
         </tooltip-content>  -->
     </div>  
    
-    <div style="position: relative; ">
-      <div style="display: block; margin: 0px auto; height: 280px; transform: translateZ(0); font-weight: 300">
+    <div style="position: relative">
+      <div class="pieposition">
           <canvas baseChart
                   [data]="pieChartData"
                   [labels]="pieChartLabels"
@@ -21,10 +21,10 @@
                   [chartType]="pieChartType">
           </canvas>
       </div>
-      <div style="position: absolute; font-size: 20px; color: #000; top: -20px; left: calc(50% + 30px)">
+      <div class="pieresult">
             {{displayCompliance}}
       </div>
-      <div style="position: absolute; font-size: 20px; color: #000; top: 125px; left: calc(50% + 120px)">
+      <div class="pieresultun">
             {{displayUncompliance}}
       </div>
     </div>

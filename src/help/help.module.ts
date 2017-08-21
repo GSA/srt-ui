@@ -9,6 +9,9 @@ import { HelpComponent } from './help.component';
 import { FaqComponent } from './faq/faq.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 
+// Services
+import { HelpService } from './services/help.service'
+
 @NgModule({
   imports: [
     CommonModule,
@@ -20,7 +23,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     ContactUsComponent,
   ],
   providers: [
-    //HelpSer
+    HelpService
   ],
   exports: [
     HelpComponent

@@ -75,12 +75,15 @@ hr {
 #header {
 	top: 0px;
    margin:0px;
-   padding: 0px 2px 2px 3px;
+   
   /* border-width: 2px;
    border-bottom-width:2px;
    border-bottom-color: #112e51;
    border-bottom-style: solid;
    width: 100%;*/
+   padding: 0px; 
+   position: sticky;  
+   z-index: 50
 }
 #navbar a {
 	padding-top: 20px;

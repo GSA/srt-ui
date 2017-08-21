@@ -1,6 +1,6 @@
-<div style="max-width: 300px; padding: 0px">
+<div class="chartcontainer">
 
-    <div style="font-size: 20px; margin-bottom: 20px; font-weight: 600" class="srt-blue">
+    <div class="srt-blue circlechart">
         Conversion Rate
         <sup style="font-size: 20px;" 
             [tooltip]="ConversionRate" tooltipPlacement="bottom">
@@ -12,10 +12,10 @@
     </div>  
 
     <div style="position: relative; ">
-        <div style="position: absolute; top: 79px; width: 100%; text-align: center; font-size: 30px; color: #2C81C0" class="conversion-count">
+        <div class="conversion-count percentage">
             {{percentage}}%
         </div>
-        <div style="display: block; margin: 0px auto; height: 200px; transform: translateZ(0)">
+        <div class="perposition">
             <canvas baseChart
                     [data]="doughnutChartData"
                     [labels]="doughnutChartLabels"
@@ -28,9 +28,9 @@
         </div>
     </div>
 
-    <div style="padding: 30px 10px; text-align: center; font-size: 16px; color: #1768d7; font-weight: 500">
-        <span style="font-size: 1.5em; font-weight: 700">{{updatedCompliantICTNumber}}</span> out of 
-        <span style="font-size: 1.5em; font-weight: 700">{{TotalNonCompliant}}</span> 
+    <div class="perresult">
+        <span class="chartspan">{{updatedCompliantICTNumber}}</span> out of 
+        <span class="chartspan">{{TotalNonCompliant}}</span> 
         non-compliant ICT/E&IT solicitations became compliant after they were updated on FedBizOpps.gov
     </div>
 

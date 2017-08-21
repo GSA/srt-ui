@@ -5,14 +5,14 @@
         Your email is successfully sent to the designated recipient(s), you will receive an email notification when the solicitation is updated on FedBizOpps.
   </div>
   <div *ngIf="emailSent"  style="font-weight: 500">
-    <a (click)="emailSent = false" style="font-size: 16px; cursor: pointer; float: right">
+    <a (click)="emailSent = false" id="rebutton">
         Send another email
     </a>
   </div>
 
   
     <form [formGroup]="myForm" (ngSubmit)="emailContact()" [ngStyle]="{'display': emailSent ? 'none': 'block'}">
-        <div style="font-weight: 500; display: inline-block; width: calc(100% - 170px); vertical-align: top">
+        <div id="emailform">
             <div>
                 <div class="form-group">
                     <label for="emailTo">To:</label>
@@ -63,7 +63,7 @@
                    
             </div>
         </div>
-        <div style="display: inline-block; width: 150px; vertical-align: top; float: right">
+        <div id="ebutton">
             <button type="submit" class="srt-button">Send Email</button>
         </div>
     </form>

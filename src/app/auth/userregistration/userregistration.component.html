@@ -14,8 +14,8 @@
     <!-- firstName -->
     <div class="form-group">
       <label for="firstName">First Name
-          <span style="color: #BE3430; padding-left: 5px;"><sup>*</sup></span>
-          <span style="color: #BE3430; font-weight: bold; float: right" *ngIf="errorMessage && (myForm.value.firstName == null || myForm.value.firstName == '')">Please fill in requred field</span>
+          <span class="valid-star"><sup>*</sup></span>
+          <span class="input-invalid" *ngIf="errorMessage && (myForm.value.firstName == null || myForm.value.firstName == '')">Please fill in requred field</span>
       </label>
       <input type="text"
              id="firstName"
@@ -27,8 +27,8 @@
     <!-- lastName -->
     <div class="form-group">
       <label for="lastName">Last Name
-          <span style="color: #BE3430; padding-left: 5px;"><sup>*</sup></span>
-          <span style="color: #BE3430; font-weight: bold; float: right" *ngIf="errorMessage && (myForm.value.lastName == null || myForm.value.lastName == '')">Please fill in requred field</span>
+          <span class="valid-star"><sup>*</sup></span>
+          <span class="input-invalid" *ngIf="errorMessage && (myForm.value.lastName == null || myForm.value.lastName == '')">Please fill in requred field</span>
       </label>
       <input type="text"
              id="lastName"
@@ -40,8 +40,8 @@
     <!-- Position -->
     <div class="form-group">
       <label for="position">Position
-          <span style="color: #BE3430; padding-left: 5px;"><sup>*</sup></span>
-          <span style="color: #BE3430; font-weight: bold; float: right" *ngIf="errorMessage && (myForm.value.position == null || myForm.value.position == '')">Please fill in requred field</span>
+          <span class="valid-star"><sup>*</sup></span>
+          <span class="input-invalid" *ngIf="errorMessage && (myForm.value.position == null || myForm.value.position == '')">Please fill in requred field</span>
       </label>
       <input type="text"
              id="position"
@@ -54,8 +54,8 @@
     <!-- email -->
     <div class="form-group">
       <label for="email">Email Address
-          <span style="color: #BE3430; padding-left: 5px;"><sup>*</sup></span>
-          <span style="color: #BE3430; font-weight: bold; float: right" *ngIf="errorMessage && (myForm.value.email == null || myForm.value.email == '')">Please fill in requred field</span>
+          <span class="valid-star"><sup>*</sup></span>
+          <span class="input-invalid" *ngIf="errorMessage && (myForm.value.email == null || myForm.value.email == '')">Please fill in requred field</span>
       </label>
       <input type="email"
              id="email"
@@ -68,8 +68,8 @@
     <div class="form-group" >
      
       <label for="agency">Agency
-          <span style="color: #BE3430; padding-left: 5px;"><sup>*</sup></span>
-          <span style="color: #BE3430; font-weight: bold; float: right" *ngIf="errorMessage && (myForm.value.agency == null || myForm.value.agency == '')">Please fill in requred field</span>
+          <span class="valid-star"><sup>*</sup></span>
+          <span class="input-invalid" *ngIf="errorMessage && (myForm.value.agency == null || myForm.value.agency == '')">Please fill in requred field</span>
       </label>
       <ng2-completer id="agency" [(ngModel)]="searchStr" [datasource]="dataService" [minSearchLength]="0" 
             formControlName="agency" [placeholder]="placeholder" [textSearching]="textSearching" [pause]="500" matchClass="match" (keydown)="open()"
@@ -84,8 +84,8 @@
     <!-- Access Level -->
    <div class="form-group">
         <label for="accessLevel">Request Access Level
-            <span style="color: #BE3430; padding-left: 5px;"><sup>*</sup></span>
-            <span style="color: #BE3430; font-weight: bold; float: right" *ngIf="errorMessage && selectedUserRole == 'Select'">Please fill in requred field</span>
+            <span class="valid-star"><sup>*</sup></span>
+            <span class="input-invalid" *ngIf="errorMessage && selectedUserRole == 'Select'">Please fill in requred field</span>
         </label>
         <div class="dropdown">
             <input class="form-control dropdown-toggle" 
@@ -140,8 +140,8 @@
     <!-- password -->
     <div class="form-group" style="margin-bottom: 40px;">
       <label for="password">Password
-          <span style="color: #BE3430; padding-left: 5px;"><sup>*</sup></span>
-          <span style="color: #BE3430; font-weight: bold; float: right" *ngIf="errorMessage && (myForm.value.password == null || myForm.value.password == '')">Please fill in requred field</span>
+          <span class="valid-star"><sup>*</sup></span>
+          <span class="input-invalid" *ngIf="errorMessage && (myForm.value.password == null || myForm.value.password == '')">Please fill in requred field</span>
       </label>
       <input type="password"
              id="password"

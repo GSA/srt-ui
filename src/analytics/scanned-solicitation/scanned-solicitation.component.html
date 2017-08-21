@@ -1,5 +1,5 @@
 
-<div style="font-size: 20px; margin-bottom: 20px; font-weight: 600" class="srt-blue" *ngIf="hasValue">
+<div class="srt-blue chart" *ngIf="hasValue">
     Scanned Solicitation(s)
     <sup style="font-size: 20px;" 
         [tooltip]="Scanned" tooltipPlacement="bottom">
@@ -10,10 +10,10 @@
     </tooltip-content> 
 </div>  
 
-<div style="padding-left: 40px; position: relative">
-    <div style="position: absolute; left: 0px; top: 0px; transform: rotate(-90deg); font-size: 16px; font-weight: 600; text-align: center; height: 180px; width: 180px;"># Solicitation</div>
-    <div style="position: absolute; bottom: -30px; font-size: 16px; font-weight: 600; text-align: center; width: 100%">Date</div>
-    <div style="display: block; margin: 0px auto; height: 250px; transform: translateZ(0);" *ngIf="hasValue"> 
+<div class="barchart">
+    <div class="positions"># Solicitation</div>
+    <div class="positiond">Date</div>
+    <div class="positionbar" *ngIf="hasValue"> 
     
     <canvas baseChart
             [datasets]="barChartData"

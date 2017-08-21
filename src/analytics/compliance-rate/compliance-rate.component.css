@@ -1,0 +1,34 @@
+.chartcontainer{
+    max-width: 300px; 
+    padding: 0px
+}
+
+.circlechart{
+    font-size: 20px;
+    margin-bottom: 20px; 
+    font-weight: 600
+}
+.percentage{
+    position: absolute; 
+    top: 79px; width: 100%; 
+    text-align: center; 
+    font-size: 30px; 
+    color: #2C81C0
+
+}
+.perposition{
+    display: block; 
+    margin: 0px auto; 
+    height: 200px
+}
+.perresult{
+    padding: 30px 10px; 
+    text-align: center; 
+    font-size: 16px; 
+    color: #1768d7; 
+    font-weight: 500
+}
+.chartspan{
+    font-size: 1.5em; 
+    font-weight: 700
+}

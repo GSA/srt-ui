@@ -9,7 +9,7 @@
     </div>-->
 
     <div *ngIf="!feedbackSent">
-        <div style="font-weight: 600; font-size: 16px; padding: 20px 30px; border: 1px solid #dadada">    
+        <div id="instruction">    
             <div style="padding-bottom: 10px">The SRT Team welcome your Subject Matter Expertise to make our tool better for all.  To review scanned solicitation and provide your feedback, please follow the steps below:</div> 
             
             <div>1) Click on the solicitation’s “FBO Link” provided below to access the solicitation on FedBizOpps website and download the solicitation documents;</div>
@@ -20,8 +20,8 @@
         </div>
 
 
-        <div style="font-size: 16px; line-height: 1.5em; font-weight: 500; padding: 40px 0px;" *ngIf="solicitation"  class="clearfix"> 
-            <div style=" width: 100% ;display: inline-block; vertical-align: top">
+        <div  *ngIf="solicitation"  class="clearfix impcontainer"> 
+            <div class="imppostion">
                 <div style="padding-bottom: 20px;">
                     <div class="srt-section-title" style="text-transform: uppercase; padding-bottom: 20px;">
                         solicitation review result
@@ -69,7 +69,7 @@
                     </li>
                 </ul>            
                 <div style="padding: 15px;">
-                    <button type="submit" class="srt-button" style="width: 170px; display: inline-block; vertical-align: top" (click)="feedback()">Submit</button>
+                    <button type="submit" class="srt-button imsubmit"  (click)="feedback()">Submit</button>
                 </div>
 <!--
                 <div style="padding-bottom: 20px; ">

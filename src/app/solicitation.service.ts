@@ -28,20 +28,20 @@ export class SolicitationService {
 
   // productionURL
   private link = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000';
-  //private link = 'http://localhost:3000';
+  // private link = 'http://localhost:3000';
 
   private solicitationsUrl = this.link + '/predictions';
-  private ICTUrl = this.link + '/ICT';  
+  private ICTUrl = this.link + '/ICT';
   private solicitationsFilterUrl = this.link + '/predictions/filter';
   private solicitationUrl = this.link + '/solicitation/';
-  private emailUrl = this.link + '/email/';  
-  private AgencyUrl = this.link + '/Agencies';  
+  private emailUrl = this.link + '/email/';
+  private AgencyUrl = this.link + '/Agencies';
 
   // private solicitationsUrl = 'http://localhost:3000/predictions';
-  // private ICTUrl = 'http://localhost:3000/ICT';   
-  // private AnalyticUrl = 'http://localhost:3000/Analytics';   
-  // private AgencyUrl = 'http://localhost:3000/Agencies';   
-  // private AgencyListUrl = 'http://localhost:3000/AgencyList';   
+  // private ICTUrl = 'http://localhost:3000/ICT';
+  // private AnalyticUrl = 'http://localhost:3000/Analytics';
+  // private AgencyUrl = 'http://localhost:3000/Agencies';
+  // private AgencyListUrl = 'http://localhost:3000/AgencyList';
   // private solicitationsFilterUrl = 'http://localhost:3000/predictions/filter';
   // private solicitationUrl = 'http://localhost:3000/solicitation/';
   // private emailUrl = 'http://localhost:3000/email/';
@@ -49,7 +49,7 @@ export class SolicitationService {
   getFilteredSolicitations(body) {
   	return this.http.post(this.solicitationsFilterUrl, body)
         .map((res: Response) => res.json())
-        .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));  
+        .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
   }
 
 // still using?
@@ -77,10 +77,10 @@ export class SolicitationService {
   }
 
   getICT() {
-      var data =  this.http.get(this.ICTUrl).map((res: Response) => res.json());    
+      var data =  this.http.get(this.ICTUrl).map((res: Response) => res.json());
       return data
   }
-  
+
   updateHistory(solicitation) {
     //this.reloadSolicitations = true;
     return this.http.post(this.solicitationUrl, solicitation)

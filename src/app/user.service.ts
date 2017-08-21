@@ -10,33 +10,33 @@ export class UserService {
 
   // productionURL
   private link = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000';
-  //private link = 'http://localhost:3000';
+  // private link = 'http://localhost:3000';
 
   private userUrl = this.link + '/user/filter';
   private updateUserUrl = this.link + '/user/update';
   private removeUserUrl = this.link + '/user/remove';
   private loginUrl = this.link + '/user/login';
-  
+
   public updateCurrentUser: EventEmitter<Currentuser>;
 
   constructor(private http: Http) {
     this.updateCurrentUser = new EventEmitter();
    }
 
-  public saveUser(currentUser: Currentuser){          
+  public saveUser(currentUser: Currentuser){
      this.updateCurrentUser.emit(currentUser);
   }
 
   // GetUsers()
-  public GetUsers(filterParams) {          
+  public GetUsers(filterParams) {
       return this.http.post(this.userUrl, filterParams)
-            .map((response: Response)=> response.json());     
-  } 
+            .map((response: Response)=> response.json());
+  }
 
-  // UpdateUser 
+  // UpdateUser
   public UpdateUser(updatedUser) {
       return this.http.post(this.updateUserUrl, updatedUser)
-              .map((response: Response)=> response.json());     
+              .map((response: Response)=> response.json());
   }
 
 

@@ -3,7 +3,7 @@
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="email">Email Address        
-        <span style="color: #BE3430; font-weight: bold; float: right" *ngIf="errorMessage && (myForm.value.email == null || myForm.value.email == '')">Please fill in requred field</span>
+        <span class="input-invalid" *ngIf="errorMessage && (myForm.value.email == null || myForm.value.email == '')">Please fill in requred field</span>
     </label>
     <input type="email"
             id="email"
@@ -13,7 +13,7 @@
   </div>
   <div class="form-group" style="margin-bottom: 40px;">
     <label for="password">Password        
-        <span style="color: #BE3430; font-weight: bold; float: right" *ngIf="errorMessage && (myForm.value.password == null || myForm.value.password == '')">Please fill in requred field</span>
+        <span class="input-invalid" *ngIf="errorMessage && (myForm.value.password == null || myForm.value.password == '')">Please fill in requred field</span>
     </label>
     <input type="password"
             id="password"
@@ -22,7 +22,7 @@
             formControlName="password">
   </div>
   
-  <div *ngIf="errorMessage" style="color: #BE3430; font-weight: bold; margin-bottom: 20px; margin-top: -10px" >
+  <div *ngIf="errorMessage" class="login-error">
       Login Failed. {{errorInformation}}
   </div>
 

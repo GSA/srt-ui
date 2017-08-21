@@ -24,3 +24,21 @@ label {
 /*.fr-toolbar.fr-desktop.fr-top.fr-basic.fr-sticky-off {
     display: none !important
 }*/
+
+#rebutton{
+    font-size: 16px; 
+    cursor: pointer; 
+    float: right
+}
+#emailform{
+    font-weight: 500; 
+    display: inline-block; 
+    width: calc(100% - 170px); 
+    vertical-align: top
+}
+#ebutton{
+    display: inline-block; 
+    width: 150px; 
+    vertical-align: top; 
+    float: right
+}

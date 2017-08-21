@@ -1,8 +1,8 @@
 <!-- <router-outlet></router-outlet> -->
 
-<div class="row analytic-div" style="background-color: white; padding: 0px !important">
+<div class="row analytic-div analytic-container" >
     <div class="clearfix">
-        <div class="col-md-12 nopadding clearfix" style="padding: 10px 40px !important; background-color: #e7f4e4; font-weight: 500; font-size: 13px;">
+        <div class="col-md-12  clearfix analytic-smalltitle">
             The data on the dashboard include only 
             <a [routerLink]="['/help/faq', 'ICT']">ICT</a> / 
             <a [routerLink]="['/help/faq', 'EIT']">E&IT </a>
@@ -11,8 +11,8 @@
             and other undetermined solicitations. 
         </div>
         
-        <div class="col-md-12 nopadding clearfix" style="padding: 20px 40px 0px 40px !important">
-            <div style="font-size: 24px; margin-bottom: 20px; font-weight: 600" class="srt-blue">LAST 30 DAYS</div> 
+        <div class="col-md-12 nopadding clearfix analytic-titlepadding" >
+            <div  class="srt-blue analytic-bigtitle">LAST 30 DAYS</div> 
            
             <div class="scanned-solicitation">
                 <app-scanned-solicitation [ScannedSolicitationChart]="ScannedSolicitationChart"></app-scanned-solicitation>      
@@ -24,13 +24,13 @@
         </div>
 
 
-        <div class="col-md-12 nopadding clearfix" style="padding: 0px 40px 40px 40px !important; background-color: #fbfcff; border-top: 1px solid #dadada;">
+        <div class="col-md-12 nopadding clearfix analytic-select-container" >
             <div style="padding: 30px 0px 10px 0px; " class="clearfix">                   
                 
                 <div style="float: left; padding: 0px 15px 0px 0px; ">
-                    <div style="display: inline-block; vertical-align: middle; padding-right: 10px; font-size: 16px; font-size: 24px; font-weight: 600" class="srt-blue">Select your agency</div>
-                    <div style="display: inline-block; vertical-align: middle;"> 
-                        <select style="height: 32px; padding: 5px 30px 5px 15px; font-size: 16px; border: none; border-bottom: 1px solid #4a4a4a;" 
+                    <div class="srt-blue analytic-select-position">Select your agency</div>
+                    <div class="analytic-second-select-position"> 
+                        <select class="analytic-select-style" 
                                 [ngModel]="selectedGovernment"
                                 (ngModelChange)="onChange($event)">
                             <option val="Government-wide">Government-wide</option>
@@ -40,9 +40,9 @@
                 </div>  
 
                 <div style="float: left; padding: 0px 15px 0px 0px;">
-                    <div style="display: inline-block; vertical-align: middle; padding-right: 10px; font-size: 16px; font-size: 24px; font-weight: 600" class="srt-blue">Time period</div>
-                    <div style="display: inline-block; vertical-align: middle; "> 
-                        <select id="select" style="height: 32px; padding: 5px 30px 5px 15px; font-size: 16px; border: none; border-bottom: 1px solid #4a4a4a;"
+                    <div class="srt-blue analytic-select-position">Time period</div>
+                    <div class="analytic-second-select-position"> 
+                        <select id="select" class="analytic-select-style"
                             (change)="onPeriodChange($event.target.value)"
                             [ngModel]="selectedPeriod">
                             <option value="All" *ngIf="selectedGovernment == 'Government-wide'">All</option>
@@ -55,7 +55,7 @@
             </div>
         </div>
         
-        <div class="col-md-12 nopadding clearfix" style="padding: 0px 40px 40px 40px !important; background-color: #fbfcff">
+        <div class="col-md-12 nopadding clearfix analytic-section1-container" >
             <div class="row-eq-height">
                 <div class="col-md-6 nopadding">
                     <div class="col-md-6 nopadding">
@@ -73,7 +73,7 @@
         </div>
         
 
-        <div class="col-md-12 nopadding clearfix" style="padding: 0px 40px 60px 40px !important; background-color: #fbfcff">
+        <div class="col-md-12 nopadding clearfix analytic-section2-container" >
             <!--<app-top-agencies 
                 [isGovernomentWide]="isGovernomentWide" 
                 [TopAgenciesChart]="TopAgenciesChart" 
@@ -103,7 +103,7 @@
                 </app-line-charts>
         </div>
 
-        <div class="col-md-12 nopadding clearfix" style="margin-bottom: 40px !important; padding: 40px 40px 10px 40px !important; border-top: 1px solid #dadada;">
+        <div class="col-md-12 nopadding clearfix analytic-section3-container">
             <!-- <div style="font-size: 24px; margin-bottom: 20px; font-weight: 600" class="srt-blue">LAST 30 DAYS</div>  -->
             <!-- <div class="user-login">
                 <app-user-login></app-user-login>

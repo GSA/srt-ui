@@ -1,4 +1,4 @@
-<div id="detail" style="position: relative; font-size: 16px;">
+<div id="detail">
 
 
     <div style="display: inline-block; font-weight: 500" *ngIf="solicitation">
@@ -9,7 +9,7 @@
             <span style="font-weight:500">This solicitation may not contain sufficient Section 508 requirements.</span> 
         </div>              
     </div>
-    <div style="display: inline-block;vertical-align: top; float: right">
+    <div id="rbutton">
         <div (click)="EmailPoc()" class="srt-button" style="width: 150px; ">
             <div>
                 Email POC
@@ -90,8 +90,8 @@
                     &nbsp; </div>
                 <div class="list-content">
                     <ul class="nopadding">
-                        <li *ngFor="let doc of solicitation.parseStatus" style="list-style: none; line-height: 18px;">{{doc.name}} : {{doc.status}}</li>                        
-                        <li *ngFor="let lock of lockDocs" style="list-style: none; line-height: 18px;">solicitation_{{solicitation.solNum}}_document: Failed to Load</li> 
+                        <li class="liststyle" *ngFor="let doc of solicitation.parseStatus" >{{doc.name}} : {{doc.status}}</li>                        
+                        <li class="liststyle" *ngFor="let lock of lockDocs">solicitation_{{solicitation.solNum}}_document: Failed to Load</li> 
                     </ul>
                 </div>
             </div>

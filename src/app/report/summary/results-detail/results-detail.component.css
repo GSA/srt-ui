@@ -18,3 +18,17 @@
     display: inline-block;
     vertical-align: baseline;
 }
+#detail {
+position: relative;
+font-size: 16px;
+}
+.liststyle{
+    list-style: none; 
+    line-height: 18px
+}
+
+#rbutton{
+    display: inline-block;
+    vertical-align: top; 
+    float: right
+}

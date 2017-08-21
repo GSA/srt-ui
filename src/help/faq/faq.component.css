@@ -117,6 +117,9 @@ h4.panel-title {
     cursor: pointer;
     font-weight: 700;
     font-size: 16px;
+    display: inline-block;
+    width: calc(100% - 30px);
+    text-align: left
 }
 
 
@@ -139,15 +142,25 @@ h4.panel-title {
     box-shadow: none;
 }
 
-.panel-title:after {
-    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
-    content: "\2212";    /* adjust as needed, taken from bootstrap.css */
-    float: right;        /* adjust as needed */
-    color: inherit;         /* adjust as needed */
-    font-size: 10px;
+a.panel-link {
+    color: black;
 }
 
-.panel-title.collapsed:after {
+a.panel-link:hover {
+    text-decoration: none;
+}
+
+.panel-link:after {
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    content: "\2212";    /* adjust as needed, taken from bootstrap.css */
+    color: inherit;         /* adjust as needed */
+    font-size: 10px;
+    display: inline-block;
+    width: 25px;
+    text-align: right;
+}
+
+.panel-link.collapsed:after {
     /* symbol for "collapsed" panels */
     content: "\2b";    /* adjust as needed, taken from bootstrap.css */
 }
@@ -157,4 +170,15 @@ h4.panel-title {
     .usa-sidenav-list {
         display: none;
     }
+}
+
+
+.faqh4{
+    font-weight: 700;
+    font-size: 16px;
+    background-color: transparent;
+    cursor: pointer;
+    text-decoration: none;
+    line-height: 1.1;
+   
 }
