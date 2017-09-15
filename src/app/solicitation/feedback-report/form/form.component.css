@@ -1,0 +1,104 @@
+table {
+  table-layout:fixed
+}
+
+.list {
+  margin-bottom: 10px;
+}
+
+.list-title {
+  font-weight: 500;
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.list-content {
+  font-weight: 700;
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.survey-radio-option {
+  display: table-cell;
+  text-align: left;
+  width: 35px;
+}
+
+.summary-content-padding{
+padding: 30px 20px
+}
+
+/* us web design standard */
+
+[type=checkbox] + label, [type=radio] + label {
+  cursor: pointer;
+  font-weight: 400;
+  margin-bottom: 0.5em;
+}
+
+input[type="checkbox"], input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+[type=checkbox], [type=radio] {
+  margin-left: -2rem;
+  opacity: 0;
+  position: absolute;
+}
+
+[type=checkbox]:checked + label::before, [type=radio]:checked + label::before {
+  background-color: #0071bc;
+  box-shadow: 0 0 0 1px #0071bc;
+}
+
+
+[type=checkbox]:checked + label::before, [type=checkbox]:checked:disabled + label::before {
+  background-image: url(../../../../assets/correct8.png);
+  background-image: url(../../../../assets/correct8.svg);
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+
+[type=checkbox] + label::before, [type=radio] + label::before {
+  background: #ffffff;
+  border-radius: 0.3rem;
+  box-shadow: 0 0 0 1px #757575;
+  content: '\a0';
+  display: inline-block;
+  height: 1.8rem;
+  line-height: 1.8rem;
+  margin-right: 0.6em;
+  text-indent: 0.15em;
+  vertical-align: middle\0;
+  width: 1.8rem;
+}
+
+.input-percentage {
+  width: 40px;
+  height: 23px;
+  margin-left: 15px;
+}
+.imsubmit{
+  width: 170px;
+  display: inline-block;
+  vertical-align: top
+}
+
+#instruction{
+  font-weight: 600;
+  font-size: 16px;
+  padding: 20px 30px;
+  border: 1px solid #dadada
+}
+.impcontainer{
+  font-size: 16px;
+  line-height: 1.5em;
+  font-weight: 500;
+  padding: 40px 0px;
+}
+.imppostion{
+  width: 100% ;
+  display: inline-block;
+  vertical-align: top
+}

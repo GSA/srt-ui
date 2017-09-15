@@ -9,7 +9,7 @@ import * as _ from 'underscore';
 @Component({
     selector: 'app-scanned-solicitation',
     templateUrl: './scanned-solicitation.component.html',
-    styleUrls: ['./scanned-solicitation.component.css']
+    styleUrls: ['../analytics.component.css','./scanned-solicitation.component.css']
 })
 
 @Directive({selector: 'baseChart'})

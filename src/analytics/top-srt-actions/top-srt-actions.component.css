@@ -1,0 +1,32 @@
+.top-srt-padding{
+    padding: 0px 20px
+}
+.top-srt-overview{
+    font-size: 16px; 
+    width: 100%;
+}
+.top-srt-title{
+    font-size: 20px; 
+    margin-bottom: 40px;
+    font-weight: 600
+}
+.top-srt-floatleft{
+    float: left
+}
+.top-srt-floatright{
+    float: right
+}
+.top-srt-white{
+    width: 100%; 
+    background-color: #f7f7f7; 
+    height: 8px; 
+    float: left; 
+    margin-bottom: 20px;
+}
+.top-srt-blue{
+    background-color: #2C81C0;
+     height: 8px
+}
+.supfont{
+    font-size: 20px;
+}

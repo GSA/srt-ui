@@ -1,0 +1,56 @@
+<div class="srt-banner blue">
+    <div class="container">
+        <h1>Solicitation Review Result Summary</h1>
+        <!--<div class="srt-section-title">About Solicitation Review Tool</div>       -->
+        <div class="summary-title">Solicitation Review Instructions and Next Steps:</div>
+        <ul class="summary-steps">
+            <li>
+                <div class="summary-steps"><i class="fa fa-check" aria-hidden="true" style="color: #f7f7f7" [ngStyle]="{'opacity' : step1 ? '1' : '0'}"></i>&nbsp;&nbsp;STEP 1 - </div>
+                <div class="summary-instr">Review detailed results for the solicitation;</div>
+            </li>
+            <li>
+                <div class="summary-steps"><i class="fa fa-check" aria-hidden="true" style="color: #f7f7f7" [ngStyle]="{'opacity' : step2 ? '1' : '0'}"></i>&nbsp;&nbsp;STEP 2 - </div>
+                <div class="summary-instr">Click on the “Email POC” button to share the results with the Point of Contact (POC) listed in the solicitation. Edit the proposed email message with any additional feedback to help improve the 508 compliance of the solicitation, click “Send Email”; and</div>
+            </li>
+            <li>
+                <div class="summary-steps"><i class="fa fa-check" aria-hidden="true" style="color: #f7f7f7" [ngStyle]="{'opacity' : step3 ? '1' : '0'}"></i>&nbsp;&nbsp;STEP 3 - </div>
+                <div class="summary-instr">Click on the “MAKE SRT SMARTER” tab to fill out a short survey regarding the current solicitation, which helps improve the accuracy of the prediction.</div>
+
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="srt-tabs summary-tab">
+    <div class="container">
+        <div ng-if="showActivitySelection()">
+
+            <ul class="nopadding summary-floatleft" >
+                <li [routerLink]="['/solicitation/report', solicitationID]" [ngClass]="{'active' : type=='report'}">
+                    <a>STEP 1: VIEW RESULT</a>
+                </li>
+                <li [routerLink]="['/solicitation/email', solicitationID]" [ngClass]="{'active' : type=='email'}">
+                    <a>STEP 2: EMAIL POC</a>
+                </li>
+                 <li [routerLink]="['/solicitation/feedback', solicitationID]" [ngClass]="{'active' : type=='feedback'}">
+                    <a>STEP 3: MAKE SRT SMARTER</a>
+                </li>
+            </ul>
+            <ul class="nopadding summary-floatright">
+                <li [routerLink]="['/solicitation/history', solicitationID]" [ngClass]="{'active' : type=='history'}">
+                    <a>History</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<!-- <div class="container">
+
+    <div class="clearfix summary-content-padding">
+        <div class="srt-title-padding">
+            <a [routerLink]="['/solicitation/report']" style="font-weight: 500"> < Back to Solicitation Review Results for Section 508 Requirements</a>
+        </div>
+
+    </div>
+</div> -->

@@ -1,0 +1,51 @@
+    .undeter-solic-padding{
+        padding: 0px 15px;
+        }
+    .undeter-solic-title{
+        font-size: 20px;
+        margin-bottom: 20px;
+        font-weight: 600
+    }
+    .undeter-solic-supfont{
+        font-size: 20px;
+    }
+    .undeter-solic-div{
+        position: relative;
+        max-width: 350px;
+    }
+
+    .undeter-solic-canvas{
+        display: block;
+        margin: 0px auto;
+        height: 280px;
+        transform: translateZ(0);
+        font-weight: 300
+    }
+    .undeter-solic-dispaly1{
+        position: absolute;
+        font-size: 20px;
+        color: #000;
+        top: 120px;
+        left: calc(50% + 110px)
+    }
+    .undeter-solic-dispaly2{
+        position: absolute;
+        font-size: 20px;
+        color: #000;
+        top: -17px;
+        right: calc(50% + 19px);
+    }
+    .undeter-solic-dispaly3{
+        position: absolute;
+        font-size: 20px;
+        color: #000;
+        top: -23px;
+        right: calc(50% - 25px)
+    }
+    .undeter-solic-dispaly4{
+        position: absolute;
+        font-size: 20px;
+        color: #000;
+        top: 80px;
+        right: calc(50% + 107px)
+    }

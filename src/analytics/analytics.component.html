@@ -2,59 +2,59 @@
 
 <div class="row analytic-div analytic-container" >
     <div class="clearfix">
-        <div class="col-md-12  clearfix analytic-smalltitle">
-            The data on the dashboard include only 
-            <a [routerLink]="['/help/faq', 'ICT']">ICT</a> / 
-            <a [routerLink]="['/help/faq', 'EIT']">E&IT </a>
-            solicitations.  The following are excluded from the data on the dashboard: pre-solicitations, 
-            sources sought, special notices, award notice, intent to bundle requirements, solicitations with zero and/or non-machine-readable document(s), 
-            and other undetermined solicitations. 
+        <div role="heading" tabindex="0" aria-level="1" class="col-md-12  clearfix analytic-smalltitle">
+            The data on the dashboard include only
+            <a [routerLink]="['/help/faq', 'ICT']" role="button" aria-label="definition of ICT">ICT</a> /
+            <a [routerLink]="['/help/faq', 'EIT']" role="button" aria-label="definition of EIT">E&IT </a>
+            solicitations.  The following are excluded from the data on the dashboard: pre-solicitations,
+            sources sought, special notices, award notice, intent to bundle requirements, solicitations with zero and/or non-machine-readable document(s),
+            and other undetermined solicitations.
         </div>
-        
-        <div class="col-md-12 nopadding clearfix analytic-titlepadding" >
-            <div  class="srt-blue analytic-bigtitle">LAST 30 DAYS</div> 
-           
+
+        <div  tabindex="0"class="col-md-12 nopadding clearfix analytic-titlepadding" >
+            <div tabindex="0" class="srt-blue analytic-bigtitle">LAST 30 DAYS</div>
+
             <div class="scanned-solicitation">
-                <app-scanned-solicitation [ScannedSolicitationChart]="ScannedSolicitationChart"></app-scanned-solicitation>      
+                <app-scanned-solicitation [ScannedSolicitationChart]="ScannedSolicitationChart"></app-scanned-solicitation>
             </div>
             <div class="prediction-result">
                 <app-prediction-result [PredictResultChart]="PredictResultChart"></app-prediction-result>
             </div>
-            
+
         </div>
 
 
         <div class="col-md-12 nopadding clearfix analytic-select-container" >
-            <div style="padding: 30px 0px 10px 0px; " class="clearfix">                   
-                
-                <div style="float: left; padding: 0px 15px 0px 0px; ">
+            <div class="clearfix analytic-padding">
+
+                <div class="analytic-padding-left">
                     <div class="srt-blue analytic-select-position">Select your agency</div>
-                    <div class="analytic-second-select-position"> 
-                        <select class="analytic-select-style" 
+                    <div class="analytic-second-select-position" >
+                        <select class="analytic-select-style"
                                 [ngModel]="selectedGovernment"
-                                (ngModelChange)="onChange($event)">
-                            <option val="Government-wide">Government-wide</option>
-                            <option val="data" *ngFor="let data of agencyList">{{data}}</option>
+                                (ngModelChange)="onChange($event)" role="button" tabindex="0">
+                            <option val="Government-wide" role="option">Government-wide</option>
+                            <option val="data" *ngFor="let data of agencyList" role="option">{{data}}</option>
                         </select>
                     </div>
-                </div>  
+                </div>
 
-                <div style="float: left; padding: 0px 15px 0px 0px;">
+                <div class="analytic-padding-left">
                     <div class="srt-blue analytic-select-position">Time period</div>
-                    <div class="analytic-second-select-position"> 
+                    <div class="analytic-second-select-position">
                         <select id="select" class="analytic-select-style"
                             (change)="onPeriodChange($event.target.value)"
-                            [ngModel]="selectedPeriod">
-                            <option value="All" *ngIf="selectedGovernment == 'Government-wide'">All</option>
-                            <option value="This Month">This Month</option>
-                            <option value="This Year">This Year</option>
-                        </select>                       
+                            [ngModel]="selectedPeriod" role="menu" tabindex="0">
+                            <option value="All" role="option" *ngIf="selectedGovernment == 'Government-wide'">All</option>
+                            <option value="This Month" role="option">This Month</option>
+                            <option value="This Year" role="option">This Year</option>
+                        </select>
                     </div>
-                </div>  
-                          
+                </div>
+
             </div>
         </div>
-        
+
         <div class="col-md-12 nopadding clearfix analytic-section1-container" >
             <div class="row-eq-height">
                 <div class="col-md-6 nopadding">
@@ -71,23 +71,23 @@
                 </div>
             </div>
         </div>
-        
+
 
         <div class="col-md-12 nopadding clearfix analytic-section2-container" >
-            <!--<app-top-agencies 
-                [isGovernomentWide]="isGovernomentWide" 
-                [TopAgenciesChart]="TopAgenciesChart" 
-                [selectedGovernment]="selectedGovernment" 
+            <!--<app-top-agencies
+                [isGovernomentWide]="isGovernomentWide"
+                [TopAgenciesChart]="TopAgenciesChart"
+                [selectedGovernment]="selectedGovernment"
                 [barTitle]="barTitle"
                 [selectedPeriod]="selectedPeriod"
                 [toPeriod]="toPeriod"
                 [fromPeriod]="fromPeriod"
                 [xAxis]="xAxis"></app-top-agencies>-->
-                <app-top-agencies-percentage 
+                <app-top-agencies-percentage
                     *ngIf="isGovernomentWide"
-                    [isGovernomentWide]="isGovernomentWide" 
-                    [TopAgenciesChart]="TopAgenciesChart" 
-                    [selectedGovernment]="selectedGovernment" 
+                    [isGovernomentWide]="isGovernomentWide"
+                    [TopAgenciesChart]="TopAgenciesChart"
+                    [selectedGovernment]="selectedGovernment"
                     [barTitle]="barTitle"
                     [selectedPeriod]="selectedPeriod"
                     [toPeriod]="toPeriod"
@@ -95,8 +95,8 @@
                     [xAxis]="xAxis"></app-top-agencies-percentage>
                 <app-line-charts
                      *ngIf="!isGovernomentWide"
-                     [TopAgenciesChart]="TopAgenciesChart" 
-                     [selectedGovernment]="selectedGovernment" 
+                     [TopAgenciesChart]="TopAgenciesChart"
+                     [selectedGovernment]="selectedGovernment"
                      [selectedPeriod]="selectedPeriod"
                      [toPeriod]="toPeriod"
                      [fromPeriod]="fromPeriod">

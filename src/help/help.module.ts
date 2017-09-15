@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Route
 import { HelpRoutes } from './help.routing';
@@ -15,7 +16,9 @@ import { HelpService } from './services/help.service'
 @NgModule({
   imports: [
     CommonModule,
-    HelpRoutes    
+    HelpRoutes,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     HelpComponent,

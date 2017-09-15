@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { NgForm } from '@angular/forms';
 
-import { SolicitationService } from '../solicitation.service';
+import { SolicitationService } from '../solicitation/solicitation.service';
 import { Solicitation } from '../shared/solicitation';
 
 @Component({

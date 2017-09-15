@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import { environment } from '../../environments/environment'
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -10,12 +11,8 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class AnalyticsService {
 
-  // productionURL
-  private link = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000';
-  // private link = 'http://localhost:3000';
-
-  private AnalyticUrl = this.link + '/Analytics';
-  private AgencyListUrl = this.link + '/AgencyList';
+  private AnalyticUrl = environment.SERVER_URL + '/Analytics';
+  private AgencyListUrl = environment.SERVER_URL + '/AgencyList';
 
   constructor ( private http: Http ){};
 

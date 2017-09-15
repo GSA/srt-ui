@@ -7,7 +7,7 @@ import * as $ from 'jquery';
 @Component({
   selector: 'app-machine-readable',
   templateUrl: './machine-readable.component.html',
-  styleUrls: ['./machine-readable.component.css']
+  styleUrls: ['../analytics.component.css','./machine-readable.component.css']
 })
 
 @Directive({selector: 'baseChart'})

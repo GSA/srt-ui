@@ -1,0 +1,47 @@
+.user-login-title{
+    font-size: 20px; 
+    margin-bottom: 40px; 
+    font-weight: 600
+}
+.user-login-font{
+    font-size: 1.5em; 
+    font-weight: 700;
+}
+.user-login-canvas{
+    display: block; 
+    margin: 0px auto; 
+    height: 200px; 
+    transform: translateZ(0);
+}
+
+.user-login-padding{
+    padding-left: 40px; 
+    position: relative
+}
+.user-login-user{
+    position: absolute; 
+    left: 0px; 
+    top: 0px; 
+    transform: rotate(-90deg); 
+    font-size: 16px; 
+    font-weight: 600; 
+    text-align: center; 
+    height: 180px; 
+    width: 180px;
+}
+.user-login-data{
+    position: absolute; 
+    bottom: -30px; 
+    font-size: 16px; 
+    font-weight: 600; 
+    text-align: center;
+     width: 100%
+}
+ .user-login-content{
+        position: absolute; 
+        right: 20px; 
+        top: -30px; 
+        font-size: 16px; 
+        font-weight: 600; 
+        color: #1768d7
+    }

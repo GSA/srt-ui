@@ -1,6 +1,6 @@
 <div>
   <div id="nav">
-  <button pButton type="button" label="All Solicitations" [routerLink]="['/report']" id="reps"></button>
+  <button pButton type="button" label="All Solicitations" [routerLink]="['/solicitation/report']" id="reps"></button>
   </div>
 <p-dataTable #dt [value]="solicitation">
   <p-column field="solNum" header="Solicitation"></p-column>
@@ -108,6 +108,6 @@
            name="comment"></textarea>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
-  <a href="/report">Cancel</a>
+  <a href="/solicitation">Cancel</a>
 </form>
 </div>

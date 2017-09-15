@@ -1,0 +1,10 @@
+table {
+  table-layout:fixed
+}
+
+.impcontainer{
+  font-size: 16px;
+  line-height: 1.5em;
+  font-weight: 500;
+  padding: 40px 0px;
+}

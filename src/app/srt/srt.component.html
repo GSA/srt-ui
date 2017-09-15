@@ -7,54 +7,54 @@
                         <h1 class="srt-blue srt-maintitle">Solicitation Review Tool</h1>
                         <h3 class="srt-blue srt-textpadding">
                             The Solicitation Review Tool (SRT) is provided to help agencies evaluate the overall solicitation compliance with accessibility, cyber security, and other regulations and requirements.
-                        </h3>                        
+                        </h3>
                     </div>
                 </div>
 
             </div>
         </div>
 
-        
+
         <div class="srt-beta-container">
             <div class="srt-beta-position">
-                <div class="srt-beta-padding">     
+                <div class="srt-beta-padding">
                     <div class="srt-betatitle">Beta Disclaimer</div>
                     <div style="font-size: 14px;">This is a beta version of the SRT platform. The results shown are preliminary only and should not be used or referenced in any official or internal reports.</div>
-                
+
                 </div>
             </div>
         </div>
-        
+
 </div>
 
 <div class="container">
     <div style="padding: 60px 40px;">
         <div class="row">
-            
+
             <!-- Review/Manage Workload -->
             <div class="col-md-4 col-sm-6 srt-marginbot">
-                <div class="srt-1-1">                
+                <div class="srt-1-1">
                     <div>
-                        <div class="srt-main-box" [routerLink]="['/report']">
+                        <div class="srt-main-box" [routerLink]="['/solicitation/report']">
                             <!-- image -->
-                            <div class="srt-9-20">                
+                            <div class="srt-9-20">
                                 <div>
                                     <div class="srt-iconpadding">
                                         <div class="srt-icon1">
-                                            
+
                                         </div>
                                      </div>
                                 </div>
                             </div>
                             <!-- description -->
-                            <div class="srt-11-20">                
+                            <div class="srt-11-20">
                                 <div>
                                     <div class="srt-block-padding">
                                         <h3>Review/Manage Workload</h3>
                                         <p>Access and manage solicitation review results for your agency</p>
                                     </div>
                                 </div>
-                            </div>                
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -66,140 +66,140 @@
                     <div>
                         <div class="srt-main-box" [routerLink]="['/analytics']">
                             <!-- image -->
-                            <div class="srt-9-20">                
+                            <div class="srt-9-20">
                                 <div>
                                     <div class="srt-iconpadding">
                                         <div class="srt-icon2">
-                                            
+
                                         </div>
                                      </div>
                                 </div>
                             </div>
                             <!-- description -->
-                            <div class="srt-11-20">                
+                            <div class="srt-11-20">
                                 <div>
                                     <div class="srt-block-padding">
                                         <h3>View Analytics</h3>
                                         <p>Visualize trend and discover insights from the analytics</p>
                                     </div>
                                 </div>
-                            </div>  
+                            </div>
                         </div>
-                    </div>                   
+                    </div>
                 </div>
             </div>
 
             <!-- Manage SRT Access Requests -->
-            <div class="col-md-4 col-sm-6 srt-marginbot">
+            <div class="col-md-4 col-sm-6 srt-marginbot" *ngIf="isGSAAdmin">
                 <div class="srt-1-1">
                     <div>
                         <div class="srt-main-box" [routerLink]="['/admin']">
                             <!-- image -->
-                            <div class="srt-9-20">                
+                            <div class="srt-9-20">
                                 <div>
                                     <div class="srt-iconpadding">
                                         <div class="srt-icon3">
-                                            
+
                                         </div>
                                      </div>
                                 </div>
                             </div>
                             <!-- description -->
-                            <div class="srt-11-20">                
+                            <div class="srt-11-20">
                                 <div>
                                     <div class="srt-block-padding">
                                         <h3>Manage SRT Access Requests</h3>
                                         <p>The Administrator manages new SRT sign up requests and current users settings</p>
                                     </div>
                                 </div>
-                            </div>  
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-      
-            <!-- Get Additional Resourses -->      
+
+            <!-- Get Additional Resourses -->
             <div class="col-md-4 col-sm-6 srt-marginbot">
-                <div class="srt-1-1">                
+                <div class="srt-1-1">
                     <div>
                         <div class="srt-main-box" onclick="window.open('https://app.buyaccessible.gov/baw/Main.jsp')">
                             <!-- image -->
-                            <div class="srt-9-20">                
+                            <div class="srt-9-20">
                                 <div>
                                     <div class="srt-iconpadding">
                                         <div class="srt-icon4">
-                                            
+
                                         </div>
                                      </div>
                                 </div>
                             </div>
                             <!-- description -->
-                            <div class="srt-11-20">                
+                            <div class="srt-11-20">
                                 <div>
                                     <div class="srt-block-padding">
                                         <h3>Get Additional Resources</h3>
                                         <p>Need help with Accessiblity requirements? Buy Accessible Wizard can assist you with that</p>
                                     </div>
                                 </div>
-                            </div>  
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- FAQ --> 
+            <!-- FAQ -->
             <div class="col-md-4 col-sm-6 srt-marginbot">
                 <div class="srt-1-1">
                     <div>
                         <div class="srt-main-box" [routerLink]="['/help/faq']">
                             <!-- image -->
-                            <div class="srt-9-20">                
+                            <div class="srt-9-20">
                                 <div>
                                     <div class="srt-iconpadding">
                                         <div class="srt-icon5">
-                                            
+
                                         </div>
                                      </div>
                                 </div>
                             </div>
                             <!-- description -->
-                            <div class="srt-11-20">                
+                            <div class="srt-11-20">
                                 <div>
                                     <div class="srt-block-padding">
                                         <h3>FAQ</h3>
                                         <p>Review Frequently Asked Questions and learn more about SRT</p>
                                     </div>
                                 </div>
-                            </div>  
+                            </div>
                         </div>
-                    </div>                   
+                    </div>
                 </div>
             </div>
 
-            <!-- Settings --> 
+            <!-- Settings -->
             <div class="col-md-4 col-sm-6 srt-marginbot">
                 <div class="srt-1-1">
                     <div>
                         <div class="srt-main-box" [routerLink]="['/profile']">
                             <!-- image -->
-                            <div class="srt-9-20">                
+                            <div class="srt-9-20">
                                 <div>
                                     <div class="srt-iconpadding">
                                         <div class="srt-icon6">
-                                            
+
                                         </div>
                                      </div>
                                 </div>
                             </div>
                             <!-- description -->
-                            <div class="srt-11-20">                
+                            <div class="srt-11-20">
                                 <div>
                                     <div class="srt-block-padding">
                                         <h3>Settings</h3>
                                         <p>Change your profile and/or password</p>
                                     </div>
                                 </div>
-                            </div>  
+                            </div>
                         </div>
                     </div>
                 </div>

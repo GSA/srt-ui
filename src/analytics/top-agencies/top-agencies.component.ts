@@ -7,7 +7,7 @@ import * as _ from 'underscore';
 @Component({
   selector: 'app-top-agencies',
   templateUrl: './top-agencies.component.html',
-  styleUrls: ['./top-agencies.component.css']
+  styleUrls: ['../analytics.component.css','./top-agencies.component.css']
 })
 export class TopAgenciesComponent implements OnInit {
 

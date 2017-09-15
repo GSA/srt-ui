@@ -5,7 +5,7 @@
             background-position: left">
 </div>-->
 
-<div style="font-size: 20px; margin-bottom: 40px; font-weight: 600" class="srt-blue">
+<div class="srt-blue user-login-title">
     SRT User Login Activities <br /> &nbsp;
     <!--<sup style="font-size: 20px;" 
         [tooltip]="Scanned" tooltipPlacement="bottom">
@@ -17,13 +17,13 @@
 </div>  
 
 
-<div style="padding-left: 40px; position: relative">
-    <div style="position: absolute; left: 0px; top: 0px; transform: rotate(-90deg); font-size: 16px; font-weight: 600; text-align: center; height: 180px; width: 180px;"># Users</div>
-    <div style="position: absolute; bottom: -30px; font-size: 16px; font-weight: 600; text-align: center; width: 100%">Date</div>
-    <div style="position: absolute; right: 20px; top: -30px; font-size: 16px; font-weight: 600; color: #1768d7">
-        <span style="font-size: 1.5em; font-weight: 700;">{{currentLoginUsers}}</span> users on the site now
+<div class="user-login-padding">
+    <div class="user-login-user"># Users</div>
+    <div class="user-login-data">Date</div>
+    <div class="user-login-content">
+        <span class="user-login-font">{{currentLoginUsers}}</span> users on the site now
     </div>
-    <div style="display: block; margin: 0px auto; height: 200px; transform: translateZ(0);"> 
+    <div class="user-login-canvas"> 
         <canvas baseChart
                 [datasets]="lineChartData"
                 [labels]="lineChartLabels"

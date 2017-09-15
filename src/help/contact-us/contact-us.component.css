@@ -3,7 +3,7 @@
 }
 
 .select  {
-    
+
     display: block;
     width: 50%;
     height: 34px;
@@ -21,4 +21,8 @@
     -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     cursor: pointer;
+}
+
+.container {
+  padding: 40px 0px;
 }

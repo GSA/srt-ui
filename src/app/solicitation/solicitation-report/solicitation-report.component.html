@@ -1,0 +1,127 @@
+<div *ngIf="!solicitations" class="solic-nosolic">
+    <div class="solic-nosolic-posi">
+        <ul class="cb-slideshow">
+            <i class="fa fa-cog fa-spin" style="color: #4a4a4a"></i>
+            <li><span>L</span></li>
+            <li><span>O</span></li>
+            <li><span>A</span></li>
+            <li><span>D</span></li>
+            <li><span>I</span></li>
+            <li><span>N</span></li>
+            <li><span>G</span></li>
+            <li><span>.</span></li>
+            <li><span>.</span></li>
+            <li><span>.</span></li>
+        </ul>
+    </div>
+</div>
+
+<div *ngIf="solicitations">
+    <div class="row nopadding">
+        <div style="padding: 20px" class="clearfix">
+            <div class="srt-page-title srt-blue" style="padding-bottom: 5px;"  role="heading" aria-level="1" >Solicitation Review Results for Section 508 Requirements</div>
+
+            <div class="solic-table">
+                <div class="solic-keyword">Keyword Search:</div>
+                <div class="solic-table-cell">
+                    <div class="input-group" id="solsearch">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" role="button">
+                                <span class=" glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                        <input #gb type="text" class="search-query form-control" placeholder="Global Filter" />
+                    </div>
+                </div>
+                <div class="solic-export"><div style="padding: 0px 0px 0px 15px;">Export As:</div></div>
+                <div class="solic-export-cursor">
+
+
+                    <img tabindex="0" role="button" id="csvlogo" alt="image of CSV logo" src="../../../assets/downloadcsv.jpeg" style="float:left" (keydown.enter)="dt.exportCSV()"  (click)="dt.exportCSV()">
+                </div>
+            </div>
+
+
+                <div class="solic-littlescan" role="heading" aria-level="2">Last scanned date: {{dateScan}}</div>
+            </div>
+        </div>
+
+    <p-dataTable #dt styleClass="pDataTable"
+            [value]="solicitations"
+            [rows]="15"
+            [paginator]="true"
+            [pageLinks]="4"
+            [rowsPerPageOptions]="[15, 25, 35, 45]"
+            [globalFilter]="gb"
+            [responsive]="true"
+            [stacked]="stacked">
+
+        <p-column field="solNum" header="Solicitation ID" [sortable]="true" [filter]="false" filterPlaceholder="Search" [style]="{'width': '170px'}"></p-column>
+        <p-column field="title" header="Solicitation Title" [sortable]="true" [filter]="false" filterPlaceholder="Search">
+            <ng-template let-sol="rowData" pTemplate="body">
+                <a href="{{sol.url}}" target="_blank">{{sol.title}}</a>
+            </ng-template>
+        </p-column>
+
+        <p-column field="noticeType" header="Notice Type" [sortable]="true" [filter]="true" [style]="{'overflow':'visible', 'width': '200'}"  filterPlaceholder="Search">
+            <ng-template pTemplate="filter" let-col>
+                <p-dropdown [options]="solType " [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+            </ng-template>
+        </p-column>
+
+        <p-column field="date" header="Date Posted on FedBizOpps" sortable="custom" (sortFunction)="soryByDate($event)" [style]="{'overflow':'visible', 'width': '150'}" filterPlaceholder="Search">
+            <ng-template pTemplate="filter" let-col>
+                <p-calendar [(ngModel)]="dateFrom"
+                            [maxDate]="maxDate"
+                            (onSelect)="filterDate($event)"
+                            (onBlur)="reset()"
+                            placeholder="Select Start Date">
+                </p-calendar>
+                <p-calendar [(ngModel)]="dateTo"
+                            [minDate]="minDate"
+                            [maxDate]="today"
+                            (onSelect)="filterDate($event)"
+                            (onBlur)="reset()"
+                            placeholder="Select End Date">
+                </p-calendar>
+            </ng-template>
+        </p-column>
+
+        <p-column field="reviewRec" header="SRT Review Result" [sortable]="true" [filter]="true" [style]="{'overflow': 'visible', 'width': '200px'}" filterPlaceholder="Search">
+            <ng-template pTemplate="filter" let-col>
+                <p-dropdown [options]="revResult" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+            </ng-template>
+            <ng-template let-sol="rowData" pTemplate="body">
+                <div *ngIf="sol.predictions.value == 'RED'">
+                    <span [ngStyle]="{'color' : sol.undetermined ? 'black' : 'red'}">
+                        <button class="button" (click)="selectSol(sol)" style="border: none; text-align: left; padding: 0px;">
+                            <i class="fa fa-exclamation-triangle" style="padding-right: 5px;" *ngIf="!sol.undetermined"></i>
+                            <span style="text-decoration: underline;">{{sol.reviewRec}}</span>
+                        </button>
+                    </span>
+                </div>
+                <div *ngIf="sol.predictions.value == 'GREEN'">
+                  <span style="color: green" >
+                      <button class="button" (click)="selectSol(sol)" style="border: none; text-align: left; padding: 0px;">
+                          <i class="fa fa-check" style="padding-right: 5px;"></i>
+                          <span style="text-decoration: underline;">{{sol.reviewRec}}</span>
+                      </button>
+                  </span>
+                </div>
+            </ng-template>
+        </p-column>
+
+        <p-column field="actionStatus" header="Action Status" [sortable]="true" [style]="{'width': '200px'}" filterPlaceholder="Search"></p-column>
+
+        <p-column field="actionDate" header="Latest Action Date" [sortable]="true" [style]="{'width': '110px'}" filterPlaceholder="Search">
+            <ng-template let-sol="rowData" pTemplate="body">
+                {{sol.actionDate ? sol.actionDate : "-"}}
+            </ng-template>
+        </p-column>
+
+        <p-column field="agency" header="Agency" [sortable]="true" [filter]="false" filterPlaceholder="Search"></p-column>
+
+        <p-column field="office" header="Office" [sortable]="true" [filter]="false" filterPlaceholder="Search"></p-column>
+    </p-dataTable>
+
+</div>

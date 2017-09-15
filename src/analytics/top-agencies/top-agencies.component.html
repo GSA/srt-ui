@@ -1,7 +1,7 @@
-<div style="padding-right: 40px;">
-    <div id="analyticTitle" style="font-size: 20px; margin-bottom: 70px; font-weight: 600" class="srt-blue">
+<div class="paddingright">
+    <div id="analyticTitle" class="srt-blue topagen-title">
         {{barTitle}}&nbsp;&nbsp;
-        <sup style="font-size: 20px;"
+        <sup class="supfont"
             [tooltip]="chart" tooltipPlacement="bottom">
             <i *ngIf="isGovernomentWide" class="fa fa-info-circle info" aria-hidden="true" ></i>
         </sup>
@@ -13,14 +13,14 @@
 
     </div>
     <!-- bar chart -->
-    <div style="width: 100%; position: relative; font-size: 18px; margin-bottom: 60px; height: 191px; display: table; text-align: center" *ngIf="noData">
-        <div style="display: table-cell; vertical-align: middle">
+    <div class="topagen-barchart" *ngIf="noData">
+        <div class="topagen-nodata">
               No data to show on this time period
         </div>
     </div>  
 
-    <div style="width: 100%; position: relative; margin-bottom: 40px; padding-left: 40px; position: relative" *ngIf="!noData">  
-        <div style="position: relative; left: 63px; top: -25px; width: calc(100% - 80px);">
+    <div class="topagen-content" *ngIf="!noData">  
+        <div class="topagen-position">
 
             <div *ngFor="let xaxis of xAxisBreakPoint" 
                 style="position: absolute;"
@@ -29,33 +29,33 @@
             </div>
 
         </div>
-        <div style="position: absolute; right: 28px; top: -105px;">
-            <div style="width: 15px; height: 15px; background-color: #2C81C0; display: inline-block; vertical-align: middle"></div>
-            <div style="display: inline-block; vertical-align: middle"># Compliant Solicitation(s)</div>
+        <div class="topagen-posi1">
+            <div class="topagen-posi1-blue"></div>
+            <div class="topagen-posi1-display"># Compliant Solicitation(s)</div>
         </div>
-        <div style="position: absolute; right: 0px; top: -80px;">
-            <div style="width: 15px; height: 15px; background-color: #eeeeee; display: inline-block; vertical-align: middle"></div>
-            <div style="display: inline-block; vertical-align: middle"># Non-Compliant Solicitation(s)</div>
+        <div class="topagen-posi2">
+            <div class="topagen-posi1-white"></div>
+            <div class="topagen-posi1-display"># Non-Compliant Solicitation(s)</div>
         </div>
         
-        <div style="position: absolute; top: -55px; width: 100%; text-align: center; font-weight: 600; font-size: 16px;">
+        <div class="topagen-posi3">
             <div># Solicitation(s)</div>
         </div>
-        <div style="position: absolute; left: 0px; transform: rotate(-90deg); font-size: 16px; font-weight: 600; text-align: center"
+        <div class="topagen-posi4"
             [ngStyle]="{'width': (indexTo - indexFrom) * 30 + 'px', 'height': (indexTo - indexFrom) * 30 + 'px'}">
             {{xAxis}}
         </div>
-        <table style="width: 100%; transform: translateZ(0);">
+        <table class="topagen-table">
             <tbody>
                 <tr *ngFor="let num of barData | slice:indexFrom:indexTo " style="width: 100%;" title="Total: {{num[3]}} 
 Compliant Solicitations: {{num[2]}}
 Non-Compliant Solicitations: {{(num[3] - num[2])}}">
-                    <td style="border-right:1px solid #4a4a4a; padding-right: 20px; width: 40px; height: 30px; font-weight: 500">{{GetAbbr(num[0])}}&nbsp;&nbsp;&nbsp;</td>
-                    <td style="vertical-align: middle">
+                    <td class="topagen-td1">{{GetAbbr(num[0])}}&nbsp;&nbsp;&nbsp;</td>
+                    <td class="topagen-td2">
                      
-                        <div style="background-color:#2C81C0; height: 10px; float: left" [ngStyle]="{'width': num[2]/maxSolicitation * 100 + '%'}"></div>
-                        <div style="background-color:#eeeeee; height: 10px; float: left; position: relative" [ngStyle]="{'width': (num[3] - num[2])/maxSolicitation * 100 + '%'}">
-                            <div style="position: absolute; right: -40px; top: -5px;" [hidden]="num[3]==0">
+                        <div class="topagen-div1" [ngStyle]="{'width': num[2]/maxSolicitation * 100 + '%'}"></div>
+                        <div class="topagen-div2" [ngStyle]="{'width': (num[3] - num[2])/maxSolicitation * 100 + '%'}">
+                            <div class="topagen-div3" [hidden]="num[3]==0">
                                 {{num[1] | percent:'.0-0'}}
                             </div>
                         </div>  

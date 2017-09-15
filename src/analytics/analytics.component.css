@@ -65,6 +65,13 @@
     border-left: 1px solid #53A9DE;
 }
 
+.analytic-padding-left{
+    float: left; padding: 0px 15px 0px 0px;
+
+}
+.analytic-padding{
+    padding: 30px 0px 10px 0px;
+}
 
 option {
     padding: 2px 0px;
@@ -187,3 +194,165 @@ option {
 }
 
 
+/*analytics page*/
+
+.supfont{
+    font-size: 20px;
+}
+.precposi{
+    position: relative;
+}
+
+.chartcontainer{
+    max-width: 300px; 
+    padding: 0px
+}
+
+.circlechart{
+    font-size: 20px;
+    margin-bottom: 20px; 
+    font-weight: 600
+}
+
+.percentage{
+    position: absolute; 
+    top: 79px; width: 100%; 
+    text-align: center; 
+    font-size: 30px; 
+    color: #2C81C0
+
+}
+
+.chartspan{
+    font-size: 1.5em; 
+    font-weight: 700
+}
+
+.perresult{
+    padding: 30px 10px; 
+    text-align: center; 
+    font-size: 16px; 
+    color: #1768d7; 
+    font-weight: 500
+}
+
+
+/* top-agencies*/
+.paddingright{
+    padding-right: 40px;
+}
+
+.topagen-title{
+    font-size: 20px; 
+    margin-bottom: 70px; 
+    font-weight: 600
+}
+
+.topagen-barchart{
+    width: 100%; 
+    position: relative; 
+    font-size: 18px; 
+    margin-bottom: 60px; 
+    height: 191px; 
+    display: table; 
+    text-align: center
+}
+.topagen-nodata{
+    display: table-cell;
+    vertical-align: middle
+}
+
+.topagen-content{
+    width: 100%;
+    position: relative;
+    margin-bottom: 40px;
+    padding-left: 40px; 
+    position: relative
+}
+
+.topagen-position{
+    position: relative; 
+    left: 63px; 
+    top: -25px; 
+    width: calc(100% - 80px);
+}
+.topagen-posabsoulte{
+    position: absolute
+}
+
+.topagen-posi1{
+    position: absolute; 
+    right: 28px; 
+    top: -105px;
+}
+.topagen-posi1-blue{
+ width: 15px;
+ height: 15px; 
+ background-color: #2C81C0; 
+ display: inline-block; 
+ vertical-align: middle
+}
+.topagen-posi1-white{
+    width: 15px; 
+    height: 15px; 
+    background-color: #eeeeee; 
+    display: inline-block; 
+    vertical-align: middle
+}
+.topagen-posi1-display{
+    display: inline-block; 
+    vertical-align: middle
+}
+
+.topagen-posi2{
+    position: absolute; 
+    right: 0px;
+    top: -80px;
+}
+.topagen-posi3{
+    position: absolute; 
+    top: -55px; 
+    width: 100%; 
+    text-align: center; 
+    font-weight: 600; 
+    font-size: 16px;
+}
+.topagen-posi4{
+    position: absolute; 
+    left: 0px; 
+    transform: rotate(-90deg); 
+    font-size: 16px; 
+    font-weight: 600; 
+    text-align: center
+}
+.topagen-table{
+    width: 100%; 
+    transform: translateZ(0);
+}
+.topagen-td1{
+    border-right:1px solid #4a4a4a; 
+    padding-right: 20px; 
+    width: 40px; 
+    height: 30px; 
+    font-weight: 500
+}
+.topagen-td2{
+    vertical-align: middle
+}
+
+.topagen-div1{
+    background-color:#2C81C0; 
+    height: 10px; 
+    float: left
+}
+.topagen-div2{
+    background-color:#eeeeee; 
+    height: 10px; 
+    float: left; 
+    position: relative
+}
+.topagen-div3{
+    position: absolute; 
+    right: -40px; 
+    top: -5px;
+}

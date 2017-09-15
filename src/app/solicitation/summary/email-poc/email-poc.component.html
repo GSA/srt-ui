@@ -1,0 +1,57 @@
+<app-summary [step1]="step1" [step2]="step2" [step3]="step3" [solicitationID]="solicitationID" [type]="type"></app-summary>
+
+<div class="container">
+
+  <div class="clearfix summary-content-padding">
+    <div class="srt-title-padding">
+      <a [routerLink]="['/solicitation/report']" style="font-weight: 500">
+        < Back to Solicitation Review Results for Section 508 Requirements</a>
+    </div>
+
+
+
+    <div class="col-md-12 nopadding">
+      <!--<legend style="font-weight: 500">Email Solicitation Point of Contact</legend>-->
+      <div class="alert alert-success email-font" *ngIf="emailSent">
+        Your email is successfully sent to the designated recipient(s), you will receive an email notification when the solicitation
+        is updated on FedBizOpps.
+      </div>
+      <div *ngIf="emailSent" class="email-font">
+        <a (click)="emailSent = false" id="rebutton">
+        Send another email
+    </a>
+      </div>
+
+
+      <form [formGroup]="myForm" (ngSubmit)="emailContact()" [ngStyle]="{'display': emailSent ? 'none': 'block'}">
+        <div id="emailform">
+          <div>
+            <div class="form-group">
+              <label for="emailTo">To:</label>
+              <input type="text" id="emailTo" class="form-control" formControlName="emailTo">
+            </div>
+            <div class="form-group">
+              <label for="emailCC">CC:</label>
+              <input type="text" id="emailCC" class="form-control" formControlName="emailCC">
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject:</label>
+              <input type="text" id="subject" class="form-control" formControlName="subject">
+            </div>
+            <div class="form-group" style="padding-bottom: 20px">
+              <label for="message" style="padding-bottom: 10px">Message:</label>
+              <quill-editor id="maessage" style="min-height: calc(100vh - 585px)" formControlName="message" [options]="editorOptions"></quill-editor>
+
+            </div>
+
+          </div>
+        </div>
+        <div id="ebutton">
+          <button type="submit" class="srt-button">Send Email</button>
+        </div>
+      </form>
+
+
+    </div>
+  </div>
+</div>

@@ -9,12 +9,12 @@
         <div class="collapse navbar-collapse" id="navbar" style="padding: 0px;">
                 <ul *ngIf="isLogin" class="nav navbar-nav">
                     <li data-toggle="tab" [routerLink]="['/home']" [ngClass]="{'active': GetHash('home')}"><a>Home</a></li>
-                    <li data-toggle="tab" [routerLink]="['/report']" [ngClass]="{'active': GetHash('report')}"><a>Manage/Review Workload</a></li>
+                    <li data-toggle="tab" [routerLink]="['/solicitation/report']" [ngClass]="{'active': GetHash('solicitation')}"><a>Manage/Review Workload</a></li>
                     <li data-toggle="tab" [routerLink]="['/analytics']" [ngClass]="{'active': GetHash('analytics')}"><a>View Analytics</a></li>
-                    <li data-toggle="tab" [routerLink]="['/admin']" [ngClass]="{'active': GetHash('admin')}"><a>Manage Access Requests</a></li>
-                <!--    <li data-toggle="tab"><a href="#">Help Us Improve</a></li> -->
+                    <li data-toggle="tab" [routerLink]="['/admin']" [ngClass]="{'active': GetHash('admin')}" *ngIf="isGSAAdmin"><a>Manage Access Requests</a></li>
                     <li data-toggle="tab" [routerLink]="['/help/contactus']" [ngClass]="{'active': GetHash('contactus')}"><a>Contact Us</a></li>
                     <li data-toggle="tab" [routerLink]="['/help/faq']" [ngClass]="{'active': GetHash('faq')}"><a>FAQs</a></li>
+                    <li data-toggle="tab" [routerLink]="['/solicitation/feedback']" [ngClass]="{'active': GetHash('feedback/report')}" *ngIf="isGSAAdmin"><a>Feedback</a></li>
 
                 </ul>
                 <div class=" gsa_logo">

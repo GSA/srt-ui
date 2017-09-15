@@ -17,7 +17,7 @@ import { HelpModule } from '../help/help.module'
 //// Open Sources Modules
 import { DataTableModule,SharedModule, ButtonModule, DropdownModule, CalendarModule} from 'primeng/primeng';
 import { TooltipModule } from "ng2-tooltip";
-import { QuillEditorModule } from 'ngx-quill-editor';
+// import { QuillEditorModule } from 'ngx-quill-editor';
 import { Ng2CompleterModule } from "ng2-completer";
 
 //
@@ -25,7 +25,6 @@ import { Ng2CompleterModule } from "ng2-completer";
 //
 import { AgencyService } from './agency.service';
 import { AuthService } from './auth/auth.service';
-import { SolicitationService } from './solicitation.service';
 import { SurveyService } from './survey.service';
 import { UserService } from './user.service';
 import { AuthGuard } from './auth-guard.service'
@@ -36,7 +35,6 @@ import { AuthGuard } from './auth-guard.service'
 //
 
 import { AppComponent } from './app.component';
-import { SolicitationReportComponent } from './report/solicitation-report/solicitation-report.component';
 
 
 // ROUTES
@@ -51,12 +49,6 @@ import { UserregistrationComponent } from './auth/userregistration/userregistrat
 import { SolicitationReviewComponent } from './solicitation-review/solicitation-review.component';
 import { SrtComponent } from './srt/srt.component';
 import { AdminComponent } from './admin/admin.component';
-import { ReportComponent } from './report/report.component';
-import { SummaryComponent } from './report/summary/summary.component';
-import { ResultsDetailComponent } from './report/summary/results-detail/results-detail.component';
-import { HelpUsImproveComponent } from './report/summary/help-us-improve/help-us-improve.component';
-import { EmailPocComponent } from './report/summary/email-poc/email-poc.component';
-import { HistoryComponent } from './report/summary/history/history.component';
 import { PendingComponent } from './admin/pending/pending.component';
 import { ApprovedComponent } from './admin/approved/approved.component';
 import { DeniedComponent } from './admin/denied/denied.component';
@@ -66,30 +58,43 @@ import { PasswordComponent } from './password/password.component';
 
 
 
+import { SolicitationModule } from './solicitation/solicitation.module';
+import { SolicitationRoutes } from './solicitation/solicitation.routing';
+// import { SolicitationService } from './solicitation/solicitation.service';
+// import { SolicitationReportComponent } from './solicitation/solicitation-report/solicitation-report.component';
+// import { SummaryComponent } from './solicitation/summary/summary.component';
+// import { ResultsDetailComponent } from './solicitation/summary/results-detail/results-detail.component';
+// import { HelpUsImproveComponent } from './solicitation/summary/help-us-improve/help-us-improve.component';
+// import { EmailPocComponent } from './solicitation/summary/email-poc/email-poc.component';
+// import { HistoryComponent } from './solicitation/summary/history/history.component';
+// import { SolicitationComponent } from './solicitation/solicitation.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SolicitationReportComponent,
     HeaderComponent,
-    ReportComponent,
     AuthComponent,
     UserloginComponent,
     UserregistrationComponent,
     SolicitationReviewComponent,
     SrtComponent,
     AdminComponent,
-    ResultsDetailComponent,
-    EmailPocComponent,
-    HelpUsImproveComponent,
-    SummaryComponent,
-    HistoryComponent,
     PendingComponent,
     ApprovedComponent,
     DeniedComponent,
     ProfileComponent,
     PasswordComponent,
+
+    // SolicitationReportComponent,
+    // ReportComponent,
+    // ResultsDetailComponent,
+    // EmailPocComponent,
+    // HelpUsImproveComponent,
+    // SummaryComponent,
+    // HistoryComponent,
+    // SolicitationComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,22 +103,25 @@ import { PasswordComponent } from './password/password.component';
     ReactiveFormsModule,
     HttpModule,
     routing,
+    TooltipModule,
+
     DataTableModule,
     SharedModule,
     ButtonModule,
     DropdownModule,
-    TooltipModule,
     CalendarModule,
-    // FroalaEditorModule.forRoot(), 
+    // FroalaEditorModule.forRoot(),
     // FroalaViewModule.forRoot(),
     Ng2CompleterModule,
-    QuillEditorModule,
+    // QuillEditorModule,
     AnalyticsModule,
     HelpModule,
     HelpRoutes,
+    SolicitationModule,
+    SolicitationRoutes,
   ],
   providers: [
-    SolicitationService,
+    // SolicitationService,
     AuthService,
     UserService,
     AgencyService,

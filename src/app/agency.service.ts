@@ -4,13 +4,13 @@ import { Headers, Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 import { Agency } from './shared/agency';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class AgencyService {
 
   // productionURL
-  private agenciesUrl = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000/agencies';
-  // private agenciesUrl = 'http://localhost:3000/agencies';
+  private agenciesUrl = environment.SERVER_URL + '/agencies';
 
   constructor(private http: Http) { }
 

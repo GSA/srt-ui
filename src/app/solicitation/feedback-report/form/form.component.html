@@ -1,0 +1,38 @@
+<!-- <a [routerLink]="['/solicitation/report/', solicitation._id]">{{solicitation.title}}</a> -->
+<div class="container" *ngIf="solicitation">
+  <div class="clearfix impcontainer">
+    <div class="imppostion">
+      <div style="padding-bottom: 20px;">
+        <div class="list">
+          <div class="list-title" style="width: 120px">Solicitation Title:&nbsp;</div>
+          <div class="list-content">{{solicitation.title}}</div>
+        </div>
+        <div class="list">
+          <div class="list-title" style="width: 142px">Solicitation Number:&nbsp;</div>
+          <div class="list-content">{{solicitation.solNum}}</div>
+        </div>
+        <div class="list">
+          <div class="list-title" style="width: 142px">Submitter:&nbsp;</div>
+          <div class="list-content">{{submitter}}</div>
+        </div>
+        <div class="list">
+          <div class="list-title" style="width: 142px">Submission Date: </div>
+          <div class="list-content">{{date}}</div>
+        </div>
+      </div>
+
+
+      <table class="table table-bordered">
+        <tr>
+          <th scope="col">Question</th>
+          <th scope="col">Answer</th>
+        </tr>
+
+        <tr *ngFor="let item of solicitation.feedback">
+          <th scope="row">{{item.question}}</th>
+          <td>{{item.answer}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

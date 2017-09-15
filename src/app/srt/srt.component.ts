@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthGuard } from '../auth-guard.service';
 
 @Component({
   selector: 'app-srt',
@@ -7,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SrtComponent implements OnInit {
 
-  constructor() { }
+  isGSAAdmin = false;
+  constructor(
+    private auth: AuthGuard
+  ) { }
 
 
-  ngOnInit() {    
+  ngOnInit() {
+    this.isGSAAdmin = this.auth.isGSAAdmin;
   }
 
 }

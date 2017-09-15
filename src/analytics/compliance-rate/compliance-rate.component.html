@@ -1,9 +1,9 @@
 
 <div class="chartcontainer">
     
-    <div class="srt-blue circlechart">
+    <div tabindex="0" class="srt-blue circlechart">
         Preliminary Compliance Rate
-        <sup style="font-size: 20px;" 
+        <sup class="supfont" 
             [tooltip]="ComplianceRate" tooltipPlacement="bottom">
             <i class="fa fa-info-circle info" aria-hidden="true" ></i>
         </sup>  
@@ -12,7 +12,7 @@
         </tooltip-content> 
     </div>  
 
-    <div style="position: relative; ">
+    <div class="precposi">
         <div class="compliance-count percentage">
             {{percentage}}%
         </div>

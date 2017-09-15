@@ -1,0 +1,23 @@
+<app-summary [step1]="step1" [step2]="step2" [step3]="step3" [solicitationID]="solicitationID" [type]="type"></app-summary>
+
+<div class="container">
+
+  <div class="clearfix summary-content-padding">
+    <div class="srt-title-padding">
+      <a [routerLink]="['/solicitation/report']" style="font-weight: 500">
+        < Back to Solicitation Review Results for Section 508 Requirements</a>
+    </div>
+    <div style="font-size: 16px;">
+      <div class="list-title" style="width: 100%;">
+        Action History
+      </div>
+      <div class="list-content">
+        <ul *ngIf="history" class="nopadding">
+          <li *ngFor="let action of history" style="list-style: none;">{{action.date}} - <span style="font-weight: 600">{{action.user}}</span> {{action.action}}</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</div>

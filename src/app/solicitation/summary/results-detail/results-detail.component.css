@@ -1,0 +1,41 @@
+.nopadding {
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
+.list {
+    margin-bottom: 10px;
+}
+
+.list-title {
+    font-weight: 400;
+    display: inline-block;
+    vertical-align: baseline;
+}
+
+.list-content {
+    font-weight: 600;
+    display: inline-block;
+    vertical-align: baseline;
+}
+
+#detail {
+position: relative;
+font-size: 16px;
+}
+
+.liststyle{
+    list-style: none;
+    line-height: 18px
+}
+
+#rbutton{
+    display: inline-block;
+    vertical-align: top;
+    float: right
+}
+
+
+.summary-content-padding{
+  padding: 30px 20px
+}

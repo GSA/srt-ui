@@ -15,7 +15,7 @@ const helpRoutes: Routes = [
             { path: 'contactus', component: ContactUsComponent, canActivate: [AuthGuard] },
         ]
     },
-   
+
 ]
 
 export const HelpRoutes = RouterModule.forChild(helpRoutes);

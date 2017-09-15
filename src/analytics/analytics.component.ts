@@ -196,6 +196,13 @@ export class AnalyticsComponent implements OnInit {
         
     }
     
+
+
+    dropdown(event){
+        if(event.keyCode == 13){
+            
+        }
+    }
    
 }
 

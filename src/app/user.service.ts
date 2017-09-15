@@ -4,18 +4,15 @@ import { Headers, Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 import { Currentuser } from './shared/currentuser';
+import { environment } from '../environments/environment'
 
 @Injectable()
 export class UserService {
 
-  // productionURL
-  private link = 'http://ec2-54-145-198-134.compute-1.amazonaws.com:3000';
-  // private link = 'http://localhost:3000';
-
-  private userUrl = this.link + '/user/filter';
-  private updateUserUrl = this.link + '/user/update';
-  private removeUserUrl = this.link + '/user/remove';
-  private loginUrl = this.link + '/user/login';
+  private userUrl = environment.SERVER_URL + '/user/filter';
+  private updateUserUrl = environment.SERVER_URL + '/user/update';
+  private removeUserUrl = environment.SERVER_URL + '/user/remove';
+  private loginUrl = environment.SERVER_URL + '/user/login';
 
   public updateCurrentUser: EventEmitter<Currentuser>;
 

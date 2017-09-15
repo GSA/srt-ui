@@ -3,22 +3,22 @@
     <div class="container">
         <h1>Frequently Asked Questions</h1>
         <!--<div class="srt-section-title">About Solicitation Review Tool</div>       -->
-        <p>Solicitation Review Tool (SRT) is an automated predictive analysis application that performs scans of the Federal Business Opportunities /FedBizOpps website and delivers: (1) a report containing all of the new solicitations for the previous day; (2) a report of flagged solicitations that require manual review for specific regulatory requirements and compliance; (3) a web-based portal for agency SMEs to perform manual reviews of flagged solicitations and to communicate with contracting POCs for improvement; and (4) analytics and trending of flagged solicitations overtime by agency and government-wide.</p> 
-        <p>SRT uses natural language processing, text mining, and machine learning algorithms to automatically identify whether a solicitation contains sufficient compliance requirements for a particular use case (e.g. Section 508 Technical Requirements).  To learn more about SRT from the FAQs below. </p> 
+        <p>Solicitation Review Tool (SRT) is an automated predictive analysis application that performs scans of the Federal Business Opportunities /FedBizOpps website and delivers: (1) a report containing all of the new solicitations for the previous day; (2) a report of flagged solicitations that require manual review for specific regulatory requirements and compliance; (3) a web-based portal for agency SMEs to perform manual reviews of flagged solicitations and to communicate with contracting POCs for improvement; and (4) analytics and trending of flagged solicitations overtime by agency and government-wide.</p>
+        <p>SRT uses natural language processing, text mining, and machine learning algorithms to automatically identify whether a solicitation contains sufficient compliance requirements for a particular use case (e.g. Section 508 Technical Requirements).  To learn more about SRT from the FAQs below. </p>
     </div>
 </div>
 
 
 
 
-<div class="container"> 
-    
+<div class="container">
 
 
-    
+
+
 
     <div class="faq-content-div">
-        
+
         <!--<h1 style="margin-bottom: 35px;">Frequently Asked Questions</h1>-->
         <div style="display: table; float: right">
             <div style="display: table-cell; vertical-align: middle">
@@ -33,17 +33,17 @@
             <div class="sticky-nav" >
                 <!--<div style="font-size: 18px; padding-bottom: 20px; color: #155394; font-weight: 500;" class="hidden-sm hidden-xs">Browse FAQs</div>   -->
                 <ul class="usa-sidenav-list">
-                    <li><a data-toggle="tab" onclick="window.location.hash='mostViewTitle'">Most Viewed FAQs</a></li>
-                    <li><a data-toggle="tab" onclick="window.location.hash='backgroundInfoTitle'">Background</a></li>                    
-                    <li><a data-toggle="tab" onclick="window.location.hash='aboutTitle'">About SRT</a></li>
-                    <li><a data-toggle="tab" onclick="window.location.hash='scanningProcessTitle'">Explore the Scanning Process</a></li>
-                    <li><a data-toggle="tab" onclick="window.location.hash='accessLevelTitle'">Understand Access Privileges</a></li>
-                    <li><a data-toggle="tab" onclick="window.location.hash='manageWorkloadTitle'">Manage/ Review Solicitations</a></li>
-                    <li><a data-toggle="tab" onclick="window.location.hash='manageProfileTitle'">Manage Your Profile</a></li>
-                    <li><a data-toggle="tab" onclick="window.location.hash='requestSupportTitle'" >Request Support</a></li>
+                    <li><a data-toggle="tab" (click)="Scroll('mostViewTitle')">Most Viewed FAQs</a></li>
+                    <li><a data-toggle="tab" (click)="Scroll('backgroundInfoTitle')">Background</a></li>
+                    <li><a data-toggle="tab" (click)="Scroll('aboutTitle')">About SRT</a></li>
+                    <li><a data-toggle="tab" (click)="Scroll('scanningProcessTitle')">Explore the Scanning Process</a></li>
+                    <li><a data-toggle="tab" (click)="Scroll('accessLevelTitle')">Understand Access Privileges</a></li>
+                    <li><a data-toggle="tab" (click)="Scroll('manageWorkloadTitle')">Manage/ Review Solicitations</a></li>
+                    <li><a data-toggle="tab" (click)="Scroll('manageProfileTitle')">Manage Your Profile</a></li>
+                    <li><a data-toggle="tab" (click)="Scroll('requestSupportTitle')" >Request Support</a></li>
                 </ul>
             </div>
-           
+
             <div class="col-md-9 nopadding">
 
                 <div class="faq-right-content">
@@ -64,10 +64,10 @@
                                         {{element.body}}
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
-                    </div> 
-                    
+                    </div>
+
                 </div>
             </div>
         </div>

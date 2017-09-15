@@ -8,7 +8,7 @@ import * as $ from 'jquery';
 @Component({
   selector: 'app-prediction-result',
   templateUrl: './prediction-result.component.html',
-  styleUrls: ['./prediction-result.component.css']
+  styleUrls: ['../analytics.component.css','./prediction-result.component.css']
 })
 export class PredictionResultComponent implements OnInit {
 

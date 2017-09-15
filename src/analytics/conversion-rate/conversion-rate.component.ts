@@ -7,7 +7,7 @@ import * as $ from 'jquery';
 @Component({
   selector: 'app-conversion-rate',
   templateUrl: './conversion-rate.component.html',
-  styleUrls: ['./conversion-rate.component.css']
+  styleUrls: ['../analytics.component.css','./conversion-rate.component.css']
 })
 
 @Directive({selector: 'baseChart'})

@@ -6,6 +6,11 @@ body {
   font-weight: 300;
 }
 
+html {
+  overflow: scroll;
+}
+
+
 
 /* button */
 
@@ -57,20 +62,20 @@ button.srt-button {
 }
 
 .srt-button {
-    background-color: #337ab7; 
+    background-color: #337ab7;
     border-color: #2e6da4;
     border-radius: 5px;
     border: none;
-    color: #fff; 
+    color: #fff;
     cursor: pointer;
-    display: table; 
-    float: right; 
-    font-weight: 500; 
+    display: table;
+    float: right;
+    font-weight: 500;
     font-size: 16px;
-    height: 35px; 
-    text-align: center; 
+    height: 35px;
+    text-align: center;
     transition: all 100ms linear;
-    width: 100px; 
+    width: 100px;
 }
 
 .srt-button > div {
@@ -162,11 +167,11 @@ button.srt-button {
     border-style: solid;
 }
 
-.tooltip.right .tooltip-arrow {    
+.tooltip.right .tooltip-arrow {
     border-right-color: white;
 }
 
-.tooltip.bottom .tooltip-arrow {    
+.tooltip.bottom .tooltip-arrow {
     border-bottom-color: white;
 }
 
@@ -258,7 +263,7 @@ button.srt-button {
     color: #2C81C0;
 }
 
-.srt.dropdown-menu .dropdown-item.remove {  
+.srt.dropdown-menu .dropdown-item.remove {
     color: #BE3430;
 }
 
@@ -280,15 +285,13 @@ button.srt-button {
 }
 
 
-@media (max-width: 992px) 
+@media (max-width: 992px)
 {
     .row-eq-height {
         -webkit-flex-wrap: wrap;
         flex-wrap: wrap;
     }
 }
-
-
 
 /* FAQ Page */
 
@@ -317,7 +320,7 @@ button.srt-button {
 
 /* auth Page */
 .input-invalid{
-    color: #BE3430; 
+    color: #BE3430;
     font-weight: bold; float: right
 }
 

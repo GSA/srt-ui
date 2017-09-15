@@ -1,8 +1,8 @@
-<div style=" padding: 0px 15px">
+<div class="undeter-solic-padding">
 
-    <div style="font-size: 20px; margin-bottom: 20px; font-weight: 600" class="srt-blue">
+    <div class="srt-blue undeter-solic-title">
         Last 30 Days Excluded Solicitations from SRT Prediction Results (By Category)
-        <sup style="font-size: 20px;" 
+        <sup class="undeter-solic-supfont" 
             [tooltip]="predictionResult" tooltipPlacement="bottom">
             <i class="fa fa-info-circle info" aria-hidden="true" ></i>
         </sup>  
@@ -11,8 +11,8 @@
         </tooltip-content>  
     </div>  
    
-    <div style="position: relative;  max-width: 350px;">
-      <div style="display: block; margin: 0px auto; height: 280px; transform: translateZ(0); font-weight: 300">
+    <div class="undeter-solic-div">
+      <div class="undeter-solic-canvas">
           <canvas baseChart
                   [data]="pieChartData"
                   [labels]="pieChartLabels"
@@ -21,16 +21,16 @@
                   [chartType]="pieChartType">
           </canvas>
       </div>
-      <div style="position: absolute; font-size: 20px; color: #000; top: 120px; left: calc(50% + 110px)">
+      <div class="undeter-solic-dispaly1">
             {{displayPresolicitation}}
       </div>
-      <div style="position: absolute; font-size: 20px; color: #000; top: -3px; right: calc(50% + 58px)">
+      <div class="undeter-solic-dispaly2">
             {{displayNonMachineReadable}}
       </div>
-      <div style="position: absolute; font-size: 20px; color: #000; top: -23px; right: calc(50% - 6px)">
+      <div class="undeter-solic-dispaly3">
             {{displayNoDocument}}
       </div>
-      <div style="position: absolute; font-size: 20px; color: #000; top: 80px; right: calc(50% + 107px)">
+      <div class="undeter-solic-dispaly4">
             {{displayOtherUndetermined}}
       </div>
     </div>

@@ -1,15 +1,15 @@
-<div style="padding: 0px 20px">
+<div class="top-srt-padding">
       
-      <div id="overview" style="font-size: 16px; width: 100%;">
+      <div id="overview" class="top-srt-overview">
 
-          <div style="font-size: 20px; margin-bottom: 40px; font-weight: 600" class="srt-blue">
+          <div class="srt-blue top-srt-title">
               Key SRT Activities
           </div>
 
           <!-- Total ICT Solicitations -->
           <div class="clearfix analytic-overview-name">
-              <div style="float: left;">Total ICT/E&IT Solicitations Scanned&nbsp;&nbsp;
-                  <sup style="font-size: 20px;" 
+              <div class="top-srt-floatleft">Total ICT/E&IT Solicitations Scanned&nbsp;&nbsp;
+                  <sup class="supfont" 
                       [tooltip]="TotalICT" tooltipPlacement="bottom">
                       <i class="fa fa-info-circle info" aria-hidden="true" ></i>
                   </sup>  
@@ -17,16 +17,16 @@
                       <div>Total number of ICT/E&IT solicitations scanned from FedBizOpps for all federal agencies.</div>
                   </tooltip-content> 
               </div> 
-              <div style="float: right">{{solicitationNumber}}</div> 
+              <div class="top-srt-floatright">{{solicitationNumber}}</div> 
           </div>
-          <div style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px;">
-              <div style="background-color: #2C81C0; height: 8px" [ngStyle]="{'width': solicitationNumber==0 ? '0px' : solicitationNumber/solicitationNumber * 100 + '%'}"></div>
+          <div class="top-srt-white">
+              <div class="top-srt-blue" [ngStyle]="{'width': solicitationNumber==0 ? '0px' : solicitationNumber/solicitationNumber * 100 + '%'}"></div>
           </div>                        
 
           <!-- Total Non-compliant ICT Solicitations -->
           <div class="clearfix analytic-overview-name">
-              <div style="float: left;">Total Non-Compliant ICT/E&IT Solicitations&nbsp;&nbsp;
-                  <sup style="font-size: 20px;" 
+              <div class="top-srt-floatleft">Total Non-Compliant ICT/E&IT Solicitations&nbsp;&nbsp;
+                  <sup class="supfont" 
                       [tooltip]="TotalNonCompliantICT" tooltipPlacement="bottom">
                       <i class="fa fa-info-circle info" aria-hidden="true" ></i>
                   </sup>  
@@ -34,16 +34,16 @@
                       <div>Total number of non-compliant ICT/E&IT solicitations scanned from FedBizOpps for all federal agencies.</div>
                   </tooltip-content> 
               </div> 
-              <div style="float: right">{{nonCompliantICTNumber}}</div> 
+              <div class="top-srt-floatright">{{nonCompliantICTNumber}}</div> 
           </div>
-          <div style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px;">
-              <div style="background-color: #2C81C0; height: 8px" [ngStyle]="{'width': solicitationNumber==0 ? '0px' : nonCompliantICTNumber/solicitationNumber * 100 + '%'}"></div>
+          <div class="top-srt-white">
+              <div class="top-srt-blue" [ngStyle]="{'width': solicitationNumber==0 ? '0px' : nonCompliantICTNumber/solicitationNumber * 100 + '%'}"></div>
           </div>
 
           <!-- # Solicitations Reviewed by 508 Coordinators -->
           <div class="clearfix analytic-overview-name">
-              <div style="float: left"># Solicitations Reviewed by 508 Coordinators&nbsp;&nbsp;
-                  <sup style="font-size: 20px"
+              <div class="top-srt-floatleft"># Solicitations Reviewed by 508 Coordinators&nbsp;&nbsp;
+                  <sup class="supfont"
                       [tooltip]="Reviewed" tooltipPlacement="bottom">
                       <i class="fa fa-info-circle info" aria-hidden="true"></i>
                   </sup>   
@@ -51,16 +51,16 @@
                       <div>Number of FebBizOpps solicitation links accessed through SRT by Section 508 coordinators. The solicitation links are visited for further review of SRT results prior to contacting the Point of Contact (PoC).</div>
                   </tooltip-content>  
               </div> 
-              <div style="float: right">{{reviewed}}</div> 
+              <div class="top-srt-floatright">{{reviewed}}</div> 
           </div>
-          <div style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px">
-              <div style="background-color: #2C81C0; height: 8px;" [ngStyle]="{'width': solicitationNumber==0 ? '0px' : reviewed/solicitationNumber * 100 + '%'}"></div>
+          <div class="top-srt-white">
+              <div class="top-srt-blue" [ngStyle]="{'width': solicitationNumber==0 ? '0px' : reviewed/solicitationNumber * 100 + '%'}"></div>
           </div>                        
 
           <!-- # Emails Sent to POC -->
           <div class="clearfix analytic-overview-name">
-              <div style="float: left"># Emails Sent to POC&nbsp;&nbsp;
-                  <sup style="font-size: 20px"
+              <div class="top-srt-floatleft"># Emails Sent to POC&nbsp;&nbsp;
+                  <sup class="supfont"
                       [tooltip]="Emails" tooltipPlacement="bottom">
                       <i class="fa fa-info-circle info" aria-hidden="true"></i>
                   </sup>   
@@ -68,16 +68,16 @@
                       <div>Number of e-mails sent from Section 508 Coordinators to solicitations Point of Contact (POC).</div>
                   </tooltip-content>   
               </div> 
-              <div style="float: right">{{emailSend}}</div> 
+              <div class="top-srt-floatright">{{emailSend}}</div> 
           </div>
-          <div style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px">
-              <div style="background-color: #2C81C0; height: 8px;" [ngStyle]="{'width': solicitationNumber==0 ? '0px' : emailSend/solicitationNumber * 100 + '%'}"></div>
+          <div class="top-srt-white">
+              <div class="top-srt-blue" [ngStyle]="{'width': solicitationNumber==0 ? '0px' : emailSend/solicitationNumber * 100 + '%'}"></div>
           </div>                        
 
           <!-- # Updated Solicitations -->
           <div class="clearfix analytic-overview-name">
-              <div style="float: left"># Updated Solicitations&nbsp;&nbsp;
-                  <sup style="font-size: 20px"
+              <div class="top-srt-floatleft"># Updated Solicitations&nbsp;&nbsp;
+                  <sup class="supfont"
                       [tooltip]="Updated0" tooltipPlacement="bottom">
                       <i class="fa fa-info-circle info" aria-hidden="true"></i>
                   </sup>    
@@ -85,16 +85,16 @@
                       <div>Number of ICT/E&IT solicitations that have been re-scanned from FedBizOpps.</div>
                   </tooltip-content>   
               </div> 
-              <div style="float: right">{{updatedICTNumber}}</div> 
+              <div class="top-srt-floatright">{{updatedICTNumber}}</div> 
           </div>
-          <div style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px">
-              <div style="background-color: #2C81C0; height: 8px;" [ngStyle]="{'width': solicitationNumber==0 ? '0px' : updatedICTNumber/solicitationNumber * 100 + '%'}"></div>
+          <div class="top-srt-white">
+              <div class="top-srt-blue" [ngStyle]="{'width': solicitationNumber==0 ? '0px' : updatedICTNumber/solicitationNumber * 100 + '%'}"></div>
           </div>                        
 
           <!-- # Updated Non-compliant Solicitations -->
           <div class="clearfix analytic-overview-name">
-              <div style="float: left"># Updated Non-compliant Solicitations&nbsp;&nbsp;
-                  <sup style="font-size: 20px"
+              <div class="top-srt-floatleft"># Updated Non-compliant Solicitations&nbsp;&nbsp;
+                  <sup class="supfont"
                       [tooltip]="Updated1" tooltipPlacement="bottom">
                       <i class="fa fa-info-circle info" aria-hidden="true"></i>
                   </sup>     
@@ -102,16 +102,16 @@
                       <div>Number of ICT/E&IT solicitations that have been re-scanned from FedBizOpps and remained non-compliant on SRT.</div>
                   </tooltip-content>    
               </div> 
-              <div style="float: right">{{updatedNonCompliantICTNumber}}</div> 
+              <div class="top-srt-floatright">{{updatedNonCompliantICTNumber}}</div> 
           </div>
-          <div style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px">
-              <div style="background-color: #2C81C0; height: 8px;"  [ngStyle]="{'width': solicitationNumber==0 ? '0px' : updatedNonCompliantICTNumber/solicitationNumber * 100 + '%'}"></div>
+          <div class="top-srt-white">
+              <div class="top-srt-blue"  [ngStyle]="{'width': solicitationNumber==0 ? '0px' : updatedNonCompliantICTNumber/solicitationNumber * 100 + '%'}"></div>
           </div>                        
 
           <!-- # Updated Compliant Solicitations -->
           <div class="clearfix analytic-overview-name">
-              <div style="float: left"># Updated Compliant Solicitations&nbsp;&nbsp;
-                  <sup style="font-size: 20px"
+              <div class="top-srt-floatleft"># Updated Compliant Solicitations&nbsp;&nbsp;
+                  <sup class="supfont"
                       [tooltip]="Updated2" tooltipPlacement="bottom">
                       <i class="fa fa-info-circle info" aria-hidden="true"></i>
                   </sup>   
@@ -119,10 +119,10 @@
                       <div>Number of ICT/E&IT solicitations that have been re-scanned from FedBizOpps and updated as compliant on SRT.</div>
                   </tooltip-content>      
               </div> 
-              <div style="float: right">{{updatedCompliantICTNumber}}</div> 
+              <div class="top-srt-floatright">{{updatedCompliantICTNumber}}</div> 
           </div>
-          <div class="clearfix" style="width: 100%; background-color: #f7f7f7; height: 8px; float: left; margin-bottom: 20px">
-              <div style="background-color: #2C81C0; height: 8px;"  [ngStyle]="{'width': solicitationNumber==0 ? '0px' : updatedCompliantICTNumber/solicitationNumber * 100 + '%'}"></div>
+          <div class="clearfix top-srt-white" >
+              <div class="top-srt-blue"  [ngStyle]="{'width': solicitationNumber==0 ? '0px' : updatedCompliantICTNumber/solicitationNumber * 100 + '%'}"></div>
           </div>                        
       </div>
 

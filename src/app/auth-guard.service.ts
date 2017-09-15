@@ -11,13 +11,14 @@ export class AuthGuard implements CanActivate {
    constructor(private authService:AuthService, private router: Router) {}
 
   isLogin = false;
+  isGSAAdmin = false;
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     let url: string = state.url;
     return this.checkLogin(url);
   }
 
-  checkLogin(url: string): boolean {    
+  checkLogin(url: string): boolean {
     if (this.isLogin)
     {
       return true;
@@ -25,7 +26,7 @@ export class AuthGuard implements CanActivate {
     else
     {
        this.authService.checkToken().subscribe(
-        data=> {          
+        data=> {
           this.isLogin = data.isLogin;
           if (data.isLogin)
           {
@@ -35,9 +36,9 @@ export class AuthGuard implements CanActivate {
           else
           {
             this.router.navigate(['/auth']);
-          }          
+          }
         }
-      ) 
-    }    
+      )
+    }
   }
 }
