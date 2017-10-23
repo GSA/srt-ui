@@ -1,42 +1,60 @@
 <!-- SRTDashHeaderView -->
+
 <div id="header">
+      <a id="test" href="/" style="position:absolute;
+      left:-10000px;
+      top:auto;
+      width:1px; 
+      height:1px;
+      overflow:hidden;">SRT website</a>
+
+        <a 
+        id="skipMain" href="javascript:
+        var oh=location.hash;
+        location.hash='#content';
+        location.hash=oh;
+        void(0);" class="visually-hidden visible-when-focused bypass-block-link">
+            Skip to Main content
+          </a>  
   <nav class="us-navbar navbar-default">
+      
         <div class="container-fluid" style="padding: 0px;">
-            <div class="navbar-header nopadding" style="height: 60px">
+            <div class="navbar-header nopadding" style="height: 60px" aria-hidden="true">
                 <a class="navbar-left" [routerLink]="['/home']"><img id="srtlogo" src="../../assets/srtlogo.png"></a>
             </div>
 
-        <div class="collapse navbar-collapse" id="navbar" style="padding: 0px;">
-                <ul *ngIf="isLogin" class="nav navbar-nav">
-                    <li data-toggle="tab" [routerLink]="['/home']" [ngClass]="{'active': GetHash('home')}"><a>Home</a></li>
-                    <li data-toggle="tab" [routerLink]="['/solicitation/report']" [ngClass]="{'active': GetHash('solicitation')}"><a>Manage/Review Workload</a></li>
-                    <li data-toggle="tab" [routerLink]="['/analytics']" [ngClass]="{'active': GetHash('analytics')}"><a>View Analytics</a></li>
-                    <li data-toggle="tab" [routerLink]="['/admin']" [ngClass]="{'active': GetHash('admin')}" *ngIf="isGSAAdmin"><a>Manage Access Requests</a></li>
-                    <li data-toggle="tab" [routerLink]="['/help/contactus']" [ngClass]="{'active': GetHash('contactus')}"><a>Contact Us</a></li>
-                    <li data-toggle="tab" [routerLink]="['/help/faq']" [ngClass]="{'active': GetHash('faq')}"><a>FAQs</a></li>
-                    <li data-toggle="tab" [routerLink]="['/solicitation/feedback']" [ngClass]="{'active': GetHash('feedback/report')}" *ngIf="isGSAAdmin"><a>Feedback</a></li>
+        <div class="collapse navbar-collapse" id="navbar" style="padding: 0px;" role="navigation" aria-label="main navigation" >
+            
+                <ul *ngIf="isLogin" class="nav navbar-nav" >
+                    <li data-toggle="tab" [ngClass]="{'active': GetHash('home')}" ><a [routerLink]="['/home']" [ngClass]="{'active': GetHash('home')}" id="1" onclick="$('#test').focus()" >Home</a></li>
+                    <li data-toggle="tab" [ngClass]="{'active': GetHash('solicitation')}"><a [routerLink]="['/solicitation/report']" id="2"  onclick="$('#test').focus()">Manage/Review Workload</a></li>
+                    <li data-toggle="tab" [ngClass]="{'active': GetHash('analytics')}" ><a [routerLink]="['/analytics']" id="3"  onclick="$('#test').focus()">View Analytics</a></li>
+                    <li data-toggle="tab" [ngClass]="{'active': GetHash('admin')}"><a [routerLink]="['/admin']" id="4"  onclick="$('#test').focus()">Manage Access Requests</a></li>
+                    <li data-toggle="tab" [ngClass]="{'active': GetHash('contactus')}"><a [routerLink]="['/help/contactus']" id="5" onclick="$('#test').focus()">Contact Us</a></li>
+                    <li data-toggle="tab" [ngClass]="{'active': GetHash('faq')}"><a [routerLink]="['/help/faq']" id="6"  onclick="$('#test').focus()"> FAQs</a></li>
+                    <li data-toggle="tab" [ngClass]="{'active': GetHash('feedback/report')}" *ngIf="isGSAAdmin"><a [routerLink]="['/solicitation/feedback']" id="7" onclick="$('#test').focus()">Feedback</a></li>
+                <!--    <li data-toggle="tab"><a href="#">Help Us Improve</a></li> -->
 
                 </ul>
-                <div class=" gsa_logo">
+                <div class=" gsa_logo" aria-hidden="true">
                     <a href='#' class="logo_li">
                     <div class='span-logo' >
                         <img src='../../assets/gsa-logo.png'/>
                     </div>
                     </a>
                 </div>
-                <ul *ngIf="isLogin" id="gsaDropdown" class="nav navbar-nav" style="float: right;">
+                <ul *ngIf="isLogin" id="gsaDropdown" class="nav navbar-nav" style="float: right;" role="combobo">
                     <li class="dropdown">
                         <a *ngIf="isLogin" href="#" class="dropdown-toggle"
                                     style="font-weight: 300"
                                     data-toggle="dropdown"
-                                    role="button"
                                     aria-haspopup="true"
                                     aria-expanded="false">Hello, {{firstName}}<span class="caret"></span></a>
 
                         <ul class="dropdown-menu">
-                            <li><a [routerLink]="['/profile']" style="padding: 10px 20px;">Profile</a></li>
-                            <li><a [routerLink]="['/password']" style="padding: 10px 20px;">Password</a></li>
-                            <li><button class="dropdown-item" type="button" style="padding: 10px 20px;" (click)="onLogout()">Log Out</button></li>
+                            <li><a [routerLink]="['/profile']" style="padding: 10px 20px;" role="option">Profile</a></li>
+                            <li><a [routerLink]="['/password']" style="padding: 10px 20px;" role="option">Password</a></li>
+                            <li><button class="dropdown-item" type="button" style="padding: 10px 20px;" (click)="onLogout()" role="option">Log Out</button></li>
                       </ul>
                     </li>
                 </ul>

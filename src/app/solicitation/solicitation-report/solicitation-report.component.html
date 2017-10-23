@@ -1,3 +1,4 @@
+<main id="content" class="bypass-block-target" tabindex="-1">
 <div *ngIf="!solicitations" class="solic-nosolic">
     <div class="solic-nosolic-posi">
         <ul class="cb-slideshow">
@@ -19,25 +20,30 @@
 <div *ngIf="solicitations">
     <div class="row nopadding">
         <div style="padding: 20px" class="clearfix">
-            <div class="srt-page-title srt-blue" style="padding-bottom: 5px;"  role="heading" aria-level="1" >Solicitation Review Results for Section 508 Requirements</div>
+            <div class="srt-page-title srt-blue" style="padding-bottom: 5px;"  role="heading" aria-level="1">Solicitation Review Results for Section 508 Requirements</div>
 
             <div class="solic-table">
-                <div class="solic-keyword">Keyword Search:</div>
+                    <div class="solic-keyword">
+                    <label for="ksearch" class="solic-keyword">Keyword Search:        
+                            <!--<span class="input-invalid" *ngIf="errorMessage && (myForm.value.email == null || myForm.value.email == '')">Please fill in requred field</span>-->
+                    </label>
+                    </div>
+                <!-- <div class="solic-keyword">Keyword Search:</div> -->
                 <div class="solic-table-cell">
                     <div class="input-group" id="solsearch">
                         <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button" role="button">
+                            <button class="btn btn-primary" type="button">
                                 <span class=" glyphicon glyphicon-search"></span>
                             </button>
                         </span>
-                        <input #gb type="text" class="search-query form-control" placeholder="Global Filter" />
+                        <input id="ksearch" #gb type="text" class="search-query form-control" placeholder="Global Filter" />
                     </div>
                 </div>
                 <div class="solic-export"><div style="padding: 0px 0px 0px 15px;">Export As:</div></div>
                 <div class="solic-export-cursor">
 
 
-                    <img tabindex="0" role="button" id="csvlogo" alt="image of CSV logo" src="../../../assets/downloadcsv.jpeg" style="float:left" (keydown.enter)="dt.exportCSV()"  (click)="dt.exportCSV()">
+                    <img tabindex="0" id="csvlogo" alt="click to export as csv" src="../../../assets/downloadcsv.jpeg" style="float:left" (keydown.enter)="dt.exportCSV()"  (click)="dt.exportCSV()">
                 </div>
             </div>
 
@@ -49,35 +55,37 @@
     <p-dataTable #dt styleClass="pDataTable"
             [value]="solicitations"
             [rows]="15"
-            [paginator]="true"
+            [paginator]="true"          
             [pageLinks]="4"
             [rowsPerPageOptions]="[15, 25, 35, 45]"
             [globalFilter]="gb"
             [responsive]="true"
             [stacked]="stacked">
 
-        <p-column field="solNum" header="Solicitation ID" [sortable]="true" [filter]="false" filterPlaceholder="Search" [style]="{'width': '170px'}"></p-column>
+        <p-column field="solNum"  header="Solicitation ID" [sortable]="true" [filter]="false" filterPlaceholder="Search" [style]="{'width': '170px'}" ></p-column>
         <p-column field="title" header="Solicitation Title" [sortable]="true" [filter]="false" filterPlaceholder="Search">
-            <ng-template let-sol="rowData" pTemplate="body">
-                <a href="{{sol.url}}" target="_blank">{{sol.title}}</a>
+            <ng-template let-sol="rowData" pTemplate="body">        
+                <a href="{{sol.url}}" target="_blank">{{sol.title}}</a> 
             </ng-template>
         </p-column>
 
-        <p-column field="noticeType" header="Notice Type" [sortable]="true" [filter]="true" [style]="{'overflow':'visible', 'width': '200'}"  filterPlaceholder="Search">
-            <ng-template pTemplate="filter" let-col>
-                <p-dropdown [options]="solType " [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+        <p-column field="noticeType" header="Notice Type" [sortable]="true" [filter]="true" [style]="{'overflow':'visible', 'width': '200'}"  filterPlaceholder="Search" >
+            <ng-template pTemplate="filter" let-col >
+                <p-dropdown [options]="solType " [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter" aria-hidden="true" ></p-dropdown>
             </ng-template>
         </p-column>
 
         <p-column field="date" header="Date Posted on FedBizOpps" sortable="custom" (sortFunction)="soryByDate($event)" [style]="{'overflow':'visible', 'width': '150'}" filterPlaceholder="Search">
             <ng-template pTemplate="filter" let-col>
-                <p-calendar [(ngModel)]="dateFrom"
+                <p-calendar aria-hidden="true"
+                            [(ngModel)]="dateFrom"
                             [maxDate]="maxDate"
                             (onSelect)="filterDate($event)"
                             (onBlur)="reset()"
                             placeholder="Select Start Date">
                 </p-calendar>
-                <p-calendar [(ngModel)]="dateTo"
+                <p-calendar aria-hidden="true"
+                            [(ngModel)]="dateTo"
                             [minDate]="minDate"
                             [maxDate]="today"
                             (onSelect)="filterDate($event)"
@@ -89,12 +97,13 @@
 
         <p-column field="reviewRec" header="SRT Review Result" [sortable]="true" [filter]="true" [style]="{'overflow': 'visible', 'width': '200px'}" filterPlaceholder="Search">
             <ng-template pTemplate="filter" let-col>
-                <p-dropdown [options]="revResult" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+                <p-dropdown [options]="revResult" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter" aria-hidden="true"></p-dropdown>
             </ng-template>
+            
             <ng-template let-sol="rowData" pTemplate="body">
                 <div *ngIf="sol.predictions.value == 'RED'">
                     <span [ngStyle]="{'color' : sol.undetermined ? 'black' : 'red'}">
-                        <button class="button" (click)="selectSol(sol)" style="border: none; text-align: left; padding: 0px;">
+                        <button class="button" (click)="selectSol(sol)" onclick="$('#test').focus()" style="border: none; text-align: left; padding: 0px;">
                             <i class="fa fa-exclamation-triangle" style="padding-right: 5px;" *ngIf="!sol.undetermined"></i>
                             <span style="text-decoration: underline;">{{sol.reviewRec}}</span>
                         </button>
@@ -125,3 +134,4 @@
     </p-dataTable>
 
 </div>
+</main>

@@ -44,7 +44,8 @@ export class HeaderComponent implements OnInit {
   ngOnChanges() {
     console.log(this.isGSAAdmin);
   }
-// clear user information and remove jwt
+
+  // clear user information and remove jwt
   onLogout() {
     var u = new Currentuser("", "", "", "", "");
     this.user.saveUser(u);
@@ -55,7 +56,7 @@ export class HeaderComponent implements OnInit {
   }
 
 
-// set the firstName of the user for display
+  // set the firstName of the user for display
   saveCurrentUser(currentUser) {
     this.firstName = currentUser.firstName;
     localStorage.setItem("firstName", currentUser.firstName);
@@ -67,4 +68,8 @@ export class HeaderComponent implements OnInit {
   }
 
 
+  /**backToSkipMain(id) {
+    $('#id').blur();  
+  }
+*/
 }

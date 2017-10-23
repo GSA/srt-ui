@@ -22,22 +22,22 @@
 </div>
 <div class="srt-tabs summary-tab">
     <div class="container">
-        <div ng-if="showActivitySelection()">
-
+        <div ng-if="showActivitySelection()" role="navigation" aria-label="step navigation">
+            
             <ul class="nopadding summary-floatleft" >
-                <li [routerLink]="['/solicitation/report', solicitationID]" [ngClass]="{'active' : type=='report'}">
-                    <a>STEP 1: VIEW RESULT</a>
+                <li [ngClass]="{'active' : type=='report'}">
+                    <a [routerLink]="['/solicitation/report', solicitationID]">STEP 1: VIEW RESULT</a>
                 </li>
-                <li [routerLink]="['/solicitation/email', solicitationID]" [ngClass]="{'active' : type=='email'}">
-                    <a>STEP 2: EMAIL POC</a>
+                <li  [ngClass]="{'active' : type=='email'}">
+                    <a [routerLink]="['/solicitation/email', solicitationID]">STEP 2: EMAIL POC</a>
                 </li>
-                 <li [routerLink]="['/solicitation/feedback', solicitationID]" [ngClass]="{'active' : type=='feedback'}">
-                    <a>STEP 3: MAKE SRT SMARTER</a>
+                 <li  [ngClass]="{'active' : type=='feedback'}">
+                    <a [routerLink]="['/solicitation/feedback', solicitationID]">STEP 3: MAKE SRT SMARTER</a>
                 </li>
             </ul>
             <ul class="nopadding summary-floatright">
-                <li [routerLink]="['/solicitation/history', solicitationID]" [ngClass]="{'active' : type=='history'}">
-                    <a>History</a>
+                <li [ngClass]="{'active' : type=='history'}">
+                    <a [routerLink]="['/solicitation/history', solicitationID]">History</a>
                 </li>
             </ul>
 

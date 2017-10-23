@@ -1,5 +1,5 @@
+<main id="content" class="bypass-block-target" tabindex="-1">
 <app-summary [step1]="step1" [step2]="step2" [step3]="step3" [solicitationID]="solicitationID" [type]="type"></app-summary>
-
 <div class="container">
 
   <div class="clearfix summary-content-padding">
@@ -34,20 +34,19 @@
               <label for="emailCC">CC:</label>
               <input type="text" id="emailCC" class="form-control" formControlName="emailCC">
             </div>
-            <div class="form-group">
+            <div class="form-group" >
               <label for="subject">Subject:</label>
-              <input type="text" id="subject" class="form-control" formControlName="subject">
+              <input type="text" id="subject" class="form-control" formControlName="subject" >
             </div>
-            <div class="form-group" style="padding-bottom: 20px">
+            <div class="form-group" style="padding-bottom: 20px" >
               <label for="message" style="padding-bottom: 10px">Message:</label>
-              <quill-editor id="maessage" style="min-height: calc(100vh - 585px)" formControlName="message" [options]="editorOptions"></quill-editor>
-
+              <quill-editor id="maessage" style="min-height: calc(100vh - 585px)" formControlName="message" [options]="editorOptions" (keydown)="skiptext($event)"></quill-editor>
             </div>
 
           </div>
         </div>
         <div id="ebutton">
-          <button type="submit" class="srt-button">Send Email</button>
+          <button type="submit" class="srt-button" id="btn">Send Email</button>
         </div>
       </form>
 
@@ -55,3 +54,4 @@
     </div>
   </div>
 </div>
+</main>

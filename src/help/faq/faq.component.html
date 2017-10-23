@@ -1,4 +1,4 @@
-
+<main id="content" class="bypass-block-target" tabindex="-1"> 
 <div class="srt-banner blue">
     <div class="container">
         <h1>Frequently Asked Questions</h1>
@@ -17,12 +17,12 @@
 
 
 
-    <div class="faq-content-div">
+    <div class="faq-content-div">     
 
         <!--<h1 style="margin-bottom: 35px;">Frequently Asked Questions</h1>-->
         <div style="display: table; float: right">
             <div style="display: table-cell; vertical-align: middle">
-                <input id="search" class="search-input" placeholder="Search FAQs" (keyup)="faqSearch()"/>
+                <input id="search" class="search-input" placeholder="Search FAQs" (keyup)="faqSearch()" aria-label="input area to search your question" >
             </div>
             <div style="display: table-cell; vertical-align: middle; cursor: pointer" (click)="faqSearch()" class="search-button">
                 Search
@@ -73,3 +73,4 @@
         </div>
     </div>
 </div>
+</main>

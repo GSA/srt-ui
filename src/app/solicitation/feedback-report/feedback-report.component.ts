@@ -30,7 +30,12 @@ export class FeedbackReportComponent implements OnInit {
           element.submitter = history.user;
           element.date = history.date;
         });
-        console.log(data);
+        this.feedback.sort(function(a,b){
+          var aDate = new Date(a.date);
+          var bDate = new Date(b.date);
+          if (aDate > bDate) return -1;
+          else return 1;
+        })
       },
       error => console.log(error)
     )

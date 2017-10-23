@@ -329,3 +329,77 @@ button.srt-button {
     padding-left: 5px;
 }
 
+
+
+
+/* nav skip*/
+/*
+ * Class for elements that are only visible to the screen reader. From
+ * https://www.paciellogroup.com/blog/2012/05/html5-accessibility-chops-hidden-and-aria-hidden/
+ */
+ .visually-hidden {
+	clip: rect(1px 1px 1px 1px); /* IE 6/7 */
+	clip: rect(1px, 1px, 1px, 1px);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+	margin: -1px;
+}
+
+/*
+ * For `.visually-hidden` elements that should be visible when it gains focus.
+ */
+.visible-when-focused:focus {
+	clip: auto;
+	height: auto;
+	overflow: visible;
+	position: static;
+	white-space: normal;
+	width: auto;
+	margin: auto;
+}
+
+/*
+ * Style for "Skip Navigation" type links.  Should have an href linked to 
+ * a `.bypass-block-target` element.
+ */
+.bypass-block-link {
+	position: absolute;
+	text-decoration: none;
+	background: #ffffcc;
+	padding: 0.2em;
+	z-index: 10;
+}
+
+
+
+
+/*
+ * We don't want the `.bypass-block-target` to have an outline on *just* focus,
+ * since this will look strange if regular users click inside this element,
+ * since it will look like it was tabbed into
+ */
+.bypass-block-target:focus {
+  outline: none;
+}
+
+/*
+ * We do, however, want the `.bypass-block-target` to have an outline when
+ * it has focus and it is the target of the document (i.e. the hash tag of the
+ * document URL is the same as the "Skip Nav" link).
+ * 
+ * Note that this style is the same as the focus state on all the tabbable 
+ * elements.  It doesn't have to be.  WCAG 2.4.7 — Focus Visible (Level AA) 
+ * only requires that the focus state is visible, so you can have, say, the 
+ * focus state of a button different than that of a form element. 
+ */
+.bypass-block-target:focus:target,
+[tabindex="0"]:focus,
+[tabindex="1"]:focus,
+a:focus,
+button:focus,
+input:focus {
+  outline: solid 2px orange;
+}

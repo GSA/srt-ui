@@ -50,8 +50,8 @@ export class UserloginComponent implements OnInit {
           localStorage.setItem('userRole', data.userRole);
           this.authGuard.isLogin = true;
           this.app.isLogin = true;
-          this.authGuard.isGSAAdmin = data.userRole == "Administrator" && data.agency.indexOf("General Services Administration") > -1;
-          this.app.isGSAAdmin = data.userRole == "Administrator" && data.agency.indexOf("General Services Administration") > -1;
+          this.authGuard.isGSAAdmin = (data.userRole == "Administrator" || data.userRole == "SRT Program Manager ") && data.agency.indexOf("General Services Administration") > -1;
+          this.app.isGSAAdmin = (data.userRole == "Administrator" || data.userRole == "SRT Program Manager ") && data.agency.indexOf("General Services Administration") > -1;
           var currentUser = new Currentuser(data.firstName, data.lastName, data.agency, data.email, data.position);
           this.user.saveUser(currentUser);
           this.router.navigateByUrl('home');

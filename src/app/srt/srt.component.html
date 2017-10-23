@@ -1,4 +1,4 @@
-
+<main id="content" class="bypass-block-target" tabindex="-1">
 <div class="srt-homehead">
         <div class="srt-headposition">
             <div class="srt-headtext">
@@ -35,7 +35,7 @@
             <div class="col-md-4 col-sm-6 srt-marginbot">
                 <div class="srt-1-1">
                     <div>
-                        <div class="srt-main-box" [routerLink]="['/solicitation/report']">
+                        <div class="srt-main-box" >
                             <!-- image -->
                             <div class="srt-9-20">
                                 <div>
@@ -50,8 +50,10 @@
                             <div class="srt-11-20">
                                 <div>
                                     <div class="srt-block-padding">
+                                            <a [routerLink]="['/solicitation/report']">
                                         <h3>Review/Manage Workload</h3>
                                         <p>Access and manage solicitation review results for your agency</p>
+                                            </a>
                                     </div>
                                 </div>
                             </div>
@@ -64,7 +66,7 @@
             <div class="col-md-4 col-sm-6 srt-marginbot">
                 <div class="srt-1-1">
                     <div>
-                        <div class="srt-main-box" [routerLink]="['/analytics']">
+                        <div class="srt-main-box" >
                             <!-- image -->
                             <div class="srt-9-20">
                                 <div>
@@ -79,8 +81,10 @@
                             <div class="srt-11-20">
                                 <div>
                                     <div class="srt-block-padding">
+                                            <a [routerLink]="['/analytics']">
                                         <h3>View Analytics</h3>
                                         <p>Visualize trend and discover insights from the analytics</p>
+                                            </a>
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +97,7 @@
             <div class="col-md-4 col-sm-6 srt-marginbot" *ngIf="isGSAAdmin">
                 <div class="srt-1-1">
                     <div>
-                        <div class="srt-main-box" [routerLink]="['/admin']">
+                        <div class="srt-main-box">
                             <!-- image -->
                             <div class="srt-9-20">
                                 <div>
@@ -108,8 +112,10 @@
                             <div class="srt-11-20">
                                 <div>
                                     <div class="srt-block-padding">
+                                        <a [routerLink]="['/admin']">
                                         <h3>Manage SRT Access Requests</h3>
                                         <p>The Administrator manages new SRT sign up requests and current users settings</p>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -119,10 +125,10 @@
             </div>
 
             <!-- Get Additional Resourses -->
-            <div class="col-md-4 col-sm-6 srt-marginbot">
+            <div class="col-md-4 col-sm-6 srt-marginbot" tabindex="0">
                 <div class="srt-1-1">
                     <div>
-                        <div class="srt-main-box" onclick="window.open('https://app.buyaccessible.gov/baw/Main.jsp')">
+                        <div class="srt-main-box" >
                             <!-- image -->
                             <div class="srt-9-20">
                                 <div>
@@ -137,8 +143,10 @@
                             <div class="srt-11-20">
                                 <div>
                                     <div class="srt-block-padding">
+                                        <a onclick="window.open('https://app.buyaccessible.gov/baw/Main.jsp')">
                                         <h3>Get Additional Resources</h3>
                                         <p>Need help with Accessiblity requirements? Buy Accessible Wizard can assist you with that</p>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -151,7 +159,7 @@
             <div class="col-md-4 col-sm-6 srt-marginbot">
                 <div class="srt-1-1">
                     <div>
-                        <div class="srt-main-box" [routerLink]="['/help/faq']">
+                        <div class="srt-main-box">
                             <!-- image -->
                             <div class="srt-9-20">
                                 <div>
@@ -166,8 +174,10 @@
                             <div class="srt-11-20">
                                 <div>
                                     <div class="srt-block-padding">
+                                        <a [routerLink]="['/help/faq']">
                                         <h3>FAQ</h3>
                                         <p>Review Frequently Asked Questions and learn more about SRT</p>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -180,7 +190,7 @@
             <div class="col-md-4 col-sm-6 srt-marginbot">
                 <div class="srt-1-1">
                     <div>
-                        <div class="srt-main-box" [routerLink]="['/profile']">
+                        <div class="srt-main-box">
                             <!-- image -->
                             <div class="srt-9-20">
                                 <div>
@@ -195,8 +205,10 @@
                             <div class="srt-11-20">
                                 <div>
                                     <div class="srt-block-padding">
+                                        <a [routerLink]="['/profile']">
                                         <h3>Settings</h3>
                                         <p>Change your profile and/or password</p>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -207,3 +219,4 @@
         </div>
     </div>
 </div>
+</main>

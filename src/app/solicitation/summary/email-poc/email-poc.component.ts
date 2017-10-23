@@ -157,5 +157,13 @@ emailContact() {
         });
   }
 
+  skiptext(event) {
+    if(event.keyCode == 9) {
+      //alert('you just clicked enter');
+      $('#btn').focus();  
+      // rest of your code
+    }
+  }
+  
 
-}
+  }
