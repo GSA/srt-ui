@@ -12,19 +12,31 @@ import { SolicitationReportComponent } from './solicitation/solicitation-report/
 })
 export class AppComponent {
 
+  /* ATTRIBUTES */
+
   isLogin = false;
   isGSAAdmin = false;
 
+  /* CONSTRUCTOR */
+
+  /**
+   * constructor
+   * @param authGuard
+   * @param authService
+   */
   constructor(
     private authGuard: AuthGuard,
-    private authService: AuthService) {
+    private authService: AuthService
+  ) {
     authService.checkToken().subscribe(
-      data=> {
+      data => {
         this.authGuard.isLogin = data.isLogin;
         this.authGuard.isGSAAdmin = data.isGSAAdmin;
         this.isLogin = this.authGuard.isLogin;
         this.isGSAAdmin = this.authGuard.isGSAAdmin;
-        if (!this.authGuard.isLogin) localStorage.clear();
+        if (!this.authGuard.isLogin) {
+          localStorage.clear();
+        }
       }
     )
   }

@@ -7,12 +7,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent implements OnInit {
 
+   /* ATTRIBUTES */
+
   displayTab = 'singin';
+
+  /**
+   * constructor
+   */
   constructor() { }
 
+  /**
+   * lifecycle
+   */
   ngOnInit() {
   }
 
+  /**
+   * change tab
+   * @param arg
+   */
   ChangeDisplay(arg) {
     this.displayTab = arg;
   }

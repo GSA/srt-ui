@@ -1,4 +1,8 @@
 export class Currentuser {
+
+  /**
+   * Constructor.
+   */
   constructor(
       public firstName: string,
       public lastName: string,

@@ -14,25 +14,38 @@ import { Solicitation } from '../../../shared/solicitation';
 
 
 export class ResultsDetailComponent implements OnInit {
-  // @Output() displayType:EventEmitter<string> = new EventEmitter();
-  // @Output() review:EventEmitter<string> = new EventEmitter();
-  private emailType:string = "1";
+
+  /* ATTRIBUTES */
+
+  private emailType:string = '1';
   public lockDocs;
 
   solicitation: Solicitation;
   subscription: Subscription;
   solicitationID: String;
-  type: String = "report";
+  type: String = 'report';
   public step1:Boolean = false;
   public step2:Boolean = false;
   public step3:Boolean = false;
 
+
+  /* CONSTRUCTORS */
+
+  /**
+   * constructor
+   * @param solicitationService
+   * @param router
+   * @param route
+   */
   constructor(
     private solicitationService: SolicitationService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
 
+  /**
+   * lifecycle
+   */
   ngOnInit() {
     this.subscription = this.route.params.subscribe(
       (params: any) => {
@@ -42,22 +55,30 @@ export class ResultsDetailComponent implements OnInit {
         this.solicitationService.getSolicitation(this.solicitationID).subscribe(
           data => {
             data.parseStatus.forEach(element => {
-                if (element.status == "successfully parsed") element.status = "Yes";
-                else if (element.status == "processing error")  element.status = "No";
+                if (element.status === 'successfully parsed') {
+                  element.status = 'Yes';
+                } else if (element.status === 'processing error') {
+                  element.status = 'No';
+                }
             });
-            this.step1 = data.history.filter(function(e){return e["action"].indexOf('reviewed solicitation action requested summary') > -1}).length > 0;
-            this.step2 = data.history.filter(function(e){return e["action"].indexOf('sent email to POC') > -1}).length > 0;
-            this.step3 = data.history.filter(function(e){return e["action"].indexOf('provided feedback on the solicitation prediction result') > -1}).length > 0;
-            this.solicitation = data;
 
+            this.step1 = data.history.filter( function(e) {
+              return e['action'].indexOf('reviewed solicitation action requested summary') > -1;
+            }).length > 0;
+            this.step2 = data.history.filter( function(e) {
+              return e['action'].indexOf('sent email to POC') > -1;
+            }).length > 0;
+            this.step3 = data.history.filter( function(e) {
+              return e['action'].indexOf('provided feedback on the solicitation prediction result') > -1;
+            }).length > 0;
+
+            this.solicitation = data;
             var totalDoc = Number(this.solicitation.numDocs);
-            if (!isNaN(totalDoc))
-            {
+
+            if (!isNaN(totalDoc)) {
               // doesn't have lock files
-              if (totalDoc == this.solicitation.parseStatus.length){
-              }
-              else
-              {
+              if (totalDoc == this.solicitation.parseStatus.length) {
+              } else {
                 var lock = totalDoc - this.solicitation.parseStatus.length;
                 this.lockDocs = [];
                 for(var i = 1; i <= lock; i++){

@@ -15,39 +15,49 @@ import { Email } from './email';
 })
 export class EmailPocComponent implements OnInit {
 
-    solicitation: Solicitation;
-    subscription: Subscription;
-    solicitationID: String;
-    emailTo: String;
-    emailCC: String;
-    subject: String;
-    emailBody: String;
-    type: String = "email";
-    myForm: FormGroup;
-    public step1:Boolean = false;
-    public step2:Boolean = false;
-    public step3:Boolean = false;
-    public emailSent = false;
+  /* ATTRIBUTES */
 
-    constructor(
-      private solicitationService: SolicitationService,
-      private router: Router,
-      private route: ActivatedRoute
-    ) { }
+  solicitation: Solicitation;
+  subscription: Subscription;
+  solicitationID: String;
+  emailTo: String;
+  emailCC: String;
+  subject: String;
+  emailBody: String;
+  type: String = "email";
+  myForm: FormGroup;
+  public step1:Boolean = false;
+  public step2:Boolean = false;
+  public step3:Boolean = false;
+  public emailSent = false;
 
+  public editor;
+  public editorContent = `<h3>I am Example content</h3>`;
+  public editorOptions = {
+    placeholder: "insert content...",
+    modules: {
+      toolbar: false
+    },
+  };
 
-    public editor;
-    public editorContent = `<h3>I am Example content</h3>`;
-    public editorOptions = {
-        placeholder: "insert content...",
-        modules: {
-          toolbar: false
-        },
-    };
+  /* CONSTRUCTORS */
 
+  /**
+   * constructor
+   * @param solicitationService
+   * @param router
+   * @param route
+   */
+  constructor(
+    private solicitationService: SolicitationService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
+
+  /**
+   * lifecycle
+   */
   ngOnInit() {
-
-
     this.subscription = this.route.params.subscribe(
       (params: any) => {
         var now = new Date().toLocaleDateString();
@@ -126,44 +136,45 @@ export class EmailPocComponent implements OnInit {
 
   }
 
-emailContact() {
+  /**
+   * send an email to contact
+   */
+  emailContact() {
 
-    const emailContent = new Email(
-      this.myForm.value.emailTo,
-      this.myForm.value.subject,
-      this.myForm.value.message,
-      this.myForm.value.emailFrom,
-      this.myForm.value.emailCC
-    );
+      const emailContent = new Email(
+        this.myForm.value.emailTo,
+        this.myForm.value.subject,
+        this.myForm.value.message,
+        this.myForm.value.emailFrom,
+        this.myForm.value.emailCC
+      );
 
-    var now = new Date().toLocaleDateString();
-    var user = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
-    var r = this.solicitation.history.push({'date': now, 'action': "sent email to POC", 'user': user , 'status' : 'Email Sent to POC'});
-    this.solicitationService.sendContactEmail(emailContent)
-      .subscribe(
-        msg => {
-          this.emailSent = true;
-          this.step2 = true;
-        },
-        err => {
-        });
+      var now = new Date().toLocaleDateString();
+      var user = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
+      var r = this.solicitation.history.push({'date': now, 'action': "sent email to POC", 'user': user , 'status' : 'Email Sent to POC'});
+      this.solicitationService.sendContactEmail(emailContent)
+        .subscribe(
+          msg => {
+            this.emailSent = true;
+            this.step2 = true;
+          },
+          err => {
+          });
 
 
-    this.solicitationService.updateHistory(this.solicitation)
-      .subscribe(
-        msg => {
-        },
-        err => {
-        });
-  }
-
-  skiptext(event) {
-    if(event.keyCode == 9) {
-      //alert('you just clicked enter');
-      $('#btn').focus();  
-      // rest of your code
+      this.solicitationService.updateHistory(this.solicitation)
+        .subscribe(
+          msg => {
+          },
+          err => {
+          });
     }
-  }
-  
 
-  }
+    skiptext(event) {
+      if(event.keyCode == 9) {
+        $('#btn').focus();
+      }
+    }
+
+
+}

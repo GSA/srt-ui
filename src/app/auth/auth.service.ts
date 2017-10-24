@@ -8,13 +8,19 @@ import { environment } from '../../environments/environment'
 
 @Injectable()
 export class AuthService {
-  isLogin
 
+  /* ATTRIBUTES */
+
+  isLogin;
   private userUrl = environment.SERVER_URL + '/user';
   private loginUrl =  environment.SERVER_URL + '/user/login';
   private tokenUrl =  environment.SERVER_URL + '/user/tokenCheck';
 
-  // register a new user
+  /**
+   * signup
+   * register a new user
+   * @param user
+   */
   signup(user: User){
     const body = JSON.stringify(user);
     const headers = new Headers({'Content-Type': 'application/json'});
@@ -23,7 +29,11 @@ export class AuthService {
         .catch((error: Response) => Observable.throw(error.json()));
   }
 
-  // login user.  returns the json web token for the user.
+  /**
+   * login
+   * login user.  returns the json web token for the user.
+   * @param user
+   */
   login(user: User){
     const body = JSON.stringify(user);
     const headers = new Headers({'Content-Type': 'application/json'});
@@ -32,12 +42,18 @@ export class AuthService {
         .catch((error: Response) => Observable.throw(error.json()))
   }
 
-  // clear json web token on logout
+  /**
+   * logout
+   * clear json web token on logout
+   */
   logout() {
     localStorage.removeItem("token");
     localStorage.clear();
   }
 
+  /**
+   * check token
+   */
   checkToken() {
     var body = localStorage;
     const headers = new Headers({'Content-Type': 'application/json'});

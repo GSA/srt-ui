@@ -14,16 +14,32 @@ import { AppComponent } from '../../app.component'
   styleUrls: ['./userlogin.component.css']
 })
 export class UserloginComponent implements OnInit {
+
+  /* ATTRIBUTES */
+
   myForm: FormGroup;
   errorMessage = false;
   errorInformation = "";
+
+  /* CONSTRUCTOR */
+
+  /**
+   * constructor
+   * @param app
+   * @param authGuard
+   * @param authService
+   * @param router
+   * @param user
+   */
   constructor(private app: AppComponent,
               private authGuard: AuthGuard,
               private authService: AuthService,
               private router: Router,
               private user: UserService) { }
 
-// init data for login form
+  /**
+   * lifecycle
+   */
   ngOnInit() {
     this.myForm = new FormGroup({
       email: new FormControl(null, Validators.required),
@@ -31,8 +47,12 @@ export class UserloginComponent implements OnInit {
     });
   }
 
-// submit authentication data.  uses local storage to hold encrypted json web token and user agency
-// the jwt is set to expire after 2 hours.
+  /**
+   * submit
+   * submit authentication data.  uses local storage to hold encrypted
+   * json web token and user agency.
+   * the jwt is set to expire after 2 hours.
+   */
   onSubmit() {
     const user = new User(this.myForm.value.email, this.myForm.value.password);
     this.authService.login(user)

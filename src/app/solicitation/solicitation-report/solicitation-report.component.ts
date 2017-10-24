@@ -13,6 +13,8 @@ import * as $ from 'jquery';
 })
 export class SolicitationReportComponent implements OnInit {
 
+  /* ATTRIBUTES */
+
   solicitations: any[];
   solicitation = {};
   ict: SelectItem[] = [];
@@ -41,29 +43,31 @@ export class SolicitationReportComponent implements OnInit {
       reviewRec: '',
     };
 
-    sizeshow: boolean = false;
+  sizeshow: Boolean = false;
 
+  /**
+   * constructor
+   * @param solicitationService
+   * @param router
+   */
   constructor(
     private solicitationService: SolicitationService,
     private router: Router
   ) { }
 
-  ngOnInit() {
 
-    // Mobile responsive
-    this.stacked = window.matchMedia("(max-width: 992px)").matches
+  /**
+   * lifecycle
+   */
+  ngOnInit() {
+    this.stacked = window.matchMedia("(max-width: 992px)").matches;
 
     this.initFilterParams();
-
-    // Cache Data
-    // if (!this.solicitationService.solicitations || this.solicitationService.reloadSolicitations)
-    // {
     this.solicitationService.getFilteredSolicitations(this.filterParams)
       .subscribe(
           solicitations => {
             this.solicitations = solicitations;
             this.solicitationService.solicitations = solicitations;
-            //this.solicitationService.reloadSolicitations = false;
 
             this.solicitations = this.solicitations.sort(
               function(a,b){
@@ -74,7 +78,6 @@ export class SolicitationReportComponent implements OnInit {
                 else return 0;
               }
             )
-
             this.dateScan = this.solicitations[0].date;
             $('.pDataTable').show();
             // sorting
@@ -83,18 +86,6 @@ export class SolicitationReportComponent implements OnInit {
           },
           err => {
       });
-    // }
-    // else
-    // {
-    //   // sorting
-    //   this.solicitations = this.sortByReviewResult(this.solicitationService.solicitations)
-    //   this.getNoticeTypes(this.solicitationService.solicitations);
-    //   this.dateScan = this.solicitations[0].date;
-    // }
-
-    // do I still need this?
-    // this.solicitationService.pushedSolicitations.subscribe(
-    //   solicitations => this.solicitations = solicitations);
 
     this.ict.push({label: 'All', value: null});
     this.ict.push({label: 'Yes', value: 'Yes'});
@@ -105,10 +96,11 @@ export class SolicitationReportComponent implements OnInit {
     this.revResult.push({label: 'Undetermined', value: 'Undetermined'});
     this.revResult.push({label: 'Compliant', value: "Compliant"});
 
-
   }
 
-  // set initial params based upon logged in user
+  /**
+   * initialize filter
+   */
   initFilterParams() {
     var agency = localStorage.getItem("agency");
     var userRole = localStorage.getItem("userRole");
@@ -119,7 +111,11 @@ export class SolicitationReportComponent implements OnInit {
     }
   }
 
-  // Manual review button kicks this off.  navigates to solicitation review page
+  /**
+   * select solicitation
+   * Manual review button kicks this off.  navigates to solicitation review page
+   * @param solicitation
+   */
   selectSol(solicitation: any) {
     var now = new Date().toLocaleDateString();
     var user = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
@@ -135,6 +131,10 @@ export class SolicitationReportComponent implements OnInit {
   }
 
 
+  /**
+   * sort by review result
+   * @param solicitations
+   */
   sortByReviewResult(solicitations) {
     var Undetermined = solicitations.filter(d => d.reviewRec == 'Undetermined');
     var Noncompliant = solicitations.filter(d => d.reviewRec == 'Non-compliant (Action Required)');
@@ -143,6 +143,10 @@ export class SolicitationReportComponent implements OnInit {
     return solicitations;
   }
 
+  /**
+   * get notice types for filter
+   * @param solicitations
+   */
   getNoticeTypes(solicitations) {
     var noticeTypeMap = {};
     if ( solicitations)
@@ -171,6 +175,10 @@ export class SolicitationReportComponent implements OnInit {
     }
   }
 
+  /**
+   * filter solicitation by date
+   * @param event
+   */
   filterDate(event) {
      if (this.dateFrom && this.dateTo) {
         this.minDate = this.dateFrom;
@@ -185,6 +193,9 @@ export class SolicitationReportComponent implements OnInit {
      }
   }
 
+  /**
+   * reset filter result
+   */
   reset() {
     if(!this.dateFrom && !this.dateTo)
     {
@@ -192,7 +203,11 @@ export class SolicitationReportComponent implements OnInit {
     }
   }
 
-  soryByDate(event:any) {
+  /**
+   * sort solicitation by date
+   * @param event
+   */
+  soryByDate(event: any) {
     if (this.dateSorting != event.order)
     {
         this.dateSorting = event.order;
@@ -209,8 +224,5 @@ export class SolicitationReportComponent implements OnInit {
     }
     this.getNoticeTypes(this.solicitations);
   }
-
-
-
 
 }

@@ -8,19 +8,33 @@ import { SolicitationService } from '../solicitation.service';
 })
 export class FeedbackReportComponent implements OnInit {
 
+  /* ATTRIBUTES */
+
   params = {
     "$where" : "this.feedback.length > 0"
   };
 
   feedback;
+
+  /* CONSTRUCTORS */
+
+  /**
+   * constructor
+   */
   constructor(
     private solicitationService: SolicitationService
   ) {}
 
+  /**
+   * lifecycle
+   */
   ngOnInit() {
     this.getFeedback();
   }
 
+  /**
+   * get feedback
+   */
   getFeedback() {
     this.solicitationService.getSolicitationFeedback(this.params).subscribe(
       data => {

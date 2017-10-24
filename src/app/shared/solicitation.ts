@@ -1,4 +1,8 @@
 export class Solicitation {
+
+  /**
+   * Constructor.
+   */
   constructor (
         public solNum: String,
         public title: String,
@@ -14,11 +18,11 @@ export class Solicitation {
         public position: String,
         public reviewStatus: Boolean,
         public noticeType: String,
-        public parseStatus: [{name: String, status: String}],        
+        public parseStatus: [{name: String, status: String}],
         public history: [{
           date: String,
-          action: String,          
-          user: String,          
+          action: String,
+          user: String,
           status: String
         }],
         public feedback: [{

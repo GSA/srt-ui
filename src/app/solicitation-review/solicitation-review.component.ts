@@ -13,17 +13,18 @@ import { Solicitation } from '../shared/solicitation';
 })
 export class SolicitationReviewComponent implements OnInit {
 
-  solicitation = [];
+  /* ATTRIBUTES */
+
+  public solicitation = [];
   private subscription: Subscription;
   private solicitationIndex: String;
 
-  // radio button choices
-  choices = [
-    {value: 'Yes', display: 'Yes'},
-    {value: 'No', display: 'No'}
+  public choices = [
+    { value: 'Yes', display: 'Yes'},
+    { value: 'No', display: 'No'}
   ];
-// initialize radio choices
-	review = {
+
+	public review = {
 		eit: '',
 		standards: '',
 		v_conformance: '',
@@ -32,15 +33,26 @@ export class SolicitationReviewComponent implements OnInit {
 		comments: ''
 	};
 
-  constructor( private solicitationService: SolicitationService, private route: ActivatedRoute ) { }
+  /* CONSTRUCTORS */
 
+  /**
+   * constructor
+   * @param solicitationService
+   * @param route
+   */
+  constructor(
+    private solicitationService: SolicitationService,
+    private route: ActivatedRoute
+  ) { }
+
+  /**
+   * lifecycle
+   */
   ngOnInit() {
-    // listen for the activated route and use the 'id'  to pull chosen solicitation from mongo
-    this.subscription = this.route.params.subscribe(
+    this.subscription = this.route.params.subscribe (
       (params: any) => {
-    this.solicitationIndex = params['id'];
-    // pull chosen solicitation from mongo
-    this.solicitationService.getSolicitation(this.solicitationIndex)
+      this.solicitationIndex = params['id'];
+      this.solicitationService.getSolicitation(this.solicitationIndex)
       .subscribe(
         solicitation => {
           this.solicitation.push(solicitation);

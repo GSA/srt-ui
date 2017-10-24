@@ -13,7 +13,6 @@
 
     <div id="detail">
 
-
       <div style="display: inline-block; font-weight: 500" *ngIf="solicitation">
         <div style="font-size: 24px; padding-bottom: 15px;">{{solicitation.title}}</div>
         <div style="padding-bottom: 5px"><a target="_blank" href="{{solicitation.url}}">{{solicitation.url}}</a></div>
@@ -22,6 +21,7 @@
           <span style="font-weight:500">This solicitation may not contain sufficient Section 508 requirements.</span>
         </div>
       </div>
+
       <div id="rbutton">
         <div [routerLink]="['/solicitation/email', solicitationID]" class="srt-button" style="width: 150px; ">
           <div>
@@ -29,7 +29,6 @@
           </div>
         </div>
       </div>
-
 
       <div class="row" *ngIf="solicitation" style="clear: both; padding-top: 30px;">
 

@@ -9,11 +9,20 @@ import { SolicitationService } from '../../solicitation.service';
 })
 export class FormComponent implements OnInit {
 
+  /* ATTRIBUTES */
+
   @Input() solicitation;
   submitter;
   date;
-  params: {
-  }
+  params: { }
+
+  /* CONSTRUCTORS */
+
+  /**
+   * constructor
+   * @param route
+   * @param solicitationService
+   */
   constructor(
     private route: ActivatedRoute,
     private solicitationService: SolicitationService

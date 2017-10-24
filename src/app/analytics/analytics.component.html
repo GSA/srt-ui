@@ -1,0 +1,126 @@
+<!-- <router-outlet></router-outlet> -->
+<main id="content" class="bypass-block-target" tabindex="-1">
+<div class="row analytic-div analytic-container" >
+    <div class="clearfix">
+        <div role="heading" tabindex="0" aria-level="1" class="col-md-12  clearfix analytic-smalltitle">
+            The data on the dashboard include only
+            <a [routerLink]="['/help/faq', 'ICT']" aria-label="definition of ICT">ICT</a> /
+            <a [routerLink]="['/help/faq', 'EIT']" aria-label="definition of EIT">E&IT </a>
+            solicitations.  The following are excluded from the data on the dashboard: pre-solicitations,
+            sources sought, special notices, award notice, intent to bundle requirements, solicitations with zero and/or non-machine-readable document(s),
+            and other undetermined solicitations.
+        </div>
+
+        <div class="col-md-12 nopadding clearfix analytic-titlepadding" tabindex="0"  role="region" aria-labelledby="region1">
+            <h2 id="region1" style="display:none">the result and number fo 30 day's scan </h2>
+            <div class="srt-blue analytic-bigtitle">LAST 30 DAYS</div>
+
+            <div class="scanned-solicitation">
+                <app-scanned-solicitation [ScannedSolicitationChart]="ScannedSolicitationChart"></app-scanned-solicitation>
+            </div>
+            <div class="prediction-result">
+                <app-prediction-result [PredictResultChart]="PredictResultChart"></app-prediction-result>
+            </div>
+
+        </div>
+
+
+        <div class="col-md-12 nopadding clearfix analytic-select-container" tabindex="0" role="region" aria-labelledby="region2">
+            <h2 id="region2" style="display:none">select part</h2>
+            <div class="clearfix analytic-padding">
+                <div class="analytic-padding-left">
+                    <label for="agency"  class="srt-blue analytic-select-position">Select your agency</label>
+                    <div class="analytic-second-select-position" >
+                        <select id="agency"
+                                class="analytic-select-style"
+                                [ngModel]="selectedGovernment"
+                                (ngModelChange)="onChange($event)"  >
+                            <option value="Government-wide" >Government-wide</option>
+                            <option *ngFor="let data of agencyList" >{{data}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="analytic-padding-left">
+                    <label for="time" class="srt-blue analytic-select-position" >Time period</label>
+                    <div class="analytic-second-select-position">
+                        <select id="time" class="analytic-select-style"
+                            (change)="onPeriodChange($event.target.value)"
+                            [ngModel]="selectedPeriod" >
+                            <option value="All"  *ngIf="selectedGovernment == 'Government-wide'">All</option>
+                            <option value="This Month">This Month</option>
+                            <option value="This Year">This Year</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-12 nopadding clearfix analytic-section1-container" tabindex="0" role="region" aria-labelledby="region3">
+                <h2 id="region3" style="display:none">the result after you select</h2>
+            <div class="row-eq-height">
+                <div class="col-md-6 nopadding">
+                    <div class="col-md-6 nopadding">
+                      <app-donut-chart
+                        [doughnutChartDataInput]="ComplianceRateChart"
+                        [title]="'Preliminary Compliance Rate'"
+                        [componentTooltip]="'Compliance Rate = (Total compliant ICT solicitations / Total ICT solicitations scanned) * 100%'">
+                      </app-donut-chart>
+                    </div>
+                    <div class="col-md-6 nopadding">
+                      <app-donut-chart
+                          [doughnutChartDataInput]="ConversionRateChart"
+                          [title]="'Conversion Rate'"
+                          [componentTooltip]="'Conversion Rate = (# updated compliant solicitations / Total non-compliant ICT solicitations) * 100%'">
+                      </app-donut-chart>
+                    </div>
+                </div>
+
+                <div class="col-md-6 nopadding">
+                    <app-top-srt-actions [TopSRTActionChart]="TopSRTActionChart"></app-top-srt-actions>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-12 nopadding clearfix analytic-section2-container" tabindex="0" role="region" aria-labelledby="region4" >
+                <h2 id="region4" style="display:none">histogram of top 10 compliant angencies</h2>
+                <app-top-agencies-percentage
+                    *ngIf="isGovernomentWide"
+                    [isGovernomentWide]="isGovernomentWide"
+                    [TopAgenciesChart]="TopAgenciesChart"
+                    [selectedGovernment]="selectedGovernment"
+                    [barTitle]="barTitle"
+                    [selectedPeriod]="selectedPeriod"
+                    [toPeriod]="toPeriod"
+                    [fromPeriod]="fromPeriod"
+                    [xAxis]="xAxis"></app-top-agencies-percentage>
+                <app-line-charts
+                     *ngIf="!isGovernomentWide"
+                     [TopAgenciesChart]="TopAgenciesChart"
+                     [selectedGovernment]="selectedGovernment"
+                     [selectedPeriod]="selectedPeriod"
+                     [toPeriod]="toPeriod"
+                     [fromPeriod]="fromPeriod">
+                </app-line-charts>
+        </div>
+
+        <div class="col-md-12 nopadding clearfix analytic-section3-container" tabindex="0" role="region" aria-labelledby="region5" >
+                <h2 id="region5" style="display:none">pie chart for prediction result</h2>
+            <!-- <div style="font-size: 24px; margin-bottom: 20px; font-weight: 600" class="srt-blue">LAST 30 DAYS</div>  -->
+            <!-- <div class="user-login">
+                <app-user-login></app-user-login>
+            </div> -->
+            <!-- <div class="exclude"> -->
+                <app-undetermined-solicitations [UndeterminedSolicitationChart]="UndeterminedSolicitationChart"></app-undetermined-solicitations>
+            <!-- </div> -->
+            <!-- <div class="machine-readable">
+                <app-machine-readable [MachineReadableChart]="MachineReadableChart" ></app-machine-readable>
+            </div> -->
+        </div>
+
+
+    </div>
+</div>
+</main>

@@ -1,0 +1,94 @@
+<main id="content" class="bypass-block-target" tabindex="-1">
+  <div class="srt-banner blue">
+    <div class="container">
+      <h1>Frequently Asked Questions</h1>
+      <p>Solicitation Review Tool (SRT) is an automated predictive analysis application that performs scans of the Federal Business
+        Opportunities /FedBizOpps website and delivers: (1) a report containing all of the new solicitations for the previous
+        day; (2) a report of flagged solicitations that require manual review for specific regulatory requirements and compliance;
+        (3) a web-based portal for agency SMEs to perform manual reviews of flagged solicitations and to communicate with contracting
+        POCs for improvement; and (4) analytics and trending of flagged solicitations overtime by agency and government-wide.
+      </p>
+      <p>SRT uses natural language processing, text mining, and machine learning algorithms to automatically identify whether
+        a solicitation contains sufficient compliance requirements for a particular use case (e.g. Section 508 Technical Requirements).
+        To learn more about SRT from the FAQs below. </p>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="faq-content-div">
+
+      <!-- Search FAQs by text -->
+
+      <div style="display: table; float: right">
+        <div style="display: table-cell; vertical-align: middle">
+          <input id="search" class="search-input" placeholder="Search FAQs" (keyup)="search()" aria-label="input area to search your question">
+        </div>
+        <div style="display: table-cell; vertical-align: middle; cursor: pointer" (click)="search()" class="search-button">
+          Search
+        </div>
+      </div>
+
+      <div class="row nopadding" style="clear: both">
+
+        <!-- Left navigation -->
+
+        <div class="sticky-nav">
+          <ul class="usa-sidenav-list">
+            <li>
+              <a data-toggle="tab" (click)="scroll('mostViewTitle')">Most Viewed FAQs</a>
+            </li>
+            <li>
+              <a data-toggle="tab" (click)="scroll('backgroundInfoTitle')">Background</a>
+            </li>
+            <li>
+              <a data-toggle="tab" (click)="scroll('aboutTitle')">About SRT</a>
+            </li>
+            <li>
+              <a data-toggle="tab" (click)="scroll('scanningProcessTitle')">Explore the Scanning Process</a>
+            </li>
+            <li>
+              <a data-toggle="tab" (click)="scroll('accessLevelTitle')">Understand Access Privileges</a>
+            </li>
+            <li>
+              <a data-toggle="tab" (click)="scroll('manageWorkloadTitle')">Manage/ Review Solicitations</a>
+            </li>
+            <li>
+              <a data-toggle="tab" (click)="scroll('manageProfileTitle')">Manage Your Profile</a>
+            </li>
+            <li>
+              <a data-toggle="tab" (click)="scroll('requestSupportTitle')">Request Support</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Content area -->
+
+        <div class="col-md-9 nopadding">
+          <div class="faq-right-content">
+            <div class="search-title" *ngFor="let section of faq;">
+              <h2 id="{{section.title}}">{{section.name}}</h2>
+              <div class="panel-group" id="{{section.id}}" *ngIf="section.children">
+                <div class="panel panel-default search-content" *ngFor="let element of section.children; let i='index'">
+
+                  <div class="panel-heading">
+                    <a class="panel-link collapsed" data-toggle="collapse" [attr.data-parent]="'#'+section.id" href="#{{section.id}}{{i}}" [ngClass]="element.titleClass">
+                      <h4 class="panel-title" style="color:black">{{element.title}}</h4>
+                    </a>
+                  </div>
+                  <div id="{{section.id}}{{i}}" class="panel-collapse collapse" [ngClass]="element.class">
+                    <div class="panel-body" [ngClass]="element.picclass" [innerHTML]="element.body">
+                      {{element.body}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</main>

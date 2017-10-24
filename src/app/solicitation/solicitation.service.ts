@@ -11,10 +11,11 @@ import { environment } from '../../environments/environment'
 
 @Injectable()
 export class SolicitationService {
+  /* ATTRIBUTES */
+
   pushedSolicitations = new EventEmitter();
   pushedSolicitation = new EventEmitter();
   solicitations: any[];
-  //reloadSolicitations = true;
   analytics = {
     ScannedSolicitationChart: null,
     MachineReadableChart: null,
@@ -24,72 +25,110 @@ export class SolicitationService {
     TopAgenciesChart: null,
     PredictResultChart: null,
     UndeterminedSolicitationChart: null
+  };
+
+  private solicitationsUrl = environment.SERVER_URL + "/predictions";
+  private feedbackURL = environment.SERVER_URL + "/solicitation/feedback";
+  private ICTUrl = environment.SERVER_URL + "/ICT";
+  private solicitationsFilterUrl = environment.SERVER_URL +
+    "/predictions/filter";
+  private solicitationUrl = environment.SERVER_URL + "/solicitation/";
+  private emailUrl = environment.SERVER_URL + "/email/";
+  private AgencyUrl = environment.SERVER_URL + "/Agencies";
+
+  /* CONSTRUCTORS */
+
+  /**
+   * constructor
+   * @param http
+   */
+  constructor(private http: Http) {}
+
+  /**
+   * get data
+   */
+  getData() {
+    var data = this.http
+      .get(this.solicitationsUrl)
+      .map((res: Response) => res.json());
+    return data;
   }
-  constructor ( private http: Http ){};
 
-  private solicitationsUrl = environment.SERVER_URL + '/predictions';
-  private feedbackURL = environment.SERVER_URL + '/solicitation/feedback';
-  private ICTUrl = environment.SERVER_URL + '/ICT';
-  private solicitationsFilterUrl = environment.SERVER_URL + '/predictions/filter';
-  private solicitationUrl = environment.SERVER_URL + '/solicitation/';
-  private emailUrl = environment.SERVER_URL + '/email/';
-  private AgencyUrl = environment.SERVER_URL + '/Agencies';
-
-  // private solicitationsUrl = 'http://localhost:3000/predictions';
-  // private ICTUrl = 'http://localhost:3000/ICT';
-  // private AnalyticUrl = 'http://localhost:3000/Analytics';
-  // private AgencyUrl = 'http://localhost:3000/Agencies';
-  // private AgencyListUrl = 'http://localhost:3000/AgencyList';
-  // private solicitationsFilterUrl = 'http://localhost:3000/predictions/filter';
-  // private solicitationUrl = 'http://localhost:3000/solicitation/';
-  // private emailUrl = 'http://localhost:3000/email/';
-
+  /**
+   * Get filtered solicitations
+   * @param body
+   */
   getFilteredSolicitations(body) {
-  	return this.http.post(this.solicitationsFilterUrl, body)
-        .map((res: Response) => res.json())
-        .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
+    return this.http
+      .post(this.solicitationsFilterUrl, body)
+      .map((res: Response) => res.json())
+      .catch((error: any) =>
+        Observable.throw(error.json().error || 'Server Error')
+      );
   }
 
-// still using?
-  pushSolicitations(solicitations: Solicitation[]) {
-  	this.pushedSolicitations.emit(solicitations);
+  /**
+   * get ICT
+   */
+  getICT() {
+    var data = this.http.get(this.ICTUrl).map((res: Response) => res.json());
+    return data;
   }
 
+  /**
+   * Get solicitation
+   * @param index
+   */
   getSolicitation(index: String): Observable<Solicitation> {
     const solUrl = this.solicitationUrl + index;
-    return this.http.get(solUrl)
-      .map((res: Response) => res.json());
+    return this.http.get(solUrl).map((res: Response) => res.json());
   }
 
-
-  sendContactEmail(emailContent) {
-    return this.http.post(this.emailUrl, emailContent)
-      .map((res: Response) => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
-    }
-
-
-  getData() {
-      var data =  this.http.get(this.solicitationsUrl).map((res: Response) => res.json());
-      return data
-  }
-
-  getICT() {
-      var data =  this.http.get(this.ICTUrl).map((res: Response) => res.json());
-      return data
-  }
-
+  /**
+   * get feedback of selected solicitation
+   * @param filter
+   */
   getSolicitationFeedback(filter) {
-    console.log(filter)
-    return this.http.post(this.feedbackURL, filter)
-    .map((res: Response) => res.json())
-    .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
+    console.log(filter);
+    return this.http
+      .post(this.feedbackURL, filter)
+      .map((res: Response) => res.json())
+      .catch((error: any) =>
+        Observable.throw(error.json().error || 'Server Error')
+      );
   }
 
-  updateHistory(solicitation) {
-    //this.reloadSolicitations = true;
-    return this.http.post(this.solicitationUrl, solicitation)
+  /**
+   * push soliciations
+   * @param solicitations
+   */
+  pushSolicitations(solicitations: Solicitation[]) {
+    this.pushedSolicitations.emit(solicitations);
+  }
+
+  /**
+   * Send contact email
+   * @param emailContent
+   */
+  sendContactEmail(emailContent) {
+    return this.http
+      .post(this.emailUrl, emailContent)
       .map((res: Response) => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
+      .catch((error: any) =>
+        Observable.throw(error.json().error || 'Server Error')
+      );
+  }
+
+  /**
+   * update history of selected solicitation
+   * @param solicitation
+   */
+  updateHistory(solicitation) {
+    return this.http
+      .post(this.solicitationUrl, solicitation)
+      .map((res: Response) => res.json())
+      .catch((error: any) =>
+        Observable.throw(error.json().error || 'Server Error')
+      );
   }
 }

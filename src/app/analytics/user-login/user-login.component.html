@@ -1,0 +1,20 @@
+<div class="srt-blue user-login-title">
+    SRT User Login Activities <br /> &nbsp;
+</div>
+
+
+<div class="user-login-padding">
+    <div class="user-login-user"># Users</div>
+    <div class="user-login-data">Date</div>
+    <div class="user-login-content">
+        <span class="user-login-font">{{currentLoginUsers}}</span> users on the site now
+    </div>
+    <div class="user-login-canvas">
+        <canvas baseChart
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="options"
+                [colors]="colorsOverride"
+                [chartType]="lineChartType"></canvas>
+    </div>
+</div>

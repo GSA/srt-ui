@@ -9,37 +9,52 @@ import { environment } from '../environments/environment'
 @Injectable()
 export class UserService {
 
-  private userUrl = environment.SERVER_URL + '/user/filter';
-  private updateUserUrl = environment.SERVER_URL + '/user/update';
-  private removeUserUrl = environment.SERVER_URL + '/user/remove';
+  /* ATTRIBUTES */
+
   private loginUrl = environment.SERVER_URL + '/user/login';
+  private removeUserUrl = environment.SERVER_URL + '/user/remove';
+  private updateUserUrl = environment.SERVER_URL + '/user/update';
+  private userUrl = environment.SERVER_URL + '/user/filter';
 
   public updateCurrentUser: EventEmitter<Currentuser>;
 
-  constructor(private http: Http) {
+  /* CONSTRUCTOR */
+
+  /**
+   * constructor
+   * @param http
+   */
+  constructor(
+    private http: Http
+  ) {
     this.updateCurrentUser = new EventEmitter();
    }
 
+  /**
+   * Get entire user records
+   * @param filterParams
+   */
+  public getUsers(filterParams) {
+    return this.http.post(this.userUrl, filterParams)
+          .map((response: Response) => response.json());
+  }
+
+  /**
+   * Register a new user
+   * @param currentUser
+   */
   public saveUser(currentUser: Currentuser){
      this.updateCurrentUser.emit(currentUser);
   }
 
-  // GetUsers()
-  public GetUsers(filterParams) {
-      return this.http.post(this.userUrl, filterParams)
-            .map((response: Response)=> response.json());
-  }
 
-  // UpdateUser
-  public UpdateUser(updatedUser) {
+  /**
+   * Update User
+   * @param updatedUser
+   */
+  public updateUser(updatedUser) {
       return this.http.post(this.updateUserUrl, updatedUser)
-              .map((response: Response)=> response.json());
-  }
-
-
-  // Remove User
-  public RemoveUser(user) {
-      //return "";
+              .map((response: Response) => response.json());
   }
 
 }

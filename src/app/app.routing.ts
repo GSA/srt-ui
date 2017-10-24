@@ -1,24 +1,16 @@
 import { Routes, RouterModule } from '@angular/router';
+
+
 import { AdminComponent } from './admin/admin.component';
-import { AnalyticsComponent } from '../analytics/analytics.component';
-import { HelpComponent } from '../help/help.component'
+import { AnalyticsComponent } from './analytics/analytics.component';
 import { AuthComponent } from './auth/auth.component';
+import { AuthGuard } from './auth-guard.service';
+import { HelpComponent } from './help/help.component';
+import { PasswordComponent } from './password/password.component';
+import { ProfileComponent } from './profile/profile.component';
+import { SolicitationComponent } from './solicitation/solicitation.component';
 import { SolicitationReviewComponent } from './solicitation-review/solicitation-review.component';
 import { SrtComponent } from './srt/srt.component';
-import { ProfileComponent } from './profile/profile.component';
-import { PasswordComponent } from './password/password.component';
-
-
-import { AuthGuard } from './auth-guard.service'
-
-
-import { SolicitationComponent } from './solicitation/solicitation.component';
-// import { SolicitationReportComponent } from './solicitation/solicitation-report/solicitation-report.component';
-// import { ResultsDetailComponent } from './solicitation/summary/results-detail/results-detail.component';
-// import { SummaryComponent } from './solicitation/summary/summary.component';
-// import { EmailPocComponent } from './solicitation/summary/email-poc/email-poc.component';
-// import { HelpUsImproveComponent } from './solicitation/summary/help-us-improve/help-us-improve.component';
-
 
 
 const APP_ROUTES: Routes = [
@@ -26,13 +18,11 @@ const APP_ROUTES: Routes = [
   {path: 'auth', component: AuthComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'password', component: PasswordComponent, canActivate: [AuthGuard]},
-  //{path: 'solicitation', component: SolicitationComponent, canActivate: [AuthGuard]},
-
-  // {path: 'report/:id', component: SummaryComponent, canActivate: [AuthGuard]},
-  // {path: 'report', component: SolicitationReportComponent, canActivate: [AuthGuard]},
-  // {path: 'email/:id', component: EmailPocComponent, canActivate: [AuthGuard]},
   {path: 'home', component: SrtComponent, canActivate: [AuthGuard]},
-  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
+  {path: 'admin/accepted', component: AdminComponent, canActivate: [AuthGuard] , data: { isAccepted: true, isRejected: false }},
+  {path: 'admin/rejected', component: AdminComponent, canActivate: [AuthGuard] , data: { isAccepted: false, isRejected: true }},
+  {path: 'admin/pending', component: AdminComponent, canActivate: [AuthGuard] , data: { isAccepted: false, isRejected: false }},
+  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard] , data: { isAccepted: false, isRejected: false }},
   {path: 'analytics', component: AnalyticsComponent, canActivate: [AuthGuard]},
   {path: 'feedback', component: SolicitationReviewComponent, canActivate: [AuthGuard]},
   {path: 'help', component: HelpComponent, canActivate: [AuthGuard]},

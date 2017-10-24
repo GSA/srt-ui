@@ -8,37 +8,51 @@ import { AuthService } from './auth/auth.service'
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-   constructor(private authService:AuthService, private router: Router) {}
+
+  /* ATTRIBUTES */
 
   isLogin = false;
   isGSAAdmin = false;
 
+  /* CONSTRUCTOR */
+
+  /**
+   * constructor
+   * @param authService
+   * @param router
+   */
+  constructor(
+    private authService: AuthService, private router: Router
+  ) {}
+
+  /**
+   * is activate
+   * @param route
+   * @param state
+   */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     let url: string = state.url;
     return this.checkLogin(url);
   }
 
+  /**
+   * check if use is logged in
+   * @param url
+   */
   checkLogin(url: string): boolean {
-    if (this.isLogin)
-    {
+    if (this.isLogin) {
       return true;
-    }
-    else
-    {
+    } else {
        this.authService.checkToken().subscribe(
-        data=> {
+        data => {
           this.isLogin = data.isLogin;
-          if (data.isLogin)
-          {
+          if (data.isLogin) {
             this.router.navigate([url]);
             return true;
-          }
-          else
-          {
+          } else {
             this.router.navigate(['/auth']);
           }
-        }
-      )
+        })
     }
   }
 }

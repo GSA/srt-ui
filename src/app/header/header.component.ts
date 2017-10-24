@@ -13,39 +13,56 @@ import { AuthGuard } from '../auth-guard.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-
-/****************
-*  The Header Component contains the nav bar for the SRT application
-****************/
 export class HeaderComponent implements OnInit {
-  // firstName is displayed in the welcome message on the navbar
+
+  /* ATTRIBUTES */
+
   private firstName = "";
   public currentID = "";
   @Input() isLogin;
   @Input() isGSAAdmin;
 
-// UserService propogates the firstName and agency to peer components
-  constructor(private authGuard: AuthGuard,
-              private app: AppComponent,
-              private authService: AuthService,
-              private router: Router,
-              private user: UserService) {
-      // listen for the event letting the system know a user has logged in
+  /* CONSTRUCTORS */
+
+  /**
+   * constructor
+   * @param authGuard
+   * @param app
+   * @param authService
+   * @param router
+   * @param user
+   */
+  constructor(
+    private authGuard: AuthGuard,
+    private app: AppComponent,
+    private authService: AuthService,
+    private router: Router,
+    private user: UserService
+  ) {
       user.updateCurrentUser.subscribe(currentUser => this.saveCurrentUser(currentUser));
       if (localStorage.getItem("firstName")) {
         this.firstName = localStorage.getItem("firstName");
       }
   }
 
+  /**
+   * lifecycle
+   */
   ngOnInit() {
-      this.currentID = localStorage.getItem("id");
+      this.currentID = localStorage.getItem('id');
   }
 
+  /**
+   * lifecycle
+   */
   ngOnChanges() {
     console.log(this.isGSAAdmin);
   }
 
-  // clear user information and remove jwt
+  /**
+   * logout
+   * clear user information and remove jwt
+   */
   onLogout() {
     var u = new Currentuser("", "", "", "", "");
     this.user.saveUser(u);
@@ -55,21 +72,22 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('auth');
   }
 
-
-  // set the firstName of the user for display
+  /**
+   * save current user information to localstorage
+   * @param currentUser
+   * set the firstName of the user for display
+   */
   saveCurrentUser(currentUser) {
     this.firstName = currentUser.firstName;
     localStorage.setItem("firstName", currentUser.firstName);
   }
 
-  GetHash(hash)
-  {
+  /**
+   * Get hash from URL
+   * @param hash
+   */
+  GetHash(hash) {
       return window.location.href.indexOf(hash) > -1;
   }
 
-
-  /**backToSkipMain(id) {
-    $('#id').blur();  
-  }
-*/
 }

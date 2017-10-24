@@ -7,8 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SolicitationComponent implements OnInit {
 
+  /* CONSTRUCTORS */
+
+  /**
+   * constructor
+   */
   constructor() { }
 
+  /**
+   * lifecycle
+   */
   ngOnInit() {
   }
 

@@ -1,0 +1,35 @@
+<div class="chartcontainer">
+
+        <div class="srt-blue circlechart">
+            {{title}}
+            <sup class="supfont"
+                [tooltip]="donutChart" tooltipPlacement="bottom">
+                <i class="fa fa-info-circle info" aria-hidden="true" ></i>
+            </sup>
+            <tooltip-content #donutChart [animation]="true">
+                <div>{{componentTooltip}}</div>
+            </tooltip-content>
+        </div>
+
+        <div class="precposi">
+            <div id="{{id}}" class="percentage">
+                {{percentage}}%
+            </div>
+            <div class="perposition">
+                <canvas baseChart
+                        [data]="doughnutChartData"
+                        [labels]="doughnutChartLabels"
+                        [options]="options"
+                        [colors]="colorsOverride"
+                        [chartType]="doughnutChartType">
+                </canvas>
+            </div>
+        </div>
+
+        <div class="perresult">
+            <span class="chartspan">{{numerator}}</span> out of
+            <span class="chartspan">{{denominator}}</span>
+            <span [innerHTML]="note"></span>
+        </div>
+
+    </div>

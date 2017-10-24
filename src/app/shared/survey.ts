@@ -1,4 +1,8 @@
 export class Survey {
+
+  /**
+   * Constructor.
+   */
   constructor(
       public ID: string,
       public Question: string,
@@ -8,6 +12,7 @@ export class Survey {
       public Note: string,
       public ChoicesNote: string[]
     ) {}
+
 }
 
-  
+

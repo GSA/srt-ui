@@ -6,20 +6,19 @@
     <div class="srt-page-title srt-title-padding">
         User Access Requests
     </div>
-  
+
 
   <!-- Tabs -->
-    <div class="active-tabs" ng-if="showActivitySelection()">        
+    <div class="active-tabs" ng-if="showActivitySelection()">
         <div style="width: 100%; height: 70px;">
-            <!-- min-width = (80 + 5) * number of tab -->
             <ul class="us-tab-slide nopadding" style="padding: 0px;">
-                <li id="tab0" class="us-tab-item-slide" (click)="ChangeDisplayTab('0')"  [ngClass]="{'active':displayTab=='0'}">
+                <li id="tab0" class="us-tab-item-slide" [routerLink]="['/admin/pending']" [ngClass]="{'active':pending}">
                     <a>PENDING</a>
                 </li>
-                <li id="tab1" class="us-tab-item-slide" (click)="ChangeDisplayTab('1')" [ngClass]="{'active':displayTab=='1'}">
+                <li id="tab1" class="us-tab-item-slide" [routerLink]="['/admin/accepted']" [ngClass]="{'active': accepted}">
                     <a>APPROVED</a>
                 </li>
-                <li id="tab2" class="us-tab-item-slide" (click)="ChangeDisplayTab('2')" [ngClass]="{'active':displayTab=='2'}">
+                <li id="tab2" class="us-tab-item-slide" [routerLink]="['/admin/rejected']" [ngClass]="{'active': rejected}">
                     <a>DENIED</a>
                 </li>
             </ul>
@@ -29,20 +28,38 @@
 
     <div style="height: calc(100vh - 280px); overflow: auto; clear: both" class="clearfix">
 
-        <div *ngIf="displayTab=='0'">
-            <app-pending></app-pending>
-        </div>
-
-        <div *ngIf="displayTab=='1'">
-            <app-approved></app-approved>
-        </div>
-
-        <div *ngIf="displayTab=='2'">
-            <app-denied></app-denied>
-        </div>
-
-    </div>
-
-
-</div>
+        <table class="table" style="font-size: 16px">
+            <thead>
+                <tr style="font-weight: 700">
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Agency</th>
+                    <!-- <th>Office</th> -->
+                    <th>Email</th>
+                    <th>Request Date/Time</th>
+                    <th *ngIf="accepted">Security Access</th>
+                    <th *ngIf="rejected">Reason</th>
+                    <th *ngIf="pending">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users; let even = even; let odd = odd"  [ngClass]="{ odd: odd, even: even }">
+                    <td>{{user.firstName}} {{user.lastName}}</td>
+                    <td>{{user.position}} </td>
+                    <td>{{user.agency}}</td>
+                    <!-- <td></td> -->
+                    <td>{{user.email}}</td>
+                    <td>{{user.creationDate}}</td>
+                    <td *ngIf="accepted">{{user.userRole}}</td>
+                    <td *ngIf="rejected"></td>
+                    <td *ngIf="pending">
+                        <span style="color: #0a831e; cursor: pointer" (click)="Approve(user)">Approve</span>&nbsp;&nbsp;&nbsp;
+                        <span style="color: #ff0202; cursor: pointer" (click)="Reject(user)">Deny</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+  </div>
 </main>
+

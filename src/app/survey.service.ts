@@ -9,12 +9,25 @@ import { environment } from '../environments/environment'
 @Injectable()
 export class SurveyService {
 
+  /* ATTRIBUTES */
+
   private surveysURL = environment.SERVER_URL + '/surveys';
 
-  constructor(private http:Http) { }
+  /* CONSTRUCTOR */
 
-  public GetSurveys() {
+  /**
+   * constructor
+   * @param http
+   */
+  constructor(
+    private http: Http
+  ) { }
+
+  /**
+   * Get Surveys from json file
+   */
+  public getSurveys() {
       return this.http.get(this.surveysURL)
-            .map((response: Response)=> response.json());
+            .map((response: Response) => response.json());
   }
 }

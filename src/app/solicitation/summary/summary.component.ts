@@ -13,64 +13,38 @@ import { Solicitation } from '../../shared/solicitation';
 })
 export class SummaryComponent implements OnInit {
 
-  constructor(private solicitationService: SolicitationService,
-              private route: ActivatedRoute,
-              private router: Router) { }
+  /* ATTRIBUTES */
 
   @Input() solicitationID;
   @Input() step1;
   @Input() step2;
   @Input() step3;
   @Input() type;
-  // public displayTab:number = 0;
 
-  // emailBody: String = "";
-  // subject: String = "";
-  // emailTo: String = "";
-  // emailCC: string = "";
-  // solicitation: Solicitation;
-  // private subscription: Subscription;
-  // private solicitationIndex: String;
+  /* CONSTRUCTORS */
 
-  // public step1:Boolean = false;
-  // public step2:Boolean = false;
-  // public step3:Boolean = false;
+  /**
+   * constructor
+   * @param solicitationService
+   * @param route
+   * @param router
+   */
+  constructor(
+    private solicitationService: SolicitationService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
+  /**
+   * lifecycle
+   */
+  ngOnInit() {
+  }
 
+  /**
+   * lifecycle
+   */
   ngOnChanges() {
     console.log(this.solicitationID)
   }
-  ngOnInit() {
-
-    // // listen for the activated route and use the 'id'  to pull chosen solicitation from mongo
-    // this.subscription = this.route.params.subscribe(
-    //   (params: any) => {
-    //     var now = new Date().toLocaleDateString();
-    //     this.solicitationIndex = params['id'];
-    //     // pull chosen solicitation from mongo
-    //     this.solicitationService.getSolicitation(this.solicitationIndex)
-    //       .subscribe(
-    //         solicitation => {
-    //           solicitation.parseStatus.forEach(element => {
-    //               if (element.status == "successfully parsed") element.status = "Yes";
-    //               else if (element.status == "processing error")  element.status = "No";
-    //           });
-
-    //         },
-    //         err => {
-    //         });
-    //     });
-  }
-
-
-  // emailPoc(solicitation: any) {
-  //   this.router.navigate(['/email', solicitation._id]);
-  // }
-
-
-  // ChangeDisplayTab( num ){
-  //     this.displayTab = num;
-  // }
-
-
 }
