@@ -251,4 +251,15 @@ export class TopAgenciesPercentageComponent implements OnInit {
     else if (name == "12" && this.selectedPeriod == "This Year") return "Dec.";
     else return name;
   }
+
+  
+  /**
+   * Get abbr of agency name
+   * @param name
+   */
+  public getAbbr(name){
+    var matches = name.match(/\b(\w)/g);              
+    var acronym = matches.join('');    
+    return acronym
+}
 }

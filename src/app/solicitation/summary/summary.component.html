@@ -6,7 +6,7 @@
         <ul class="summary-steps">
             <li>
                 <div class="summary-steps"><i class="fa fa-check" aria-hidden="true" style="color: #f7f7f7" [ngStyle]="{'opacity' : step1 ? '1' : '0'}"></i>&nbsp;&nbsp;STEP 1 - </div>
-                <div class="summary-instr">Review detailed results for the solicitation;</div>
+                <div class="summary-instr">Open the solicitation and review the documents to determine whether the solicitation is compliant;</div>
             </li>
             <li>
                 <div class="summary-steps"><i class="fa fa-check" aria-hidden="true" style="color: #f7f7f7" [ngStyle]="{'opacity' : step2 ? '1' : '0'}"></i>&nbsp;&nbsp;STEP 2 - </div>
@@ -14,7 +14,7 @@
             </li>
             <li>
                 <div class="summary-steps"><i class="fa fa-check" aria-hidden="true" style="color: #f7f7f7" [ngStyle]="{'opacity' : step3 ? '1' : '0'}"></i>&nbsp;&nbsp;STEP 3 - </div>
-                <div class="summary-instr">Click on the “MAKE SRT SMARTER” tab to fill out a short survey regarding the current solicitation, which helps improve the accuracy of the prediction.</div>
+                <div class="summary-instr">Click on the “MAKE SRT SMARTER” tab to fill out a short survey regarding the current solicitation, which will help to improve the accuracy of the prediction.</div>
 
             </li>
         </ul>
@@ -36,6 +36,9 @@
                 </li>
             </ul>
             <ul class="nopadding summary-floatright">
+                <li>
+                    <a [routerLink]="['/solicitation/prediction', solicitationID]">Prediction History</a>
+                </li>
                 <li [ngClass]="{'active' : type=='history'}">
                     <a [routerLink]="['/solicitation/history', solicitationID]">History</a>
                 </li>

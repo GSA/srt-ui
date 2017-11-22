@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from './auth/auth.service'
+import { AuthService } from './shared/services/auth.service'
 import { AuthGuard } from './auth-guard.service'
 
 
@@ -34,6 +34,7 @@ export class AppComponent {
         this.authGuard.isGSAAdmin = data.isGSAAdmin;
         this.isLogin = this.authGuard.isLogin;
         this.isGSAAdmin = this.authGuard.isGSAAdmin;
+        debugger
         if (!this.authGuard.isLogin) {
           localStorage.clear();
         }

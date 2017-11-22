@@ -7,6 +7,9 @@ import { DataTableModule,SharedModule, ButtonModule, DropdownModule, CalendarMod
 import { TooltipModule } from "ng2-tooltip";
 import { QuillEditorModule } from 'ngx-quill-editor';
 
+import { SolicitationRoutesModule } from './solicitation.routing'
+
+
 import { SolicitationService } from './solicitation.service';
 import { AuthGuard } from '../auth-guard.service'
 
@@ -19,6 +22,7 @@ import { HistoryComponent } from './summary/history/history.component';
 import { SolicitationComponent } from './solicitation.component';
 import { FeedbackReportComponent } from './feedback-report/feedback-report.component';
 import { FormComponent } from './feedback-report/form/form.component';
+import { PredictionHistoryComponent } from './summary/prediction-history/prediction-history.component';
 
 
 @NgModule({
@@ -34,6 +38,7 @@ import { FormComponent } from './feedback-report/form/form.component';
     DropdownModule,
     CalendarModule,
     TooltipModule,
+    SolicitationRoutesModule,
 
     QuillEditorModule,
   ],
@@ -47,6 +52,8 @@ import { FormComponent } from './feedback-report/form/form.component';
     SolicitationComponent,
     FeedbackReportComponent,
     FormComponent,
+    PredictionHistoryComponent,
+   
   ],
   providers: [
     SolicitationService,

@@ -9,5 +9,6 @@ export class Currentuser {
       public agency: string,
       public email: string,
       public position: string,
+      public tempPassword: string
     ) {}
 }

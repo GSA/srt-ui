@@ -21,9 +21,10 @@ import { PredictionResultComponent } from './prediction-result/prediction-result
 import { TopAgenciesPercentageComponent } from './top-agencies-percentage/top-agencies-percentage.component';
 import { UndeterminedSolicitationsComponent } from './undetermined-solicitations/undetermined-solicitations.component';
 import { LineChartsComponent } from './line-charts/line-charts.component';
-
-import { AnalyticsService } from './services/analytics.service';
 import { DonutChartComponent } from './donut-chart/donut-chart.component'
+
+//Service
+import { AnalyticsService } from './services/analytics.service';
 
 @NgModule({
   imports: [

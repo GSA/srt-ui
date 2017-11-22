@@ -3,23 +3,29 @@
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="email">Email Address        
-        <span class="input-invalid" *ngIf="errorMessage && (myForm.value.email == null || myForm.value.email == '')">Please fill in requred field</span>
     </label>
     <input type="email"
             id="email"
             class="form-control"
-            [ngClass]="{'error-form': errorMessage && (myForm.value.email == null || myForm.value.email == '')}"
             formControlName="email">
+            <div *ngIf="myForm.get('email').invalid && (myForm.get('email').dirty || myForm.get('email').touched)" class="validation text-danger">
+                <div *ngIf="myForm.get('email').hasError('required')">
+                  Email is required.
+                </div>
+              </div>
   </div>
   <div class="form-group" style="margin-bottom: 40px;">
     <label for="password">Password        
-        <span class="input-invalid" *ngIf="errorMessage && (myForm.value.password == null || myForm.value.password == '')">Please fill in requred field</span>
     </label>
     <input type="password"
             id="password"
             class="form-control"
-            [ngClass]="{'error-form': errorMessage && (myForm.value.password == null || myForm.value.password == '')}"
             formControlName="password">
+            <div *ngIf="myForm.get('password').invalid && (myForm.get('password').dirty || myForm.get('password').touched)" class="validation text-danger">
+                <div *ngIf="myForm.get('password').hasError('required')">
+                  First name is required.
+                </div>
+              </div>
   </div>
   
   <div *ngIf="errorMessage" class="login-error">
@@ -28,7 +34,8 @@
 
   <button type="submit" class="srt-button">Log In</button>
 
-  <div style="padding-top: 20px;"><a href="#">Forgot Password?</a></div>
+  <a style="padding-top: 20px" [routerLink]="['/auth/forgetpassword']"> Forgot Password?</a>
+
 
 </form>
 </main>

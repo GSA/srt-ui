@@ -6,7 +6,7 @@
       top:auto;
       width:1px; 
       height:1px;
-      overflow:hidden;">SRT website</a>
+      overflow:hidden;">you have accessed a new page of SRT,It contains navigation and main content.</a>
 
         <a 
         id="skipMain" href="javascript:
@@ -24,18 +24,17 @@
             </div>
 
         <div class="collapse navbar-collapse" id="navbar" style="padding: 0px;" role="navigation" aria-label="main navigation" >
-            
-                <ul *ngIf="isLogin" class="nav navbar-nav" >
-                    <li data-toggle="tab" [ngClass]="{'active': GetHash('home')}" ><a [routerLink]="['/home']" [ngClass]="{'active': GetHash('home')}" id="1" onclick="$('#test').focus()" >Home</a></li>
-                    <li data-toggle="tab" [ngClass]="{'active': GetHash('solicitation')}"><a [routerLink]="['/solicitation/report']" id="2"  onclick="$('#test').focus()">Manage/Review Workload</a></li>
-                    <li data-toggle="tab" [ngClass]="{'active': GetHash('analytics')}" ><a [routerLink]="['/analytics']" id="3"  onclick="$('#test').focus()">View Analytics</a></li>
-                    <li data-toggle="tab" [ngClass]="{'active': GetHash('admin')}"><a [routerLink]="['/admin']" id="4"  onclick="$('#test').focus()">Manage Access Requests</a></li>
-                    <li data-toggle="tab" [ngClass]="{'active': GetHash('contactus')}"><a [routerLink]="['/help/contactus']" id="5" onclick="$('#test').focus()">Contact Us</a></li>
-                    <li data-toggle="tab" [ngClass]="{'active': GetHash('faq')}"><a [routerLink]="['/help/faq']" id="6"  onclick="$('#test').focus()"> FAQs</a></li>
-                    <li data-toggle="tab" [ngClass]="{'active': GetHash('feedback/report')}" *ngIf="isGSAAdmin"><a [routerLink]="['/solicitation/feedback']" id="7" onclick="$('#test').focus()">Feedback</a></li>
-                <!--    <li data-toggle="tab"><a href="#">Help Us Improve</a></li> -->
 
+                <ul *ngIf="isLogin" class="nav navbar-nav" >
+                     <li data-toggle="tab" [routerLink]="['/home']" [ngClass]="{'active': GetHash('home')}" id="1" onclick="$('#test').focus()"><a href="">Home</a></li>
+                     <li data-toggle="tab" [routerLink]="['/solicitation/report']" [ngClass]="{'active': GetHash('solicitation')}" id="2"  onclick="$('#test').focus()"><a href="">Manage/Review Workload</a></li>
+                     <li data-toggle="tab" [routerLink]="['/analytics']" [ngClass]="{'active': GetHash('analytics')}" id="3"  onclick="$('#test').focus()"><a href="" >View Analytics</a></li>
+                     <li data-toggle="tab" *ngIf="isGSAAdmin" [routerLink]="['/admin']" [ngClass]="{'active': GetHash('admin')}" id="4" onclick="$('#test').focus()"><a href="">Manage Access Requests</a></li>
+                     <li data-toggle="tab" [routerLink]="['/help/contactus']" [ngClass]="{'active': GetHash('contactus')}" id="5" onclick="$('#test').focus()"><a href="">Contact Us</a></li>
+                     <li data-toggle="tab" [routerLink]="['/help/faq']" [ngClass]="{'active': GetHash('faq')}" id="6"  onclick="$('#test').focus()"><a href=""> FAQs</a></li>
+                     <li data-toggle="tab" *ngIf="isGSAAdmin"  [routerLink]="['/solicitation/feedback']" [ngClass]="{'active': GetHash('feedback/report')}" id="7" onclick="$('#test').focus()"><a href="">Feedback</a></li>       
                 </ul>
+
                 <div class=" gsa_logo" aria-hidden="true">
                     <a href='#' class="logo_li">
                     <div class='span-logo' >
@@ -43,7 +42,7 @@
                     </div>
                     </a>
                 </div>
-                <ul *ngIf="isLogin" id="gsaDropdown" class="nav navbar-nav" style="float: right;" role="combobo">
+                <ul *ngIf="isLogin" id="gsaDropdown" class="nav navbar-nav" style="float: right;" >
                     <li class="dropdown">
                         <a *ngIf="isLogin" href="#" class="dropdown-toggle"
                                     style="font-weight: 300"
@@ -51,10 +50,11 @@
                                     aria-haspopup="true"
                                     aria-expanded="false">Hello, {{firstName}}<span class="caret"></span></a>
 
-                        <ul class="dropdown-menu">
-                            <li><a [routerLink]="['/profile']" style="padding: 10px 20px;" role="option">Profile</a></li>
-                            <li><a [routerLink]="['/password']" style="padding: 10px 20px;" role="option">Password</a></li>
-                            <li><button class="dropdown-item" type="button" style="padding: 10px 20px;" (click)="onLogout()" role="option">Log Out</button></li>
+                        <ul class="dropdown-menu" role="listbox">
+                            <!-- <li><a [routerLink]="['/user/profile', currentID]" style="padding: 10px 20px;" role="option">Profile</a></li> -->
+                            <li><a (click) = "gotoProfile()" style="padding: 10px 20px; font-weight:300; font-size:medium; font-family: Arial, sans-serif;">Profile</a></li> 
+                            <li><a [routerLink]="['/user/updatePassword']" style="padding: 10px 20px;" role="option">Password</a></li>
+                            <li><button class="dropdown-item" type="button" style="padding: 10px 20px; font-weight:300; font-size:medium; font-family: Arial, sans-serif;" (click)="onLogout()" role="option">Log Out</button></li>
                       </ul>
                     </li>
                 </ul>

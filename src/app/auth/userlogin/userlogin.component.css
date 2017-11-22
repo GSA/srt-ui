@@ -21,3 +21,14 @@
     margin-bottom: 20px; 
     margin-top: -10px
 }
+
+
+.form-group span.required{
+    color: red;
+    font-size: 150%;
+}
+
+.form-control.ng-touched.ng-invalid{
+   border: 2px solid red
+}
+

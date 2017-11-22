@@ -1,10 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '../user';
+import { User } from '../../shared/user';
 import { Currentuser } from '../../shared/currentuser';
-import { AuthService } from '../auth.service';
-import { UserService } from '../../user.service';
+import { AuthService } from '../../shared/services/auth.service';
+import { UserService } from '../../shared/services/user.service';
 import { AuthGuard } from '../../auth-guard.service'
 import { AppComponent } from '../../app.component'
 
@@ -35,30 +35,42 @@ export class UserloginComponent implements OnInit {
               private authGuard: AuthGuard,
               private authService: AuthService,
               private router: Router,
-              private user: UserService) { }
+              private user: UserService) { 
+
+                
+              }
 
   /**
    * lifecycle
    */
   ngOnInit() {
     this.myForm = new FormGroup({
-      email: new FormControl(null, Validators.required),
-      password: new FormControl(null, Validators.required)
+      email: new FormControl('', [Validators.required]
+      ),
+      password: new FormControl('', [Validators.required])
     });
   }
 
   /**
    * submit
    * submit authentication data.  uses local storage to hold encrypted
-   * json web token and user agency.
+   * json web token and user agency.  
    * the jwt is set to expire after 2 hours.
    */
   onSubmit() {
-    const user = new User(this.myForm.value.email, this.myForm.value.password);
+    const user = new User();
+    user.email = this.myForm.value.email;
+    user.password = this.myForm.value.password;
+
+    if (!this.myForm.valid) {
+      alert("your input is not valid!")
+      this.myForm.reset();
+
+    }else{
     this.authService.login(user)
       .subscribe(
         data => {
-
+          debugger
           console.log(data);
           localStorage.setItem('token', data.token);
           localStorage.setItem('firstName', data.firstName);
@@ -68,19 +80,27 @@ export class UserloginComponent implements OnInit {
           localStorage.setItem('position', data.position);
           localStorage.setItem('id', data.id);
           localStorage.setItem('userRole', data.userRole);
+
           this.authGuard.isLogin = true;
           this.app.isLogin = true;
           this.authGuard.isGSAAdmin = (data.userRole == "Administrator" || data.userRole == "SRT Program Manager ") && data.agency.indexOf("General Services Administration") > -1;
           this.app.isGSAAdmin = (data.userRole == "Administrator" || data.userRole == "SRT Program Manager ") && data.agency.indexOf("General Services Administration") > -1;
-          var currentUser = new Currentuser(data.firstName, data.lastName, data.agency, data.email, data.position);
+          var currentUser = new Currentuser(data.firstName, data.lastName, data.agency, data.email, data.position, data.tempPassword);
+
           this.user.saveUser(currentUser);
-          this.router.navigateByUrl('home');
+          console.log(currentUser)
+          if (currentUser.tempPassword != '') {this.router.navigate(['/user/updatePassword']);}
+          else{this.router.navigate(['/home']);}
+          //this.router.navigate(['/home']);
         },
         error => {
           this.errorMessage = true;
           this.errorInformation = error.error.message
         }
       );
+    }
+
+   
 
   }
 

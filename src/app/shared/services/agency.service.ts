@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
-import { Agency } from './shared/agency';
-import { environment } from '../environments/environment';
+import { Agency } from '../agency';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AgencyService {

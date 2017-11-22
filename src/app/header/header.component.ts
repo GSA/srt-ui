@@ -2,9 +2,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../shared/services/auth.service';
 import { Currentuser } from '../shared/currentuser';
-import { UserService } from '../user.service';
+import { UserService } from '../shared/services/user.service';
 import { AppComponent } from '../app.component';
 import { AuthGuard } from '../auth-guard.service';
 
@@ -30,18 +30,19 @@ export class HeaderComponent implements OnInit {
    * @param app
    * @param authService
    * @param router
-   * @param user
+   * @param userService
    */
   constructor(
     private authGuard: AuthGuard,
     private app: AppComponent,
     private authService: AuthService,
     private router: Router,
-    private user: UserService
+    private userService: UserService
   ) {
-      user.updateCurrentUser.subscribe(currentUser => this.saveCurrentUser(currentUser));
+    userService.updateCurrentUser.subscribe(currentUser => this.saveCurrentUser(currentUser));
       if (localStorage.getItem("firstName")) {
         this.firstName = localStorage.getItem("firstName");
+        this.currentID = localStorage.getItem("id");
       }
   }
 
@@ -49,7 +50,7 @@ export class HeaderComponent implements OnInit {
    * lifecycle
    */
   ngOnInit() {
-      this.currentID = localStorage.getItem('id');
+    
   }
 
   /**
@@ -57,6 +58,7 @@ export class HeaderComponent implements OnInit {
    */
   ngOnChanges() {
     console.log(this.isGSAAdmin);
+ 
   }
 
   /**
@@ -64,8 +66,8 @@ export class HeaderComponent implements OnInit {
    * clear user information and remove jwt
    */
   onLogout() {
-    var u = new Currentuser("", "", "", "", "");
-    this.user.saveUser(u);
+    var u = new Currentuser("", "", "", "", "", "");
+    this.userService.saveUser(u);
     this.authGuard.isLogin = false;
     this.app.isLogin = false;
     this.authService.logout();
@@ -90,4 +92,13 @@ export class HeaderComponent implements OnInit {
       return window.location.href.indexOf(hash) > -1;
   }
 
+  /**
+   * Go to profile
+   * 
+   */
+  gotoProfile(){
+    var gotoID = this.authService.getCurrent().id;
+
+    this.router.navigate(['/user/profile', gotoID]);
+  }
 }

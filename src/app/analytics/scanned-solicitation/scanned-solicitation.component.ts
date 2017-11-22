@@ -26,9 +26,11 @@ export class ScannedSolicitationComponent implements OnInit {
   public hasValue = false;
   public outputData: Number[] = [];
 
-  public barChartLabels: String[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+  public barChartLabels: String[] = [];
   public barChartType: String = 'bar';
   public barChartLegend: Boolean = false;
+  public barChartData:any[] = [];
+    
 
   public barChartOptions:any = {
       scaleShowVerticalLines: false,
@@ -65,9 +67,7 @@ export class ScannedSolicitationComponent implements OnInit {
       },
   };
 
-  public barChartData:any[] = [
-      {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'}
-  ];
+
 
   public colorsOverride: Array<Color> = [
       { backgroundColor: _.range(32).map(function () { return '#2C81C0' })}
@@ -85,6 +85,8 @@ export class ScannedSolicitationComponent implements OnInit {
    * lifecycle
    */
   ngOnInit() {
+      console.log(this.fromPeriod);
+      console.log(this.toPeriod)
   }
 
   /**
@@ -106,7 +108,7 @@ export class ScannedSolicitationComponent implements OnInit {
           }
         });
         console.log(this.outputData);
-        this.barChartData = [{data: this.outputData, label:''}];
+        this.barChartData = [{data: this.outputData, label:'The Nuber of solicitations'}];
         this.hasValue = true;
         this.forceChartRefresh();
     }

@@ -2,9 +2,12 @@ import { Injectable }       from '@angular/core';
 import {
   CanActivate, Router,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot
+  RouterStateSnapshot, CanActivateChild
 }                           from '@angular/router';
-import { AuthService } from './auth/auth.service'
+import { AuthService } from './shared/services/auth.service'
+import { Observable } from 'rxjs/Observable';
+
+
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -55,4 +58,32 @@ export class AuthGuard implements CanActivate {
         })
     }
   }
+
+
+  //Kailun's new add
+
+    /**
+   * Can activate child?
+   * @param next
+   * @param state
+   */
+  canActivateChild(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    return this.authService.isLogin();
+    // return this.authenticationService.isLogin().map(
+    //   data => {
+    //     if (data.isLogin) {
+    //       return true;
+    //     } else {
+    //       return false;
+    //     }
+    //   },
+    //   error => {
+    //     return false;
+    //   }
+    // );
+  }
 }
+
+

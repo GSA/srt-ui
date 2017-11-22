@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Route
-import { HelpRoutes } from './help.routing';
+import { HelpRoutesModule } from './help.routing';
 
 // Components
 import { HelpComponent } from './help.component';
@@ -11,12 +11,12 @@ import { FaqComponent } from './faq/faq.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 
 // Services
-import { HelpService } from './services/help.service'
+import { HelpService } from '../shared/services/help.service'
 
 @NgModule({
   imports: [
     CommonModule,
-    HelpRoutes,
+    HelpRoutesModule,
     FormsModule,
     ReactiveFormsModule
   ],

@@ -55,7 +55,7 @@
                 <tr *ngFor="let num of barData | slice:indexFrom:indexTo " style="width: 100%;" title="Total: {{num[3]}} 
 Compliant Solicitations: {{num[2]}}
 Non-Compliant Solicitations: {{(num[3] - num[2])}}">
-                    <td class="topagen-td1">{{GetAbbr(num[0])}}&nbsp;&nbsp;&nbsp;</td>
+                    <td class="topagen-td1">{{getAbbr(num[0])}}&nbsp;&nbsp;&nbsp;</td>
                     <td class="topagen-td2">                     
                         <div class="topagen-div1" [ngStyle]="{'width': (num[2]/num[3]) * (num[2]/num[3]) * 100 + '%'}"></div>
                         <div class="topagen-div2" [ngStyle]="{'width': ((num[3] - num[2])/num[3]) * (num[2]/num[3]) * 100 + '%'}">

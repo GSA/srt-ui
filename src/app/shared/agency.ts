@@ -5,6 +5,6 @@ export class Agency {
    */
   constructor(
       public agency: string,
-      public acronym: string,
+      public agencyID: string,
     ) {}
 }

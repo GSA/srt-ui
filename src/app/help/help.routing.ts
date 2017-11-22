@@ -1,3 +1,4 @@
+import { NgModule } from '@angular/core';
 
 import { Routes, RouterModule } from '@angular/router';
 import { HelpComponent } from './help.component'
@@ -6,7 +7,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 
 import { AuthGuard } from '../auth-guard.service';
 
-const helpRoutes: Routes = [
+const routes: Routes = [
     { path: 'help',
         component: HelpComponent,
         children: [
@@ -18,4 +19,14 @@ const helpRoutes: Routes = [
 
 ]
 
-export const HelpRoutes = RouterModule.forChild(helpRoutes);
+
+@NgModule({
+    imports: [
+      RouterModule.forChild(routes)
+    ],
+    exports: [
+      RouterModule
+    ]
+  })
+  export class HelpRoutesModule { }
+  

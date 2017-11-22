@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { UserService } from '../user.service';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
   selector: "app-admin",
@@ -11,6 +11,7 @@ import { UserService } from '../user.service';
 export class AdminComponent implements OnInit {
 
   /* ATTRIBUTES */
+  
   public displayTab: Number = 0;
   public pending: Boolean = false;
   public accepted: Boolean = false;
@@ -30,10 +31,13 @@ export class AdminComponent implements OnInit {
    * @param user
    */
   constructor(
-    private user: UserService,
+    private userService: UserService,
     private route: ActivatedRoute
   ) {}
 
+  /**
+   * lifecycle
+   */
   ngOnInit() {
     this.filterParams.isAccepted = this.route.snapshot.data['isAccepted'];
     this.filterParams.isRejected = this.route.snapshot.data['isRejected'];
@@ -41,6 +45,7 @@ export class AdminComponent implements OnInit {
     this.accepted = this.filterParams.isAccepted && !this.filterParams.isRejected;
     this.rejected = !this.filterParams.isAccepted && this.filterParams.isRejected;
     this.getUsers();
+
   }
 
 
@@ -51,7 +56,7 @@ export class AdminComponent implements OnInit {
   Approve(user) {
     user.isAccepted = true;
     user.isRejected = false;
-    this.user.updateUser(user).subscribe(
+    this.userService.updateUser(user).subscribe(
       data => {
         this.getUsers();
       },
@@ -66,7 +71,7 @@ export class AdminComponent implements OnInit {
   Reject(user) {
     user.isAccepted = false;
     user.isRejected = true;
-    this.user.updateUser(user).subscribe(
+    this.userService.updateUser(user).subscribe(
       data => {
         this.getUsers();
       },
@@ -78,9 +83,10 @@ export class AdminComponent implements OnInit {
    * Get users
    */
   getUsers() {
-    this.user.getUsers(this.filterParams).subscribe(
+    this.userService.getUsers(this.filterParams).subscribe(
       data => {
         this.users = data;
+        console.log(this.users)
       },
       error => {}
     );

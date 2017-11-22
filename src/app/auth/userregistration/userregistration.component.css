@@ -29,3 +29,13 @@
     background-color: #f1f1f1;
     color: #0071bc !important;
 }
+
+.form-group span.required{
+    color: red;
+    font-size: 150%;
+}
+
+.form-control.ng-touched.ng-invalid{
+   border: 2px solid red
+}
+

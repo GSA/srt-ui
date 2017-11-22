@@ -15,39 +15,48 @@
     <div class="form-group">
       <label for="firstName">First Name
           <span class="valid-star"><sup>*</sup></span>
-          <span class="input-invalid" *ngIf="errorMessage && (myForm.value.firstName == null || myForm.value.firstName == '')">Please fill in requred field</span>
       </label>
       <input type="text"
              id="firstName"
              class="form-control"
-             [ngClass]="{'error-form': errorMessage && (myForm.value.firstName == null || myForm.value.firstName == '')}"
              formControlName="firstName">
+             <div *ngIf="myForm.get('firstName').invalid && (myForm.get('firstName').dirty || myForm.get('firstName').touched)" class="validation text-danger">
+                <div *ngIf="myForm.get('firstName').hasError('required')">
+                  First name is required.
+                </div>
+              </div>
     </div>
 
     <!-- lastName -->
     <div class="form-group">
       <label for="lastName">Last Name
           <span class="valid-star"><sup>*</sup></span>
-          <span class="input-invalid" *ngIf="errorMessage && (myForm.value.lastName == null || myForm.value.lastName == '')">Please fill in requred field</span>
       </label>
       <input type="text"
              id="lastName"
              class="form-control"
-             [ngClass]="{'error-form': errorMessage &&(myForm.value.lastName == null || myForm.value.lastName == '')}"
              formControlName="lastName">
+             <div *ngIf="myForm.get('lastName').invalid && (myForm.get('lastName').dirty || myForm.get('lastName').touched)" class="validation text-danger">
+                <div *ngIf="myForm.get('lastName').hasError('required')">
+                  Last name is required.
+                </div>
+              </div>
     </div>
 
     <!-- Position -->
     <div class="form-group">
       <label for="position">Position
           <span class="valid-star"><sup>*</sup></span>
-          <span class="input-invalid" *ngIf="errorMessage && (myForm.value.position == null || myForm.value.position == '')">Please fill in requred field</span>
       </label>
       <input type="text"
              id="position"
              class="form-control"      
-             [ngClass]="{'error-form': errorMessage &&(myForm.value.position == null || myForm.value.position == '')}"       
              formControlName="position">
+             <div *ngIf="myForm.get('position').invalid && (myForm.get('position').dirty || myForm.get('position').touched)" class="validation text-danger">
+                <div *ngIf="myForm.get('position').hasError('required')">
+                  position is required.
+                </div>
+              </div>
     </div>
 
   
@@ -55,13 +64,16 @@
     <div class="form-group">
       <label for="email">Email Address
           <span class="valid-star"><sup>*</sup></span>
-          <span class="input-invalid" *ngIf="errorMessage && (myForm.value.email == null || myForm.value.email == '')">Please fill in requred field</span>
       </label>
       <input type="email"
              id="email"
              class="form-control"
-             [ngClass]="{'error-form': errorMessage && (myForm.value.email == null || myForm.value.email == '')}"
              formControlName="email">
+             <div *ngIf="myForm.get('email').invalid && (myForm.get('email').dirty || myForm.get('email').touched)" class="validation text-danger">
+                <div *ngIf="myForm.get('email').hasError('required')">
+                    email is required.
+                </div>
+              </div>
     </div>
 
     <!-- agency -->
@@ -69,11 +81,16 @@
      
       <label for="agency">Agency
           <span class="valid-star"><sup>*</sup></span>
-          <span class="input-invalid" *ngIf="errorMessage && (myForm.value.agency == null || myForm.value.agency == '')">Please fill in requred field</span>
       </label>
       <ng2-completer id="agency" [(ngModel)]="searchStr" [datasource]="dataService" [minSearchLength]="0" 
             formControlName="agency" [placeholder]="placeholder" [textSearching]="textSearching" [pause]="500" matchClass="match" (keydown)="open()"
       ></ng2-completer>
+
+      <div *ngIf="myForm.get('agency').invalid && (myForm.get('agency').dirty || myForm.get('agency').touched)" class="validation text-danger">
+        <div *ngIf="myForm.get('agency').hasError('required')">
+            Agency is required.
+        </div>
+      </div>
       <!--<input type="text"
              id="agency"
              class="form-control"
@@ -85,7 +102,6 @@
    <div class="form-group">
         <label for="accessLevel">Request Access Level
             <span class="valid-star"><sup>*</sup></span>
-            <span class="input-invalid" *ngIf="errorMessage && selectedUserRole == 'Select'">Please fill in requred field</span>
         </label>
         <div class="dropdown">
             <input class="form-control dropdown-toggle" 
@@ -94,7 +110,6 @@
                 aria-haspopup="true" 
                 aria-expanded="false"
                 style="cursor: pointer"
-                [ngClass]="{'error-form': errorMessage && selectedUserRole == 'Select'}" 
                 (focus)="onFocus()"
                 placeholder="Select your request access level" 
                 value="{{selectedUserRole}}"/>
@@ -134,6 +149,7 @@
                 
             </div>
         </div>
+        
     </div>
 
 
@@ -141,13 +157,22 @@
     <div class="form-group" style="margin-bottom: 40px;">
       <label for="password">Password
           <span class="valid-star"><sup>*</sup></span>
-          <span class="input-invalid" *ngIf="errorMessage && (myForm.value.password == null || myForm.value.password == '')">Please fill in requred field</span>
       </label>
       <input type="password"
              id="password"
              class="form-control"
-             [ngClass]="{'error-form': errorMessage && (myForm.value.password == null || myForm.value.password == '')}"
              formControlName="password">
+             <div *ngIf="myForm.get('password').invalid && (myForm.get('password').dirty || myForm.get('password').touched)" class="validation text-danger">
+                <div *ngIf="myForm.get('password').hasError('required')">
+                  Password is required.
+                </div>
+                <div *ngIf="myForm.get('password').hasError('minlength')">
+                  Password must be at least 8 characters long.
+                </div>
+                <div *ngIf="myForm.get('password').hasError('pattern')">
+                  Password must have at least one uppercase letter, one lowercase letter, one number and one special character
+                </div>
+              </div>
     </div>
 
     <button type="submit" class="srt-button">Send Request</button>

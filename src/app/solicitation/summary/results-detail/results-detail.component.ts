@@ -54,6 +54,7 @@ export class ResultsDetailComponent implements OnInit {
         console.log(this.solicitationID);
         this.solicitationService.getSolicitation(this.solicitationID).subscribe(
           data => {
+            console.log(data)
             data.parseStatus.forEach(element => {
                 if (element.status === 'successfully parsed') {
                   element.status = 'Yes';

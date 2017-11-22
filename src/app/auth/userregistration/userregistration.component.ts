@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
-import { AuthService } from "../auth.service";
-import { AgencyService } from "../../agency.service";
+import { AuthService } from '../../shared/services/auth.service';
+import { AgencyService } from "../../shared/services/agency.service";
 
 import { Agency } from "../../Shared/agency";
-import { User } from "../user";
+import { User } from "../../shared/user";
 
 import { CompleterService, CompleterData } from "ng2-completer";
 
@@ -20,7 +20,6 @@ export class UserregistrationComponent implements OnInit {
 
   myForm: FormGroup;
   registerSuccess = false;
-  errorMessage = false;
 
   protected data: String[];
   public searchStr: string;
@@ -46,18 +45,34 @@ export class UserregistrationComponent implements OnInit {
   // sets up data template for  registration form
   ngOnInit() {
     this.myForm = new FormGroup({
-      position: new FormControl(null, Validators.required),
-      firstName: new FormControl(null, Validators.required),
-      lastName: new FormControl(null, Validators.required),
-      email: new FormControl(null, Validators.required),
-      agency: new FormControl(null, Validators.required),
-      password: new FormControl(null, Validators.required)
+      position: new FormControl('', [
+        Validators.required
+      ]),
+     
+      firstName: new FormControl('',[
+        Validators.required
+      ] ),
+      lastName: new FormControl('',[
+        Validators.required
+      ]),
+      email: new FormControl('',[
+        Validators.required
+      ]),
+      agency: new FormControl('', [
+        Validators.required
+      ]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).*$/),
+      ])
     });
 
     this.agencyService.GetAgencies().subscribe(data => {
       this.data = [];
+      
       data.forEach(element => {
-        this.data.push(element.Agency + " (" + element.Acronym + ")");
+        this.data.push(element.Agency);
       });
       this.dataService = this.completerService.local(this.data);
     });
@@ -68,26 +83,19 @@ export class UserregistrationComponent implements OnInit {
    * requests user account for SRT
    */
   onSubmit() {
-    const user = new User(
-      this.myForm.value.email,
-      this.myForm.value.password,
-      this.myForm.value.position,
-      this.myForm.value.firstName,
-      this.myForm.value.lastName,
-      this.myForm.value.agency,
-      this.selectedUserRole
-    );
+    const user = new User();
+    user.email = this.myForm.value.email;
+    user.password = this.myForm.value.password;
+    user.position = this.myForm.value.position;
+    user.firstName = this.myForm.value.firstName;
+    user.lastName =this.myForm.value.lastName;
+    user.agency = this.myForm.value.agency;
+    user.userRole = this.selectedUserRole;
 
-    if (
-      this.myForm.value.email == null ||
-      this.myForm.value.password == null ||
-      this.myForm.value.position == null ||
-      this.myForm.value.firstName == null ||
-      this.myForm.value.lastName == null ||
-      this.myForm.value.agency == null ||
-      this.selectedUserRole == "Select your request access level"
-    ) {
-      this.errorMessage = true;
+
+    if (!this.myForm.valid ) {
+      alert("your information is not valid!")
+      this.myForm.reset();
     } else {
       this.authService.signup(user).subscribe(
         data => {
@@ -97,9 +105,11 @@ export class UserregistrationComponent implements OnInit {
       );
       this.myForm.reset();
     }
+    
+ 
   }
 
-  open() {}
+
 
   onChangeAccessLevel(userRole) {
     this.selectedUserRole = userRole;

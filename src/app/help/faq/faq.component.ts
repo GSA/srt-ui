@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 // Services
-import { HelpService } from "../services/help.service";
+import { HelpService } from "../../shared/services/help.service";
 import * as $ from 'jquery'
 
 @Component({

@@ -1,0 +1,112 @@
+
+<main id="content" class="bypass-block-target" tabindex="-1">
+<!-- <img src="https://s3.amazonaws.com/srt.bucket/assets/profile.png" alt=""> -->
+
+
+        <div class="srt-banner blue">
+                <div class="container">
+                        <h1><span>{{title}}</span></h1>
+                        
+                        <div style="font-size: 20px; padding-bottom: 15px;">{{title}} Instructions</div>
+
+                        <ul class="summary-steps">
+                                <li style="padding:5px">
+                                        <div style="display: inline-block; vertical-align: top; width: calc(100% - 80px); font-size: 16px">Only Administration(GSA) can edit Profile</div>
+                                </li>
+                                <li style="padding:5px">
+                                        <div style="display: inline-block; vertical-align: top; width: calc(100% - 80px); font-size: 16px">If you are an Administrator, you can edit other people's profile</div>
+                                </li>
+                                <li style="padding:5px">
+                                        <div style="display: inline-block; vertical-align: top; width: calc(100% - 80px);font-size: 16px">If you are not an Administration, you can click 'Contact Us to Update Your Info'
+                                                to send a request to edit your profile</div>
+                                </li>
+                                <li style="padding:5px">
+                                        <div style="display: inline-block; vertical-align: top; width: calc(100% - 80px);font-size: 16px">The user profile as following:</div>
+
+                                </li>
+                        </ul>
+
+                </div>                
+        </div>
+
+        <div *ngIf = "selectedUser">
+        <div class="profile-user-name" style="padding-left:20%">
+
+                <div style=" border-radius: 50%; position:relative;float:left; height: 100px; width: 100px ;background-image: url('/assets/Kailun/test1.png'); background-size:100%">
+                        <!-- <i style="position: absolute; bottom: 0px; left: 80px" class="fa fa-upload" aria-hidden="true" (click) ="uploadFile()"></i> -->
+
+                        <!-- <form [formGroup]="myform">
+                                <input type="file" id="selectFile" name="selectFile" [disabled]="uploading" formControlName="selectFile" (change)="uploadImage($event)">
+                        </form> -->
+
+                        <!-- <form  action="http://localhost:3000/upload"  method="post" enctype="multipart/form-data">
+                                头像：<input type="file" name="f1" /><br>
+                                <input type="submit" value="upload"/>
+                        </form>
+                        -->
+                    
+                </div>
+
+              
+                
+
+                <h1 style="font-weight: 600;color:#041e4a">{{selectedUser.firstName}} {{selectedUser.lastName}}</h1>
+                <p style="font-size:20px; font-weight:400; color:#031747">{{selectedUser.position}}</p>
+                
+                <div *ngIf = "self == false"style="padding-left:50%">
+                                <a (click)="editInfo()" style="font-size:20px; font-weight:500;color:#1958b5"> Edit Profile</a>        
+                                <a (click)="saveInfo()" style=" padding-left: 20px; font-size:20px; font-weight:500;color:#1958b5"> Save Profile</a>      
+                </div>
+               
+                <a *ngIf = "self == true" href="" [routerLink]="['/help/contactus']" style="padding-left:60%; font-size:20px; font-weight:500;color:#1958b5"> Contact Us to Update Your Info</a>
+        </div> 
+        <div>   
+                <div class="profile-user-line"></div>
+        </div>
+
+        <div id="userProfile" tabindex="-1" class="profile-user-info" style="padding-left:20%">
+
+                <div class="form-group" role="group">
+                        <label class="col-md-6 control-label profile-user-info-title" for="textinput">Email Address</label>
+                        <div class="col-md-6" *ngIf = "editable == false">
+                                <h4 style="color:#030354;">{{selectedUser.email}}</h4>
+                        </div>
+                        <input *ngIf = "editable == true" [(ngModel)]="newemail" class="col-md-6 form-control" type="text" id="textinput" placeholder="{{selectedUser.email}}">
+
+                </div>
+
+ 
+                <div class="form-group" role="group">
+                        <label class="col-md-6 control-label profile-user-info-title" for="textinput">Agency</label>
+                        <div class="col-md-6">
+                                <h4 style="color:#030354">{{selectedUser.agency}}</h4>
+                        </div>
+                </div>
+
+                <div class="form-group" role="group" *ngIf = "self == true">
+                        <label class="col-md-6 control-label profile-user-info-title" for="textinput">Password</label>
+                        <div class="col-md-6">
+                                <a href="" [routerLink]="['/user/updatePassword']">
+                                        <h4>Reset Password</h4>
+                                </a>
+                        </div>
+                </div>
+
+                <div class="form-group" role="group">
+                        <label class="col-md-6 control-label profile-user-info-title" for="textinput">Access Privilege</label>
+                        <div class="col-md-6">
+                                <h4 style="color:#030354">{{selectedUser.userRole}}</h4>
+                        </div>
+                </div>
+
+                <div class="form-group" role="group">
+                        <label class="col-md-6 control-label profile-user-info-title" for="textinput">Member Since</label>
+                        <div class="col-md-6">
+                                <h4 style="color:#030354">{{selectedUser.creationDate}}</h4>
+                        </div>
+                </div>
+        </div>
+        </div>
+
+
+</main>

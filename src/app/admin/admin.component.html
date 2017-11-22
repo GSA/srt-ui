@@ -34,7 +34,6 @@
                     <th>Name</th>
                     <th>Position</th>
                     <th>Agency</th>
-                    <!-- <th>Office</th> -->
                     <th>Email</th>
                     <th>Request Date/Time</th>
                     <th *ngIf="accepted">Security Access</th>
@@ -44,17 +43,16 @@
             </thead>
             <tbody>
                 <tr *ngFor="let user of users; let even = even; let odd = odd"  [ngClass]="{ odd: odd, even: even }">
-                    <td>{{user.firstName}} {{user.lastName}}</td>
+                    <td role="listbox"><a [routerLink]="['/user/profile' ,user._id]" role="option">{{user.firstName}} {{user.lastName}}</a> </td>
                     <td>{{user.position}} </td>
                     <td>{{user.agency}}</td>
-                    <!-- <td></td> -->
                     <td>{{user.email}}</td>
                     <td>{{user.creationDate}}</td>
                     <td *ngIf="accepted">{{user.userRole}}</td>
                     <td *ngIf="rejected"></td>
                     <td *ngIf="pending">
                         <span style="color: #0a831e; cursor: pointer" (click)="Approve(user)">Approve</span>&nbsp;&nbsp;&nbsp;
-                        <span style="color: #ff0202; cursor: pointer" (click)="Reject(user)">Deny</span>
+                        <span style="color: #E60000; cursor: pointer" (click)="Reject(user)">Deny</span>
                     </td>
                 </tr>
             </tbody>

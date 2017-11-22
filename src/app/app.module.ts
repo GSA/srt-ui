@@ -8,6 +8,13 @@ import { HttpModule } from '@angular/http';
 // MODULES
 import { AnalyticsModule } from './analytics/analytics.module';
 import { HelpModule } from './help/help.module';
+import { AuthModule } from './auth/auth.module';
+import { HomeModule } from './home/home.module';
+import { UserModule } from 'app/user/user.module';
+
+
+
+
 import { SolicitationModule } from './solicitation/solicitation.module';
 import { DataTableModule,SharedModule, ButtonModule, DropdownModule, CalendarModule} from 'primeng/primeng';
 import { TooltipModule } from "ng2-tooltip";
@@ -15,42 +22,33 @@ import { Ng2CompleterModule } from "ng2-completer";
 
 // SERVICES
 
-import { AgencyService } from './agency.service';
-import { AuthService } from './auth/auth.service';
+import { AgencyService } from './shared/services/agency.service';
+import { AuthService } from './shared/services/auth.service';
 import { SurveyService } from './survey.service';
-import { UserService } from './user.service';
+import { UserService } from './shared/services/user.service';
 import { AuthGuard } from './auth-guard.service'
 
 // COMPONENTS
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { AuthComponent } from './auth/auth.component';
-import { UserloginComponent } from './auth/userlogin/userlogin.component';
-import { UserregistrationComponent } from './auth/userregistration/userregistration.component';
+import { AdminComponent } from 'app/admin/admin.component';
 import { SolicitationReviewComponent } from './solicitation-review/solicitation-review.component';
-import { SrtComponent } from './srt/srt.component';
-import { AdminComponent } from './admin/admin.component';
-import { ProfileComponent } from './profile/profile.component';
-import { PasswordComponent } from './password/password.component';
+
 
 // ROUTES
-import { routing } from './app.routing';
-import { HelpRoutes } from './help/help.routing';
-import { SolicitationRoutes } from './solicitation/solicitation.routing';
+import { AppRoutingModule } from './app.routing';
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    AuthComponent,
-    UserloginComponent,
-    UserregistrationComponent,
     SolicitationReviewComponent,
-    SrtComponent,
+    HeaderComponent,
     AdminComponent,
-    ProfileComponent,
-    PasswordComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -58,9 +56,12 @@ import { SolicitationRoutes } from './solicitation/solicitation.routing';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    routing,
+    AppRoutingModule,
     TooltipModule,
-
+    AuthModule,
+    HomeModule,
+    HelpModule,
+    UserModule,
     DataTableModule,
     SharedModule,
     ButtonModule,
@@ -68,10 +69,8 @@ import { SolicitationRoutes } from './solicitation/solicitation.routing';
     CalendarModule,
     Ng2CompleterModule,
     AnalyticsModule,
-    HelpModule,
-    HelpRoutes,
     SolicitationModule,
-    SolicitationRoutes,
+    
   ],
   providers: [
     AuthService,
