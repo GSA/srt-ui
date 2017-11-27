@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from '../../shared/services/auth.service';
 import { AgencyService } from "../../shared/services/agency.service";
 
-import { Agency } from "../../Shared/agency";
+import { Agency } from "../../shared/agency";
 import { User } from "../../shared/user";
 
 import { CompleterService, CompleterData } from "ng2-completer";
