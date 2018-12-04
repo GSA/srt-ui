@@ -38,6 +38,7 @@ import { SolicitationReviewComponent } from './solicitation-review/solicitation-
 
 // ROUTES
 import { AppRoutingModule } from './app.routing';
+import {UploadComponent} from './shared/components/upload/upload.component';
 
 
 
@@ -48,6 +49,7 @@ import { AppRoutingModule } from './app.routing';
     SolicitationReviewComponent,
     HeaderComponent,
     AdminComponent,
+    UploadComponent,
     
   ],
   imports: [

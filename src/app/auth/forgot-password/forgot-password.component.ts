@@ -3,11 +3,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { environment } from '../../../environments/environment';
 
-// import services 
+// import services
 import { AuthService } from '../../shared/services/auth.service';
 import { EmailService } from '../../shared/services/email.service';
 
-//import classes
+// import classes
 import { User } from '../../shared/user';
 
 import { Router } from '@angular/router';
