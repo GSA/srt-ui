@@ -87,7 +87,7 @@ export class ProfileComponent implements OnInit {
         this.title = this.current.id === userID ? "Your Profile" : "Review Profile";
         this.self = this.current.id === userID ? true : false;
 
-        debugger
+       // debugger
       },
       error => {
         console.log(error)
@@ -131,7 +131,7 @@ export class ProfileComponent implements OnInit {
      */
 
   uploadphoto() {
-    debugger
+    //debugger
     this.fileService.updateImage(this.current).subscribe(
       data =>{
         console.log(data);

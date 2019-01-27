@@ -3,6 +3,9 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { environment } from '../../../environments/environment';
 
+import { HttpService } from '../../shared/services/http.service';
+
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
@@ -23,7 +26,7 @@ export class AnalyticsService {
    * @param http
    */
   constructor (
-    private http: Http
+    private http: HttpService
   ) {};
 
 

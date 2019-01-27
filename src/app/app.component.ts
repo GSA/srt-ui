@@ -34,7 +34,7 @@ export class AppComponent {
         this.authGuard.isGSAAdmin = data.isGSAAdmin;
         this.isLogin = this.authGuard.isLogin;
         this.isGSAAdmin = this.authGuard.isGSAAdmin;
-        debugger
+        // debugger
         if (!this.authGuard.isLogin) {
           localStorage.clear();
         }

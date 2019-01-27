@@ -9,6 +9,8 @@ import 'rxjs/add/operator/toPromise';
 import { Solicitation } from '../shared/solicitation';
 import { environment } from '../../environments/environment'
 
+import { HttpService } from '../shared/services/http.service';
+
 @Injectable()
 export class SolicitationService {
   /* ATTRIBUTES */
@@ -42,7 +44,9 @@ export class SolicitationService {
    * constructor
    * @param http
    */
-  constructor(private http: Http) {}
+  constructor(private http: HttpService) {
+
+  }
 
   /**
    * get data

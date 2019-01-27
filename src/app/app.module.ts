@@ -39,6 +39,7 @@ import { SolicitationReviewComponent } from './solicitation-review/solicitation-
 // ROUTES
 import { AppRoutingModule } from './app.routing';
 import {UploadComponent} from './shared/components/upload/upload.component';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
 
 
 

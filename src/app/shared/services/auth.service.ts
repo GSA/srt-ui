@@ -50,7 +50,7 @@ export class AuthService {
    * @param user
    */
   login(user: User){
-    debugger
+    //debugger
     const body = JSON.stringify(user);
     const headers = new Headers({'Content-Type': 'application/json'});
     return this.http.post(this.loginUrl, body, {headers: headers})

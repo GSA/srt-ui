@@ -35,10 +35,7 @@ export class UserloginComponent implements OnInit {
               private authGuard: AuthGuard,
               private authService: AuthService,
               private router: Router,
-              private user: UserService) { 
-
-                
-              }
+              private user: UserService) {}
 
   /**
    * lifecycle
@@ -70,7 +67,7 @@ export class UserloginComponent implements OnInit {
     this.authService.login(user)
       .subscribe(
         data => {
-          debugger
+          // debugger
           console.log(data);
           localStorage.setItem('token', data.token);
           localStorage.setItem('firstName', data.firstName);
@@ -80,6 +77,9 @@ export class UserloginComponent implements OnInit {
           localStorage.setItem('position', data.position);
           localStorage.setItem('id', data.id);
           localStorage.setItem('userRole', data.userRole);
+
+          console.log ('SAVING (1) token ' + data.token);
+
 
           this.authGuard.isLogin = true;
           this.app.isLogin = true;

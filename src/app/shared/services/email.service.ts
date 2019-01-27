@@ -52,7 +52,7 @@ export class EmailService {
   * @param email
   */
   resetPassword(email) {
-    debugger
+    //debugger
     const body = JSON.stringify({ email });
     const headers = new Headers({ 'Content-Type': 'application/json' });
     return this.http.post(this.resetPasswordEmailUrl, body, { headers: headers })
