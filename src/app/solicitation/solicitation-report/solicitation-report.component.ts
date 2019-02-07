@@ -130,7 +130,7 @@ export class SolicitationReportComponent implements OnInit {
     this.solicitationService.updateHistory(solicitation)
         .subscribe(
             msg => {
-              this.router.navigate(['/solicitation/report', solicitation._id]);
+              this.router.navigate(['/solicitation/report', msg.id]);
             },
             err => {
         });

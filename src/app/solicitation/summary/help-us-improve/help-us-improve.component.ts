@@ -52,7 +52,6 @@ export class HelpUsImproveComponent implements OnInit {
       (params: any) => {
         var now = new Date().toLocaleDateString();
         this.solicitationID = params['id'];
-        console.log(this.solicitationID);
         this.solicitationService.getSolicitation(this.solicitationID).subscribe(
           data => {
             data.parseStatus.forEach(element => {

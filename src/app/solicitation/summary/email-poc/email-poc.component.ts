@@ -73,7 +73,7 @@ export class EmailPocComponent implements OnInit {
             this.step2 = data.history.filter(function(e){return e["action"].indexOf('sent email to POC') > -1}).length > 0;
             this.step3 = data.history.filter(function(e){return e["action"].indexOf('provided feedback on the solicitation prediction result') > -1}).length > 0;
             this.emailSent = data.history.filter(function(e){return ((e["action"].indexOf('sent email to POC') > -1) )}).length > 0;
-            this.emailTo = "srttestuser@gmail.com";
+            this.emailTo = "crowley+srttestemail@tcg.com";
             this.emailCC = localStorage.getItem("email");
             this.subject = "Section 508 Requirements Assessment of " + data.solNum + ", reviewed on " + now;
             this.emailBody =
@@ -126,7 +126,7 @@ export class EmailPocComponent implements OnInit {
       })
       this.emailCC = localStorage.getItem("email");
       this.myForm = new FormGroup({
-        emailTo: new FormControl("srttestuser@gmail.com", Validators.required),
+        emailTo: new FormControl("crowley+srttestemail@tcg.com", Validators.required),
         emailCC: new FormControl(this.emailCC , Validators.required),
         subject: new FormControl(this.subject, Validators.required),
         message: new FormControl(this.emailBody, Validators.required)
@@ -157,6 +157,7 @@ export class EmailPocComponent implements OnInit {
           msg => {
             this.emailSent = true;
             this.step2 = true;
+            console.log ('setting the emailSent to true');
           },
           err => {
           });

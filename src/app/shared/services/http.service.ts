@@ -11,14 +11,16 @@ export class HttpService extends Http {
   // Customize http service
   constructor(backend: XHRBackend, options: RequestOptions) {
     const token = localStorage.getItem('token'); // your custom token getter function here
+    console.log ('token set 1', token);
     options.headers.set('Authorization', `Bearer ${token}`);
     super(backend, options);
   }
 
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
     const token = localStorage.getItem('token');
+    console.log ('token set 2', token);
     if (typeof url === 'string') { // meaning we have to add the token to the options, not in url
-      if (!options) {
+      if ( (!options) || options == undefined ) {
         // let's make option object
         options = { headers: new Headers() };
       }

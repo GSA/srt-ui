@@ -49,8 +49,10 @@ export class ContactUsComponent implements OnInit {
    */
   onSubmit() {
 
-    this.emailTo = 'marina.fox@gsa.gov';
-    // this.emailTo = 'kailun_wang@unitedsolutions.biz';
+    // this.emailTo = 'marina.fox@gsa.gov';
+    //TODO: parameterize email contact address
+    this.emailTo = 'crowley@tcg.com';
+
     this.emailCC = '';
     this.subject = 'SRT Contact Us';
     this.emailBody =
