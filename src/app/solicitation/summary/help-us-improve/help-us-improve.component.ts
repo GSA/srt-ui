@@ -115,8 +115,8 @@ export class HelpUsImproveComponent implements OnInit {
             this.surveyModel[survey.ID] = answer;
           }
           else {
-            survey.Answer = survey.Answer=='' ? answer : survey.Answer+','+answer;
-            this.surveyModel[survey.ID] =  survey.Answer=='' ? answer : survey.Answer+','+answer;
+            survey.Answer = (survey.Answer === '') ? answer : survey.Answer + ',' + answer;
+            this.surveyModel[survey.ID] =  (survey.Answer === '') ? answer : survey.Answer + ',' + answer;
           }
       }
   }
@@ -151,11 +151,11 @@ export class HelpUsImproveComponent implements OnInit {
       this.surveys.forEach(element => {
           if(this.solicitation.feedback == null)
           {
-              this.solicitation.feedback = [{'questionID': element.ID, 'question': element.Question, 'answer': element.Answer}];
+              this.solicitation.feedback = [{'questionID': element.ID, 'question': element.Question, 'note': element.Note, 'answer': element.Answer}];
           }
           else
           {
-              this.solicitation.feedback.push({'questionID': element.ID, 'question': element.Question, 'answer': element.Answer})
+              this.solicitation.feedback.push({'questionID': element.ID, 'question': element.Question, 'note': element.Note, 'answer': element.Answer})
           }
       });
 

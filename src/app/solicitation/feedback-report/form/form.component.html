@@ -29,7 +29,7 @@
         </tr>
 
         <tr *ngFor="let item of solicitation.feedback">
-          <td style="font-weight: 800">{{item.question}}</td>
+          <td style="font-weight: 800">{{item.question}}<br><span style="color: #899197">{{item.note}}</span></td>
           <td>{{item.answer}}</td>
         </tr>
       </table>

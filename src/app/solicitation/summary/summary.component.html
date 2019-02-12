@@ -36,7 +36,7 @@
                 </li>
             </ul>
             <ul class="nopadding summary-floatright">
-                <li>
+                <li [ngClass]="{'active' : type=='prediction'}">
                     <a [routerLink]="['/solicitation/prediction', solicitationID]">Prediction History</a>
                 </li>
                 <li [ngClass]="{'active' : type=='history'}">

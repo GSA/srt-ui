@@ -28,6 +28,7 @@ export class Solicitation {
         public feedback: [{
           questionID: String,
           question: String,
+          note: String,
           answer: String,
         }],
         public undetermined: Boolean

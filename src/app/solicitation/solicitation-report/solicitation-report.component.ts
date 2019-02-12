@@ -69,8 +69,6 @@ export class SolicitationReportComponent implements OnInit {
             //debugger;
             this.solicitations = solicitations;
             this.solicitationService.solicitations = solicitations;
-            console.log (this.solicitations);
-            console.log (this.solicitationService.solicitations);
             this.solicitations = this.solicitations.sort(
               function(a,b){
                 var aDate = new Date(a.date);
@@ -80,12 +78,10 @@ export class SolicitationReportComponent implements OnInit {
                 else return 0;
               }
             )
-            console.log (this.solicitations);
             this.dateScan = this.solicitations[0].date;
             $('.pDataTable').show();
             // sorting
             this.solicitations = this.sortByReviewResult(this.solicitations)
-            console.log (this.solicitations);
 
             this.getNoticeTypes(this.solicitations);
           },
