@@ -35,38 +35,39 @@
         <div style="padding: 60px 40px;">
             <div class="row">
   
-                <!-- Review/Manage Workload -->
+              <!-- Review/Manage Workload -->
+              <a [routerLink]="['/solicitation/report']">
                 <div class="col-md-4 col-sm-6 srt-marginbot">
-                    <div class="srt-1-1">
-                        <div>
-                            <div class="srt-main-box" >
-                                <!-- image -->
-                                <div class="srt-9-20">
-                                    <div>
-                                        <div class="srt-iconpadding">
-                                            <div class="srt-icon1">
-  
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- description -->
-                                <div class="srt-11-20">
-                                    <div>
-                                        <div class="srt-block-padding">
-                                                <a [routerLink]="['/solicitation/report']">
-                                            <h3 style="color:black">Review/Manage Workload</h3>
-                                            <p style="color:black">Access and manage solicitation review results for your agency</p>
-                                                </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                      <div class="srt-1-1">
+                          <div>
+                              <div class="srt-main-box" >
+                                  <!-- image -->
+                                  <div class="srt-9-20">
+                                      <div>
+                                          <div class="srt-iconpadding">
+                                              <div class="srt-icon1">
+
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <!-- description -->
+                                  <div class="srt-11-20">
+                                      <div>
+                                          <div class="srt-block-padding">
+                                              <h3 style="color:black">Review/Manage Workload</h3>
+                                              <p style="color:black">Access and manage solicitation review results for your agency</p>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
                 </div>
-  
-                <!-- View Analytic -->
+              </a>
+
+              <!-- View Analytic -->
+              <a [routerLink]="['/analytics']">
                 <div class="col-md-4 col-sm-6 srt-marginbot">
                     <div class="srt-1-1">
                         <div>
@@ -85,10 +86,8 @@
                                 <div class="srt-11-20">
                                     <div>
                                         <div class="srt-block-padding">
-                                                <a [routerLink]="['/analytics']">
                                             <h3 style="color:black">View Analytics</h3>
                                             <p style="color:black">Visualize trend and discover insights from the analytics</p>
-                                                </a>
                                         </div>
                                     </div>
                                 </div>
@@ -96,8 +95,10 @@
                         </div>
                     </div>
                 </div>
-  
-                <!-- Manage SRT Access Requests -->
+              </a>
+
+              <!-- Manage SRT Access Requests -->
+              <a [routerLink]="['/admin']">
                 <div class="col-md-4 col-sm-6 srt-marginbot" *ngIf="isGSAAdmin">
                     <div class="srt-1-1">
                         <div>
@@ -116,10 +117,8 @@
                                 <div class="srt-11-20">
                                     <div>
                                         <div class="srt-block-padding">
-                                            <a [routerLink]="['/admin']">
                                             <h3 style="color:black">Manage SRT Access Requests</h3>
                                             <p style="color:black"> The Administrator manages new SRT sign up requests and current users settings</p>
-                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -127,8 +126,10 @@
                         </div>
                     </div>
                 </div>
-  
-                <!-- Get Additional Resourses -->
+              </a>
+
+              <!-- Get Additional Resourses -->
+              <a onclick="window.open('https://app.buyaccessible.gov/baw/Main.jsp')">
                 <div class="col-md-4 col-sm-6 srt-marginbot" tabindex="0">
                     <div class="srt-1-1">
                         <div>
@@ -147,10 +148,8 @@
                                 <div class="srt-11-20">
                                     <div>
                                         <div class="srt-block-padding">
-                                            <a onclick="window.open('https://app.buyaccessible.gov/baw/Main.jsp')">
                                             <h3 style="color:black">Get Additional Resources</h3>
                                             <p style="color:black">Need help with Accessiblity requirements? Buy Accessible Wizard can assist you with that</p>
-                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -158,8 +157,10 @@
                         </div>
                     </div>
                 </div>
-  
-                <!-- FAQ -->
+              </a>
+
+              <!-- FAQ -->
+              <a [routerLink]="['/help/faq']">
                 <div class="col-md-4 col-sm-6 srt-marginbot">
                     <div class="srt-1-1">
                         <div>
@@ -178,10 +179,8 @@
                                 <div class="srt-11-20">
                                     <div>
                                         <div class="srt-block-padding">
-                                            <a [routerLink]="['/help/faq']">
                                             <h3 style="color:black">FAQ</h3>
                                             <p style="color:black">Review Frequently Asked Questions and learn more about SRT</p>
-                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -189,8 +188,10 @@
                         </div>
                     </div>
                 </div>
-  
-                <!-- Settings -->
+              </a>
+
+              <!-- Settings -->
+              <a [routerLink]="['/user/profile/', currentID]">
                 <div class="col-md-4 col-sm-6 srt-marginbot">
                     <div class="srt-1-1">
                         <div>
@@ -209,10 +210,8 @@
                                 <div class="srt-11-20">
                                     <div>
                                         <div class="srt-block-padding">
-                                            <a [routerLink]="['/user/profile/', currentID]">
                                             <h3 style="color:black">Settings</h3>
                                             <p style="color:black">Change your profile and/or password</p>
-                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -220,10 +219,10 @@
                         </div>
                     </div>
                 </div>
-  
+              </a>
+
   
             </div>
         </div>
     </div>
   </main>
-  
