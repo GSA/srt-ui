@@ -4,7 +4,8 @@ import { Headers, Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 import { Survey } from './shared/survey';
-import { environment } from '../environments/environment'
+import { HttpService } from './shared/services/http.service';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class SurveyService {
@@ -20,7 +21,7 @@ export class SurveyService {
    * @param http
    */
   constructor(
-    private http: Http
+    private http: HttpService
   ) { }
 
   /**
