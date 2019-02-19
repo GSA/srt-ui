@@ -22,7 +22,7 @@ import { User } from '../../shared/user';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  myform: FormGroup;  
+  myform: FormGroup;
   filterParams = {}
   params = {};
   current: any
@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit {
     private fileService: FileService,
     private route: ActivatedRoute,
     private auth: AuthGuard
-    
+
   ) {
     this.current = this.authService.getCurrent();
   }
@@ -53,9 +53,9 @@ export class ProfileComponent implements OnInit {
   /**
    * lifecycle
    */
-  ngOnInit() {    
- 
-    
+  ngOnInit() {
+
+
     this.route.params.subscribe((params => {
       const userID = params['userID'];
 
@@ -63,18 +63,18 @@ export class ProfileComponent implements OnInit {
     }))
 
     this.isGSAAdmin = this.auth.isGSAAdmin;
-    
+
   }
 
 
-  
+
   /**
    * lifecycle
    */
-  ngOnChange() {    
+  ngOnChange() {
 
   }
- 
+
 
   /**
    * Get Current User.
@@ -107,7 +107,6 @@ export class ProfileComponent implements OnInit {
      */
 
   saveInfo() {
-    console.log(this.newemail);
     this.paramAdmin['NewEmail'] = this.newemail;
     this.paramAdmin['UserID'] = this.route.snapshot.params['userID'];
     this.userService.updateUserInfo(this.paramAdmin).subscribe(
@@ -141,7 +140,7 @@ export class ProfileComponent implements OnInit {
       }
     )
   }
-    
-  
+
+
 
 }

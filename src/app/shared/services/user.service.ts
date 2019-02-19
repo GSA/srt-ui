@@ -100,11 +100,13 @@ export class UserService {
    * Get user INFO from database.
    * @param Params
    */
-  public getUserFromDatabase(params){
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.post(this.getUserFromDBUrl, params, { headers: headers })
-      .map((response: Response) => response.json());
-  }
+  public getUserFromDatabase(params) {
+      const headers = new Headers({'Content-Type': 'application/json'});
+      const res = this.http.post(this.getUserFromDBUrl, params, {headers: headers});
+      return res.map((response: Response) => {
+        return response.json();
+      });
+    }
 
   /**
    * Check password
