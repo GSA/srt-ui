@@ -1,0 +1,304 @@
+{
+  "id": "e2a4bf81-5260-49ef-993c-1e3568b4e9b5",
+  "version": "2.0",
+  "name": "SRT",
+  "url": "http://srt-client.app.cloud.gov/",
+  "tests": [{
+    "id": "1888497e-83be-4bcf-85eb-4febba184060",
+    "name": "All-pages",
+    "commands": [{
+      "id": "08b55243-c8ad-45bc-835d-c0e746eb6afe",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9f12d0cd-744e-4772-b03c-17d9efb0963f",
+      "comment": "",
+      "command": "storeXpathCount",
+      "target": "xpath=//input[@id='password']",
+      "targets": [],
+      "value": "numPasswordBoxes"
+    }, {
+      "id": "c71efea9-5e88-4c4d-834f-856def1ffeed",
+      "comment": "",
+      "command": "if",
+      "target": "${numPasswordBoxes} > 0",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1fdc18cc-e54b-4fb9-862c-0c291127f7b2",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//main[@id='content']/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "al@bwnj.net"
+    }, {
+      "id": "d4fef66d-469e-4413-a1da-c92dfede7019",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=email", "id"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//main[@id='content']/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "23Hilltop!"
+    }, {
+      "id": "0b3b7dc6-7e39-4ba5-a2da-b4af8ff8fff5",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[@type='submit']",
+      "targets": [
+        ["css=.srt-button", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//main[@id='content']/form/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Log In')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "48d849af-fc5a-4fdb-8f5f-ef940e9e41ef",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2b1fecbe-a40b-432a-820b-2dd54401f0c6",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Manage/Review Workload",
+      "targets": [
+        ["linkText=Manage/Review Workload", "linkText"],
+        ["css=#\\32 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Manage/Review Workload')]", "xpath:link"],
+        ["xpath=//li[@id='2']/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '')])[6]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Manage/Review Workload')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "afb52670-bc95-41c5-98f6-332a558cf749",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[contains(.,' Non-compliant (Action Required)')]",
+      "targets": [
+        ["css=.ui-widget-content:nth-child(1) .button", "css:finder"],
+        ["xpath=//button[@onclick=\"$('#test').focus()\"]", "xpath:attributes"],
+        ["xpath=//main[@id='content']/div/p-datatable/div/div/table/tbody/tr/td[5]/span[2]/div/span/button", "xpath:idRelative"],
+        ["xpath=//span[2]/div/span/button", "xpath:position"],
+        ["xpath=//button[contains(.,' Non-compliant (Action Required)')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3be5761e-d699-4d7f-8914-72bde9dd7e7f",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=STEP 2: EMAIL POC",
+      "targets": [
+        ["linkText=STEP 2: EMAIL POC", "linkText"],
+        ["css=.summary-floatleft > li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'STEP 2: EMAIL POC')]", "xpath:link"],
+        ["xpath=//main[@id='content']/app-summary/div[2]/div/div/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/solicitation/email/1171')]", "xpath:href"],
+        ["xpath=//div[2]/div/div/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'STEP 2: EMAIL POC')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4011fb56-44db-4ad7-a8db-62390790a0f1",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=STEP 3: MAKE SRT SMARTER",
+      "targets": [
+        ["linkText=STEP 3: MAKE SRT SMARTER", "linkText"],
+        ["css=.nopadding > li:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'STEP 3: MAKE SRT SMARTER')]", "xpath:link"],
+        ["xpath=//main[@id='content']/app-summary/div[2]/div/div/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/solicitation/feedback/1171')]", "xpath:href"],
+        ["xpath=//div[2]/div/div/ul/li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'STEP 3: MAKE SRT SMARTER')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b82de8c3-197a-4920-81ee-5b98293af318",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//button[contains(.,'Submit')]",
+      "targets": [
+        ["css=.srt-button", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//main[@id='content']/div/div/div[2]/div[2]/div/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "80e08a2a-7c93-40fc-bd75-4d775d4b98ee",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//a[contains(text(),'Prediction History')]",
+      "targets": [
+        ["css=.summary-floatright > li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Prediction History')]", "xpath:link"],
+        ["xpath=//main[@id='content']/app-summary/div[2]/div/div/ul[2]/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/solicitation/prediction/1174')]", "xpath:href"],
+        ["xpath=//div[2]/div/div/ul[2]/li/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6d467800-1b2a-4486-a7e0-24a591ec7829",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=.list-title",
+      "targets": [
+        ["css=.list-title", "css:finder"],
+        ["xpath=//main[@id='content']/div/div/div[2]/div", "xpath:idRelative"],
+        ["xpath=//main/div/div/div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "eb3ac08c-f705-40a1-b931-3693e303903a",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=(//a[contains(text(),'History')])[2]",
+      "targets": [
+        ["css=.summary-floatright > li:nth-child(2) > a", "css:finder"],
+        ["xpath=(//a[contains(text(),'History')])[2]", "xpath:link"],
+        ["xpath=//main[@id='content']/app-summary/div[2]/div/div/ul[2]/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/solicitation/history/1174')]", "xpath:href"],
+        ["xpath=//ul[2]/li[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f526fec6-c800-47b7-befc-8c2531b22a47",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//main[@id='content']/div/div/div[2]/div[2]/ul/li",
+      "targets": [
+        ["css=.list-content li:nth-child(1)", "css:finder"],
+        ["xpath=//main[@id='content']/div/div/div[2]/div[2]/ul/li", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/ul/li", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "60d14247-8b8e-43ce-9f4b-c33e1e2ab6e2",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=View Analytics",
+      "targets": [
+        ["linkText=View Analytics", "linkText"],
+        ["css=#\\33 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'View Analytics')]", "xpath:link"],
+        ["xpath=//li[@id='3']/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '')])[7]", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'View Analytics')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9c1176d7-3fb0-49ee-ab3b-a43043147737",
+      "comment": "",
+      "command": "waitForElementNotPresent",
+      "target": "xpath=//*[contains(text(), \"NaN\")]",
+      "targets": [
+        ["css=.undeter-solic-dispaly3", "css:finder"],
+        ["xpath=//main[@id='content']/div/div/div[6]/app-undetermined-solicitations/div/div[2]/div[4]", "xpath:idRelative"],
+        ["xpath=//app-undetermined-solicitations/div/div[2]/div[4]", "xpath:position"]
+      ],
+      "value": "5000"
+    }, {
+      "id": "9b4b7c5f-b79c-467f-9445-eb101bb48fa9",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Manage Access Requests",
+      "targets": [
+        ["linkText=Manage Access Requests", "linkText"],
+        ["css=#\\34 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Manage Access Requests')]", "xpath:link"],
+        ["xpath=//li[@id='4']/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '')])[8]", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Manage Access Requests')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "548a84eb-baa8-4329-b374-3302f6c86c53",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=APPROVED",
+      "targets": [
+        ["linkText=APPROVED", "linkText"],
+        ["css=#tab1 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'APPROVED')]", "xpath:link"],
+        ["xpath=//li[@id='tab1']/a", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'APPROVED')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "79755651-110a-47c5-8406-202426187d37",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "linkText=Al Crowley",
+      "targets": [
+        ["linkText=Al Crowley", "linkText"],
+        ["css=.even:nth-child(1) a", "css:finder"],
+        ["xpath=//a[contains(text(),'Al Crowley')]", "xpath:link"],
+        ["xpath=//main[@id='content']/div/div[3]/table/tbody/tr/td/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/user/profile/2')]", "xpath:href"],
+        ["xpath=//td/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Al Crowley')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5a07f6ad-bbca-4928-ba2c-e078a51d05ec",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Al Crowley",
+      "targets": [
+        ["linkText=Al Crowley", "linkText"],
+        ["css=.even:nth-child(1) a", "css:finder"],
+        ["xpath=//a[contains(text(),'Al Crowley')]", "xpath:link"],
+        ["xpath=//main[@id='content']/div/div[3]/table/tbody/tr/td/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/user/profile/2')]", "xpath:href"],
+        ["xpath=//td/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Al Crowley')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fc5d8b49-bc8b-410d-80c2-6fb0bfc778b7",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//h4[contains(.,'General Services Administration')]",
+      "targets": [
+        ["css=.form-group:nth-child(2) h4", "css:finder"],
+        ["xpath=//div[@id='userProfile']/div[2]/div/h4", "xpath:idRelative"],
+        ["xpath=//div[2]/div/h4", "xpath:position"],
+        ["xpath=//h4[contains(.,'General Services Administration')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "ec5d1633-94d5-45f8-b8d9-b52a4d08b1ec",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["1888497e-83be-4bcf-85eb-4febba184060"]
+  }],
+  "urls": ["http://localhost:4200/", "http://srt-client.app.cloud.gov/"],
+  "plugins": []
+}
