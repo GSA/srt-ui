@@ -289,6 +289,246 @@
         ["xpath=//h4[contains(.,'General Services Administration')]", "xpath:innerText"]
       ],
       "value": ""
+    }, {
+      "id": "da071496-2107-486f-b0b3-32dfed6bfbde",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Edit Profile",
+      "targets": [
+        ["linkText=Edit Profile", "linkText"],
+        ["css=div:nth-child(4) > a:nth-child(1)", "css:finder"],
+        ["xpath=//a[contains(text(),'Edit Profile')]", "xpath:link"],
+        ["xpath=//main[@id='content']/div[2]/div/div[2]/a", "xpath:idRelative"],
+        ["xpath=//div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Edit Profile')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "86151404-4bd9-4bf7-a006-fb31937a13a7",
+      "comment": "",
+      "command": "type",
+      "target": "id=textinput",
+      "targets": [
+        ["id=textinput", "id"],
+        ["css=#textinput", "css:finder"],
+        ["xpath=//input[@id='textinput']", "xpath:attributes"],
+        ["xpath=//div[@id='userProfile']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "crowley+selenium@tcg.com"
+    }, {
+      "id": "e0bec934-7ba8-432a-914d-6343cc3cfd4c",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Save Profile",
+      "targets": [
+        ["linkText=Save Profile", "linkText"],
+        ["css=div:nth-child(4) > a:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Save Profile')]", "xpath:link"],
+        ["xpath=//main[@id='content']/div[2]/div/div[2]/a[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Save Profile')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fa4222b4-52f0-4860-94d3-f099c41600bc",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//h4[contains(.,'crowley+selenium@tcg.com')]",
+      "targets": [
+        ["css=.form-group:nth-child(1) h4", "css:finder"],
+        ["xpath=//div[@id='userProfile']/div/div/h4", "xpath:idRelative"],
+        ["xpath=//h4", "xpath:position"],
+        ["xpath=//h4[contains(.,'crowley+selenium@tcg.com')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e52a45b7-4268-4122-aa5e-7f3348092212",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Edit Profile",
+      "targets": [
+        ["linkText=Edit Profile", "linkText"],
+        ["css=div:nth-child(4) > a:nth-child(1)", "css:finder"],
+        ["xpath=//a[contains(text(),'Edit Profile')]", "xpath:link"],
+        ["xpath=//main[@id='content']/div[2]/div/div[2]/a", "xpath:idRelative"],
+        ["xpath=//div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Edit Profile')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1762e69f-5a6b-4aa9-bc7f-518e2dcacc6f",
+      "comment": "",
+      "command": "type",
+      "target": "id=textinput",
+      "targets": [
+        ["id=textinput", "id"],
+        ["css=#textinput", "css:finder"],
+        ["xpath=//input[@id='textinput']", "xpath:attributes"],
+        ["xpath=//div[@id='userProfile']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "crowley@tcg.com"
+    }, {
+      "id": "00214e71-3b43-4637-93a4-457ab5d4b379",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Save Profile",
+      "targets": [
+        ["linkText=Save Profile", "linkText"],
+        ["css=div:nth-child(4) > a:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Save Profile')]", "xpath:link"],
+        ["xpath=//main[@id='content']/div[2]/div/div[2]/a[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Save Profile')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a944d465-0cb8-46c2-b1ca-5ef0101378df",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//h4[contains(.,'crowley@tcg.com')]",
+      "targets": [
+        ["css=.form-group:nth-child(1) h4", "css:finder"],
+        ["xpath=//div[@id='userProfile']/div/div/h4", "xpath:idRelative"],
+        ["xpath=//h4", "xpath:position"],
+        ["xpath=//h4[contains(.,'crowley+selenium@tcg.com')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "733659b9-14a3-4265-8321-e5739bda40ed",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Contact Us",
+      "targets": [
+        ["linkText=Contact Us", "linkText"],
+        ["css=#\\35 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Contact Us')]", "xpath:link"],
+        ["xpath=//li[@id='5']/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '')])[9]", "xpath:href"],
+        ["xpath=//li[5]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Contact Us')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "566ea33d-f912-468b-978f-2c811d5a1874",
+      "comment": "",
+      "command": "type",
+      "target": "id=name",
+      "targets": [
+        ["id=name", "id"],
+        ["css=#name", "css:finder"],
+        ["xpath=//input[@id='name']", "xpath:attributes"],
+        ["xpath=//main[@id='content']/div[2]/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Selenium Test"
+    }, {
+      "id": "190c2336-5e49-41dc-9377-b74ce32f68b3",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//main[@id='content']/div[2]/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "crowley+seleniumtest@tcg.com"
+    }, {
+      "id": "eec07341-b98a-4b6c-a67a-129ccaa816a9",
+      "comment": "",
+      "command": "type",
+      "target": "id=textcontent",
+      "targets": [
+        ["id=textcontent", "id"],
+        ["css=#textcontent", "css:finder"],
+        ["xpath=//textarea[@id='textcontent']", "xpath:attributes"],
+        ["xpath=//main[@id='content']/div[2]/form/div[3]/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "Test email content"
+    }, {
+      "id": "2f65c4d5-791e-4730-b24c-ea15755286a1",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[contains(.,'Send Message')]",
+      "targets": [
+        ["css=.srt-button", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//main[@id='content']/div[2]/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Send Message')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "10093d76-76fc-49c7-856f-6977b2508ef5",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//div[contains(text(),'message is successfully sent')]",
+      "targets": [
+        ["css=.alert", "css:finder"],
+        ["xpath=//main[@id='content']/div[2]/div", "xpath:idRelative"],
+        ["xpath=//main/div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "54bc9c5d-7325-4c19-afeb-0af7db7a227c",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=FAQs",
+      "targets": [
+        ["linkText=FAQs", "linkText"],
+        ["css=#\\36 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'FAQs')]", "xpath:link"],
+        ["xpath=//li[@id='6']/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '')])[10]", "xpath:href"],
+        ["xpath=//li[6]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'FAQs')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3f71d270-7f4b-459a-a08b-152da84a8c61",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=mostViewTitle",
+      "targets": [
+        ["id=mostViewTitle", "id"],
+        ["css=#mostViewTitle", "css:finder"],
+        ["xpath=//h2[@id='mostViewTitle']", "xpath:attributes"],
+        ["xpath=//main[@id='content']/div[2]/div/div[2]/div[2]/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Most Viewed FAQs')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b821c1a0-6a60-45ec-ad87-8aead13b0147",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Feedback",
+      "targets": [
+        ["linkText=Feedback", "linkText"],
+        ["css=#\\37 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Feedback')]", "xpath:link"],
+        ["xpath=//li[@id='7']/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '')])[11]", "xpath:href"],
+        ["xpath=//li[7]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Feedback')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "298294bf-704f-43e6-b4db-9a4fcc735f8e",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//th[contains(.,'Solicitation Feedback')]",
+      "targets": [
+        ["css=th:nth-child(1)", "css:finder"],
+        ["xpath=//main[@id='content']/div/div/table/tbody/tr/th", "xpath:idRelative"],
+        ["xpath=//th", "xpath:position"],
+        ["xpath=//th[contains(.,'Solicitation Feedback')]", "xpath:innerText"]
+      ],
+      "value": ""
     }]
   }],
   "suites": [{
