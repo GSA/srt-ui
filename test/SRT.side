@@ -2,7 +2,7 @@
   "id": "e2a4bf81-5260-49ef-993c-1e3568b4e9b5",
   "version": "2.0",
   "name": "SRT",
-  "url": "http://srt-client.app.cloud.gov/",
+  "url": "http://localhost:4200/",
   "tests": [{
     "id": "1888497e-83be-4bcf-85eb-4febba184060",
     "name": "All-pages",
@@ -208,9 +208,23 @@
       ],
       "value": ""
     }, {
+      "id": "92565f22-f323-4b00-909d-feea7769ef9c",
+      "comment": "",
+      "command": "pause",
+      "target": "5000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3dd20f37-fe1a-480d-a09a-99c03012c767",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "xpath=//*[contains(text(), \"NaN\")]",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "9c1176d7-3fb0-49ee-ab3b-a43043147737",
       "comment": "",
-      "command": "waitForElementNotPresent",
+      "command": "//waitForElementNotPresent",
       "target": "xpath=//*[contains(text(), \"NaN\")]",
       "targets": [
         ["css=.undeter-solic-dispaly3", "css:finder"],
@@ -266,7 +280,7 @@
       "id": "5a07f6ad-bbca-4928-ba2c-e078a51d05ec",
       "comment": "",
       "command": "click",
-      "target": "linkText=Al Crowley",
+      "target": "linkText=Selenium Test",
       "targets": [
         ["linkText=Al Crowley", "linkText"],
         ["css=.even:nth-child(1) a", "css:finder"],
@@ -315,7 +329,7 @@
         ["xpath=//div[@id='userProfile']/div/input", "xpath:idRelative"],
         ["xpath=//input", "xpath:position"]
       ],
-      "value": "crowley+selenium@tcg.com"
+      "value": "crowley+selenium123@tcg.com"
     }, {
       "id": "e0bec934-7ba8-432a-914d-6343cc3cfd4c",
       "comment": "",
@@ -334,7 +348,7 @@
       "id": "fa4222b4-52f0-4860-94d3-f099c41600bc",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "xpath=//h4[contains(.,'crowley+selenium@tcg.com')]",
+      "target": "xpath=//h4[contains(.,'crowley+selenium123@tcg.com')]",
       "targets": [
         ["css=.form-group:nth-child(1) h4", "css:finder"],
         ["xpath=//div[@id='userProfile']/div/div/h4", "xpath:idRelative"],
@@ -368,7 +382,7 @@
         ["xpath=//div[@id='userProfile']/div/input", "xpath:idRelative"],
         ["xpath=//input", "xpath:position"]
       ],
-      "value": "crowley@tcg.com"
+      "value": "crowley+seleniumtest@tcg.com"
     }, {
       "id": "00214e71-3b43-4637-93a4-457ab5d4b379",
       "comment": "",
@@ -387,7 +401,7 @@
       "id": "a944d465-0cb8-46c2-b1ca-5ef0101378df",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "xpath=//h4[contains(.,'crowley@tcg.com')]",
+      "target": "xpath=//h4[contains(.,'crowley+seleniumtest@tcg.com')]",
       "targets": [
         ["css=.form-group:nth-child(1) h4", "css:finder"],
         ["xpath=//div[@id='userProfile']/div/div/h4", "xpath:idRelative"],
