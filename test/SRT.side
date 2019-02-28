@@ -210,21 +210,21 @@
     }, {
       "id": "92565f22-f323-4b00-909d-feea7769ef9c",
       "comment": "",
-      "command": "pause",
+      "command": "//pause",
       "target": "5000",
       "targets": [],
       "value": ""
     }, {
       "id": "3dd20f37-fe1a-480d-a09a-99c03012c767",
       "comment": "",
-      "command": "verifyElementNotPresent",
+      "command": "//verifyElementNotPresent",
       "target": "xpath=//*[contains(text(), \"NaN\")]",
       "targets": [],
       "value": ""
     }, {
       "id": "9c1176d7-3fb0-49ee-ab3b-a43043147737",
       "comment": "",
-      "command": "//waitForElementNotPresent",
+      "command": "waitForElementNotPresent",
       "target": "xpath=//*[contains(text(), \"NaN\")]",
       "targets": [
         ["css=.undeter-solic-dispaly3", "css:finder"],
