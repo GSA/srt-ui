@@ -210,8 +210,8 @@
     }, {
       "id": "92565f22-f323-4b00-909d-feea7769ef9c",
       "comment": "",
-      "command": "//pause",
-      "target": "5000",
+      "command": "pause",
+      "target": "2000",
       "targets": [],
       "value": ""
     }, {
@@ -220,6 +220,17 @@
       "command": "//verifyElementNotPresent",
       "target": "xpath=//*[contains(text(), \"NaN\")]",
       "targets": [],
+      "value": ""
+    }, {
+      "id": "8ec209fb-9871-435d-a05c-016a567c7c19",
+      "comment": "",
+      "command": "//waitForElementPresent",
+      "target": "css=.undeter-solic-canvas > .chartjs-render-monitor",
+      "targets": [
+        ["css=.undeter-solic-canvas > .chartjs-render-monitor", "css:finder"],
+        ["xpath=//main[@id='content']/div/div/div[6]/app-undetermined-solicitations/div/div[2]/div/canvas", "xpath:idRelative"],
+        ["xpath=//app-undetermined-solicitations/div/div[2]/div/canvas", "xpath:position"]
+      ],
       "value": ""
     }, {
       "id": "9c1176d7-3fb0-49ee-ab3b-a43043147737",
@@ -475,6 +486,13 @@
         ["xpath=//form/button", "xpath:position"],
         ["xpath=//button[contains(.,'Send Message')]", "xpath:innerText"]
       ],
+      "value": ""
+    }, {
+      "id": "b36a901d-b095-4c91-b93f-763b93124371",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
       "value": ""
     }, {
       "id": "10093d76-76fc-49c7-856f-6977b2508ef5",
