@@ -4,7 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: true,
+  production: false,
   SERVER_URL: 'https://srt-server-staging.app.cloud.gov/api',
   EMAIL_NOTIFICATION: true,
   FILE_UPLOAD_API: 'http://srt-server-staging.app.cloud.gov/file/upload'
