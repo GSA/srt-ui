@@ -73,7 +73,7 @@ export class EmailPocComponent implements OnInit {
             this.step2 = data.history.filter(function(e){return e["action"].indexOf('sent email to POC') > -1}).length > 0;
             this.step3 = data.history.filter(function(e){return e["action"].indexOf('provided feedback on the solicitation prediction result') > -1}).length > 0;
             this.emailSent = data.history.filter(function(e){return ((e["action"].indexOf('sent email to POC') > -1) )}).length > 0;
-            this.emailTo = "crowley+srttestemail@tcg.com";
+            this.emailTo = data.contactInfo.email; // "crowley+srttestemail@tcg.com";
             this.emailCC = localStorage.getItem("email");
             this.subject = "Section 508 Requirements Assessment of " + data.solNum + ", reviewed on " + now;
             this.emailBody =
