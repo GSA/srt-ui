@@ -101,7 +101,7 @@
               &nbsp; </div>
             <div class="list-content">
               <ul class="nopadding">
-                <li class="liststyle" *ngFor="let doc of solicitation.parseStatus">{{doc.name}} : {{doc.status}}</li>
+                <li class="liststyle" *ngFor="let doc of solicitation.parseStatus"><a href="{{doc.attachment_url}}">{{doc.name}} : {{doc.status}}</a></li>
                 <li class="liststyle" *ngFor="let lock of lockDocs">solicitation_{{solicitation.solNum}}_document: Failed to Load</li>
               </ul>
             </div>

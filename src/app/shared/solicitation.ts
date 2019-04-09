@@ -18,7 +18,7 @@ export class Solicitation {
         public position: String,
         public reviewStatus: Boolean,
         public noticeType: String,
-        public parseStatus: [{name: String, status: String}],
+        public parseStatus: [{name: String, status: String, attachment_url: String}],
         public contactInfo: {
           contact: String,
           name: String,
