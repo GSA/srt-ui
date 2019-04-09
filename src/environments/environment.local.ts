@@ -5,7 +5,8 @@
 
 export const environment = {
   production: false,
-  SERVER_URL: 'https://srt-server-dev.app.cloud.gov/api',
+  // SERVER_URL: 'http://localhost:3000',
+  SERVER_URL: 'http://localhost:3000/api',
   EMAIL_NOTIFICATION: true,
-  FILE_UPLOAD_API: 'http://srt-server-dev.app.cloud.gov/file/upload'
+  FILE_UPLOAD_API: 'http://localhost:3000/file/upload'
 };
