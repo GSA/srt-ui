@@ -36,7 +36,8 @@ export class AppComponent {
         this.isGSAAdmin = this.authGuard.isGSAAdmin;
         // debugger
         if (!this.authGuard.isLogin) {
-          localStorage.clear();
+          // don't clear cache here when using MAX CAS prototype
+          // localStorage.clear();
         }
       }
     )
