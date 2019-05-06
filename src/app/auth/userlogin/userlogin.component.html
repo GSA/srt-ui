@@ -1,42 +1,5 @@
 <main id="content" class="bypass-block-target" tabindex="-1"> 
-<!--<div class='register-title'>Log In</div>-->
-<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="email">Email Address        
-    </label>
-    <input type="email"
-            id="email"
-            class="form-control"
-            formControlName="email">
-            <div *ngIf="myForm.get('email').invalid && (myForm.get('email').dirty || myForm.get('email').touched)" class="validation text-danger">
-                <div *ngIf="myForm.get('email').hasError('required')">
-                  Email is required.
-                </div>
-              </div>
-  </div>
-  <div class="form-group" style="margin-bottom: 40px;">
-    <label for="password">Password        
-    </label>
-    <input type="password"
-            id="password"
-            class="form-control"
-            formControlName="password">
-            <div *ngIf="myForm.get('password').invalid && (myForm.get('password').dirty || myForm.get('password').touched)" class="validation text-danger">
-                <div *ngIf="myForm.get('password').hasError('required')">
-                  First name is required.
-                </div>
-              </div>
-  </div>
-  
-  <div *ngIf="errorMessage" class="login-error">
-      Login Failed. {{errorInformation}}
-  </div>
 
-  <button type="submit" class="srt-button">Log In</button>
-
-  <a style="padding-top: 20px" [routerLink]="['/auth/forgetpassword']"> Forgot Password?</a>
-</form>
-
-  <a href="https://login.test.max.gov/cas//login?service=http://localhost:4200/auth&renew=false">CAS Login</a>
+  <button class="srt-button" onClick=" window.location = 'https://login.test.max.gov/cas/login?service=http://localhost:3000/api/casLogin/stage1&renew=false' ">CAS Login</button>
 
 </main>

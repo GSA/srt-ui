@@ -28,61 +28,26 @@
       const ticketParam = window.location.search.substr(1)
         .split('&')
         .map(x => x.split('='))
-        .filter(x => x[0] === 'ticket')
+        .filter(x => x[0] === 'token')
 
       if (ticketParam.length > 0) {
-        const url = 'http://localhost:3000/api/casLogin?ticket=' + ticketParam[0][1]
-        console.log("url", url);
-        return fetch(url)
-          .then( res => res.json())
-          .then( data => {
+        data = JSON.parse(decodeURIComponent(ticketParam[0][1]))
 
-            localStorage.setItem('agency', data.agency)
-            localStorage.setItem('email', data.email)
-            localStorage.setItem('firstName', data.firstName)
-            localStorage.setItem('id', data.id)
-            localStorage.setItem('lastName', data.lastName)
-            localStorage.setItem('position', data.position)
-            localStorage.setItem('token', data.token)
-            localStorage.setItem('userRole', data.userRole)
+      localStorage.setItem('agency', data.agency)
+      localStorage.setItem('email', data.email)
+      localStorage.setItem('firstName', data.firstName)
+      localStorage.setItem('id', data.id)
+      localStorage.setItem('lastName', data.lastName)
+      localStorage.setItem('position', data.position)
+      localStorage.setItem('token', data.token)
+      localStorage.setItem('userRole', data.userRole)
 
-            console.log("JSON***", data)
-            window.location = '/'
-
-            document.getElementsByTagName('app-auth')[0].innerHTML =
-              '              <div class="solic-nosolic">                               ' +
-              '              <div class="solic-nosolic-posi">                          ' +
-              '              <ul class="cb-slideshow">                                 ' +
-              '              <i class="fa fa-cog fa-spin" style="color: #4a4a4a"></i>  ' +
-              '              <span>L</span></li>                                       ' +
-              '            <li><span>O</span></li>                                     ' +
-              '            <li><span>A</span></li>                                     ' +
-              '            <li><span>D</span></li>                                     ' +
-              '            <li><span>I</span></li>                                     ' +
-              '            <li><span>N</span></li>                                     ' +
-              '            <li><span>G</span></li>                                     ' +
-              '            <li><span>.</span></li>                                     ' +
-              '            <li><span>.</span></li>                                     ' +
-              '            <li><span>.</span></li>                                     ' +
-              '            </ul>                                                       ' +
-              '            </div>                                                      ' +
-              '            </div>                                                      '
-
-
-
-
-
-            return true
-          })
+      window.location = '/'
       }
       return false;
     }
 
     casCheck()
-      .then( JWT => console.log("JWT", JWT))
-      .catch( error => console.log("error",error))
-
-
 
   </script>
 

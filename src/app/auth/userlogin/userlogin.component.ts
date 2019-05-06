@@ -7,6 +7,7 @@ import { AuthService } from '../../shared/services/auth.service';
 import { UserService } from '../../shared/services/user.service';
 import { AuthGuard } from '../../auth-guard.service'
 import { AppComponent } from '../../app.component'
+import { environment } from '../../../environments/environment'
 
 @Component({
   selector: 'app-userlogin',
@@ -20,6 +21,7 @@ export class UserloginComponent implements OnInit {
   myForm: FormGroup;
   errorMessage = false;
   errorInformation = "";
+  public loginUrl = environment.SERVER_URL + '/casLogin/stage1';
 
   /* CONSTRUCTOR */
 
