@@ -21,7 +21,7 @@ export class UserloginComponent implements OnInit {
   myForm: FormGroup;
   errorMessage = false;
   errorInformation = "";
-  public loginUrl = environment.SERVER_URL + '/casLogin/stage1';
+  public loginUrl = environment.SERVER_URL + '/casLogin';
 
   /* CONSTRUCTOR */
 
