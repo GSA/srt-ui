@@ -21,5 +21,37 @@
   <script src="/node_modules/chart.js/src/chart.js"></script>
   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>-->
   <script src="/node_modules/uswds/dist/js/uswds.min.js"></script>
+
+
+  <script language="JavaScript">
+    async function casCheck() {
+      const ticketParam = window.location.search.substr(1)
+        .split('&')
+        .map(x => x.split('='))
+        .filter(x => x[0] === 'token')
+
+      if (ticketParam.length > 0) {
+        data = JSON.parse(decodeURIComponent(ticketParam[0][1]))
+
+      localStorage.setItem('agency', data.agency)
+      localStorage.setItem('email', data.email)
+      localStorage.setItem('firstName', data.firstName)
+      localStorage.setItem('id', data.id)
+      localStorage.setItem('lastName', data.lastName)
+      localStorage.setItem('position', data.position)
+      localStorage.setItem('token', data.token)
+      localStorage.setItem('userRole', data.userRole)
+
+      window.location = '/'
+      }
+      return false;
+    }
+
+    casCheck()
+
+  </script>
+
+
+
 </body>
 </html>
