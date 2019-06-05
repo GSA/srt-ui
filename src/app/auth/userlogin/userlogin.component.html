@@ -10,7 +10,7 @@
                       if (client_host === 'srt-client.app.cloud.gov') { server_host = 'srt-server.app.cloud.gov' }
                       if (client_host === 'srt-client-dev.app.cloud.gov') { server_host = 'srt-server-dev.app.cloud.gov' }
                       if (client_host === 'srt-client-staging.app.cloud.gov') { server_host = 'srt-server-staging.app.cloud.gov' }
-                      window.location = 'http://' + client_host + '/api/casLogin'
+                      window.location = 'http://' + server_host + '/api/casLogin'
                     }()) ">Login with MAX</button>
 </div>
 </main>
