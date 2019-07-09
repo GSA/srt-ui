@@ -49,6 +49,21 @@
 
     casCheck()
 
+
+
+    // TO-DO: build this into an angular hook rather than this hack
+    function errorUpdater() {
+      var urlParams = new URLSearchParams(window.location.search);
+      console.log ("checking", urlParams.has("error"));
+      if (urlParams.has("error")) {
+        console.log ("recurse");
+        var el = document.getElementById("login-error");
+        el.innerHTML = "<p>PIV or CAC login required.<br> Log out of MAX and return here, then log in using a PIV or CAC.</p>";
+      }
+    }
+    setTimeout( errorUpdater, 1000);
+
+
   </script>
 
 
