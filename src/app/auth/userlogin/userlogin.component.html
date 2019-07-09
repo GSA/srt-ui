@@ -1,16 +1,20 @@
-<main id="content" class="bypass-block-target" tabindex="-1"> 
+<main id="content" class="bypass-block-target" tabindex="-1">
 
-<div class="text-center">
-  <button class="srt-button"
-          style="float:none; display:inline; margin-top:3em;"
-          onClick=" (function() {
-                      let client_host = window.location.hostname
-                      let server_host = ''
-                      if (client_host === 'localhost:3000') { server_host = 'localhost' }
-                      if (client_host === 'srt-client.app.cloud.gov') { server_host = 'srt-server.app.cloud.gov' }
-                      if (client_host === 'srt-client-dev.app.cloud.gov') { server_host = 'srt-server-dev.app.cloud.gov' }
-                      if (client_host === 'srt-client-staging.app.cloud.gov') { server_host = 'srt-server-staging.app.cloud.gov' }
-                      window.location = 'http://' + server_host + '/api/casLogin'
-                    }()) ">Login with MAX</button>
-</div>
+  <div class="error" id="login-error-wrapper" style="size:2em; font-weight:bold; color:darkred; text-align: center">
+    <div class="error" id="login-error" style="color:darkred; text-align: center"></div>
+  </div>
+
+  <div class="text-center">
+    <button class="srt-button"
+            style="float:none; display:inline; margin-top:3em;"
+            onClick=" (function() {
+                        let client_host = window.location.hostname
+                        let server_host = ''
+                        if (client_host === 'localhost') { server_host = 'localhost:3000' }
+                        if (client_host === 'srt-client.app.cloud.gov') { server_host = 'srt-server.app.cloud.gov' }
+                        if (client_host === 'srt-client-dev.app.cloud.gov') { server_host = 'srt-server-dev.app.cloud.gov' }
+                        if (client_host === 'srt-client-staging.app.cloud.gov') { server_host = 'srt-server-staging.app.cloud.gov' }
+                        window.location = 'http://' + server_host + '/api/casLogin'
+                      }()) ">Login with MAX</button>
+  </div>
 </main>
