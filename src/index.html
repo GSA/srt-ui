@@ -24,25 +24,25 @@
 
 
   <script language="JavaScript">
-    async function casCheck() {
-      const ticketParam = window.location.search.substr(1)
-        .split('&')
-        .map(x => x.split('='))
-        .filter(x => x[0] === 'token')
+
+    function casCheck() {
+      var ticketParam = window.location.search.substr(1).split('&').map(function (x) {
+        return x.split('=');
+      }).filter(function (x) {
+        return x[0] === 'token';
+      });
 
       if (ticketParam.length > 0) {
-        data = JSON.parse(decodeURIComponent(ticketParam[0][1]))
-
-      localStorage.setItem('agency', data.agency)
-      localStorage.setItem('email', data.email)
-      localStorage.setItem('firstName', data.firstName)
-      localStorage.setItem('id', data.id)
-      localStorage.setItem('lastName', data.lastName)
-      localStorage.setItem('position', data.position)
-      localStorage.setItem('token', data.token)
-      localStorage.setItem('userRole', data.userRole)
-
-      window.location = '/'
+        data = JSON.parse(decodeURIComponent(ticketParam[0][1]));
+        localStorage.setItem('agency', data.agency);
+        localStorage.setItem('email', data.email);
+        localStorage.setItem('firstName', data.firstName);
+        localStorage.setItem('id', data.id);
+        localStorage.setItem('lastName', data.lastName);
+        localStorage.setItem('position', data.position);
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('userRole', data.userRole);
+        window.location = '/';
       }
       return false;
     }
