@@ -39,6 +39,8 @@ import 'classlist.js';  // Run `npm install --save classlist.js`.
 /** IE10 and IE11 requires the following to support `@angular/animation`. */
 // import 'web-animations-js';  // Run `npm install --save web-animations-js`.
 
+/** IE10 and IE11 require a poly fill for the urlSearchParams function call used during login */
+import 'url-search-params-polyfill';
 
 /** Evergreen browsers require these. **/
 import 'core-js/es6/reflect';
