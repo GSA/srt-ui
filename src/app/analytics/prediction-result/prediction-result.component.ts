@@ -15,7 +15,7 @@ export class PredictionResultComponent implements OnInit {
   /* ATTRIBUTES */
 
   @Input() PredictResultChart;
-  @ViewChild(BaseChartDirective) private baseChart;
+  @ViewChild(BaseChartDirective, {static: false}) private baseChart;
 
 
   public displayCompliance = '';

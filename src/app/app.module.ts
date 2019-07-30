@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 // MODULES
 import { AnalyticsModule } from './analytics/analytics.module';
@@ -51,14 +51,13 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
     HeaderComponent,
     AdminComponent,
     UploadComponent,
-    
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+    HttpClientModule,
     AppRoutingModule,
     TooltipModule,
     AuthModule,
@@ -73,7 +72,6 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
     Ng2CompleterModule,
     AnalyticsModule,
     SolicitationModule,
-    
   ],
   providers: [
     AuthService,

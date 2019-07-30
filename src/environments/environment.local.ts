@@ -8,5 +8,6 @@ export const environment = {
   // SERVER_URL: 'http://localhost:3000',
   SERVER_URL: 'http://localhost:3000/api',
   EMAIL_NOTIFICATION: true,
-  FILE_UPLOAD_API: 'http://localhost:3000/file/upload'
+  FILE_UPLOAD_API: 'http://localhost:3000/file/upload',
+  needToken: false
 };

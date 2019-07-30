@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -29,7 +29,7 @@ import { AnalyticsService } from './services/analytics.service';
 @NgModule({
   imports: [
     CommonModule,
-    HttpModule,
+    HttpClientModule,
     ChartsModule,
     FormsModule,
     ReactiveFormsModule,

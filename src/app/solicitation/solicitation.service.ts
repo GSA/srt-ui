@@ -1,10 +1,11 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/toPromise';
+
+
+
 
 import { Solicitation } from '../shared/solicitation';
 import { environment } from '../../environments/environment'
@@ -67,7 +68,7 @@ export class SolicitationService {
       .post(this.solicitationsFilterUrl, body)
       .map((res: Response) => res.json())
       .catch((error: any) =>
-        Observable.throw(error.json().error || 'Server Error')
+        observableThrowError(error.json().error || 'Server Error')
       );
   }
 
@@ -98,7 +99,7 @@ export class SolicitationService {
       .post(this.feedbackURL, filter)
       .map((res: Response) => res.json())
       .catch((error: any) =>
-        Observable.throw(error.json().error || 'Server Error')
+        observableThrowError(error.json().error || 'Server Error')
       );
   }
 
@@ -119,7 +120,7 @@ export class SolicitationService {
       .post(this.emailUrl, emailContent)
       .map((res: Response) => res.json())
       .catch((error: any) =>
-        Observable.throw(error.json().error || 'Server Error')
+        observableThrowError(error.json().error || 'Server Error')
       );
   }
 
@@ -132,7 +133,7 @@ export class SolicitationService {
       .post(this.solicitationUrl, solicitation)
       .map((res: Response) => res.json())
       .catch((error: any) =>
-        Observable.throw(error.json().error || 'Server Error')
+        observableThrowError(error.json().error || 'Server Error')
       );
   }
 }

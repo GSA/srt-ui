@@ -16,7 +16,7 @@ export class MachineReadableComponent implements OnInit {
   /* ATTRIBUTES */
 
   @Input() MachineReadableChart;
-  @ViewChild(BaseChartDirective) private baseChart;
+  @ViewChild(BaseChartDirective, {static: false}) private baseChart;
 
   public hasValue = false;
   public pieChartLabels:string[] = ['Machine Readable', 'Non Machine Readable'];

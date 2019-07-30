@@ -13,7 +13,7 @@ export class UndeterminedSolicitationsComponent implements OnInit {
   /* ATTRIBUTES */
 
   @Input() UndeterminedSolicitationChart;
-  @ViewChild(BaseChartDirective) private baseChart;
+  @ViewChild(BaseChartDirective, {static: false}) private baseChart;
 
   public hasValue = false;
   public pieChartLabels:string[] = ['Presolicitation', 'Other Undetermined', '0 Documents', 'Non-Machine Readable'];

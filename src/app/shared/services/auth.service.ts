@@ -1,7 +1,7 @@
+
+import {throwError as observableThrowError,Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
-import {  } from 'rxjs/Rx';
-import { Observable } from 'rxjs';
 
 // Class
 import { User } from '../user';
@@ -41,7 +41,7 @@ export class AuthService {
     const headers = new Headers({'Content-Type': 'application/json'});
     return this.http.post(this.userUrl, body, {headers: headers})
         .map((response: Response)=> response.json())
-        .catch((error: Response) => Observable.throw(error.json()));
+        .catch((error: Response) => observableThrowError(error.json()));
   }
 
   /**
@@ -55,7 +55,7 @@ export class AuthService {
     const headers = new Headers({'Content-Type': 'application/json'});
     return this.http.post(this.loginUrl, body, {headers: headers})
         .map((response: Response)=> response.json())
-        .catch((error: Response) => Observable.throw(error.json()))
+        .catch((error: Response) => observableThrowError(error.json()))
   }
 
 
@@ -87,7 +87,7 @@ export class AuthService {
     const headers = new Headers({'Content-Type': 'application/json'});
     return this.http.post(this.tokenUrl, body, {headers: headers})
         .map((response: Response)=> response.json())
-        .catch((error: Response) => Observable.throw(error.json()));
+        .catch((error: Response) => observableThrowError(error.json()));
   }
 
 
@@ -121,7 +121,7 @@ export class AuthService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     return this.http.post(this.resetUrl, body, { headers: headers })
       .map((response: Response) => response.json())
-      .catch((error: Response) => Observable.throw(error.json()));
+      .catch((error: Response) => observableThrowError(error.json()));
   }
 
  

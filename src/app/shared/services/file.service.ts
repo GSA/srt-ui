@@ -1,9 +1,9 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+
 
 // Services
 import { HttpService } from './http.service'
@@ -27,7 +27,7 @@ export class FileService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     return this.http.post(this.upadateuserprofile, body, { headers: headers })
       .map((response: Response) => response.json())
-      .catch((error: Response) => Observable.throw(error.json()));
+      .catch((error: Response) => observableThrowError(error.json()));
     
 }
 }
