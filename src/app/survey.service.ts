@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Headers, Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 
 import { Survey } from './shared/survey';
 import { HttpService } from './shared/services/http.service';

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //Kailun'add
@@ -28,7 +28,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     imports: [
       AuthRoutingModule,
       CommonModule,
-      HttpModule,
+      HttpClientModule,
       FormsModule,
       ReactiveFormsModule,
       DataTableModule,
@@ -57,4 +57,3 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     ]
   })
   export class AuthModule { }
-  

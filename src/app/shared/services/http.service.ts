@@ -1,9 +1,18 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 import { Http, XHRBackend, RequestOptions, Request, RequestOptionsArgs, Response, Headers } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+
+
+import {environment} from '../../../environments/environment';
+
+function updateToken(http) {
+  const tokenURL = environment.SERVER_URL + '/version';
+  console.log ('time to update the token.');
+  http.request(tokenURL).map((response: Response) => {console.log(response.json());});
+}
+
 
 @Injectable()
 export class HttpService extends Http {
@@ -29,6 +38,8 @@ export class HttpService extends Http {
       // we have to add the token to the url object
       url.headers.set('Authorization', `Bearer ${token}`);
     }
+    console.log(environment);
+    environment.needToken = true;
     return super.request(url, options).catch(this.catchAuthError(this));
   }
 
@@ -38,7 +49,7 @@ export class HttpService extends Http {
       if (res.status === 401 || res.status === 403) {
         // if not authenticated
       }
-      return Observable.throw(res);
+      return observableThrowError(res);
     };
   }
 

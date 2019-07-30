@@ -2,12 +2,17 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
-    "module": "es2015",
     "baseUrl": "",
     "types": []
   },
   "exclude": [
     "test.ts",
-    "**/*.spec.ts"
-  ]
+    "**/*.spec.ts",
+    "../node_modules/karma/config.tpl.ts"
+  ],
+  "files": [
+    "../node_modules/ngx-quill-editor/index.ts",
+    "../node_modules/ngx-quill-editor/quillEditor.module.ts"
+  ],
+  "include": [ "**/*.ts", "*.ts", "../node_modules/ngx-quill-editor/*.ts"]
 }

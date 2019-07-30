@@ -1,9 +1,9 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+
 
 // Import envirnoment variable
 import { environment } from '../../../environments/environment';
@@ -43,7 +43,7 @@ export class EmailService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     return this.http.post(this.updatePasswordEmailUrl, body, { headers: headers })
       .map((response: Response) => response.json())
-      .catch((error: Response) => Observable.throw(error.json()));
+      .catch((error: Response) => observableThrowError(error.json()));
   }
 
 
@@ -57,7 +57,7 @@ export class EmailService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     return this.http.post(this.resetPasswordEmailUrl, body, { headers: headers })
       .map((response: Response) => response.json())
-      .catch((error: Response) => Observable.throw(error.json()));
+      .catch((error: Response) => observableThrowError(error.json()));
   }
 
 }

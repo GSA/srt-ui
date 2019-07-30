@@ -20,7 +20,7 @@ export class AnalyticsComponent implements OnInit {
 
     /* ATTRIBUTES */
 
-    @ViewChild(BaseChartDirective) private baseChart;
+    @ViewChild(BaseChartDirective, {static: false}) private baseChart;
 
     solicitationNumber = 0;
 

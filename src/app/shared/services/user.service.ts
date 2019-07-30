@@ -1,7 +1,8 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { EventEmitter, Injectable } from '@angular/core';
 
 import { Headers, Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
 
 import { Currentuser } from '../../shared/currentuser';
 import { environment } from '../../../environments/environment'
@@ -81,7 +82,7 @@ export class UserService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     return this.http.post(this.updatePasswordUrl, body, { headers: headers })
       .map((response: Response) => response.json())
-      .catch((error: Response) => Observable.throw(error.json()));
+      .catch((error: Response) => observableThrowError(error.json()));
   }
  
 
@@ -117,7 +118,7 @@ export class UserService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     return this.http.post(this.checkPasswordUrl, body, { headers: headers })
       .map((response: Response) => response.json())
-      .catch((error: Response) => Observable.throw(error.json()));
+      .catch((error: Response) => observableThrowError(error.json()));
 
   }
   /**
@@ -129,7 +130,7 @@ export class UserService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     return this.http.post(this.updateUserInfoUrl, body, { headers: headers })
       .map((response: Response) => response.json())
-      .catch((error: Response) => Observable.throw(error.json()));
+      .catch((error: Response) => observableThrowError(error.json()));
 
   }
 

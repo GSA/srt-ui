@@ -19,7 +19,7 @@ export class DonutChartComponent implements OnInit {
   @Input() title;
   @Input() componentTooltip;
   @Input() note;
-  @ViewChild(BaseChartDirective) private baseChart;
+  @ViewChild(BaseChartDirective, {static: false}) private baseChart;
 
   public doughnutChartLabels: String[] = ['Download Sales', 'In-Store Sales'];
   public doughnutChartData: any[] = [0, 1];

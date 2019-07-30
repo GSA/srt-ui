@@ -1,14 +1,15 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
 import { environment } from '../../../environments/environment';
 
 import { HttpService } from '../../shared/services/http.service';
 
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/toPromise';
+
+
+
 
 
 @Injectable()
@@ -37,7 +38,7 @@ export class AnalyticsService {
   getAnalytics (param) {
       return this.http.post(this.AnalyticUrl, param)
           .map((res: Response) => res.json())
-          .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
+          .catch((error:any) => observableThrowError(error.json().error || 'Server Error'));
   }
 
   /**
