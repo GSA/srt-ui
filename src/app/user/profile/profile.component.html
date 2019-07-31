@@ -32,7 +32,8 @@
         <div *ngIf = "selectedUser">
         <div class="profile-user-name" style="padding-left:20%">
 
-                <div style=" border-radius: 50%; position:relative;float:left; height: 100px; width: 100px ;background-image: url('/assets/Kailun/test1.png'); background-size:100%">
+                <!--suppress CssUnknownTarget -->
+          <div style=" border-radius: 50%; position:relative;float:left; height: 100px; width: 100px ;background-image: url('/assets/Kailun/test1.png'); background-size:100%">
                         <!-- <i style="position: absolute; bottom: 0px; left: 80px" class="fa fa-upload" aria-hidden="true" (click) ="uploadFile()"></i> -->
 
                         <!-- <form [formGroup]="myform">
@@ -53,7 +54,7 @@
                 <h1 style="font-weight: 600;color:#041e4a">{{selectedUser.firstName}} {{selectedUser.lastName}}</h1>
                 <p style="font-size:20px; font-weight:400; color:#031747">{{selectedUser.position}}</p>
                 
-                <div *ngIf = "self == false"style="padding-left:50%">
+                <div *ngIf = "self == false" style="padding-left:50%">
                                 <a (click)="editInfo()" style="font-size:20px; font-weight:500;color:#1958b5"> Edit Profile</a>        
                                 <a (click)="saveInfo()" style=" padding-left: 20px; font-size:20px; font-weight:500;color:#1958b5"> Save Profile</a>      
                 </div>
@@ -71,7 +72,7 @@
                         <div class="col-md-6" *ngIf = "editable == false">
                                 <h4 style="color:#030354;">{{selectedUser.email}}</h4>
                         </div>
-                        <input *ngIf = "editable == true" [(ngModel)]="newemail" class="col-md-6 form-control" type="text" id="textinput" placeholder="{{selectedUser.email}}">
+                        <input *ngIf = "editable == true" [(ngModel)]="newEmail" class="col-md-6 form-control" type="text" id="textinput" placeholder="{{selectedUser.email}}">
 
                 </div>
 

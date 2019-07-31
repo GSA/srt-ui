@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { Headers, Http, Response } from '@angular/http';
-import { Observable } from 'rxjs';
-
-import { Survey } from './shared/survey';
-import { HttpService } from './shared/services/http.service';
 import { environment } from '../environments/environment';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class SurveyService {
@@ -21,14 +17,13 @@ export class SurveyService {
    * @param http
    */
   constructor(
-    private http: HttpService
+    private http: HttpClient
   ) { }
 
   /**
    * Get Surveys from json file
    */
   public getSurveys() {
-      return this.http.get(this.surveysURL)
-            .map((response: Response) => response.json());
+      return this.http.get<any[]>(this.surveysURL);
   }
 }

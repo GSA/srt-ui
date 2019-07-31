@@ -1,23 +1,22 @@
 
 import {throwError as observableThrowError,  Observable } from 'rxjs';
-import { Injectable, EventEmitter } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Injectable} from '@angular/core';
 
 
 
 
 
 import { Solicitation } from '../shared/solicitation';
-import { environment } from '../../environments/environment'
+import { environment } from '../../environments/environment';
 
-import { HttpService } from '../shared/services/http.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class SolicitationService {
   /* ATTRIBUTES */
 
-  pushedSolicitations = new EventEmitter();
-  pushedSolicitation = new EventEmitter();
+  // pushedSolicitations = new EventEmitter();
+  // pushedSolicitation = new EventEmitter();
   solicitations: any[];
   analytics = {
     ScannedSolicitationChart: null,
@@ -30,14 +29,11 @@ export class SolicitationService {
     UndeterminedSolicitationChart: null
   };
 
-  private solicitationsUrl = environment.SERVER_URL + "/predictions";
-  private feedbackURL = environment.SERVER_URL + "/solicitation/feedback";
-  private ICTUrl = environment.SERVER_URL + "/ICT";
+  private feedbackURL = environment.SERVER_URL + '/solicitation/feedback';
   private solicitationsFilterUrl = environment.SERVER_URL +
-    "/predictions/filter";
-  private solicitationUrl = environment.SERVER_URL + "/solicitation/";
-  private emailUrl = environment.SERVER_URL + "/email/";
-  private AgencyUrl = environment.SERVER_URL + "/Agencies";
+    '/predictions/filter';
+  private solicitationUrl = environment.SERVER_URL + '/solicitation/';
+  private emailUrl = environment.SERVER_URL + '/email/';
 
   /* CONSTRUCTORS */
 
@@ -45,19 +41,10 @@ export class SolicitationService {
    * constructor
    * @param http
    */
-  constructor(private http: HttpService) {
+  constructor(private http: HttpClient) {
 
   }
 
-  /**
-   * get data
-   */
-  getData() {
-    var data = this.http
-      .get(this.solicitationsUrl)
-      .map((res: Response) => res.json());
-    return data;
-  }
 
   /**
    * Get filtered solicitations
@@ -65,20 +52,12 @@ export class SolicitationService {
    */
   getFilteredSolicitations(body) {
     return this.http
-      .post(this.solicitationsFilterUrl, body)
-      .map((res: Response) => res.json())
+      .post<any[]>(this.solicitationsFilterUrl, body)
       .catch((error: any) =>
         observableThrowError(error.json().error || 'Server Error')
       );
   }
 
-  /**
-   * get ICT
-   */
-  getICT() {
-    var data = this.http.get(this.ICTUrl).map((res: Response) => res.json());
-    return data;
-  }
 
   /**
    * Get solicitation
@@ -86,7 +65,11 @@ export class SolicitationService {
    */
   getSolicitation(index: String): Observable<Solicitation> {
     const solUrl = this.solicitationUrl + index;
-    return this.http.get(solUrl).map((res: Response) => res.json());
+    return this.http.get<Solicitation>(solUrl)
+      .catch( (error: any ) => {
+        console.log(error);
+        return observableThrowError(error);
+      } );
   }
 
   /**
@@ -97,19 +80,11 @@ export class SolicitationService {
     console.log(filter);
     return this.http
       .post(this.feedbackURL, filter)
-      .map((res: Response) => res.json())
       .catch((error: any) =>
         observableThrowError(error.json().error || 'Server Error')
       );
   }
 
-  /**
-   * push soliciations
-   * @param solicitations
-   */
-  pushSolicitations(solicitations: Solicitation[]) {
-    this.pushedSolicitations.emit(solicitations);
-  }
 
   /**
    * Send contact email
@@ -118,7 +93,6 @@ export class SolicitationService {
   sendContactEmail(emailContent) {
     return this.http
       .post(this.emailUrl, emailContent)
-      .map((res: Response) => res.json())
       .catch((error: any) =>
         observableThrowError(error.json().error || 'Server Error')
       );
@@ -130,10 +104,11 @@ export class SolicitationService {
    */
   updateHistory(solicitation) {
     return this.http
-      .post(this.solicitationUrl, solicitation)
-      .map((res: Response) => res.json())
-      .catch((error: any) =>
-        observableThrowError(error.json().error || 'Server Error')
+      .post<Solicitation>(this.solicitationUrl, solicitation)
+      .catch((error: any) => {
+        console.log(error);
+        return observableThrowError(error.json().error || 'Server Error');
+        }
       );
   }
 }

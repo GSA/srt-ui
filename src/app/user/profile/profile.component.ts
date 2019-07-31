@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { ActivatedRoute, Router} from '@angular/router';
+import { FormGroup } from '@angular/forms';
 
 
 // import services
@@ -22,16 +22,17 @@ import { User } from '../../shared/user';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  // noinspection SpellCheckingInspection
   myform: FormGroup;
-  filterParams = {}
+
   params = {};
-  current: any
+  current: any;
   title: String;
-  self: boolean = false
+  self = false;
   selectedUser: User;
   isGSAAdmin = false;
   editable = false;
-  newemail: String;
+  newEmail: String;
   paramAdmin = {};
   /* CONSTRUCTORS */
 
@@ -60,7 +61,7 @@ export class ProfileComponent implements OnInit {
       const userID = params['userID'];
 
       this.getSelectedUser(userID);
-    }))
+    }));
 
     this.isGSAAdmin = this.auth.isGSAAdmin;
 
@@ -68,12 +69,6 @@ export class ProfileComponent implements OnInit {
 
 
 
-  /**
-   * lifecycle
-   */
-  ngOnChange() {
-
-  }
 
 
   /**
@@ -84,15 +79,15 @@ export class ProfileComponent implements OnInit {
     this.userService.getUserFromDatabase(this.params).subscribe(
       data => {
         this.selectedUser = new User(data);
-        this.title = this.current.id === userID ? "Your Profile" : "Review Profile";
-        this.self = this.current.id === userID ? true : false;
+        this.title = this.current.id === userID ? 'Your Profile' : 'Review Profile';
+        this.self = this.current.id === userID;
 
        // debugger
       },
       error => {
-        console.log(error)
+        console.log(error);
       }
-    )
+    );
   }
 
   /**
@@ -107,40 +102,22 @@ export class ProfileComponent implements OnInit {
      */
 
   saveInfo() {
-    this.paramAdmin['NewEmail'] = this.newemail;
+    this.paramAdmin['NewEmail'] = this.newEmail;
     this.paramAdmin['UserID'] = this.route.snapshot.params['userID'];
     this.userService.updateUserInfo(this.paramAdmin).subscribe(
       data => {
         console.log(data);
 
-        this.selectedUser.email = data.email
+        this.selectedUser.email = data.email;
         if (this.selectedUser.email) {
           this.editable = false;
         }
       },
       error => {
-        console.log(error)
-      }
-    )
-  }
-
-    /**
-     * update the user profile.
-     * Kailun's new add
-     */
-
-  uploadphoto() {
-    //debugger
-    this.fileService.updateImage(this.current).subscribe(
-      data =>{
-        console.log(data);
-      },
-      error => {
         console.log(error);
       }
-    )
+    );
   }
-
 
 
 }

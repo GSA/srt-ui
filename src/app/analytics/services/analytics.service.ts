@@ -1,10 +1,9 @@
 
-import {throwError as observableThrowError,  Observable } from 'rxjs';
+import {throwError as observableThrowError} from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { environment } from '../../../environments/environment';
+import {HttpClient} from '@angular/common/http';
 
-import { HttpService } from '../../shared/services/http.service';
 
 
 
@@ -27,7 +26,7 @@ export class AnalyticsService {
    * @param http
    */
   constructor (
-    private http: HttpService
+    private http: HttpClient
   ) {};
 
 
@@ -36,17 +35,22 @@ export class AnalyticsService {
    * @param param
    */
   getAnalytics (param) {
-      return this.http.post(this.AnalyticUrl, param)
-          .map((res: Response) => res.json())
-          .catch((error:any) => observableThrowError(error.json().error || 'Server Error'));
+      return this.http.post<any>(this.AnalyticUrl, param)
+          .catch((error: any) => {
+            console.log(error);
+            return observableThrowError(error.json().error || 'Server Error');
+          });
   }
 
   /**
    * Get agency list
    */
-  GetAgencyList(){
-    var data =  this.http.get(this.AgencyListUrl).map((res: Response) => res.json());
-    return data
+  GetAgencyList() {
+    return this.http.get<any>(this.AgencyListUrl)
+      .catch((error: any) => {
+        console.log(error);
+        return observableThrowError(error.json().error || 'Server Error');
+      });
   }
 
 }
