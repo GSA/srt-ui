@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -17,15 +17,15 @@ export class HelpUsImproveComponent implements OnInit {
 
   public surveys;
   public surveyModel = [];
-  public feedbackSent:boolean = false;
+  public feedbackSent = false;
 
   solicitation: Solicitation;
   subscription: Subscription;
   solicitationID: String;
   type: String = 'feedback';
-  public step1:Boolean = false;
-  public step2:Boolean = false;
-  public step3:Boolean = false;
+  public step1: Boolean = false;
+  public step2: Boolean = false;
+  public step3: Boolean = false;
 
 
    /* CONSTRUCTORS */
@@ -39,7 +39,7 @@ export class HelpUsImproveComponent implements OnInit {
    */
   constructor(
     private solicitationService: SolicitationService,
-    private surveyService:SurveyService,
+    private surveyService: SurveyService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
@@ -50,13 +50,15 @@ export class HelpUsImproveComponent implements OnInit {
   ngOnInit() {
     this.subscription = this.route.params.subscribe(
       (params: any) => {
-        var now = new Date().toLocaleDateString();
         this.solicitationID = params['id'];
         this.solicitationService.getSolicitation(this.solicitationID).subscribe(
           data => {
             data.parseStatus.forEach(element => {
-                if (element.status == 'successfully parsed') element.status = 'Yes';
-                else if (element.status == 'processing error')  element.status = 'No';
+              if (element.status === 'successfully parsed') {
+                element.status = 'Yes';
+              } else if (element.status === 'processing error') {
+                element.status = 'No';
+              }
             });
 
             this.step1 = data.history.filter(function(e){
@@ -70,25 +72,20 @@ export class HelpUsImproveComponent implements OnInit {
             }).length > 0;
             this.solicitation = data;
 
-            var user = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
-            this.feedbackSent = this.solicitation.history.filter(function(e){return ((e['action'].indexOf('provided feedback on the solicitation prediction result') > -1) && (e['user'].indexOf(user) > -1))}).length > 0;
+            const user = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
+            this.feedbackSent = this.solicitation.history.filter(function (e) {
+              return (
+                (e['action'].indexOf('provided feedback on the solicitation prediction result') > -1)
+                && (e['user'].indexOf(user) > -1));
+            }).length > 0;
 
             this.getSurveys();
           },
           err => console.log(err)
-        )
-      })
+        );
+      });
   }
 
-  /**
-   * input percentage
-   * @param survey
-   * @param answer
-   */
-  inputPercent(survey, answer) {
-    survey.Answer = answer;
-    this.surveyModel[survey.ID] = answer;
-  }
 
   /**
    * text area
@@ -107,13 +104,12 @@ export class HelpUsImproveComponent implements OnInit {
    * @param checked
    */
   checkBox(survey, answer, checked) {
-      if (checked)
-      {
-          if (survey.Type != 'multiple response')
-          {
+      if (checked) {
+          if (survey.Type !== 'multiple response') {
             survey.Answer = answer;
             this.surveyModel[survey.ID] = answer;
           }
+          // tslint:disable-next-line:one-line
           else {
             survey.Answer = (survey.Answer === '') ? answer : survey.Answer + ',' + answer;
             this.surveyModel[survey.ID] =  (survey.Answer === '') ? answer : survey.Answer + ',' + answer;
@@ -127,45 +123,61 @@ export class HelpUsImproveComponent implements OnInit {
   getSurveys() {
       this.surveyService.getSurveys().subscribe(
         data => {
-          this.surveys = data.sort(function(a,b){
-            var anum = +a.ID;
-            var bnum = +b.ID;
-            if (anum> bnum) return 1;
-            else return -1;
+          this.surveys = data.sort(function(a, b){
+            const aNum = +a.ID;
+            const bNum = +b.ID;
+            if (aNum > bNum) {
+              return 1;
+            } else {
+              return -1;
+            }
           });
-          for (var i = 0; i < data.length; i++) {
+          for (let i = 0; i < data.length; i++) {
             this.surveyModel.push('');
           }
         }
-      )
+      );
   }
 
   /**
    * send out a feedback
    */
   feedback() {
-      var now = new Date().toLocaleDateString();
-      var user = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
-      var r = this.solicitation.history.push({'date': now, 'action': 'provided feedback on the solicitation prediction result', 'user': user , 'status' : ''});
+      const now = new Date().toLocaleDateString();
+      const user = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
+      this.solicitation.history.push({
+        'date': now,
+        'action': 'provided feedback on the solicitation prediction result',
+        'user': user,
+        'status': ''
+      });
 
       this.surveys.forEach(element => {
-          if(this.solicitation.feedback == null)
-          {
-              this.solicitation.feedback = [{'questionID': element.ID, 'question': element.Question, 'note': element.Note, 'answer': element.Answer}];
-          }
-          else
-          {
-              this.solicitation.feedback.push({'questionID': element.ID, 'question': element.Question, 'note': element.Note, 'answer': element.Answer})
+          if (this.solicitation.feedback == null) {
+            this.solicitation.feedback = [{
+              'questionID': element.ID,
+              'question': element.Question,
+              'note': element.Note,
+              'answer': element.Answer
+            }];
+          } else {
+            this.solicitation.feedback.push({
+              'questionID': element.ID,
+              'question': element.Question,
+              'note': element.Note,
+              'answer': element.Answer
+            });
           }
       });
 
       this.solicitationService.updateHistory(this.solicitation)
       .subscribe(
-        msg => {
+        () => {
           this.feedbackSent = true;
           this.step3 = true;
         },
-        err => {
+        () => {
+          console.log('e189');
         });
   }
 

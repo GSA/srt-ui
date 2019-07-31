@@ -1,12 +1,14 @@
 
-import {throwError as observableThrowError,Observable } from 'rxjs';
+import {throwError as observableThrowError } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response } from '@angular/http';
 
 // Class
 import { User } from '../user';
 
-import { environment } from '../../../environments/environment'
+import { environment } from '../../../environments/environment';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+
+const httpOptions = { headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
 @Injectable()
 export class AuthService {
@@ -19,8 +21,6 @@ export class AuthService {
   private loginUrl = environment.SERVER_URL + '/auth/login';
   private tokenUrl = environment.SERVER_URL + '/auth/tokenCheck';
   private resetUrl = environment.SERVER_URL + '/auth/resetPassword';
-  private updatePasswordByUrL = environment.SERVER_URL + '/auth/email/temp';
-  
 
 
   /* CONSTRUCTOR */
@@ -29,19 +29,17 @@ export class AuthService {
    * constructor
    * @param http
    */
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   /**
    * signup
    * register a new user
    * @param user
    */
-  signup(user: User){
+  signup(user: User) {
     const body = JSON.stringify(user);
-    const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post(this.userUrl, body, {headers: headers})
-        .map((response: Response)=> response.json())
-        .catch((error: Response) => observableThrowError(error.json()));
+    return this.http.post(this.userUrl, body, httpOptions)
+        .catch((error) => observableThrowError(error.json()));
   }
 
   /**
@@ -49,33 +47,19 @@ export class AuthService {
    * login user.  returns the json web token for the user.
    * @param user
    */
-  login(user: User){
-    //debugger
+  login(user: User) {
     const body = JSON.stringify(user);
-    const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post(this.loginUrl, body, {headers: headers})
-        .map((response: Response)=> response.json())
-        .catch((error: Response) => observableThrowError(error.json()))
+    return this.http.post<any>(this.loginUrl, body, httpOptions)
+        .catch((error) => observableThrowError(error.json()));
   }
 
-
-     /**
-   * Update password
-   * @param user
-   */
-  // public updatePasswordByUrl() {
-  //     debugger
-  //   return this.http.get(this.updatePasswordByUrL)
-  //     .map((response: Response) => response.json())
-  //     .catch((error: Response) => Observable.throw(error.json()));
-  // }
 
   /**
    * logout
    * clear json web token on logout
    */
   logout() {
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
     localStorage.clear();
   }
 
@@ -83,11 +67,9 @@ export class AuthService {
    * check token
    */
   checkToken() {
-    var body = localStorage;
-    const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post(this.tokenUrl, body, {headers: headers})
-        .map((response: Response)=> response.json())
-        .catch((error: Response) => observableThrowError(error.json()));
+    const body = localStorage;
+    return this.http.post<any>(this.tokenUrl, body, httpOptions)
+        .catch((error) => observableThrowError(error.json()));
   }
 
 
@@ -96,14 +78,7 @@ export class AuthService {
    */
   isLogin(): boolean {
     return (this.getToken() !== null);
-
-    // const body = { token: this.getToken() };
-    // const headers = new Headers({ 'Content-Type': 'application/json' });
-    // return this.http.post(this.URL_TOKEN, body, { headers: headers })
-    //   .map((response: Response) => response.json())
-    //   .catch((error: Response) => Observable.throw(error.json()));
   }
-  
 
 
   /**
@@ -118,18 +93,16 @@ export class AuthService {
  */
   resetPassword(email) {
     const body = JSON.stringify({ email });
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.post(this.resetUrl, body, { headers: headers })
-      .map((response: Response) => response.json())
-      .catch((error: Response) => observableThrowError(error.json()));
+    return this.http.post(this.resetUrl, body, httpOptions)
+      .catch((error) => observableThrowError(error.json()));
   }
 
- 
+
   /**
    * Get Current User from localstorage.
    */
   public getCurrent() {
-    var current = new User();
+    const current = new User();
     current.id = localStorage.getItem('id');
     current.lastName = localStorage.getItem('lastName');
     current.agency = localStorage.getItem('agency');

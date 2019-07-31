@@ -7,7 +7,7 @@ export class Solicitation {
         public solNum: String,
         public title: String,
         public url: String,
-        public predictions: {RED: Number, GREEN: Number},
+        // public predictions: {RED: Number, GREEN: Number},
         public reviewRec: Boolean,
         public numDocs: String,
         public eitLikelihood: String,
@@ -16,7 +16,7 @@ export class Solicitation {
         public office: String,
         public contact: String,
         public position: String,
-        public reviewStatus: Boolean,
+        // public reviewStatus: Boolean,
         public noticeType: String,
         public parseStatus: [{name: String, status: String, attachment_url: String}],
         public contactInfo: {
@@ -24,7 +24,7 @@ export class Solicitation {
           name: String,
           position: String,
           email: String
-        }, 
+        },
         public history: [{
           date: String,
           action: String,
@@ -37,6 +37,9 @@ export class Solicitation {
           note: String,
           answer: String,
         }],
-        public undetermined: Boolean
+        public undetermined: Boolean,
+
+        // these are added for API compatibility. Possibly a hack
+        public id: String
     ) {}
 }

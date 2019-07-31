@@ -1,16 +1,13 @@
 
-import {throwError as observableThrowError,  Observable } from 'rxjs';
+import {throwError as observableThrowError} from 'rxjs';
 import { EventEmitter, Injectable } from '@angular/core';
 
-import { Headers, Http, Response } from '@angular/http';
 
 import { Currentuser } from '../../shared/currentuser';
-import { environment } from '../../../environments/environment'
+import { environment } from '../../../environments/environment';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-//Services
-import { AuthService } from 'app/shared/services/auth.service';
-import { HttpService } from './http.service';
-
+const httpOptions = { headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
 
 @Injectable()
@@ -18,12 +15,9 @@ export class UserService {
 
   /* ATTRIBUTES */
 
-  private removeUserUrl = environment.SERVER_URL + '/user/remove';
   private updateUserUrl = environment.SERVER_URL + '/user/update';
   private userUrl = environment.SERVER_URL + '/user/filter';
   private updatePasswordUrl = environment.SERVER_URL + '/user/updatePassword';
-  private checkPasswordUrl = environment.SERVER_URL + '/user/checkPassword';
-  private getCurrentUserUrl = environment.SERVER_URL + '/user/getCurrentUser';
   private getUserFromDBUrl = environment.SERVER_URL + '/user/getUserInfo';
   private updateUserInfoUrl = environment.SERVER_URL + '/user/updateUserInfo';
 
@@ -36,8 +30,7 @@ export class UserService {
    * @param http
    */
   constructor(
-    private http: HttpService,
-    private authService : AuthService
+    private http: HttpClient,
   ) {
     this.updateCurrentUser = new EventEmitter();
    }
@@ -47,16 +40,14 @@ export class UserService {
    * @param filterParams
    */
   public getUsers(filterParams) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.post(this.userUrl, filterParams)
-          .map((response: Response) => response.json());
+    return this.http.post<any>(this.userUrl, filterParams);
   }
 
   /**
    * Register a new user
    * @param currentUser
    */
-  public saveUser(currentUser: Currentuser){
+  public saveUser(currentUser: Currentuser) {
      this.updateCurrentUser.emit(currentUser);
   }
 
@@ -66,73 +57,44 @@ export class UserService {
    * @param updatedUser
    */
   public updateUser(updatedUser) {
-    
-      return this.http.post(this.updateUserUrl, updatedUser)
-              .map((response: Response) => response.json());
+      return this.http.post(this.updateUserUrl, updatedUser);
   }
-
 
 
   /**
    * Update password
-   * @param user
+   * @param filterParams
    */
   public updatePassword(filterParams) {
     const body = JSON.stringify(filterParams);
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.post(this.updatePasswordUrl, body, { headers: headers })
-      .map((response: Response) => response.json())
-      .catch((error: Response) => observableThrowError(error.json()));
-  }
- 
-
-    /**
-   * Get Users.
-   * @param filterParams
-   */
-  public getUserPicAndDate(filterParams) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.post(this.getCurrentUserUrl, filterParams, { headers: headers })
-      .map((response: Response) => response.json());
+    return this.http.post<any>(this.updatePasswordUrl, body, httpOptions)
+      .catch((error) => observableThrowError(error.json()));
   }
 
-  
-    /**
+
+  /**
    * Get user INFO from database.
-   * @param Params
+   * @param params
    */
   public getUserFromDatabase(params) {
-      const headers = new Headers({'Content-Type': 'application/json'});
-      const res = this.http.post(this.getUserFromDBUrl, params, {headers: headers});
-      return res.map((response: Response) => {
-        return response.json();
-      });
+      return this.http.post<any>(this.getUserFromDBUrl, params, httpOptions);
     }
 
   /**
-   * Check password
-   * @param user
+   * Update user profile
+   * @param newEmail
    */
-  public checkPassword(oldpassword) {
-    const body = JSON.stringify(oldpassword);
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.post(this.checkPasswordUrl, body, { headers: headers })
-      .map((response: Response) => response.json())
-      .catch((error: Response) => observableThrowError(error.json()));
-
-  }
-  /**
-    * Update user profile
-    * @param user
-    */
   public updateUserInfo(newEmail) {
     const body = JSON.stringify(newEmail);
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    return this.http.post(this.updateUserInfoUrl, body, { headers: headers })
-      .map((response: Response) => response.json())
-      .catch((error: Response) => observableThrowError(error.json()));
+    console.log(this.updateUserInfoUrl);
+    console.log(body);
+    return this.http.post<any>(this.updateUserInfoUrl, body, httpOptions)
+      .catch((error) => {
+        console.log (error);
+        return observableThrowError(error.json());
+      });
 
   }
 
- 
+
 }

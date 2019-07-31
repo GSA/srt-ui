@@ -39,7 +39,7 @@
                         <input id="ksearch" #gb type="text" class="search-query form-control" placeholder="Global Filter" />
                     </div>
                 </div>
-                <div class="solic-export"><div style="padding: 0px 0px 0px 15px;">Export As:</div></div>
+                <div class="solic-export"><div style="padding: 0 0 0 15px;">Export As:</div></div>
                 <div class="solic-export-cursor">
 
 
@@ -75,7 +75,7 @@
             </ng-template>
         </p-column>
 
-        <p-column field="date" header="Date Posted on FedBizOpps" sortable="custom" (sortFunction)="soryByDate($event)" [style]="{'overflow':'visible', 'width': '150'}" filterPlaceholder="Search">
+        <p-column field="date" header="Date Posted on FedBizOpps" sortable="custom" (sortFunction)="sortByDate($event)" [style]="{'overflow':'visible', 'width': '150'}" filterPlaceholder="Search">
             <ng-template pTemplate="filter" let-col>
                 <p-calendar aria-hidden="true"
                             [(ngModel)]="dateFrom"
@@ -103,7 +103,7 @@
             <ng-template let-sol="rowData" pTemplate="body">
                 <div *ngIf="sol.predictions.value == 'RED'">
                     <span [ngStyle]="{'color' : sol.undetermined ? 'black' : 'red'}">
-                        <button class="button" (click)="selectSol(sol)" onclick="$('#test').focus()" style="border: none; text-align: left; padding: 0px;">
+                        <button class="button" (click)="selectSol(sol)" onclick="$('#test').focus()" style="border: none; text-align: left; padding: 0;">
                             <i class="fa fa-exclamation-triangle" style="padding-right: 5px;" *ngIf="!sol.undetermined"></i>
                             <span style="text-decoration: underline;">{{sol.reviewRec}}</span>
                         </button>
@@ -111,7 +111,7 @@
                 </div>
                 <div *ngIf="sol.predictions.value == 'GREEN'">
                   <span style="color: green" >
-                      <button class="button" (click)="selectSol(sol)" style="border: none; text-align: left; padding: 0px;">
+                      <button class="button" (click)="selectSol(sol)" style="border: none; text-align: left; padding: 0;">
                           <i class="fa fa-check" style="padding-right: 5px;"></i>
                           <span style="text-decoration: underline;">{{sol.reviewRec}}</span>
                       </button>

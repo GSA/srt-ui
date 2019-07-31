@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-
-import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 
 
@@ -18,14 +16,13 @@ export class HelpService {
    * @param http
    */
   constructor(
-    private http: Http
+    private http: HttpClient
   ) { }
 
   /**
    * Get FAQ data
    */
   getFAQs () {
-      return this.http.get(this.url)
-          .map(res => res.json());
+      return this.http.get<any[]>(this.url);
   }
 }
