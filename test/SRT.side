@@ -14,66 +14,6 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "9f12d0cd-744e-4772-b03c-17d9efb0963f",
-      "comment": "",
-      "command": "storeXpathCount",
-      "target": "xpath=//input[@id='password']",
-      "targets": [],
-      "value": "numPasswordBoxes"
-    }, {
-      "id": "c71efea9-5e88-4c4d-834f-856def1ffeed",
-      "comment": "",
-      "command": "if",
-      "target": "${numPasswordBoxes} > 0",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "1fdc18cc-e54b-4fb9-862c-0c291127f7b2",
-      "comment": "",
-      "command": "type",
-      "target": "id=email",
-      "targets": [
-        ["id=email", "id"],
-        ["css=#email", "css:finder"],
-        ["xpath=//input[@id='email']", "xpath:attributes"],
-        ["xpath=//main[@id='content']/form/div/input", "xpath:idRelative"],
-        ["xpath=//input", "xpath:position"]
-      ],
-      "value": "al@bwnj.net"
-    }, {
-      "id": "d4fef66d-469e-4413-a1da-c92dfede7019",
-      "comment": "",
-      "command": "type",
-      "target": "id=password",
-      "targets": [
-        ["id=email", "id"],
-        ["css=#email", "css:finder"],
-        ["xpath=//input[@id='email']", "xpath:attributes"],
-        ["xpath=//main[@id='content']/form/div/input", "xpath:idRelative"],
-        ["xpath=//input", "xpath:position"]
-      ],
-      "value": "23Hilltop!"
-    }, {
-      "id": "0b3b7dc6-7e39-4ba5-a2da-b4af8ff8fff5",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//button[@type='submit']",
-      "targets": [
-        ["css=.srt-button", "css:finder"],
-        ["xpath=//button[@type='submit']", "xpath:attributes"],
-        ["xpath=//main[@id='content']/form/button", "xpath:idRelative"],
-        ["xpath=//button", "xpath:position"],
-        ["xpath=//button[contains(.,'Log In')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "48d849af-fc5a-4fdb-8f5f-ef940e9e41ef",
-      "comment": "",
-      "command": "end",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }, {
       "id": "2b1fecbe-a40b-432a-820b-2dd54401f0c6",
       "comment": "",
       "command": "click",
@@ -92,13 +32,11 @@
       "id": "afb52670-bc95-41c5-98f6-332a558cf749",
       "comment": "",
       "command": "click",
-      "target": "xpath=//button[contains(.,' Non-compliant (Action Required)')]",
+      "target": "xpath=//span[contains(text(), \"Non-compliant\")]",
       "targets": [
-        ["css=.ui-widget-content:nth-child(1) .button", "css:finder"],
-        ["xpath=//button[@onclick=\"$('#test').focus()\"]", "xpath:attributes"],
-        ["xpath=//main[@id='content']/div/p-datatable/div/div/table/tbody/tr/td[5]/span[2]/div/span/button", "xpath:idRelative"],
-        ["xpath=//span[2]/div/span/button", "xpath:position"],
-        ["xpath=//button[contains(.,' Non-compliant (Action Required)')]", "xpath:innerText"]
+        ["css=.ui-datatable-even:nth-child(1) .button > span", "css:finder"],
+        ["xpath=//main[@id='content']/div/p-datatable/div/div/table/tbody/tr/td[5]/span[2]/div/span/button/span", "xpath:idRelative"],
+        ["xpath=//span[2]/div/span/button/span", "xpath:position"]
       ],
       "value": ""
     }, {
@@ -130,6 +68,13 @@
         ["xpath=//div[2]/div/div/ul/li[3]/a", "xpath:position"],
         ["xpath=//a[contains(.,'STEP 3: MAKE SRT SMARTER')]", "xpath:innerText"]
       ],
+      "value": ""
+    }, {
+      "id": "c865c048-4b42-41fe-b189-9fa5bdc5b4d2",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
       "value": ""
     }, {
       "id": "b82de8c3-197a-4920-81ee-5b98293af318",
@@ -182,6 +127,13 @@
       ],
       "value": ""
     }, {
+      "id": "dff91ab8-e738-42f0-8edc-f95a787376b8",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "f526fec6-c800-47b7-befc-8c2531b22a47",
       "comment": "",
       "command": "verifyElementPresent",
@@ -226,11 +178,7 @@
       "comment": "",
       "command": "//waitForElementPresent",
       "target": "css=.undeter-solic-canvas > .chartjs-render-monitor",
-      "targets": [
-        ["css=.undeter-solic-canvas > .chartjs-render-monitor", "css:finder"],
-        ["xpath=//main[@id='content']/div/div/div[6]/app-undetermined-solicitations/div/div[2]/div/canvas", "xpath:idRelative"],
-        ["xpath=//app-undetermined-solicitations/div/div[2]/div/canvas", "xpath:position"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "9c1176d7-3fb0-49ee-ab3b-a43043147737",
@@ -273,6 +221,13 @@
       ],
       "value": ""
     }, {
+      "id": "b77af863-3971-4479-a37f-5652f29cad47",
+      "comment": "",
+      "command": "pause",
+      "target": "500",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "79755651-110a-47c5-8406-202426187d37",
       "comment": "",
       "command": "verifyElementPresent",
@@ -285,139 +240,6 @@
         ["xpath=//a[contains(@href, '/user/profile/2')]", "xpath:href"],
         ["xpath=//td/a", "xpath:position"],
         ["xpath=//a[contains(.,'Al Crowley')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "5a07f6ad-bbca-4928-ba2c-e078a51d05ec",
-      "comment": "",
-      "command": "click",
-      "target": "linkText=Selenium Test",
-      "targets": [
-        ["linkText=Al Crowley", "linkText"],
-        ["css=.even:nth-child(1) a", "css:finder"],
-        ["xpath=//a[contains(text(),'Al Crowley')]", "xpath:link"],
-        ["xpath=//main[@id='content']/div/div[3]/table/tbody/tr/td/a", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, '/user/profile/2')]", "xpath:href"],
-        ["xpath=//td/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Al Crowley')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "fc5d8b49-bc8b-410d-80c2-6fb0bfc778b7",
-      "comment": "",
-      "command": "verifyElementPresent",
-      "target": "xpath=//h4[contains(.,'General Services Administration')]",
-      "targets": [
-        ["css=.form-group:nth-child(2) h4", "css:finder"],
-        ["xpath=//div[@id='userProfile']/div[2]/div/h4", "xpath:idRelative"],
-        ["xpath=//div[2]/div/h4", "xpath:position"],
-        ["xpath=//h4[contains(.,'General Services Administration')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "da071496-2107-486f-b0b3-32dfed6bfbde",
-      "comment": "",
-      "command": "click",
-      "target": "linkText=Edit Profile",
-      "targets": [
-        ["linkText=Edit Profile", "linkText"],
-        ["css=div:nth-child(4) > a:nth-child(1)", "css:finder"],
-        ["xpath=//a[contains(text(),'Edit Profile')]", "xpath:link"],
-        ["xpath=//main[@id='content']/div[2]/div/div[2]/a", "xpath:idRelative"],
-        ["xpath=//div[2]/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Edit Profile')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "86151404-4bd9-4bf7-a006-fb31937a13a7",
-      "comment": "",
-      "command": "type",
-      "target": "id=textinput",
-      "targets": [
-        ["id=textinput", "id"],
-        ["css=#textinput", "css:finder"],
-        ["xpath=//input[@id='textinput']", "xpath:attributes"],
-        ["xpath=//div[@id='userProfile']/div/input", "xpath:idRelative"],
-        ["xpath=//input", "xpath:position"]
-      ],
-      "value": "crowley+selenium123@tcg.com"
-    }, {
-      "id": "e0bec934-7ba8-432a-914d-6343cc3cfd4c",
-      "comment": "",
-      "command": "click",
-      "target": "linkText=Save Profile",
-      "targets": [
-        ["linkText=Save Profile", "linkText"],
-        ["css=div:nth-child(4) > a:nth-child(2)", "css:finder"],
-        ["xpath=//a[contains(text(),'Save Profile')]", "xpath:link"],
-        ["xpath=//main[@id='content']/div[2]/div/div[2]/a[2]", "xpath:idRelative"],
-        ["xpath=//div[2]/a[2]", "xpath:position"],
-        ["xpath=//a[contains(.,'Save Profile')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "fa4222b4-52f0-4860-94d3-f099c41600bc",
-      "comment": "",
-      "command": "verifyElementPresent",
-      "target": "xpath=//h4[contains(.,'crowley+selenium123@tcg.com')]",
-      "targets": [
-        ["css=.form-group:nth-child(1) h4", "css:finder"],
-        ["xpath=//div[@id='userProfile']/div/div/h4", "xpath:idRelative"],
-        ["xpath=//h4", "xpath:position"],
-        ["xpath=//h4[contains(.,'crowley+selenium@tcg.com')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "e52a45b7-4268-4122-aa5e-7f3348092212",
-      "comment": "",
-      "command": "click",
-      "target": "linkText=Edit Profile",
-      "targets": [
-        ["linkText=Edit Profile", "linkText"],
-        ["css=div:nth-child(4) > a:nth-child(1)", "css:finder"],
-        ["xpath=//a[contains(text(),'Edit Profile')]", "xpath:link"],
-        ["xpath=//main[@id='content']/div[2]/div/div[2]/a", "xpath:idRelative"],
-        ["xpath=//div[2]/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Edit Profile')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "1762e69f-5a6b-4aa9-bc7f-518e2dcacc6f",
-      "comment": "",
-      "command": "type",
-      "target": "id=textinput",
-      "targets": [
-        ["id=textinput", "id"],
-        ["css=#textinput", "css:finder"],
-        ["xpath=//input[@id='textinput']", "xpath:attributes"],
-        ["xpath=//div[@id='userProfile']/div/input", "xpath:idRelative"],
-        ["xpath=//input", "xpath:position"]
-      ],
-      "value": "crowley+seleniumtest@tcg.com"
-    }, {
-      "id": "00214e71-3b43-4637-93a4-457ab5d4b379",
-      "comment": "",
-      "command": "click",
-      "target": "linkText=Save Profile",
-      "targets": [
-        ["linkText=Save Profile", "linkText"],
-        ["css=div:nth-child(4) > a:nth-child(2)", "css:finder"],
-        ["xpath=//a[contains(text(),'Save Profile')]", "xpath:link"],
-        ["xpath=//main[@id='content']/div[2]/div/div[2]/a[2]", "xpath:idRelative"],
-        ["xpath=//div[2]/a[2]", "xpath:position"],
-        ["xpath=//a[contains(.,'Save Profile')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "a944d465-0cb8-46c2-b1ca-5ef0101378df",
-      "comment": "",
-      "command": "verifyElementPresent",
-      "target": "xpath=//h4[contains(.,'crowley+seleniumtest@tcg.com')]",
-      "targets": [
-        ["css=.form-group:nth-child(1) h4", "css:finder"],
-        ["xpath=//div[@id='userProfile']/div/div/h4", "xpath:idRelative"],
-        ["xpath=//h4", "xpath:position"],
-        ["xpath=//h4[contains(.,'crowley+selenium@tcg.com')]", "xpath:innerText"]
       ],
       "value": ""
     }, {
@@ -519,6 +341,13 @@
         ["xpath=//li[6]/a", "xpath:position"],
         ["xpath=//a[contains(.,'FAQs')]", "xpath:innerText"]
       ],
+      "value": ""
+    }, {
+      "id": "419aecf8-9987-4e07-8b2b-9c1f1e8639f9",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
       "value": ""
     }, {
       "id": "3f71d270-7f4b-459a-a08b-152da84a8c61",
