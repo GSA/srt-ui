@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 // MODULES
 import { AnalyticsModule } from './analytics/analytics.module';
@@ -10,8 +11,7 @@ import { HelpModule } from './help/help.module';
 import { AuthModule } from './auth/auth.module';
 import { HomeModule } from './home/home.module';
 import { UserModule } from 'app/user/user.module';
-
-
+import { TokenService } from './shared/services/token.service';
 
 
 import { SolicitationModule } from './solicitation/solicitation.module';
@@ -40,6 +40,7 @@ import { TokenInterceptor } from './shared/services/token.interceptor';
 import { AppRoutingModule } from './app.routing';
 import {UploadComponent} from './shared/components/upload/upload.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HttpModule} from '@angular/http';
 
 
 
@@ -54,10 +55,12 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
+    RouterModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    HttpModule,
     AppRoutingModule,
     TooltipModule,
     AuthModule,
@@ -78,6 +81,7 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
     UserService,
     AgencyService,
     SurveyService,
+    TokenService,
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
