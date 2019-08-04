@@ -7,7 +7,7 @@
     "start": "ng serve",
     "build": "ng build",
     "ngtest": "ng test",
-    "test": "./node_modules/.bin/protractor test/protractor/protractor.conf.js ",
+    "test": "./node_modules/.bin/webdriver-manager update && ./node_modules/.bin/webdriver-manager start --detach && ./node_modules/.bin/protractor test/protractor/protractor.conf.js && ./node_modules/.bin/webdriver-manager shutdown",
     "testtest": "./node_modules/.bin/webdriver-manager update && ./node_modules/.bin/webdriver-manager start --detach  && ./node_modules/.bin/protractor test/protractor/protractor.conf.js && ./node_modules/.bin/webdriver-manager shutdown  && ps -eaf | grep webdriver-manager | grep -v grep | cut -d ' ' -f 4 | xargs kill",
     "killwebdriver": "ps -eaf | grep webdriver-manager | grep -v grep | cut -d ' ' -f 4 | xargs kill",
     "lint": "ng lint",
