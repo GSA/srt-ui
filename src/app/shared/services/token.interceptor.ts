@@ -14,13 +14,18 @@ const state = {
   refresh_queued : false
 }
 
-function refresh (request, http, TokenService) {
-    console.log ('version check', state);
-    console.log (TokenService.getToken());
+/**
+ * Makes a request to renew the current JWT
+ *
+ * @param request
+ * @param http
+ * @param TokenService
+ */
+function refresh (request: HttpRequest<any>, http: HttpClient, TokenService: TokenService) {
     http.get(environment.SERVER_URL + '/renewToken')
       .subscribe((data: any) => {
-        console.log('in observer')
-        console.log(data);
+        localStorage.setItem('token', data.token);
+        state.refresh_queued = false;
       });
 }
 
@@ -29,18 +34,21 @@ export class TokenInterceptor implements HttpInterceptor {
 
   constructor(public http: HttpClient, public tokenService: TokenService) {}
 
+  /**
+   * This interceptor is run for every HTTPS call.
+   * It ensures that the JWT is updated frequently so session tokens can be
+   * renewed as long as the user is active for at least 30m - the time is
+   * configurable on the server side.
+   *
+   * @param request
+   * @param next
+   */
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    console.log('intercept');
-    console.log(this.http);
-    console.log(request.url);
-
+    // we don't want to flood the server. Max request rate is once every 5 seconds.
     if ( (! state.refresh_queued) && (!request.url.match('version')) ) {
-      console.log ('queuing refresh', state)
-      setTimeout(() => refresh(request, this.http, this.tokenService), 10000);
+      setTimeout(() => refresh(request, this.http, this.tokenService), 5000);
       state.refresh_queued = true;
-    } else {
-      console.log ('skipping refresh', state);
     }
 
     const token = localStorage.getItem('token');

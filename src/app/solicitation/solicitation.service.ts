@@ -53,8 +53,10 @@ export class SolicitationService {
   getFilteredSolicitations(body) {
     return this.http
       .post<any[]>(this.solicitationsFilterUrl, body)
-      .catch((error: any) =>
-        observableThrowError(error.json().error || 'Server Error')
+      .catch((error: any) => {
+          console.log(error);
+          return observableThrowError(error.json().error || 'Server Error')
+        }
       );
   }
 
