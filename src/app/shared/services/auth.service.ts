@@ -1,6 +1,7 @@
 
 import {throwError as observableThrowError } from 'rxjs';
 import { Injectable } from '@angular/core';
+import 'rxjs/add/operator/catch';
 
 // Class
 import { User } from '../user';
@@ -39,7 +40,7 @@ export class AuthService {
   signup(user: User) {
     const body = JSON.stringify(user);
     return this.http.post(this.userUrl, body, httpOptions)
-        .catch((error) => observableThrowError(error.json()));
+        .catch((error) => observableThrowError(error));
   }
 
   /**
@@ -50,7 +51,7 @@ export class AuthService {
   login(user: User) {
     const body = JSON.stringify(user);
     return this.http.post<any>(this.loginUrl, body, httpOptions)
-        .catch((error) => observableThrowError(error.json()));
+        .catch((error) => observableThrowError(error));
   }
 
 
@@ -69,7 +70,7 @@ export class AuthService {
   checkToken() {
     const body = localStorage;
     return this.http.post<any>(this.tokenUrl, body, httpOptions)
-        .catch((error) => observableThrowError(error.json()));
+        .catch((error) => observableThrowError(error));
   }
 
 

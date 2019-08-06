@@ -50,15 +50,13 @@ export class HeaderComponent implements OnInit {
    * lifecycle
    */
   ngOnInit() {
-    
+
   }
 
   /**
    * lifecycle
    */
   ngOnChanges() {
-    console.log(this.isGSAAdmin);
- 
   }
 
   /**

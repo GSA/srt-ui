@@ -39,7 +39,8 @@ export class AppComponent {
           // don't clear cache here when using MAX CAS prototype
           // localStorage.clear();
         }
-      }
+      },
+      (error) => { console.log(error);}
     )
   }
 
