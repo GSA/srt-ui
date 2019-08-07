@@ -4,15 +4,13 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../shared/services/user.service';
 
 @Component({
-  selector: "app-admin",
-  templateUrl: "./admin.component.html",
-  styleUrls: ["./admin.component.css"]
+  selector: 'app-admin',
+  templateUrl: './admin.component.html',
+  styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
 
   /* ATTRIBUTES */
-  
-  public displayTab: Number = 0;
   public pending: Boolean = false;
   public accepted: Boolean = false;
   public rejected: Boolean = false;
@@ -28,7 +26,10 @@ export class AdminComponent implements OnInit {
 
   /**
    * constructor
-   * @param user
+   * @param userService
+   * @param route
+   * @param userService
+   * @param route
    */
   constructor(
     private userService: UserService,
@@ -57,10 +58,10 @@ export class AdminComponent implements OnInit {
     user.isAccepted = true;
     user.isRejected = false;
     this.userService.updateUser(user).subscribe(
-      data => {
+      () => {
         this.getUsers();
       },
-      error => {}
+      () => {}
     );
   }
 
@@ -72,10 +73,10 @@ export class AdminComponent implements OnInit {
     user.isAccepted = false;
     user.isRejected = true;
     this.userService.updateUser(user).subscribe(
-      data => {
+      () => {
         this.getUsers();
       },
-      error => {}
+      () => {}
     );
   }
 
@@ -86,9 +87,8 @@ export class AdminComponent implements OnInit {
     this.userService.getUsers(this.filterParams).subscribe(
       data => {
         this.users = data;
-        console.log(this.users)
       },
-      error => {}
+      error => { console.log(error); }
     );
   }
 }
