@@ -1,4 +1,7 @@
 // protractor.conf.js
+
+const { SpecReporter } = require('jasmine-spec-reporter');
+
 exports.config = {
   framework: 'jasmine',
   seleniumAddress: 'http://localhost:4444/wd/hub',
@@ -7,13 +10,30 @@ exports.config = {
     {
       browserName: 'firefox',
       'moz:firefoxOptions': {
-       args: [ '--headless' ]
+        args: [ '--headless' ]
+      },
+      shardTestFiles: true,
+      maxInstances: 2
+    },
+    // {
+    //   browserName: 'chrome',
+    //   chromeOptions: {
+    //     args: ["--headless", "--disable-gpu", "--window-size=800,600"]
+    //   },
+    //   shardTestFiles: true,
+    //   maxInstances: 2
+    // }
+  ],
+
+
+  onPrepare: function () {
+    jasmine.getEnv().addReporter(new SpecReporter({
+      spec: {
+        displayStacktrace: true
       }
-    }
-  ]
+    }));
+  }
 }
-
-
 
 // // Protractor configuration file, see link for more information
 // // https://github.com/angular/protractor/blob/master/lib/config.ts
