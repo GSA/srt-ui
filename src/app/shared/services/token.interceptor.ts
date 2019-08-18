@@ -24,12 +24,20 @@ const state = {
  * @param TokenService
  * @param router
  */
-function refresh (request: HttpRequest<any>, http: HttpClient, TokenService: TokenService, router: Router) {
+function refresh (request: HttpRequest<any>, http: HttpClient, router: Router) {
   http.get(environment.SERVER_URL + '/renewToken')
     .subscribe((data: any) => {
+      const now = new Date();
       localStorage.setItem('token', data.token);  // got the new token, so save it
       state.refresh_queued = false;  // clear out the queue marker
-      const session_timeout =  data.token_life_in_seconds * 1000 || 30 * 60 * 1000;  // default to 30 minutes
+      let session_timeout =  data.token_life_in_seconds * 1000 || 30 * 60 * 1000;  // default to  30 minutes
+      session_timeout += 1000; // add a second to the timeout so it fires AFTER token expiration
+
+      console.log ('session_timeout', session_timeout);
+      console.log(TokenService.getSessionExpiration());
+      const sessionEndInMS = Math.ceil((TokenService.getSessionExpiration() * 1000) - now.getTime());
+      console.log('seconds left in session: ', sessionEndInMS / 1000);
+
 
       // if there is a session timeout session_timer pending, clear it.
       if (state.session_timer) {
@@ -37,10 +45,22 @@ function refresh (request: HttpRequest<any>, http: HttpClient, TokenService: Tok
       }
 
       // create a new session_timer to send the user to the login page if they timeout
+      console.log('reset timeout for ' + Math.min(session_timeout, sessionEndInMS) + ' ms');
       state.session_timer = window.setTimeout(() => {
-        console.log('session timeout');
-        return router.navigate(['/auth']);
-      }, session_timeout);
+        const checkTime = new Date();
+        // let's double check that our token is really expired
+        if ( TokenService.isTokenValid()  &&
+             TokenService.getSessionExpiration() > (checkTime.getTime() / 1000) ) {
+
+          console.log('exp: ', TokenService.getSessionExpiration());
+          console.log('time:', checkTime.getTime() / 1000);
+
+          console.log ('timeout triggered, but token is still valid. expiration is: ', TokenService.getTokenExpirationDate());
+        } else {
+          return router.navigate(['/auth']);
+        }
+      }, Math.min(session_timeout, sessionEndInMS));
+
     }, (error) => {
       console.log('error renewing token', error);
     });
@@ -65,7 +85,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     // we don't want to flood the server. Max request rate is once every 5 seconds.
     if ( (! state.refresh_queued) && (!request.url.match('version')) ) {
-      setTimeout(() => refresh(request, this.http, this.tokenService, this.router), 5000);
+      setTimeout(() => refresh(request, this.http, this.router), 3000);
       state.refresh_queued = true;
     }
 

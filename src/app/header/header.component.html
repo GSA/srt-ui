@@ -4,20 +4,20 @@
       <a id="test" href="/" style="position:absolute;
       left:-10000px;
       top:auto;
-      width:1px; 
+      width:1px;
       height:1px;
       overflow:hidden;">you have accessed a new page of SRT,It contains navigation and main content.</a>
 
-        <a 
+        <a
         id="skipMain" href="javascript:
         var oh=location.hash;
         location.hash='#content';
         location.hash=oh;
         void(0);" class="visually-hidden visible-when-focused bypass-block-link">
             Skip to Main content
-          </a>  
+          </a>
   <nav class="us-navbar navbar-default">
-      
+
         <div class="container-fluid" style="padding: 0px;">
             <div class="navbar-header nopadding" style="height: 60px" aria-hidden="true">
                 <a class="navbar-left" [routerLink]="['/home']"><img id="srtlogo" src="../../assets/srtlogo.png"></a>
@@ -32,7 +32,7 @@
                      <li data-toggle="tab" *ngIf="isGSAAdmin" [routerLink]="['/admin']" [ngClass]="{'active': GetHash('admin')}" id="4" onclick="$('#test').focus()"><a href="">Manage Access Requests</a></li>
                      <li data-toggle="tab" [routerLink]="['/help/contactus']" [ngClass]="{'active': GetHash('contactus')}" id="5" onclick="$('#test').focus()"><a href="">Contact Us</a></li>
                      <li data-toggle="tab" [routerLink]="['/help/faq']" [ngClass]="{'active': GetHash('faq')}" id="6"  onclick="$('#test').focus()"><a href=""> FAQs</a></li>
-                     <li data-toggle="tab" *ngIf="isGSAAdmin"  [routerLink]="['/solicitation/feedback']" [ngClass]="{'active': GetHash('feedback/report')}" id="7" onclick="$('#test').focus()"><a href="">Feedback</a></li>       
+                     <li data-toggle="tab" *ngIf="isGSAAdmin"  [routerLink]="['/solicitation/feedback']" [ngClass]="{'active': GetHash('feedback/report')}" id="7" onclick="$('#test').focus()"><a href="">Feedback</a></li>
                 </ul>
 
                 <div class=" gsa_logo" aria-hidden="true">
@@ -52,7 +52,7 @@
 
                         <ul class="dropdown-menu" role="listbox">
                             <!-- <li><a [routerLink]="['/user/profile', currentID]" style="padding: 10px 20px;" role="option">Profile</a></li> -->
-                            <li><a (click) = "gotoProfile()" style="padding: 10px 20px; font-weight:300; font-size:medium; font-family: Arial, sans-serif;">Profile</a></li> 
+                            <li><a (click) = "gotoProfile()" style="padding: 10px 20px; font-weight:300; font-size:medium; font-family: Arial, sans-serif;">Profile</a></li>
                             <li><a [routerLink]="['/user/updatePassword']" style="padding: 10px 20px;" role="option">Password</a></li>
                             <li><button class="dropdown-item" type="button" style="padding: 10px 20px; font-weight:300; font-size:medium; font-family: Arial, sans-serif;" (click)="onLogout()" role="option">Log Out</button></li>
                       </ul>
