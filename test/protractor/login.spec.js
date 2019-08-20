@@ -19,10 +19,6 @@ describe('SRT App', function() {
     expect(element(by.xpath("//a[contains(.,'Hello'')]")).isPresent).toBeTruthy();
   });
 
-  it('should fail', function() {
-    browser.get('http://localhost:4200/');
-    expect(false).toBeTruthy();
-  });
 
 });
 
