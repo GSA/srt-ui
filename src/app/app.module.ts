@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 // MODULES
 import { AnalyticsModule } from './analytics/analytics.module';
@@ -32,7 +32,6 @@ import { AuthGuard } from './auth-guard.service';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { AdminComponent } from 'app/admin/admin.component';
-import { SolicitationReviewComponent } from './solicitation-review/solicitation-review.component';
 import { TokenInterceptor } from './shared/services/token.interceptor';
 
 
@@ -48,7 +47,6 @@ import {HttpModule} from '@angular/http';
 @NgModule({
   declarations: [
     AppComponent,
-    SolicitationReviewComponent,
     HeaderComponent,
     AdminComponent,
     UploadComponent,
