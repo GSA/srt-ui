@@ -12,9 +12,14 @@
         <div class="list-title" style="width: 100%;">
           Prediction History
         </div>
-   
+        <div class="list-content">
+          <ul *ngIf="predictionHistory" class="nopadding">
+            <li *ngFor="let entry of predictionHistory" style="list-style: none;">{{entry.date}} -
+              <span style="font-weight: 600">{{entry.value}}</span> </li>
+          </ul>
+        </div>
       </div>
     </div>
 
   </div>
-</main> 
+</main>
