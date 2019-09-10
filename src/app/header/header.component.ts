@@ -1,4 +1,4 @@
-//Module: SRTHeaderComponent
+// Module: SRTHeaderComponent
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -17,8 +17,8 @@ export class HeaderComponent implements OnInit {
 
   /* ATTRIBUTES */
 
-  private firstName = "";
-  public currentID = "";
+  private firstName = '';
+  public currentID = '';
   @Input() isLogin;
   @Input() isGSAAdmin;
 
@@ -39,10 +39,10 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private userService: UserService
   ) {
-    userService.updateCurrentUser.subscribe(currentUser => this.saveCurrentUser(currentUser));
-      if (localStorage.getItem("firstName")) {
-        this.firstName = localStorage.getItem("firstName");
-        this.currentID = localStorage.getItem("id");
+      userService.updateCurrentUser.subscribe(currentUser => this.saveCurrentUser(currentUser));
+      if (localStorage.getItem('firstName')) {
+        this.firstName = localStorage.getItem('firstName');
+        this.currentID = localStorage.getItem('id');
       }
   }
 
@@ -64,12 +64,12 @@ export class HeaderComponent implements OnInit {
    * clear user information and remove jwt
    */
   onLogout() {
-    var u = new Currentuser("", "", "", "", "", "");
+    const u = new Currentuser('', '', '', '', '', '');
     this.userService.saveUser(u);
     this.authGuard.isLogin = false;
     this.app.isLogin = false;
     this.authService.logout();
-    this.router.navigateByUrl('auth');
+    this.router.navigateByUrl('auth').then();
   }
 
   /**
@@ -79,7 +79,7 @@ export class HeaderComponent implements OnInit {
    */
   saveCurrentUser(currentUser) {
     this.firstName = currentUser.firstName;
-    localStorage.setItem("firstName", currentUser.firstName);
+    localStorage.setItem('firstName', currentUser.firstName);
   }
 
   /**
@@ -92,11 +92,10 @@ export class HeaderComponent implements OnInit {
 
   /**
    * Go to profile
-   * 
+   *
    */
   gotoProfile(){
-    var gotoID = this.authService.getCurrent().id;
-
-    this.router.navigate(['/user/profile', gotoID]);
+    const gotoID = this.authService.getCurrent().id;
+    this.router.navigate(['/user/profile', gotoID]).then();
   }
 }

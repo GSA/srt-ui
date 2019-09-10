@@ -41,6 +41,7 @@ import {UploadComponent} from './shared/components/upload/upload.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {HttpModule} from '@angular/http';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
+import {Globals} from '../globals';
 
 
 
@@ -87,7 +88,8 @@ import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    Globals,
   ],
   bootstrap: [AppComponent]
 })
