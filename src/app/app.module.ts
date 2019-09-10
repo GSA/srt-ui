@@ -40,6 +40,7 @@ import { AppRoutingModule } from './app.routing';
 import {UploadComponent} from './shared/components/upload/upload.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {HttpModule} from '@angular/http';
+import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 
 
 
@@ -73,6 +74,7 @@ import {HttpModule} from '@angular/http';
     Ng2CompleterModule,
     AnalyticsModule,
     SolicitationModule,
+    LoggerModule.forRoot({level: NgxLoggerLevel.DEBUG} ),
   ],
   providers: [
     AuthService,

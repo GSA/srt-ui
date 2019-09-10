@@ -43,6 +43,7 @@
     "ng2-file-upload": "^1.2.1",
     "ng2-quill-editor": "^2.0.0",
     "ng2-tooltip": "0.0.7",
+    "ngx-logger": "^4.0.4",
     "ngx-quill-editor": "^2.2.2",
     "primeng": "^5.2.7",
     "rxjs": "^6.5.2",
