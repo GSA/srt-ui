@@ -10,6 +10,7 @@ import { environment } from '../../../environments/environment';
 import { TokenService } from './token.service';
 import {NavigationStart, Router} from '@angular/router';
 import {NGXLogger} from 'ngx-logger';
+import {Globals} from '../../../globals';
 
 const state = {
   token_expires : 0,
@@ -23,8 +24,9 @@ const state = {
  * @param http
  * @param router
  * @param logger
+ * @param globals
  */
-function refresh (http: HttpClient, router: Router, logger: NGXLogger) {
+function refresh (http: HttpClient, router: Router, logger: NGXLogger, globals: Globals) {
   http.get(environment.SERVER_URL + '/renewToken')
     .subscribe((data: any) => {
       const now = new Date();
@@ -51,6 +53,7 @@ function refresh (http: HttpClient, router: Router, logger: NGXLogger) {
           logger.debug('time:', checkTime.getTime() / 1000);
           logger.debug('timeout triggered, but token is still valid. expiration is: ', TokenService.getTokenExpirationDate());
         } else {
+          globals.app.isLogin = false;
           return router.navigate(['/auth']);
         }
       }, Math.min(session_timeout, sessionEndInMS));
@@ -64,13 +67,13 @@ function refresh (http: HttpClient, router: Router, logger: NGXLogger) {
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(public http: HttpClient, private router: Router, private logger: NGXLogger ) {
+  constructor(public http: HttpClient, private router: Router, private logger: NGXLogger, private globals: Globals ) {
 
     router.events.subscribe( e => {
       if (e instanceof NavigationStart) {
         this.logger.debug('Refreshing token based on Router hook.');
         if ( (! state.refresh_queued)  ) {
-          setTimeout(() => refresh(http, router, logger), 3000);
+          setTimeout(() => refresh(http, router, logger, globals), 3000);
           state.refresh_queued = true;
         }
       }
@@ -105,6 +108,7 @@ export class TokenInterceptor implements HttpInterceptor {
       (error: any) => {
         if (error.status === 401) {
           this.logger.debug('Token rejected, redirecting to /auth');
+          this.globals.app.isLogin = false;
           return this.router.navigate(['/auth']);
         } else {
           this.logger.error(error);

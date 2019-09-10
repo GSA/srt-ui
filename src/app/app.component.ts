@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { AuthService } from './shared/services/auth.service'
-import { AuthGuard } from './auth-guard.service'
+import { AuthService } from './shared/services/auth.service';
+import { AuthGuard } from './auth-guard.service';
 
 
-import { SolicitationReportComponent } from './solicitation/solicitation-report/solicitation-report.component';
+import {Globals} from '../globals';
 
 @Component({
   selector: 'app-root',
@@ -23,11 +23,14 @@ export class AppComponent {
    * constructor
    * @param authGuard
    * @param authService
+   * @param globals
    */
   constructor(
     private authGuard: AuthGuard,
-    private authService: AuthService
+    private authService: AuthService,
+    private globals: Globals
   ) {
+    globals.app = this;
     authService.checkToken().subscribe(
       data => {
         this.authGuard.isLogin = data.isLogin;
@@ -40,8 +43,8 @@ export class AppComponent {
           // localStorage.clear();
         }
       },
-      (error) => { console.log(error);}
-    )
+      (error) => { console.log(error); }
+    );
   }
 
 }
