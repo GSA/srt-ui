@@ -93,7 +93,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     // we don't want to flood the server. Max request rate is once every 5 seconds.
     if ( (! state.refresh_queued) && (!request.url.match('version')) ) {
-      setTimeout(() => refresh(this.http, this.router, this.logger), 3000);
+      setTimeout(() => refresh(this.http, this.router, this.logger, this.globals), 3000);
       state.refresh_queued = true;
     }
 
