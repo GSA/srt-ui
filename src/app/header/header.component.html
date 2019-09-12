@@ -18,17 +18,17 @@
           </a>
   <nav class="us-navbar navbar-default">
 
-        <div class="container-fluid" style="padding: 0px;">
+        <div class="container-fluid" style="padding: 0;">
             <div class="navbar-header nopadding" style="height: 60px" aria-hidden="true">
-                <a class="navbar-left" [routerLink]="['/home']"><img id="srtlogo" src="../../assets/srtlogo.png"></a>
+                <a class="navbar-left" [routerLink]="['/home']"><img id="srtlogo" alt='SRT Logo' src="../../assets/srtlogo.png"></a>
             </div>
 
-        <div class="collapse navbar-collapse" id="navbar" style="padding: 0px;" role="navigation" aria-label="main navigation" >
+        <div class="collapse navbar-collapse" id="navbar" style="padding: 0;" role="navigation" aria-label="main navigation" >
 
                 <ul *ngIf="isLogin" class="nav navbar-nav" >
                      <li data-toggle="tab" [routerLink]="['/home']" [ngClass]="{'active': GetHash('home')}" id="1" onclick="$('#test').focus()"><a href="">Home</a></li>
                      <li data-toggle="tab" [routerLink]="['/solicitation/report']" [ngClass]="{'active': GetHash('solicitation')}" id="2"  onclick="$('#test').focus()"><a href="">Manage/Review Workload</a></li>
-                     <li data-toggle="tab" [routerLink]="['/analytics']" [ngClass]="{'active': GetHash('analytics')}" id="3"  onclick="$('#test').focus()"><a href="" >View Analytics</a></li>
+                     <li data-toggle="tab" *ngIf="isGSAAdmin" [routerLink]="['/analytics']" [ngClass]="{'active': GetHash('analytics')}" id="3"  onclick="$('#test').focus()"><a href="" >View Analytics</a></li>
                      <li data-toggle="tab" *ngIf="isGSAAdmin" [routerLink]="['/admin']" [ngClass]="{'active': GetHash('admin')}" id="4" onclick="$('#test').focus()"><a href="">Manage Access Requests</a></li>
                      <li data-toggle="tab" [routerLink]="['/help/contactus']" [ngClass]="{'active': GetHash('contactus')}" id="5" onclick="$('#test').focus()"><a href="">Contact Us</a></li>
                      <li data-toggle="tab" [routerLink]="['/help/faq']" [ngClass]="{'active': GetHash('faq')}" id="6"  onclick="$('#test').focus()"><a href=""> FAQs</a></li>
@@ -38,7 +38,7 @@
                 <div class=" gsa_logo" aria-hidden="true">
                     <a href='#' class="logo_li">
                     <div class='span-logo' >
-                        <img src='../../assets/gsa-logo.png'/>
+                        <img alt="GSA Logo" src='../../assets/gsa-logo.png'/>
                     </div>
                     </a>
                 </div>
@@ -63,6 +63,6 @@
 
         </div>
     </nav>
-    <hr style="margin: 0px; height: 0px;">
+    <hr style="margin: 0; height: 0;">
 </div>
 
