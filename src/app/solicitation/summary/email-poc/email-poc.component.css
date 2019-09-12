@@ -3,8 +3,8 @@
 }
 
 .nopadding {
-    margin: 0px !important;
-    padding: 0px !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 input.form-control {
@@ -50,4 +50,15 @@ label {
 
 .summary-content-padding{
   padding: 30px 20px
+}
+
+#instruction{
+  font-weight: 600;
+  font-size: 16px;
+  padding: 20px;
+  border: 1px solid #dadada
+}
+
+#form-div{
+  padding-top: 20px;
 }
