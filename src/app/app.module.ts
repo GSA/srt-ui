@@ -5,6 +5,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+
+
 // MODULES
 import { AnalyticsModule } from './analytics/analytics.module';
 import { HelpModule } from './help/help.module';
@@ -24,6 +26,7 @@ import { Ng2CompleterModule } from 'ng2-completer';
 import { AgencyService } from './shared/services/agency.service';
 import { AuthService } from './shared/services/auth.service';
 import { SurveyService } from './survey.service';
+import { MasqService } from './user/masq/masq.service';
 import { UserService } from './shared/services/user.service';
 import { AuthGuard } from './auth-guard.service';
 
@@ -82,6 +85,7 @@ import {Globals} from '../globals';
     UserService,
     AgencyService,
     SurveyService,
+    MasqService,
     TokenService,
     AuthGuard,
     {

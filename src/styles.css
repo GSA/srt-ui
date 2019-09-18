@@ -15,8 +15,8 @@ html {
 /* button */
 
 .nopadding {
-    padding: 0px !important;
-    margin: 0px !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 /* title */
@@ -101,7 +101,7 @@ button.srt-button {
 /* banner */
 
 .srt-banner.blue {
-    margin: 0px;
+    margin: 0;
     background-color: #205493;
     padding: 40px;
     color: white;
@@ -110,7 +110,7 @@ button.srt-button {
 }
 
 .srt-banner h1 {
-    margin: 0px;
+    margin: 0;
     padding-bottom: 20px;
 }
 
@@ -217,7 +217,7 @@ button.srt-button {
     cursor: pointer;
     z-index: 9999;
     position: absolute;
-    margin-top: 0px !important;
+    margin-top: 0 !important;
     background-color: #ffffff;
     max-height: 200px !important;
     overflow: auto !important;
@@ -250,7 +250,7 @@ button.srt-button {
 }
 
 .srt.dropdown-menu {
-    padding: 0px;
+    padding: 0;
 }
 
 .srt.dropdown-menu .dropdown-item {
@@ -308,12 +308,12 @@ button.srt-button {
 }
 
 .padding ul {
-    padding: 0px
+    padding: 0
 }
 
 
 .olstyle ol{
-    list-style-type: lower-roman; padding: 0px 0px 20px 0px;
+    list-style-type: lower-roman; padding: 0 0 20px 0;
 }
 
 
@@ -362,7 +362,7 @@ button.srt-button {
 }
 
 /*
- * Style for "Skip Navigation" type links.  Should have an href linked to 
+ * Style for "Skip Navigation" type links.  Should have an href linked to
  * a `.bypass-block-target` element.
  */
 .bypass-block-link {
@@ -389,11 +389,11 @@ button.srt-button {
  * We do, however, want the `.bypass-block-target` to have an outline when
  * it has focus and it is the target of the document (i.e. the hash tag of the
  * document URL is the same as the "Skip Nav" link).
- * 
- * Note that this style is the same as the focus state on all the tabbable 
- * elements.  It doesn't have to be.  WCAG 2.4.7 — Focus Visible (Level AA) 
- * only requires that the focus state is visible, so you can have, say, the 
- * focus state of a button different than that of a form element. 
+ *
+ * Note that this style is the same as the focus state on all the tabbable
+ * elements.  It doesn't have to be.  WCAG 2.4.7 — Focus Visible (Level AA)
+ * only requires that the focus state is visible, so you can have, say, the
+ * focus state of a button different than that of a form element.
  */
 .bypass-block-target:focus:target,
 [tabindex="0"]:focus,
@@ -403,3 +403,5 @@ button:focus,
 input:focus {
   outline: solid 2px orange;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

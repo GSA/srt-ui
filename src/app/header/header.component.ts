@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
 
   /* ATTRIBUTES */
 
-  private firstName = '';
+  @Input() firstName = '';
   public currentID = '';
   @Input() isLogin;
   @Input() isGSAAdmin;

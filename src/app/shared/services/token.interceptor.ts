@@ -25,12 +25,13 @@ const state = {
  * @param router
  * @param logger
  * @param globals
+ * @param tokenService
  */
-function refresh (http: HttpClient, router: Router, logger: NGXLogger, globals: Globals) {
+function refresh (http: HttpClient, router: Router, logger: NGXLogger, globals: Globals, tokenService: TokenService) {
   http.get(environment.SERVER_URL + '/renewToken')
     .subscribe((data: any) => {
       const now = new Date();
-      localStorage.setItem('token', data.token);  // got the new token, so save it
+      tokenService.installToken(data.token);
       state.refresh_queued = false;  // clear out the queue marker
       let session_timeout =  data.token_life_in_seconds * 1000 || 30 * 60 * 1000;  // default to  30 minutes
       session_timeout += 1000; // add a second to the timeout so it fires AFTER token expiration
@@ -67,13 +68,17 @@ function refresh (http: HttpClient, router: Router, logger: NGXLogger, globals: 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(public http: HttpClient, private router: Router, private logger: NGXLogger, private globals: Globals ) {
+  constructor(public http: HttpClient,
+              private router: Router,
+              private logger: NGXLogger,
+              private globals: Globals,
+              private tokenService: TokenService) {
 
     router.events.subscribe( e => {
       if (e instanceof NavigationStart) {
         this.logger.debug('Refreshing token based on Router hook.');
         if ( (! state.refresh_queued)  ) {
-          setTimeout(() => refresh(http, router, logger, globals), 3000);
+          setTimeout(() => refresh(http, router, logger, globals, tokenService), 3000);
           state.refresh_queued = true;
         }
       }
@@ -93,7 +98,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     // we don't want to flood the server. Max request rate is once every 5 seconds.
     if ( (! state.refresh_queued) && (!request.url.match('version')) ) {
-      setTimeout(() => refresh(this.http, this.router, this.logger, this.globals), 3000);
+      setTimeout(() => refresh(this.http, this.router, this.logger, this.globals, this.tokenService), 3000);
       state.refresh_queued = true;
     }
 

@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "dev": "ng serve --watch --configuration=local",
+    "dev": "npm install && ng serve --watch --configuration=local",
     "start": "ng serve",
     "build": "ng build",
     "ngtest": "ng test",

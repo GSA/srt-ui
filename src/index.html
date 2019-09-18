@@ -11,6 +11,8 @@
 
   <link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/themes/omega/theme.css" />
   <link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/primeng.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
   <app-root>Loading...</app-root>
@@ -33,14 +35,14 @@
   <script language="JavaScript">
 
     function casCheck() {
-      var ticketParam = window.location.search.substr(1).split('&').map(function (x) {
-        return x.split('=');
-      }).filter(function (x) {
-        return x[0] === 'token';
-      });
+        const ticketParam = window.location.search.substr(1).split('&').map(function (x) {
+            return x.split('=');
+        }).filter(function (x) {
+            return x[0] === 'token';
+        });
 
-      if (ticketParam.length > 0) {
-        data = JSON.parse(decodeURIComponent(ticketParam[0][1]));
+        if (ticketParam.length > 0) {
+        const data = JSON.parse(decodeURIComponent(ticketParam[0][1]));
         localStorage.setItem('agency', data.agency);
         localStorage.setItem('email', data.email);
         localStorage.setItem('firstName', data.firstName);
@@ -60,10 +62,10 @@
 
     // TO-DO: build this into an angular hook rather than this hack
     function errorUpdater() {
-      var urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.has("error")) {
-        var el = document.getElementById("login-error");
-        el.innerHTML = "<p>PIV or CAC login required.<br> Log out of MAX and return here, then log in using a PIV or CAC.</p>";
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has("error")) {
+            const el = document.getElementById("login-error");
+            el.innerHTML = "<p>PIV or CAC login required.<br> Log out of MAX and return here, then log in using a PIV or CAC.</p>";
       }
     }
     setTimeout( errorUpdater, 1000);
