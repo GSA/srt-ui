@@ -10,7 +10,7 @@
 
         <a
         id="skipMain" href="javascript:
-        var oh=location.hash;
+        const oh=location.hash;
         location.hash='#content';
         location.hash=oh;
         void(0);" class="visually-hidden visible-when-focused bypass-block-link">
@@ -29,7 +29,7 @@
                      <li data-toggle="tab" [routerLink]="['/home']" [ngClass]="{'active': GetHash('home')}" id="1" onclick="$('#test').focus()"><a href="">Home</a></li>
                      <li data-toggle="tab" [routerLink]="['/solicitation/report']" [ngClass]="{'active': GetHash('solicitation')}" id="2"  onclick="$('#test').focus()"><a href="">Manage/Review Workload</a></li>
                      <li data-toggle="tab" *ngIf="isGSAAdmin" [routerLink]="['/analytics']" [ngClass]="{'active': GetHash('analytics')}" id="3"  onclick="$('#test').focus()"><a href="" >View Analytics</a></li>
-                     <li data-toggle="tab" *ngIf="isGSAAdmin" [routerLink]="['/admin']" [ngClass]="{'active': GetHash('admin')}" id="4" onclick="$('#test').focus()"><a href="">Manage Access Requests</a></li>
+                     <li data-toggle="tab" *ngIf="isGSAAdmin" [routerLink]="['/admin']" [ngClass]="{'active': GetHash('admin')}" id="4" onclick="$('#test').focus()"><a href="">User Management</a></li>
                      <li data-toggle="tab" [routerLink]="['/help/contactus']" [ngClass]="{'active': GetHash('contactus')}" id="5" onclick="$('#test').focus()"><a href="">Contact Us</a></li>
                      <li data-toggle="tab" [routerLink]="['/help/faq']" [ngClass]="{'active': GetHash('faq')}" id="6"  onclick="$('#test').focus()"><a href=""> FAQs</a></li>
                      <li data-toggle="tab" *ngIf="isGSAAdmin"  [routerLink]="['/solicitation/feedback']" [ngClass]="{'active': GetHash('feedback/report')}" id="7" onclick="$('#test').focus()"><a href="">Feedback</a></li>

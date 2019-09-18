@@ -16,6 +16,8 @@ export class AppComponent {
 
   isLogin = false;
   isGSAAdmin = false;
+  firstName = '';
+  lastName = '';
 
   /* CONSTRUCTOR */
 
@@ -37,6 +39,9 @@ export class AppComponent {
         this.authGuard.isGSAAdmin = data.isGSAAdmin;
         this.isLogin = this.authGuard.isLogin;
         this.isGSAAdmin = this.authGuard.isGSAAdmin;
+        this.firstName = localStorage.getItem('firstName');
+        this.lastName = localStorage.getItem('lastName');
+
         // debugger
         if (!this.authGuard.isLogin) {
           // don't clear cache here when using MAX CAS prototype

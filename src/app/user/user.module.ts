@@ -22,23 +22,24 @@ import { ProfileComponent } from 'app/user/profile/profile.component';
 import { DataTableModule, SharedModule, ButtonModule, DropdownModule, CalendarModule } from 'primeng/primeng';
 import { Ng2CompleterModule } from 'ng2-completer';
 import { FileUploadModule } from 'primeng/primeng';
+import {MasqComponent} from './masq/masq.component';
 
 
 
 @NgModule({
-    imports: [
-      CommonModule,
-      UserRoutingModule,
-      DataTableModule,
-      SharedModule,
-      ButtonModule,
-      DropdownModule,
-      CalendarModule,
-      FormsModule,
-      ReactiveFormsModule,
-      Ng2CompleterModule,
-      FileUploadModule
-    ],
+  imports: [
+    CommonModule,
+    UserRoutingModule,
+    DataTableModule,
+    SharedModule,
+    ButtonModule,
+    DropdownModule,
+    CalendarModule,
+    FormsModule,
+    ReactiveFormsModule,
+    Ng2CompleterModule,
+    FileUploadModule,
+  ],
     providers: [
       UserService,
       AuthService,
@@ -46,8 +47,9 @@ import { FileUploadModule } from 'primeng/primeng';
       FileService
     ],
     declarations: [
-    ProfileComponent,
-    PasswordComponent,
+      ProfileComponent,
+      PasswordComponent,
+      MasqComponent
     ]
   })
   export class UserModule { }

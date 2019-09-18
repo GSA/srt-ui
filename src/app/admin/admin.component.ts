@@ -14,6 +14,7 @@ export class AdminComponent implements OnInit {
   public pending: Boolean = false;
   public accepted: Boolean = false;
   public rejected: Boolean = false;
+  public masq: Boolean = false;
 
   filterParams = {
     isAccepted: false,
