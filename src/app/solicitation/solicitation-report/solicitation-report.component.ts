@@ -22,7 +22,6 @@ export class SolicitationReportComponent implements OnInit {
   revResult: SelectItem[] = [];
 
 
-  dateSorting = 1;
   stacked: Boolean = false;
 
   dateFrom: Date;
@@ -84,7 +83,8 @@ export class SolicitationReportComponent implements OnInit {
           this.dateScan = this.solicitations[0].date;
           $('.pDataTable').show();
           // sorting
-          this.solicitations = this.sortByReviewResult(this.solicitations);
+          //  this.solicitations = this.sortByReviewResult(this.solicitations);
+          this.sortByDate({order: 1});
 
           this.getNoticeTypes(this.solicitations);
         },
@@ -97,9 +97,9 @@ export class SolicitationReportComponent implements OnInit {
     this.ict.push({label: 'No', value: 'No'});
 
     this.revResult.push({label: 'All', value: null});
-    this.revResult.push({label: 'Non-compliant (Action Required)', value: 'Non-compliant (Action Required)'});
-    this.revResult.push({label: 'Undetermined', value: 'Undetermined'});
     this.revResult.push({label: 'Compliant', value: 'Compliant'});
+    this.revResult.push({label: 'Non-compliant (Action Required)', value: 'Non-compliant (Action Required)'});
+    this.revResult.push({label: 'Not Applicable', value: 'Not Applicable'});
 
   }
 
@@ -148,10 +148,10 @@ export class SolicitationReportComponent implements OnInit {
    * @param solicitations
    */
   sortByReviewResult(solicitations) {
-    const Undetermined = solicitations.filter(d => d.reviewRec === 'Undetermined');
+    const NotApplicable = solicitations.filter(d => d.reviewRec === 'Not Applicable');
     const Noncompliant = solicitations.filter(d => d.reviewRec === 'Non-compliant (Action Required)');
     const Compliant = solicitations.filter(d => d.reviewRec === 'Compliant');
-    solicitations = Noncompliant.concat(Compliant).concat(Undetermined);
+    solicitations = Noncompliant.concat(Compliant).concat(NotApplicable);
     return solicitations;
   }
 
@@ -208,31 +208,6 @@ export class SolicitationReportComponent implements OnInit {
     if (!this.dateFrom && !this.dateTo) {
       this.solicitations = this.solicitationService.solicitations;
     }
-  }
-
-  /**
-   * sort solicitation by date
-   * @param event
-   */
-  sortByDate(event: any) {
-    if (this.dateSorting !== event.order) {
-      this.dateSorting = event.order;
-      this.solicitations = this.solicitations.sort(
-        function (a, b) {
-          const aDate = new Date(a.date);
-          const bDate = new Date(b.date);
-
-          if (aDate > bDate) {
-            return -1 * event.order;
-          } else if (aDate < bDate) {
-            return 1 * event.order;
-          } else {
-            return 0;
-          }
-        }
-      );
-    }
-    this.getNoticeTypes(this.solicitations);
   }
 
 }

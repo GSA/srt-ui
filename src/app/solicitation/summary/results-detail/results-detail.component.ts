@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -17,7 +17,6 @@ export class ResultsDetailComponent implements OnInit {
 
   /* ATTRIBUTES */
 
-  private emailType:string = '1';
   public lockDocs;
 
   solicitation: Solicitation;
@@ -41,7 +40,8 @@ export class ResultsDetailComponent implements OnInit {
     private solicitationService: SolicitationService,
     private router: Router,
     private route: ActivatedRoute
-  ) { }
+  ) {
+  }
 
   /**
    * lifecycle
@@ -49,12 +49,10 @@ export class ResultsDetailComponent implements OnInit {
   ngOnInit() {
     this.subscription = this.route.params.subscribe(
       (params: any) => {
-        var now = new Date().toLocaleDateString();
         this.solicitationID = params['id'];
         console.log(this.solicitationID);
         this.solicitationService.getSolicitation(this.solicitationID).subscribe(
           data => {
-            console.log(data)
             data.parseStatus.forEach(element => {
                 if (element.status === 'successfully parsed') {
                   element.status = 'Yes';
@@ -74,15 +72,16 @@ export class ResultsDetailComponent implements OnInit {
             }).length > 0;
 
             this.solicitation = data;
-            var totalDoc = Number(this.solicitation.numDocs);
+
+            const totalDoc = Number(this.solicitation.numDocs);
 
             if (!isNaN(totalDoc)) {
               // doesn't have lock files
               if (totalDoc == this.solicitation.parseStatus.length) {
               } else {
-                var lock = totalDoc - this.solicitation.parseStatus.length;
+                const lock = totalDoc - this.solicitation.parseStatus.length;
                 this.lockDocs = [];
-                for(var i = 1; i <= lock; i++){
+                for(let i = 1; i <= lock; i++){
                   this.lockDocs.push(i);
                 }
               }
@@ -90,8 +89,16 @@ export class ResultsDetailComponent implements OnInit {
 
           },
           err => console.log(err)
-        )
-      })
+        );
+      });
   }
 
+  onNotApplicableClick(event) {
+    this.solicitation.na_flag = event.target.checked;
+    this.solicitationService.update(this.solicitation)
+      .subscribe( (data) => {
+
+      })
+
+  }
 }

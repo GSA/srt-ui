@@ -13,22 +13,39 @@
 
     <div id="detail">
 
-      <div style="display: inline-block; font-weight: 500" *ngIf="solicitation">
-        <div style="font-size: 24px; padding-bottom: 15px;">{{solicitation.title}}</div>
-        <div style="padding-bottom: 5px"><a target="_blank" href="{{solicitation.url}}">{{solicitation.url}}</a></div>
-        <div style="padding-bottom: 5px">
-          <span style="font-weight:600">Results:&nbsp;</span>
-          <span style="font-weight:500" >{{solicitation.reviewRec}}</span>
-          
-        </div>
-      </div>
+      <div class="row">
+        <div class="col-md-8 col-sm-12">
+          <div style="display: inline-block; font-weight: 500" *ngIf="solicitation">
+            <div style="font-size: 24px; padding-bottom: 15px;">{{solicitation.title}}</div>
+            <div style="padding-bottom: 5px"><a target="_blank" href="{{solicitation.url}}">{{solicitation.url}}</a></div>
+            <div style="padding-bottom: 5px">
+              <span style="font-weight:600">Results:&nbsp;</span>
+              <span style="font-weight:500" >{{solicitation.reviewRec}}</span>
 
-      <div id="rbutton">
-        <div [routerLink]="['/solicitation/email', solicitationID]" class="srt-button" style="width: 150px; ">
-          <div>
-            Email POC
+            </div>
           </div>
         </div>
+
+        <div class="col-md-4 col-sm-12">
+          <div id="rbutton">
+            <div [routerLink]="['/solicitation/email', solicitationID]" class="srt-button" style="width: 150px; ">
+              <div>
+                Email POC
+              </div>
+            </div>
+          </div>
+          <div class="row" id="na-checkbox">
+            <div class="col-xs-10">
+              <label id="na_check_label" for="na_check" formControl="na_check">Section 508 is Not Applicable to this Solicitation:</label>
+              <input type="checkbox" id="na_check" [checked]="solicitation.na_flag" (change)="onNotApplicableClick($event)">
+            </div>
+            <div class="col-xs-1">
+
+            </div>
+
+          </div>
+        </div>
+
       </div>
 
       <div class="row" *ngIf="solicitation" style="clear: both; padding-top: 30px;">

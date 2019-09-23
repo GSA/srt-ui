@@ -33,6 +33,7 @@ export class SolicitationService {
   private solicitationsFilterUrl = environment.SERVER_URL +
     '/predictions/filter';
   private solicitationUrl = environment.SERVER_URL + '/solicitation/';
+  private updateUrl = environment.SERVER_URL + '/solicitation/';
   private emailUrl = environment.SERVER_URL + '/email/';
 
   /* CONSTRUCTORS */
@@ -112,5 +113,17 @@ export class SolicitationService {
         return observableThrowError(error.json().error || 'Server Error');
         }
       );
+  }
+
+  update(solicitation) {
+    console.log (solicitation);
+    let url = `${this.updateUrl}${solicitation.solNum}`;
+
+    return this.http
+      .post(url, {solicitation: solicitation})
+      .catch( (error: any) => {
+        console.log(error);
+        return observableThrowError(error || 'Server Error');
+      });
   }
 }

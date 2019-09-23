@@ -24,7 +24,7 @@
 
             <div class="solic-table">
                     <div class="solic-keyword">
-                    <label for="ksearch" class="solic-keyword">Keyword Search:        
+                    <label for="ksearch" class="solic-keyword">Keyword Search:
                             <!--<span class="input-invalid" *ngIf="errorMessage && (myForm.value.email == null || myForm.value.email == '')">Please fill in requred field</span>-->
                     </label>
                     </div>
@@ -55,7 +55,7 @@
     <p-dataTable #dt styleClass="pDataTable"
             [value]="solicitations"
             [rows]="15"
-            [paginator]="true"          
+            [paginator]="true"
             [pageLinks]="4"
             [rowsPerPageOptions]="[15, 25, 35, 45]"
             [globalFilter]="gb"
@@ -64,8 +64,8 @@
 
         <p-column field="solNum"  header="Solicitation ID" [sortable]="true" [filter]="false" filterPlaceholder="Search" [style]="{'width': '170px'}" ></p-column>
         <p-column field="title" header="Solicitation Title" [sortable]="true" [filter]="false" filterPlaceholder="Search">
-            <ng-template let-sol="rowData" pTemplate="body">        
-                <a href="{{sol.url}}" target="_blank">{{sol.title}}</a> 
+            <ng-template let-sol="rowData" pTemplate="body">
+                <a href="{{sol.url}}" target="_blank">{{sol.title}}</a>
             </ng-template>
         </p-column>
 
@@ -75,7 +75,7 @@
             </ng-template>
         </p-column>
 
-        <p-column field="date" header="Date Posted on FedBizOpps" sortable="custom" (sortFunction)="sortByDate($event)" [style]="{'overflow':'visible', 'width': '150'}" filterPlaceholder="Search">
+        <p-column field="date" header="Date Posted on FedBizOps" sortable="true"  [style]="{'overflow':'visible', 'width': '150'}" filterPlaceholder="Search">
             <ng-template pTemplate="filter" let-col>
                 <p-calendar aria-hidden="true"
                             [(ngModel)]="dateFrom"
@@ -99,24 +99,15 @@
             <ng-template pTemplate="filter" let-col>
                 <p-dropdown [options]="revResult" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter" aria-hidden="true"></p-dropdown>
             </ng-template>
-            
+
             <ng-template let-sol="rowData" pTemplate="body">
-                <div *ngIf="sol.predictions.value == 'RED'">
-                    <span [ngStyle]="{'color' : sol.undetermined ? 'black' : 'red'}">
-                        <button class="button" (click)="selectSol(sol)" onclick="$('#test').focus()" style="border: none; text-align: left; padding: 0;">
-                            <i class="fa fa-exclamation-triangle" style="padding-right: 5px;" *ngIf="!sol.undetermined"></i>
-                            <span style="text-decoration: underline;">{{sol.reviewRec}}</span>
-                        </button>
-                    </span>
-                </div>
-                <div *ngIf="sol.predictions.value == 'GREEN'">
-                  <span style="color: green" >
-                      <button class="button" (click)="selectSol(sol)" style="border: none; text-align: left; padding: 0;">
-                          <i class="fa fa-check" style="padding-right: 5px;"></i>
-                          <span style="text-decoration: underline;">{{sol.reviewRec}}</span>
-                      </button>
-                  </span>
-                </div>
+
+              <span [ngStyle]="{'color' : sol.predictions.value }">
+                  <button class="button" (click)="selectSol(sol)" onclick="$('#test').focus()" style="border: none; text-align: left; padding: 0;">
+                      <i class="fa fa-exclamation-triangle" style="padding-right: 5px;" *ngIf="sol.predictions.value == 'red'"></i>
+                      <span style="text-decoration: underline;">{{sol.reviewRec}}</span>
+                  </button>
+              </span>
             </ng-template>
         </p-column>
 
