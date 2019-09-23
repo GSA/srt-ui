@@ -93,8 +93,8 @@ export class EmailPocComponent implements OnInit {
                   'contractual requirements.\n</p>' +
                   '<br>' +
                   '<p>To assist your efforts in addressing Section 508, please refer ' +
-                  'to the <a href="https://www.section508.gov/manage/laws-and-policies">Section 508 ' +
-                  'Guidelines.</a> GSA also provides free tools and ' +
+                  'to the <a href="https://www.access-board.gov/guidelines-and-standards">Section 508 ' +
+                  'guidelines and standards.</a> GSA also provides free tools and ' +
                   'resources to assist with generating accessibility requirements. ' +
                   'The <a href="https://buyaccessible.gov/">Accessibility Requirement Tool</a> ' +
                   'is a web-based tool that guides users through the process of gathering ' +
