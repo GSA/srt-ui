@@ -29,7 +29,7 @@ export class SolicitationService {
     UndeterminedSolicitationChart: null
   };
 
-  private feedbackURL = environment.SERVER_URL + '/solicitation/feedback';
+  private feedbackURL = environment.SERVER_URL + '/feedback';
   private solicitationsFilterUrl = environment.SERVER_URL +
     '/predictions/filter';
   private solicitationUrl = environment.SERVER_URL + '/solicitation/';

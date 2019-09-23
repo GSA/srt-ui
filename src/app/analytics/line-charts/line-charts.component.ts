@@ -105,7 +105,7 @@ export class LineChartsComponent implements OnInit {
               if (item.date != null)
               {
                   var date = +item.date.split('/')[0];
-                  if (item.predictions.value == 'GREEN') pass[date-1]++;
+                  if (item.predictions.value == 'green') pass[date-1]++;
                   total[date-1]++;
               }
           }
@@ -149,7 +149,7 @@ export class LineChartsComponent implements OnInit {
               if (item.date != null)
               {
                   var date = +item.date.split('/')[1];
-                  if (item.predictions.value == 'GREEN') pass[date-1]++;
+                  if (item.predictions.value == 'green') pass[date-1]++;
                   total[date-1]++;
               }
           }
