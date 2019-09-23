@@ -84,7 +84,6 @@ export class SolicitationReportComponent implements OnInit {
           $('.pDataTable').show();
           // sorting
           //  this.solicitations = this.sortByReviewResult(this.solicitations);
-          this.sortByDate({order: 1});
 
           this.getNoticeTypes(this.solicitations);
         },
