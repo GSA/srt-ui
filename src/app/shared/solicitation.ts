@@ -10,7 +10,7 @@ export class Solicitation {
         public predictions: {value: String, history: [{value: String, date: String}]},
         public reviewRec: Boolean,
         public numDocs: String,
-        public eitLikelihood: String,
+        public eitLikelihood: {value: String},
         public date: Date,
         public agency: String,
         public office: String,
@@ -38,6 +38,7 @@ export class Solicitation {
           answer: String,
         }],
         public undetermined: Boolean,
+        public na_flag: Boolean,
 
         // these are added for API compatibility. Possibly a hack
         public id: String

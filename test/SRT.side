@@ -14,6 +14,33 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "ab2c3c38-4668-4ae9-bbd3-980099a789a6",
+      "comment": "",
+      "command": "if",
+      "target": "document.getElementById('login') != null",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "238a6adb-1eea-4b4c-a174-be168ece44d3",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[contains(.,'Login with MAX')]",
+      "targets": [
+        ["css=.srt-button", "css:finder"],
+        ["xpath=//button[@onclick=\" (function() {\n                        let client_host = window.location.hostname\n                        let server_host = ''\n                        if (client_host === 'localhost') { server_host = 'localhost:3000' }\n                        if (client_host === 'srt-client.app.cloud.gov' || client_host === 'srt.app.cloud.gov') { server_host = 'srt-server.app.cloud.gov' }\n                        if (client_host === 'srt-client-dev.app.cloud.gov') { server_host = 'srt-server-dev.app.cloud.gov' }\n                        if (client_host === 'srt-client-staging.app.cloud.gov') { server_host = 'srt-server-staging.app.cloud.gov' }\n                        window.location = 'http://' + server_host + '/api/casLogin'\n                      }()) \"]", "xpath:attributes"],
+        ["xpath=//main[@id='content']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Login with MAX')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6e869bfc-9c23-439a-9da9-226bf8b4f7e3",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "2b1fecbe-a40b-432a-820b-2dd54401f0c6",
       "comment": "",
       "command": "click",
@@ -80,7 +107,7 @@
       "id": "b82de8c3-197a-4920-81ee-5b98293af318",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "xpath=//button[contains(.,'Submit')]",
+      "target": "xpath=(//button[contains(.,'Submit')] | //div[contains(.,'Your response is successfully submitted')] )",
       "targets": [
         ["css=.srt-button", "css:finder"],
         ["xpath=//button[@type='submit']", "xpath:attributes"],
@@ -183,27 +210,23 @@
     }, {
       "id": "9c1176d7-3fb0-49ee-ab3b-a43043147737",
       "comment": "",
-      "command": "waitForElementNotPresent",
+      "command": "//waitForElementNotPresent",
       "target": "xpath=//*[contains(text(), \"NaN\")]",
-      "targets": [
-        ["css=.undeter-solic-dispaly3", "css:finder"],
-        ["xpath=//main[@id='content']/div/div/div[6]/app-undetermined-solicitations/div/div[2]/div[4]", "xpath:idRelative"],
-        ["xpath=//app-undetermined-solicitations/div/div[2]/div[4]", "xpath:position"]
-      ],
+      "targets": [],
       "value": "5000"
     }, {
       "id": "9b4b7c5f-b79c-467f-9445-eb101bb48fa9",
       "comment": "",
       "command": "click",
-      "target": "linkText=Manage Access Requests",
+      "target": "linkText=User Management",
       "targets": [
-        ["linkText=Manage Access Requests", "linkText"],
+        ["linkText=User Management", "linkText"],
         ["css=#\\34 > a", "css:finder"],
-        ["xpath=//a[contains(text(),'Manage Access Requests')]", "xpath:link"],
+        ["xpath=//a[contains(text(),'User Management')]", "xpath:link"],
         ["xpath=//li[@id='4']/a", "xpath:idRelative"],
         ["xpath=(//a[contains(@href, '')])[8]", "xpath:href"],
         ["xpath=//li[4]/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Manage Access Requests')]", "xpath:innerText"]
+        ["xpath=//a[contains(.,'User Management')]", "xpath:innerText"]
       ],
       "value": ""
     }, {
@@ -258,73 +281,15 @@
       ],
       "value": ""
     }, {
-      "id": "566ea33d-f912-468b-978f-2c811d5a1874",
-      "comment": "",
-      "command": "type",
-      "target": "id=name",
-      "targets": [
-        ["id=name", "id"],
-        ["css=#name", "css:finder"],
-        ["xpath=//input[@id='name']", "xpath:attributes"],
-        ["xpath=//main[@id='content']/div[2]/form/div/input", "xpath:idRelative"],
-        ["xpath=//input", "xpath:position"]
-      ],
-      "value": "Selenium Test"
-    }, {
-      "id": "190c2336-5e49-41dc-9377-b74ce32f68b3",
-      "comment": "",
-      "command": "type",
-      "target": "id=email",
-      "targets": [
-        ["id=email", "id"],
-        ["css=#email", "css:finder"],
-        ["xpath=//input[@id='email']", "xpath:attributes"],
-        ["xpath=//main[@id='content']/div[2]/form/div[2]/input", "xpath:idRelative"],
-        ["xpath=//div[2]/input", "xpath:position"]
-      ],
-      "value": "crowley+seleniumtest@tcg.com"
-    }, {
-      "id": "eec07341-b98a-4b6c-a67a-129ccaa816a9",
-      "comment": "",
-      "command": "type",
-      "target": "id=textcontent",
-      "targets": [
-        ["id=textcontent", "id"],
-        ["css=#textcontent", "css:finder"],
-        ["xpath=//textarea[@id='textcontent']", "xpath:attributes"],
-        ["xpath=//main[@id='content']/div[2]/form/div[3]/textarea", "xpath:idRelative"],
-        ["xpath=//textarea", "xpath:position"]
-      ],
-      "value": "Test email content"
-    }, {
-      "id": "2f65c4d5-791e-4730-b24c-ea15755286a1",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//button[contains(.,'Send Message')]",
-      "targets": [
-        ["css=.srt-button", "css:finder"],
-        ["xpath=//button[@type='submit']", "xpath:attributes"],
-        ["xpath=//main[@id='content']/div[2]/form/button", "xpath:idRelative"],
-        ["xpath=//form/button", "xpath:position"],
-        ["xpath=//button[contains(.,'Send Message')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "b36a901d-b095-4c91-b93f-763b93124371",
-      "comment": "",
-      "command": "pause",
-      "target": "1000",
-      "targets": [],
-      "value": ""
-    }, {
       "id": "10093d76-76fc-49c7-856f-6977b2508ef5",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "xpath=//div[contains(text(),'message is successfully sent')]",
+      "target": "xpath=//b[contains(.,'srt@gsa.gov')]",
       "targets": [
-        ["css=.alert", "css:finder"],
-        ["xpath=//main[@id='content']/div[2]/div", "xpath:idRelative"],
-        ["xpath=//main/div[2]/div", "xpath:position"]
+        ["css=b", "css:finder"],
+        ["xpath=//main[@id='content']/div/div/p/b", "xpath:idRelative"],
+        ["xpath=//b", "xpath:position"],
+        ["xpath=//b[contains(.,'srt@gsa.gov')]", "xpath:innerText"]
       ],
       "value": ""
     }, {
@@ -389,6 +354,238 @@
         ["xpath=//th", "xpath:position"],
         ["xpath=//th[contains(.,'Solicitation Feedback')]", "xpath:innerText"]
       ],
+      "value": ""
+    }]
+  }, {
+    "id": "9522a3db-9f9c-40b9-a50b-5e3eaa564154",
+    "name": "Toggle Not Applicable",
+    "commands": [{
+      "id": "f5b07d46-459d-430e-b995-3b3c72af0d00",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1200x1424",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a19282ad-2873-45f1-8616-e13def9da206",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6d3b4d1d-0119-463c-8fb0-9afb01bd12bf",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Manage/Review Workload",
+      "targets": [
+        ["linkText=Manage/Review Workload", "linkText"],
+        ["css=#\\32 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Manage/Review Workload')]", "xpath:link"],
+        ["xpath=//li[@id='2']/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '')])[6]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Manage/Review Workload')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fa197e3b-f26a-4470-96d9-f267764e3af2",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return document.querySelector(\"table .ui-datatable-even td span:nth-of-type(2)\").textContent",
+      "targets": [],
+      "value": "sid"
+    }, {
+      "id": "8dd5b15b-4a8f-4270-b7b1-7f8adaab1a7e",
+      "comment": "",
+      "command": "echo",
+      "target": "Using solicitation ID ${sid}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8599e654-a1d0-4ceb-9829-714f32fd6b96",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=(//button[contains(.,'compliant')])[1]",
+      "targets": [
+        ["css=.ui-datatable-even:nth-child(1) .button > span", "css:finder"],
+        ["xpath=//main[@id='content']/div/p-datatable/div/div/table/tbody/tr/td[5]/span[2]/span/button/span", "xpath:idRelative"],
+        ["xpath=//span[2]/span/button/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8e2d61cb-bbf3-429d-b98c-910409443260",
+      "comment": "",
+      "command": "verifyNotChecked",
+      "target": "id=na_check",
+      "targets": [
+        ["id=na_check", "id"],
+        ["css=#na_check", "css:finder"],
+        ["xpath=//input[@id='na_check']", "xpath:attributes"],
+        ["xpath=//div[@id='na-checkbox']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8d35e65b-b01e-4ee2-a155-b41156b72a3f",
+      "comment": "",
+      "command": "click",
+      "target": "id=na_check",
+      "targets": [
+        ["id=na_check", "id"],
+        ["css=#na_check", "css:finder"],
+        ["xpath=//input[@id='na_check']", "xpath:attributes"],
+        ["xpath=//div[@id='na-checkbox']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6f513bbd-fae6-4a17-9002-c87ded70e058",
+      "comment": "",
+      "command": "verifyChecked",
+      "target": "id=na_check",
+      "targets": [
+        ["id=na_check", "id"],
+        ["css=#na_check", "css:finder"],
+        ["xpath=//input[@id='na_check']", "xpath:attributes"],
+        ["xpath=//div[@id='na-checkbox']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2c056bf0-e67e-4031-b6dd-b96eddff19fb",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=< Back to Solicitation Review Results for Section 508 Requirements",
+      "targets": [
+        ["linkText=< Back to Solicitation Review Results for Section 508 Requirements", "linkText"],
+        ["css=.srt-title-padding > a", "css:finder"],
+        ["xpath=//a[contains(text(),'< Back to Solicitation Review Results for Section 508 Requirements')]", "xpath:link"],
+        ["xpath=//main[@id='content']/div/div/div/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/solicitation/report')])[2]", "xpath:href"],
+        ["xpath=//main/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'< Back to Solicitation Review Results for Section 508 Requirements')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fc549cca-d4f1-467e-8288-77d3166f29e0",
+      "comment": "",
+      "command": "type",
+      "target": "id=ksearch",
+      "targets": [
+        ["id=ksearch", "id"],
+        ["css=#ksearch", "css:finder"],
+        ["xpath=//input[@id='ksearch']", "xpath:attributes"],
+        ["xpath=//div[@id='solsearch']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${sid}"
+    }, {
+      "id": "8ab5514b-cc24-490b-9fd1-837b2f776070",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.button > span",
+      "targets": [
+        ["css=.button > span", "css:finder"],
+        ["xpath=//main[@id='content']/div/p-datatable/div/div/table/tbody/tr/td[5]/span[2]/span/button/span", "xpath:idRelative"],
+        ["xpath=//span[2]/span/button/span", "xpath:position"]
+      ],
+      "value": "Not Applicable"
+    }, {
+      "id": "c6a60372-4f32-4a53-89a6-705e07685a02",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=(//button[contains(.,'Not Applicable')])[1]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "567b0161-6f80-4343-9b6f-6ace3d259f67",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return document.getElementById('solNum').textContent",
+      "targets": [],
+      "value": "${new_sid}"
+    }, {
+      "id": "d8f44393-f357-47dc-9227-15b45e3ad6f0",
+      "comment": "",
+      "command": "echo",
+      "target": "new PID ${new_sid}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c8f23f0a-d541-4159-b9f5-a2ddf1153c4a",
+      "comment": "",
+      "command": "verify",
+      "target": "${new_sid}",
+      "targets": [],
+      "value": "${sid}"
+    }, {
+      "id": "c9591703-fb88-4f01-829a-dccc5828936e",
+      "comment": "",
+      "command": "verifyChecked",
+      "target": "id=na_check",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5fd162c7-f532-47b7-8f5b-548771002ede",
+      "comment": "",
+      "command": "click",
+      "target": "id=na_check",
+      "targets": [
+        ["id=na_check", "id"],
+        ["css=#na_check", "css:finder"],
+        ["xpath=//input[@id='na_check']", "xpath:attributes"],
+        ["xpath=//div[@id='na-checkbox']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "982fec61-8ff8-4795-ae02-d2737586225d",
+      "comment": "",
+      "command": "verifyNotChecked",
+      "target": "id=na_check",
+      "targets": [
+        ["id=na_check", "id"],
+        ["css=#na_check", "css:finder"],
+        ["xpath=//input[@id='na_check']", "xpath:attributes"],
+        ["xpath=//div[@id='na-checkbox']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "922443d3-9a6a-4755-b850-c79572e19af2",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=< Back to Solicitation Review Results for Section 508 Requirements",
+      "targets": [
+        ["linkText=< Back to Solicitation Review Results for Section 508 Requirements", "linkText"],
+        ["css=.srt-title-padding > a", "css:finder"],
+        ["xpath=//a[contains(text(),'< Back to Solicitation Review Results for Section 508 Requirements')]", "xpath:link"],
+        ["xpath=//main[@id='content']/div/div/div/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/solicitation/report')])[2]", "xpath:href"],
+        ["xpath=//main/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'< Back to Solicitation Review Results for Section 508 Requirements')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d908b3bd-ff79-4a77-b739-6bcc8cd31935",
+      "comment": "",
+      "command": "type",
+      "target": "id=ksearch",
+      "targets": [
+        ["id=ksearch", "id"],
+        ["css=#ksearch", "css:finder"],
+        ["xpath=//input[@id='ksearch']", "xpath:attributes"],
+        ["xpath=//div[@id='solsearch']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${sid}"
+    }, {
+      "id": "5e16df06-3613-4e71-9ab9-eecf1829304f",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=(//button[contains(.,'compliant')])[1]",
+      "targets": [],
       "value": ""
     }]
   }],
