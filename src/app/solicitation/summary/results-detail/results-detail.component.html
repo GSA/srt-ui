@@ -53,18 +53,18 @@
         <div class="col-md-8">
           <div class="list">
             <div class="list-title">Solicitation Number:&nbsp;</div>
-            <div class="list-content">{{solicitation.solNum}}</div>
+            <div class="list-content" id="solNum">{{solicitation.solNum}}</div>
           </div>
 
           <div class="list">
             <div class="list-title">Date Posted on FedBizOpps:&nbsp;</div>
-            <div class="list-content">{{solicitation.date}}</div>
+            <div class="list-content" id="solDate">{{solicitation.date}}</div>
           </div>
 
 
           <div class="list">
             <div class="list-title">Solicitation Type:&nbsp;</div>
-            <div class="list-content">{{solicitation.noticeType}}</div>
+            <div class="list-content" id="solType">{{solicitation.noticeType}}</div>
           </div>
 
           <!--<div class="list">
@@ -83,10 +83,10 @@
                   518111, 518112, 518210, 5324, 54121, 5415, 54161, and 561320).</div>
               </tooltip-content>
               &nbsp;</div>
-            <div class="list-content">{{solicitation.eitLikelihood.value}}</div>
+            <div class="list-content" id="solICT">{{solicitation.eitLikelihood.value}}</div>
           </div>
 
-          <div class="list">
+          <div class="list" id="solDocs">
             <div class="list-title">Total Documents Scanned:&nbsp;</div>
             <div class="list-content">
               <span *ngIf="solicitation.numDocs != 'No Document Links Found' &&
@@ -106,7 +106,7 @@
             </div>
           </div>
 
-          <div class="list" *ngIf="solicitation.parseStatus.length != 0 || lockDocs">
+          <div class="list" *ngIf="solicitation.parseStatus.length != 0 || lockDocs" id="solParseStatus">
             <div class="list-title" style="width: 100%">Machine Readable (Yes/No):
               <sup [tooltip]="Machine" tooltipPlacement="right">
                           <i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -128,17 +128,17 @@
         <div class="col-md-4">
           <div class="list">
             <div class="list-title">Agency:&nbsp;</div>
-            <div class="list-content">{{solicitation.agency}}</div>
+            <div class="list-content" id="solAgency">{{solicitation.agency}}</div>
           </div>
 
           <div class="list">
             <div class="list-title">Office:&nbsp;</div>
-            <div class="list-content">{{solicitation.office}}</div>
+            <div class="list-content" id="solOffice">{{solicitation.office}}</div>
           </div>
 
           <div class="list">
             <div class="list-title">Point of Contact:&nbsp;</div>
-            <div class="list-content">{{solicitation.contactInfo.name}}</div>
+            <div class="list-content" id="solPOC">{{solicitation.contactInfo.name}}</div>
           </div>
         </div>
       </div>
