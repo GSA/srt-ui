@@ -14,6 +14,33 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "ab2c3c38-4668-4ae9-bbd3-980099a789a6",
+      "comment": "",
+      "command": "if",
+      "target": "document.getElementById('login') != null",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "238a6adb-1eea-4b4c-a174-be168ece44d3",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[contains(.,'Login with MAX')]",
+      "targets": [
+        ["css=.srt-button", "css:finder"],
+        ["xpath=//button[@onclick=\" (function() {\n                        let client_host = window.location.hostname\n                        let server_host = ''\n                        if (client_host === 'localhost') { server_host = 'localhost:3000' }\n                        if (client_host === 'srt-client.app.cloud.gov' || client_host === 'srt.app.cloud.gov') { server_host = 'srt-server.app.cloud.gov' }\n                        if (client_host === 'srt-client-dev.app.cloud.gov') { server_host = 'srt-server-dev.app.cloud.gov' }\n                        if (client_host === 'srt-client-staging.app.cloud.gov') { server_host = 'srt-server-staging.app.cloud.gov' }\n                        window.location = 'http://' + server_host + '/api/casLogin'\n                      }()) \"]", "xpath:attributes"],
+        ["xpath=//main[@id='content']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Login with MAX')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6e869bfc-9c23-439a-9da9-226bf8b4f7e3",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "2b1fecbe-a40b-432a-820b-2dd54401f0c6",
       "comment": "",
       "command": "click",
@@ -80,7 +107,7 @@
       "id": "b82de8c3-197a-4920-81ee-5b98293af318",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "xpath=//button[contains(.,'Submit')]",
+      "target": "xpath=(//button[contains(.,'Submit')] | //div[contains(.,'Your response is successfully submitted')] )",
       "targets": [
         ["css=.srt-button", "css:finder"],
         ["xpath=//button[@type='submit']", "xpath:attributes"],
@@ -183,27 +210,23 @@
     }, {
       "id": "9c1176d7-3fb0-49ee-ab3b-a43043147737",
       "comment": "",
-      "command": "waitForElementNotPresent",
+      "command": "//waitForElementNotPresent",
       "target": "xpath=//*[contains(text(), \"NaN\")]",
-      "targets": [
-        ["css=.undeter-solic-dispaly3", "css:finder"],
-        ["xpath=//main[@id='content']/div/div/div[6]/app-undetermined-solicitations/div/div[2]/div[4]", "xpath:idRelative"],
-        ["xpath=//app-undetermined-solicitations/div/div[2]/div[4]", "xpath:position"]
-      ],
+      "targets": [],
       "value": "5000"
     }, {
       "id": "9b4b7c5f-b79c-467f-9445-eb101bb48fa9",
       "comment": "",
       "command": "click",
-      "target": "linkText=Manage Access Requests",
+      "target": "linkText=User Management",
       "targets": [
-        ["linkText=Manage Access Requests", "linkText"],
+        ["linkText=User Management", "linkText"],
         ["css=#\\34 > a", "css:finder"],
-        ["xpath=//a[contains(text(),'Manage Access Requests')]", "xpath:link"],
+        ["xpath=//a[contains(text(),'User Management')]", "xpath:link"],
         ["xpath=//li[@id='4']/a", "xpath:idRelative"],
         ["xpath=(//a[contains(@href, '')])[8]", "xpath:href"],
         ["xpath=//li[4]/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Manage Access Requests')]", "xpath:innerText"]
+        ["xpath=//a[contains(.,'User Management')]", "xpath:innerText"]
       ],
       "value": ""
     }, {
@@ -258,73 +281,15 @@
       ],
       "value": ""
     }, {
-      "id": "566ea33d-f912-468b-978f-2c811d5a1874",
-      "comment": "",
-      "command": "type",
-      "target": "id=name",
-      "targets": [
-        ["id=name", "id"],
-        ["css=#name", "css:finder"],
-        ["xpath=//input[@id='name']", "xpath:attributes"],
-        ["xpath=//main[@id='content']/div[2]/form/div/input", "xpath:idRelative"],
-        ["xpath=//input", "xpath:position"]
-      ],
-      "value": "Selenium Test"
-    }, {
-      "id": "190c2336-5e49-41dc-9377-b74ce32f68b3",
-      "comment": "",
-      "command": "type",
-      "target": "id=email",
-      "targets": [
-        ["id=email", "id"],
-        ["css=#email", "css:finder"],
-        ["xpath=//input[@id='email']", "xpath:attributes"],
-        ["xpath=//main[@id='content']/div[2]/form/div[2]/input", "xpath:idRelative"],
-        ["xpath=//div[2]/input", "xpath:position"]
-      ],
-      "value": "crowley+seleniumtest@tcg.com"
-    }, {
-      "id": "eec07341-b98a-4b6c-a67a-129ccaa816a9",
-      "comment": "",
-      "command": "type",
-      "target": "id=textcontent",
-      "targets": [
-        ["id=textcontent", "id"],
-        ["css=#textcontent", "css:finder"],
-        ["xpath=//textarea[@id='textcontent']", "xpath:attributes"],
-        ["xpath=//main[@id='content']/div[2]/form/div[3]/textarea", "xpath:idRelative"],
-        ["xpath=//textarea", "xpath:position"]
-      ],
-      "value": "Test email content"
-    }, {
-      "id": "2f65c4d5-791e-4730-b24c-ea15755286a1",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//button[contains(.,'Send Message')]",
-      "targets": [
-        ["css=.srt-button", "css:finder"],
-        ["xpath=//button[@type='submit']", "xpath:attributes"],
-        ["xpath=//main[@id='content']/div[2]/form/button", "xpath:idRelative"],
-        ["xpath=//form/button", "xpath:position"],
-        ["xpath=//button[contains(.,'Send Message')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "b36a901d-b095-4c91-b93f-763b93124371",
-      "comment": "",
-      "command": "pause",
-      "target": "1000",
-      "targets": [],
-      "value": ""
-    }, {
       "id": "10093d76-76fc-49c7-856f-6977b2508ef5",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "xpath=//div[contains(text(),'message is successfully sent')]",
+      "target": "xpath=//b[contains(.,'srt@gsa.gov')]",
       "targets": [
-        ["css=.alert", "css:finder"],
-        ["xpath=//main[@id='content']/div[2]/div", "xpath:idRelative"],
-        ["xpath=//main/div[2]/div", "xpath:position"]
+        ["css=b", "css:finder"],
+        ["xpath=//main[@id='content']/div/div/p/b", "xpath:idRelative"],
+        ["xpath=//b", "xpath:position"],
+        ["xpath=//b[contains(.,'srt@gsa.gov')]", "xpath:innerText"]
       ],
       "value": ""
     }, {
