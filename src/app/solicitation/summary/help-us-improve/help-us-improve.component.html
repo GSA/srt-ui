@@ -85,7 +85,7 @@
 
 
 
-           
+
           <ul *ngFor="let survey of surveys; let i = index" style="padding: 0px;">
             <li style="list-style: none;"><span *ngIf="survey.Question != 'Additional feedback:'">Q{{i+1}}. </span>{{survey.Question}} <br>
               <span style="color: #899197">{{survey.Note}}</span>
@@ -94,7 +94,7 @@
                   <input id="{{survey.ID}}{{choice}}" style="display:none"  [ngModel]="surveyModel[i]==survey.Choices[c]" (ngModelChange)="checkBox(survey, choice, $event)"
                     type="checkbox" value="{{choice}}"/>
                   <label for="{{survey.ID}}{{choice}}">{{choice}}
-                      <span *ngIf='survey.ChoicesNote.length > 0' style="color: #899197" aria-label="Choice" >({{survey.ChoicesNote[c]}})</span>
+                      <span *ngIf='survey.ChoicesNote.length > 0' style="color: #899197" aria-label="Choice" >{{survey.ChoicesNote[c]}}</span>
                   </label>
                 </li>
                 <li *ngIf="survey.Type=='essay'" style="list-style: none; padding: 0px 15px 0px 0px;">
@@ -109,7 +109,7 @@
               </ul>
             </li>
           </ul>
-     
+
             <div style="padding: 15px;">
               <button type="submit" class="srt-button imsubmit" (click)="feedback()" aria-label="submit this feedback">Submit</button>
             </div>
