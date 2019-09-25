@@ -15,7 +15,10 @@
         <div class="list-content">
           <ul *ngIf="predictionHistory" class="nopadding">
             <li *ngFor="let entry of predictionHistory" style="list-style: none;">{{entry.date}} -
-              <span style="font-weight: 600">{{entry.value}}</span> </li>
+              <span *ngIf="entry.value == 'red'" style="font-weight: 600">Non-Compliant</span>
+              <span *ngIf="entry.value == 'green'" style="font-weight: 600">Compliant</span>
+              <span *ngIf="entry.value != 'green' && entry.value != 'red'" style="font-weight: 600">{{entry.value}}</span>
+            </li>
           </ul>
         </div>
       </div>
