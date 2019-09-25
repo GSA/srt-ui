@@ -4,8 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 // COMPONENTS
 
 import { PrivateComponent } from '../home/private/private.component';
-import { PasswordComponent } from './password/password.component';
-import { ProfileComponent } from 'app/user/profile/profile.component';
 import { MasqComponent } from './masq/masq.component';
 
 
@@ -20,10 +18,7 @@ const routes: Routes = [
         component: PrivateComponent,
         canActivateChild: [AuthGuard],
         children: [
-            {path: 'updatePassword', component: PasswordComponent},
-            {path: 'masq', component: MasqComponent},
-            {path: 'profile/:userID', component: ProfileComponent, canActivate: [AuthGuard]},
-
+            {path: 'masq', component: MasqComponent}
         ]
     },
 ];

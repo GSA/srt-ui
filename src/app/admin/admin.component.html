@@ -50,7 +50,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let user of users; let even = even; let odd = odd"  [ngClass]="{ odd: odd, even: even }">
-                    <td role="listbox"><a [routerLink]="['/user/profile' ,user.id]" role="option">{{user.firstName}} {{user.lastName}}</a> </td>
+                    <td role="listbox">{{user.firstName}} {{user.lastName}} </td>
                     <td>{{user.position}} </td>
                     <td>{{user.agency}}</td>
                     <td>{{user.email}}</td>

@@ -4,12 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 // COMPONENTS
 
 import { PublicComponent } from '../home/public/public.component';
-import { HomeComponent } from '../home/home/home.component';
-import { UserloginComponent } from './userlogin/userlogin.component';
-import { UserregistrationComponent } from './userregistration/userregistration.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AuthComponent } from './auth.component';
-import { PasswordComponent } from 'app/user/password/password.component';
 
 import { AuthGuard } from '../auth-guard.service';
 
@@ -17,15 +12,12 @@ import { AuthGuard } from '../auth-guard.service';
 const routes: Routes = [
     {
         path: 'auth',
-        component: PublicComponent, 
+        component: PublicComponent,
         children: [
             {path: '', redirectTo: 'signin', pathMatch: 'full'},
-            {path: 'signin', component: AuthComponent},
-            {path: 'forgetpassword', component: ForgotPasswordComponent} ,   
-            {path: ':email/:temp', component: PasswordComponent},
+            {path: 'signin', component: AuthComponent}
         ]
     },
-    
 ];
 
 @NgModule({

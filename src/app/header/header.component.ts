@@ -90,12 +90,4 @@ export class HeaderComponent implements OnInit {
       return window.location.href.indexOf(hash) > -1;
   }
 
-  /**
-   * Go to profile
-   *
-   */
-  gotoProfile(){
-    const gotoID = this.authService.getCurrent().id;
-    this.router.navigate(['/user/profile', gotoID]).then();
-  }
 }

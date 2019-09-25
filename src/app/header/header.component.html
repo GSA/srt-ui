@@ -51,9 +51,6 @@
                                     aria-expanded="false">Hello, {{firstName}}<span class="caret"></span></a>
 
                         <ul class="dropdown-menu" role="listbox">
-                            <!-- <li><a [routerLink]="['/user/profile', currentID]" style="padding: 10px 20px;" role="option">Profile</a></li> -->
-                            <li><a (click) = "gotoProfile()" style="padding: 10px 20px; font-weight:300; font-size:medium; font-family: Arial, sans-serif;">Profile</a></li>
-                            <li><a [routerLink]="['/user/updatePassword']" style="padding: 10px 20px;" role="option">Password</a></li>
                             <li><button class="dropdown-item" type="button" style="padding: 10px 20px; font-weight:300; font-size:medium; font-family: Arial, sans-serif;" (click)="onLogout()" role="option">Log Out</button></li>
                       </ul>
                     </li>

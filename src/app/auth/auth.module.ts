@@ -22,7 +22,6 @@ import { UserloginComponent } from './userlogin/userlogin.component';
 import { UserregistrationComponent } from './userregistration/userregistration.component';
 
 import { AuthComponent } from 'app/auth/auth.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
     imports: [
@@ -37,21 +36,15 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
       DropdownModule,
       CalendarModule,
       Ng2CompleterModule,
-      
     ],
     declarations: [
       UserloginComponent,
       UserregistrationComponent,
       AuthComponent,
-      ForgotPasswordComponent,
-     
-      
-
     ],
     providers: [
     AuthService,
     UserService
-    
     ],
     exports: [
     ]

@@ -8,14 +8,14 @@
                 "id": 1,
                 "title": "What is \"Information and Communication Technology\"(ICT)?",
                 "body": "<p>ICT is information technology (IT), as defined at FAR 2.101, and any equipment or interconnected system or subsystem of equipment that is used in the creation, conversion, or duplication of data or information. In addition to IT, ICT includes:</p><ul><li>telecommunication products, such as telephones;</li><li>information kiosks;</li><li>transaction machines;</li><li>World Wide Web sites;</li><li>multimedia (including videotapes); and</li><li>office equipment, such as copiers and fax machines.</li> </ul> <p>ICT is defined by the Access Board at 36 CFR 1194.4 and in the FAR at 2.101.</p>",
-              
+
                 "titleClass": "ICT"
             },
             {
                 "id": 2,
                 "title": "What is \"Electronic and Information Technology\"(E&IT)?",
                 "body": "<p>Electronic and information technology (E&IT) includes information technology and any equipment or interconnected system or subsystem of equipment that is used in the creation, manipulation, management, movement, display or duplication of data or information.</p><p>Information technology includes computers, ancillary equipment, software, firmware and similar procedures, services (including support services) and related resources. Electronic and information technology includes, but is not limited to, telecommunications products (such as telephones), information kiosks and transaction machines, web sites, multimedia and office equipment such as copiers and fax machines.</p>",
-                "titleClass": "EIT"            
+                "titleClass": "EIT"
             },
             {
                 "id": 3,
@@ -39,7 +39,7 @@
                 "body": "<p class=''>Yes, there are two regulations addressing the requirements of Section 508.</p><ul><ol style='list-style-type: lower-roman; padding: 0px 0px 20px 0px;'><p>Access Board Standards. The first regulation implementing Section 508 was issued by the Architectural and Transportation Barriers Compliance Board (the 'Access Board'), an independent Federal agency that has the primary mission of promoting accessibility for individuals with disabilities. This regulation is referred to as the 'Access Board’s Standards.'</p><p>The Access Board’s Standards, along with an explanatory preamble, were published in the Federal Register, as a final rule, on December 21, 2000 (65 Fed. Reg. 80499). The standards are codified at 36 CFR Part 1194 and may be accessed through the Access Board’s web site at<a href='http://www.access-board.gov' class=''>http://www.access-board.gov</a>.</p>The Access Board’s Standards consist of several subparts which, among other things, do the following: <br><ul><li>define ICT / E&IT (see 36 CFR 1194.4);</li><li>set forth 'technical provisions' that:<br>(1) address the required functionality / performance of specific technologies and product categories (see 'Subpart B' of the Access Board’s Standards);(2) identify broader functional performance criteria to cover technologies or components for which there is no specific provision in Subpart B -- e.g., because the technology or product does not yet exist or was not contemplated by the Access Board during the promulgation of the standards (see 'Subpart C' of the Access Board’s Standards); and (3) include requirements for accessible information, documentation, and support for ICT / E&IT (see 'Subpart D' of the Access Board’s Standards);</li><li>define agencies’ authority to consider ICT / E&IT that does not meet the applicable technical provisions in Subpart B, but provides equivalent facilitation that meets the functional performance criteria of Subpart C (see 36 CFR 1194.5); and</li><li>set forth some of the exceptions to the requirement to buy ICT / E&IT that meets the applicable technical provisions (see 36 CFR 1194.3).</li></ul><ol style='padding: 0px 0px 20px 0px;'>The Access Board’s Standards become enforceable on June 21, 2001.</ol><ol style='list-style-type: lower-roman; padding: 0px 0px 20px 0px;'> FAR Rule. The second rule issued to implement Section 508 amends the Federal Acquisition Regulation (FAR) to ensure that agency acquisitions of ICT / E&IT comply with the Access Board’s Standards. The FAR change implementing Section 508 was published along with an explanatory preamble in the Federal Register on April 25, 2001 (66 Fed. Reg. 20894) and is effective as of June 25, 2001. More information about the FAR rule for Section 508 can be found at<a href='https://www.section508.gov/content/learn/federal-acquisition-regulations'>https://www.section508.gov/content/learn/federal-acquisition-regulations</a>.</ol></ul>",
                 "picclass": "padding olstyle"
             }
-            
+
         ]
     },
 
@@ -65,7 +65,7 @@
                 "body": "<p class=''>Yes, there are two regulations addressing the requirements of Section 508.</p><ul><ol style='list-style-type: lower-roman; padding: 0px 0px 20px 0px;'><p>Access Board Standards. The first regulation implementing Section 508 was issued by the Architectural and Transportation Barriers Compliance Board (the 'Access Board'), an independent Federal agency that has the primary mission of promoting accessibility for individuals with disabilities. This regulation is referred to as the 'Access Board’s Standards.'</p><p>The Access Board’s Standards, along with an explanatory preamble, were published in the Federal Register, as a final rule, on December 21, 2000 (65 Fed. Reg. 80499). The standards are codified at 36 CFR Part 1194 and may be accessed through the Access Board’s web site at<a href='http://www.access-board.gov' class=''>http://www.access-board.gov</a>.</p>The Access Board’s Standards consist of several subparts which, among other things, do the following: <br><ul><li>define ICT / E&IT (see 36 CFR 1194.4);</li><li>set forth 'technical provisions' that:<br>(1) address the required functionality / performance of specific technologies and product categories (see 'Subpart B' of the Access Board’s Standards);(2) identify broader functional performance criteria to cover technologies or components for which there is no specific provision in Subpart B -- e.g., because the technology or product does not yet exist or was not contemplated by the Access Board during the promulgation of the standards (see 'Subpart C' of the Access Board’s Standards); and (3) include requirements for accessible information, documentation, and support for ICT / E&IT (see 'Subpart D' of the Access Board’s Standards);</li><li>define agencies’ authority to consider ICT / E&IT that does not meet the applicable technical provisions in Subpart B, but provides equivalent facilitation that meets the functional performance criteria of Subpart C (see 36 CFR 1194.5); and</li><li>set forth some of the exceptions to the requirement to buy ICT / E&IT that meets the applicable technical provisions (see 36 CFR 1194.3).</li></ul><ol style='padding: 0px 0px 20px 0px;'>The Access Board’s Standards become enforceable on June 21, 2001.</ol><ol style='list-style-type: lower-roman; padding: 0px 0px 20px 0px;'> FAR Rule. The second rule issued to implement Section 508 amends the Federal Acquisition Regulation (FAR) to ensure that agency acquisitions of ICT / E&IT comply with the Access Board’s Standards. The FAR change implementing Section 508 was published along with an explanatory preamble in the Federal Register on April 25, 2001 (66 Fed. Reg. 20894) and is effective as of June 25, 2001. More information about the FAR rule for Section 508 can be found at<a href='https://www.section508.gov/content/learn/federal-acquisition-regulations'>https://www.section508.gov/content/learn/federal-acquisition-regulations</a>.</ol></ul>",
                 "class": "padding olstyle"
             },
-            
+
             {
                 "id": 4,
                 "title": "Does Section 508, as implemented by the Access Board’s Standards and the FAR, impose the same obligations on agencies and contractors?",
@@ -87,7 +87,7 @@
                 "id": 7,
                 "title": "What is \"Electronic and Information Technology\"(E&IT)?",
                 "body": "<p>Electronic and information technology (E&IT) includes information technology and any equipment or interconnected system or subsystem of equipment that is used in the creation, manipulation, management, movement, display or duplication of data or information.</p><p>Information technology includes computers, ancillary equipment, software, firmware and similar procedures, services (including support services) and related resources. Electronic and information technology includes, but is not limited to, telecommunications products (such as telephones), information kiosks and transaction machines, web sites, multimedia and office equipment such as copiers and fax machines.</p>",
-                "titleClass": "EIT"              
+                "titleClass": "EIT"
             },
             {
                 "id": 8,
@@ -119,7 +119,7 @@
                 "body": "<ul><li>Make a strong statement of Section 508 relevance </li><li>Identify applicable technical provisions</li><li>Identify applicable functional performance criteria</li><li>Support Documentation always applies!</li><li>If you have an EXCEPTION, state it!</li><li>Ensure accessible solicitation documents</li><li>Ask vendors to conform to accessibility requirements, do not ask vendors to comply with or “certify” accessibility</li><li>Consider accessibility in source selections</li><li>Inspect what you expect to accept</li><li>Document and audit</li><li>To do all this, use the BuyAccessible Tool</li></ul>"
 
             }
-            
+
         ]
     },
     {
@@ -164,7 +164,7 @@
                 "title": "Can I share the SRT results with non-registered users?",
                 "body": "<p>As a Section 508 Coordinator, you will be able to share a solicitation summary result with non-registered users through email. However, the non-registered user will be asked to sign up to the system when they click on the link to access the data.</p>"
             }
-            
+
         ]
     },
 
@@ -199,7 +199,7 @@
                 "title": "What data are excluded from the Analytics charts?",
                 "body": "<p>All the charts on the Analytics Dashboard are ICT / E&IT solicitations only. Solicitations with 0 documents, non-machine-readable solicitations, pre-solicitations, sources sought, special notices, award notice, intent to bundle requirements, and other undetermined solicitations (See ‘What are “Other Undetermined Solicitations”?’) are excluded.</p>"
             }
-            
+
         ]
     },
     {
@@ -210,9 +210,9 @@
             {
                 "id": 1,
                 "title": "What are the different access privileges for SRT?",
-                "body": "<span>Administrator: </span>An Administrator is a superuser who can manage user access requests and user profiles.<span>SRT Program Manager: </span>A SRT Program Manager oversees all federal agencies’ 508 conformance activities. S/he has access to all agencies data.<span>508 Coordinator: </span>A Section 508 Coordinator has access to review his/her agency’s solicitations report, and is responsible to contact POC; and provide feedback on the prediction results.<span>CO/COR: </span>A Contracting Officer / Contracting Officer Representative reviews his/her agency’s solicitations report and view the Section 508 conformance trend analytics.<span style='font-weight: 500'>Executive User: </span>An Executive User only has access to view the Section 508 conformance trend analytics.",
+                "body": "<span>Administrator: </span>An Administrator is a superuser who can manage user access requests and user profiles. <span>SRT Program Manager: </span>A SRT Program Manager oversees all federal agencies’ 508 conformance activities. S/he has access to all agencies data.<span>508 Coordinator: </span>A Section 508 Coordinator has access to review his/her agency’s solicitations report, and is responsible to contact POC; and provide feedback on the prediction results.<span>CO/COR: </span>A Contracting Officer / Contracting Officer Representative reviews his/her agency’s solicitations report and view the Section 508 conformance trend analytics.<span style='font-weight: 500'>Executive User: </span>An Executive User only has access to view the Section 508 conformance trend analytics.",
                 "class": "in"
-            }     
+            }
         ]
     },
 
@@ -242,38 +242,9 @@
                 "title": "What are the roles and responsibilities for each user?",
                 "body": "anwser 4"
             }
-                
+
         ]
     },
-     {
-        "name": "Manage Your Profile",
-        "id": "manageProfile",
-        "title": "manageProfileTitle",
-        "children": [
-            {
-                "id": 1,
-                "title": "How do I review my profile information?",
-                "body": "anwser 1",
-                "class": "in"
-            },
-             {
-                "id": 2,
-                "title": "How do I change my profile information?",
-                "body": "anwser 2"
-            },
-             {
-                "id": 3,
-                "title": "What should I do if my employment status changes?",
-                "body": "<p>You should contact Admin to change your title and/or agency or to remove you from the system.</p>"
-            },
-             {
-                "id": 4,
-                "title": "How do I reset my password?",
-                "body": "anwser 4"
-            }
-                
-        ]
-    }, 
      {
         "name": "Request Support",
         "id": "requestSupport",
@@ -300,9 +271,9 @@
                 "title": "How can I request SRT technical support?",
                 "body": "anwser 4"
             }
-                
+
         ]
     }
-    
+
 
 ]

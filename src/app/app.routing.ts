@@ -33,19 +33,3 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 
-// const APP_ROUTES: Routes = [
-  // {path: '', redirectTo: 'home', pathMatch: 'full'},
-  // {path: 'auth', component: AuthComponent},
-  // {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
-  // {path: 'password', component: PasswordComponent, canActivate: [AuthGuard]},
-  // {path: 'home', component: SrtComponent, canActivate: [AuthGuard]},
-  // {path: 'admin/accepted', component: AdminComponent, canActivate: [AuthGuard] , data: { isAccepted: true, isRejected: false }},
-  // {path: 'admin/rejected', component: AdminComponent, canActivate: [AuthGuard] , data: { isAccepted: false, isRejected: true }},
-  // {path: 'admin/pending', component: AdminComponent, canActivate: [AuthGuard] , data: { isAccepted: false, isRejected: false }},
-  // {path: 'admin', component: AdminComponent, canActivate: [AuthGuard] , data: { isAccepted: false, isRejected: false }},
-  // {path: 'analytics', component: AnalyticsComponent, canActivate: [AuthGuard]},
-  // {path: 'feedback', component: SolicitationReviewComponent, canActivate: [AuthGuard]},
-  // {path: 'help', component: HelpComponent, canActivate: [AuthGuard]},
-// ];
-
-// export const routing = RouterModule.forRoot(APP_ROUTES);

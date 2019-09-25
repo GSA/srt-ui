@@ -12,7 +12,7 @@ import {TokenService} from '../../shared/services/token.service';
 
 
 @Component({
-  selector: 'app-profile',
+  selector: 'masquerade',
   templateUrl: './masq.component.html',
   styleUrls: ['./masq.component.css']
 })

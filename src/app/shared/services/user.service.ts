@@ -72,29 +72,4 @@ export class UserService {
   }
 
 
-  /**
-   * Get user INFO from database.
-   * @param params
-   */
-  public getUserFromDatabase(params) {
-      return this.http.post<any>(this.getUserFromDBUrl, params, httpOptions);
-    }
-
-  /**
-   * Update user profile
-   * @param newEmail
-   */
-  public updateUserInfo(newEmail) {
-    const body = JSON.stringify(newEmail);
-    console.log(this.updateUserInfoUrl);
-    console.log(body);
-    return this.http.post<any>(this.updateUserInfoUrl, body, httpOptions)
-      .catch((error) => {
-        console.log (error);
-        return observableThrowError(error.json());
-      });
-
-  }
-
-
 }

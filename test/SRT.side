@@ -7,37 +7,10 @@
     "id": "1888497e-83be-4bcf-85eb-4febba184060",
     "name": "All-pages",
     "commands": [{
-      "id": "08b55243-c8ad-45bc-835d-c0e746eb6afe",
+      "id": "739da2ad-434d-4ce0-bcf7-adc20235191b",
       "comment": "",
-      "command": "open",
-      "target": "/",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "ab2c3c38-4668-4ae9-bbd3-980099a789a6",
-      "comment": "",
-      "command": "if",
-      "target": "document.getElementById('login') != null",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "238a6adb-1eea-4b4c-a174-be168ece44d3",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//button[contains(.,'Login with MAX')]",
-      "targets": [
-        ["css=.srt-button", "css:finder"],
-        ["xpath=//button[@onclick=\" (function() {\n                        let client_host = window.location.hostname\n                        let server_host = ''\n                        if (client_host === 'localhost') { server_host = 'localhost:3000' }\n                        if (client_host === 'srt-client.app.cloud.gov' || client_host === 'srt.app.cloud.gov') { server_host = 'srt-server.app.cloud.gov' }\n                        if (client_host === 'srt-client-dev.app.cloud.gov') { server_host = 'srt-server-dev.app.cloud.gov' }\n                        if (client_host === 'srt-client-staging.app.cloud.gov') { server_host = 'srt-server-staging.app.cloud.gov' }\n                        window.location = 'http://' + server_host + '/api/casLogin'\n                      }()) \"]", "xpath:attributes"],
-        ["xpath=//main[@id='content']/div[2]/button", "xpath:idRelative"],
-        ["xpath=//button", "xpath:position"],
-        ["xpath=//button[contains(.,'Login with MAX')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "6e869bfc-9c23-439a-9da9-226bf8b4f7e3",
-      "comment": "",
-      "command": "end",
-      "target": "",
+      "command": "run",
+      "target": "Function-Setup",
       "targets": [],
       "value": ""
     }, {
@@ -97,12 +70,12 @@
       ],
       "value": ""
     }, {
-      "id": "c865c048-4b42-41fe-b189-9fa5bdc5b4d2",
+      "id": "b08b9d30-de46-4656-9f13-07e5d89d7479",
       "comment": "",
-      "command": "pause",
-      "target": "1000",
+      "command": "waitForElementVisible",
+      "target": "xpath=(//button[contains(.,'Submit')] | //div[contains(.,'Your response is successfully submitted')] )",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "b82de8c3-197a-4920-81ee-5b98293af318",
       "comment": "",
@@ -187,11 +160,22 @@
       ],
       "value": ""
     }, {
+      "id": "470757e3-8c01-461d-815a-bd7dc4afe5ec",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "css=.chart",
+      "targets": [],
+      "value": "10000"
+    }, {
       "id": "92565f22-f323-4b00-909d-feea7769ef9c",
       "comment": "",
-      "command": "pause",
-      "target": "2000",
-      "targets": [],
+      "command": "verifyElementPresent",
+      "target": "css=.chart",
+      "targets": [
+        ["css=.chart", "css:finder"],
+        ["xpath=//main[@id='content']/div/div/div[2]/div[2]/app-scanned-solicitation/div", "xpath:idRelative"],
+        ["xpath=//app-scanned-solicitation/div", "xpath:position"]
+      ],
       "value": ""
     }, {
       "id": "3dd20f37-fe1a-480d-a09a-99c03012c767",
@@ -244,25 +228,22 @@
       ],
       "value": ""
     }, {
-      "id": "b77af863-3971-4479-a37f-5652f29cad47",
+      "id": "073295f2-2153-44a0-9be7-a9a824c9d07d",
       "comment": "",
-      "command": "pause",
-      "target": "500",
+      "command": "waitForElementVisible",
+      "target": "xpath=//td[contains(.,'Al Crowley')]",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "79755651-110a-47c5-8406-202426187d37",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "linkText=Al Crowley",
+      "target": "xpath=//td[contains(.,'Al Crowley')]",
       "targets": [
-        ["linkText=Al Crowley", "linkText"],
-        ["css=.even:nth-child(1) a", "css:finder"],
-        ["xpath=//a[contains(text(),'Al Crowley')]", "xpath:link"],
-        ["xpath=//main[@id='content']/div/div[3]/table/tbody/tr/td/a", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, '/user/profile/2')]", "xpath:href"],
-        ["xpath=//td/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Al Crowley')]", "xpath:innerText"]
+        ["css=.even:nth-child(1) > td:nth-child(1)", "css:finder"],
+        ["xpath=//main[@id='content']/div/div[4]/table/tbody/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"],
+        ["xpath=//td[contains(.,'Al Crowley')]", "xpath:innerText"]
       ],
       "value": ""
     }, {
@@ -360,17 +341,10 @@
     "id": "9522a3db-9f9c-40b9-a50b-5e3eaa564154",
     "name": "Toggle Not Applicable",
     "commands": [{
-      "id": "f5b07d46-459d-430e-b995-3b3c72af0d00",
+      "id": "ed6da81f-e61c-4087-a236-68219cb33297",
       "comment": "",
-      "command": "setWindowSize",
-      "target": "1200x1424",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "a19282ad-2873-45f1-8616-e13def9da206",
-      "comment": "",
-      "command": "open",
-      "target": "/",
+      "command": "run",
+      "target": "Function-Setup",
       "targets": [],
       "value": ""
     }, {
@@ -388,6 +362,13 @@
         ["xpath=//a[contains(.,'Manage/Review Workload')]", "xpath:innerText"]
       ],
       "value": ""
+    }, {
+      "id": "cccf7cf7-c1f4-4ab2-8ac7-f72ecffccee7",
+      "comment": "",
+      "command": "waitForElementNotPresent",
+      "target": "xpath=//div[@id='loading']",
+      "targets": [],
+      "value": "5000"
     }, {
       "id": "fa197e3b-f26a-4470-96d9-f267764e3af2",
       "comment": "",
@@ -499,6 +480,17 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "e9f21ddf-01f7-487b-a900-1a358213c07b",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "xpath=//div[@id='detail']//div[contains(.,'Solicitation Number')]",
+      "targets": [
+        ["css=.col-md-8 > .list:nth-child(1) > .list-title", "css:finder"],
+        ["xpath=//div[@id='detail']/div[2]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div/div/div", "xpath:position"]
+      ],
+      "value": "10000"
+    }, {
       "id": "567b0161-6f80-4343-9b6f-6ace3d259f67",
       "comment": "",
       "command": "executeScript",
@@ -588,6 +580,76 @@
       "targets": [],
       "value": ""
     }]
+  }, {
+    "id": "dd31db17-b6e2-46dc-b048-8cecafc19601",
+    "name": "Function-Login",
+    "commands": [{
+      "id": "bec096f0-f1fd-4d9e-8de4-6559e677b5a2",
+      "comment": "",
+      "command": "echo",
+      "target": "Login Function",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "616bb0b9-02c8-41c2-aacf-b30e47cf35b5",
+      "comment": "",
+      "command": "if",
+      "target": "document.getElementById('login') != null",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f0c08060-c0a3-4d10-8771-6400d48f44f5",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[contains(.,'Login with MAX')]",
+      "targets": [
+        ["css=.srt-button", "css:finder"],
+        ["xpath=//button[@onclick=\" (function() {\n                        let client_host = window.location.hostname\n                        let server_host = ''\n                        if (client_host === 'localhost') { server_host = 'localhost:3000' }\n                        if (client_host === 'srt-client.app.cloud.gov' || client_host === 'srt.app.cloud.gov') { server_host = 'srt-server.app.cloud.gov' }\n                        if (client_host === 'srt-client-dev.app.cloud.gov') { server_host = 'srt-server-dev.app.cloud.gov' }\n                        if (client_host === 'srt-client-staging.app.cloud.gov') { server_host = 'srt-server-staging.app.cloud.gov' }\n                        window.location = 'http://' + server_host + '/api/casLogin'\n                      }()) \"]", "xpath:attributes"],
+        ["xpath=//main[@id='content']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Login with MAX')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "337d7c2b-eafe-4dd1-a854-cc95bf6006cd",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "6bff13ad-0b85-41ad-9c15-11b345855e4c",
+    "name": "Function-Setup",
+    "commands": [{
+      "id": "1d5e37fc-3b18-4102-baa1-89d04ab0541d",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "df730524-8187-4af9-bf96-f9089d3580bd",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1200x1424",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "188e85cd-9929-4fca-8c68-95e7a80b4125",
+      "comment": "",
+      "command": "setSpeed",
+      "target": "300",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c52aa7d5-1e56-4bd1-95ff-fd7c562117f8",
+      "comment": "",
+      "command": "run",
+      "target": "Function-Login",
+      "targets": [],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "ec5d1633-94d5-45f8-b8d9-b52a4d08b1ec",
@@ -595,7 +657,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["1888497e-83be-4bcf-85eb-4febba184060"]
+    "tests": ["1888497e-83be-4bcf-85eb-4febba184060", "9522a3db-9f9c-40b9-a50b-5e3eaa564154"]
   }],
   "urls": ["http://localhost:4200/", "http://srt-client.app.cloud.gov/"],
   "plugins": []

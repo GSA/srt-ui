@@ -15,8 +15,6 @@ import { UserRoutingModule } from './user.routing';
 
 
 // Components
-import { PasswordComponent } from './password/password.component';
-import { ProfileComponent } from 'app/user/profile/profile.component';
 
 // Open Sources
 import { DataTableModule, SharedModule, ButtonModule, DropdownModule, CalendarModule } from 'primeng/primeng';
@@ -47,8 +45,6 @@ import {MasqComponent} from './masq/masq.component';
       FileService
     ],
     declarations: [
-      ProfileComponent,
-      PasswordComponent,
       MasqComponent
     ]
   })
