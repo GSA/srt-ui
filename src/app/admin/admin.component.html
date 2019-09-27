@@ -4,11 +4,7 @@
 <div style="padding: 40px">
 
     <div class="srt-page-title srt-title-padding">
-        User Access Requests
-    </div>
-
-    <div>
-      Masquerade
+        User Management
     </div>
 
 
@@ -16,14 +12,8 @@
     <div class="active-tabs" ng-if="showActivitySelection()">
         <div style="width: 100%; height: 70px;">
             <ul class="us-tab-slide nopadding" style="padding: 0;">
-                <li id="tab0" class="us-tab-item-slide" [routerLink]="['/admin/pending']" [ngClass]="{'active':pending}">
-                    <a>PENDING</a>
-                </li>
                 <li id="tab1" class="us-tab-item-slide" [routerLink]="['/admin/accepted']" [ngClass]="{'active': accepted}">
                     <a>APPROVED</a>
-                </li>
-                <li id="tab2" class="us-tab-item-slide" [routerLink]="['/admin/rejected']" [ngClass]="{'active': rejected}">
-                    <a>DENIED</a>
                 </li>
               <li id="tab3" class="us-tab-item-slide" [routerLink]="['/admin/masq']" [ngClass]="{'active': masq}">
                 <a>MASQUERADE</a>

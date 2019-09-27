@@ -11,9 +11,7 @@ import { UserService } from '../shared/services/user.service';
 export class AdminComponent implements OnInit {
 
   /* ATTRIBUTES */
-  public pending: Boolean = false;
   public accepted: Boolean = false;
-  public rejected: Boolean = false;
   public masq: Boolean = false;
 
   filterParams = {
@@ -41,11 +39,9 @@ export class AdminComponent implements OnInit {
    * lifecycle
    */
   ngOnInit() {
-    this.filterParams.isAccepted = this.route.snapshot.data['isAccepted'];
-    this.filterParams.isRejected = this.route.snapshot.data['isRejected'];
-    this.pending = !this.filterParams.isAccepted && !this.filterParams.isRejected;
+    this.filterParams.isAccepted = true;
+    this.filterParams.isRejected = false;
     this.accepted = this.filterParams.isAccepted && !this.filterParams.isRejected;
-    this.rejected = !this.filterParams.isAccepted && this.filterParams.isRejected;
     this.getUsers();
 
   }

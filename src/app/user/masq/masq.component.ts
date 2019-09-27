@@ -52,7 +52,7 @@ export class MasqComponent implements OnInit {
     this.masq.getMasqueradeToken(form.value.agency, form.value.role).subscribe(
       (data: any) => {
         this.tokenService.installToken(data.token);
-        return this.router.navigateByUrl('/home');
+        window.location.href = '/';
       }
     );
 
