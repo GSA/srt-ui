@@ -19,7 +19,6 @@
   "dependencies": {
     "@angular-devkit/build-ng-packagr": "^0.13.9",
     "@angular/animations": "~8.0.0",
-    "@angular/cli": "^8.3.6",
     "@angular/common": "~8.0.0",
     "@angular/compiler": "~8.0.0",
     "@angular/core": "~8.0.0",
@@ -59,7 +58,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.13.9",
-    "@angular/compiler-cli": "~7.2",
+    "@angular/compiler-cli": "~8.0.0",
     "@schematics/angular": "~8.0.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "^6.14.7",
