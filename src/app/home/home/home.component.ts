@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit {
   constructor(
     private auth: AuthGuard,
     private router: Router,
-    
   ) { }
 
   /**
@@ -32,7 +31,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.isGSAAdmin = this.auth.isGSAAdmin;
     this.currentID = localStorage.getItem('id');
-    
   }
 
 

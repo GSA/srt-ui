@@ -14,8 +14,8 @@ export class AuthGuard implements CanActivate {
 
   /* ATTRIBUTES */
 
-  isLogin = false;
-  isGSAAdmin = false;
+  public isLogin = false;
+  public isGSAAdmin = false;
 
   /* CONSTRUCTOR */
 
@@ -34,7 +34,7 @@ export class AuthGuard implements CanActivate {
    * @param state
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    let url: string = state.url;
+    const url: string = state.url;
     return this.checkLogin(url);
   }
 

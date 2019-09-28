@@ -20,9 +20,6 @@ export class MasqService {
     private http: HttpClient
   ) { }
 
-  /**
-   * Get Surveys from json file
-   */
   public getMasqueradeToken(agency: String, role: String) {
     return this.http.get<any[]>(`${this.masqURL}?agency=${agency}&role=${role}`);
   }

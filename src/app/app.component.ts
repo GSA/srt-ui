@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { AuthService } from './shared/services/auth.service';
 import { AuthGuard } from './auth-guard.service';
 
 
 import {Globals} from '../globals';
+import {VersionService} from './shared/services/version.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   /* ATTRIBUTES */
 
@@ -18,6 +19,9 @@ export class AppComponent {
   isGSAAdmin = false;
   firstName = '';
   lastName = '';
+  version = '';
+  buildDate = '';
+  environment = '';
 
   /* CONSTRUCTOR */
 
@@ -30,7 +34,8 @@ export class AppComponent {
   constructor(
     private authGuard: AuthGuard,
     private authService: AuthService,
-    private globals: Globals
+    private globals: Globals,
+    private versionService: VersionService
   ) {
     globals.app = this;
     authService.checkToken().subscribe(
@@ -52,4 +57,14 @@ export class AppComponent {
     );
   }
 
-}
+  ngOnInit() {
+    this.versionService
+      .getVersionString()
+      .subscribe( (data: any) => {
+        this.version = data && data.version;
+        this.buildDate = data && data.build_date;
+        this.environment = data && data.env;
+      });
+  }
+
+  }

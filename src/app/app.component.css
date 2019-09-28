@@ -22,22 +22,30 @@
 }
 
 .gsa-subtitle{
-    display: inline-block; 
+    display: inline-block;
     font-size: 12px
 }
+
+.version{
+  display: inline-block;
+  font-size: 12px;
+  padding-top:3px;
+}
+
+
 .gsa-sintr{
-padding-bottom: 2.3rem; 
-padding-top: 4rem; 
-padding-right: 30px; 
+padding-bottom: 2.3rem;
+padding-top: 4rem;
+padding-right: 30px;
 display: table
 }
 .gsa-sicon{
-    display: table-cell; 
+    display: table-cell;
     vertical-align: top;
     width: 48px
 }
 .gsa-scontent{
-    display: table-cell; 
-    vertical-align: top; 
+    display: table-cell;
+    vertical-align: top;
     font-size: 1.6rem;
 }

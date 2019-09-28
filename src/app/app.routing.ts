@@ -9,6 +9,7 @@ import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth-guard.service';
 import { HelpComponent } from './help/help.component';
 import {MasqComponent} from './user/masq/masq.component';
+import {AdminGuard} from './admin-guard.service';
 
 
 const routes: Routes = [
@@ -17,7 +18,7 @@ const routes: Routes = [
   {path: 'admin/accepted', component: AdminComponent, canActivate: [AuthGuard] , data: { isAccepted: true, isRejected: false }},
   {path: 'admin/masq', component: MasqComponent, canActivate: [AuthGuard] , data: {}},
   {path: 'admin', component: AdminComponent, canActivate: [AuthGuard] , data: { isAccepted: false, isRejected: false }},
-  {path: 'analytics', component: AnalyticsComponent, canActivate: [AuthGuard]},
+  {path: 'analytics', component: AnalyticsComponent, canActivate: [AdminGuard]},
   {path: 'help', component: HelpComponent, canActivate: [AuthGuard]},
 ];
 

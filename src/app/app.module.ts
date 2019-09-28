@@ -29,6 +29,7 @@ import { SurveyService } from './survey.service';
 import { MasqService } from './user/masq/masq.service';
 import { UserService } from './shared/services/user.service';
 import { AuthGuard } from './auth-guard.service';
+import { VersionService } from './shared/services/version.service';
 
 // COMPONENTS
 
@@ -45,6 +46,7 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {HttpModule} from '@angular/http';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 import {Globals} from '../globals';
+import {AdminGuard} from './admin-guard.service';
 
 
 
@@ -88,6 +90,7 @@ import {Globals} from '../globals';
     MasqService,
     TokenService,
     AuthGuard,
+    AdminGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

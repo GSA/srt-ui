@@ -17,18 +17,6 @@
           </div>
         </div>
       </div>
-
-      <div class="srt-beta-container">
-        <div class="srt-beta-position">
-          <div class="srt-beta-padding">
-            <div class="srt-betatitle">Beta Disclaimer</div>
-            <div style="font-size: 14px;">This is a beta version of the SRT platform. The results shown are preliminary only and should not be used or referenced
-              in any official or internal reports.</div>
-
-          </div>
-        </div>
-      </div>
-
     </div>
 
     <div class="container">
@@ -70,7 +58,8 @@
               <a [routerLink]="['/analytics']">
                 <div class="col-md-4 col-sm-6 srt-marginbot">
                     <div class="srt-1-1">
-                        <div>
+                      <div class="ribbon" *ngIf="isGSAAdmin==false"><span>Coming soon</span></div>
+                      <div>
                             <div class="srt-main-box" >
                                 <!-- image -->
                                 <div class="srt-9-20">
@@ -149,7 +138,7 @@
                                     <div>
                                         <div class="srt-block-padding">
                                             <h3 style="color:black">Get Additional Resources</h3>
-                                            <p style="color:black">Need help with Accessiblity requirements? Buy Accessible Wizard can assist you with that</p>
+                                            <p style="color:black">Need help with Accessibility requirements? Accessibility Requirements Tool can assist you with that</p>
                                         </div>
                                     </div>
                                 </div>
