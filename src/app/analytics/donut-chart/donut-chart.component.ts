@@ -72,7 +72,7 @@ export class DonutChartComponent implements OnInit {
         this.percentage = this.doughnutChartDataInput.uncompliance === 0 ? 0 : Math.round(this.doughnutChartDataInput.updatedCompliantICT / this.doughnutChartDataInput.uncompliance * 100);
         var CountTo = this.percentage;
         this.id = 'ConversionRate'
-        this.note = "non-compliant ICT/E&IT solicitations became compliant after they were updated on FedBizOpps.gov";
+        this.note = "non-compliant ICT solicitations became compliant after they were updated on FedBizOpps.gov";
 
       } else if (this.title === "Preliminary Compliance Rate") {
         this.numerator = this.doughnutChartDataInput.compliance;
@@ -81,7 +81,7 @@ export class DonutChartComponent implements OnInit {
         this.percentage = this.doughnutChartDataInput.determinedICT === 0 ? 0 : Math.round(this.doughnutChartDataInput.compliance / this.doughnutChartDataInput.determinedICT * 100);
         var CountTo = this.percentage;
         this.id = 'ComplianceRate'
-        this.note = "ICT/E&IT machine readable solicitations scanned by SRT are Section 508 compliant solicitations";
+        this.note = "ICT machine readable solicitations scanned by SRT are Section 508 compliant solicitations";
       }
 
       $("#" + this.id).each(function() {

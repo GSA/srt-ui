@@ -1,20 +1,20 @@
 
 <div class="srt-blue chart" *ngIf="hasValue">
     Scanned Solicitation(s)
-    <sup class="supfont" 
+    <sup class="supfont"
         [tooltip]="Scanned" tooltipPlacement="bottom">
         <i class="fa fa-info-circle info" aria-hidden="true" ></i>
-    </sup>  
+    </sup>
     <tooltip-content #Scanned [animation]="true">
-        <div>Number of ICT/E&IT solicitation(s) scanned (latest 30 days)</div>
-    </tooltip-content> 
-</div>  
+        <div>Number of ICT solicitation(s) scanned (latest 30 days)</div>
+    </tooltip-content>
+</div>
 
 <div class="barchart">
     <div class="positions"># Solicitation</div>
     <div class="positiond">Date</div>
-    <div class="positionbar" *ngIf="hasValue"> 
-    
+    <div class="positionbar" *ngIf="hasValue">
+
     <canvas baseChart
             [datasets]="barChartData"
             [labels]="barChartLabels"

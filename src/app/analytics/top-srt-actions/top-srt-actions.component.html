@@ -1,5 +1,5 @@
 <div class="top-srt-padding">
-      
+
       <div id="overview" class="top-srt-overview">
 
           <div class="srt-blue top-srt-title">
@@ -8,33 +8,33 @@
 
           <!-- Total ICT Solicitations -->
           <div class="clearfix analytic-overview-name">
-              <div class="top-srt-floatleft">Total ICT/E&IT Solicitations Scanned&nbsp;&nbsp;
-                  <sup class="supfont" 
+              <div class="top-srt-floatleft">Total ICT Solicitations Scanned&nbsp;&nbsp;
+                  <sup class="supfont"
                       [tooltip]="TotalICT" tooltipPlacement="bottom">
                       <i class="fa fa-info-circle info" aria-hidden="true" ></i>
-                  </sup>  
+                  </sup>
                   <tooltip-content #TotalICT [animation]="true">
-                      <div>Total number of ICT/E&IT solicitations scanned from FedBizOpps for all federal agencies.</div>
-                  </tooltip-content> 
-              </div> 
-              <div class="top-srt-floatright">{{solicitationNumber}}</div> 
+                      <div>Total number of ICT solicitations scanned from FedBizOpps for all federal agencies.</div>
+                  </tooltip-content>
+              </div>
+              <div class="top-srt-floatright">{{solicitationNumber}}</div>
           </div>
           <div class="top-srt-white">
               <div class="top-srt-blue" [ngStyle]="{'width': solicitationNumber==0 ? '0px' : solicitationNumber/solicitationNumber * 100 + '%'}"></div>
-          </div>                        
+          </div>
 
           <!-- Total Non-compliant ICT Solicitations -->
           <div class="clearfix analytic-overview-name">
-              <div class="top-srt-floatleft">Total Non-Compliant ICT/E&IT Solicitations&nbsp;&nbsp;
-                  <sup class="supfont" 
+              <div class="top-srt-floatleft">Total Non-Compliant ICT Solicitations&nbsp;&nbsp;
+                  <sup class="supfont"
                       [tooltip]="TotalNonCompliantICT" tooltipPlacement="bottom">
                       <i class="fa fa-info-circle info" aria-hidden="true" ></i>
-                  </sup>  
+                  </sup>
                   <tooltip-content #TotalNonCompliantICT [animation]="true">
-                      <div>Total number of non-compliant ICT/E&IT solicitations scanned from FedBizOpps for all federal agencies.</div>
-                  </tooltip-content> 
-              </div> 
-              <div class="top-srt-floatright">{{nonCompliantICTNumber}}</div> 
+                      <div>Total number of non-compliant ICT solicitations scanned from FedBizOpps for all federal agencies.</div>
+                  </tooltip-content>
+              </div>
+              <div class="top-srt-floatright">{{nonCompliantICTNumber}}</div>
           </div>
           <div class="top-srt-white">
               <div class="top-srt-blue" [ngStyle]="{'width': solicitationNumber==0 ? '0px' : nonCompliantICTNumber/solicitationNumber * 100 + '%'}"></div>
@@ -46,16 +46,16 @@
                   <sup class="supfont"
                       [tooltip]="Reviewed" tooltipPlacement="bottom">
                       <i class="fa fa-info-circle info" aria-hidden="true"></i>
-                  </sup>   
+                  </sup>
                   <tooltip-content #Reviewed [animation]="true">
                       <div>Number of FebBizOpps solicitation links accessed through SRT by Section 508 coordinators. The solicitation links are visited for further review of SRT results prior to contacting the Point of Contact (PoC).</div>
-                  </tooltip-content>  
-              </div> 
-              <div class="top-srt-floatright">{{reviewed}}</div> 
+                  </tooltip-content>
+              </div>
+              <div class="top-srt-floatright">{{reviewed}}</div>
           </div>
           <div class="top-srt-white">
               <div class="top-srt-blue" [ngStyle]="{'width': solicitationNumber==0 ? '0px' : reviewed/solicitationNumber * 100 + '%'}"></div>
-          </div>                        
+          </div>
 
           <!-- # Emails Sent to POC -->
           <div class="clearfix analytic-overview-name">
@@ -63,16 +63,16 @@
                   <sup class="supfont"
                       [tooltip]="Emails" tooltipPlacement="bottom">
                       <i class="fa fa-info-circle info" aria-hidden="true"></i>
-                  </sup>   
+                  </sup>
                   <tooltip-content #Emails [animation]="true">
                       <div>Number of e-mails sent from Section 508 Coordinators to solicitations Point of Contact (POC).</div>
-                  </tooltip-content>   
-              </div> 
-              <div class="top-srt-floatright">{{emailSend}}</div> 
+                  </tooltip-content>
+              </div>
+              <div class="top-srt-floatright">{{emailSend}}</div>
           </div>
           <div class="top-srt-white">
               <div class="top-srt-blue" [ngStyle]="{'width': solicitationNumber==0 ? '0px' : emailSend/solicitationNumber * 100 + '%'}"></div>
-          </div>                        
+          </div>
 
           <!-- # Updated Solicitations -->
           <div class="clearfix analytic-overview-name">
@@ -80,16 +80,16 @@
                   <sup class="supfont"
                       [tooltip]="Updated0" tooltipPlacement="bottom">
                       <i class="fa fa-info-circle info" aria-hidden="true"></i>
-                  </sup>    
+                  </sup>
                   <tooltip-content #Updated0 [animation]="true">
-                      <div>Number of ICT/E&IT solicitations that have been re-scanned from FedBizOpps.</div>
-                  </tooltip-content>   
-              </div> 
-              <div class="top-srt-floatright">{{updatedICTNumber}}</div> 
+                      <div>Number of ICT solicitations that have been re-scanned from FedBizOpps.</div>
+                  </tooltip-content>
+              </div>
+              <div class="top-srt-floatright">{{updatedICTNumber}}</div>
           </div>
           <div class="top-srt-white">
               <div class="top-srt-blue" [ngStyle]="{'width': solicitationNumber==0 ? '0px' : updatedICTNumber/solicitationNumber * 100 + '%'}"></div>
-          </div>                        
+          </div>
 
           <!-- # Updated Non-compliant Solicitations -->
           <div class="clearfix analytic-overview-name">
@@ -97,16 +97,16 @@
                   <sup class="supfont"
                       [tooltip]="Updated1" tooltipPlacement="bottom">
                       <i class="fa fa-info-circle info" aria-hidden="true"></i>
-                  </sup>     
+                  </sup>
                   <tooltip-content #Updated1 [animation]="true">
-                      <div>Number of ICT/E&IT solicitations that have been re-scanned from FedBizOpps and remained non-compliant on SRT.</div>
-                  </tooltip-content>    
-              </div> 
-              <div class="top-srt-floatright">{{updatedNonCompliantICTNumber}}</div> 
+                      <div>Number of ICT solicitations that have been re-scanned from FedBizOpps and remained non-compliant on SRT.</div>
+                  </tooltip-content>
+              </div>
+              <div class="top-srt-floatright">{{updatedNonCompliantICTNumber}}</div>
           </div>
           <div class="top-srt-white">
               <div class="top-srt-blue"  [ngStyle]="{'width': solicitationNumber==0 ? '0px' : updatedNonCompliantICTNumber/solicitationNumber * 100 + '%'}"></div>
-          </div>                        
+          </div>
 
           <!-- # Updated Compliant Solicitations -->
           <div class="clearfix analytic-overview-name">
@@ -114,16 +114,16 @@
                   <sup class="supfont"
                       [tooltip]="Updated2" tooltipPlacement="bottom">
                       <i class="fa fa-info-circle info" aria-hidden="true"></i>
-                  </sup>   
+                  </sup>
                   <tooltip-content #Updated2 [animation]="true">
-                      <div>Number of ICT/E&IT solicitations that have been re-scanned from FedBizOpps and updated as compliant on SRT.</div>
-                  </tooltip-content>      
-              </div> 
-              <div class="top-srt-floatright">{{updatedCompliantICTNumber}}</div> 
+                      <div>Number of ICT solicitations that have been re-scanned from FedBizOpps and updated as compliant on SRT.</div>
+                  </tooltip-content>
+              </div>
+              <div class="top-srt-floatright">{{updatedCompliantICTNumber}}</div>
           </div>
           <div class="clearfix top-srt-white" >
               <div class="top-srt-blue"  [ngStyle]="{'width': solicitationNumber==0 ? '0px' : updatedCompliantICTNumber/solicitationNumber * 100 + '%'}"></div>
-          </div>                        
+          </div>
       </div>
 
 
