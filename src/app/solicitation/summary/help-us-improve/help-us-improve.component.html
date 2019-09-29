@@ -57,34 +57,6 @@
               </div>
             </div>
 
-            <!-- <fieldset *ngFor="let survey of surveys; let i = index" style="padding: 0px;">
-              <legend><span *ngIf="survey.Question != 'Additional feedback:'">Q{{i+1}}.</span>{{survey.Question}}
-                <span style="color: #899197">{{survey.Note}}</span>
-              </legend><br>
-              <div *ngFor="let choice of survey.Choices; let c=index" [ngStyle]="{'display': survey.Type=='multiple choice' ? 'inline-block' : 'block'}">
-                <input id="{{survey.ID}}{{choice}}" [ngModel]="surveyModel[i]==survey.Choices[c]" (ngModelChange)="checkBox(survey, choice, $event)"
-                  type="checkbox" value="{{choice}}" name="{{i}}">
-                <label for="{{survey.ID}}{{choice}}">{{choice}}
-                    <span *ngIf='survey.ChoicesNote.length > 0' style="color: #899197">({{survey.ChoicesNote[c]}})</span>
-                </label>
-              </div>
-
-              <div *ngIf="survey.Type=='essay'" style="list-style: none; padding: 0px 15px 0px 0px;">
-                <div> <label for="{{survey.ID}}{{choice}}" style="position:absolute;
-                  left:-10000px;
-                  top:auto;
-                  width:1px;
-                  height:1px;
-                  overflow:hidden;">textarea to enter your feedback</label></div>
-                <textarea id="{{survey.ID}}{{choice}}" class="form-control" [ngModel]="surveyModel[i]" (ngModelChange)="textarea(survey, $event)" [ngStyle]="{'min-height':survey.Question == 'Additional feedback:' ? '150px' : 'auto' }"> </textarea>
-                </div>
-
-            </fieldset> -->
-
-
-
-
-
           <ul *ngFor="let survey of surveys; let i = index" style="padding: 0px;">
             <li style="list-style: none;"><span *ngIf="survey.Question != 'Additional feedback:'">Q{{i+1}}. </span>{{survey.Question}} <br>
               <span style="color: #899197">{{survey.Note}}</span>

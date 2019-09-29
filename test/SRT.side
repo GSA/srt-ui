@@ -650,6 +650,124 @@
       "targets": [],
       "value": ""
     }]
+  }, {
+    "id": "cad747ac-0162-4e0b-bf31-d7bc7192ab4f",
+    "name": "Survey - Verify clicking one check box does not make two light up",
+    "commands": [{
+      "id": "b0cf403d-dacf-408d-8860-5d2d476d81f0",
+      "comment": "",
+      "command": "run",
+      "target": "Function-Setup",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "68a27656-718a-4576-acf5-4ce8e7ef2649",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Manage/Review Workload",
+      "targets": [
+        ["linkText=Manage/Review Workload", "linkText"],
+        ["css=#\\32 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Manage/Review Workload')]", "xpath:link"],
+        ["xpath=//li[@id='2']/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '')])[6]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Manage/Review Workload')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8559e412-56a1-4451-87a6-97f0b2be7206",
+      "comment": "",
+      "command": "waitForElementNotPresent",
+      "target": "xpath=//div[@id='loading']",
+      "targets": [],
+      "value": "5000"
+    }, {
+      "id": "138a6451-6653-4ff3-8351-8517e810a8d0",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=3",
+      "targets": [
+        ["linkText=3", "linkText"],
+        ["css=.ui-paginator-page:nth-child(3)", "css:finder"],
+        ["xpath=(//a[contains(text(),'3')])[3]", "xpath:link"],
+        ["xpath=//main[@id='content']/div/p-datatable/div/p-paginator/div/span/a[3]", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[8]", "xpath:href"],
+        ["xpath=//a[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "86171413-7c48-44b5-92e5-763220e8538e",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return document.querySelector(\"table .ui-datatable-even td span:nth-of-type(2)\").textContent",
+      "targets": [],
+      "value": "sid"
+    }, {
+      "id": "ea7ae462-7661-416a-80b6-9f090d4c4796",
+      "comment": "",
+      "command": "echo",
+      "target": "Using solicitation ID ${sid}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e20856ad-401d-4083-b44b-e5ef01928aba",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=(//button[contains(.,'compliant')])[1]",
+      "targets": [
+        ["css=.ui-datatable-even:nth-child(1) .button > span", "css:finder"],
+        ["xpath=//main[@id='content']/div/p-datatable/div/div/table/tbody/tr/td[5]/span[2]/span/button/span", "xpath:idRelative"],
+        ["xpath=//span[2]/span/button/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8668a782-4c44-4d0c-acf0-527e28298b9f",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=STEP 3: MAKE SRT SMARTER",
+      "targets": [
+        ["linkText=STEP 3: MAKE SRT SMARTER", "linkText"],
+        ["css=.nopadding > li:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'STEP 3: MAKE SRT SMARTER')]", "xpath:link"],
+        ["xpath=//main[@id='content']/app-summary/div[2]/div/div/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/solicitation/feedback/1171')]", "xpath:href"],
+        ["xpath=//div[2]/div/div/ul/li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'STEP 3: MAKE SRT SMARTER')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "efaa2296-6c06-4fa1-b9df-61a59cfe903c",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//label[contains(.,'Yes')]",
+      "targets": [
+        ["css=.ng-star-inserted:nth-child(2) > li .ng-star-inserted:nth-child(1) > label", "css:finder"],
+        ["xpath=//main[@id='content']/div/div/div[2]/div[2]/div/ul/li/ul/li/label", "xpath:idRelative"],
+        ["xpath=//label", "xpath:position"],
+        ["xpath=//label[contains(.,'Yes')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4a5e760f-b7ea-4dd0-b960-c2f701232404",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//label[contains(.,'Yes')]",
+      "targets": [
+        ["css=.ng-star-inserted:nth-child(2) > li .ng-star-inserted:nth-child(1) > label", "css:finder"],
+        ["xpath=//main[@id='content']/div/div/div[2]/div[2]/div/ul/li/ul/li/label", "xpath:idRelative"],
+        ["xpath=//label", "xpath:position"],
+        ["xpath=//label[contains(.,'Yes')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fe5e4f22-6bbd-4f24-acc2-6fe8466cad5d",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "css=input[type=checkbox]:checked",
+      "targets": [],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "ec5d1633-94d5-45f8-b8d9-b52a4d08b1ec",
@@ -657,7 +775,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["1888497e-83be-4bcf-85eb-4febba184060", "9522a3db-9f9c-40b9-a50b-5e3eaa564154"]
+    "tests": ["1888497e-83be-4bcf-85eb-4febba184060", "9522a3db-9f9c-40b9-a50b-5e3eaa564154", "cad747ac-0162-4e0b-bf31-d7bc7192ab4f"]
   }],
   "urls": ["http://localhost:4200/", "http://srt-client.app.cloud.gov/"],
   "plugins": []
