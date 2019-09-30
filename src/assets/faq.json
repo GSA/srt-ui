@@ -87,14 +87,7 @@
         "body": "<p>No. ICT, like IT, also includes services. For example, some agencies seek to satisfy their desktop computing needs through so-called 'seat management' service contracts. Under a seat management arrangement, the contractor provides the software, hardware, and technical support services necessary to support full service desktop computing resources to the agency for a given period of time. Although the agency does not acquire title to the hardware and software, the agency would still need to comply with Section 508 in acquiring desktop computing resources.</p><p>As another example, agencies acquiring help desks must ensure that providers are capable of accommodating the communications needs of persons with disabilities, consistent with Subpart D of the Access Board’s Standards. An agency help desk may need to communicate through a teletypewriter (TTY) – i.e., equipment that transmits coded signals across a telephone network. The help desk provider must also be familiar with such features as keyboard access and other options important to people with disabilities.</p>   "
       },
       {
-        "id":11,
-        "title": "When is the effective date for WCAG 2.0?",
-        "body": "<ul><li>Published in the Federal Register: Jan. 18, 2017</li><li>Effective Date: March 21, 2017</li><li>Compliance Date:  January 18, 2018</li><li>Compliance date for procurements:  TBD by the FAR Council</li></ul>"
-
-
-      },
-      {
-        "id":12,
+        "id":10,
         "title": "What are the tips to comply with Section 508?",
         "body": "<ul><li>Make a strong statement of Section 508 relevance </li><li>Identify applicable technical provisions</li><li>Identify applicable functional performance criteria</li><li>Support Documentation always applies!</li><li>If you have an EXCEPTION, state it!</li><li>Ensure accessible solicitation documents</li><li>Ask vendors to conform to accessibility requirements, do not ask vendors to comply with or “certify” accessibility</li><li>Consider accessibility in source selections</li><li>Inspect what you expect to accept</li><li>Document and audit</li><li>To do all this, use the Accessibility Requirements Tool l</li></ul>"
       }
@@ -202,7 +195,7 @@
       {
         "id": 1,
         "title": "What is the process of reviewing non-complaint solicitations?",
-        "body": "1",
+        "body": "Click on the solicitation’s “FBO Link” to access the solicitation on FedBizOpps website and download the solicitation documents;\nevaluate the documents for inclusion of Section 508 language (here are some suggested keywords to search for in the documents: Section 508, accessibility, compliance, conform, conformance, VPAT, Section 508 requirements, WCAG, and Buy Accessible).  If no section 508 language is found and is required. You may utilize the Accessibility Requirements Tool to generate your requirements and add them to the solicitation.",
         "class": "in"
       },
       {
