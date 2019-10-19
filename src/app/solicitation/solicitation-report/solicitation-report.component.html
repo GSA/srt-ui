@@ -76,23 +76,6 @@
         </p-column>
 
         <p-column field="date" header="Date Posted on FedBizOps" sortable="true"  [style]="{'overflow':'visible', 'width': '150'}" filterPlaceholder="Search">
-            <ng-template pTemplate="filter" let-col>
-                <p-calendar aria-hidden="true"
-                            [(ngModel)]="dateFrom"
-                            [maxDate]="maxDate"
-                            (onSelect)="filterDate($event)"
-                            (onBlur)="reset()"
-                            placeholder="Select Start Date">
-                </p-calendar>
-                <p-calendar aria-hidden="true"
-                            [(ngModel)]="dateTo"
-                            [minDate]="minDate"
-                            [maxDate]="today"
-                            (onSelect)="filterDate($event)"
-                            (onBlur)="reset()"
-                            placeholder="Select End Date">
-                </p-calendar>
-            </ng-template>
         </p-column>
 
         <p-column field="reviewRec" header="SRT Review Result" [sortable]="true" [filter]="true" [style]="{'overflow': 'visible', 'width': '200px'}" filterPlaceholder="Search">

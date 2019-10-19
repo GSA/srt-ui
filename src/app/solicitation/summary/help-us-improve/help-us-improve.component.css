@@ -39,35 +39,16 @@ input[type="checkbox"], input[type="radio"] {
 
 [type=checkbox], [type=radio] {
     margin-left: -2rem;
-    opacity: 0;
     position: absolute;
 }
 
-[type=checkbox]:checked + label::before, [type=radio]:checked + label::before {
-    background-color: #0071bc;
-    box-shadow: 0 0 0 1px #0071bc;
+ul.checkbox-ul {
+  margin-left: 60px;
 }
 
-
-[type=checkbox]:checked + label::before, [type=checkbox]:checked:disabled + label::before {
-    background-image: url(../../../../assets/correct8.png);
-    background-image: url(../../../../assets/correct8.svg);
-    background-position: 50%;
-    background-repeat: no-repeat;
-}
-
-[type=checkbox] + label::before, [type=radio] + label::before {
-    background: #ffffff;
-    border-radius: 0.3rem;
-    box-shadow: 0 0 0 1px #757575;
-    content: '\a0';
-    display: inline-block;
-    height: 1.8rem;
-    line-height: 1.8rem;
-    margin-right: 0.6em;
-    text-indent: 0.15em;
-    vertical-align: middle\0;
-    width: 1.8rem;
+ul.checkbox-ul input[type="checkbox"]  {
+  width: 1em;
+  height: 1em;
 }
 
 .input-percentage {
