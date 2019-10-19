@@ -12,10 +12,10 @@
       <div class="active-tabs" ng-if="showActivitySelection()">
         <div style="width: 100%; height: 70px;">
           <ul class="us-tab-slide nopadding" style="padding: 0;">
-            <li id="tab1" class="us-tab-item-slide" [routerLink]="['/admin/accepted']" [ngClass]="{'active': accepted}">
-              <a>APPROVED</a>
+            <li id="tab1" class="us-tab-item-slide" [ngClass]="{'active': accepted}">
+              <a [routerLink]="['/admin/accepted']">APPROVED</a>
             </li>
-            <li id="tab3" class="us-tab-item-slide" [routerLink]="['/admin/masq']" [ngClass]="{'active': masq}">
+            <li id="tab3" class="us-tab-item-slide" [ngClass]="{'active': masq}">
               <a>MASQUERADE</a>
             </li>
           </ul>

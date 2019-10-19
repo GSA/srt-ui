@@ -90,4 +90,7 @@ export class HeaderComponent implements OnInit {
       return window.location.href.indexOf(hash) > -1;
   }
 
+  menuClick(location) {
+    this.router.navigateByUrl(location);
+  }
 }

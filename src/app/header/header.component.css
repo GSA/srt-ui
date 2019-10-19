@@ -25,44 +25,64 @@
     margin-left: 0px;
     padding-left: 15px;
 }
+.dropdown-toggle:focus {
+  outline: auto !important;
+}
+
 #srtlogo {
 	max-height: 40px;
     margin-top: 8px;
     margin-left: 10px;
 }
-#navbar ul.nav.navbar-nav,
-#navbar ul.nav.navbar-nav > li{
-    height: 60px;
-    cursor: pointer;
+
+@media (max-width: 767px) {
+  #navbar ul li a,
+  #navbar ul li,
+  #navbar ul
+  {
+    padding: 0;
+    margin: 0;
+  }
+  #navbar ul {
+    float: left;
+  }
+  #navbar ul li {
+    display: block;
+  }
 }
 
-#navbar ul.nav.navbar-nav > li.active{
+@media (min-width: 768px) {
+
+  #navbar ul.nav.navbar-nav,
+  #navbar ul.nav.navbar-nav > li {
+    height: 60px;
+    cursor: pointer;
+  }
+
+  #navbar ul.nav.navbar-nav > li.active {
     height: 60px;
     cursor: pointer;
     border-bottom: 2px solid #102c52;
-}
+  }
 
-#navbar ul.nav.navbar-nav > li > a{
+  #navbar ul.nav.navbar-nav > li > a {
     margin: 20px 15px;
     padding: 0px;
     font-weight: 500;
     color: #102c52;
     font-size: 16px;
-}
+  }
 
-#navbar ul.nav.navbar-nav > li.active > a{
-    color: #102c52!important;
+  #navbar ul.nav.navbar-nav > li.active > a {
+    color: #102c52 !important;
     font-weight: 700 !important;
     /* border-bottom: 1px solid #102c52; */
-    padding-bottom: 5px!important;
+    padding-bottom: 5px !important;
     font-weight: 700;
     background-color: transparent !important;
-}
+  }
 
-#navbar ul.nav.navbar-nav > li:focus {
-    outline: none;
 }
-
 
 hr {
     margin: 0px;
@@ -75,14 +95,14 @@ hr {
 #header {
 	top: 0px;
    margin:0px;
-   
+
   /* border-width: 2px;
    border-bottom-width:2px;
    border-bottom-color: #112e51;
    border-bottom-style: solid;
    width: 100%;*/
-   padding: 0px; 
-   position: sticky;  
+   padding: 0px;
+   position: sticky;
    z-index: 50
 }
 #navbar a {

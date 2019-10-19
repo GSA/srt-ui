@@ -26,17 +26,17 @@
         <div class="collapse navbar-collapse" id="navbar" style="padding: 0;" role="navigation" aria-label="main navigation" >
 
                 <ul *ngIf="isLogin" class="nav navbar-nav" >
-                     <li data-toggle="tab" [routerLink]="['/home']" [ngClass]="{'active': GetHash('home')}" id="1" onclick="$('#test').focus()"><a href="">Home</a></li>
-                     <li data-toggle="tab" [routerLink]="['/solicitation/report']" [ngClass]="{'active': GetHash('solicitation')}" id="2"  onclick="$('#test').focus()"><a href="">Manage/Review Workload</a></li>
-                     <li data-toggle="tab" *ngIf="isGSAAdmin" [routerLink]="['/analytics']" [ngClass]="{'active': GetHash('analytics')}" id="3"  onclick="$('#test').focus()"><a href="" >View Analytics</a></li>
-                     <li data-toggle="tab" *ngIf="isGSAAdmin" [routerLink]="['/admin']" [ngClass]="{'active': GetHash('admin')}" id="4" onclick="$('#test').focus()"><a href="">User Management</a></li>
-                     <li data-toggle="tab" [routerLink]="['/help/contactus']" [ngClass]="{'active': GetHash('contactus')}" id="5" onclick="$('#test').focus()"><a href="">Contact Us</a></li>
-                     <li data-toggle="tab" [routerLink]="['/help/faq']" [ngClass]="{'active': GetHash('faq')}" id="6"  onclick="$('#test').focus()"><a href=""> FAQs</a></li>
-                     <li data-toggle="tab" *ngIf="isGSAAdmin"  [routerLink]="['/solicitation/feedback']" [ngClass]="{'active': GetHash('feedback/report')}" id="7" onclick="$('#test').focus()"><a href="">Feedback</a></li>
+                     <li data-toggle="tab" [ngClass]="{'active': GetHash('home')}" id="1" (click)="menuClick('/home');"><a [routerLink]="['/home']">Home</a></li>
+                     <li data-toggle="tab" [ngClass]="{'active': GetHash('solicitation')}" id="2" (click)="menuClick('/solicitation/report');"><a [routerLink]="['/solicitation/report']">Manage/Review Workload</a></li>
+                     <li data-toggle="tab" *ngIf="isGSAAdmin" [ngClass]="{'active': GetHash('analytics')}" id="3" (click)="menuClick('/analytics');"><a [routerLink]="['/analytics']" id="nav-analytics">View Analytics</a></li>
+                     <li data-toggle="tab" *ngIf="isGSAAdmin" [ngClass]="{'active': GetHash('admin')}" id="4" (click)="menuClick('/admin');"><a [routerLink]="['/admin']">User Management</a></li>
+                     <li data-toggle="tab" [ngClass]="{'active': GetHash('contactus')}" id="5" (click)="menuClick('/help/contactus');"><a [routerLink]="['/help/contactus']">Contact Us</a></li>
+                     <li data-toggle="tab" [ngClass]="{'active': GetHash('faq')}" id="6"  (click)="menuClick('/help/faq');"><a [routerLink]="['/help/faq']"> FAQs</a></li>
+                     <li data-toggle="tab" *ngIf="isGSAAdmin" [ngClass]="{'active': GetHash('feedback/report')}" id="7" (click)="menuClick('/solicitation/feedback');"><a [routerLink]="['/solicitation/feedback']">Feedback</a></li>
                 </ul>
 
                 <div class=" gsa_logo" aria-hidden="true">
-                    <a href='#' class="logo_li">
+                    <a class="logo_li">
                     <div class='span-logo' >
                         <img alt="GSA Logo" src='../../assets/gsa-logo.png'/>
                     </div>
@@ -44,14 +44,14 @@
                 </div>
                 <ul *ngIf="isLogin" id="gsaDropdown" class="nav navbar-nav" style="float: right;" >
                     <li class="dropdown">
-                        <a *ngIf="isLogin" href="#" class="dropdown-toggle"
+                        <a *ngIf="isLogin" href="#menu" class="dropdown-toggle"
                                     style="font-weight: 300"
                                     data-toggle="dropdown"
                                     aria-haspopup="true"
                                     aria-expanded="false">Hello, {{firstName}}<span class="caret"></span></a>
 
                         <ul class="dropdown-menu" role="listbox">
-                            <li><button class="dropdown-item" type="button" style="padding: 10px 20px; font-weight:300; font-size:medium; font-family: Arial, sans-serif;" (click)="onLogout()" role="option">Log Out</button></li>
+                            <li><button tabindex="0" class="dropdown-item" type="button" style="padding: 10px 20px; font-weight:300; font-size:medium; font-family: Arial, sans-serif;" (click)="onLogout()" role="option">Log Out</button></li>
                       </ul>
                     </li>
                 </ul>
