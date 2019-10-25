@@ -202,45 +202,19 @@ body{font-family:'Open Sans Condensed',sans-serif;font-size:18px}
     text-align: center;
     padding: 0px 25px
 }
-.srt-icon1{
-    background-image: url('/assets/review-manage-workflow.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 100%;
-    width: 100%
+
+.srt-icon img {
+  max-width:100%;
+  max-height:100%;
 }
-.srt-icon2{
-    background-image: url('/assets/view-analytics.png');
+
+.srt-icon{
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     height: 100%;
-    width: 100%
-}
-.srt-icon3{
-    background-image: url('/assets/manage-srt-access-requests.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 100%;
-    width: 100%
-}
-.srt-icon4{
-    background-image: url('/assets/get-additional-resourses.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 100%;
-    width: 100%
-}
-.srt-icon5{
-    background-image: url('/assets/faq.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 100%;
-    width: 100%
+    width: 100%;
+    text-align: center;
 }
 .srt-icon6{
     background-image: url('/assets/settings.png');
