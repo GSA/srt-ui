@@ -2,19 +2,21 @@
 
       <div id="overview" class="top-srt-overview">
 
-          <div class="srt-blue top-srt-title">
+          <h3 tabstop='0' class="chart srt-blue top-srt-title">
               Key SRT Activities
-          </div>
+          </h3>
 
           <!-- Total ICT Solicitations -->
-          <div class="clearfix analytic-overview-name">
+          <div class="visually-hidden">The total number of ICT solicitations scanned from FedBizOpps for all
+            federal agencies is {{solicitationNumber}} which is 100 percent of the total solicitations scanned.</div>
+          <div class="clearfix analytic-overview-name" aria-hidden="true" >
               <div class="top-srt-floatleft">Total ICT Solicitations Scanned&nbsp;&nbsp;
                   <sup class="supfont"
                       [tooltip]="TotalICT" tooltipPlacement="bottom">
                       <i class="fa fa-info-circle info" aria-hidden="true" ></i>
                   </sup>
                   <tooltip-content #TotalICT [animation]="true">
-                      <div>Total number of ICT solicitations scanned from FedBizOpps for all federal agencies.</div>
+                      <div role="tooltip" id="total-num-ict"> Total number of ICT solicitations scanned from FedBizOpps for all federal agencies.</div>
                   </tooltip-content>
               </div>
               <div class="top-srt-floatright">{{solicitationNumber}}</div>
@@ -24,7 +26,12 @@
           </div>
 
           <!-- Total Non-compliant ICT Solicitations -->
-          <div class="clearfix analytic-overview-name">
+          <div class="visually-hidden">The total number of non-compliant ICT solicitations scanned from FedBizOpps for
+            all federal agencies is {{nonCompliantICTNumber}} which is
+            {{(nonCompliantICTNumber/solicitationNumber * 100) | number:'1.0-1'}} percent of the total
+            solicitations scanned.
+          </div>
+          <div class="clearfix analytic-overview-name" aria-hidden="true" >
               <div class="top-srt-floatleft">Total Non-Compliant ICT Solicitations&nbsp;&nbsp;
                   <sup class="supfont"
                       [tooltip]="TotalNonCompliantICT" tooltipPlacement="bottom">
@@ -41,7 +48,12 @@
           </div>
 
           <!-- # Solicitations Reviewed by 508 Coordinators -->
-          <div class="clearfix analytic-overview-name">
+        <div class="visually-hidden">The number of FebBizOpps solicitation links accessed through SRT by Section 508
+          coordinators is {{reviewed}} which is
+          {{(reviewed/solicitationNumber * 100) | number:'1.0-1'}} percent of the total
+          solicitations scanned.
+        </div>
+          <div class="clearfix analytic-overview-name" aria-hidden="true" >
               <div class="top-srt-floatleft"># Solicitations Reviewed by 508 Coordinators&nbsp;&nbsp;
                   <sup class="supfont"
                       [tooltip]="Reviewed" tooltipPlacement="bottom">
@@ -58,7 +70,12 @@
           </div>
 
           <!-- # Emails Sent to POC -->
-          <div class="clearfix analytic-overview-name">
+        <div class="visually-hidden">The Number of e-mails sent from Section 508 Coordinators to solicitations
+          Point of Contact is {{emailSend}} which is
+          {{(emailSend/solicitationNumber * 100) | number:'1.0-1'}} percent of the total
+          solicitations scanned.
+        </div>
+          <div class="clearfix analytic-overview-name" aria-hidden="true" >
               <div class="top-srt-floatleft"># Emails Sent to POC&nbsp;&nbsp;
                   <sup class="supfont"
                       [tooltip]="Emails" tooltipPlacement="bottom">
@@ -75,7 +92,12 @@
           </div>
 
           <!-- # Updated Solicitations -->
-          <div class="clearfix analytic-overview-name">
+        <div class="visually-hidden">The number of ICT solicitations that have been re-scanned from FedBizOpps
+          is {{updatedICTNumber}} which is
+          {{(updatedICTNumber/solicitationNumber * 100) | number:'1.0-1'}} percent of the total
+          solicitations scanned.
+        </div>
+          <div class="clearfix analytic-overview-name" aria-hidden="true" >
               <div class="top-srt-floatleft"># Updated Solicitations&nbsp;&nbsp;
                   <sup class="supfont"
                       [tooltip]="Updated0" tooltipPlacement="bottom">
@@ -92,7 +114,12 @@
           </div>
 
           <!-- # Updated Non-compliant Solicitations -->
-          <div class="clearfix analytic-overview-name">
+        <div class="visually-hidden">The number of ICT solicitations that have been re-scanned from FedBizOpps and
+          remained non-compliant on SRT is {{updatedNonCompliantICTNumber}} which is
+          {{(updatedNonCompliantICTNumber/solicitationNumber * 100) | number:'1.0-1'}} percent of the total
+          solicitations scanned.
+        </div>
+          <div class="clearfix analytic-overview-name" aria-hidden="true" >
               <div class="top-srt-floatleft"># Updated Non-compliant Solicitations&nbsp;&nbsp;
                   <sup class="supfont"
                       [tooltip]="Updated1" tooltipPlacement="bottom">
@@ -109,7 +136,12 @@
           </div>
 
           <!-- # Updated Compliant Solicitations -->
-          <div class="clearfix analytic-overview-name">
+        <div class="visually-hidden">The number of ICT solicitations that have been re-scanned from FedBizOpps and updated
+          as compliant on SRT is {{updatedCompliantICTNumber}} which is
+          {{(updatedCompliantICTNumber/solicitationNumber * 100) | number:'1.0-1'}} percent of the total
+          solicitations scanned.
+        </div>
+          <div class="clearfix analytic-overview-name" aria-hidden="true" >
               <div class="top-srt-floatleft"># Updated Compliant Solicitations&nbsp;&nbsp;
                   <sup class="supfont"
                       [tooltip]="Updated2" tooltipPlacement="bottom">

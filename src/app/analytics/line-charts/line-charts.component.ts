@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, ViewChild, Directive } from '@angular/core';
 
 
-import { BaseChartDirective } from 'ng2-charts/ng2-charts';
-import { ChartsModule, Color } from 'ng2-charts/ng2-charts';
+import { BaseChartDirective } from 'ng2-charts';
+import { ChartsModule, Color } from 'ng2-charts';
 
 @Component({
   selector: 'app-line-charts',

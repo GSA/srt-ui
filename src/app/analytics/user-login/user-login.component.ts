@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BaseChartDirective } from 'ng2-charts/ng2-charts';
-import { ChartsModule, Color } from 'ng2-charts/ng2-charts';
+import { Color } from 'ng2-charts';
 
 
 @Component({

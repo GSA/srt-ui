@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, ViewChild, Directive } from '@angular/core';
 
-import { BaseChartDirective } from 'ng2-charts/ng2-charts';
-import { ChartsModule, Color } from 'ng2-charts/ng2-charts';
-import {TooltipModule} from "ng2-tooltip";
+import { BaseChartDirective } from 'ng2-charts';
+import { Color } from 'ng2-charts';
+
 
 import * as _ from 'underscore';
 
@@ -29,8 +29,9 @@ export class ScannedSolicitationComponent implements OnInit {
   public barChartLabels: String[] = [];
   public barChartType: String = 'bar';
   public barChartLegend: Boolean = false;
-  public barChartData:any[] = [];
-    
+  public barChartData: any[] = [];
+  public tabularData = '';
+
 
   public barChartOptions:any = {
       scaleShowVerticalLines: false,
@@ -73,8 +74,8 @@ export class ScannedSolicitationComponent implements OnInit {
       { backgroundColor: _.range(32).map(function () { return '#2C81C0' })}
   ];
 
-  /* CONSTRUCTOR */ 
-  
+  /* CONSTRUCTOR */
+
   /**
    * constructor
    */
@@ -85,8 +86,6 @@ export class ScannedSolicitationComponent implements OnInit {
    * lifecycle
    */
   ngOnInit() {
-      console.log(this.fromPeriod);
-      console.log(this.toPeriod)
   }
 
   /**
@@ -95,23 +94,48 @@ export class ScannedSolicitationComponent implements OnInit {
   ngOnChanges() {
     if (this.ScannedSolicitationChart && !this.hasValue) {
         this.barChartLabels = [];
-        var i = 0;
-        for(var d = this.fromPeriod; d <= this.toPeriod && i < 32; d.setDate(d.getDate() + 1)){
-            var formattedNumber = ("0" + d.getDate()).slice(-2);
+        let i = 0;
+        for(let d = this.fromPeriod; d <= this.toPeriod && i < 32; d.setDate(d.getDate() + 1)){
+            const formattedNumber = ('0' + d.getDate()).slice(-2);
             this.outputData[i] = this.ScannedSolicitationChart.scannedData[+((d.getMonth()+1).toString() + formattedNumber)];
-            this.barChartLabels.push(d.getMonth()+1 + "/" + d.getDate());
+            this.barChartLabels.push(d.getMonth() + 1 + '/' + d.getDate());
             i++;
         }
-        this.outputData.forEach(element => {
-          if (!element) {
-            element = 0;
-          }
-        });
-        console.log(this.outputData);
-        this.barChartData = [{data: this.outputData, label:'The Nuber of solicitations'}];
+        for (let i =0; i < this.outputData.length; i++) {
+          this.outputData[i] = (this.outputData[i]) ? this.outputData[i] : 0;
+        }
+        console.log(this.outputData)
+        this.tabularData = this.buildTable(this.outputData, this.barChartLabels);
+        this.barChartData = [{data: this.outputData, label: 'The Nuber of solicitations'}];
         this.hasValue = true;
         this.forceChartRefresh();
     }
+  }
+
+  buildTable(data, labels) {
+    let table = '' +
+      '<table class="visually-hidden">' +
+      ' <caption>Scanned Solicitations in the Last 30 Days</caption>' +
+      ' <thead>' +
+      '  <tr>' +
+      '   <th scope="col">Date</th>' +
+      '   <th scope="col">Number of Solicitations</th>' +
+      '  </tr>' +
+      ' </thead>' +
+      ' <tbody>';
+
+    // tslint:disable-next-line:max-line-length
+    const month_list = ['zero index', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    for (let i = 0; i < data.length; i++) {
+      let month_num, day;
+      [month_num, day] = labels[i].split('/')
+      const month_name = month_list[month_num]
+      table += `<tr><td>${month_name} ${day}</td><td>${data[i]}</td></tr>`;
+    }
+    table += '</tbody></table>';
+
+    return table;
+
   }
 
   /**

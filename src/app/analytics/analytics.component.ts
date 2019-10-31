@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, Directive } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnalyticsService } from './services/analytics.service';
-import { BaseChartDirective } from 'ng2-charts/ng2-charts';
-import { ChartsModule, Color } from 'ng2-charts/ng2-charts';
+import { BaseChartDirective } from 'ng2-charts';
+import { ChartsModule, Color } from 'ng2-charts';
 
 import { TooltipModule } from 'ng2-tooltip';
 
