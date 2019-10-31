@@ -408,3 +408,13 @@ input:focus {
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* Chart syles */
+.chart{
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  line-height: normal;
+  display: inline-block;
+}

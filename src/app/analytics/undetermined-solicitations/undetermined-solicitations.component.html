@@ -1,16 +1,16 @@
 <div class="undeter-solic-padding">
 
     <div class="srt-blue undeter-solic-title">
-        Last 30 Days Excluded Solicitations from SRT Prediction Results (By Category)
-        <sup class="undeter-solic-supfont" 
+      <h3 class="srt-blue chart">Last 30 Days Excluded Solicitations from SRT Prediction Results (By Category)</h3>
+        <sup class="undeter-solic-supfont"
             [tooltip]="predictionResult" tooltipPlacement="bottom">
             <i class="fa fa-info-circle info" aria-hidden="true" ></i>
-        </sup>  
+        </sup>
         <tooltip-content #predictionResult [animation]="true">
             <div>'Other Undetermined' solicitations are solicitations with attachments that are currently failed to be accessed by the system due to various reasons (e.g., security redirect).</div>
-        </tooltip-content>  
-    </div>  
-   
+        </tooltip-content>
+    </div>
+
     <div class="undeter-solic-div">
       <div class="undeter-solic-canvas">
           <canvas baseChart
@@ -21,23 +21,25 @@
                   [chartType]="pieChartType">
           </canvas>
       </div>
-      <div class="undeter-solic-dispaly1">
+      <div class="undeter-solic-dispaly1" aria-hidden="true">
             {{displayPresolicitation}}
       </div>
-      <div class="undeter-solic-dispaly2">
+      <div class="undeter-solic-dispaly2" aria-hidden="true">
             {{displayNonMachineReadable}}
       </div>
-      <div class="undeter-solic-dispaly3">
+      <div class="undeter-solic-dispaly3" aria-hidden="true">
             {{displayNoDocument}}
       </div>
-      <div class="undeter-solic-dispaly4">
+      <div class="undeter-solic-dispaly4" aria-hidden="true">
             {{displayOtherUndetermined}}
       </div>
+      <div class="visually-hidden">
+        <p>Chart data:</p>
+        <p>Pre-solicitation {{displayPresolicitation}}</p>
+        <p>Non Machine Readable {{displayNonMachineReadable}}</p>
+        <p>No Documents {{displayNoDocument}}</p>
+        <p>Other Undetermined {{displayOtherUndetermined}}</p>
+      </div>
     </div>
-    <!--<div style="padding: 30px 10px; text-align: center; font-size: 16px; color: #1768d7; font-weight: 500">
-        <span style="font-size: 1.5em; font-weight: 700">{{updatedCompliantICTNumber}}</span> out of 
-        <span style="font-size: 1.5em; font-weight: 700">{{TotalNonCompliant}}</span> 
-        non-compliant ICT solicitations have became compliant after they were updated on FedBizOpps.gov
-    </div>-->
 
 </div>
