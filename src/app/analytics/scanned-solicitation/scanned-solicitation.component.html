@@ -1,18 +1,18 @@
 
-<div class="srt-blue chart" *ngIf="hasValue">
-    Scanned Solicitation(s)
+<h3 class="srt-blue chart" *ngIf="hasValue" aria-labelledby="num-sol-tooltip">
+    Scanned Solicitations
     <sup class="supfont"
         [tooltip]="Scanned" tooltipPlacement="bottom">
         <i class="fa fa-info-circle info" aria-hidden="true" ></i>
     </sup>
     <tooltip-content #Scanned [animation]="true">
-        <div>Number of ICT solicitation(s) scanned (latest 30 days)</div>
+        <div id="num-sol-tooltip" role="tooltip">Number of ICT solicitation scanned in the latest 30 days</div>
     </tooltip-content>
-</div>
+</h3>
 
 <div class="barchart">
-    <div class="positions"># Solicitation</div>
-    <div class="positiond">Date</div>
+    <div class="positions" aria-hidden="true"># Solicitation</div>
+    <div class="positiond" aria-hidden="true">Date</div>
     <div class="positionbar" *ngIf="hasValue">
 
     <canvas baseChart
@@ -21,6 +21,8 @@
             [options]="barChartOptions"
             [legend]="barChartLegend"
             [colors]="colorsOverride"
-            [chartType]="barChartType"></canvas>
+            [chartType]="barChartType">
+    </canvas>
+      <div [innerHTML]="this.tabularData"></div>
     </div>
 </div>

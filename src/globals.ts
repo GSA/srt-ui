@@ -9,4 +9,9 @@ import {AppComponent} from './app/app.component';
 @Injectable()
 export class Globals {
   public app: AppComponent = null;
+
+  public chart_color_1 = '#2C81C0';
+  public chart_color_2 = '#5F913F';
+  public chart_legend_text_color = '#000000';
+
 }
