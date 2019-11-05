@@ -2,13 +2,6 @@
 
     <h3 class="srt-blue piechart">
         Preliminary Prediction Findings
-        <!-- <sup style="font-size: 20px;"
-            [tooltip]="predictionResult" tooltipPlacement="bottom">
-            <i class="fa fa-info-circle info" aria-hidden="true" ></i>
-        </sup>
-        <tooltip-content #predictionResult [animation]="true">
-            <div>Undetermined solicitations are solicitations with attachments that are non-machine-readable and/or are currently failed to be accessed by the system due to various reasons (e.g., security redirect).</div>
-        </tooltip-content>  -->
     </h3>
 
     <div class="precposi">
@@ -21,29 +14,13 @@
                   [chartType]="pieChartType"
                   [plugins]="barChartPlugins"
                   tabindex="0"
-                  aria-label="Preliminary Prediction Findings Pie Chart">
-            <p> {{numCompliant}} compliant solicitations. {{displayCompliance}} of total.</p>
-            <p> {{numNonCompliant}} non-compliant solicitations. {{displayUncompliance}} of total</p>
+                  aria-hidden="true">
+            <p aria-hidden="true"> {{numCompliant}} compliant solicitations. {{displayCompliance}} of total.</p>
+            <p aria-hidden="true"> {{numNonCompliant}} non-compliant solicitations. {{displayUncompliance}} of total</p>
           </canvas>
-          <table>
-            <caption>Preliminary Prediction Findings Pie Chart Data</caption>
-            <thead>
-            <tr>
-              <th scope="col">Number of Compliant Solicitations</th>
-              <th scope="col">Percent of Compliant Solicitations</th>
-              <th scope="col">Number of Non-Compliant Solicitations</th>
-              <th scope="col">Percent of Non-Compliant Solicitations</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>{{numCompliant}}</td>
-              <td>{{displayCompliance}}</td>
-              <td>{{numNonCompliant}}</td>
-              <td>{{displayUncompliance}}</td>
-            </tr>
-            </tbody>
-          </table>
+        <p class="visually-hidden">Pie chart data</p>
+        <p class="visually-hidden"> {{numCompliant}} compliant solicitations which is {{displayCompliance}} of total.</p>
+        <p class="visually-hidden"> {{numNonCompliant}} non-compliant solicitations which is {{displayUncompliance}} of total</p>
       </div>
       <div class="pieresult" aria-hidden="true">
             {{displayCompliance}}

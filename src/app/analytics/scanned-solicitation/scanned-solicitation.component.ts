@@ -101,7 +101,7 @@ export class ScannedSolicitationComponent implements OnInit {
             this.barChartLabels.push(d.getMonth() + 1 + '/' + d.getDate());
             i++;
         }
-        for (let i =0; i < this.outputData.length; i++) {
+        for (let i = 0; i < this.outputData.length; i++) {
           this.outputData[i] = (this.outputData[i]) ? this.outputData[i] : 0;
         }
         console.log(this.outputData)
