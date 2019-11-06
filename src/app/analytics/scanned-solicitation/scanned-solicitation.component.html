@@ -1,5 +1,5 @@
 
-<h3 class="srt-blue chart" *ngIf="hasValue" aria-labelledby="num-sol-tooltip">
+<h2 class="srt-blue chart" *ngIf="hasValue" aria-labelledby="num-sol-tooltip">
     Scanned Solicitations
     <sup class="supfont"
         [tooltip]="Scanned" tooltipPlacement="bottom">
@@ -8,7 +8,7 @@
     <tooltip-content #Scanned [animation]="true">
         <div id="num-sol-tooltip" role="tooltip">Number of ICT solicitation scanned in the latest 30 days</div>
     </tooltip-content>
-</h3>
+</h2>
 
 <div class="barchart">
     <div class="positions" aria-hidden="true"># Solicitation</div>

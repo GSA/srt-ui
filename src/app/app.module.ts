@@ -47,6 +47,7 @@ import {HttpModule} from '@angular/http';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 import {Globals} from '../globals';
 import {AdminGuard} from './admin-guard.service';
+import {BaseComponent} from './base.component';
 
 
 
@@ -57,6 +58,7 @@ import {AdminGuard} from './admin-guard.service';
     HeaderComponent,
     AdminComponent,
     UploadComponent,
+    BaseComponent
   ],
   imports: [
     BrowserModule,

@@ -5,13 +5,15 @@ import { SolicitationService } from '../../solicitation/solicitation.service';
 import { Solicitation } from '../../shared/solicitation';
 
 import { Email } from '../../solicitation/summary/email-poc/email';
+import {BaseComponent} from '../../base.component';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contact-us',
   templateUrl: './contact-us.component.html',
   styleUrls: ['./contact-us.component.css']
 })
-export class ContactUsComponent implements OnInit {
+export class ContactUsComponent extends BaseComponent implements OnInit {
 
   /* ATTRIBUTES */
 
@@ -30,13 +32,18 @@ export class ContactUsComponent implements OnInit {
    * @param solicitationService
    */
   constructor(
-    private solicitationService: SolicitationService
-  ) { }
+    private solicitationService: SolicitationService,
+    private ts: Title
+  ) {
+    super(ts);
+    this.pageName = 'SRT - Contact Us';
+  }
 
   /**
    * angular lifecycle
    */
   ngOnInit() {
+    super.ngOnInit();
     this.myForm = new FormGroup({
       name: new FormControl(null, Validators.required),
       email: new FormControl(null, Validators.required),
