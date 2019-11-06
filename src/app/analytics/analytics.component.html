@@ -25,7 +25,6 @@
 
 
         <div class="col-md-12 nopadding clearfix analytic-select-container" tabindex="0" role="region" aria-labelledby="region2">
-            <h2 id="region2" style="display:none">select part</h2>
             <div class="clearfix analytic-padding">
                 <div class="analytic-padding-left">
                     <label for="agency"  class="srt-blue analytic-select-position">Select your agency</label>
@@ -57,7 +56,6 @@
         </div>
 
         <div class="col-md-12 nopadding clearfix analytic-section1-container" tabindex="0" role="region" aria-labelledby="region3">
-                <h2 id="region3" style="display:none">the result after you select</h2>
             <div class="row-eq-height">
                 <div class="col-md-6 nopadding">
                     <div class="col-md-6 nopadding">
@@ -86,8 +84,8 @@
         <div class="col-md-12 nopadding clearfix analytic-section2-container" tabindex="0" role="region" aria-labelledby="region4" >
                 <h2 id="region4" style="display:none">histogram of top 10 compliant angencies</h2>
                 <app-top-agencies-percentage
-                    *ngIf="isGovernomentWide"
-                    [isGovernomentWide]="isGovernomentWide"
+                    *ngIf="isGovernmentWide"
+                    [isGovernomentWide]="isGovernmentWide"
                     [TopAgenciesChart]="TopAgenciesChart"
                     [selectedGovernment]="selectedGovernment"
                     [barTitle]="barTitle"
@@ -96,7 +94,7 @@
                     [fromPeriod]="fromPeriod"
                     [xAxis]="xAxis"></app-top-agencies-percentage>
                 <app-line-charts
-                     *ngIf="!isGovernomentWide"
+                     *ngIf="!isGovernmentWide"
                      [TopAgenciesChart]="TopAgenciesChart"
                      [selectedGovernment]="selectedGovernment"
                      [selectedPeriod]="selectedPeriod"

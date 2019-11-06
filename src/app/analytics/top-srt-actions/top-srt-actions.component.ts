@@ -1,8 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import {TooltipModule} from "ng2-tooltip";
-import * as $ from 'jquery';
-
 @Component({
   selector: 'app-top-srt-actions',
   templateUrl: './top-srt-actions.component.html',
@@ -19,8 +16,9 @@ export class TopSrtActionsComponent implements OnInit {
   public updatedCompliantICTNumber = 0;
   public updatedNonCompliantICTNumber = 0;
   public updatedICTNumber = 0;
-  public reviewed:number;
+  public reviewed: number;
   public emailSend: number;
+  public selectedAgency = 'Government wide';
 
   /* CONSTRUCTOR */
 
@@ -48,6 +46,7 @@ export class TopSrtActionsComponent implements OnInit {
       this.updatedICTNumber = this.TopSRTActionChart.updatedICT;
       this.updatedCompliantICTNumber = this.TopSRTActionChart.updatedCompliantICT;
       this.updatedNonCompliantICTNumber = this.TopSRTActionChart.updatedNonCompliantICT;
+      this.selectedAgency = this.TopSRTActionChart.params.agency === 'Government-wide' ? 'all federal agencies' : 'the ' + this.TopSRTActionChart.params.agency;
     }
 
   }

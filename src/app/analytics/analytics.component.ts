@@ -2,11 +2,6 @@ import { Component, OnInit, ViewChild, Directive } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnalyticsService } from './services/analytics.service';
 import { BaseChartDirective } from 'ng2-charts';
-import { ChartsModule, Color } from 'ng2-charts';
-
-import { TooltipModule } from 'ng2-tooltip';
-
-import * as $ from 'jquery';
 
 @Component({
   selector: 'app-analytics',
@@ -34,8 +29,8 @@ export class AnalyticsComponent implements OnInit {
     ICTforDisplay = [];
 
     // bar
-    public barTitle = "Top 10 Section 508 Compliant Agencies";
-    public isGovernomentWide = true;
+    public barTitle = 'Top 10 Section 508 Compliant Agencies';
+    public isGovernmentWide = true;
 
     public params = {};
     public ScannedSolicitationChart = null;
@@ -60,7 +55,7 @@ export class AnalyticsComponent implements OnInit {
         private router: Router
     ) { }
 
-    public agencyList:string[] = [];
+    public agencyList: string[] = [];
 
     /**
      * filter on change
@@ -72,22 +67,22 @@ export class AnalyticsComponent implements OnInit {
         this.filterActionChange = true;
         if (str == 'Government-wide') {
             this.ICTforDisplay = this.ICT;
-            this.isGovernomentWide = true;
+            this.isGovernmentWide = true;
             this.xAxis = 'Agency';
         } else {
-          this.ICTforDisplay = this.ICT.filter(d => d.agency == str);
-          this.isGovernomentWide = false;
-          // Pre select for individaul agency
-          if (this.selectedPeriod == 'All') {
+          this.ICTforDisplay = this.ICT.filter(d => d.agency === str);
+          this.isGovernmentWide = false;
+          // Pre select for individual agency
+          if (this.selectedPeriod === 'All') {
               this.selectedPeriod = 'This Year';
               this.xAxis = 'Month';
           }
-          else if (this.selectedPeriod == "This Year") {
-              this.xAxis = "Month"
+          else if (this.selectedPeriod === 'This Year') {
+              this.xAxis = 'Month';
           }
-          else if (this.selectedPeriod == "This Month")
+          else if (this.selectedPeriod === 'This Month')
           {
-              this.xAxis = "Date"
+              this.xAxis = 'Date';
           }
 
         }
@@ -102,32 +97,32 @@ export class AnalyticsComponent implements OnInit {
         this.selectedPeriod = str;
         this.filterActionChange = true;
         // Get time period to filter.
-        switch(str)
+        switch (str)
         {
-            case "This Year":
+            case 'This Year':
                 this.formPeriod = new Date(new Date().getFullYear(), 0, 1);
                 this.toPeriod = new Date(new Date().getFullYear(), 11, 31);
-                this.xAxis = "Month";
+                this.xAxis = 'Month';
                 break;
-            case "This Month":
+            case 'This Month':
                 this.formPeriod = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
                 this.toPeriod = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
-                this.xAxis = "Date";
+                this.xAxis = 'Date';
                 break;
-            case "This Week":
-                var curr = new Date; // get current date
-                var first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
-                var last = first + 6; // last day is the first day + 6
+            case 'This Week':
+              const curr = new Date; // get current date
+              const first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
+              const last = first + 6; // last day is the first day + 6
                 this.formPeriod = new Date(curr.setDate(first));
                 this.toPeriod = new Date(curr.setDate(last));
                 break;
             default:
-                this.formPeriod = new Date(1900,0,1);
-                this.toPeriod = new Date(2100,0,1);
+                this.formPeriod = new Date(1900, 0, 1);
+                this.toPeriod = new Date(2100, 0, 1);
                 break;
         }
 
-        if (this.selectedGovernment == "Government-wide") this.xAxis = "Agency";
+        if (this.selectedGovernment == 'Government-wide') this.xAxis = 'Agency';
 
 
         this.GetTotalData();
@@ -137,11 +132,12 @@ export class AnalyticsComponent implements OnInit {
      * filter agency change
      */
     GetAgencyList() {
-        var agency = localStorage.getItem("agency");
-        var userRole = localStorage.getItem("userRole");
+      let agency = localStorage.getItem('agency');
+      const userRole = localStorage.getItem('userRole');
 
-        if (agency == '' ||
-          (agency.indexOf("General Services Administration") > -1 && ( userRole.indexOf('Administrator') > -1 || userRole.indexOf('SRT Program Manager') > -1))
+      if (agency === '' ||
+          (agency.indexOf('General Services Administration') > -1 &&
+            ( userRole.indexOf('Administrator') > -1 || userRole.indexOf('SRT Program Manager') > -1))
         ) {
             this.AnalyticsService.GetAgencyList()
             .subscribe(
@@ -150,7 +146,7 @@ export class AnalyticsComponent implements OnInit {
                 },
                 err => {
                 }
-            )
+            );
         }
         else
         {
@@ -165,7 +161,7 @@ export class AnalyticsComponent implements OnInit {
      * @param date
      */
     convertDate(date: Date) {
-        return  date.getMonth() + 1  + "/" + date.getDate() +"/"+ date.getFullYear()
+        return  date.getMonth() + 1  + '/' + date.getDate() + '/' + date.getFullYear();
     }
 
     /**
@@ -176,7 +172,7 @@ export class AnalyticsComponent implements OnInit {
             fromPeriod: this.convertDate(this.formPeriod),
             toPeriod: this.convertDate(this.toPeriod),
             agency: this.selectedGovernment
-        }
+        };
         console.log(this.params);
 
         this.AnalyticsService.getAnalytics(this.params)
@@ -187,6 +183,7 @@ export class AnalyticsComponent implements OnInit {
                 this.ComplianceRateChart = data.ComplianceRateChart;
                 this.ConversionRateChart = data.ConversionRateChart;
                 this.TopSRTActionChart = data.TopSRTActionChart;
+                this.TopSRTActionChart.params = this.params;
                 this.TopAgenciesChart = data.TopAgenciesChart;
                 this.PredictResultChart = data.PredictResultChart;
                 this.UndeterminedSolicitationChart = data.UndeterminedSolicitationChart;
@@ -194,7 +191,7 @@ export class AnalyticsComponent implements OnInit {
             },
             err => {
             }
-        )
+        );
     }
 
     /**

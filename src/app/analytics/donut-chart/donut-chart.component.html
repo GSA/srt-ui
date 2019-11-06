@@ -1,18 +1,18 @@
 <div class="chartcontainer">
 
         <div class="srt-blue circlechart">
-          <h3 tabstop='0' class="srt-blue chart">{{title}}</h3>
+          <h3 class="srt-blue chart">{{title}}</h3>
             <sup class="supfont"
                 [tooltip]="donutChart" tooltipPlacement="bottom">
                 <i class="fa fa-info-circle info" aria-hidden="true" ></i>
             </sup>
-            <tooltip-content #donutChart [animation]="true">
+            <tooltip-content #donutChart [animation]="true" aria-hidden="true">
                 <div>{{componentTooltip}}</div>
             </tooltip-content>
         </div>
 
         <div class="precposi">
-            <div id="{{id}}" class="percentage">
+            <div id="{{id}}" class="percentage" aria-hidden="true">
                 {{percentage}}%
             </div>
             <div class="perposition">
@@ -28,9 +28,9 @@
 
         <div class="perresult">
             <span class="chartspan">{{numerator}}</span> out of
-            <span class="chartspan">{{denominator}}</span>
+            <span class="chartspan">{{denominator}} </span>
             <span [innerHTML]="note"></span>
+            <span class="visually-hidden" [innerHTML]="readerSupplement"></span>
         </div>
-        <div [innerHTML]=tableHTML></div>
 
     </div>
