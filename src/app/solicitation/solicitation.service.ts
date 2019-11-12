@@ -11,6 +11,15 @@ import { environment } from '../../environments/environment';
 
 import { HttpClient } from '@angular/common/http';
 
+
+export interface SolicitationResult {
+  predictions: Array<Object>;
+  first: number;
+  rows: number;
+  totalCount: number;
+}
+
+
 @Injectable()
 export class SolicitationService {
   /* ATTRIBUTES */
@@ -53,7 +62,7 @@ export class SolicitationService {
    */
   getFilteredSolicitations(body) {
     return this.http
-      .post<any[]>(this.solicitationsFilterUrl, body)
+      .post<SolicitationResult>(this.solicitationsFilterUrl, body)
       .catch((error: any) => {
           console.log(error);
           return observableThrowError(error.message || 'Server Error');
@@ -117,7 +126,7 @@ export class SolicitationService {
 
   update(solicitation) {
     console.log (solicitation);
-    let url = `${this.updateUrl}${solicitation.solNum}`;
+    const url = `${this.updateUrl}${solicitation.solNum}`;
 
     return this.http
       .post(url, {solicitation: solicitation})

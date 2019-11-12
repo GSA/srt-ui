@@ -23,8 +23,6 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeng/resources/themes/omega/theme.css",
               "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/froala-editor/css/froala_editor.pkgd.min.css"
             ],
@@ -117,8 +115,8 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeng/resources/themes/omega/theme.css",
+              "src/nova-light-theme.css",
+              "src/primeng.min.css",
               "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/froala-editor/css/froala_editor.pkgd.min.css"
             ],

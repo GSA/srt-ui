@@ -74,15 +74,12 @@
 
           <div class="list">
             <div class="list-title">ICT (Yes/No):
-              <sup [tooltip]="ICT" tooltipPlacement="right">
-                          <i class="fa fa-info-circle" aria-hidden="true"></i>
-                      </sup>
-              <tooltip-content #ICT [animation]="true">
-                <div>SRT identifies Information and Communication Technology (ICT)
+              <sup pTooltip="SRT identifies Information and Communication Technology (ICT)
                   solicitations with a set of NAICS codes (334111, 334112, 334113, 334119, 511210, 516110, 517110, 517510,
-                  518111, 518112, 518210, 5324, 54121, 5415, 54161, and 561320).</div>
-              </tooltip-content>
-              &nbsp;</div>
+                  518111, 518112, 518210, 5324, 54121, 5415, 54161, and 561320).">
+                          <i class="fa fa-info-circle" aria-hidden="true"></i>
+              </sup>
+            </div>
             <div class="list-content" id="solICT">{{solicitation.eitLikelihood.value}}</div>
           </div>
 
@@ -108,13 +105,10 @@
 
           <div class="list" *ngIf="solicitation.parseStatus.length != 0 || lockDocs" id="solParseStatus">
             <div class="list-title" style="width: 100%">Machine Readable (Yes/No):
-              <sup [tooltip]="Machine" tooltipPlacement="right">
+              <sup pTooltip="Machine-readable documents are documents whose content can be readily processed by computers and electronically
+                  searchable. A digital image does not allow the text to be indexed and searched.">
                           <i class="fa fa-info-circle" aria-hidden="true"></i>
                       </sup>
-              <tooltip-content #Machine [animation]="true">
-                <div>Machine-readable documents are documents whose content can be readily processed by computers and electronically
-                  searchable. A digital image does not allow the text to be indexed and searched.</div>
-              </tooltip-content>
               &nbsp; </div>
             <div class="list-content">
               <ul class="nopadding">

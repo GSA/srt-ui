@@ -50,7 +50,10 @@ body {
 .ui-state-default.ui-unselectable-text.ui-sortable-column {
   font-size: 16px;
 }
-
+p-dropdown .ui-dropdown {
+  min-width: 100%;
+  max-width:100%;
+}
 
 .ui-calendar, .ui-calendar input {
     width: 100% !important;
