@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { UserService } from '../shared/services/user.service';
+import {BaseComponent} from '../base.component';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent extends BaseComponent implements OnInit {
 
   /* ATTRIBUTES */
   public accepted: Boolean = false;
@@ -32,13 +34,18 @@ export class AdminComponent implements OnInit {
    */
   constructor(
     private userService: UserService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private ts: Title
+  ) {
+    super(ts);
+    this.pageName = 'SRT - User Management';
+  }
 
   /**
    * lifecycle
    */
   ngOnInit() {
+    super.ngOnInit();
     this.filterParams.isAccepted = true;
     this.filterParams.isRejected = false;
     this.accepted = this.filterParams.isAccepted && !this.filterParams.isRejected;

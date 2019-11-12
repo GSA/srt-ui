@@ -1,5 +1,5 @@
 // Module: SRTHeaderComponent
-import { Component, Input, OnInit } from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../shared/services/auth.service';
@@ -51,6 +51,43 @@ export class HeaderComponent implements OnInit {
    */
   ngOnInit() {
 
+  }
+
+  popUpMenuKey(event) {
+    const focusEl = document.activeElement;
+    const dropDown = document.getElementById('gsaDropdown');
+    const helloEl = document.getElementById('menu-hello');
+    const logoutEl = document.getElementById('menu-logout');
+    if (event.keyCode === 38) { // up arrow
+      if (focusEl.id === 'menu-logout') {
+        helloEl.focus();
+      }
+    }
+
+    if (event.keyCode === 40) { // down arrow
+      if (focusEl.id === 'menu-hello') {
+        logoutEl.focus();
+      }
+    }
+  }
+
+  popUpMenuLostFocus() {
+    // using setTimeout is kind of a hack but it allows the new element to get focus
+    // if you check the document.activeElement right away the whole body of the doc has focus!
+    setTimeout( () => {
+      const active = document.activeElement;
+      const dropdown = document.getElementById('gsaDropdown');
+      if ( ! dropdown.contains(active)) {
+        this.closeMenus(dropdown);
+      }
+    }, 250);
+  }
+
+  closeMenus(parentElement) {
+    const els = parentElement.getElementsByClassName('open');
+    for (let e of els) {
+      e.classList.remove('open');
+    }
   }
 
   /**

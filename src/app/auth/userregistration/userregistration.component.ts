@@ -8,13 +8,15 @@ import { Agency } from "../../shared/agency";
 import { User } from "../../shared/user";
 
 import { CompleterService, CompleterData } from "ng2-completer";
+import {BaseComponent} from '../../base.component';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: "app-userregistration",
   templateUrl: "./userregistration.component.html",
   styleUrls: ["./userregistration.component.css"]
 })
-export class UserregistrationComponent implements OnInit {
+export class UserregistrationComponent extends BaseComponent implements OnInit {
 
   /* ATTRIBUTES */
 
@@ -39,16 +41,21 @@ export class UserregistrationComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private agencyService: AgencyService,
-    private completerService: CompleterService
-  ) {}
+    private completerService: CompleterService,
+    private titleService: Title
+  ) {
+    super(titleService);
+    this.pageName = 'SRT - User Management';
+  }
 
   // sets up data template for  registration form
   ngOnInit() {
+    super.ngOnInit();
     this.myForm = new FormGroup({
       position: new FormControl('', [
         Validators.required
       ]),
-     
+
       firstName: new FormControl('',[
         Validators.required
       ] ),
@@ -70,7 +77,7 @@ export class UserregistrationComponent implements OnInit {
 
     this.agencyService.GetAgencies().subscribe(data => {
       this.data = [];
-      
+
       data.forEach(element => {
         this.data.push(element.Agency);
       });
@@ -105,8 +112,8 @@ export class UserregistrationComponent implements OnInit {
       );
       this.myForm.reset();
     }
-    
- 
+
+
   }
 
 

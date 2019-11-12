@@ -1,6 +1,6 @@
 <!-- /home -->
 
-<main id="content" class="bypass-block-target" tabindex="-1">
+<main id="content" class="bypass-block-target">
 
     <div class="srt-homehead">
 
@@ -9,10 +9,10 @@
           <div class="srt-headdisplay">
             <div class="srt-headpadding">
               <h1 class="srt-blue srt-maintitle">Solicitation Review Tool</h1>
-              <h3 class="srt-blue srt-textpadding">
+              <div style="font-size: 24px; font-weight:500;" class="srt-blue srt-textpadding">
                 The Solicitation Review Tool (SRT) is provided to help agencies evaluate the overall solicitation compliance with accessibility,
                 cyber security, and other regulations and requirements.
-              </h3>
+              </div>
             </div>
           </div>
         </div>
@@ -24,7 +24,7 @@
             <div class="row">
 
               <!-- Review/Manage Workload -->
-              <a [routerLink]="['/solicitation/report']">
+              <a [routerLink]="['/solicitation/report']" aria-labelledby="h3rmw" class="orange">
                 <div class="col-md-4 col-sm-6 srt-marginbot">
                       <div class="srt-1-1">
                           <div>
@@ -43,7 +43,7 @@
                                   <div class="srt-11-20">
                                       <div>
                                           <div class="srt-block-padding">
-                                              <h3 style="color:black">Review/Manage Workload</h3>
+                                              <h2 style="color:black" id="h3rmw">Review/Manage Workload</h2>
                                               <p style="color:black">Access and manage solicitation review results for your agency</p>
                                           </div>
                                       </div>
@@ -55,7 +55,7 @@
               </a>
 
               <!-- View Analytic -->
-              <a [routerLink]="['/analytics']">
+              <a [routerLink]="['/analytics']" aria-labelledby="h3va">
                 <div class="col-md-4 col-sm-6 srt-marginbot">
                     <div class="srt-1-1">
                       <div class="ribbon" *ngIf="isGSAAdmin==false"><span>Coming soon</span></div>
@@ -75,7 +75,7 @@
                                 <div class="srt-11-20">
                                     <div>
                                         <div class="srt-block-padding">
-                                            <h3 style="color:black">View Analytics</h3>
+                                            <h2 style="color:black" id="h3va">View Analytics</h2>
                                             <p style="color:black">Visualize trend and discover insights from the analytics</p>
                                         </div>
                                     </div>
@@ -87,7 +87,7 @@
               </a>
 
               <!-- Manage SRT Access Requests -->
-              <a [routerLink]="['/admin']">
+              <a [routerLink]="['/admin']" aria-labelledby="h3msar">
                 <div class="col-md-4 col-sm-6 srt-marginbot" *ngIf="isGSAAdmin">
                     <div class="srt-1-1">
                         <div>
@@ -107,7 +107,7 @@
                                 <div class="srt-11-20">
                                     <div>
                                         <div class="srt-block-padding">
-                                            <h3 style="color:black">Manage SRT Access Requests</h3>
+                                            <h2 style="color:black" id="h3msar">Manage SRT Access Requests</h2>
                                             <p style="color:black"> The Administrator manages new SRT sign up requests and current users settings</p>
                                         </div>
                                     </div>
@@ -119,7 +119,7 @@
               </a>
 
               <!-- Get Additional Resourses -->
-              <a href="" onclick="window.open('https://app.buyaccessible.gov/baw/Main.jsp')">
+              <a href="https://app.buyaccessible.gov/" aria-labelledby="h3gar">
                 <div class="col-md-4 col-sm-6 srt-marginbot" >
                     <div class="srt-1-1">
                         <div>
@@ -129,7 +129,7 @@
                                     <div>
                                         <div class="srt-iconpadding">
                                             <div class="srt-icon">
-                                              <img alt="Get Additional Resources" src="/assets/get-additional-resourses.png"/>
+                                              <img alt="Get Additional Resources Icon" src="/assets/get-additional-resourses.png"/>
                                             </div>
                                         </div>
                                     </div>
@@ -138,7 +138,7 @@
                                 <div class="srt-11-20">
                                     <div>
                                         <div class="srt-block-padding">
-                                            <h3 style="color:black">Get Additional Resources</h3>
+                                            <h2 style="color:black" id="h3gar">Get Additional Resources</h2>
                                             <p style="color:black">Need help with Accessibility requirements? Accessibility Requirements Tool can assist you with that</p>
                                         </div>
                                     </div>
@@ -150,7 +150,7 @@
               </a>
 
               <!-- FAQ -->
-              <a [routerLink]="['/help/faq']">
+              <a [routerLink]="['/help/faq']" aria-labelledby="h3faq">
                 <div class="col-md-4 col-sm-6 srt-marginbot">
                     <div class="srt-1-1">
                         <div>
@@ -169,7 +169,7 @@
                                 <div class="srt-11-20">
                                     <div>
                                         <div class="srt-block-padding">
-                                            <h3 style="color:black">FAQ</h3>
+                                            <h2 style="color:black" id="h3faq">FAQ</h2>
                                             <p style="color:black">Review Frequently Asked Questions and learn more about SRT</p>
                                         </div>
                                     </div>

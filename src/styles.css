@@ -354,14 +354,31 @@ button.srt-button {
 /*
  * For `.visually-hidden` elements that should be visible when it gains focus.
  */
+.visible-when-focused {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
+  -webkit-clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
 .visible-when-focused:focus {
-	clip: auto;
-	height: auto;
-	overflow: visible;
-	position: static;
-	white-space: normal;
-	width: auto;
-	margin: auto;
+  border: inherit;
+  clip: inherit;
+  clip-path: inherit;
+  -webkit-clip-path: auto;
+  height: inherit;
+  margin: inherit;
+  overflow: inherit;
+  padding: inherit;
+  position: inherit;
+  width: inherit;
+  white-space: inherit;
 }
 
 /*
@@ -404,7 +421,7 @@ button.srt-button {
 a:focus,
 button:focus,
 input:focus {
-  outline: solid 2px orange;
+  outline: solid 2px orange !important;
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

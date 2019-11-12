@@ -56,6 +56,22 @@ body {
     width: 100% !important;
 }
 
+.result-red span,
+.result-red i
+{
+  font-size: 16px;
+  color: #cc0000;
+  weight: bold;
+}
+
+.result-green span,
+.result-green i
+{
+  font-size: 16px;
+  weight: bold;
+  color: green;
+}
+
 
 /*Animation */
 ul.cb-slideshow {
@@ -67,11 +83,11 @@ ul.cb-slideshow {
 ul.cb-slideshow li {
     list-style: none;
     display: inline;
-} 
+}
 /*solicitation report */
 .solic-nosolic{
-    height: calc(100vh - 60px); 
-    display: table; 
+    height: calc(100vh - 60px);
+    display: table;
     width: 100%;
 }
 .solic-nosolic-posi{
@@ -79,36 +95,36 @@ ul.cb-slideshow li {
     vertical-align:middle
 }
 .solic-table{
-    display: table; 
-    width: 100%; 
-    max-width: 600px; 
+    display: table;
+    width: 100%;
+    max-width: 600px;
     float: right
 }
 .solic-keyword{
-    display: table-cell; 
-    vertical-align: middle; 
-    width: 105px; 
+    display: table-cell;
+    vertical-align: middle;
+    width: 105px;
     font-size: 16px;
 }
 .solic-table-cell{
-    display: table-cell; 
-    vertical-align: middle; 
+    display: table-cell;
+    vertical-align: middle;
     width: 300px;
 }
 .solic-export{
     display: table-cell;
-    vertical-align: middle; 
+    vertical-align: middle;
     width: 65px;
 }
 .solic-export-cursor{
-    display: table-cell; 
-    vertical-align: middle; 
-    width: 40px; 
+    display: table-cell;
+    vertical-align: middle;
+    width: 40px;
     cursor: pointer
 }
 .solic-littlescan{
-    font-weight: 500; 
-    float: left; 
+    font-weight: 500;
+    float: left;
     color: #186ba0
 }
 .cb-slideshow li span {

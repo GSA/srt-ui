@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
 import { SolicitationService } from '../solicitation.service';
+import {BaseComponent} from '../../base.component';
+import {Title} from '@angular/platform-browser';
 @Component({
   selector: 'app-feedback-report',
   templateUrl: './feedback-report.component.html',
   styleUrls: ['./feedback-report.component.css']
 })
-export class FeedbackReportComponent implements OnInit {
+export class FeedbackReportComponent extends BaseComponent implements OnInit {
 
   /* ATTRIBUTES */
 
@@ -22,13 +24,18 @@ export class FeedbackReportComponent implements OnInit {
    * constructor
    */
   constructor(
-    private solicitationService: SolicitationService
-  ) {}
+    private solicitationService: SolicitationService,
+    private ts: Title
+  ) {
+    super(ts);
+    this.pageName = 'SRT - Feedback Report';
+  }
 
   /**
    * lifecycle
    */
   ngOnInit() {
+    super.ngOnInit();
     this.getFeedback();
   }
 

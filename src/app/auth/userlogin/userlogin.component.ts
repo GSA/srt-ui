@@ -8,13 +8,15 @@ import { UserService } from '../../shared/services/user.service';
 import { AuthGuard } from '../../auth-guard.service'
 import { AppComponent } from '../../app.component'
 import { environment } from '../../../environments/environment'
+import {BaseComponent} from '../../base.component';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-userlogin',
   templateUrl: './userlogin.component.html',
   styleUrls: ['./userlogin.component.css']
 })
-export class UserloginComponent implements OnInit {
+export class UserloginComponent extends BaseComponent implements OnInit {
 
   /* ATTRIBUTES */
 
@@ -37,12 +39,17 @@ export class UserloginComponent implements OnInit {
               private authGuard: AuthGuard,
               private authService: AuthService,
               private router: Router,
-              private user: UserService) {}
+              private user: UserService,
+              private ts: Title) {
+    super(ts);
+    this.pageName = 'Solicitation Review Tool';
+  }
 
   /**
    * lifecycle
    */
   ngOnInit() {
+    super.ngOnInit();
     this.myForm = new FormGroup({
       email: new FormControl('', [Validators.required]
       ),
@@ -53,7 +60,7 @@ export class UserloginComponent implements OnInit {
   /**
    * submit
    * submit authentication data.  uses local storage to hold encrypted
-   * json web token and user agency.  
+   * json web token and user agency.
    * the jwt is set to expire after 2 hours.
    */
   onSubmit() {
@@ -62,7 +69,7 @@ export class UserloginComponent implements OnInit {
     user.password = this.myForm.value.password;
 
     if (!this.myForm.valid) {
-      alert("your input is not valid!")
+      alert('your input is not valid!')
       this.myForm.reset();
 
     }else{
@@ -102,7 +109,7 @@ export class UserloginComponent implements OnInit {
       );
     }
 
-   
+
 
   }
 

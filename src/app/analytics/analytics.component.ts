@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, Directive } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnalyticsService } from './services/analytics.service';
 import { BaseChartDirective } from 'ng2-charts';
+import {BaseComponent} from '../base.component';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-analytics',
@@ -11,7 +13,7 @@ import { BaseChartDirective } from 'ng2-charts';
 
 @Directive({selector: 'baseChart'})
 
-export class AnalyticsComponent implements OnInit {
+export class AnalyticsComponent extends BaseComponent implements OnInit {
 
     /* ATTRIBUTES */
 
@@ -42,6 +44,7 @@ export class AnalyticsComponent implements OnInit {
     public PredictResultChart = null;
     public UndeterminedSolicitationChart = null;
     public filterActionChange = false;
+    public agencyList: string[] = [];
 
     /* CONSTRUCTOR */
 
@@ -52,10 +55,12 @@ export class AnalyticsComponent implements OnInit {
      */
     constructor(
         private AnalyticsService: AnalyticsService,
-        private router: Router
-    ) { }
+        private router: Router,
+        private titleService: Title
+    ) {
+      super(titleService);
+    }
 
-    public agencyList: string[] = [];
 
     /**
      * filter on change
@@ -200,6 +205,8 @@ export class AnalyticsComponent implements OnInit {
     ngOnInit() {
         this.GetAgencyList();
         this.GetTotalData();
+        this.pageName = 'SRT - Analytics';
+        super.ngOnInit();
     }
 
     /**
