@@ -1,26 +1,20 @@
 <!-- SRTDashHeaderView -->
 
 <div id="header">
-      <a id="test" href="/" style="position:absolute;
-      left:-10000px;
-      top:auto;
-      width:1px;
-      height:1px;
-      overflow:hidden;">you have accessed a new page of SRT,It contains navigation and main content.</a>
-
         <a
         id="skipMain" href="javascript:
         const oh=location.hash;
         location.hash='#content';
         location.hash=oh;
-        void(0);" class="visually-hidden visible-when-focused bypass-block-link">
+        void(0);" class="visible-when-focused bypass-block-link"
+        style="color:black;">
             Skip to Main content
           </a>
   <nav class="us-navbar navbar-default">
 
         <div class="container-fluid" style="padding: 0;">
-            <div class="navbar-header nopadding" style="height: 60px" aria-hidden="true">
-                <a class="navbar-left" [routerLink]="['/home']"><img id="srtlogo" alt='SRT Logo' src="../../assets/srtlogo.png"></a>
+            <div class="navbar-header nopadding" style="height: 60px" >
+                <a tabindex="-1" class="navbar-left" [routerLink]="['/home']" aria-label="SRT Home Page"><img id="srtlogo" alt='SRT Logo' src="../../assets/srtlogo.png"></a>
             </div>
 
         <div class="collapse navbar-collapse" id="navbar" style="padding: 0;" role="navigation" aria-label="main navigation" >
@@ -29,29 +23,36 @@
                      <li data-toggle="tab" [ngClass]="{'active': GetHash('home')}" id="1" (click)="menuClick('/home');"><a [routerLink]="['/home']">Home</a></li>
                      <li data-toggle="tab" [ngClass]="{'active': GetHash('solicitation')}" id="2" (click)="menuClick('/solicitation/report');"><a [routerLink]="['/solicitation/report']">Manage/Review Workload</a></li>
                      <li data-toggle="tab" *ngIf="isGSAAdmin" [ngClass]="{'active': GetHash('analytics')}" id="3" (click)="menuClick('/analytics');"><a [routerLink]="['/analytics']" id="nav-analytics">View Analytics</a></li>
-                     <li data-toggle="tab" *ngIf="isGSAAdmin" [ngClass]="{'active': GetHash('admin')}" id="4" (click)="menuClick('/admin');"><a [routerLink]="['/admin']">User Management</a></li>
+                     <li data-toggle="tab" *ngIf="isGSAAdmin" [ngClass]="{'active': GetHash('admin')}" id="4" (click)="menuClick('/admin');"><a tabindex="{{ isGSAAdmin ? 0 : -1}}"  [routerLink]="['/admin']">User Management</a></li>
                      <li data-toggle="tab" [ngClass]="{'active': GetHash('contactus')}" id="5" (click)="menuClick('/help/contactus');"><a [routerLink]="['/help/contactus']">Contact Us</a></li>
                      <li data-toggle="tab" [ngClass]="{'active': GetHash('faq')}" id="6"  (click)="menuClick('/help/faq');"><a [routerLink]="['/help/faq']"> FAQs</a></li>
                      <li data-toggle="tab" *ngIf="isGSAAdmin" [ngClass]="{'active': GetHash('feedback/report')}" id="7" (click)="menuClick('/solicitation/feedback');"><a [routerLink]="['/solicitation/feedback']">Feedback</a></li>
                 </ul>
 
-                <div class=" gsa_logo" aria-hidden="true">
-                    <a class="logo_li">
+                <div class="gsa_logo" >
                     <div class='span-logo' >
-                        <img alt="GSA Logo" src='../../assets/gsa-logo.png'/>
+                        <img aria-label="GSA Logo" alt="GSA Logo" src='../../assets/gsa-logo.png'/>
                     </div>
-                    </a>
                 </div>
-                <ul *ngIf="isLogin" id="gsaDropdown" class="nav navbar-nav" style="float: right;" >
+                <ul *ngIf="isLogin" id="gsaDropdown" (keydown)="popUpMenuKey($event)" class="nav navbar-nav" style="float: right;"  >
                     <li class="dropdown">
-                        <a *ngIf="isLogin" href="#menu" class="dropdown-toggle"
+                        <a *ngIf="isLogin" tabindex="0" id="menu-hello" href="#menu" class=""
                                     style="font-weight: 300"
                                     data-toggle="dropdown"
                                     aria-haspopup="true"
-                                    aria-expanded="false">Hello, {{firstName}}<span class="caret"></span></a>
+                                    aria-expanded="false"
+                                    (blur)="this.popUpMenuLostFocus()">Hello, {{firstName}}<span class="caret"></span></a>
 
                         <ul class="dropdown-menu" role="listbox">
-                            <li><button tabindex="0" class="dropdown-item" type="button" style="padding: 10px 20px; font-weight:300; font-size:medium; font-family: Arial, sans-serif;" (click)="onLogout()" role="option">Log Out</button></li>
+                            <li>
+                              <button (blur)="this.popUpMenuLostFocus()"
+                                      id="menu-logout"
+                                      tabindex="0"
+                                      class="dropdown-item"
+                                      type="button"
+                                      style="padding: 10px 20px; font-weight:300; font-size:medium; font-family: Arial, sans-serif;"
+                                      (click)="onLogout()" role="option">Log Out</button>
+                            </li>
                       </ul>
                     </li>
                 </ul>

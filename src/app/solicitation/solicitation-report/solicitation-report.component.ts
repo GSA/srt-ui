@@ -3,6 +3,8 @@ import {Router} from '@angular/router';
 import {SolicitationService} from '../solicitation.service';
 import {SelectItem} from 'primeng/primeng';
 import * as $ from 'jquery';
+import {Title} from '@angular/platform-browser';
+import {BaseComponent} from '../../base.component';
 
 
 @Component({
@@ -11,7 +13,7 @@ import * as $ from 'jquery';
   styleUrls: ['./solicitation-report.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class SolicitationReportComponent implements OnInit {
+export class SolicitationReportComponent extends BaseComponent implements OnInit {
 
   /* ATTRIBUTES */
 
@@ -50,8 +52,11 @@ export class SolicitationReportComponent implements OnInit {
    */
   constructor(
     private solicitationService: SolicitationService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) {
+    super(titleService);
+    this.pageName = 'SRT - Manage/Review Workload';
   }
 
 
@@ -59,6 +64,7 @@ export class SolicitationReportComponent implements OnInit {
    * lifecycle
    */
   ngOnInit() {
+    super.ngOnInit();
     this.stacked = window.matchMedia('(max-width: 992px)').matches;
 
     this.initFilterParams();
@@ -134,6 +140,7 @@ export class SolicitationReportComponent implements OnInit {
     this.solicitationService.updateHistory(solicitation)
       .subscribe(
         msg => {
+          this.titleService.setTitle('SRT - Solicitation ID ' + msg.id)
           this.router.navigate(['/solicitation/report', msg.id]);
         },
         () => {

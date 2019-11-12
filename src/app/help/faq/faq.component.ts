@@ -4,13 +4,15 @@ import { ActivatedRoute } from '@angular/router';
 // Services
 import { HelpService } from "../../shared/services/help.service";
 import * as $ from 'jquery'
+import {BaseComponent} from '../../base.component';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: "app-faq",
   templateUrl: "./faq.component.html",
   styleUrls: ["./faq.component.css"]
 })
-export class FaqComponent implements OnInit {
+export class FaqComponent extends BaseComponent implements OnInit {
 
   /* ATTRIBUTES */
 
@@ -28,13 +30,18 @@ export class FaqComponent implements OnInit {
    */
   constructor(
     private helpService: HelpService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private ts: Title
+  ) {
+    super(ts);
+    this.pageName = 'SRT - Frequently Asked Questions';
+  }
 
   /**
    * angular lifecycle
    */
   ngOnInit() {
+    super.ngOnInit();
     this.id = this.route.snapshot.params['id'];
 
     if (this.id !== null) {

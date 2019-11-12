@@ -38,8 +38,9 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 [type=checkbox], [type=radio] {
-    margin-left: -2rem;
-    position: absolute;
+    /*margin-left: -2rem;*/
+    /*position: absolute;*/
+  margin-right: 5px;
 }
 
 ul.checkbox-ul {

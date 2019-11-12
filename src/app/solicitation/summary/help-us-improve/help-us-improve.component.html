@@ -1,4 +1,4 @@
-<main id="content" class="bypass-block-target" tabindex="-1">
+<main id="content" class="bypass-block-target">
   <app-summary [step1]="step1" [step2]="step2" [step3]="step3" [solicitationID]="solicitationID" [type]="type">
   </app-summary>
 
@@ -16,6 +16,7 @@
 
       <div *ngIf="!feedbackSent">
         <div id="instruction">
+          <h2 class="visually-hidden">Instructions</h2>
           <div style="padding-bottom: 10px">The SRT Team welcome your Subject Matter Expertise to make our tool better for all. To review scanned solicitation
             and provide your feedback, please follow the steps below:</div>
 
@@ -32,9 +33,9 @@
         <div *ngIf="solicitation" class="clearfix impcontainer">
           <div class="imppostion">
             <div style="padding-bottom: 20px;">
-              <div class="srt-section-title" style="text-transform: uppercase; padding-bottom: 20px;">
+              <h2 class="srt-section-title" style="text-transform: uppercase; padding-bottom: 20px;">
                 solicitation review result
-              </div>
+              </h2>
               <div class="list">
                 <div class="list-title" style="width: 120px">Solicitation Title:&nbsp;</div>
                 <div class="list-content">{{solicitation.title}}</div>
@@ -58,30 +59,35 @@
             </div>
 
           <ul *ngFor="let survey of surveys; let i = index" style="padding: 0px;">
-            <li style="list-style: none;"><span *ngIf="survey.Question != 'Additional feedback:'">Q{{i+1}}. </span>{{survey.Question}} <br>
-              <span style="color: #899197">{{survey.Note}}</span>
-              <ul style="padding: 5px 0px 0px 0px;" class="checkbox-ul">
-                <li *ngFor="let choice of survey.Choices; let c=index" style="list-style: none; padding: 0px 15px 0px 0px;" [ngStyle]="{'display': survey.Type=='multiple choice' ? 'inline-block' : 'block'}">
-                  <input id="{{survey.ID}}{{choice}}" style=""   [ngModel]="surveyModel[i]==survey.Choices[c]" (ngModelChange)="checkBox(survey, choice, $event)"
-                    type="checkbox" value="{{choice}}"/>
-                  <label for="{{survey.ID}}{{choice}}">{{choice}}</label>
+            <li style="list-style: none;">
+              <h3 style="font-size: 18px;" *ngIf="survey.Question != 'Additional feedback:'">Q{{i+1}}. {{survey.Question}}</h3>
 
-                </li>
-                <li *ngIf="survey.Type=='essay'" style="list-style: none; padding: 0px 15px 0px 0px;">
-                  <div> <label for="{{survey.ID}}{{choice}}" style="position:absolute;
-                    left:-10000px;
-                    top:auto;
-                    width:1px;
-                    height:1px;
-                    overflow:hidden;">textarea to enter your feedback</label></div>
-                  <textarea id="{{survey.ID}}{{choice}}" class="form-control" [ngModel]="surveyModel[i]" (ngModelChange)="textarea(survey, $event)" [ngStyle]="{'min-height':survey.Question == 'Additional feedback:' ? '150px' : 'auto' }"> </textarea>
-                </li>
-              </ul>
+
+              <div style="padding-left: 60px;">
+                <span style="color: #899197">{{survey.Note}}</span>
+                <span style="padding: 5px 0px 0px 0px;" class="checkbox-ul">
+                  <div *ngFor="let choice of survey.Choices; let c=index" style="list-style: none; padding: 0px 15px 0px 0px;" [ngStyle]="{'display': survey.Type=='multiple choice' ? 'inline-block' : 'block'}">
+                    <input [attr.aria-label]="choice" id="{{survey.ID}}{{choice}}" style=""   [ngModel]="surveyModel[i]==survey.Choices[c]" (ngModelChange)="checkBox(survey, choice, $event)"
+                      type="checkbox" value="{{choice}}"/>
+                    <label aria-hidden="true" for="{{survey.ID}}{{choice}}">{{choice}}</label>
+
+                  </div>
+                  <div *ngIf="survey.Type=='essay'" style="list-style: none; padding: 0px 15px 0px 0px;">
+                    <div> <label id="{{survey.ID}}-label" for="{{survey.ID}}{{choice}}" style="position:absolute;
+                      left:-10000px;
+                      top:auto;
+                      width:1px;
+                      height:1px;
+                      overflow:hidden;">textarea to enter your feedback</label></div>
+                    <textarea [attr.aria-labelledby]="survey.ID + '-label'" id="{{survey.ID}}{{choice}}" class="form-control" [ngModel]="surveyModel[i]" (ngModelChange)="textarea(survey, $event)" [ngStyle]="{'min-height':survey.Question == 'Additional feedback:' ? '150px' : 'auto' }"> </textarea>
+                  </div>
+                </span>
+              </div>
             </li>
           </ul>
 
             <div style="padding: 15px;">
-              <button type="submit" class="srt-button imsubmit" (click)="feedback()" aria-label="submit this feedback">Submit</button>
+              <button aria-label="Submit Solicitation Review" type="submit" class="srt-button imsubmit" (click)="feedback()" aria-label="submit this feedback">Submit</button>
             </div>
 
           </div>

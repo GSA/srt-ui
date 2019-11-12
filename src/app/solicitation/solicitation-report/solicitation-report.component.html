@@ -1,4 +1,4 @@
-<main id="content" class="bypass-block-target" tabindex="-1">
+<main id="content" class="bypass-block-target">
 <div *ngIf="!solicitations" class="solic-nosolic">
     <div class="solic-nosolic-posi" id="loading">
         <ul class="cb-slideshow">
@@ -20,11 +20,11 @@
 <div *ngIf="solicitations">
     <div class="row nopadding">
         <div style="padding: 20px" class="clearfix">
-            <div class="srt-page-title srt-blue" style="padding-bottom: 5px;"  role="heading" aria-level="1">Solicitation Review Results for Section 508 Requirements</div>
+            <h1 class="srt-page-title srt-blue" style="padding-bottom: 5px;"  role="heading" aria-level="1">Solicitation Review Results for Section 508 Requirements</h1>
 
             <div class="solic-table">
                     <div class="solic-keyword">
-                    <label for="ksearch" class="solic-keyword">Keyword Search:
+                    <label id="ksearch-label" for="ksearch" class="solic-keyword">Search all table content:
                             <!--<span class="input-invalid" *ngIf="errorMessage && (myForm.value.email == null || myForm.value.email == '')">Please fill in requred field</span>-->
                     </label>
                     </div>
@@ -36,14 +36,12 @@
                                 <span class=" glyphicon glyphicon-search"></span>
                             </button>
                         </span>
-                        <input id="ksearch" #gb type="text" class="search-query form-control" placeholder="Global Filter" />
+                        <input aria-labelledby="ksearch-label" id="ksearch" #gb type="text" class="search-query form-control" placeholder="search string" />
                     </div>
                 </div>
                 <div class="solic-export"><div style="padding: 0 0 0 15px;">Export As:</div></div>
                 <div class="solic-export-cursor">
-
-
-                    <img tabindex="0" id="csvlogo" alt="export as csv" src="../../../assets/downloadcsv.jpeg" style="float:left" (keydown.enter)="dt.exportCSV()"  (click)="dt.exportCSV()">
+                    <img tabindex="0" id="csvlogo" aria-label="export as csv" alt="export as csv" src="../../../assets/downloadcsv.jpeg" style="float:left" (keydown.enter)="dt.exportCSV()"  (click)="dt.exportCSV()">
                 </div>
             </div>
 
@@ -62,7 +60,7 @@
             [responsive]="true"
             [stacked]="stacked">
 
-        <p-column field="solNum"  header="Solicitation ID" [sortable]="true" [filter]="false" filterPlaceholder="Search" [style]="{'width': '170px'}" ></p-column>
+        <p-column tabindex="0" aria-lable="Solicitation ID sortable" field="solNum"  header="Solicitation ID" [sortable]="true" [filter]="false" filterPlaceholder="Search" [style]="{'width': '170px'}" ></p-column>
         <p-column field="title" header="Solicitation Title" [sortable]="true" [filter]="false" filterPlaceholder="Search">
             <ng-template let-sol="rowData" pTemplate="body">
                 <a href="{{sol.url}}" target="_blank">{{sol.title}}</a>
@@ -71,7 +69,7 @@
 
         <p-column field="noticeType" header="Notice Type" [sortable]="true" [filter]="true" [style]="{'overflow':'visible', 'width': '200'}"  filterPlaceholder="Search" >
             <ng-template pTemplate="filter" let-col >
-                <p-dropdown [options]="solType " [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter" aria-hidden="true" ></p-dropdown>
+                <p-dropdown tabsindex="0" [options]="solType " [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter" aria-hidden="true" ></p-dropdown>
             </ng-template>
         </p-column>
 
@@ -85,7 +83,7 @@
 
             <ng-template let-sol="rowData" pTemplate="body">
 
-              <span [ngStyle]="{'color' : sol.predictions.value }">
+              <span class="{{'result-' + sol.predictions.value}}" [ngStyle]="{'color' : sol.predictions.value }">
                   <button class="button" (click)="selectSol(sol)" onclick="$('#test').focus()" style="border: none; text-align: left; padding: 0;">
                       <i class="fa fa-exclamation-triangle" style="padding-right: 5px;" *ngIf="sol.predictions.value == 'red'"></i>
                       <span style="text-decoration: underline;">{{sol.reviewRec}}</span>
