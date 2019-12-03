@@ -17,7 +17,8 @@ import { TokenService } from './shared/services/token.service';
 
 
 import { SolicitationModule } from './solicitation/solicitation.module';
-import { DataTableModule, SharedModule, ButtonModule, DropdownModule, CalendarModule} from 'primeng/primeng';
+import { SharedModule, ButtonModule, DropdownModule, CalendarModule} from 'primeng/primeng';
+import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'ng2-tooltip';
 import { Ng2CompleterModule } from 'ng2-completer';
 
@@ -29,6 +30,7 @@ import { SurveyService } from './survey.service';
 import { MasqService } from './user/masq/masq.service';
 import { UserService } from './shared/services/user.service';
 import { AuthGuard } from './auth-guard.service';
+import { NoticeTypesService } from './shared/services/noticeTypes.service';
 import { VersionService } from './shared/services/version.service';
 
 // COMPONENTS
@@ -74,7 +76,7 @@ import {BaseComponent} from './base.component';
     HomeModule,
     HelpModule,
     UserModule,
-    DataTableModule,
+    TableModule,
     SharedModule,
     ButtonModule,
     DropdownModule,
@@ -93,6 +95,7 @@ import {BaseComponent} from './base.component';
     TokenService,
     AuthGuard,
     AdminGuard,
+    NoticeTypesService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

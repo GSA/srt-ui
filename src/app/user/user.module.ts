@@ -17,7 +17,8 @@ import { UserRoutingModule } from './user.routing';
 // Components
 
 // Open Sources
-import { DataTableModule, SharedModule, ButtonModule, DropdownModule, CalendarModule } from 'primeng/primeng';
+import { SharedModule, ButtonModule, DropdownModule, CalendarModule } from 'primeng/primeng';
+import { TableModule } from 'primeng/table';
 import { Ng2CompleterModule } from 'ng2-completer';
 import { FileUploadModule } from 'primeng/primeng';
 import {MasqComponent} from './masq/masq.component';
@@ -28,7 +29,7 @@ import {MasqComponent} from './masq/masq.component';
   imports: [
     CommonModule,
     UserRoutingModule,
-    DataTableModule,
+    TableModule,
     SharedModule,
     ButtonModule,
     DropdownModule,

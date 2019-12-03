@@ -1,5 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import '../node_modules/primeng/resources/primeng.min.css';
+@import '../node_modules/primeng/resources/themes/nova-light/theme.css';
+@import '../node_modules/primeicons/primeicons.css';
+
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600,700);
 body {
   font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
@@ -426,12 +430,22 @@ input:focus {
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-
-/* Chart syles */
+/* Chart styles */
 .chart{
   font-size: 20px;
   margin-bottom: 20px;
   font-weight: 600;
   line-height: normal;
   display: inline-block;
+}
+
+
+/* Table styles */
+body .ui-table .ui-table-thead > tr > th {
+  padding-right: .1em;
+  padding-left: .1em;
+}
+
+body .ui-table .ui-table-thead > tr > th {
+  text-align: center;
 }

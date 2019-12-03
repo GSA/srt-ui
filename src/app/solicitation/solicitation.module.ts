@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
-import { DataTableModule,SharedModule, ButtonModule, DropdownModule, CalendarModule} from 'primeng/primeng';
-import { TooltipModule } from "ng2-tooltip";
+import { SharedModule, ButtonModule, DropdownModule, CalendarModule} from 'primeng/primeng';
+import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
 import { QuillEditorModule } from 'ngx-quill-editor';
 
-import { SolicitationRoutesModule } from './solicitation.routing'
+import { SolicitationRoutesModule } from './solicitation.routing';
 
 
 import { SolicitationService } from './solicitation.service';
-import { AuthGuard } from '../auth-guard.service'
+import { AuthGuard } from '../auth-guard.service';
 
 import { SolicitationReportComponent } from './solicitation-report/solicitation-report.component';
 import { SummaryComponent } from './summary/summary.component';
@@ -32,7 +33,7 @@ import { PredictionHistoryComponent } from './summary/prediction-history/predict
     ReactiveFormsModule,
     RouterModule,
 
-    DataTableModule,
+    TableModule,
     SharedModule,
     ButtonModule,
     DropdownModule,
@@ -53,7 +54,7 @@ import { PredictionHistoryComponent } from './summary/prediction-history/predict
     FeedbackReportComponent,
     FormComponent,
     PredictionHistoryComponent,
-   
+
   ],
   providers: [
     SolicitationService,
