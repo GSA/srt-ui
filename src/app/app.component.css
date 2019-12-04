@@ -23,7 +23,8 @@
 
 .gsa-subtitle{
     display: inline-block;
-    font-size: 12px
+    font-size: 12px;
+    margin-right: 2em;
 }
 
 .version{

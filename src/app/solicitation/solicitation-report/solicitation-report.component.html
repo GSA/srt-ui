@@ -108,60 +108,6 @@
     </ng-template>
 
   </p-table>
-  <!--
-    <p-dataTable #dt styleClass="pDataTable"
-            [value]="solicitations"
-            [rows]="15"
-            [paginator]="true"
-            [rowsPerPageOptions]="[15, 25, 35, 45]"
-            [globalFilter]="gb"
-            [responsive]="true"
-            [stacked]="stacked">
 
-        <p-column tabindex="0" aria-lable="Solicitation ID sortable" field="solNum"  header="Solicitation ID" [sortable]="true" [filter]="false" filterPlaceholder="Search" [style]="{'width': '170px'}" ></p-column>
-        <p-column field="title" header="Solicitation Title" [sortable]="true" [filter]="false" filterPlaceholder="Search">
-            <ng-template let-sol="rowData" pTemplate="body">
-                <a href="{{sol.url}}" target="_blank">{{sol.title}}</a>
-            </ng-template>
-        </p-column>
-
-        <p-column field="noticeType" header="Notice Type" [sortable]="true" [filter]="true" [style]="{'overflow':'visible', 'width': '200'}"  filterPlaceholder="Search" >
-            <ng-template pTemplate="filter" let-col >
-                <p-dropdown tabsindex="0" [options]="solType " [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter" aria-hidden="true" ></p-dropdown>
-            </ng-template>
-        </p-column>
-
-        <p-column field="date" header="Date Posted on FedBizOps" sortable="true"  [style]="{'overflow':'visible', 'width': '150'}" filterPlaceholder="Search">
-        </p-column>
-
-        <p-column field="reviewRec" header="SRT Review Result" [sortable]="true" [filter]="true" [style]="{'overflow': 'visible', 'width': '200px'}" filterPlaceholder="Search">
-            <ng-template pTemplate="filter" let-col>
-                <p-dropdown [options]="revResult" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter" aria-hidden="true"></p-dropdown>
-            </ng-template>
-
-            <ng-template let-sol="rowData" pTemplate="body">
-
-              <span class="{{'result-' + sol.predictions.value}}" [ngStyle]="{'color' : sol.predictions.value }">
-                  <button class="button" (click)="selectSol(sol)" onclick="$('#test').focus()" style="border: none; text-align: left; padding: 0;">
-                      <i class="fa fa-exclamation-triangle" style="padding-right: 5px;" *ngIf="sol.predictions.value == 'red'"></i>
-                      <span style="text-decoration: underline;">{{sol.reviewRec}}</span>
-                  </button>
-              </span>
-            </ng-template>
-        </p-column>
-
-        <p-column field="actionStatus" header="Action Status" [sortable]="true" [style]="{'width': '200px'}" filterPlaceholder="Search"></p-column>
-
-        <p-column field="actionDate" header="Latest Action Date" [sortable]="true" [style]="{'width': '110px'}" filterPlaceholder="Search">
-            <ng-template let-sol="rowData" pTemplate="body">
-                {{sol.actionDate ? sol.actionDate : "-"}}
-            </ng-template>
-        </p-column>
-
-        <p-column field="agency" header="Agency" [sortable]="true" [filter]="false" filterPlaceholder="Search"></p-column>
-
-        <p-column field="office" header="Office" [sortable]="true" [filter]="false" filterPlaceholder="Search"></p-column>
-    </p-dataTable>
--->
 </div>
 </main>

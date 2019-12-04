@@ -3,13 +3,13 @@
         {{barTitle}}&nbsp;&nbsp;
         <sup class="supfont"
             [tooltip]="chart" tooltipPlacement="bottom">
-            <i *ngIf="isGovernomentWide" class="fa fa-info-circle info" aria-hidden="true" ></i>
+            <i *ngIf="isGovernomentWide" tabindex="0" class="fa fa-info-circle info" aria-hidden="true" ></i>
         </sup>
 
         <tooltip-content #chart [animation]="true">
             <div>The agencies ranking is sorted by Compliance Rate*.</div>
             <div>* Compliance Rate = (Number of compliant solicitations / Total ICT solicitations) %</div>
-        </tooltip-content>  
+        </tooltip-content>
 
     </div>
     <!-- bar chart -->
@@ -17,12 +17,12 @@
         <div class="topagen-nodata">
               No data to show on this time period
         </div>
-    </div>  
+    </div>
 
-    <div class="topagen-content" *ngIf="!noData">  
+    <div class="topagen-content" *ngIf="!noData">
         <div class="topagen-position">
 
-            <div *ngFor="let xaxis of xAxisBreakPoint" 
+            <div *ngFor="let xaxis of xAxisBreakPoint"
                 style="position: absolute;"
                 [ngStyle]="{'left' : 'calc(100%/' + (xAxisBreakPoint.length - 1) / xaxis + ')'}">
                 {{xaxis * xAxisUnit}}
@@ -37,7 +37,7 @@
             <div class="topagen-posi1-white"></div>
             <div class="topagen-posi1-display"># Non-Compliant Solicitation(s)</div>
         </div>
-        
+
         <div class="topagen-posi3">
             <div># Solicitation(s)</div>
         </div>
@@ -47,24 +47,24 @@
         </div>
         <table class="topagen-table">
             <tbody>
-                <tr *ngFor="let num of barData | slice:indexFrom:indexTo " style="width: 100%;" title="Total: {{num[3]}} 
+                <tr *ngFor="let num of barData | slice:indexFrom:indexTo " style="width: 100%;" title="Total: {{num[3]}}
 Compliant Solicitations: {{num[2]}}
 Non-Compliant Solicitations: {{(num[3] - num[2])}}">
                     <td class="topagen-td1">{{GetAbbr(num[0])}}&nbsp;&nbsp;&nbsp;</td>
                     <td class="topagen-td2">
-                     
+
                         <div class="topagen-div1" [ngStyle]="{'width': num[2]/maxSolicitation * 100 + '%'}"></div>
                         <div class="topagen-div2" [ngStyle]="{'width': (num[3] - num[2])/maxSolicitation * 100 + '%'}">
                             <div class="topagen-div3" [hidden]="num[3]==0">
                                 {{num[1] | percent:'.0-0'}}
                             </div>
-                        </div>  
+                        </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-        
+
     </div>
 
-    
+
 </div>

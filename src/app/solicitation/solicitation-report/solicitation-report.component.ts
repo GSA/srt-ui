@@ -152,11 +152,34 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
           this.solicitationService.solicitations = solicitations.predictions;
           this.dateScan = this.solicitations[0] && this.solicitations[0].date;
           $('.pDataTable').show();
-          // sorting
-          //  this.solicitations = this.sortByReviewResult(this.solicitations);
+
+          // convert the dates to a nice display format
+          const date_options = {year: 'numeric', month: 'long', day: 'numeric'};
+          for (const p of this.solicitations) {
+            p.date = (new Date(p.date)).toLocaleDateString('en', date_options)
+            p.actionDate = (new Date(p.actionDate)).toLocaleDateString('en', date_options)
+          }
+
 
           this.getNoticeTypes(this.solicitations);
           this.loading = false;
+
+
+          // fix accessibility of paginator
+          setTimeout( () => {
+            jQuery('.ui-paginator-icon.pi-caret-right').attr('title', 'next page');
+            jQuery('.ui-paginator-icon.pi-caret-left').attr('title', 'previous page');
+            jQuery('a.ui-paginator-first').attr('title', 'first page');
+            jQuery('a.ui-paginator-last').attr('title', 'last page');
+            jQuery('a.ui-paginator-page').each(
+              (idx, el) => {
+                const pageNum = $(el).text()
+                const title = 'page ' + pageNum;
+                $(el).attr('title', title);
+                $(el).html(`<span aria-hidden="true">${pageNum}</span>`);
+              });
+          }, 1000);
+
         },
         err => {
           console.log(err);

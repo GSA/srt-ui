@@ -36,25 +36,46 @@
         <div class="sticky-nav">
           <ul class="usa-sidenav-list">
             <li>
-              <a data-toggle="tab" (click)="scroll('mostViewTitle')">Most Viewed FAQs</a>
+              <a tabindex="0" data-toggle="tab"
+                 (keydown.enter)="scroll('mostViewTitle')"
+                 (keydown.space)="scroll('mostViewTitle')"
+                 (click)="scroll('mostViewTitle')">Most Viewed FAQs</a>
             </li>
             <li>
-              <a data-toggle="tab" (click)="scroll('backgroundInfoTitle')">Background</a>
+              <a tabindex="0" data-toggle="tab"
+                 (keydown.enter)="scroll('backgroundInfoTitle')"
+                 (keydown.space)="scroll('backgroundInfoTitle')"
+                 (click)="scroll('backgroundInfoTitle')">Background</a>
             </li>
             <li>
-              <a data-toggle="tab" (click)="scroll('aboutTitle')">About SRT</a>
+              <a tabindex="0" data-toggle="tab"
+                 (keydown.enter)="scroll('aboutTitle')"
+                 (keydown.space)="scroll('aboutTitle')"
+                 (click)="scroll('aboutTitle')">About SRT</a>
             </li>
             <li>
-              <a data-toggle="tab" (click)="scroll('scanningProcessTitle')">Explore the Scanning Process</a>
+              <a tabindex="0" data-toggle="tab"
+                 (keydown.enter)="scroll('scanningProcessTitle')"
+                 (keydown.space)="scroll('scanningProcessTitle')"
+                 (click)="scroll('scanningProcessTitle')">Explore the Scanning Process</a>
             </li>
             <li>
-              <a data-toggle="tab" (click)="scroll('accessLevelTitle')">Understand Access Privileges</a>
+              <a tabindex="0" data-toggle="tab"
+                 (keydown.enter)="scroll('accessLevelTitle')"
+                 (keydown.space)="scroll('accessLevelTitle')"
+                 (click)="scroll('accessLevelTitle')">Understand Access Privileges</a>
             </li>
             <li>
-              <a data-toggle="tab" (click)="scroll('manageWorkloadTitle')">Manage/ Review Solicitations</a>
+              <a tabindex="0" data-toggle="tab"
+                 (keydown.enter)="scroll('manageWorkloadTitle')"
+                 (keydown.space)="scroll('manageWorkloadTitle')"
+                 (click)="scroll('manageWorkloadTitle')">Manage/ Review Solicitations</a>
             </li>
             <li>
-              <a data-toggle="tab" (click)="scroll('requestSupportTitle')">Request Support</a>
+              <a tabindex="0" data-toggle="tab"
+                 (keydown.enter)="scroll('requestSupportTitle')"
+                 (keydown.space)="scroll('requestSupportTitle')"
+                 (click)="scroll('requestSupportTitle')">Request Support</a>
             </li>
           </ul>
         </div>
@@ -70,7 +91,7 @@
 
                   <div class="panel-heading">
                     <a class="panel-link collapsed" data-toggle="collapse" [attr.data-parent]="'#'+section.id" href="#{{section.id}}{{i}}" [ngClass]="element.titleClass">
-                      <h4 class="panel-title" style="color:black">{{element.title}}</h4>
+                      <h3 class="panel-title" style="color:black">{{element.title}}</h3>
                     </a>
                   </div>
                   <div id="{{section.id}}{{i}}" class="panel-collapse collapse" [ngClass]="element.class">
