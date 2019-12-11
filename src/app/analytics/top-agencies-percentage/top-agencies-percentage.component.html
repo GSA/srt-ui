@@ -1,5 +1,5 @@
-<div class="paddingright">
-    <div id="analyticTitle" class="srt-blue topagen-title">
+<div class="padding-right">
+    <div id="analyticTitle" class="srt-blue top-agency-title">
       <h2 class="srt-blue chart">{{barTitle}}</h2>
       <div class="visually-hidden">The agencies ranking is sorted by Compliance Rate where
         Compliance Rate = (Number of compliant solicitations divided by Total ICT solicitations)</div>
@@ -8,51 +8,43 @@
             [tooltip]="chart" tooltipPlacement="bottom">
             <i *ngIf="isGovernomentWide" tabindex="0" class="fa fa-info-circle info" aria-hidden="true" ></i>
         </sup>
-
         <tooltip-content #chart [animation]="true" aria-hidden="true">
             <div>The agencies ranking is sorted by Compliance Rate where
                  Compliance Rate = (Number of compliant solicitations / Total ICT solicitations)</div>
         </tooltip-content>
     </div>
     <!-- bar chart -->
-    <div class="topagen-barchart" *ngIf="noData">
-        <div class="topagen-nodata">
+    <div class="top-agency-bar-chart" *ngIf="noData">
+        <div class="top-agency-nodata">
               No data to show on this time period
         </div>
     </div>
 
-    <div class="topagen-content" *ngIf="!noData">
-        <div class="topagen-position" aria-hidden="true">
-
-            <div style="position: absolute; left: 0px;">0%</div>
+    <div class="top-agency-content" *ngIf="!noData">
+        <div class="top-agency-position" aria-hidden="true">
+            <div style="position: absolute; left: 0;">0%</div>
             <div style="position: absolute; left: 25%;">25%</div>
             <div style="position: absolute; left: 50%;">50%</div>
             <div style="position: absolute; left: 74%;">75%</div>
             <div style="position: absolute; left: 100%;">100%</div>
-            <!--<div *ngFor="let xaxis of xAxisBreakPoint"
-                style="position: absolute;"
-                [ngStyle]="{'left' : 'calc(100%/' + (xAxisBreakPoint.length - 1) / xaxis + ')'}">
-                {{xaxis * xAxisUnit}}
-            </div>-->
-
         </div>
-        <div class="topagen-posi1" aria-hidden="true">
-            <div class="topagen-posi1-blue"></div>
-            <div class="topagen-posi1-display"># Compliant Solicitation(s)</div>
+        <div class="top-agency-posi1" aria-hidden="true">
+            <div class="top-agency-posi1-blue"></div>
+            <div class="top-agency-posi1-display"># Compliant Solicitation(s)</div>
         </div>
-        <div class="topagen-posi2" aria-hidden="true">
-            <div class="topagen-posi1-white"></div>
-            <div class="topagen-posi1-display"># Non-Compliant Solicitation(s)</div>
+        <div class="top-agency-posi2" aria-hidden="true">
+            <div class="top-agency-posi1-white"></div>
+            <div class="top-agency-posi1-display"># Non-Compliant Solicitation(s)</div>
         </div>
 
-        <div class="topagen-posi3" aria-hidden="true">
+        <div class="top-agency-posi3" aria-hidden="true">
             <div>Compliant Rate (%)</div>
         </div>
-        <div class="topagen-posi4" aria-hidden="true"
-            [ngStyle]="{'width': (indexTo - indexFrom) * 30 + 'px', 'height': (indexTo - indexFrom) * 30 + 'px'}">
+        <div class="top-agency-posi4" aria-hidden="true"
+             [ngStyle]="{'width': (indexTo - indexFrom) * 30 + 'px', 'height': (indexTo - indexFrom) * 30 + 'px'}">
             {{xAxis}}
         </div>
-        <table class="topagen-table">
+        <table class="top-agency-table">
           <caption class="visually-hidden">Top 10 Section 508 Compliant Agencies</caption>
           <thead>
            <tr>
@@ -64,11 +56,11 @@
                 <tr *ngFor="let num of barData | slice:indexFrom:indexTo " style="width: 100%;" title="Total: {{num[3]}}
 Compliant Solicitations: {{num[2]}}
 Non-Compliant Solicitations: {{(num[3] - num[2])}}">
-                    <td class="topagen-td1">{{getAbbr(num[0])}}&nbsp;&nbsp;&nbsp;</td>
-                    <td class="topagen-td2">
-                        <div class="topagen-div1" [ngStyle]="{'width': (num[2]/num[3]) * (num[2]/num[3]) * 100 + '%'}"></div>
-                        <div class="topagen-div2" [ngStyle]="{'width': ((num[3] - num[2])/num[3]) * (num[2]/num[3]) * 100 + '%'}">
-                            <div class="topagen-div3" [hidden]="num[1]==0">
+                    <td class="top-agency-td1">{{getAbbr(num[0])}}&nbsp;&nbsp;&nbsp;</td>
+                    <td class="top-agency-td2">
+                        <div class="top-agency-div1" [ngStyle]="{'width': (num[2]/num[3]) * (num[2]/num[3]) * 100 + '%'}"></div>
+                        <div class="top-agency-div2" [ngStyle]="{'width': ((num[3] - num[2])/num[3]) * (num[2]/num[3]) * 100 + '%'}">
+                            <div class="top-agency-div3" [hidden]="num[1]==0">
                                 {{num[1] | percent:'.0-0'}}
                             </div>
                         </div>

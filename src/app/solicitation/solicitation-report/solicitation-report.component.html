@@ -1,7 +1,7 @@
 <main id="content" class="bypass-block-target">
 <div *ngIf="!solicitations" class="solic-nosolic">
     <div class="solic-nosolic-posi" id="loading">
-        <ul class="cb-slideshow">
+        <ul class="cb-slide-show">
             <i class="fa fa-cog fa-spin" style="color: #4a4a4a"></i>
             <li><span>L</span></li>
             <li><span>O</span></li>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="solic-export"><div style="padding: 0 0 0 15px;">Export As:</div></div>
                 <div class="solic-export-cursor">
-                    <img tabindex="0" id="csvlogo" aria-label="export as csv" alt="export as csv" src="../../../assets/downloadcsv.jpeg" style="float:left" (keydown.enter)="dt.exportCSV()"  (click)="dt.exportCSV()">
+                    <img tabindex="0" id="csvlogo" aria-label="export as csv" alt="export as csv" src="../../../assets/downloadcsv.jpeg" style="float:left" (keydown.enter)="exportCSV({})"  (click)="exportCSV({})">
                 </div>
             </div>
 
@@ -62,15 +62,17 @@
            [loading]="loading"
            (onLazyLoad)="loadSolicitationsLazy($event)"
            [totalRecords]="totalRecordCount"
-               [value]="solicitations"
-               [rows]="15"
-               [paginator]="true"
-               [rowsPerPageOptions]="[15, 25, 35, 45]"
-               [pageLinks]="4"
-               [responsive]="true">
+           [rows]="15"
+           [paginator]="true"
+           [rowsPerPageOptions]="[15, 25, 35, 45]"
+           [pageLinks]="4"
+           [responsive]="true"
+           [resizableColumns]="true"
+           [columns]="columns"
+           columnResizeMode="expand">
     <ng-template pTemplate="header">
       <tr>
-        <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field">
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field" pResizableColumn>
           {{col.title}}
 
           <p-sortIcon *ngIf="col.field !== undefined"
@@ -79,10 +81,10 @@
                       ariaLabelDesc="Activate to sort in descending order"
                       ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
           <br>
-          <p-dropdown *ngSwitchCase="'noticeType'" [options]="noticeTypes"
+          <p-dropdown id="ddl_noticeTypes" *ngSwitchCase="'noticeType'" [options]="noticeTypes"
                       (onChange)="gb.filter($event.value, col.field, 'equals')"></p-dropdown>
 
-          <p-dropdown *ngSwitchCase="'reviewRec'" [options]="reviewRec"
+          <p-dropdown id="ddl_reviewRec" *ngSwitchCase="'reviewRec'" [options]="reviewRec"
                       (onChange)="gb.filter($event.value, col.field, 'equals')"></p-dropdown>
 
         </th>
@@ -90,24 +92,29 @@
     </ng-template>
     <ng-template pTemplate="body" let-sol>
       <tr>
-        <td>{{sol.solNum}}</td>
-        <td>{{sol.title}}</td>
-        <td>{{sol.noticeType}}</td>
-        <td>{{sol.date}}</td>
-        <td>
+        <td class="ui-resizable-column"><span class="ui-column-title">Solicitation #</span>{{sol.solNum}}</td>
+        <td class="ui-resizable-column"><span class="ui-column-title">Title</span>{{sol.title}}</td>
+        <td class="ui-resizable-column"><span class="ui-column-title">Notice Type</span>{{sol.noticeType}}</td>
+        <td class="ui-resizable-column"><span class="ui-column-title">Date Posted</span>{{sol.date}}</td>
+        <td class="ui-resizable-column">
+          <span class="ui-column-title">Review Result</span>
           <button class="button {{'result-' + sol.predictions.value}}" (click)="selectSol(sol)" onclick="$('#test').focus()" style="border: none; text-align: left; padding: 0;">
             <i class="fa fa-exclamation-triangle" style="padding-right: 5px;" *ngIf="sol.predictions.value == 'red'"></i>
             <span style="text-decoration: underline;">{{sol.reviewRec}}</span>
           </button>
         </td>
-        <td>{{sol.actionStatus}}</td>
-        <td>{{sol.actionDate}}</td>
-        <td>{{sol.agency}}</td>
-        <td>{{sol.office}}</td>
+        <td class="ui-resizable-column"><span class="ui-column-title">Action Status</span>{{sol.actionStatus}}</td>
+        <td class="ui-resizable-column"><span class="ui-column-title">Action Date</span>{{sol.actionDate}}</td>
+        <td class="ui-resizable-column"><span class="ui-column-title">Agency</span>{{sol.agency}}</td>
+        <td class="ui-resizable-column"><span class="ui-column-title">Office</span>{{sol.office}}</td>
       </tr>
     </ng-template>
 
   </p-table>
+
+  <div id="total-count">
+    Total Solicitation {{totalRecordCount}}
+  </div>
 
 </div>
 </main>

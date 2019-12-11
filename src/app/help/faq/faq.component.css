@@ -42,7 +42,7 @@ height: 45px;
 text-align: center;
 }
 
-.nopadding {
+.no-padding {
   padding: 0px !important;
   margin: 0px !important;
 }

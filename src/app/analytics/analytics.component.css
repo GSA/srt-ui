@@ -7,62 +7,23 @@
 }
 
 .analytic-container {
-    background-color: white; 
+    background-color: white;
     padding: 0px !important
 }
 
 .analytic-overview-name {
-    padding-bottom: 5px; 
-    clear: both; 
+    padding-bottom: 5px;
+    clear: both;
     width: 100%;
     font-weight: 100;
     font-size: 20px;
     color: #112e51;
 }
 
-.analytic-summary-div {
-    position: relative; 
-    display: inline-block;
-    width: calc(20% - 10px);
-    text-align: center;
-    padding: 10px;
-}
 
-.analytic-summary-result {
-    font-size: 30px;
-    padding-bottom: 20px;
-}
-
-.information-icon {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-}
-
-.analytic-summary-title {
-    color: #8ca0b3;
-    font-size: 20px;
-    padding-bottom: 10px;
-}
-
-
-
-.nopadding {
+.no-padding {
     margin: 0px !important;
     padding: 0px !important;
-}
-
-.analytic-title {
-    font-size: 20px;   
-    color: #687a8b;
-    padding: 20px;
-    font-weight: 300;
-}
-
-.analyric-bar:hover {
-    border-top: 1px solid #53A9DE;
-    border-right: 1px solid #53A9DE;
-    border-left: 1px solid #53A9DE;
 }
 
 .analytic-padding-left{
@@ -84,100 +45,92 @@ option {
     display: flex;
 }
 
-.analytic-titlepadding {
+.analytic-title-padding {
     padding: 20px 40px 0px 40px !important
 }
 
-.analytic-smalltitle {
-    padding: 10px 40px !important; 
-    background-color: #e7f4e4; 
-    font-weight: 500; 
+.analytic-small-title {
+    padding: 10px 40px !important;
+    background-color: #e7f4e4;
+    font-weight: 500;
     font-size: 13px;
     margin: 0px !important;
-    
+
 }
 
-.analytic-bigtitle {
+.analytic-big-title {
     font-size: 24px;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
     font-weight: 600
 }
 
 
 .analytic-select-style{
-    height: 32px; 
-    padding: 5px 30px 5px 15px; 
-    font-size: 16px; 
-    border: none; 
+    height: 32px;
+    padding: 5px 30px 5px 15px;
+    font-size: 16px;
+    border: none;
     border-bottom: 1px solid #4a4a4a;
 }
 
 
 .analytic-select-container{
-    padding: 0px 40px 40px 40px !important; 
-    background-color: #fbfcff; 
+    padding: 0px 40px 40px 40px !important;
+    background-color: #fbfcff;
     border-top: 1px solid #dadada;
 }
 .analytic-select-position{
-    display: inline-block; 
-    vertical-align: middle; 
-    padding-right: 10px; 
-    font-size: 16px; 
-    font-size: 24px; 
+    display: inline-block;
+    vertical-align: middle;
+    padding-right: 10px;
+    font-size: 24px;
     font-weight: 600
 }
 .analytic-second-select-position{
-    display: inline-block; 
+    display: inline-block;
     vertical-align: middle;
 }
 .analytic-section1-container{
-    padding: 0px 40px 40px 40px !important; 
-    background-color: #fbfcff; 
+    padding: 0px 40px 40px 40px !important;
+    background-color: #fbfcff;
 }
 .analytic-section2-container{
-    padding: 0px 40px 60px 40px !important; 
-    background-color: #fbfcff; 
+    padding: 0px 40px 60px 40px !important;
+    background-color: #fbfcff;
 }
 .analytic-section3-container{
-   margin-bottom: 40px !important; 
-   padding: 40px 40px 10px 40px !important; 
+   margin-bottom: 40px !important;
+   padding: 40px 40px 10px 40px !important;
    border-top: 1px solid #dadada;
 }
 /*
 .scanned-solicitation {
-    width: calc(100% - 300px); 
+    width: calc(100% - 300px);
     float: left;
     margin-bottom: 60px !important
 }
 
 .prediction-result {
-    width: 250px; 
+    width: 250px;
     float: right;
     margin-bottom: 40px !important;
 }
 */
 
 .scanned-solicitation {
-    width: calc(100% - 400px); 
+    width: calc(100% - 400px);
     float: left;
     margin-bottom: 60px !important
 }
 
 .user-login {
-    width: calc(100% - 400px); 
+    width: calc(100% - 400px);
     float: left;
     margin-bottom: 60px !important
 }
 
-.machine-readable, .prediction-result, .exclude  {
-    width: 350px; 
-    float: right;
-    margin-bottom: 40px !important;
-}
 
-
-
-@media (max-width: 992px) 
+@media (max-width: 992px)
 {
     .row-eq-height {
         -webkit-flex-wrap: wrap;
@@ -185,11 +138,11 @@ option {
     }
 
     .scanned-solicitation {
-        width: 100%; 
+        width: 100%;
     }
 
     .machine-readable {
-        width: 100%; 
+        width: 100%;
     }
 }
 
@@ -203,156 +156,152 @@ option {
     position: relative;
 }
 
-.chartcontainer{
-    max-width: 300px; 
+.chart-container{
+    max-width: 300px;
     padding: 0px
 }
 
-.circlechart{
+.circle-chart{
     font-size: 20px;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
     font-weight: 600
 }
 
 .percentage{
-    position: absolute; 
-    top: 79px; width: 100%; 
-    text-align: center; 
-    font-size: 30px; 
+    position: absolute;
+    top: 79px; width: 100%;
+    text-align: center;
+    font-size: 30px;
     color: #2C81C0
 
 }
 
-.chartspan{
-    font-size: 1.5em; 
+.chart-span{
+    font-size: 1.5em;
     font-weight: 700
 }
 
 .perresult{
-    padding: 30px 10px; 
-    text-align: center; 
-    font-size: 16px; 
-    color: #1768d7; 
+    padding: 30px 10px;
+    text-align: center;
+    font-size: 16px;
+    color: #1768d7;
     font-weight: 500
 }
 
 
 /* top-agencies*/
-.paddingright{
+.padding-right{
     padding-right: 40px;
 }
 
-.topagen-title{
-    font-size: 20px; 
-    margin-bottom: 70px; 
+.top-agency-title{
+    font-size: 20px;
+    margin-bottom: 70px;
     font-weight: 600
 }
 
-.topagen-barchart{
-    width: 100%; 
-    position: relative; 
-    font-size: 18px; 
-    margin-bottom: 60px; 
-    height: 191px; 
-    display: table; 
+.top-agency-bar-chart{
+    width: 100%;
+    position: relative;
+    font-size: 18px;
+    margin-bottom: 60px;
+    height: 191px;
+    display: table;
     text-align: center
 }
-.topagen-nodata{
+.top-agency-nodata{
     display: table-cell;
     vertical-align: middle
 }
 
-.topagen-content{
+.top-agency-content{
     width: 100%;
-    position: relative;
     margin-bottom: 40px;
-    padding-left: 40px; 
+    padding-left: 40px;
     position: relative
 }
 
-.topagen-position{
-    position: relative; 
-    left: 63px; 
-    top: -25px; 
+.top-agency-position{
+    position: relative;
+    left: 63px;
+    top: -25px;
     width: calc(100% - 80px);
 }
-.topagen-posabsoulte{
-    position: absolute
-}
 
-.topagen-posi1{
-    position: absolute; 
-    right: 28px; 
+.top-agency-posi1{
+    position: absolute;
+    right: 28px;
     top: -105px;
 }
-.topagen-posi1-blue{
+.top-agency-posi1-blue{
  width: 15px;
- height: 15px; 
- background-color: #2C81C0; 
- display: inline-block; 
+ height: 15px;
+ background-color: #2C81C0;
+ display: inline-block;
  vertical-align: middle
 }
-.topagen-posi1-white{
-    width: 15px; 
-    height: 15px; 
-    background-color: #eeeeee; 
-    display: inline-block; 
+.top-agency-posi1-white{
+    width: 15px;
+    height: 15px;
+    background-color: #eeeeee;
+    display: inline-block;
     vertical-align: middle
 }
-.topagen-posi1-display{
-    display: inline-block; 
+.top-agency-posi1-display{
+    display: inline-block;
     vertical-align: middle
 }
 
-.topagen-posi2{
-    position: absolute; 
+.top-agency-posi2{
+    position: absolute;
     right: 0px;
     top: -80px;
 }
-.topagen-posi3{
-    position: absolute; 
-    top: -55px; 
-    width: 100%; 
-    text-align: center; 
-    font-weight: 600; 
+.top-agency-posi3{
+    position: absolute;
+    top: -55px;
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
     font-size: 16px;
 }
-.topagen-posi4{
-    position: absolute; 
-    left: 0px; 
-    transform: rotate(-90deg); 
-    font-size: 16px; 
-    font-weight: 600; 
+.top-agency-posi4{
+    position: absolute;
+    left: 0px;
+    transform: rotate(-90deg);
+    font-size: 16px;
+    font-weight: 600;
     text-align: center
 }
-.topagen-table{
-    width: 100%; 
+.top-agency-table{
+    width: 100%;
     transform: translateZ(0);
 }
-.topagen-td1{
-    border-right:1px solid #4a4a4a; 
-    padding-right: 20px; 
-    width: 40px; 
-    height: 30px; 
+.top-agency-td1{
+    border-right:1px solid #4a4a4a;
+    padding-right: 20px;
+    width: 40px;
+    height: 30px;
     font-weight: 500
 }
-.topagen-td2{
+.top-agency-td2{
     vertical-align: middle
 }
 
-.topagen-div1{
-    background-color:#2C81C0; 
-    height: 10px; 
+.top-agency-div1{
+    background-color:#2C81C0;
+    height: 10px;
     float: left
 }
-.topagen-div2{
-    background-color:#eeeeee; 
-    height: 10px; 
-    float: left; 
+.top-agency-div2{
+    background-color:#eeeeee;
+    height: 10px;
+    float: left;
     position: relative
 }
-.topagen-div3{
-    position: absolute; 
-    right: -40px; 
+.top-agency-div3{
+    position: absolute;
+    right: -40px;
     top: -5px;
 }

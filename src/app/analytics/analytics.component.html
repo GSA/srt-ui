@@ -2,7 +2,7 @@
 <main id="content" class="bypass-block-target">
 <div class="row analytic-div analytic-container" >
     <div class="clearfix">
-        <div role="heading" tabindex="0" aria-level="1" class="col-md-12  clearfix analytic-smalltitle">
+        <div role="heading" tabindex="0" aria-level="1" class="col-md-12  clearfix analytic-small-title">
             The data on the dashboard include only
             <a [routerLink]="['/help/faq', 'ICT']" aria-label="definition of ICT" style="color:#0000C7">ICT</a>
             solicitations.  The following are excluded from the data on the dashboard: pre-solicitations,
@@ -10,9 +10,9 @@
             and other undetermined solicitations.
         </div>
 
-        <div class="col-md-12 nopadding clearfix analytic-titlepadding" tabindex="0"  role="region" aria-labelledby="region1">
+        <div class="col-md-12 no-padding clearfix analytic-title-padding" tabindex="0" role="region" aria-labelledby="region1">
 
-            <h1 class="srt-blue analytic-bigtitle">LAST 30 DAYS</h1>
+            <h1 class="srt-blue analytic-big-title">LAST 30 DAYS</h1>
 
             <div class="scanned-solicitation">
                 <app-scanned-solicitation [ScannedSolicitationChart]="ScannedSolicitationChart"></app-scanned-solicitation>
@@ -24,7 +24,7 @@
         </div>
 
 
-        <div class="col-md-12 nopadding clearfix analytic-select-container" tabindex="0" role="region" aria-labelledby="region2">
+        <div class="col-md-12 no-padding clearfix analytic-select-container" tabindex="0" role="region" aria-labelledby="region2">
             <div class="clearfix analytic-padding">
                 <div class="analytic-padding-left">
                     <label for="agency"  class="srt-blue analytic-select-position">Select your agency</label>
@@ -55,17 +55,17 @@
             </div>
         </div>
 
-        <div class="col-md-12 nopadding clearfix analytic-section1-container" tabindex="0" role="region" aria-labelledby="region3">
+        <div class="col-md-12 no-padding clearfix analytic-section1-container" tabindex="0" role="region" aria-labelledby="region3">
             <div class="row-eq-height">
-                <div class="col-md-6 nopadding">
-                    <div class="col-md-6 nopadding">
+                <div class="col-md-6 no-padding">
+                    <div class="col-md-6 no-padding">
                       <app-donut-chart
                         [doughnutChartDataInput]="ComplianceRateChart"
                         [title]="'Preliminary Compliance Rate'"
                         [componentTooltip]="'Compliance Rate = (Total compliant ICT solicitations / Total ICT solicitations scanned) * 100%'">
                       </app-donut-chart>
                     </div>
-                    <div class="col-md-6 nopadding">
+                    <div class="col-md-6 no-padding">
                       <app-donut-chart
                           [doughnutChartDataInput]="ConversionRateChart"
                           [title]="'Conversion Rate'"
@@ -74,14 +74,14 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 nopadding">
+                <div class="col-md-6 no-padding">
                     <app-top-srt-actions [TopSRTActionChart]="TopSRTActionChart"></app-top-srt-actions>
                 </div>
             </div>
         </div>
 
 
-        <div class="col-md-12 nopadding clearfix analytic-section2-container" tabindex="0" role="region" aria-labelledby="region4" >
+        <div class="col-md-12 no-padding clearfix analytic-section2-container" tabindex="0" role="region" aria-labelledby="region4" >
                 <h1 id="region4" style="display:none">histogram of top 10 compliant angencies</h1>
                 <app-top-agencies-percentage
                     *ngIf="isGovernmentWide"
@@ -103,7 +103,7 @@
                 </app-line-charts>
         </div>
 
-        <div class="col-md-12 nopadding clearfix analytic-section3-container" tabindex="0" role="region" aria-labelledby="region5" >
+        <div class="col-md-12 no-padding clearfix analytic-section3-container" tabindex="0" role="region" aria-labelledby="region5" >
                 <h1 id="region5" style="display:none">pie chart for prediction result</h1>
             <!-- <div style="font-size: 24px; margin-bottom: 20px; font-weight: 600" class="srt-blue">LAST 30 DAYS</div>  -->
             <!-- <div class="user-login">
