@@ -372,9 +372,21 @@
     }, {
       "id": "fa197e3b-f26a-4470-96d9-f267764e3af2",
       "comment": "",
-      "command": "executeScript",
+      "command": "//executeScript",
       "target": "return document.querySelector(\"table .ui-datatable-even td span:nth-of-type(2)\").textContent",
       "targets": [],
+      "value": "sid"
+    }, {
+      "id": "342a7ffb-036b-42d3-bd31-b97ffe3c4831",
+      "comment": "",
+      "command": "storeText",
+      "target": "css=.ui-table-tbody > .ng-star-inserted:nth-child(1) > .ui-resizable-column:nth-child(1)",
+      "targets": [
+        ["css=.ui-table-tbody > .ng-star-inserted:nth-child(1) > .ui-resizable-column:nth-child(1)", "css:finder"],
+        ["xpath=//main[@id='content']/div/p-table/div/div/table/tbody/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"],
+        ["xpath=//td[contains(.,'0000003281')]", "xpath:innerText"]
+      ],
       "value": "sid"
     }, {
       "id": "8dd5b15b-4a8f-4270-b7b1-7f8adaab1a7e",
@@ -698,9 +710,9 @@
       "value": ""
     }, {
       "id": "86171413-7c48-44b5-92e5-763220e8538e",
-      "comment": "",
+      "comment": "Store the Solicitation ID in ${sid}",
       "command": "executeScript",
-      "target": "return document.querySelector(\"table .ui-datatable-even td span:nth-of-type(2)\").textContent",
+      "target": "return document.querySelector(\"p-table table tbody > tr:nth-child(1) > td:nth-child(1)\").textContent",
       "targets": [],
       "value": "sid"
     }, {
@@ -768,6 +780,213 @@
       "targets": [],
       "value": ""
     }]
+  }, {
+    "id": "4366f9c9-c3a9-4404-a046-57038747f54d",
+    "name": "Workload Table",
+    "commands": [{
+      "id": "fe338879-3ee2-4fb5-9c98-59277da9ffb1",
+      "comment": "",
+      "command": "run",
+      "target": "Function-Setup",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a1e09229-5dde-4f26-b170-98baaa6f3716",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Manage/Review Workload",
+      "targets": [
+        ["linkText=Manage/Review Workload", "linkText"],
+        ["css=#\\32 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Manage/Review Workload')]", "xpath:link"],
+        ["xpath=//li[@id='2']/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/solicitation/report')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Manage/Review Workload')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d23f34b4-d0dd-41ed-9123-165c884f34a5",
+      "comment": "",
+      "command": "click",
+      "target": "css=#ddl_reviewRec label",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7097a813-e647-44a4-99f0-3eeed3a28013",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id='ddl_reviewRec']//p-dropdownitem[.='Compliant']/li",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c34e2d9d-e439-4400-8a58-459d07855616",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "xpath=//span[contains(.,'Non-compliant')]",
+      "targets": [],
+      "value": "//*[@id='ddl_reviewRec']//p-dropdownitem[contains(.,'Non-compliant')]/li"
+    }, {
+      "id": "51df4f0c-048e-4aaa-9fc7-0f6bdafa6f1b",
+      "comment": "",
+      "command": "click",
+      "target": "css=#ddl_noticeTypes label",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "02e7a937-e228-4b25-84fb-05bc88579c84",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id='ddl_noticeTypes']//p-dropdownitem[.='Solicitation']/li",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "31e1faeb-a8d9-41e9-b7fc-1e11c99a1520",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "xpath=//td[contains(text(),'Combined')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "68570320-a0d7-49a8-8d14-c729370a363a",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "xpath=//td[contains(.,'Presolicitation')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ca93fe37-ee49-428d-bd66-1d0f3e7eb80e",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//th[contains(text(),'Solicitation ID')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "94299d77-5fd2-4535-b17c-7409c9af45c5",
+      "comment": "",
+      "command": "storeText",
+      "target": "css=.ui-table-tbody > .ng-star-inserted:nth-child(1) > .ui-resizable-column:nth-child(1)",
+      "targets": [
+        ["css=.ui-table-tbody > .ng-star-inserted:nth-child(1) > .ui-resizable-column:nth-child(1)", "css:finder"],
+        ["xpath=//main[@id='content']/div/p-table/div/div/table/tbody/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"],
+        ["xpath=//td[contains(.,'0000003281')]", "xpath:innerText"]
+      ],
+      "value": "sol_one"
+    }, {
+      "id": "c5c20f0e-384b-4c98-a2ba-f6c31891b2b6",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//th[contains(text(),'Solicitation ID')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0a5b60e0-d88e-41cb-a7be-7281b77463d9",
+      "comment": "",
+      "command": "storeText",
+      "target": "css=.ui-table-tbody > .ng-star-inserted:nth-child(1) > .ui-resizable-column:nth-child(1)",
+      "targets": [
+        ["css=.ui-table-tbody > .ng-star-inserted:nth-child(1) > .ui-resizable-column:nth-child(1)", "css:finder"],
+        ["xpath=//main[@id='content']/div/p-table/div/div/table/tbody/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"],
+        ["xpath=//td[contains(.,'0000003281')]", "xpath:innerText"]
+      ],
+      "value": "sol_two"
+    }, {
+      "id": "b62316f3-db30-4f9c-8543-8cb30632c78f",
+      "comment": "",
+      "command": "echo",
+      "target": "I got ${sol_one} and ${sol_two}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "00b0577a-86ee-4353-8e46-11950b9f83fb",
+      "comment": "",
+      "command": "store",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0d635526-4918-4010-a8b4-d85e20ac666b",
+      "comment": "Test that the solicitation sort worked.  ",
+      "command": "if",
+      "target": "'${sol_one}' > '${sol_two}'",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cec15d3e-e982-4ec6-9402-1da55352e442",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=#noelementhere",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c45984d3-a486-4fb0-b307-ce9e3b5ba7c6",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7a6556a8-b193-42bc-8bd6-83dd299f8de7",
+      "comment": "",
+      "command": "click",
+      "target": "css=#ddl_reviewRec label",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7b2f46ff-8649-458f-8c79-96257741913e",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id='ddl_reviewRec']//p-dropdownitem[.='All']/li",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b608424b-ecbb-42d2-8b27-e067be0ed336",
+      "comment": "",
+      "command": "click",
+      "target": "css=#ddl_noticeTypes label",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fca7374a-c517-4222-b25d-bf783b252f10",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id='ddl_noticeTypes']//p-dropdownitem[.='All']/li",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "36d25a67-f2df-4f9f-8161-5c1ef3403507",
+      "comment": "",
+      "command": "type",
+      "target": "id=ksearch",
+      "targets": [
+        ["id=ksearch", "id"],
+        ["css=#ksearch", "css:finder"],
+        ["xpath=//input[@id='ksearch']", "xpath:attributes"],
+        ["xpath=//div[@id='solsearch']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${sol_two}"
+    }, {
+      "id": "b82ed626-34ff-47b4-b855-540329cdd1e5",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='solsearch']//button",
+      "targets": [
+        ["css=.glyphicon", "css:finder"],
+        ["xpath=//div[@id='solsearch']/span/button/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a15c1dca-b695-43f9-bffb-5c6da61f9bbb",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "xpath=//td[contains(text(),'${sol_two}')]",
+      "targets": [],
+      "value": "30000"
+    }]
   }],
   "suites": [{
     "id": "ec5d1633-94d5-45f8-b8d9-b52a4d08b1ec",
@@ -775,7 +994,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["1888497e-83be-4bcf-85eb-4febba184060", "9522a3db-9f9c-40b9-a50b-5e3eaa564154", "cad747ac-0162-4e0b-bf31-d7bc7192ab4f"]
+    "tests": ["1888497e-83be-4bcf-85eb-4febba184060", "cad747ac-0162-4e0b-bf31-d7bc7192ab4f", "9522a3db-9f9c-40b9-a50b-5e3eaa564154", "4366f9c9-c3a9-4404-a046-57038747f54d"]
   }],
   "urls": ["http://localhost:4200/", "http://srt-client.app.cloud.gov/"],
   "plugins": []

@@ -31,12 +31,6 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
 
   stacked: Boolean = false;
 
-  dateFrom: Date;
-  dateTo: Date;
-  today: Date = new Date();
-  maxDate: Date = new Date();
-  minDate: Date;
-
   dateScan: String = '';
 
   filterParams = {
@@ -69,19 +63,23 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     {label : 'AMDCSS', value : 'AMDCSS'},
     {label : 'PRESOL', value : 'PRESOL'},
     {label : 'MOD', value : 'MOD'},
-    ]
+    ];
 
   reviewRec: Array<Object> = [
     {label : 'All', value : ''},
     {label : 'Not Applicable', value : 'Not Applicable'},
     {label : 'Non-Compliant', value : 'Non-compliant (Action Required)'},
     {label : 'Compliant', value : 'Compliant'}
-  ]
+  ];
 
   /**
    * constructor
    * @param solicitationService
    * @param router
+   * @param titleService
+   * @param noticeTypesService
+   * @param titleService
+   * @param noticeTypesService
    */
   constructor(
     private solicitationService: SolicitationService,
@@ -148,20 +146,21 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     this.solicitationService.getFilteredSolicitations(event)
       .subscribe(
         solicitations => {
-          this.solicitations = solicitations.predictions
+          this.solicitations = solicitations.predictions;
           this.solicitationService.solicitations = solicitations.predictions;
           this.dateScan = this.solicitations[0] && this.solicitations[0].date;
           $('.pDataTable').show();
 
           // convert the dates to a nice display format
-          const date_options = {year: 'numeric', month: 'long', day: 'numeric'};
+          const date_options = {year: 'numeric', month: 'short', day: 'numeric'};
           for (const p of this.solicitations) {
-            p.date = (new Date(p.date)).toLocaleDateString('en', date_options)
-            p.actionDate = (new Date(p.actionDate)).toLocaleDateString('en', date_options)
+            p.date = (new Date(p.date)).toLocaleDateString('en', date_options);
+            p.actionDate = (new Date(p.actionDate)).toLocaleDateString('en', date_options);
           }
 
 
           this.getNoticeTypes(this.solicitations);
+          this.totalRecordCount = solicitations.totalCount;
           this.loading = false;
 
 
@@ -173,7 +172,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
             jQuery('a.ui-paginator-last').attr('title', 'last page');
             jQuery('a.ui-paginator-page').each(
               (idx, el) => {
-                const pageNum = $(el).text()
+                const pageNum = $(el).text();
                 const title = 'page ' + pageNum;
                 $(el).attr('title', title);
                 $(el).html(`<span aria-hidden="true">${pageNum}</span>`);
@@ -219,7 +218,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     this.solicitationService.updateHistory(solicitation)
       .subscribe(
         msg => {
-          this.titleService.setTitle('SRT - Solicitation ID ' + msg.id)
+          this.titleService.setTitle('SRT - Solicitation ID ' + msg.id);
           this.router.navigate(['/solicitation/report', msg.id]);
         },
         () => {
@@ -227,18 +226,6 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
         });
   }
 
-
-  /**
-   * sort by review result
-   * @param solicitations
-   */
-  sortByReviewResult(solicitations) {
-    const NotApplicable = solicitations.filter(d => d.reviewRec === 'Not Applicable');
-    const Noncompliant = solicitations.filter(d => d.reviewRec === 'Non-compliant (Action Required)');
-    const Compliant = solicitations.filter(d => d.reviewRec === 'Compliant');
-    solicitations = Noncompliant.concat(Compliant).concat(NotApplicable);
-    return solicitations;
-  }
 
   /**
    * get notice types for filter
@@ -250,7 +237,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
       solicitations.forEach(element => {
         const noticeTypeLabel: String = element.noticeType;
         const noticeTypeValue: String = element.noticeType;
-        let noticeCount: Number = 1;
+        let noticeCount: Number;
         if (noticeTypeMap.hasOwnProperty(element.noticeType)) {
           noticeCount = noticeTypeMap[element.noticeType].count + 1;
           noticeTypeMap[element.noticeType] = {label: noticeTypeLabel, value: noticeTypeValue, count: noticeCount};
@@ -268,31 +255,77 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     }
   }
 
-  /**
-   * filter solicitation by date
-   * @param event
-   */
-  filterDate(event) {
-    if (this.dateFrom && this.dateTo) {
-      this.minDate = this.dateFrom;
-      this.maxDate = this.dateTo;
-      this.solicitations = this.solicitationService.solicitations.filter(
-        d => {
-          const dDate = new Date(d.date);
-          return dDate >= this.dateFrom && dDate <= this.dateTo;
-        }
-      );
-      this.getNoticeTypes(this.solicitations);
-    }
-  }
 
   /**
-   * reset filter result
+   * Copied from the PrimeNG prototype and then modified
+   *
+   * @param options
    */
-  reset() {
-    if (!this.dateFrom && !this.dateTo) {
-      this.solicitations = this.solicitationService.solicitations;
+  exportCSV (options) {
+    const csvSeparator = ',';
+    let csv = '';
+
+    // headers
+    for (let i = 0; i < this.columns.length; i++) {
+      const column = this.columns[i];
+      if (column.field) {
+        csv += '"' + (column.title || column.field) + '"';
+        if (i < (this.columns.length - 1)) {
+          csv += csvSeparator;
+        }
+      }
     }
+
+    const filter = {first: 0, rows: 1000};
+    const appendSolicitaitons = (solicitations) => {
+      document.body.style.cursor = 'wait';
+      for (const s of solicitations.predictions) {
+        csv += '\n';
+        for (let i = 0; i < this.columns.length; i++) {
+          csv += '"' + s[this.columns[i].field] + '"' + csvSeparator;
+        }
+      }
+      // if we got them all, send it. Otherwise pull another batch
+      if (filter.first === solicitations.totalCount) {
+        this.sendBlob(csv);
+        document.body.style.cursor = 'default';
+      } else {
+        filter.first += solicitations.rows;
+        this.solicitationService
+          .getFilteredSolicitations(filter)
+          .subscribe(appendSolicitaitons);
+      }
+    };
+
+    this.solicitationService
+      .getFilteredSolicitations(filter)
+      .subscribe( appendSolicitaitons );
+
+    return;
+  };
+
+  sendBlob(data) {
+    const exportFilename = 'srt_data.csv';
+    const blob = new Blob([data], {
+      type: 'text/csv;charset=utf-8;'
+    });
+    if (window.navigator.msSaveOrOpenBlob) {
+      navigator.msSaveOrOpenBlob(blob, exportFilename);
+    } else {
+      const link = document.createElement('a');
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      if (link.download !== undefined) {
+        link.setAttribute('href', URL.createObjectURL(blob));
+        link.setAttribute('download', exportFilename);
+        link.click();
+      } else {
+        data = 'data:text/csv;charset=utf-8,' + data;
+        window.open(encodeURI(data));
+      }
+      document.body.removeChild(link);
+    }
+
   }
 
 }

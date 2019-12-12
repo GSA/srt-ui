@@ -1,31 +1,31 @@
-.chartcontainer{
-    max-width: 350px; 
+.chart-container{
+    max-width: 350px;
     padding: 0px 15px
 }
 .piechart{
-    font-size: 20px; 
-    margin-bottom: 20px; 
+    font-size: 20px;
+    margin-bottom: 20px;
     font-weight: 600;
 }
 .pieposition{
-    display: block; 
-    margin: 0px auto; 
-    height: 280px; 
-    transform: translateZ(0); 
+    display: block;
+    margin: 0px auto;
+    height: 280px;
+    transform: translateZ(0);
     font-weight: 300
 }
 .pieresultun{
-    position: absolute; 
-    font-size: 20px; 
-    color: #000; 
-    top: -20px; 
+    position: absolute;
+    font-size: 20px;
+    color: #000;
+    top: -20px;
     right: calc(50% + 10px)
 
 }
 .pieresult{
-    position: absolute; 
-    font-size: 20px; 
-    color: #000; 
-    bottom: 45px; 
+    position: absolute;
+    font-size: 20px;
+    color: #000;
+    bottom: 45px;
     left: calc(50% + 40px)
 }
