@@ -17,6 +17,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/build-angular": "^0.13.0",
     "@angular-devkit/build-ng-packagr": "^0.13.9",
     "@angular/animations": "~8.0.0",
     "@angular/cdk": "^8.2.3",
@@ -61,7 +62,6 @@
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.13.9",
     "@angular/compiler-cli": "~8.0.0",
     "@schematics/angular": "~8.0.0",
     "@types/jasmine": "2.5.38",
@@ -79,6 +79,7 @@
     "karma-phantomjs-launcher": "^1.0.4",
     "phantomjs-prebuilt": "^2.1.16",
     "protractor": "^5.4.2",
+    "snyk": "^1.278.1",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
     "typescript": "~3.4",

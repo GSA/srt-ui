@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -66,12 +66,12 @@ export class EmailPocComponent implements OnInit {
           data => {
 
             data.parseStatus.forEach(element => {
-                if (element.status == 'successfully parsed') element.status = 'Yes';
-                else if (element.status == 'processing error')  element.status = 'No';
+              if (element.status === 'successfully parsed') {
+                element.status = 'Yes';
+              } else if (element.status === 'processing error') {
+                element.status = 'No';
+              }
             });
-            this.step1 = data.history.filter(function(e){return e['action'].indexOf('reviewed solicitation action requested summary') > -1; }).length > 0;
-            this.step2 = data.history.filter(function(e){return e['action'].indexOf('sent email to POC') > -1; }).length > 0;
-            this.step3 = data.history.filter(function(e){return e['action'].indexOf('provided feedback on the solicitation prediction result') > -1; }).length > 0;
             this.emailSent = data.history.filter(function(e){return ((e['action'].indexOf('sent email to POC') > -1) ); }).length > 0;
             this.emailTo = data.contactInfo.email; // "crowley+srttestemail@tcg.com";
             this.emailCC = localStorage.getItem('email');
@@ -166,7 +166,7 @@ export class EmailPocComponent implements OnInit {
     }
 
     skiptext(event) {
-      if (event.keyCode == 9) {
+      if (event.keyCode === 9) {
         $('#btn').focus();
       }
     }
