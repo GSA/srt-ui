@@ -93,7 +93,7 @@
     <ng-template pTemplate="body" let-sol>
       <tr>
         <td class="ui-resizable-column"><span class="ui-column-title">Solicitation #</span>{{sol.solNum}}</td>
-        <td class="ui-resizable-column"><span class="ui-column-title">Title</span>{{sol.title}}</td>
+        <td class="ui-resizable-column"><span class="ui-column-title">Title</span><a href="https://beta.sam.gov/search?keywords={{sol.solNum}}">{{sol.title}}</a></td>
         <td class="ui-resizable-column"><span class="ui-column-title">Notice Type</span>{{sol.noticeType}}</td>
         <td class="ui-resizable-column"><span class="ui-column-title">Date Posted</span>{{sol.date}}</td>
         <td class="ui-resizable-column">
