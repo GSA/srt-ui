@@ -987,6 +987,254 @@
       "targets": [],
       "value": "30000"
     }]
+  }, {
+    "id": "a4df6636-f8ad-462f-bc7d-b0049bf96b6b",
+    "name": "Action Status Test",
+    "commands": [{
+      "id": "4c68fa0c-3393-4995-8c2a-5e997bb5a128",
+      "comment": "",
+      "command": "run",
+      "target": "Function-Setup",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "afd74e7c-7cc0-484e-9903-6c07298ba5c3",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Manage/Review Workload",
+      "targets": [
+        ["linkText=Manage/Review Workload", "linkText"],
+        ["css=#\\32 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Manage/Review Workload')]", "xpath:link"],
+        ["xpath=//li[@id='2']/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/solicitation/report')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Manage/Review Workload')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2144233b-7741-43be-a0b4-23331e7ffac9",
+      "comment": "",
+      "command": "click",
+      "target": "css=#ddl_reviewRec label",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c7a38b3d-5c62-40c0-96f0-e87e1fb50220",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id='ddl_reviewRec']//p-dropdownitem[.='Non-Compliant']/li",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "95b77f0e-e281-4d9c-bcba-61ea4be77408",
+      "comment": "",
+      "command": "storeText",
+      "target": "css=.ui-table-tbody > .ng-star-inserted:nth-child(1) > .ui-resizable-column:nth-child(1)",
+      "targets": [
+        ["css=.ui-table-tbody > .ng-star-inserted:nth-child(1) > .ui-resizable-column:nth-child(1)", "css:finder"],
+        ["xpath=//main[@id='content']/div/p-table/div/div/table/tbody/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"],
+        ["xpath=//td[contains(.,'0000003281')]", "xpath:innerText"]
+      ],
+      "value": "sol_one"
+    }, {
+      "id": "f47f1448-2bc4-4abe-a542-294d3b198062",
+      "comment": "",
+      "command": "type",
+      "target": "id=ksearch",
+      "targets": [
+        ["id=ksearch", "id"],
+        ["css=#ksearch", "css:finder"],
+        ["xpath=//input[@id='ksearch']", "xpath:attributes"],
+        ["xpath=//div[@id='solsearch']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${sol_one}"
+    }, {
+      "id": "5a981b0a-06c5-4c36-8f60-44ac3e5f6668",
+      "comment": "",
+      "command": "echo",
+      "target": "Working with ${sol_one}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "357a478e-7284-44de-a348-7a5d4c412e60",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//td[contains(@class, 'col_review_result')]/button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "855af2c6-f824-401f-803f-dc3b70360050",
+      "comment": "",
+      "command": "click",
+      "target": "id=na_check",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ee337d24-9743-44c8-b9ca-7c275efd0c45",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=< Back to Solicitation Review Results for Section 508 Requirements",
+      "targets": [
+        ["linkText=< Back to Solicitation Review Results for Section 508 Requirements", "linkText"],
+        ["css=.srt-title-padding > a", "css:finder"],
+        ["xpath=//a[contains(text(),'< Back to Solicitation Review Results for Section 508 Requirements')]", "xpath:link"],
+        ["xpath=//main[@id='content']/div/div/div/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/solicitation/report')])[3]", "xpath:href"],
+        ["xpath=//main/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'< Back to Solicitation Review Results for Section 508 Requirements')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0e8264dd-4b7a-4ada-9a83-5bf84401d0bf",
+      "comment": "",
+      "command": "type",
+      "target": "id=ksearch",
+      "targets": [
+        ["id=ksearch", "id"],
+        ["css=#ksearch", "css:finder"],
+        ["xpath=//input[@id='ksearch']", "xpath:attributes"],
+        ["xpath=//div[@id='solsearch']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${sol_one}"
+    }, {
+      "id": "2511557f-dd3a-4124-b023-bab27d0e5cc2",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//td[contains(@class, 'col_action_status') and contains(text(),'pplicable') ]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a13686d9-d4a6-4111-bf0a-dfe8fc557f22",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//td[contains(@class, 'col_review_result')]/button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2d4c299a-747f-460e-a960-7b055cac59ee",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=STEP 2: EMAIL POC",
+      "targets": [
+        ["linkText=STEP 2: EMAIL POC", "linkText"],
+        ["css=.summary-floatleft > li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'STEP 2: EMAIL POC')]", "xpath:link"],
+        ["xpath=//main[@id='content']/app-summary/div[2]/div/div/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/solicitation/email/1284')]", "xpath:href"],
+        ["xpath=//div[2]/div/div/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'STEP 2: EMAIL POC')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fddd0a5d-eb1d-4e49-8b2a-d85e41bff486",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[contains(@class,'srt-button')]//div[contains(text(),'Send Email')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "76d30ef4-fdf1-4995-910d-f9a1d58ec9dd",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "xpath=//div[contains(text(),'email is successfully')]",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "07939f2e-7c3d-4579-8024-4b03b1259e59",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=< Back to Solicitation Review Results for Section 508 Requirements",
+      "targets": [
+        ["linkText=< Back to Solicitation Review Results for Section 508 Requirements", "linkText"],
+        ["css=.srt-title-padding > a", "css:finder"],
+        ["xpath=//a[contains(text(),'< Back to Solicitation Review Results for Section 508 Requirements')]", "xpath:link"],
+        ["xpath=//main[@id='content']/div/div/div/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/solicitation/report')])[3]", "xpath:href"],
+        ["xpath=//main/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'< Back to Solicitation Review Results for Section 508 Requirements')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a60c09d3-6e96-4784-a23e-a01886b97d7c",
+      "comment": "",
+      "command": "type",
+      "target": "id=ksearch",
+      "targets": [
+        ["id=ksearch", "id"],
+        ["css=#ksearch", "css:finder"],
+        ["xpath=//input[@id='ksearch']", "xpath:attributes"],
+        ["xpath=//div[@id='solsearch']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${sol_one}"
+    }, {
+      "id": "3b41d8f4-f4bb-481a-bd03-f8b75e0d98dc",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//td[contains(@class, 'col_action_status') and contains(text(),'ent email') ]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d800449d-4e20-4048-96c3-58c43cbb109c",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//td[contains(@class, 'col_review_result')]/button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0e700b9c-8db6-4349-8548-3aa07cabdecf",
+      "comment": "",
+      "command": "click",
+      "target": "id=na_check",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "84b0ef05-486b-4bd1-a1d3-3445406a2483",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=< Back to Solicitation Review Results for Section 508 Requirements",
+      "targets": [
+        ["linkText=< Back to Solicitation Review Results for Section 508 Requirements", "linkText"],
+        ["css=.srt-title-padding > a", "css:finder"],
+        ["xpath=//a[contains(text(),'< Back to Solicitation Review Results for Section 508 Requirements')]", "xpath:link"],
+        ["xpath=//main[@id='content']/div/div/div/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/solicitation/report')])[3]", "xpath:href"],
+        ["xpath=//main/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'< Back to Solicitation Review Results for Section 508 Requirements')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a1414863-d2da-4bb0-9d4a-46cfb8f44156",
+      "comment": "",
+      "command": "type",
+      "target": "id=ksearch",
+      "targets": [
+        ["id=ksearch", "id"],
+        ["css=#ksearch", "css:finder"],
+        ["xpath=//input[@id='ksearch']", "xpath:attributes"],
+        ["xpath=//div[@id='solsearch']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${sol_one}"
+    }, {
+      "id": "472f2192-9ad6-472e-85a8-07ff184e41e1",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "52f0d426-ac74-4062-8de4-ec6deaf9e162",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//td[contains(@class, 'col_action_status') and contains(text(),'pplicable') ]",
+      "targets": [],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "ec5d1633-94d5-45f8-b8d9-b52a4d08b1ec",
@@ -994,7 +1242,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["1888497e-83be-4bcf-85eb-4febba184060", "cad747ac-0162-4e0b-bf31-d7bc7192ab4f", "9522a3db-9f9c-40b9-a50b-5e3eaa564154", "4366f9c9-c3a9-4404-a046-57038747f54d"]
+    "tests": ["1888497e-83be-4bcf-85eb-4febba184060", "cad747ac-0162-4e0b-bf31-d7bc7192ab4f", "9522a3db-9f9c-40b9-a50b-5e3eaa564154", "4366f9c9-c3a9-4404-a046-57038747f54d", "a4df6636-f8ad-462f-bc7d-b0049bf96b6b"]
   }],
   "urls": ["http://localhost:4200/", "http://srt-client.app.cloud.gov/"],
   "plugins": []

@@ -38,7 +38,7 @@ label {
 #emailform{
     font-weight: 500;
     display: inline-block;
-    width: calc(100% - 170px);
+    width: calc(100% - 25px);
     vertical-align: top
 }
 #ebutton{
