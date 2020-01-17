@@ -6,6 +6,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SolicitationService } from '../../solicitation.service';
 import { Solicitation } from '../../../shared/solicitation';
 import { Email } from './email';
+import { environment } from '../../../../environments/environment';
+
+import { htmlToPlainText } from '../../../shared/textversion.js';
 
 
 @Component({
@@ -130,40 +133,80 @@ export class EmailPocComponent implements OnInit {
 
   }
 
+  emailError(to) {
+    alert (`There was a problem sending an email message to ${to}. Please try again later or contact srt@srt.gov to report the issue.`);
+  }
+
+  clientEmail(emailTo, subject, body, from, cc) {
+
+    const simulateError =
+      (environment.ENVIRONMENT === 'local' || environment.ENVIRONMENT === 'dev') &&
+      (emailTo.substring(emailTo.length - 6) === 'nospam') &&
+      (Math.random() < .1);
+
+    emailTo = encodeURI(emailTo);
+    subject = encodeURI(subject);
+    body = encodeURI( htmlToPlainText(body) );
+    cc = encodeURI(cc)
+
+    // if we are on dev/local and the email address ends in nospam,
+    // give a chance for a simulated error
+    if ( simulateError ) {
+      this.emailError(emailTo);
+      return;
+    }
+
+    document.location.href = `mailto: ${emailTo}?subject=${subject}&body=${body}&cc=${cc}`;
+    // email sent successfully, now update the history
+    this.emailSuccess();
+
+  }
+
+  serverEmail(emailTo, subject, body, emailFrom, cc) {
+    const emailContent = new Email(emailTo, subject, body, emailFrom, cc);
+    this.solicitationService.sendContactEmail(emailContent)
+      .subscribe(
+        msg => {
+          this.emailSuccess();
+        },
+        err => {
+          this.emailError(this.myForm.value.emailTo);
+        });
+  }
+
+  emailSuccess() {
+    // email sent successfully, now update the history
+    const now = new Date().toLocaleDateString();
+    const user = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
+    const r = this.solicitation.history.push({'date': now, 'action': 'sent email to POC', 'user': user , 'status' : 'Email Sent to POC'});
+    this.emailSent = true;
+    this.solicitationService.updateHistory(this.solicitation)
+      .subscribe(
+        m => {
+        },
+        err => {
+        });
+  }
+
   /**
    * send an email to contact
    */
   emailContact() {
 
-      const emailContent = new Email(
-        this.myForm.value.emailTo,
-        this.myForm.value.subject,
-        this.myForm.value.message,
-        this.myForm.value.emailFrom,
-        this.myForm.value.emailCC
-      );
 
-      const now = new Date().toLocaleDateString();
-      const user = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
-      const r = this.solicitation.history.push({'date': now, 'action': 'sent email to POC', 'user': user , 'status' : 'Email Sent to POC'});
-      this.solicitationService.sendContactEmail(emailContent)
-        .subscribe(
-          msg => {
-            this.emailSent = true;
-            this.step2 = true;
-            console.log ('setting the emailSent to true');
-          },
-          err => {
-          });
+    const body = this.myForm.value.message;
+    const subject = this.myForm.value.subject;
+    const emailTo = this.myForm.value.emailTo;
+    const emailFrom = this.myForm.value.emailFrom;
+    const cc = this.myForm.value.emailCC;
 
-
-      this.solicitationService.updateHistory(this.solicitation)
-        .subscribe(
-          msg => {
-          },
-          err => {
-          });
+    if (environment.USE_CLIENT_EMAIL) {
+      this.clientEmail(emailTo, subject, body, emailFrom, cc);
+    } else {
+      this.serverEmail(emailTo, subject, body, emailFrom, cc);
     }
+
+  }
 
     skiptext(event) {
       if (event.keyCode === 9) {
