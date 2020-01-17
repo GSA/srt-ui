@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import { AuthService } from './shared/services/auth.service';
 import { AuthGuard } from './auth-guard.service';
 
-
 import {Globals} from '../globals';
 import {VersionService} from './shared/services/version.service';
+import {ClientVersionService} from './shared/services/clientVersion.service';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
   version = '';
   buildDate = '';
   environment = '';
+  clientVersion = '';
 
   /* CONSTRUCTOR */
 
@@ -35,7 +36,8 @@ export class AppComponent implements OnInit {
     private authGuard: AuthGuard,
     private authService: AuthService,
     private globals: Globals,
-    private versionService: VersionService
+    private versionService: VersionService,
+    private clientVersionService: ClientVersionService
   ) {
     globals.app = this;
     authService.checkToken().subscribe(
@@ -65,6 +67,21 @@ export class AppComponent implements OnInit {
         this.buildDate = data && data.build_date;
         this.environment = data && data.env;
       });
+
+    this.clientVersionService
+      .getVersionString()
+      .subscribe( (data: any) => {
+        // should come back in the form { "version" : "S4.9" , "build_date" : "2020-01-17.10.46.41" }
+        if ( (typeof(data) === 'object') && data.version ) {
+          this.clientVersion = ` / ${data.version}`;
+        } else {
+          this.clientVersion = '';
+        }
+      },
+        (err: any) => {
+          this.clientVersion = '';
+        }
+      );
   }
 
-  }
+}

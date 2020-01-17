@@ -4,9 +4,9 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "dev": "ng serve  --disable-host-check --host 0.0.0.0 --watch --configuration=local",
+    "dev": "ng serve  --disable-host-check --host 0.0.0.0 --watch --configuration=local ",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --outputHashing=all",
     "ngtest": "ng test",
     "testall": "ng run dev &;  && npm run test && sh kill4200.sh  ",
     "test": "./node_modules/.bin/protractor test/protractor/protractor.conf.js",
