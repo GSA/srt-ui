@@ -59,6 +59,8 @@
   <p-table #gb styleClass="pDataTable"
            [value]="solicitations"
            [lazy] = "true"
+           sortField="date"
+           sortOrder="-1"
            [loading]="loading"
            (onLazyLoad)="loadSolicitationsLazy($event)"
            [totalRecords]="totalRecordCount"

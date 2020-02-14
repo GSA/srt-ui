@@ -39,8 +39,7 @@ export class SolicitationService {
   };
 
   private feedbackURL = environment.SERVER_URL + '/feedback';
-  private solicitationsFilterUrl = environment.SERVER_URL +
-    '/predictions/filter';
+  private solicitationsFilterUrl = environment.SERVER_URL + '/predictions/filter';
   private solicitationUrl = environment.SERVER_URL + '/solicitation/';
   private updateUrl = environment.SERVER_URL + '/solicitation/';
   private emailUrl = environment.SERVER_URL + '/email/';
