@@ -58,11 +58,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
 
 
   noticeTypes: Array<Object> = [
-    {label : 'All', value : ''},
-    {label : 'COMBINE', value : 'COMBINE'},
-    {label : 'AMDCSS', value : 'AMDCSS'},
-    {label : 'PRESOL', value : 'PRESOL'},
-    {label : 'MOD', value : 'MOD'},
+    {label : 'All', value : ''}
     ];
 
   reviewRec: Array<Object> = [
