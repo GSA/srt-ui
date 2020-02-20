@@ -61,6 +61,10 @@ export class ResultsDetailComponent implements OnInit {
                 }
             });
 
+            if (data.contactInfo.name === '') {
+              data.contactInfo.name = data.contactInfo.email;
+            }
+
             this.step1 = data.history.filter( function(e) {
               return e['action'].indexOf('reviewed solicitation action requested summary') > -1;
             }).length > 0;
