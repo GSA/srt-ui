@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, Renderer2, ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
 import {SolicitationService} from '../solicitation.service';
 import {LazyLoadEvent, SelectItem} from 'primeng/primeng';
@@ -48,7 +48,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     { field: 'solNum', title: 'Solicitation ID'},
     { field: 'title', title: 'Solicitation Title'},
     { field: 'noticeType', title: 'Notice Type'},
-    { field: 'date', title: 'Date Posted on FedBizOps'},
+    { field: 'date', title: 'Date Posted'},
     { field: 'reviewRec', title: 'SRT Review Result'},
     { field: 'actionStatus', title: 'Action Status'},
     { field: 'actionDate', title: 'Latest Action Date'},
@@ -74,6 +74,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
    * @param router
    * @param titleService
    * @param noticeTypesService
+   * @param renderer
    * @param titleService
    * @param noticeTypesService
    */
@@ -81,7 +82,8 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     private solicitationService: SolicitationService,
     private router: Router,
     private titleService: Title,
-    private noticeTypesService: NoticeTypesService
+    private noticeTypesService: NoticeTypesService,
+    private renderer: Renderer2
   ) {
     super(titleService);
     this.pageName = 'SRT - Manage/Review Workload';
@@ -111,6 +113,13 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
 
           this.getNoticeTypes(this.solicitations);
           this.loading = false;
+
+          // give the PrimNG Table time to render, then set the default sort icon manually
+          // to cover over a bug where the default column is not getting the arrow rendered
+          setTimeout( () => {
+            this.renderer.selectRootElement('p-sorticon[ng-reflect-field=\'date\']>i').classList.add('pi-sort-down');
+          }, 100);
+
         },
         err => {
           console.log(err);
@@ -246,7 +255,9 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
       this.solType = [];
       this.solType.push({label: 'Any', value: null});
       for (const k in noticeTypeMap) {
-        this.solType.push({label: noticeTypeMap[k].label + ' (' + noticeTypeMap[k].count + ')', value: noticeTypeMap[k].label});
+        if (noticeTypeMap[k] !== null && noticeTypeMap[k] !== null) {
+          this.solType.push({label: noticeTypeMap[k].label + ' (' + noticeTypeMap[k].count + ')', value: noticeTypeMap[k].label});
+        }
       }
     }
   }
