@@ -7,7 +7,7 @@
           </h2>
 
           <!-- Total ICT Solicitations -->
-          <div class="visually-hidden">The total number of ICT solicitations scanned from FedBizOpps for
+          <div class="visually-hidden">The total number of ICT solicitations scanned from sam.gov for
             {{selectedAgency}} is {{solicitationNumber}} which is 100 percent of the total solicitations scanned.</div>
           <div class="clearfix analytic-overview-name" aria-hidden="true" >
               <div class="top-srt-floatleft">Total ICT Solicitations Scanned&nbsp;&nbsp;
@@ -16,7 +16,7 @@
                       <i tabindex="0" class="fa fa-info-circle info" aria-hidden="true" ></i>
                   </sup>
                   <tooltip-content #TotalICT [animation]="true">
-                      <div role="tooltip" id="total-num-ict"> Total number of ICT solicitations scanned from FedBizOpps for all federal agencies.</div>
+                      <div role="tooltip" id="total-num-ict"> Total number of ICT solicitations scanned from sam.gov for all federal agencies.</div>
                   </tooltip-content>
               </div>
               <div class="top-srt-floatright">{{solicitationNumber}}</div>
@@ -26,7 +26,7 @@
           </div>
 
           <!-- Total Non-compliant ICT Solicitations -->
-          <div class="visually-hidden">The total number of non-compliant ICT solicitations scanned from FedBizOpps
+          <div class="visually-hidden">The total number of non-compliant ICT solicitations scanned from sam.gov
             for {{selectedAgency}}
             is {{nonCompliantICTNumber}} which is
             {{(nonCompliantICTNumber/solicitationNumber * 100) | number:'1.0-1'}} percent of the total
@@ -39,7 +39,7 @@
                       <i tabindex="0" class="fa fa-info-circle info" aria-hidden="true" ></i>
                   </sup>
                   <tooltip-content #TotalNonCompliantICT [animation]="true">
-                      <div>Total number of non-compliant ICT solicitations scanned from FedBizOpps for {{selectedAgency}}.</div>
+                      <div>Total number of non-compliant ICT solicitations scanned from sam.gov for {{selectedAgency}}.</div>
                   </tooltip-content>
               </div>
               <div class="top-srt-floatright">{{nonCompliantICTNumber}}</div>
@@ -93,7 +93,7 @@
           </div>
 
           <!-- # Updated Solicitations -->
-        <div class="visually-hidden">The number of ICT solicitations that have been re-scanned from FedBizOpps
+        <div class="visually-hidden">The number of ICT solicitations that have been re-scanned from sam.gov
           for {{selectedAgency}}
           is {{updatedICTNumber}} which is
           {{(updatedICTNumber/solicitationNumber * 100) | number:'1.0-1'}} percent of the total
@@ -106,7 +106,7 @@
                       <i tabindex="0" class="fa fa-info-circle info" aria-hidden="true"></i>
                   </sup>
                   <tooltip-content #Updated0 [animation]="true">
-                      <div>Number of ICT solicitations that have been re-scanned from FedBizOpps.</div>
+                      <div>Number of ICT solicitations that have been re-scanned from sam.gov.</div>
                   </tooltip-content>
               </div>
               <div class="top-srt-floatright">{{updatedICTNumber}}</div>
@@ -116,7 +116,7 @@
           </div>
 
           <!-- # Updated Non-compliant Solicitations -->
-        <div class="visually-hidden">The number of ICT solicitations that have been re-scanned from FedBizOpps for {{selectedAgency}} and
+        <div class="visually-hidden">The number of ICT solicitations that have been re-scanned from sam.gov for {{selectedAgency}} and
           remained non-compliant on SRT is {{updatedNonCompliantICTNumber}} which is
           {{(updatedNonCompliantICTNumber/solicitationNumber * 100) | number:'1.0-1'}} percent of the total
           solicitations scanned.
@@ -128,7 +128,7 @@
                       <i tabindex="0" class="fa fa-info-circle info" aria-hidden="true"></i>
                   </sup>
                   <tooltip-content #Updated1 [animation]="true">
-                      <div>Number of ICT solicitations that have been re-scanned from FedBizOpps and remained non-compliant on SRT.</div>
+                      <div>Number of ICT solicitations that have been re-scanned from sam.gov and remained non-compliant on SRT.</div>
                   </tooltip-content>
               </div>
               <div class="top-srt-floatright">{{updatedNonCompliantICTNumber}}</div>
@@ -138,7 +138,7 @@
           </div>
 
           <!-- # Updated Compliant Solicitations -->
-        <div class="visually-hidden">The number of ICT solicitations that have been re-scanned from FedBizOpps
+        <div class="visually-hidden">The number of ICT solicitations that have been re-scanned from sam.gov
           for {{selectedAgency}} and updated
           as compliant on SRT is {{updatedCompliantICTNumber}} which is
           {{(updatedCompliantICTNumber/solicitationNumber * 100) | number:'1.0-1'}} percent of the total
@@ -151,7 +151,7 @@
                       <i tabindex="0" class="fa fa-info-circle info" aria-hidden="true"></i>
                   </sup>
                   <tooltip-content #Updated2 [animation]="true">
-                      <div>Number of ICT solicitations that have been re-scanned from FedBizOpps and updated as compliant on SRT.</div>
+                      <div>Number of ICT solicitations that have been re-scanned from sam.gov and updated as compliant on SRT.</div>
                   </tooltip-content>
               </div>
               <div class="top-srt-floatright">{{updatedCompliantICTNumber}}</div>

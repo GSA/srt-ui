@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild} from '@angular/core';
+import {Component, OnInit, Input, ViewChild, OnChanges} from '@angular/core';
 
 import { BaseChartDirective } from 'ng2-charts';
 import { Color } from 'ng2-charts';
@@ -10,7 +10,7 @@ import * as $ from 'jquery';
   templateUrl: './donut-chart.component.html',
   styleUrls: ['../analytics.component.css', './donut-chart.component.css']
 })
-export class DonutChartComponent implements OnInit {
+export class DonutChartComponent implements OnInit, OnChanges {
 
 
   /* ATTRIBUTES */
@@ -71,17 +71,21 @@ export class DonutChartComponent implements OnInit {
         this.numerator = this.doughnutChartDataInput.updatedCompliantICT;
         this.denominator = this.doughnutChartDataInput.uncompliance;
         this.doughnutChartData = [this.doughnutChartDataInput.updatedCompliantICT, this.doughnutChartDataInput.uncompliance];
-        this.percentage = this.doughnutChartDataInput.uncompliance === 0 ? 0 : Math.round(this.doughnutChartDataInput.updatedCompliantICT / this.doughnutChartDataInput.uncompliance * 100);
+        this.percentage = this.doughnutChartDataInput.uncompliance === 0
+          ? 0
+          : Math.round(this.doughnutChartDataInput.updatedCompliantICT / this.doughnutChartDataInput.uncompliance * 100);
         CountTo = this.percentage;
         this.id = 'ConversionRate';
-        this.note = 'non-compliant ICT solicitations became compliant after they were updated on FedBizOpps.gov. ';
+        this.note = 'non-compliant ICT solicitations became compliant after they were updated sam.gov. ';
         this.readerSupplement = `That is a ${this.percentage} percent conversion rate.`;
 
       } else if (this.title === 'Preliminary Compliance Rate') {
         this.numerator = this.doughnutChartDataInput.compliance;
         this.denominator = this.doughnutChartDataInput.determinedICT;
         this.doughnutChartData = [this.numerator, this.doughnutChartDataInput.determinedICT - this.doughnutChartDataInput.compliance];
-        this.percentage = this.doughnutChartDataInput.determinedICT === 0 ? 0 : Math.round(this.doughnutChartDataInput.compliance / this.doughnutChartDataInput.determinedICT * 100);
+        this.percentage = this.doughnutChartDataInput.determinedICT === 0
+          ? 0
+          : Math.round(this.doughnutChartDataInput.compliance / this.doughnutChartDataInput.determinedICT * 100);
         CountTo = this.percentage;
         this.id = 'ComplianceRate';
         this.note = 'ICT machine readable solicitations scanned by SRT are Section 508 compliant solicitations. ';

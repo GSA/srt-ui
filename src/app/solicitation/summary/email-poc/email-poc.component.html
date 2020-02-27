@@ -16,7 +16,7 @@
         <!--<legend style="font-weight: 500">Email Solicitation Point of Contact</legend>-->
         <div class="alert alert-success email-font" *ngIf="emailSent">
           Your email is successfully sent to the designated recipient(s), you will receive an email notification when the solicitation
-          is updated on FedBizOpps.
+          is updated on sam.gov.
         </div>
         <div *ngIf="emailSent" class="email-font">
           <a (click)="emailSent = false" id="rebutton">
@@ -52,9 +52,10 @@
       </div>
 
       <div class="col-lg-1 col-md-2 nopadding">
+        <!-- send email button
         <div class="srt-button" style="float: left">
-          <div (click)="emailContact()" >Send Email</div>
         </div>
+        -->
       </div>
 
     </div> <!-- row -->

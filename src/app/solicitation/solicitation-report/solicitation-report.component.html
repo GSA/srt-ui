@@ -51,7 +51,7 @@
             </div>
 
 
-                <div class="solic-littlescan" role="heading" aria-level="2">Last scanned date: {{dateScan}}</div>
+                <!-- <div class="solic-littlescan" role="heading" aria-level="2">Last scanned date: {{dateScan}}</div> -->
             </div>
         </div>
 
@@ -93,14 +93,14 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-sol>
-      <tr>
+      <tr (click)="selectSol(sol)">
         <td class="ui-resizable-column col_solicitation"><span class="ui-column-title">Solicitation #</span>{{sol.solNum}}</td>
-        <td class="ui-resizable-column col_title"><span class="ui-column-title">Title</span><a href="https://beta.sam.gov/search?keywords={{sol.solNum}}">{{sol.title}}</a></td>
+        <td class="ui-resizable-column col_title"><span class="ui-column-title">Title</span>{{sol.title}}</td>
         <td class="ui-resizable-column col_notice_type"><span class="ui-column-title">Notice Type</span>{{sol.noticeType}}</td>
         <td class="ui-resizable-column col_date_posted"><span class="ui-column-title">Date Posted</span>{{sol.date}}</td>
         <td class="ui-resizable-column col_review_result">
           <span class="ui-column-title">Review Result</span>
-          <button class="button {{'result-' + sol.predictions.value}}" (click)="selectSol(sol)" onclick="$('#test').focus()" style="border: none; text-align: left; padding: 0;">
+          <button class="button {{'result-' + sol.predictions.value}}" (click)="selectSol(sol)"  style="border: none; text-align: left; padding: 0;">
             <i class="fa fa-exclamation-triangle" style="padding-right: 5px;" *ngIf="sol.predictions.value == 'red'"></i>
             <span style="text-decoration: underline;">{{sol.reviewRec}}</span>
           </button>
