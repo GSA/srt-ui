@@ -173,21 +173,6 @@
     ]
   },
   {
-    "name": "Understand Access Privileges",
-    "id": "accessLevel",
-    "title": "accessLevelTitle",
-    "children": [
-      {
-        "id": 1,
-        "title": "What are the different access privileges for SRT?",
-        "body": "<span>Administrator: </span>An Administrator is a superuser who can manage user access requests and user profiles. <span>SRT Program Manager: </span>A SRT Program Manager oversees all federal agencies’ 508 conformance activities. S/he has access to all agencies data.<span>508 Coordinator: </span>A Section 508 Program Manager has access to review his/her agency’s solicitations report, and is responsible to contact POC; and provide feedback on the prediction results.<span>CO/COR: </span>A Contracting Officer / Contracting Officer Representative reviews his/her agency’s solicitations report and view the Section 508 conformance trend analytics.<span style='font-weight: 500'>Executive User: </span>An Executive User only has access to view the Section 508 conformance trend analytics.",
-        "class": "in"
-      }
-    ]
-  },
-
-
-  {
     "name": "Manage/Review Solicitations",
     "id": "manageWorkload",
     "title": "manageWorkloadTitle",
@@ -202,14 +187,7 @@
         "id": 2,
         "title": "Who is responsible for communicating solicitations non-compliance to CO/CORs?",
         "body": "Section 508 Program Managers are to email CO/CORs."
-      },
-      {
-        "id": 4,
-        "title": "What are the roles and responsibilities for each user?",
-        "body": "A Section 508 Program Manager has access to review his/her agency’s solicitations report, and is responsible to contact POC; and provide feedback on the prediction results. CO/COR He or she clicks on the solicitation’s “FBO Link” to access the solicitation on FedBizOpps website and download the solicitation documents; evaluate the documents for inclusion of Section 508 language (here are some suggested keywords to search for in the documents: Section 508, accessibility, compliance, conform, conformance, VPAT, Section 508 requirements, WCAG, and Buy Accessible); answer the short survey below to provide manual review feedback; and click submit to send out your evaluation to the SRT Team."
       }
-
-
     ]
   },
   {
