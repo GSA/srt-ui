@@ -62,3 +62,19 @@ label {
 #form-div{
   padding-top: 20px;
 }
+
+div.form-group {
+  padding-bottom: 10px
+}
+
+.form-group .srt-button {
+  top: -10px;
+  float: right;
+  display: inline;
+  height: 2.5em;
+  width: 160px;
+}
+
+.form-group .srt-button i {
+  vertical-align: middle;
+}

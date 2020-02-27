@@ -8,7 +8,7 @@ import { Solicitation } from '../../../shared/solicitation';
 import { Email } from './email';
 import { environment } from '../../../../environments/environment';
 
-import { htmlToPlainText } from '../../../shared/textversion.js';
+import { htmlToPlainText } from '../../../shared/textversion';
 
 
 @Component({
@@ -147,7 +147,7 @@ export class EmailPocComponent implements OnInit {
     emailTo = encodeURI(emailTo);
     subject = encodeURI(subject);
     body = encodeURI( htmlToPlainText(body) );
-    cc = encodeURI(cc)
+    cc = encodeURI(cc);
 
     // if we are on dev/local and the email address ends in nospam,
     // give a chance for a simulated error
@@ -178,7 +178,7 @@ export class EmailPocComponent implements OnInit {
     // email sent successfully, now update the history
     const now = new Date().toLocaleDateString();
     const user = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
-    const r = this.solicitation.history.push({'date': now, 'action': 'sent email to POC', 'user': user , 'status' : 'Email Sent to POC'});
+    this.solicitation.history.push({'date': now, 'action': 'sent email to POC', 'user': user , 'status' : 'Email Sent to POC'});
     this.emailSent = true;
     this.solicitationService.updateHistory(this.solicitation)
       .subscribe(
@@ -186,6 +186,17 @@ export class EmailPocComponent implements OnInit {
         },
         err => {
         });
+  }
+
+  copyText(field) {
+    const el = document.createElement('textarea');
+    el.value = htmlToPlainText(this.myForm.value[field]).trim();
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
   }
 
   /**

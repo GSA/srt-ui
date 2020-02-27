@@ -25,25 +25,39 @@
         </div>
 
 
-        <form [formGroup]="myForm" (ngSubmit)="emailContact()" [ngStyle]="{'display': emailSent ? 'none': 'block'}">
+        <form [formGroup]="myForm" [ngStyle]="{'display': emailSent ? 'none': 'block'}">
           <div id="emailform">
 
             <div id="instruction">
-              This page contains an email template you can use when contacting the POC for this solicitation.
+              Please copy the email and paste in your agency email to send to the user.
             </div>
 
             <div id="form-div">
               <div class="form-group">
                 <label>To:</label>
                 {{emailTo}}
+                <button (click)="copyText('emailTo')" class="srt-button">
+                  Copy Email &nbsp;<i class="fa fa-copy" ></i>
+                </button>
               </div>
-              <div class="form-group" >
+
+              <div class="form-group">
                 <label>Subject:</label>
                 {{subject}}
+                <button (click)="copyText('subject')" class="srt-button">
+                  Copy Subject &nbsp;<i class="fa fa-copy" ></i>
+                </button>
               </div>
-              <div class="form-group" style="padding-bottom: 20px" >
-                <label for="message" style="padding-bottom: 10px">Message:</label>
-                <quill-editor id="maessage" style="min-height: calc(100vh - 585px)" formControlName="message" [options]="editorOptions" (keydown)="skiptext($event)"></quill-editor>
+
+              <div class="form-group">
+                <label for="message">Message:</label>
+                <button (click)="copyText('message')" class="srt-button" >
+                    Copy Message &nbsp;<i class="fa fa-copy" ></i>
+                </button>
+              </div>
+
+              <div>
+                <quill-editor id="message" style="min-height: calc(100vh - 585px)" formControlName="message" [options]="editorOptions" (keydown)="skiptext($event)"></quill-editor>
               </div>
 
             </div>

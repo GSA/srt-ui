@@ -8,7 +8,7 @@ export class Solicitation {
         public title: String,
         public url: String,
         public predictions: {value: String, history: [{value: String, date: String}]},
-        public reviewRec: Boolean,
+        public reviewRec: String,
         public numDocs: String,
         public eitLikelihood: {value: String},
         public date: Date,
