@@ -134,7 +134,7 @@ export class EmailPocComponent implements OnInit {
   }
 
   emailError(to) {
-    alert (`There was a problem sending an email message to ${to}. Please try again later or contact srt@srt.gov to report the issue.`);
+    alert (`There was a problem sending an email message to ${to}. Please try again later or contact srt@gsa.gov to report the issue.`);
   }
 
   clientEmail(emailTo, subject, body, from, cc) {
