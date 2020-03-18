@@ -11,11 +11,11 @@ var populateChar = function(ch, amount){
 export function htmlToPlainText(htmlText, styleConfig) {
 
   // define default styleConfig
-  var linkProcess = (href, text) => {
+  var linkProcess = function (href, text)  {
     if (text.substr(0,4).toLowerCase() === 'http') {
       return href
     } else {
-      return `${text} (${href})`
+      return text + " " + href;
     }
   };
   var imgProcess = null;
