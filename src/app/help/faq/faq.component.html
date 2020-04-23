@@ -87,16 +87,15 @@
             <div class="search-title" *ngFor="let section of faq;">
               <h2 id="{{section.title}}">{{section.name}}</h2>
               <div class="panel-group" id="{{section.id}}" *ngIf="section.children">
-                <div class="panel panel-default search-content" *ngFor="let element of section.children; let i='index'">
+                <div class="panel panel-default search-content" *ngFor="let element of section.children; let i = index">
 
                   <div class="panel-heading">
-                    <a class="panel-link collapsed" data-toggle="collapse" [attr.data-parent]="'#'+section.id" href="#{{section.id}}{{i}}" [ngClass]="element.titleClass">
+                    <a class="panel-link collapsed" data-toggle="collapse" [attr.data-parent]="'#'+section.id" href="#{{section.id}}{{i}}" >
                       <h3 class="panel-title" style="color:black">{{element.title}}</h3>
                     </a>
                   </div>
-                  <div id="{{section.id}}{{i}}" class="panel-collapse collapse" [ngClass]="element.class">
-                    <div class="panel-body" [ngClass]="element.picclass" [innerHTML]="element.body">
-                      {{element.body}}
+                  <div id="{{section.id}}{{i}}" class="panel-collapse collapse" >
+                    <div class="panel-body"  [innerHTML]="element.body">
                     </div>
                   </div>
                 </div>
