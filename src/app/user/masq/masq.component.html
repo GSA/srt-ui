@@ -1,26 +1,8 @@
 <main id="content" class="bypass-block-target">
 
-  <div style="padding: 40px">
-
-    <div class="row nopadding">
-      <div class="srt-page-title srt-title-padding">
-        User Management
-      </div>
+  <div style="padding: 0px">
 
 
-      <!-- Tabs -->
-      <div class="active-tabs" ng-if="showActivitySelection()">
-        <div style="width: 100%; height: 70px;">
-          <ul class="us-tab-slide nopadding" style="padding: 0;">
-            <li id="tab1" class="us-tab-item-slide" [ngClass]="{'active': accepted}">
-              <a [routerLink]="['/admin/accepted']">APPROVED</a>
-            </li>
-            <li id="tab3" class="us-tab-item-slide" [ngClass]="{'active': masq}">
-              <a>MASQUERADE</a>
-            </li>
-          </ul>
-        </div>
-      </div>
 
       <div>
         <form [formGroup]="masqForm" (ngSubmit)="onSubmit(masqForm)">
@@ -58,6 +40,4 @@
       </div>
     </div>
 
-
-  </div>
 </main>

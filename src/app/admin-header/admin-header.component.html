@@ -1,0 +1,21 @@
+<div class="active-tabs" ng-if="showActivitySelection()">
+  <div style="width: 100%; height: 70px;">
+    <ul class="us-tab-slide nopadding" style="padding: 0;">
+      <li id="tab1" class="us-tab-item-slide"
+          [ngClass]="{'active': active['accepted']}"
+          (click)="this.menuClick.emit('approved');this.setActiveTab('accepted')">
+        <a>APPROVED</a>
+      </li>
+      <li id="tab2" class="us-tab-item-slide"
+          [ngClass]="{'active': active['masquerade']}"
+          (click)="this.menuClick.emit('masquerade');this.setActiveTab('masquerade')">
+        <a>MASQUERADE</a>
+      </li>
+      <li id="tab3" class="us-tab-item-slide"
+          [ngClass]="{'active': active['reports']}"
+          (click)="this.menuClick.emit('reports');this.setActiveTab('reports');">
+        <a>REPORTS</a>
+      </li>
+    </ul>
+  </div>
+</div>
