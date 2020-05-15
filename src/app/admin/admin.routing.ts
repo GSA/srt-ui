@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 // COMPONENTS
 
 import { PrivateComponent } from '../home/private/private.component';
-import { MasqComponent } from './masq/masq.component';
+import { MasqComponent } from '../user/masq/masq.component';
 
 
 import {AuthGuard} from '../auth-guard.service';

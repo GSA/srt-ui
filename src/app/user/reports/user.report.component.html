@@ -1,0 +1,32 @@
+<div style="height: calc(100vh - 280px); overflow: auto; clear: both" class="clearfix">
+
+  <table class="table" style="font-size: 16px">
+    <thead>
+    <tr style="font-weight: 700">
+      <th>Name</th>
+      <th>Position</th>
+      <th>Agency</th>
+      <th>Email</th>
+      <th>Request Date/Time</th>
+      <th *ngIf="accepted">Security Access</th>
+      <th *ngIf="rejected">Reason</th>
+      <th *ngIf="pending">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users; let even = even; let odd = odd"  [ngClass]="{ odd: odd, even: even }">
+      <td role="listbox">{{user.firstName}} {{user.lastName}} </td>
+      <td>{{user.position}} </td>
+      <td>{{user.agency}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.creationDate}}</td>
+      <td *ngIf="accepted">{{user.userRole}}</td>
+      <td *ngIf="rejected"></td>
+      <td *ngIf="pending">
+        <span style="color: #0a831e; cursor: pointer" (click)="Approve(user)">Approve</span>&nbsp;&nbsp;&nbsp;
+        <span style="color: #E60000; cursor: pointer" (click)="Reject(user)">Deny</span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
