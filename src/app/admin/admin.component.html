@@ -3,58 +3,15 @@
 
 <div style="padding: 40px">
 
-    <h1 class="srt-page-title srt-title-padding">
-        User Management
-    </h1>
+  <app-admin-header (menuClick)="processMenuClick($event)" ></app-admin-header>
 
 
-  <!-- Tabs -->
-    <div class="active-tabs" ng-if="showActivitySelection()">
-        <div style="width: 100%; height: 70px;">
-            <ul class="us-tab-slide nopadding" style="padding: 0;">
-                <li id="tab1" class="us-tab-item-slide" [ngClass]="{'active': accepted}">
-                    <a>APPROVED</a>
-                </li>
-              <li id="tab3" class="us-tab-item-slide" [ngClass]="{'active': masq}">
-                <a [routerLink]="['/admin/masq']">MASQUERADE</a>
-              </li>
-            </ul>
-        </div>
-    </div>
+  <app-user-report *ngIf="this.activeTab == 'approved'"></app-user-report>
 
+  <masquerade *ngIf="this.activeTab == 'masquerade'"></masquerade>
 
-    <div style="height: calc(100vh - 280px); overflow: auto; clear: both" class="clearfix">
+  <app-admin-reports *ngIf="this.activeTab == 'reports'"></app-admin-reports>
 
-        <table class="table" style="font-size: 16px">
-            <thead>
-                <tr style="font-weight: 700">
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Agency</th>
-                    <th>Email</th>
-                    <th>Request Date/Time</th>
-                    <th *ngIf="accepted">Security Access</th>
-                    <th *ngIf="rejected">Reason</th>
-                    <th *ngIf="pending">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let user of users; let even = even; let odd = odd"  [ngClass]="{ odd: odd, even: even }">
-                    <td role="listbox">{{user.firstName}} {{user.lastName}} </td>
-                    <td>{{user.position}} </td>
-                    <td>{{user.agency}}</td>
-                    <td>{{user.email}}</td>
-                    <td>{{user.creationDate}}</td>
-                    <td *ngIf="accepted">{{user.userRole}}</td>
-                    <td *ngIf="rejected"></td>
-                    <td *ngIf="pending">
-                        <span style="color: #0a831e; cursor: pointer" (click)="Approve(user)">Approve</span>&nbsp;&nbsp;&nbsp;
-                        <span style="color: #E60000; cursor: pointer" (click)="Reject(user)">Deny</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-      </div>
-  </div>
+</div>
 </main>
 

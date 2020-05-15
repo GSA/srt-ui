@@ -23,7 +23,7 @@
                      <li data-toggle="tab" [ngClass]="{'active': GetHash('home')}" id="1" (click)="menuClick('/home');"><a [routerLink]="['/home']">Home</a></li>
                      <li data-toggle="tab" [ngClass]="{'active': GetHash('solicitation')}" id="2" (click)="menuClick('/solicitation/report');"><a [routerLink]="['/solicitation/report']">Manage/Review Workload</a></li>
                      <li data-toggle="tab" *ngIf="isGSAAdmin" [ngClass]="{'active': GetHash('analytics')}" id="3" (click)="menuClick('/analytics');"><a [routerLink]="['/analytics']" id="nav-analytics">View Analytics</a></li>
-                     <li data-toggle="tab" *ngIf="isGSAAdmin" [ngClass]="{'active': GetHash('admin')}" id="4" (click)="menuClick('/admin');"><a tabindex="{{ isGSAAdmin ? 0 : -1}}"  [routerLink]="['/admin']">User Management</a></li>
+                     <li data-toggle="tab" *ngIf="isGSAAdmin" [ngClass]="{'active': GetHash('admin')}" id="4" (click)="menuClick('/admin');"><a tabindex="{{ isGSAAdmin ? 0 : -1}}"  [routerLink]="['/admin']">Admin</a></li>
                      <li data-toggle="tab" [ngClass]="{'active': GetHash('contactus')}" id="5" (click)="menuClick('/help/contactus');"><a [routerLink]="['/help/contactus']">Contact Us</a></li>
                      <li data-toggle="tab" [ngClass]="{'active': GetHash('faq')}" id="6"  (click)="menuClick('/help/faq');"><a [routerLink]="['/help/faq']"> FAQs</a></li>
                      <li data-toggle="tab" *ngIf="isGSAAdmin" [ngClass]="{'active': GetHash('feedback/report')}" id="7" (click)="menuClick('/solicitation/feedback');"><a [routerLink]="['/solicitation/feedback']">Feedback</a></li>
