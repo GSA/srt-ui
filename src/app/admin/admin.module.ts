@@ -24,6 +24,8 @@ import { Ng2CompleterModule } from 'ng2-completer';
 import { FileUploadModule } from 'primeng/primeng';
 import {MasqComponent} from '../user/masq/masq.component';
 import {UserReportComponent} from '../user/reports/user.report.component';
+import {FeedbackReportTableComponent} from './admin-reports/feedback-report-table.component';
+import {FeedbackReportService} from './admin-reports/feedback-report.service';
 
 
 
@@ -46,15 +48,18 @@ import {UserReportComponent} from '../user/reports/user.report.component';
     AuthService,
     EmailService,
     FileService,
-    LoginReportService
+    LoginReportService,
+    FeedbackReportService
   ],
   exports: [
     MasqComponent,
-    UserReportComponent
+    UserReportComponent,
+    FeedbackReportTableComponent
   ],
   declarations: [
     MasqComponent,
-    UserReportComponent
+    UserReportComponent,
+    FeedbackReportTableComponent
   ]
 })
   export class AdminModule { }

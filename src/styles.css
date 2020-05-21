@@ -41,10 +41,6 @@ html {
     color: #112e51;
 }
 
-.srt-blue-border {
-    border-color: #112e51;
-}
-
 .srt-title-padding {
     padding-bottom: 20px;
 }
@@ -55,11 +51,6 @@ html {
 
 /* button */
 
-.sticky-button-bottom {
-    position: sticky;
-    bottom: 20px;
-}
-
 button.srt-button {
     width: 150px;
     background-color: #337ab7;
@@ -67,10 +58,9 @@ button.srt-button {
 
 .srt-button {
     background-color: #337ab7;
-    border-color: #2e6da4;
-    border-radius: 5px;
-    border: none;
-    color: #fff;
+  border-radius: 5px;
+  border: none #2e6da4;
+  color: #fff;
     cursor: pointer;
     display: table;
     float: right;
@@ -93,14 +83,6 @@ button.srt-button {
 
 /* shadow */
 
-
-.box-shadow {
-    box-shadow:0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.3);
-}
-
-.box-shadow-hover:hover {
-    box-shadow:0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.3);
-}
 
 /* banner */
 
@@ -125,59 +107,12 @@ button.srt-button {
 
 /* Override bootstrap tooptip style */
 
-.tooltip-inner {
-    max-width: 200px;
-    padding: 3px 8px;
-    color: black !important;
-    text-align: left;
-    background-color: white !important;
-    border-radius: 4px;
-    border: 1px solid #dadada;
-}
-
 #analyticTitle .tooltip.in,
 #overview .tooltip.in,
 .tooltip.in {
     opacity: 1 !important;;
 }
 
-#analyticTitle .tooltip-inner {
-    max-width: 400px;
-    padding: 3px 8px;
-    color: black !important;
-    text-align: left;
-    background-color: white !important;
-    border-radius: 4px;
-    border: 1px solid #dadada;
-}
-
-#overview .tooltip-inner {
-    max-width: 300px;
-    padding: 3px 8px;
-    color: black !important;
-    text-align: left;
-    background-color: white !important;
-    border-radius: 4px;
-    border: 1px solid #dadada;
-}
-
-
-
-.tooltip-arrow {
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-color: transparent;
-    border-style: solid;
-}
-
-.tooltip.right .tooltip-arrow {
-    border-right-color: white;
-}
-
-.tooltip.bottom .tooltip-arrow {
-    border-bottom-color: white;
-}
 
 .info {
     color: #333;
@@ -187,61 +122,6 @@ button.srt-button {
 /* autocomplete  ng2-completer package*/
 
 
-.completer-input  {
-    display: block;
-    width: 100%;
-    height: 34px;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-}
-
-.completer-dropdown-holder {
-    width: 100%;
-    position: relative;
-}
-
-.completer-dropdown {
-    border-color: #ececec;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 2px;
-    width: 100% !important;
-    padding: 3px 5px;
-    cursor: pointer;
-    z-index: 9999;
-    position: absolute;
-    margin-top: 0 !important;
-    background-color: #ffffff;
-    max-height: 200px !important;
-    overflow: auto !important;
-}
-
-.completer-row {
-    padding: 5px;
-    color: #000000;
-    margin-bottom: 4px;
-    clear: both;
-    display: inline-block;
-    width: 100% !important;;
-}
-
-.completer-selected-row {
-    background-color: #f1f1f1 !important;
-    color: #0071bc !important;
-    font-weight: 700 !important;
-}
-
 .match {
     color: #BE3430 !important;
 }
@@ -249,37 +129,7 @@ button.srt-button {
 
 
 /* dropdown */
-.dropdown-toggle {
-    cursor: pointer;
-}
 
-.srt.dropdown-menu {
-    padding: 0;
-}
-
-.srt.dropdown-menu .dropdown-item {
-    width: 100%;
-    padding: 5px 15px;
-    text-align: center;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 16px;
-    color: #2C81C0;
-}
-
-.srt.dropdown-menu .dropdown-item.remove {
-    color: #BE3430;
-}
-
-
-.srt.dropdown-menu .dropdown-item:hover {
-    font-weight: 600;
-}
-
-.srt.dropdown-menu .dropdown-divider {
-    height: 1px;
-    background-color: #dadada;
-}
 
 .row-eq-height {
     display: -webkit-box;
@@ -323,37 +173,12 @@ button.srt-button {
 
 
 /* auth Page */
-.input-invalid{
-    color: #BE3430;
-    font-weight: bold; float: right
-}
-
-.valid-star{
-    color: #BE3430;
-    padding-left: 5px;
-}
-
-
 
 
 /* nav skip*/
 /*
  * Class for elements that are only visible to the screen reader.
  */
- .visually-hidden ,
- .sr-only {
-  border: 0;
-  clip: rect(0 0 0 0);
-  clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
-  -webkit-clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-  white-space: nowrap;
-}
 
 /*
  * For `.visually-hidden` elements that should be visible when it gains focus.
@@ -448,4 +273,25 @@ body .ui-table .ui-table-thead > tr > th {
 
 body .ui-table .ui-table-thead > tr > th {
   text-align: center;
+}
+
+/* Reports */
+
+.analytic-small-title {
+  padding: 10px 40px !important;
+  background-color: #e7f4e4;
+  font-weight: 500;
+  font-size: 13px;
+  margin: 0px !important;
+
+}
+
+.analytic-big-title {
+  font-size: 36px;
+  margin-bottom: 20px;
+  font-weight: 600
+}
+
+.report-section {
+  padding-bottom: 60px;
 }

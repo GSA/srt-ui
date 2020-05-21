@@ -13,7 +13,7 @@ import {Title} from '@angular/platform-browser';
 export class AdminComponent extends BaseComponent implements OnInit {
 
   /* ATTRIBUTES */
-  public activeTab = 'approved';
+  public activeTab = 'reports';
 
   /* CONSTRUCTORS */
 
@@ -21,8 +21,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
    * constructor
    * @param userService
    * @param route
-   * @param userService
-   * @param route
+   * @param ts
    */
   constructor(
     private userService: UserService,

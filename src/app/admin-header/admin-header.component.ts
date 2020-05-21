@@ -12,9 +12,10 @@ export class AdminHeaderComponent implements OnInit {
 
   constructor() {
     this.active = {};
-    this.active['accepted'] = true;
+    this.active['accepted'] = false;
     this.active['masquerade'] = false;
-    this.active['reports'] = false;
+    this.active['reports'] = true;
+    this.active['feedback'] = false;
   }
 
 
