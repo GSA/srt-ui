@@ -88,7 +88,6 @@ export class SolicitationService {
    * @param filter
    */
   getSolicitationFeedback(filter) {
-    console.log(filter);
     return this.http
       .post(this.feedbackURL, filter)
       .catch((error: any) =>

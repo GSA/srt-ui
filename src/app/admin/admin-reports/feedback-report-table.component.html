@@ -1,0 +1,42 @@
+<div>
+
+  <h1 class="srt-blue analytic-big-title">Feedback</h1>
+
+  <p-table #dt [value]="data" [paginator]="true" [rows]="15" [showCurrentPageReport]="true"
+           [globalFilterFields]="['solicitation_number', 'question', 'answer', 'note']"
+           [columns]="cols">
+
+    <ng-template pTemplate="caption">
+      <div style="text-align: right">
+        <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+        <input type="text" size="30" placeholder="Global Filter"
+               (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto; margin-right: 25px">
+
+        <button type="button" pButton icon="pi pi-file" iconPos="left" label="CSV Export" (click)="dt.exportCSV()"
+                style="float:right"></button>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Solicitation Number</th>
+        <th style="display:none">Question ID</th>
+        <th>Question</th>
+        <th>Answer</th>
+        <th>Notes</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-row>
+      <tr>
+        <td>{{row['solicitation_number']}}</td>
+        <td style="display:none">{{row['questionID']}}</td>
+        <td>{{row['question']}}</td>
+        <td>{{row['answer']}}</td>
+        <td>{{row['note']}}</td>
+      </tr>
+    </ng-template>
+
+  </p-table>
+
+</div>
