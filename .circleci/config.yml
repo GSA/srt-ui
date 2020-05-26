@@ -41,12 +41,12 @@ jobs:
           name: Deploy Client
           command: |
             # Documentation for service accounts here: https://cloud.gov/docs/services/cloud-gov-service-account/
-            # cd ~/repo/dist
+            cd ~/repo/dist
             export SPACE="$CIRCLE_BRANCH"
             export UNAME_VAR=CF_USERNAME_${SPACE}
             export PWD_VAR=CF_PASSWORD_${SPACE}
             cf login -a https://api.fr.cloud.gov -u ${!UNAME_VAR} -p ${!PWD_VAR} -o gsa-ogp-srt -s ${SPACE}
-            cf push -m 128M srt-client-dev
+            cf push -m 64M srt-client-dev
 
 workflows:
   version: 2
