@@ -60,8 +60,9 @@ import { PredictionHistoryComponent } from './summary/prediction-history/predict
     SolicitationService,
     AuthGuard
   ],
-  exports: [
-    SolicitationComponent
-  ]
+    exports: [
+        SolicitationComponent,
+        FeedbackReportComponent
+    ]
 })
 export class SolicitationModule { }
