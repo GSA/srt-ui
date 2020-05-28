@@ -10,11 +10,25 @@
 
   <masquerade *ngIf="this.activeTab == 'masquerade'"></masquerade>
 
-  <app-admin-reports *ngIf="this.activeTab == 'reports'"></app-admin-reports>
-  <app-admin-feedback *ngIf="this.activeTab == 'reports'"></app-admin-feedback>
+  <!-- reports -->
+  <div *ngIf="this.activeTab == 'reports'" style="clear:both;" class="row nopadding">
+    <div class="sticky-nav col-md-2" style="padding-top:80px;">
+      <ul class="usa-sidenav-list" style="">
+        <li (click)="scroll('anchor-Logins-Last-30-Days');">Logins Last 30 Days</li>
+        <li (click)="scroll('anchor-User-Login-Report');">User Login Report</li>
+        <li (click)="scroll('anchor-Feedback-Table');">Feedback Table</li>
+        <li (click)="scroll('anchor-Feedback');">Feedback</li>
+        <li (click)="scroll('anchor-Registered-Users-Table');">Registered Users Table</li>
+      </ul>
+    </div>
 
-  <app-feedback-report *ngIf="this.activeTab == 'feedback'"></app-feedback-report>
-
+    <div class="col-md-10 no-padding">
+      <app-admin-reports></app-admin-reports>
+      <app-admin-feedback></app-admin-feedback>
+      <app-feedback-report></app-feedback-report>
+      <app-user-report></app-user-report>
+    </div>
+  </div>
 </div>
 </main>
 

@@ -1,6 +1,6 @@
 <main id="content" class="bypass-block-target">
-<div class="container">
-  <div class="impcontainer">
+  <div class="container" id="anchor-Feedback">
+  <div class="imp-container">
     <table class="table table-bordered">
       <tr>
         <th scope="col">Solicitation Feedback</th>
@@ -10,8 +10,10 @@
 
       <tr *ngFor="let item of feedback">
         <td>
+          <!--suppress TypeScriptUnresolvedVariable -->
           <a [routerLink]="['/solicitation/feedback/form', item.solNum]">{{item.title}}</a>
         </td>
+        <!--suppress TypeScriptUnresolvedVariable -->
         <td>{{item.submitter}}</td>
         <td>{{item.date}}</td>
       </tr>
