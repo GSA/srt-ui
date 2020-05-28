@@ -1,4 +1,7 @@
+<!--suppress TypeScriptUnresolvedVariable -->
 <div style="height: calc(100vh - 280px); overflow: auto; clear: both" class="clearfix">
+
+  <h1 id="anchor-Registered-Users-Table" class="srt-blue analytic-big-title">Register Users Table</h1>
 
   <table class="table" style="font-size: 16px">
     <thead>
@@ -9,8 +12,6 @@
       <th>Email</th>
       <th>Request Date/Time</th>
       <th *ngIf="accepted">Security Access</th>
-      <th *ngIf="rejected">Reason</th>
-      <th *ngIf="pending">Action</th>
     </tr>
     </thead>
     <tbody>
@@ -21,11 +22,6 @@
       <td>{{user.email}}</td>
       <td>{{user.creationDate}}</td>
       <td *ngIf="accepted">{{user.userRole}}</td>
-      <td *ngIf="rejected"></td>
-      <td *ngIf="pending">
-        <span style="color: #0a831e; cursor: pointer" (click)="Approve(user)">Approve</span>&nbsp;&nbsp;&nbsp;
-        <span style="color: #E60000; cursor: pointer" (click)="Reject(user)">Deny</span>
-      </td>
     </tr>
     </tbody>
   </table>
