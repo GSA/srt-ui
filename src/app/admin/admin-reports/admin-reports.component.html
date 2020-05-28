@@ -1,9 +1,10 @@
+<!--suppress TypeScriptUnresolvedVariable -->
 <div class="report-section">
 
-  <h1 class="srt-blue analytic-big-title">Logins Last 30 Days</h1>
+  <h1 class="srt-blue analytic-big-title" id="anchor-Logins-Last-30-Days">Logins Last 30 Days</h1>
   <p-chart type="bar" [data]="loginData" [options]="chartOptions" ></p-chart>
 
-  <h1 class="srt-blue analytic-big-title">User Login Report</h1>
+  <h1 class="srt-blue analytic-big-title" id="anchor-User-Login-Report">User Login Report</h1>
   <p-table [value]="userData" [columns]="userChartCols">
     <ng-template pTemplate="header" let-columns>
       <tr>

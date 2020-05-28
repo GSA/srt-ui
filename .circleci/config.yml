@@ -31,11 +31,13 @@ jobs:
       - run:
           name: Build static site
           command: |
+            export SPACE="$CIRCLE_BRANCH"
             ./node_modules/.bin/ng --version
-            ./node_modules/.bin/ng build --configuration=dev --prod=false --outputHashing=all
+            ./node_modules/.bin/ng build --configuration=${SPACE} --prod=false --outputHashing=all
             cd dist
             touch Staticfile
             echo "{ \"version\" : \"circle-${CIRCLE_BUILD_NUM}\", \"build_data\" :  \"`date`\"} " > version.html
+            cat version.html
 
       - run:
           name: Deploy Client
@@ -55,7 +57,8 @@ workflows:
       - deploy:
           filters:
             branches:
-              only: dev
+              only:
+                - dev
 
   build-wait-deploy:
     jobs:

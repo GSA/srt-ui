@@ -1,6 +1,6 @@
 <div>
 
-  <h1 class="srt-blue analytic-big-title">Feedback</h1>
+  <h1 id="anchor-Feedback-Table" class="srt-blue analytic-big-title">Feedback</h1>
 
   <p-table #dt [value]="data" [paginator]="true" [rows]="15" [showCurrentPageReport]="true"
            [globalFilterFields]="['solicitation_number', 'question', 'answer', 'note']"
@@ -9,6 +9,7 @@
     <ng-template pTemplate="caption">
       <div style="text-align: right">
         <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+        <!--suppress TypeScriptUnresolvedVariable -->
         <input type="text" size="30" placeholder="Global Filter"
                (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto; margin-right: 25px">
 
