@@ -187,6 +187,16 @@
         "id": 2,
         "title": "Who is responsible for communicating solicitations non-compliance to CO/CORs?",
         "body": "Section 508 Program Managers are to email CO/CORs."
+      },
+      {
+        "id": 3,
+        "title": "What does \"information technology or or communication technology\" mean?",
+        "body": "Information technology is defined in FAR 2.101.  Communication technology means equipment, systems, technologies, or processes, for which the principal function is the creation, manipulation, storage, display, receipt, or transmission of electronic data and information, as well as any associated content.  Examples of information technology include, but are not limited to: computers and peripheral equipment; information kiosks and transaction machines; telecommunications equipment; customer premises equipment; multifunction office machines; software; applications; web sites; videos; and electronic documents."
+      },
+      {
+        "id": 4,
+        "title": "What is \"covered telecommunications equipment or services\"?",
+        "body": "Covered telecommunications equipment or services is defined at FAR 4.2101.  Additional entities, equipment, or services may be included in the definition by additional determinations made by the Secretary of Defense in accordance with FAR 4.2101."
       }
     ]
   },
