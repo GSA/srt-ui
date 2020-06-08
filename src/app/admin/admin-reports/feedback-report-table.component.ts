@@ -15,9 +15,11 @@ export class FeedbackReportTableComponent implements OnInit {
   constructor(private feedbackReportService: FeedbackReportService) {
     this.cols = [
       { field: 'solicitation_number', header: 'Solicitation Number' },
+      { field: 'title', header: 'Title' },
       { field: 'questionID', header: 'Question ID' },
       { field: 'question', header: 'Question' },
       { field: 'answer', header: 'Answer' },
+      { field: 'email', header: 'Email' },
       { field: 'note', header: 'Note' }
     ];
     this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.field}));

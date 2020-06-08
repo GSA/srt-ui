@@ -3,8 +3,8 @@
   <h1 id="anchor-Feedback-Table" class="srt-blue analytic-big-title">Feedback</h1>
 
   <p-table #dt [value]="data" [paginator]="true" [rows]="15" [showCurrentPageReport]="true"
-           [globalFilterFields]="['solicitation_number', 'question', 'answer', 'note']"
-           [columns]="cols">
+           [globalFilterFields]="['solicitation_number', 'title', 'question', 'answer', 'note']"
+           [columns]="cols" [resizableColumns]="true">
 
     <ng-template pTemplate="caption">
       <div style="text-align: right">
@@ -20,21 +20,39 @@
 
     <ng-template pTemplate="header">
       <tr>
-        <th>Solicitation Number</th>
-        <th style="display:none">Question ID</th>
-        <th>Question</th>
-        <th>Answer</th>
-        <th>Notes</th>
+        <th pResizableColumn style="width:15%">Solicitation Number</th>
+        <th pResizableColumn>Title</th>
+        <th pResizableColumn style="width: 0%; display:none">Question ID</th>
+        <th pResizableColumn style="width: 30%">Question</th>
+        <th pResizableColumn style="width: 10%">Answer</th>
+        <th pResizableColumn style="width: 20%">Email</th>
+        <th pResizableColumn style="display:none">Notes</th>
+        <th>Details</th>
       </tr>
     </ng-template>
 
     <ng-template pTemplate="body" let-row>
       <tr>
-        <td>{{row['solicitation_number']}}</td>
+        <td>
+          <!--suppress TypeScriptUnresolvedVariable -->
+          <a [routerLink]="['/solicitation/report', row.id]">
+          {{row['solicitation_number']}}
+          </a>
+        </td>
+        <td>{{row['title']}}</td>
         <td style="display:none">{{row['questionID']}}</td>
         <td>{{row['question']}}</td>
         <td>{{row['answer']}}</td>
-        <td>{{row['note']}}</td>
+        <td>{{row['email']}}</td>
+        <td style="display:none">{{row['note']}}</td>
+        <td style="text-align: center">
+          <!--suppress TypeScriptUnresolvedVariable -->
+          <a [routerLink]="['/solicitation/feedback/form', row.solicitation_number]">
+            <button type="button" class="btn btn-primary">
+              Details
+            </button>
+          </a>
+        </td>
       </tr>
     </ng-template>
 
