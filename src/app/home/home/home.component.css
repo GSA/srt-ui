@@ -3,14 +3,6 @@
     margin: 0px !important;
 }
 
-.srt-background-image {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 200px;
-    width: 100%;
-}
-
 .srt-text-section {
     width: 100%; text-align: center; height: 240px
 }
@@ -19,43 +11,18 @@
     font-size: 24px; padding: 10px; border-bottom: 1px solid #dadada; font-weight: 500;
 }
 
-.srt-text-section-description {
-    font-size: 18px; padding: 10px; border-bottom: 1px solid #dadada
-}
-
 .srt-button {
     font-size: 20px; padding: 10px; border-bottom: 1px solid #dadada
 }
 
-.srt-home-button {
-    height: 80px; padding: 20px; text-align: center;
-}
-
-#srtlogo {
-	max-width: 100%;
-	max-height: 200px;
-	float: right;
-}
-
-.centerfy img{
+.center-it img{
     margin: 0 auto;
-}
-
-.centerfy {
-    text-align: center;
 }
 
 #gsa {
 	max-width: 100%;
 	max-height: 200px;
 	float: left;
-}
-
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 300px;
-    margin: auto;
-    text-align: center;
 }
 
 .container {
@@ -72,13 +39,12 @@ button:hover, a:hover {
 }
 
 body{font-family:'Open Sans Condensed',sans-serif;font-size:18px}
-.backto{background:#039; padding:12px 0; color:#fff}
-.backto a{color:#FFF; text-decoration:none}
-.cards-row{padding-top:40px; padding-bottom:20px; background:#eee}
-.thumbnail{height: 520px; padding:0; border-radius:0; border:none; box-shadow:0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12)}
+
+.back-to a{color:#FFF; text-decoration:none}
+
 .thumbnail>img{width:100%; height: 200px; display:block}
 .thumbnail h3{font-size:26px}
-.thumbnail h3,.card-description{margin:0; padding:8px 0; border-bottom:solid 1px #eee; text-align:center}
+
 .thumbnail p{padding-top:8px; font-size:20px}
 .thumbnail .btn{align-self: center; position: absolute; bottom: 30px; margin:0; padding: 5px 3px; border-radius:0; box-shadow:0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12); font-size:20px}
 
@@ -107,7 +73,7 @@ body{font-family:'Open Sans Condensed',sans-serif;font-size:18px}
 .srt-1-1 {
     position: relative;
     width: 100%;
-    overflow: auto;
+    overflow: hidden;
     transition: all 150ms ease-in-out;
 }
 
@@ -152,7 +118,7 @@ body{font-family:'Open Sans Condensed',sans-serif;font-size:18px}
     padding: 0px 30px;
 }
 
-.srt-homehead{
+.srt-home-head{
     background-image: url('/assets/home-page-cover.jpg');
             background-size: cover;
             background-repeat: no-repeat;
@@ -162,7 +128,7 @@ body{font-family:'Open Sans Condensed',sans-serif;font-size:18px}
             opacity: 0.85;
             position: relative;
 }
-.srt-headposition{
+.srt-head-position{
         position: absolute;
         top: 0px;
         right: 0px;
@@ -170,32 +136,32 @@ body{font-family:'Open Sans Condensed',sans-serif;font-size:18px}
         left: 0px;
 }
 
-.srt-headtext{
+.srt-head-text{
     text-align: right;
     display: table;
     height: 100%;
     width: 100%
 }
-.srt-headdisplay{
+.srt-head-display{
     display: table-cell;
     vertical-align: middle;
 
 }
-.srt-headpadding{
+.srt-head-padding{
     padding: 0px 60px;
     max-width: 1000px;
     float: right
 }
-.srt-maintitle{
+.srt-main-title{
     font-weight: 600;
     border-bottom: 0.5px solid #112e51;
     padding-bottom: 10px
 }
-.srt-textpadding{
+.srt-text-padding{
     padding-left: 100px;
     padding-top: 20px
 }
-.srt-marginbot{
+.srt-margin-bot{
     margin-bottom: 30px
 }
 .srt-block-padding{
@@ -216,15 +182,8 @@ body{font-family:'Open Sans Condensed',sans-serif;font-size:18px}
     width: 100%;
     text-align: center;
 }
-.srt-icon6{
-    background-image: url('/assets/settings.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 100%;
-    width: 100%
-}
-.srt-iconpadding{
+
+.srt-icon-padding{
     padding: 20px;
 }
 

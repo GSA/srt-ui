@@ -1,12 +1,12 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LoginReportService} from './login-report.service';
 
 @Component({
-  selector: 'app-admin-reports',
-  templateUrl: './admin-reports.component.html',
-  styleUrls: ['./admin-reports.component.css']
+  selector: 'app-login-reports',
+  templateUrl: './login-reports.component.html',
+  styleUrls: ['./login-reports.component.css']
 })
-export class AdminReportsComponent implements OnInit {
+export class LoginReportsComponent implements OnInit {
 
   loginData: any;
   chartOptions: any;
@@ -15,6 +15,7 @@ export class AdminReportsComponent implements OnInit {
   msInDay = 24 * 60 * 60 * 1000;
   today: Date;
   RANGE_OF_LOGIN_CHART = 30;
+  readerSupplement = '';
 
   constructor(private loginReportService: LoginReportService) {
 
@@ -73,11 +74,12 @@ export class AdminReportsComponent implements OnInit {
       labels: [],
       datasets: [{label: 'User Logins', data: [], fill: false, backgroundColor: '#2C81C0'}],
     };
+    this.readerSupplement = '<table style="border: 1px black solid"><thead><tr><th>Date</th><th>Login Count</th></tr></thead>';
 
     Object.keys(data).forEach(date => {
-
       const dateLogin = new Date(date);
       const daysAgo = (this.today.getTime() - dateLogin.getTime()) / this.msInDay;
+
 
       if (daysAgo < this.RANGE_OF_LOGIN_CHART) {
         this.loginData.labels.push(date);
@@ -87,8 +89,11 @@ export class AdminReportsComponent implements OnInit {
           loginsForDay += data[date][email];
         });
         this.loginData.datasets[0].data.push(loginsForDay);
+
+        this.readerSupplement += `<tr><td>${date}</td><td>${loginsForDay}</td>`;
       }
     });
+    this.readerSupplement += '</table>';
   }
 
   chartifyUserReport(data: any) {
@@ -115,7 +120,7 @@ export class AdminReportsComponent implements OnInit {
         // check if this is a more recent login
         if (new Date(userAccumulator[email].lastLogin) < new Date(date)) {
           userAccumulator[email].lastLogin = date;
-        };
+        }
 
         const dateLogin = new Date(date);
         const daysAgo = (this.today.getTime() - dateLogin.getTime()) / this.msInDay;
