@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   buildDate = '';
   environment = '';
   clientVersion = '';
+  clientBuildDate = '';
 
   /* CONSTRUCTOR */
 
@@ -64,7 +65,7 @@ export class AppComponent implements OnInit {
       .getVersionString()
       .subscribe( (data: any) => {
         this.version = data && data.version;
-        this.buildDate = data && data.build_date;
+        this.buildDate = data && (data.build_date || data.build_data); // typo work around till we fix the server
         this.environment = data && data.env;
       });
 
@@ -74,6 +75,7 @@ export class AppComponent implements OnInit {
         // should come back in the form { "version" : "S4.9" , "build_date" : "2020-01-17.10.46.41" }
         if ( (typeof(data) === 'object') && data.version ) {
           this.clientVersion = ` / ${data.version}`;
+          this.clientBuildDate = data.build_date;
         } else {
           this.clientVersion = '';
         }

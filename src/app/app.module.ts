@@ -32,14 +32,13 @@ import { MasqService } from './user/masq/masq.service';
 import { UserService } from './shared/services/user.service';
 import { AuthGuard } from './auth-guard.service';
 import { NoticeTypesService } from './shared/services/noticeTypes.service';
-import { VersionService } from './shared/services/version.service';
 
 // COMPONENTS
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { AdminComponent } from 'app/admin/admin.component';
-import { AdminReportsComponent} from './admin/admin-reports/admin-reports.component';
+import { LoginReportsComponent} from './admin/admin-reports/login-reports.component';
 import { TokenInterceptor } from './shared/services/token.interceptor';
 
 
@@ -65,7 +64,7 @@ import { AdminHeaderComponent } from './admin-header/admin-header.component';
     UploadComponent,
     BaseComponent,
     AdminHeaderComponent,
-    AdminReportsComponent
+    LoginReportsComponent
   ],
   imports: [
     BrowserModule,
