@@ -3,7 +3,7 @@
   <h1 id="anchor-Feedback-Table" class="srt-blue analytic-big-title">Feedback</h1>
 
   <p-table #dt [value]="data" [paginator]="true" [rows]="15" [showCurrentPageReport]="true"
-           [globalFilterFields]="['solicitation_number', 'title', 'question', 'answer', 'note']"
+           [globalFilterFields]="['solicitation_number', 'title', 'question', 'answer', 'email']"
            [columns]="cols" [resizableColumns]="true">
 
     <ng-template pTemplate="caption">
