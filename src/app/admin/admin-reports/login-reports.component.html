@@ -1,7 +1,17 @@
 <!--suppress TypeScriptUnresolvedVariable -->
 <div class="report-section">
 
-  <h1 class="srt-blue analytic-big-title" id="anchor-Logins-Last-30-Days">Logins Last 30 Days</h1>
+  <div class="row">
+    <div class="col-xs-8">
+      <h1 class="srt-blue analytic-big-title" id="anchor-Logins-Last-30-Days">Logins Last 30 Days</h1>
+    </div>
+    <div class="col-xs-4">
+      <div class="right-chart-control">
+        <p-dropdown [options]="timeSelection" (onChange)="timeChange($event)" [(ngModel)]="selection"></p-dropdown>
+      </div>
+    </div>
+  </div>
+
   <p-chart type="bar" [data]="loginData" [options]="chartOptions" ></p-chart>
 
   <span class="visually-hidden" [innerHTML]="readerSupplement"></span>

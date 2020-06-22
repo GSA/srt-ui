@@ -1,33 +1,57 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginReportService} from './login-report.service';
+import {SelectItem} from 'primeng/api';
+
+interface TimeSelection {
+  days: number;
+}
 
 @Component({
   selector: 'app-login-reports',
   templateUrl: './login-reports.component.html',
   styleUrls: ['./login-reports.component.css']
 })
-export class LoginReportsComponent implements OnInit {
 
+export class LoginReportsComponent implements OnInit {
   loginData: any;
   chartOptions: any;
   userData: any;
   userChartCols: any;
   msInDay = 24 * 60 * 60 * 1000;
   today: Date;
-  RANGE_OF_LOGIN_CHART = 30;
   readerSupplement = '';
+  timeSelection: SelectItem[];
+  selection: TimeSelection;
+  data = null;
 
   constructor(private loginReportService: LoginReportService) {
 
     this.today = new Date();
     this.today.setHours(0, 0, 0, 0); // dates from db don't include timestamp, so remove that from our 'today' var
 
+    this.timeSelection = [
+      {label: 'Show 7 days', value: {days: 7}},
+      {label: 'Show 14 days', value: {days: 14}},
+      {label: 'Show 30 days', value: {days: 30}},
+      {label: 'Show 60 days', value: {days: 60}},
+      {label: 'Show 90 days', value: {days: 90}},
+      {label: 'Show 180 days', value: {days: 180}},
+      {label: 'Show 365 days', value: {days: 365}}
+    ];
+    this.selection = {days: 30};
 
     this.chartOptions = {
+      legend: {
+        display: false
+      },
       scales: {
         yAxes: [{
           ticks: {
             beginAtZero: true
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Total number of logins'
           }
         }],
         xAxes: [{
@@ -41,7 +65,7 @@ export class LoginReportsComponent implements OnInit {
               'day': 'MM/DD/YYYY'
             }
           }
-        } ]
+        }]
       }
     };
 
@@ -57,6 +81,7 @@ export class LoginReportsComponent implements OnInit {
     loginReportService.getLoginReport()
       .subscribe(
         data => {
+          this.data = data;
           this.chartifyLoginReport(data);
           this.chartifyUserReport(data);
 
@@ -70,6 +95,14 @@ export class LoginReportsComponent implements OnInit {
 
   chartifyLoginReport(data: any) {
 
+    if (this.selection.days > 90) {
+      this.chartOptions.scales.xAxes[0].time.unit = 'month';
+    } else if (this.selection.days > 30) {
+      this.chartOptions.scales.xAxes[0].time.unit = 'week';
+    } else {
+      this.chartOptions.scales.xAxes[0].time.unit = 'day';
+    }
+
     this.loginData = {
       labels: [],
       datasets: [{label: 'User Logins', data: [], fill: false, backgroundColor: '#2C81C0'}],
@@ -81,7 +114,7 @@ export class LoginReportsComponent implements OnInit {
       const daysAgo = (this.today.getTime() - dateLogin.getTime()) / this.msInDay;
 
 
-      if (daysAgo < this.RANGE_OF_LOGIN_CHART) {
+      if (daysAgo < this.selection.days) {
         this.loginData.labels.push(date);
 
         let loginsForDay = 0;
@@ -142,6 +175,11 @@ export class LoginReportsComponent implements OnInit {
       this.userData.push(userAccumulator[email]);
     });
     this.userData.push(totals);
+  }
+
+  timeChange(event) {
+    this.selection = event.value;
+    this.chartifyLoginReport(this.data);
   }
 
   ngOnInit() {
