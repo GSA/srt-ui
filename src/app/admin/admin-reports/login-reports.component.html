@@ -2,11 +2,12 @@
 <div class="report-section">
 
   <div class="row">
-    <div class="col-xs-8">
+    <div class="col-xs-8 col-sm-6">
       <h1 class="srt-blue analytic-big-title" id="anchor-Logins-Last-30-Days">Logins Last 30 Days</h1>
     </div>
-    <div class="col-xs-4">
+    <div class="col-xs-4 col-sm-6">
       <div class="right-chart-control">
+        <button label="Download CSV" class="ui-button srt-button" style="float:none; display:inline; width:125px;" (click)="downloadLoginData(data)"  >Download CSV</button>
         <p-dropdown [options]="timeSelection" (onChange)="timeChange($event)" [(ngModel)]="selection"></p-dropdown>
       </div>
     </div>

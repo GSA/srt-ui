@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginReportService} from './login-report.service';
 import {SelectItem} from 'primeng/api';
+import {saveAs} from 'file-saver';
+import {parse} from 'json2csv';
 
 interface TimeSelection {
   days: number;
@@ -180,6 +182,22 @@ export class LoginReportsComponent implements OnInit {
   timeChange(event) {
     this.selection = event.value;
     this.chartifyLoginReport(this.data);
+  }
+
+  downloadLoginData(data: any) {
+
+    const flatData = [];
+    Object.keys(data).forEach( day => {
+      Object.keys(data[day]).forEach( email => {
+        flatData.push(
+          {date: day, email: email, 'number of logins': data[day][email]}
+        );
+      });
+
+    });
+
+    const csv = parse(flatData, ['email', 'date', 'number of logins']);
+    saveAs(new Blob([csv], {type: 'text/csv; charset=utf-8'}), 'test.csv');
   }
 
   ngOnInit() {
