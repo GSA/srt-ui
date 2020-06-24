@@ -20,6 +20,7 @@ export class FeedbackReportTableComponent implements OnInit {
       { field: 'question', header: 'Question' },
       { field: 'answer', header: 'Answer' },
       { field: 'email', header: 'Email' },
+      { field: 'date', header: 'Date' },
       { field: 'note', header: 'Note' }
     ];
     this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.field}));
