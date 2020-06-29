@@ -1,0 +1,63 @@
+<div>
+
+  <h1 id="anchor-Feedback-Table" class="srt-blue analytic-big-title">Feedback</h1>
+
+  <p-table #dt [value]="data" [paginator]="true" [rows]="15" [showCurrentPageReport]="true"
+           [globalFilterFields]="['solicitation_number', 'title', 'question', 'answer', 'email', 'date']"
+           [columns]="cols" [resizableColumns]="true">
+
+    <ng-template pTemplate="caption">
+      <div style="text-align: right">
+        <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+        <!--suppress TypeScriptUnresolvedVariable -->
+        <input type="text" size="30" placeholder="Global Filter"
+               (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto; margin-right: 25px">
+
+        <button type="button" pButton icon="pi pi-file" iconPos="left" label="CSV Export" (click)="dt.exportCSV()"
+                style="float:right"></button>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th pResizableColumn style="width:15%">Solicitation Number</th>
+        <th pResizableColumn style="width: 20%">Title</th>
+        <th pResizableColumn style="width: 0%; display:none">Question ID</th>
+        <th pResizableColumn style="">Question</th>
+        <th pResizableColumn style="">Answer</th>
+        <th pResizableColumn style="">Email</th>
+        <th pResizableColumn style="width: 10%">Date</th>
+        <th pResizableColumn style="display:none">Notes</th>
+        <th pResizableColumn style="width: 10%">Details</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-row>
+      <tr>
+        <td>
+          <!--suppress TypeScriptUnresolvedVariable -->
+          <a [routerLink]="['/solicitation/report', row.id]">
+          {{row['solicitation_number']}}
+          </a>
+        </td>
+        <td>{{row['title']}}</td>
+        <td style="display:none">{{row['questionID']}}</td>
+        <td>{{row['question']}}</td>
+        <td>{{row['answer']}}</td>
+        <td>{{row['email']}}</td>
+        <td>{{row['date']}}</td>
+        <td style="display:none">{{row['note']}}</td>
+        <td style="text-align: center">
+          <!--suppress TypeScriptUnresolvedVariable -->
+          <a [routerLink]="['/solicitation/feedback/form', row.solicitation_number]">
+            <button type="button" class="btn btn-primary">
+              Details
+            </button>
+          </a>
+        </td>
+      </tr>
+    </ng-template>
+
+  </p-table>
+
+</div>

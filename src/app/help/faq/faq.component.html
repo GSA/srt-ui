@@ -2,8 +2,8 @@
   <div class="srt-banner blue">
     <div class="container">
       <h1>Frequently Asked Questions</h1>
-      <p>Solicitation Review Tool (SRT) is an automated predictive analysis application that performs scans of the Federal Business
-        Opportunities /FedBizOpps website and delivers: (1) a report containing all of the new solicitations for the previous
+      <p>Solicitation Review Tool (SRT) is an automated predictive analysis application that performs scans of the SAM.gov
+        website and delivers: (1) a report containing all of the new solicitations for the previous
         day; (2) a report of flagged solicitations that require manual review for specific regulatory requirements and compliance;
         (3) a web-based portal for agency SMEs to perform manual reviews of flagged solicitations and to communicate with contracting
         POCs for improvement; and (4) analytics and trending of flagged solicitations overtime by agency and government-wide.
@@ -87,16 +87,15 @@
             <div class="search-title" *ngFor="let section of faq;">
               <h2 id="{{section.title}}">{{section.name}}</h2>
               <div class="panel-group" id="{{section.id}}" *ngIf="section.children">
-                <div class="panel panel-default search-content" *ngFor="let element of section.children; let i='index'">
+                <div class="panel panel-default search-content" *ngFor="let element of section.children; let i = index">
 
                   <div class="panel-heading">
-                    <a class="panel-link collapsed" data-toggle="collapse" [attr.data-parent]="'#'+section.id" href="#{{section.id}}{{i}}" [ngClass]="element.titleClass">
+                    <a class="panel-link collapsed" data-toggle="collapse" [attr.data-parent]="'#'+section.id" href="#{{section.id}}{{i}}" >
                       <h3 class="panel-title" style="color:black">{{element.title}}</h3>
                     </a>
                   </div>
-                  <div id="{{section.id}}{{i}}" class="panel-collapse collapse" [ngClass]="element.class">
-                    <div class="panel-body" [ngClass]="element.picclass" [innerHTML]="element.body">
-                      {{element.body}}
+                  <div id="{{section.id}}{{i}}" class="panel-collapse collapse" >
+                    <div class="panel-body"  [innerHTML]="element.body">
                     </div>
                   </div>
                 </div>

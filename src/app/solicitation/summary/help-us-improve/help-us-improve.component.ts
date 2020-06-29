@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { SolicitationService } from '../../solicitation.service';
 import { SurveyService } from '../../../survey.service';
 import { Solicitation } from '../../../shared/solicitation';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-help-us-improve',
@@ -143,7 +144,7 @@ export class HelpUsImproveComponent implements OnInit {
    * send out a feedback
    */
   feedback() {
-      const now = new Date().toLocaleDateString();
+      const now = moment().format('MM/DD/YYYY');
       const user = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
       this.solicitation.history.push({
         'date': now,

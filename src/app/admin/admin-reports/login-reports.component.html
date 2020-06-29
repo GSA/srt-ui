@@ -1,0 +1,42 @@
+<!--suppress TypeScriptUnresolvedVariable -->
+<div class="report-section">
+
+  <div class="row">
+    <div class="col-xs-8 col-sm-6">
+      <h1 class="srt-blue analytic-big-title" id="anchor-Logins-Last-30-Days">Logins Last 30 Days</h1>
+    </div>
+    <div class="col-xs-4 col-sm-6">
+      <div class="right-chart-control">
+        <button label="Download CSV" class="ui-button srt-button" style="float:none; display:inline; width:125px;" (click)="downloadLoginData(data)"  >Download CSV</button>
+        <p-dropdown [options]="timeSelection" (onChange)="timeChange($event)" [(ngModel)]="selection"></p-dropdown>
+      </div>
+    </div>
+  </div>
+
+  <p-chart type="bar" [data]="loginData" [options]="chartOptions" ></p-chart>
+
+  <span class="visually-hidden" [innerHTML]="readerSupplement"></span>
+
+
+  <h1 class="srt-blue analytic-big-title" id="anchor-User-Login-Report">User Login Report</h1>
+  <p-table [value]="userData" [columns]="userChartCols">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of userChartCols" [pSortableColumn]="col.field">
+          {{col.header}}
+          <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr>
+        <td *ngFor="let col of columns">
+          {{rowData[col.field]}}
+        </td>
+      </tr>
+    </ng-template>
+
+  </p-table>
+
+
+</div>
