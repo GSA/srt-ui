@@ -197,7 +197,7 @@ export class LoginReportsComponent implements OnInit {
     });
 
     const csv = parse(flatData, ['email', 'date', 'number of logins']);
-    saveAs(new Blob([csv], {type: 'text/csv; charset=utf-8'}), 'test.csv');
+    saveAs(new Blob([csv], {type: 'text/csv; charset=utf-8'}), 'srt-login-report.csv');
   }
 
   ngOnInit() {
