@@ -14,7 +14,8 @@ export class ClientVersionService {
   ) { }
 
   public getVersionString() {
-    return this.http.get<any[]>(`${this.versionURL}`);
+    const cache_buster = 'timestamp=' + (new Date()).getTime();
+    return this.http.get<any[]>(`${this.versionURL}?${cache_buster}`);
   }
 
 }

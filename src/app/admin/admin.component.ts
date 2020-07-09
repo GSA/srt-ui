@@ -13,15 +13,7 @@ import {Title} from '@angular/platform-browser';
 export class AdminComponent extends BaseComponent implements OnInit {
 
   /* ATTRIBUTES */
-  public accepted: Boolean = false;
-  public masq: Boolean = false;
-
-  filterParams = {
-    isAccepted: false,
-    isRejected: false
-  };
-
-  public users: any[];
+  public activeTab = 'reports';
 
   /* CONSTRUCTORS */
 
@@ -29,8 +21,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
    * constructor
    * @param userService
    * @param route
-   * @param userService
-   * @param route
+   * @param ts
    */
   constructor(
     private userService: UserService,
@@ -46,53 +37,16 @@ export class AdminComponent extends BaseComponent implements OnInit {
    */
   ngOnInit() {
     super.ngOnInit();
-    this.filterParams.isAccepted = true;
-    this.filterParams.isRejected = false;
-    this.accepted = this.filterParams.isAccepted && !this.filterParams.isRejected;
-    this.getUsers();
-
   }
 
-
-  /**
-   * Approve user
-   * @param user
-   */
-  Approve(user) {
-    user.isAccepted = true;
-    user.isRejected = false;
-    this.userService.updateUser(user).subscribe(
-      () => {
-        this.getUsers();
-      },
-      () => {}
-    );
+  processMenuClick(s: string) {
+    this.activeTab = s;
+    console.log(this.activeTab);
   }
 
-  /**
-   * reject user
-   * @param user
-   */
-  Reject(user) {
-    user.isAccepted = false;
-    user.isRejected = true;
-    this.userService.updateUser(user).subscribe(
-      () => {
-        this.getUsers();
-      },
-      () => {}
-    );
+  scroll(id) {
+    const el = document.getElementById(id);
+    window.scroll({top: el.offsetTop + 115, behavior: 'smooth'});
   }
 
-  /**
-   * Get users
-   */
-  getUsers() {
-    this.userService.getUsers(this.filterParams).subscribe(
-      data => {
-        this.users = data;
-      },
-      error => { console.log(error); }
-    );
-  }
 }

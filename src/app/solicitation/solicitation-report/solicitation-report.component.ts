@@ -6,7 +6,7 @@ import * as $ from 'jquery';
 import {Title} from '@angular/platform-browser';
 import {BaseComponent} from '../../base.component';
 import {NoticeTypesService} from '../../shared/services/noticeTypes.service';
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-solicitation-report',
@@ -211,7 +211,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
    * @param solicitation
    */
   selectSol(solicitation: any) {
-    const now = new Date().toLocaleDateString();
+    const now = moment().format('MM/DD/YYYY');
     const user = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
     solicitation.history.push({
       'date': now,
@@ -284,7 +284,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     }
 
     const filter = {first: 0, rows: 1000};
-    const appendSolicitaitons = (solicitations) => {
+    const appendSolicitations = (solicitations) => {
       document.body.style.cursor = 'wait';
       for (const s of solicitations.predictions) {
         csv += '\n';
@@ -300,13 +300,13 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
         filter.first += solicitations.rows;
         this.solicitationService
           .getFilteredSolicitations(filter)
-          .subscribe(appendSolicitaitons);
+          .subscribe(appendSolicitations);
       }
     };
 
     this.solicitationService
       .getFilteredSolicitations(filter)
-      .subscribe( appendSolicitaitons );
+      .subscribe( appendSolicitations );
 
     return;
   };

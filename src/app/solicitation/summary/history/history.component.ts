@@ -19,9 +19,9 @@ export class HistoryComponent implements OnInit {
   subscription: Subscription;
   solicitationID: String;
   type: String = 'history';
-  public step1:Boolean = false;
-  public step2:Boolean = false;
-  public step3:Boolean = false;
+  public step1: Boolean = false;
+  public step2: Boolean = false;
+  public step3: Boolean = false;
 
   /* CONSTRUCTORS */
 
@@ -43,14 +43,16 @@ export class HistoryComponent implements OnInit {
   ngOnInit() {
     this.subscription = this.route.params.subscribe(
       (params: any) => {
-        var now = new Date().toLocaleDateString();
         this.solicitationID = params['id'];
         console.log(this.solicitationID);
         this.solicitationService.getSolicitation(this.solicitationID).subscribe(
           data => {
             data.parseStatus.forEach(element => {
-                if (element.status == 'successfully parsed') element.status = 'Yes';
-                else if (element.status == 'processing error')  element.status = 'No';
+              if (element.status === 'successfully parsed') {
+                element.status = 'Yes';
+              } else if (element.status === 'processing error') {
+                element.status = 'No';
+              }
             });
 
             this.step1 = data.history.filter(function(e){
@@ -66,16 +68,20 @@ export class HistoryComponent implements OnInit {
             this.solicitation = data;
 
             this.history = data.history.sort(function(a, b){
-              var dateA = new Date(String(a.date));
-              var dateB = new Date(String(b.date));
-              if (dateA > dateB) return 1;
-              else if (dateA < dateB ) return -1;
-              else return 0;
-           });
+              const dateA = new Date(String(a.date));
+              const dateB = new Date(String(b.date));
+              if (dateA > dateB) {
+                return 1;
+              } else if (dateA < dateB) {
+                return -1;
+              } else {
+                return 0;
+              }
+            });
           },
           err => console.log(err)
-        )
-      })
+        );
+      });
   }
 
   ngOnChanges() {

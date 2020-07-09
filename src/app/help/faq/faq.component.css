@@ -12,9 +12,6 @@
   padding: 0px 0px 0px 20px;
 }
 
-.faq-right-content .usa-accordion-bordered{
-  padding: 0px 0px 50px 0px;
-}
 
 .search-input {
 border-top-left-radius: 5px;
@@ -47,76 +44,6 @@ text-align: center;
   margin: 0px !important;
 }
 
-.sticky-nav {
-  padding: 0px 40px 0px 0px;
-  position: sticky; top: 60px; left: 0px; float: left; width: 25%
-}
-
-.usa-sidenav-list {
-  margin-top: 0;
-  margin-bottom: 0;
-  list-style-type: none;
-  font-weight: 500;
-  padding: 0px;
-}
-
-.usa-sidenav-list > li:first-child {
-  border-top: none;
-}
-
-.usa-sidenav-list > li {
-  background-color: transparent;
-  border-top: 1px solid #5b616b;
-  font-size: 1.7rem;
-  cursor: pointer;
-}
-
-.usa-sidenav-list > li {
-  margin-bottom: 0;
-}
-
-.usa-sidenav-list a {
-  border: none;
-  color: #212121;
-  display: block;
-  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
-  line-height: 1.3;
-  padding: 0.85rem 1rem 0.85rem 1.8rem;
-  text-decoration: none;
-}
-
-.usa-sidenav-list .active a {
-  border-left: 4px solid #0071bc;
-  color: #0071bc;
-  font-weight: 700;
-  padding-left: 1.4rem;
-}
-
-.usa-sidenav-list a:hover {
-  background-color: #f1f1f1;
-  color: #0071bc;
-  text-decoration: none;
-}
-
-.usa-sidenav-list a {
-  border: none;
-  color: #212121;
-  display: block;
-  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
-  line-height: 1.3;
-  padding: 0.85rem 1rem 0.85rem 1.8rem;
-  text-decoration: none;
-}
-
-h4.panel-title {
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 16px;
-  display: inline-block;
-  width: calc(100% - 30px);
-  text-align: left
-}
-
 .panel-group .panel {
   border-radius: 0;
   border: none;
@@ -144,6 +71,7 @@ a.panel-link:hover {
 }
 
 .panel-link:after {
+  /*noinspection CssNoGenericFontName*/
   font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
   content: "\2212";    /* adjust as needed, taken from bootstrap.css */
   color: inherit;         /* adjust as needed */
@@ -163,14 +91,4 @@ a.panel-link:hover {
   .usa-sidenav-list {
       display: none;
   }
-}
-
-.faqh4{
-  font-weight: 700;
-  font-size: 16px;
-  background-color: transparent;
-  cursor: pointer;
-  text-decoration: none;
-  line-height: 1.1;
-
 }
