@@ -3,7 +3,7 @@
   <h1 id="anchor-Feedback-Table" class="srt-blue analytic-big-title">Feedback</h1>
 
   <p-table #dt [value]="data" [paginator]="true" [rows]="15" [showCurrentPageReport]="true"
-           [globalFilterFields]="['solicitation_number', 'title', 'question', 'answer', 'email', 'date']"
+           [globalFilterFields]="['solicitation_number', 'title', 'question', 'answer', 'email', 'date', 'agency']"
            [columns]="cols" [resizableColumns]="true">
 
     <ng-template pTemplate="caption">
@@ -25,7 +25,8 @@
         <th pResizableColumn style="width: 0%; display:none">Question ID</th>
         <th pResizableColumn style="">Question</th>
         <th pResizableColumn style="">Answer</th>
-        <th pResizableColumn style="">Email</th>
+        <th pResizableColumn style="">User</th>
+        <th pResizableColumn style="">Agency</th>
         <th pResizableColumn style="width: 10%">Date</th>
         <th pResizableColumn style="display:none">Notes</th>
         <th pResizableColumn style="width: 10%">Details</th>
@@ -45,6 +46,7 @@
         <td>{{row['question']}}</td>
         <td>{{row['answer']}}</td>
         <td>{{row['email']}}</td>
+        <td>{{row['agency']}}</td>
         <td>{{row['date']}}</td>
         <td style="display:none">{{row['note']}}</td>
         <td style="text-align: center">

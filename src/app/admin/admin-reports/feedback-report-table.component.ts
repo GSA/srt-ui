@@ -19,7 +19,8 @@ export class FeedbackReportTableComponent implements OnInit {
       { field: 'questionID', header: 'Question ID' },
       { field: 'question', header: 'Question' },
       { field: 'answer', header: 'Answer' },
-      { field: 'email', header: 'Email' },
+      { field: 'email', header: 'User' },
+      { field: 'agency', header: 'Agency' },
       { field: 'date', header: 'Date' },
       { field: 'note', header: 'Note' }
     ];

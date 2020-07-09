@@ -32,7 +32,7 @@
   <script src="https://use.fontawesome.com/22ad9bb71f.js"></script>
 
 
-  <script language="JavaScript">
+  <script>
 
     function casCheck() {
         const ticketParam = window.location.search.substr(1).split('&').map(function (x) {
@@ -65,7 +65,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has("error")) {
             const el = document.getElementById("login-error");
-            el.innerHTML = "<p>PIV or CAC login required.<br> Log out of MAX and return here, then log in using a PIV or CAC.</p>";
+            el.innerHTML = `<p>${urlParams.get('error')}</p>`;
       }
     }
     setTimeout( errorUpdater, 1000);
