@@ -14,6 +14,7 @@
             </div>
             <div style="float: right;" class="version">
               SRT build {{version}}<span id="client-version">{{clientVersion}}</span>
+              <span style="display:none">Client Build date: {{clientBuildDate}}</span>
               <span style="display:none">Server Build date: {{buildDate}}</span>
               <span style="display:none">Server Environment: {{environment}}</span>
             </div>
@@ -44,7 +45,6 @@
 
         </div>
     </div>
-
 
     <app-header [isLogin]="isLogin" [isGSAAdmin]="isGSAAdmin" [firstName]="firstName"></app-header>
     <router-outlet></router-outlet>

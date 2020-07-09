@@ -40,7 +40,8 @@ export class TokenService {
     localStorage.setItem('userRole', info.user.userRole);
     localStorage.setItem('firstName', info.user.firstName);
     localStorage.setItem('lastName', info.user.lastName);
-    this.logger.debug(`Switching to role ${info.user.userRole}`);
+    localStorage.setItem('email', info.user.email);
+    this.logger.debug(`Switching to ${info.email} with role ${info.user.userRole}`);
 
     this.globals.app.isGSAAdmin = (info.user.userRole === 'Administrator');
     this.globals.app.firstName = info.user.firstName;

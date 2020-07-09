@@ -2,39 +2,126 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
+version: 2.1
 
 
-#version: 2
-#jobs:
-#  build:
-#    docker:
-#      # specify the version you desire here
-#      - image: circleci/node:10.0-browsers
-#        environment:
-#          NODE_ENV: circleci
-#      - image: circleci/postgres:9.6.8
-#        environment:
-#          POSTGRES_USER: circleci
-#          POSTGRES_DB: srt
-#          POSTGRES_PASSWORD: srtpass
-#
-#
-#    working_directory: ~/repo
-#
-#    steps:
-#      - checkout
-#
-#      - run: npm install
-#
-#      - run: google-chrome --version
-#      - run: ./node_modules/.bin/webdriver-manager update --versions.chrome=2.40
-#      - run: ./node_modules/.bin/webdriver-manager start --detach
-#
-#      - run:
-#         name: Run the Tests
-#         environment:
-#           NODE_ENV: circle
-#         command: |
-#              npm run test
-#
+jobs:
 
+  deploy:
+    docker:
+      - image: circleci/node:12
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Download CF CLI
+          command: |
+            curl -v -L -o cf-cli_amd64.deb 'https://cli.run.pivotal.io/stable?release=debian64&source=github'
+            sudo dpkg -i cf-cli_amd64.deb
+            cf -v
+
+      # Download and cache dependencies
+      - restore_cache:
+          # add checksum for ".snyk" when we get one in this project
+          key: v1.1-dependencies-{{ checksum "package.json" }}
+
+      - run: test ! -d node_modules && npm install || echo "node modules were cached"
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1.1-dependencies-{{ checksum "package.json" }}
+
+
+      - run:
+          name: Build static site
+          command: |
+            export SPACE="$CIRCLE_BRANCH"
+            case $SPACE in
+              dev | staging | prod)
+                echo "Using SPACE $SPACE"
+                ;;
+              *)
+                SPACE="dev"
+                echo "setting SPACE to $SPACE"
+            esac
+
+            ./node_modules/.bin/ng --version
+            ./node_modules/.bin/ng build --configuration=${SPACE} --prod=false --outputHashing=all
+            cd dist
+            touch Staticfile
+            echo "{ \"version\" : \"circle-${CIRCLE_BUILD_NUM}\", \"build_date\" :  \"`date`\"} " > version.html
+            cat version.html
+
+      - run:
+          name: Deploy Client
+          command: |
+            # Documentation for service accounts here: https://cloud.gov/docs/services/cloud-gov-service-account/
+            cd ~/repo/dist
+
+            export SPACE="$CIRCLE_BRANCH"
+            case $SPACE in
+              dev | staging | prod)
+                echo "Using SPACE $SPACE"
+                ;;
+              *)
+                SPACE="dev"
+                echo "setting SPACE to $SPACE"
+            esac
+
+            export UNAME_VAR=CF_USERNAME_${SPACE}
+            export PWD_VAR=CF_PASSWORD_${SPACE}
+            cf login -a https://api.fr.cloud.gov -u ${!UNAME_VAR} -p ${!PWD_VAR} -o gsa-ogp-srt -s ${SPACE}
+            cf push -m 64M srt-client-dev
+
+workflows:
+  version: 2.1
+  optional-build-and-deploy-to-dev:
+    when:
+      not:
+        equal: [ https://github.com/GSA/srt-ui, << pipeline.project.git_url >>]
+    jobs:
+      - hold:
+          type: approval
+      - deploy:
+          requires:
+            - hold
+          filters:
+            branches:
+              ignore:
+                - staging
+                - stage
+                - prod
+                - master
+
+  dev-build-and-deploy-on-GSA-repo:
+    when:
+      equal: [ https://github.com/GSA/srt-ui, << pipeline.project.git_url >>]
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only:
+                - dev
+
+
+  stage-prod-build-wait-deploy-on-GSA:
+    when:
+      equal: [ https://github.com/GSA/srt-ui, << pipeline.project.git_url >>]
+    jobs:
+      - hold:
+          type: approval
+          filters:
+            branches:
+              only:
+                - staging
+                - prod
+
+      - deploy:
+          requires:
+            - hold
+          filters:
+            branches:
+              only:
+                - staging
+                - prod

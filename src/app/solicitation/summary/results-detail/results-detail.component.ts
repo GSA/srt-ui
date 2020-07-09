@@ -41,6 +41,11 @@ export class ResultsDetailComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
+    this.solicitation = new Solicitation(null, null, null, null, null, null,
+      {value: ''}, null, null, null, null, null, null, [{ name: '', status: '', attachment_url: '' }],
+      { contact: '', name: '', position: '', email: '' }, null, null, null,
+      null, null);
+    this.solicitation.na_flag = false;
   }
 
   /**
@@ -81,11 +86,11 @@ export class ResultsDetailComponent implements OnInit {
 
             if (!isNaN(totalDoc)) {
               // doesn't have lock files
-              if (totalDoc == this.solicitation.parseStatus.length) {
+              if (totalDoc === this.solicitation.parseStatus.length) {
               } else {
                 const lock = totalDoc - this.solicitation.parseStatus.length;
                 this.lockDocs = [];
-                for(let i = 1; i <= lock; i++){
+                for (let i = 1; i <= lock; i++){
                   this.lockDocs.push(i);
                 }
               }
@@ -100,9 +105,7 @@ export class ResultsDetailComponent implements OnInit {
   onNotApplicableClick(event) {
     this.solicitation.na_flag = event.target.checked;
     this.solicitationService.update(this.solicitation)
-      .subscribe( (data) => {
-
-      })
+      .subscribe( (data) => {});
 
   }
 }

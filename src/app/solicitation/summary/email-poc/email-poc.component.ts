@@ -9,6 +9,7 @@ import { Email } from './email';
 import { environment } from '../../../../environments/environment';
 
 import { htmlToPlainText } from '../../../shared/textversion';
+import * as moment from 'moment';
 
 
 @Component({
@@ -34,8 +35,6 @@ export class EmailPocComponent implements OnInit {
   public step3: Boolean = false;
   public emailSent = false;
 
-  public editor;
-  public editorContent = `<h3>I am Example content</h3>`;
   public editorOptions = {
     placeholder: 'insert content...',
     modules: {
@@ -129,8 +128,6 @@ export class EmailPocComponent implements OnInit {
         message: new FormControl(this.emailBody, Validators.required)
       });
 
-    const user = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
-
   }
 
   emailError(to) {
@@ -176,7 +173,8 @@ export class EmailPocComponent implements OnInit {
 
   emailSuccess() {
     // email sent successfully, now update the history
-    const now = new Date().toLocaleDateString();
+    const now = moment().format('MM/DD/YYYY');
+
     const user = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
     this.solicitation.history.push({'date': now, 'action': 'sent email to POC', 'user': user , 'status' : 'Email Sent to POC'});
     this.emailSent = true;

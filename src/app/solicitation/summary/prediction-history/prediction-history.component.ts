@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import * as moment from 'moment';
 
 // Service
 import { SolicitationService } from '../../solicitation.service';
@@ -44,11 +45,9 @@ export class PredictionHistoryComponent implements OnInit {
         this.solicitationID = params['id'];
         this.solicitationService.getSolicitation(this.solicitationID).subscribe(
           data => {
-            console.log(data);
             this.predictionHistory = data.predictions.history;
             for (const entry of this.predictionHistory.reverse()) {
-              const date: Date  = new Date(entry.date);
-              entry.date = date.toLocaleDateString();
+              entry.date = moment(entry.date).format('MM/DD/YYYY');
             }
           });
       });

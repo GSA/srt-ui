@@ -12,8 +12,9 @@ import { AnalyticsModule } from './analytics/analytics.module';
 import { HelpModule } from './help/help.module';
 import { AuthModule } from './auth/auth.module';
 import { HomeModule } from './home/home.module';
-import { UserModule } from 'app/user/user.module';
+import { AdminModule } from 'app/admin/admin.module';
 import { TokenService } from './shared/services/token.service';
+import { ChartModule } from 'primeng/chart';
 
 
 import { SolicitationModule } from './solicitation/solicitation.module';
@@ -31,13 +32,13 @@ import { MasqService } from './user/masq/masq.service';
 import { UserService } from './shared/services/user.service';
 import { AuthGuard } from './auth-guard.service';
 import { NoticeTypesService } from './shared/services/noticeTypes.service';
-import { VersionService } from './shared/services/version.service';
 
 // COMPONENTS
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { AdminComponent } from 'app/admin/admin.component';
+import { LoginReportsComponent} from './admin/admin-reports/login-reports.component';
 import { TokenInterceptor } from './shared/services/token.interceptor';
 
 
@@ -50,6 +51,7 @@ import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 import {Globals} from '../globals';
 import {AdminGuard} from './admin-guard.service';
 import {BaseComponent} from './base.component';
+import { AdminHeaderComponent } from './admin-header/admin-header.component';
 
 
 
@@ -60,7 +62,9 @@ import {BaseComponent} from './base.component';
     HeaderComponent,
     AdminComponent,
     UploadComponent,
-    BaseComponent
+    BaseComponent,
+    AdminHeaderComponent,
+    LoginReportsComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +79,7 @@ import {BaseComponent} from './base.component';
     AuthModule,
     HomeModule,
     HelpModule,
-    UserModule,
+    AdminModule,
     TableModule,
     SharedModule,
     ButtonModule,
@@ -85,6 +89,7 @@ import {BaseComponent} from './base.component';
     AnalyticsModule,
     SolicitationModule,
     LoggerModule.forRoot({level: NgxLoggerLevel.DEBUG} ),
+    ChartModule
   ],
   providers: [
     AuthService,
