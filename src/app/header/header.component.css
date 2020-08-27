@@ -78,7 +78,6 @@
     font-weight: 700 !important;
     /* border-bottom: 1px solid #102c52; */
     padding-bottom: 5px !important;
-    font-weight: 700;
     background-color: transparent !important;
   }
 
@@ -126,6 +125,11 @@ hr {
     font-weight: bold;
     letter-spacing: 1px;
 }*/
+
+#navbar li:hover {
+  cursor: pointer;
+  border-bottom: 2px solid #17699b;
+}
 
 img {
 	max-width: 100%;
