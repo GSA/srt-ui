@@ -1,7 +1,7 @@
 import {Component, OnInit, Renderer2, ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
 import {SolicitationService} from '../solicitation.service';
-import {LazyLoadEvent, SelectItem} from 'primeng/primeng';
+import {LazyLoadEvent, SelectItem} from 'primeng';
 import * as $ from 'jquery';
 import {Title} from '@angular/platform-browser';
 import {BaseComponent} from '../../base.component';
@@ -171,11 +171,11 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
 
           // fix accessibility of paginator
           setTimeout( () => {
-            jQuery('.ui-paginator-icon.pi-caret-right').attr('title', 'next page');
-            jQuery('.ui-paginator-icon.pi-caret-left').attr('title', 'previous page');
-            jQuery('a.ui-paginator-first').attr('title', 'first page');
-            jQuery('a.ui-paginator-last').attr('title', 'last page');
-            jQuery('a.ui-paginator-page').each(
+            $('.ui-paginator-icon.pi-caret-right').attr('title', 'next page');
+            $('.ui-paginator-icon.pi-caret-left').attr('title', 'previous page');
+            $('a.ui-paginator-first').attr('title', 'first page');
+            $('a.ui-paginator-last').attr('title', 'last page');
+            $('a.ui-paginator-page').each(
               (idx, el) => {
                 const pageNum = $(el).text();
                 const title = 'page ' + pageNum;
