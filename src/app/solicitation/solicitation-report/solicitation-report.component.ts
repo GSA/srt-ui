@@ -41,6 +41,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     numDocs: '',
     reviewStatus: '',
     reviewRec: '',
+    filters: { 'active': {'value': true, 'matchMode': 'equals' }},
     rows: 15
   };
 

@@ -60,6 +60,9 @@ export class SolicitationService {
    * @param body
    */
   getFilteredSolicitations(body) {
+    if ( ! body.filter) {
+      body.filters = { 'active': {'value': true, 'matchMode': 'equals' }};
+    }
     return this.http
       .post<SolicitationResult>(this.solicitationsFilterUrl, body)
       .catch((error: any) => {
