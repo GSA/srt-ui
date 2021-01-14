@@ -29,6 +29,8 @@
     "@angular/platform-server": "~8.0.0",
     "@angular/router": "~8.0.0",
     "@auth0/angular-jwt": "^3.0.1",
+    "@fullcalendar/core": "^5.3.1",
+    "@types/jquery": "^3.5.1",
     "@types/quill": "0.0.29",
     "ag-grid": "^9.1.0",
     "ag-grid-angular": "^9.1.0",
@@ -40,9 +42,10 @@
     "core-js": "^2.6.11",
     "file-saver": "^2.0.2",
     "font-awesome": "^4.7.0",
+    "jquery": "^3.5.1",
     "json2csv": "^5.0.1",
     "moment": "^2.29.0",
-    "ng2-charts": "^2.4.0",
+    "ng2-charts": "2.3.3",
     "ng2-completer": "^1.4.0",
     "ng2-file-upload": "^1.4.0",
     "ng2-quill-editor": "^2.0.0",
@@ -58,10 +61,7 @@
     "url-search-params-polyfill": "^7.0.1",
     "uswds": "^2.6.0",
     "web-animations-js": "^2.3.2",
-    "zone.js": "~0.9.1",
-    "jquery": "^3.5.1",
-    "@types/jquery": "^3.5.1",
-    "@fullcalendar/core": "^5.3.1"
+    "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.13.10",
