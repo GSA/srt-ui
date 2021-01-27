@@ -46,7 +46,7 @@ export class ResultsDetailComponent implements OnInit {
       {value: ''}, null, null, null, null, null, null,
       [{ name: '', status: '', attachment_url: '', formattedDate: '', postedDate: new Date() }],
       { contact: '', name: '', position: '', email: '' }, null, null, null,
-      null, null);
+      null, null, null);
     this.solicitation.na_flag = false;
   }
 

@@ -64,7 +64,9 @@
 
           <div class="list">
             <div class="list-title">Solicitation Type:&nbsp;</div>
-            <div class="list-content" id="solType">{{solicitation.noticeType}}</div>
+            <div class="list-content" id="solType">{{solicitation.noticeType}}
+              <span *ngIf="!solicitation.active"> ( not active )</span>
+            </div>
           </div>
 
           <!--<div class="list">

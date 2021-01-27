@@ -62,6 +62,8 @@ export class SolicitationService {
   getFilteredSolicitations(body) {
     if ( ! body.filters) {
       body.filters = { 'active': {'value': true, 'matchMode': 'equals' }};
+    } else if (!body.filters.active) {
+      body.filters.active = {'value': true, 'matchMode': 'equals' };
     }
     return this.http
       .post<SolicitationResult>(this.solicitationsFilterUrl, body)

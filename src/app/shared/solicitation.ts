@@ -45,7 +45,7 @@ export class Solicitation {
         public undetermined: Boolean,
         public na_flag: Boolean,
 
-        // these are added for API compatibility. Possibly a hack
-        public id: String
-    ) {}
+        public id: String,
+        public active: Boolean
+) {}
 }
