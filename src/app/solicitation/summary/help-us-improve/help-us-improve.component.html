@@ -10,11 +10,20 @@
           < Back to Solicitation Review Results for Section 508 Requirements</a>
       </div>
 
-      <div class="alert alert-success" *ngIf="feedbackSent" style="font-weight: 500">
-        Your response is successfully submitted.
+      <div class="alert alert-success" *ngIf="feedbackSent && (!submissionComplete)" style="font-weight: 500">
+        Your have already provided feedback for this solicitation. You may updated your response below if you would like to update any of your answers
       </div>
 
-      <div *ngIf="!feedbackSent">
+      <div class="alert alert-success" *ngIf="submissionInProgress" style="font-weight: 500">
+        Saving your response. Please wait.
+      </div>
+
+      <div class="alert alert-success" *ngIf="submissionComplete" style="font-weight: 500">
+        Your response has been sent
+      </div>
+
+
+      <div *ngIf="(!submissionInProgress) && (!submissionComplete)">
         <div id="instruction">
           <h2 class="visually-hidden">Instructions</h2>
           <div style="padding-bottom: 10px">The SRT Team welcome your Subject Matter Expertise to make our tool better for all. To review scanned solicitation
