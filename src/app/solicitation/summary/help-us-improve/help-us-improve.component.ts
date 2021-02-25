@@ -144,7 +144,7 @@ export class HelpUsImproveComponent implements OnInit {
 
           // now get the previous results and fill them in
           this.surveyService.getSurveyResults(solNum).subscribe(
-            feedback => {
+            (feedback: any) => {
               this.previousAnswers = feedback;
               for (const f of feedback.responses) {
                 // checkbox
