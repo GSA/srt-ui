@@ -10,6 +10,7 @@ import { environment } from '../../../../environments/environment';
 
 import { htmlToPlainText } from '../../../shared/textversion';
 import * as moment from 'moment';
+import * as $ from 'jquery';
 
 
 @Component({

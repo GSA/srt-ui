@@ -1,15 +1,15 @@
 <!-- <a [routerLink]="['/solicitation/report/', solicitation._id]">{{solicitation.title}}</a> -->
-<div class="container" *ngIf="solicitation">
+<div class="container">
   <div class="clearfix impcontainer">
     <div class="imppostion">
       <div style="padding-bottom: 20px;">
         <div class="list">
           <div class="list-title" style="width: 120px">Solicitation Title:&nbsp;</div>
-          <div class="list-content">{{solicitation.title}}</div>
+          <div class="list-content">{{title}}</div>
         </div>
         <div class="list">
           <div class="list-title" style="width: 142px">Solicitation Number:&nbsp;</div>
-          <div class="list-content">{{solicitation.solNum}}</div>
+          <div class="list-content">{{this.solNum}}</div>
         </div>
         <div class="list">
           <div class="list-title" style="width: 142px">Submitter:&nbsp;</div>
@@ -28,7 +28,7 @@
           <th scope="col">Answer</th>
         </tr>
 
-        <tr *ngFor="let item of solicitation.feedback">
+        <tr *ngFor="let item of feedback">
           <td style="font-weight: 800">{{item.question}}<br><span style="color: #899197">{{item.note}}</span></td>
           <td>{{item.answer}}</td>
         </tr>

@@ -111,14 +111,12 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/chart.js/dist/Chart.bundle.min.js",
-              "node_modules/froala-editor/js/froala_editor.pkgd.min.js"
             ],
             "styles": [
               "src/styles.css",
               "src/nova-light-theme.css",
               "src/primeng.min.css",
               "node_modules/font-awesome/css/font-awesome.min.css",
-              "node_modules/froala-editor/css/froala_editor.pkgd.min.css"
             ],
             "assets": [
               "src/assets",
