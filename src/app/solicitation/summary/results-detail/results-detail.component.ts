@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { SolicitationService } from '../../solicitation.service';
 import { Solicitation } from '../../../shared/solicitation';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-results-detail',
@@ -23,9 +24,9 @@ export class ResultsDetailComponent implements OnInit {
   subscription: Subscription;
   solicitationID: String;
   type: String = 'report';
-  public step1:Boolean = false;
-  public step2:Boolean = false;
-  public step3:Boolean = false;
+  public step1: Boolean = false;
+  public step2: Boolean = false;
+  public step3: Boolean = false;
 
 
   /* CONSTRUCTORS */
@@ -42,9 +43,10 @@ export class ResultsDetailComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.solicitation = new Solicitation(null, null, null, null, null, null,
-      {value: ''}, null, null, null, null, null, null, [{ name: '', status: '', attachment_url: '' }],
+      {value: ''}, null, null, null, null, null, null,
+      [{ name: '', status: '', attachment_url: '', formattedDate: '', postedDate: new Date() }],
       { contact: '', name: '', position: '', email: '' }, null, null, null,
-      null, null);
+      null, null, null);
     this.solicitation.na_flag = false;
   }
 
@@ -64,6 +66,7 @@ export class ResultsDetailComponent implements OnInit {
                 } else if (element.status === 'processing error') {
                   element.status = 'No';
                 }
+                element.formattedDate = moment(element.postedDate).format('L');
             });
 
             if (data.contactInfo.name === '') {
@@ -90,7 +93,7 @@ export class ResultsDetailComponent implements OnInit {
               } else {
                 const lock = totalDoc - this.solicitation.parseStatus.length;
                 this.lockDocs = [];
-                for (let i = 1; i <= lock; i++){
+                for (let i = 1; i <= lock; i++) {
                   this.lockDocs.push(i);
                 }
               }

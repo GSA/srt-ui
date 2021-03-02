@@ -18,10 +18,10 @@ import { UserRoutingModule } from './admin.routing';
 // Components
 
 // Open Sources
-import { SharedModule, ButtonModule, DropdownModule, CalendarModule } from 'primeng/primeng';
+import { SharedModule, ButtonModule, DropdownModule, CalendarModule } from 'primeng';
 import { TableModule } from 'primeng/table';
 import { Ng2CompleterModule } from 'ng2-completer';
-import { FileUploadModule } from 'primeng/primeng';
+import { FileUploadModule } from 'primeng';
 import {MasqComponent} from '../user/masq/masq.component';
 import {UserReportComponent} from '../user/reports/user.report.component';
 import {FeedbackReportTableComponent} from './admin-reports/feedback-report-table.component';

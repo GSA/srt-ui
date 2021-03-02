@@ -90,7 +90,7 @@ export class FaqComponent extends BaseComponent implements OnInit {
    * Search text
    */
   search() {
-    const txt = $('#search').val();
+    const txt = $('#search').val().toString();
 
     $('.search-content').each(function() {
       if ( $(this).text().toLowerCase().indexOf(txt.toLowerCase()) !== -1) {

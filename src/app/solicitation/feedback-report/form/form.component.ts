@@ -11,10 +11,11 @@ export class FormComponent implements OnInit {
 
   /* ATTRIBUTES */
 
-  @Input() solicitation;
   submitter;
   date;
-  params: { }
+  @Input() feedback;
+  title;
+  solNum = 'atcsolnum';
 
   /* CONSTRUCTORS */
 
@@ -27,24 +28,21 @@ export class FormComponent implements OnInit {
     private route: ActivatedRoute,
     private solicitationService: SolicitationService
   ) {
-    var solNum = this.route.snapshot.params["id"];
-    this.params = {
-      solNum : solNum
-    }
-    this.solicitationService.getSolicitationFeedback(this.params).subscribe(
-      data => {
-        this.solicitation = data[0];
-        var history = this.solicitation.history.filter(d => d.action == "provided feedback on the solicitation prediction result")[0];
-        this.submitter = history.user;
-        this.date = history.date;
-        console.log(data[0]);
-      },
-      error => console.log(error)
-    )
+    const solNum = this.route.snapshot.params['id'];
+    const that = this;
+    this.solicitationService.getSolicitationFeedback({solNum: solNum}).subscribe(
+      function (data: any) {
+        this.submitter = data.email;
+        this.date = data.date;
+        this.feedback = data.responses;
+        this.title = data.solNum;
+        this.solNum = data.solNum;
+      }.bind(this),
+      error => console.log('ERROR: ' + error)
+    );
   }
 
   ngOnInit() {
-
   }
 
 

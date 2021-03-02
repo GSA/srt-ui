@@ -1,0 +1,17 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-FROALAEDITOR-1015371:
+    - angular2-froala-wysiwyg > froala-editor:
+        reason: IE 11 necessary for now
+        expires: '2021-02-13T15:17:19.303Z'
+  SNYK-JS-FROALAEDITOR-598256:
+    - angular2-froala-wysiwyg > froala-editor:
+        reason: IE 11 necessray for now
+        expires: '2021-02-13T15:17:19.303Z'
+  SNYK-JS-GLOBPARENT-1016905:
+    - uswds > del > globby > fast-glob > glob-parent:
+        reason: IE 11 necessary for now
+        expires: '2021-02-13T15:17:19.303Z'
+patch: {}

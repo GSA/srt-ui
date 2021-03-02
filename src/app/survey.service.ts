@@ -26,4 +26,9 @@ export class SurveyService {
   public getSurveys() {
       return this.http.get<any[]>(this.surveysURL);
   }
+
+  public getSurveyResults(solNum) {
+    return this.http.get<any[]>(this.surveysURL + `/${solNum}`);
+  }
+
 }
