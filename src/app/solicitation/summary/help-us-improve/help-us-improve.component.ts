@@ -177,6 +177,8 @@ export class HelpUsImproveComponent implements OnInit {
         'status': ''
       });
 
+      this.solicitation.newFeedbackSubmission = true;
+
       this.solicitation.feedback = null; // clear out the old records.
       this.surveys.forEach(element => {
           if (this.solicitation.feedback == null) {
