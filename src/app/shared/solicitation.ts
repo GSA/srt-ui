@@ -42,6 +42,7 @@ export class Solicitation {
           note: String,
           answer: String,
         }],
+        public newFeedbackSubmission: Boolean,
         public undetermined: Boolean,
         public na_flag: Boolean,
 
