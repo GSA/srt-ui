@@ -18,7 +18,7 @@ import { ChartModule } from 'primeng/chart';
 
 
 import { SolicitationModule } from './solicitation/solicitation.module';
-import { SharedModule, ButtonModule, DropdownModule, CalendarModule} from 'primeng/primeng';
+import { SharedModule, ButtonModule, DropdownModule, CalendarModule} from 'primeng';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'ng2-tooltip';
 import { Ng2CompleterModule } from 'ng2-completer';

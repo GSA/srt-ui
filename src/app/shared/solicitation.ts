@@ -18,7 +18,12 @@ export class Solicitation {
         public position: String,
         // public reviewStatus: Boolean,
         public noticeType: String,
-        public parseStatus: [{name: String, status: String, attachment_url: String}],
+        public parseStatus: [{
+          formattedDate: string;
+          postedDate: Date;
+          name: String,
+          status: String,
+          attachment_url: String}],
         public contactInfo: {
           contact: String,
           name: String,
@@ -37,10 +42,11 @@ export class Solicitation {
           note: String,
           answer: String,
         }],
+        public newFeedbackSubmission: Boolean,
         public undetermined: Boolean,
         public na_flag: Boolean,
 
-        // these are added for API compatibility. Possibly a hack
-        public id: String
-    ) {}
+        public id: String,
+        public active: Boolean
+) {}
 }

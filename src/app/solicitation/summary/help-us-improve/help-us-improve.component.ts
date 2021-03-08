@@ -19,6 +19,10 @@ export class HelpUsImproveComponent implements OnInit {
   public surveys;
   public surveyModel = [];
   public feedbackSent = false;
+  public previousAnswers = null;
+  public submissionInProgress = false;
+  public submissionComplete = false;
+  private solNum = null;
 
   solicitation: Solicitation;
   subscription: Subscription;
@@ -80,7 +84,8 @@ export class HelpUsImproveComponent implements OnInit {
                 && (e['user'].indexOf(user) > -1));
             }).length > 0;
 
-            this.getSurveys();
+            this.getSurveys(data.solNum);
+
           },
           err => console.log(err)
         );
@@ -121,7 +126,7 @@ export class HelpUsImproveComponent implements OnInit {
   /**
    * get survey questions
    */
-  getSurveys() {
+  getSurveys(solNum) {
       this.surveyService.getSurveys().subscribe(
         data => {
           this.surveys = data.sort(function(a, b){
@@ -136,6 +141,24 @@ export class HelpUsImproveComponent implements OnInit {
           for (let i = 0; i < data.length; i++) {
             this.surveyModel.push('');
           }
+
+          // now get the previous results and fill them in
+          this.surveyService.getSurveyResults(solNum).subscribe(
+            (feedback: any) => {
+              this.previousAnswers = feedback;
+              for (const f of feedback.responses) {
+                // checkbox
+                if (data[f.questionID].Type === 'choose one') {
+                  this.checkBox(data[f.questionID], f.answer, true);
+                }
+                // textbox
+                if (data[f.questionID].Type === 'essay') {
+                  this.textarea(data[f.questionID], f.answer);
+                }
+              }
+            }
+          );
+
         }
       );
   }
@@ -144,6 +167,7 @@ export class HelpUsImproveComponent implements OnInit {
    * send out a feedback
    */
   feedback() {
+      this.submissionInProgress = true;
       const now = moment().format('MM/DD/YYYY');
       const user = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
       this.solicitation.history.push({
@@ -153,6 +177,9 @@ export class HelpUsImproveComponent implements OnInit {
         'status': ''
       });
 
+      this.solicitation.newFeedbackSubmission = true;
+
+      this.solicitation.feedback = null; // clear out the old records.
       this.surveys.forEach(element => {
           if (this.solicitation.feedback == null) {
             this.solicitation.feedback = [{
@@ -176,6 +203,8 @@ export class HelpUsImproveComponent implements OnInit {
         () => {
           this.feedbackSent = true;
           this.step3 = true;
+          this.submissionInProgress = false;
+          this.submissionComplete = true;
         },
         () => {
           console.log('e189');
