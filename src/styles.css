@@ -310,6 +310,10 @@ body .ui-table .ui-table-thead > tr > th {
   padding-bottom: 60px;
 }
 
+.report-section p {
+  font-size: 18px;
+}
+
 .sticky-nav {
   padding: 0px 40px 0px 0px;
   position: sticky; top: 60px; left: 0px; float: left;

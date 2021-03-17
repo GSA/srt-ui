@@ -7,8 +7,8 @@
 
 
   <app-user-report *ngIf="this.activeTab == 'approved'"></app-user-report>
-
   <masquerade *ngIf="this.activeTab == 'masquerade'"></masquerade>
+  <metric-downloads *ngIf="this.activeTab == 'metric-downloads'"></metric-downloads>
 
   <!-- reports -->
   <div *ngIf="this.activeTab == 'reports'" style="clear:both;" class="row nopadding">
