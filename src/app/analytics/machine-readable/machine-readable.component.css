@@ -12,7 +12,7 @@
     margin: 0px auto;
     height: 280px;
     transform: translateZ(0);
-    font-weight: 300
+    /* font-weight.*300 */
 }
 .pieresultun{
     position: absolute;

@@ -27,6 +27,23 @@
   background-color: white;
 }
 
+/* Override for PrimeNG theme for the workflow table */
+body .ui-table .ui-table-tbody td.ui-resizable-column {
+  color: #111111;
+}
+body  p-paginator div a {
+  color: #111111 !important;
+}
+body p-paginator div a.ui-state-active {
+  background-color: #112e51 !important;
+  color: white !important;
+  font-weight: bold;
+}
+body .ui-table .ui-sortable-column.ui-state-highlight {
+  background-color: #112e51 !important;
+}
+
+
 /* Override padding for bootstrap. */
 .no-padding {
     margin: 0px !important;
