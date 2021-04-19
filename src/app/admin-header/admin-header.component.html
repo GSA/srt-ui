@@ -11,6 +11,11 @@
           (click)="this.menuClick.emit('reports');this.setActiveTab('reports');">
         <a>REPORTS</a>
       </li>
+      <li id="tab4" class="us-tab-item-slide"
+          [ngClass]="{'active': active['metric-downloads']}"
+          (click)="this.menuClick.emit('metric-downloads');this.setActiveTab('metric-downloads');">
+        <a>METRIC DOWNLOADS</a>
+      </li>
     </ul>
   </div>
 </div>
