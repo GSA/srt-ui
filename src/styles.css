@@ -50,6 +50,10 @@ button.ui-button {
   color: #112e51 !important;
 }
 
+.srt-black {
+  color: #111111;
+}
+
 .srt-title-padding {
   padding-bottom: 20px;
 }
