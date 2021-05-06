@@ -406,7 +406,7 @@ th {
 @font-face {
   font-family: "Source Sans Pro";
   font-style: normal;
-  font-weight: 300;
+  /* font-weight.*300 */;
   src: url("../fonts/sourcesanspro-light-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/sourcesanspro-light-webfont.woff2") format("woff2"), url("../fonts/sourcesanspro-light-webfont.woff") format("woff"), url("../fonts/sourcesanspro-light-webfont.ttf") format("truetype");
 }
 
@@ -434,7 +434,7 @@ th {
 @font-face {
   font-family: "Merriweather";
   font-style: normal;
-  font-weight: 300;
+  /* font-weight.*300 */;
   src: url("../fonts/merriweather-light-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/merriweather-light-webfont.woff2") format("woff2"), url("../fonts/merriweather-light-webfont.woff") format("woff"), url("../fonts/merriweather-light-webfont.ttf") format("truetype");
 }
 

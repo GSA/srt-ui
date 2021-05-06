@@ -33,7 +33,7 @@ ul.register li.active {
 
 #gsaDropdown ul.dropdown-menu > li > a{
     color: white;
-    font-weight: 300;
+    /* font-weight.*300 */;
 }
 
 
@@ -109,8 +109,8 @@ border-bottom-width:2px;
 border-bottom-color: #112e51;
 border-bottom-style: solid;
 width: 100%;*/
-padding: 0px; 
-position: sticky;  
+padding: 0px;
+position: sticky;
 z-index: 50
 }
 #navbar a {
