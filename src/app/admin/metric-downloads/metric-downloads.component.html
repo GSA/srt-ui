@@ -1,0 +1,42 @@
+<main id="content" class="bypass-block-target">
+
+
+    <div class="sticky-nav col-md-2 hidden-xs hidden-sm" style="padding-top:80px;">
+      <ul class="usa-sidenav-list" style="">
+        <li (click)="scroll('anchor-Logins-Last-30-Days');">Solicitation Metrics</li>
+      </ul>
+    </div>
+
+    <div class="col-md-10 no-padding">
+      <div class="report-section">
+        <h1 class="srt-blue analytic-big-title">Scanned Solicitation by Date Metrics</h1>
+        <p>
+          The Solicitation Download Report is a CSV file with the counts of newly added or updated solicitations
+          by date.
+        <button id="downloadScannedSolicitationsCSV" class="srt-button" style="float: none;" (click)="downloadScannedSolicitationsCSV()" >Download CSV</button>
+        </p>
+      </div>
+
+      <div class="report-section">
+        <h1 class="srt-blue analytic-big-title">Prediction Metrics by Date and Agency</h1>
+        <p>
+          The Solicitation Download Report is a CSV file with the counts of newly added or updated solicitations
+          by date.
+          <button id="downloadPredictionMetricsCSV" class="srt-button" style="float: none;" (click)="downloadPredictionMetricsCSV()" >Download CSV</button>
+        </p>
+      </div>
+
+      <div class="report-section">
+        <h1 class="srt-blue analytic-big-title">Notice Type Change Metrics</h1>
+        <p>
+          The Notice Type Change metrics show how many notices are leaving the SRT system because of a change to the notice type.
+          The numbers are broken out by date and agency.
+          <button id="downloadNoticeTypeChangeMetricsCSV" class="srt-button" style="float: none;" (click)="downloadNoticeTypeChangeMetricsCSV()" >Download CSV</button>
+        </p>
+      </div>
+
+
+    </div>
+
+</main>
+

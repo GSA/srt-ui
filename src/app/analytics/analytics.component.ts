@@ -36,6 +36,7 @@ export class AnalyticsComponent extends BaseComponent implements OnInit {
 
     public params = {};
     public ScannedSolicitationChart = null;
+    public solStats = null;
     public MachineReadableChart = null;
     public ComplianceRateChart = null;
     public ConversionRateChart = null;
@@ -184,6 +185,7 @@ export class AnalyticsComponent extends BaseComponent implements OnInit {
         .subscribe(
             data => {
                 this.ScannedSolicitationChart = data.ScannedSolicitationChart;
+                this.solStats = data.solStats;
                 this.MachineReadableChart = data.MachineReadableChart;
                 this.ComplianceRateChart = data.ComplianceRateChart;
                 this.ConversionRateChart = data.ConversionRateChart;
