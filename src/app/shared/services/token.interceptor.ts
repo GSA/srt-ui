@@ -36,7 +36,6 @@ function refresh (http: HttpClient, router: Router, logger: NGXLogger, globals: 
       let session_timeout =  data.token_life_in_seconds * 1000 || 30 * 60 * 1000;  // default to  30 minutes
       session_timeout += 1000; // add a second to the timeout so it fires AFTER token expiration
       const sessionEndInMS = Math.ceil((TokenService.getSessionExpiration() * 1000) - now.getTime());
-      logger.debug('Token refreshed. Seconds left in session: ', sessionEndInMS / 1000);
 
 
       // if there is a session timeout session_timer pending, clear it.

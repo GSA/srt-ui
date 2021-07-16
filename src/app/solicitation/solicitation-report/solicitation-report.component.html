@@ -100,8 +100,8 @@
         <td class="ui-resizable-column col_date_posted"><span class="ui-column-title">Date Posted</span>{{sol.date}}</td>
         <td class="ui-resizable-column col_review_result">
           <span class="ui-column-title">Review Result</span>
-          <button class="button {{'result-' + sol.predictions.value}}" (click)="selectSol(sol)"  style="border: none; text-align: left; padding: 0;">
-            <i class="fa fa-exclamation-triangle" style="padding-right: 5px;" *ngIf="sol.predictions.value == 'red'"></i>
+          <button class="button {{'result-' + ((sol.reviewRec == 'Not Applicable') ? 'black' : sol.predictions.value)}}" (click)="selectSol(sol)"  style="border: none; text-align: left; padding: 0;">
+              <i class="fa fa-exclamation-triangle" style="padding-right: 5px;" *ngIf="sol.predictions.value == 'red' && sol.reviewRec != 'Not Applicable'"></i>
             <span style="text-decoration: underline;">{{sol.reviewRec}}</span>
           </button>
         </td>

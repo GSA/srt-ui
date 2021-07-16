@@ -60,14 +60,19 @@ export class ResultsDetailComponent implements OnInit {
         console.log(this.solicitationID);
         this.solicitationService.getSolicitation(this.solicitationID).subscribe(
           data => {
-            data.parseStatus.forEach(element => {
+            if (data.parseStatus && Array.isArray(data.parseStatus)) {
+              data.parseStatus.forEach(element => {
                 if (element.status === 'successfully parsed') {
                   element.status = 'Yes';
                 } else if (element.status === 'processing error') {
                   element.status = 'No';
                 }
                 element.formattedDate = moment(element.postedDate).format('L');
-            });
+              });
+            } else {
+              console.log ('Error processing parse status for solicitaiton ' + data.solNum);
+              data.parseStatus = [{formattedDate: '', postedDate: null, name: '', status: '', attachment_url: ''}];
+            }
 
             if (data.contactInfo.name === '') {
               data.contactInfo.name = data.contactInfo.email;

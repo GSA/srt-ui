@@ -68,13 +68,18 @@ export class EmailPocComponent implements OnInit {
         this.solicitationService.getSolicitation(this.solicitationID).subscribe(
           data => {
 
-            data.parseStatus.forEach(element => {
-              if (element.status === 'successfully parsed') {
-                element.status = 'Yes';
-              } else if (element.status === 'processing error') {
-                element.status = 'No';
-              }
-            });
+            if (data.parseStatus && Array.isArray(data.parseStatus)) {
+              data.parseStatus.forEach(element => {
+                if (element.status === 'successfully parsed') {
+                  element.status = 'Yes';
+                } else if (element.status === 'processing error') {
+                  element.status = 'No';
+                }
+              });
+            } else {
+              console.log ('Error processing parse status for solicitaiton ' + data.solNum);
+              data.parseStatus = [{formattedDate: '', postedDate: null, name: '', status: '', attachment_url: ''}];
+            }
             this.emailSent = data.history.filter(function(e){return ((e['action'].indexOf('sent email to POC') > -1) ); }).length > 0;
             this.emailTo = data.contactInfo.email; // "crowley+srttestemail@tcg.com";
             this.emailCC = localStorage.getItem('email');

@@ -58,13 +58,18 @@ export class HelpUsImproveComponent implements OnInit {
         this.solicitationID = params['id'];
         this.solicitationService.getSolicitation(this.solicitationID).subscribe(
           data => {
-            data.parseStatus.forEach(element => {
-              if (element.status === 'successfully parsed') {
-                element.status = 'Yes';
-              } else if (element.status === 'processing error') {
-                element.status = 'No';
-              }
-            });
+            if (data.parseStatus && Array.isArray(data.parseStatus)) {
+              data.parseStatus.forEach(element => {
+                if (element.status === 'successfully parsed') {
+                  element.status = 'Yes';
+                } else if (element.status === 'processing error') {
+                  element.status = 'No';
+                }
+              });
+            } else {
+              console.log ('Error processing parse status for solicitaiton ' + data.solNum);
+              data.parseStatus = [{formattedDate: '', postedDate: null, name: '', status: '', attachment_url: ''}];
+            }
 
             this.step1 = data.history.filter(function(e){
               return e['action'].indexOf('reviewed solicitation action requested summary') > -1;

@@ -34,14 +34,12 @@ export class TokenService {
     const jwt = new JwtHelperService();
     const info = jwt.decodeToken(token);
 
-    this.logger.debug('decoded masquerade token', info);
     localStorage.setItem('token', token);
     localStorage.setItem('agency', info.user.agency);
     localStorage.setItem('userRole', info.user.userRole);
     localStorage.setItem('firstName', info.user.firstName);
     localStorage.setItem('lastName', info.user.lastName);
     localStorage.setItem('email', info.user.email);
-    this.logger.debug(`Switching to ${info.email} with role ${info.user.userRole}`);
 
     this.globals.app.isGSAAdmin = (info.user.userRole === 'Administrator');
     this.globals.app.firstName = info.user.firstName;
