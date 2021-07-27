@@ -11,5 +11,9 @@ export const environment = {
   FILE_UPLOAD_API: 'http://localhost:3000/file/upload',
   needToken: false,
   USE_CLIENT_EMAIL: true,
-  ENVIRONMENT: 'local'
+  ENVIRONMENT: 'local',
+  feature_flags: {
+    estar: true
+  }
+
 };

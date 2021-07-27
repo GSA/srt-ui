@@ -9,5 +9,9 @@ export const environment = {
   EMAIL_NOTIFICATION: true,
   FILE_UPLOAD_API: 'http://srt-server-staging.app.cloud.gov/file/upload',
   USE_CLIENT_EMAIL: true,
-  ENVIRONMENT: 'staging'
+  ENVIRONMENT: 'staging',
+  feature_flags: {
+    estar: false
+  }
+
 };

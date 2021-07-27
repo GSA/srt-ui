@@ -5,7 +5,10 @@ export const environment = {
   FILE_UPLOAD_API: 'http://srt-server.app.cloud.gov/file/upload',
   needToken: false,
   USE_CLIENT_EMAIL: true,
-  ENVIRONMENT: 'local'
+  ENVIRONMENT: 'local',
+  feature_flags: {
+    estar: false
+  }
 
   // SERVER_URL: 'http://localhost:3000',
   // EMAIL_NOTIFICATION: true,

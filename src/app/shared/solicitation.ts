@@ -10,7 +10,7 @@ export class Solicitation {
         public predictions: {value: String, history: [{value: String, date: String}]},
         public reviewRec: String,
         public numDocs: String,
-        public eitLikelihood: {value: String},
+        public category_list: {value: String},
         public date: Date,
         public agency: String,
         public office: String,
@@ -42,6 +42,10 @@ export class Solicitation {
           note: String,
           answer: String,
         }],
+        public noticeData: {
+          psc: String,
+          naics: String
+        },
         public newFeedbackSubmission: Boolean,
         public undetermined: Boolean,
         public na_flag: Boolean,

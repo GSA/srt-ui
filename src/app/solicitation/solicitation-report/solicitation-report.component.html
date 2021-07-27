@@ -105,6 +105,13 @@
             <span style="text-decoration: underline;">{{sol.reviewRec}}</span>
           </button>
         </td>
+        <td class="ui-resizable-column col_review_result" *ngIf="feature_flags.estar">
+          <span class="ui-column-title">Energy Review</span>
+          <button class="button {{'result-' + sol.predictions.estar}}" (click)="selectSol(sol)"  style="border: none; text-align: left; padding: 0;">
+            <i class="fa fa-exclamation-triangle" style="padding-right: 5px;" *ngIf="sol.predictions.estar == 'red' "></i>
+            <span style="">{{sol.predictions.estar == "green" ? "Compliant" : sol.predictions.estar == "red" ? "Non-compliant" : "Undetermined"}}</span>
+          </button>
+        </td>
         <td class="ui-resizable-column col_action_status"><span class="ui-column-title">Action Status</span>{{sol.actionStatus}}</td>
         <td class="ui-resizable-column col_action_date"><span class="ui-column-title">Action Date</span>{{sol.actionDate}}</td>
         <td class="ui-resizable-column col_agency"><span class="ui-column-title">Agency</span>{{sol.agency}}</td>

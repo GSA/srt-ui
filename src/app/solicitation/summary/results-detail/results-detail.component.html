@@ -34,10 +34,20 @@
               </div>
             </div>
           </div>
-          <div class="row" id="na-checkbox">
+          <div class="row na-checkbox" id="na-checkbox">
             <div class="col-xs-10">
               <label id="na_check_label" for="na_check" >Section 508 is Not Applicable to this Solicitation:</label>
               <input type="checkbox" id="na_check" [checked]="solicitation.na_flag" (change)="onNotApplicableClick($event)">
+            </div>
+            <div class="col-xs-1">
+
+            </div>
+
+          </div>
+          <div class="row na-checkbox" id="estar-na-checkbox" *ngIf="feature_flags.estar">
+            <div class="col-xs-10">
+              <label id="estar_na_check_label" for="estar_na_check" >Energy Star is Not Applicable to this Solicitation:</label>
+              <input type="checkbox" id="estar_na_check" [checked]="">
             </div>
             <div class="col-xs-1">
 
@@ -58,7 +68,8 @@
 
           <div class="list">
             <div class="list-title">Date Posted: </div>
-            <div class="list-content" id="solDate">{{solicitation.date}}</div>
+            &nbsp;
+            <div class="list-content" id="solDate">{{solicitation.date | date:'shortDate'}}</div>
           </div>
 
 
@@ -82,7 +93,18 @@
                           <i class="fa fa-info-circle" aria-hidden="true"></i>
               </sup>
             </div>
-            <div class="list-content" id="solICT">{{solicitation.eitLikelihood.value}}</div>
+            &nbsp;
+            <div class="list-content" id="solICT">{{solicitation.category_list.value}}</div>
+          </div>
+
+          <div class="list">
+            <div class="list-title">PSC:
+              <sup pTooltip="Produce and Service Code ">
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
+              </sup>
+            </div>
+            &nbsp;
+            <div class="list-content" id="solPSC">{{solicitation.noticeData.psc}}</div>
           </div>
 
           <div class="list" id="solDocs">

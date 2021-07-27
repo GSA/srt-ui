@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { SolicitationService } from '../../solicitation.service';
 import { Solicitation } from '../../../shared/solicitation';
 import * as moment from 'moment';
+import {environment} from 'environments/environment';
 
 @Component({
   selector: 'app-results-detail',
@@ -27,6 +28,7 @@ export class ResultsDetailComponent implements OnInit {
   public step1: Boolean = false;
   public step2: Boolean = false;
   public step3: Boolean = false;
+  feature_flags = environment.feature_flags;
 
 
   /* CONSTRUCTORS */
@@ -45,8 +47,8 @@ export class ResultsDetailComponent implements OnInit {
     this.solicitation = new Solicitation(null, null, null, null, null, null,
       {value: ''}, null, null, null, null, null, null,
       [{ name: '', status: '', attachment_url: '', formattedDate: '', postedDate: new Date() }],
-      { contact: '', name: '', position: '', email: '' }, null, null, null,
-      null, null, null, true);
+      { contact: '', name: '', position: '', email: '' }, null, null, {psc: '', naics: ''},
+      null, null, null, null, true);
     this.solicitation.na_flag = false;
   }
 
