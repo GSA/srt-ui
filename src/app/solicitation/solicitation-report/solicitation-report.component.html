@@ -22,6 +22,16 @@
         <div style="padding: 20px" class="clearfix">
             <h1 class="srt-page-title srt-blue" style="padding-bottom: 5px;"  role="heading" aria-level="1">Solicitation Review Results for Section 508 Requirements</h1>
 
+          <!--
+           <div class="epa-toggle">
+             Show solicitaitons related to:
+             <select>
+               <option>All</option>
+               <option>Information Technology</option>
+               <option>EPA</option>
+             </select>
+           </div>
+          -->
             <div class="solic-table">
                     <div class="solic-keyword">
                     <label id="ksearch-label" for="ksearch" class="solic-keyword">Search all table content:
@@ -89,6 +99,9 @@
           <p-dropdown id="ddl_reviewRec" *ngSwitchCase="'reviewRec'" [options]="reviewRec"
                       (onChange)="gb.filter($event.value, col.field, 'equals')"></p-dropdown>
 
+          <p-dropdown id="ddl_predictions.estar" *ngSwitchCase="'predictions.estar'" [options]="epaDropdown"
+                      (onChange)="gb.filter($event.value, col.field, 'equals')"></p-dropdown>
+
         </th>
       </tr>
     </ng-template>
@@ -106,10 +119,12 @@
           </button>
         </td>
         <td class="ui-resizable-column col_review_result" *ngIf="feature_flags.estar">
-          <span class="ui-column-title">Energy Review</span>
+          <span class="ui-column-title">EPA Review</span>
           <button class="button {{'result-' + sol.predictions.estar}}" (click)="selectSol(sol)"  style="border: none; text-align: left; padding: 0;">
             <i class="fa fa-exclamation-triangle" style="padding-right: 5px;" *ngIf="sol.predictions.estar == 'red' "></i>
-            <span style="">{{sol.predictions.estar == "green" ? "Compliant" : sol.predictions.estar == "red" ? "Non-compliant" : "Undetermined"}}</span>
+            <span style="">{{sol.predictions.estar == "green" ? "Compliant" :
+                             sol.predictions.estar == "red" ? "Non-compliant" :
+                             sol.predictions.estar == "Not Applicable" ? "Not Applicable" :  ""}}</span>
           </button>
         </td>
         <td class="ui-resizable-column col_action_status"><span class="ui-column-title">Action Status</span>{{sol.actionStatus}}</td>

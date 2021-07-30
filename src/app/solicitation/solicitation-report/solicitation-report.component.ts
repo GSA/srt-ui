@@ -66,10 +66,18 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
 
   reviewRec: Array<Object> = [
     {label : 'All', value : ''},
-    {label : 'Not Applicable', value : 'Not Applicable'},
     {label : 'Non-Compliant', value : 'Non-compliant (Action Required)'},
-    {label : 'Compliant', value : 'Compliant'}
+    {label : 'Compliant', value : 'Compliant'},
+    {label : 'Not Applicable', value : 'Not Applicable'},
   ];
+
+  epaDropdown: Array<Object> = [
+    {label : 'All', value : ''},
+    {label : 'Non-Compliant', value : 'red'},
+    {label : 'Compliant', value : 'green'},
+    {label : 'Not Applicable', value : 'Not Applicable'},
+  ];
+
 
   /**
    * constructor
@@ -99,7 +107,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
           break;
         }
       }
-      this.columns.splice(i + 1, 0, {field: 'predictions.estar', title: 'Energy Review Result'},)
+      this.columns.splice(i + 1, 0, {field: 'predictions.estar', title: 'EPA Review Result'});
     }
 
   }

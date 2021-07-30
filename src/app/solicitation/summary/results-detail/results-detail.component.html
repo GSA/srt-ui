@@ -44,9 +44,9 @@
             </div>
 
           </div>
-          <div class="row na-checkbox" id="estar-na-checkbox" *ngIf="feature_flags.estar">
+          <div class="row na-checkbox" id="estar-na-checkbox" *ngIf="feature_flags.estar && solicitation.noticeData.epa_psc_match">
             <div class="col-xs-10">
-              <label id="estar_na_check_label" for="estar_na_check" >Energy Star is Not Applicable to this Solicitation:</label>
+              <label id="estar_na_check_label" for="estar_na_check" >EPA Review is Not Applicable to this Solicitation:</label>
               <input type="checkbox" id="estar_na_check" [checked]="">
             </div>
             <div class="col-xs-1">

@@ -24,12 +24,13 @@ export class Solicitation {
           name: String,
           status: String,
           attachment_url: String}],
-        public contactInfo: {
-          contact: String,
-          name: String,
-          position: String,
-          email: String
-        },
+        // public contactInfo: {
+        //   contact: String,
+        //   name: String,
+        //   position: String,
+        //   email: String
+        // },
+        public contactInfo: [],
         public history: [{
           date: String,
           action: String,
@@ -44,7 +45,9 @@ export class Solicitation {
         }],
         public noticeData: {
           psc: String,
-          naics: String
+          naics: String,
+          naics_match: Boolean,
+          epa_psc_match: Boolean
         },
         public newFeedbackSubmission: Boolean,
         public undetermined: Boolean,
