@@ -30,7 +30,7 @@ export class Solicitation {
         //   position: String,
         //   email: String
         // },
-        public contactInfo: [],
+        public contactInfo: [String],
         public history: [{
           date: String,
           action: String,

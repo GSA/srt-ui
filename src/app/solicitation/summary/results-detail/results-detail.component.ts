@@ -47,7 +47,7 @@ export class ResultsDetailComponent implements OnInit {
     this.solicitation = new Solicitation(null, null, null, null, null, null,
       {value: ''}, null, null, null, null, null, null,
       [{ name: '', status: '', attachment_url: '', formattedDate: '', postedDate: new Date() }],
-      { contact: '', name: '', position: '', email: '' }, null, null, {psc: '', naics: ''},
+      [''], null, null, {psc: '', naics: '', naics_match: false, epa_psc_match: false},
       null, null, null, null, true);
     this.solicitation.na_flag = false;
   }
@@ -74,10 +74,6 @@ export class ResultsDetailComponent implements OnInit {
             } else {
               console.log ('Error processing parse status for solicitaiton ' + data.solNum);
               data.parseStatus = [{formattedDate: '', postedDate: null, name: '', status: '', attachment_url: ''}];
-            }
-
-            if (data.contactInfo.name === '') {
-              data.contactInfo.name = data.contactInfo.email;
             }
 
             this.step1 = data.history.filter( function(e) {
