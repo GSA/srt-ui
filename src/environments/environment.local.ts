@@ -13,7 +13,7 @@ export const environment = {
   USE_CLIENT_EMAIL: true,
   ENVIRONMENT: 'local',
   feature_flags: {
-    estar: true
+    estar: false
   }
 
 };
