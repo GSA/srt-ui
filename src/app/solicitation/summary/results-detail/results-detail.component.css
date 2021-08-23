@@ -47,13 +47,13 @@ font-size: 16px;
   margin-bottom: 10px;
 }
 
-#na-checkbox div {
+.na-checkbox div {
   font-size: 20px;
   padding: 0;
   line-height: 30px;
 }
 
-#na_check {
+.na-checkbox input {
   height: 20px;
   width: 20px;
   display: inline;
@@ -62,7 +62,7 @@ font-size: 16px;
   position: relative;
 }
 
-#na-checkbox label {
+.na-checkbox label {
   display: inline;
 }
 

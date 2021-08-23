@@ -24,8 +24,8 @@ export class ScannedSolicitationComponent implements OnInit {
   @Input() solStats;
   @ViewChild(BaseChartDirective, {static: false}) private baseChart;
 
-  public toPeriod: Date = new Date(new Date().getTime() - (1000 * 60 * 60 * 24 ));
-  public fromPeriod: Date = new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 32 ));
+  public toPeriod: Date = new Date(new Date().getTime() /*- (1000 * 60 * 60 * 24 )*/);
+  public fromPeriod: Date = new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 30 ));
   public hasValue = false;
   public newSolicitationData: Number[] = [];
   public updatedSolicitationData: Number[] = [];

@@ -114,6 +114,13 @@ ul.cb-slide-show li {
     display:table-cell;
     vertical-align:middle
 }
+
+.epa-toggle {
+  float:left;
+  margin-left: 20px;
+  margin-top: 1em;
+}
+
 .solic-table{
     display: table;
     width: 100%;

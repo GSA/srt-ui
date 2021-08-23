@@ -7,6 +7,7 @@ import {Title} from '@angular/platform-browser';
 import {BaseComponent} from '../../base.component';
 import {NoticeTypesService} from '../../shared/services/noticeTypes.service';
 import * as moment from 'moment';
+import {environment} from 'environments/environment';
 
 @Component({
   selector: 'app-solicitation-report',
@@ -27,6 +28,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
   revResult: SelectItem[] = [];
   loading: boolean;
   totalRecordCount = 0;
+  feature_flags = environment.feature_flags;
 
 
   stacked: Boolean = false;
@@ -37,7 +39,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     agency: '',
     office: '',
     contact: '',
-    eitLikelihood: '',
+    category_list: '',
     numDocs: '',
     reviewStatus: '',
     reviewRec: '',
@@ -64,10 +66,18 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
 
   reviewRec: Array<Object> = [
     {label : 'All', value : ''},
-    {label : 'Not Applicable', value : 'Not Applicable'},
     {label : 'Non-Compliant', value : 'Non-compliant (Action Required)'},
-    {label : 'Compliant', value : 'Compliant'}
+    {label : 'Compliant', value : 'Compliant'},
+    {label : 'Not Applicable', value : 'Not Applicable'},
   ];
+
+  epaDropdown: Array<Object> = [
+    {label : 'All', value : ''},
+    {label : 'Non-Compliant', value : 'red'},
+    {label : 'Compliant', value : 'green'},
+    {label : 'Not Applicable', value : 'Not Applicable'},
+  ];
+
 
   /**
    * constructor
@@ -88,6 +98,18 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
   ) {
     super(titleService);
     this.pageName = 'SRT - Manage/Review Workload';
+
+    if (environment.feature_flags.estar) {
+      // insert the new energy star column after reviewRec
+      let i = 0;
+      for (; i < this.columns.length; i++) {
+        if (this.columns[i].field === 'reviewRec') {
+          break;
+        }
+      }
+      this.columns.splice(i + 1, 0, {field: 'predictions.estar', title: 'EPA Review Result'});
+    }
+
   }
 
 

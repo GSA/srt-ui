@@ -23,12 +23,21 @@
         </div>
 
 
+        <div class="row">
+          <div id="instruction" class="col-lg-9 col-md-12">
+            Please copy the email and paste in your agency email to send to the user.
+          </div>
+          <div  class="col-lg-3 col-md-12" *ngIf="feature_flags.estar && solicitation && solicitation.noticeData.epa_psc_match">
+            <select style="margin-top: 1em" (change)="selectLanguage($event.target)">
+              <option>IT Language</option>
+              <option>EPA Language</option>
+            </select>
+          </div>
+        </div>
+
         <form [formGroup]="myForm" [ngStyle]="{'display': emailSent ? 'none': 'block'}">
           <div id="emailform">
 
-            <div id="instruction">
-              Please copy the email and paste in your agency email to send to the user.
-            </div>
 
             <div id="form-div">
               <div class="form-group">
@@ -39,7 +48,7 @@
                 </button>
               </div>
 
-              <div class="form-group">
+              <div class="form-group" *ngIf="this.templateToShow == 'IT Language'">
                 <label>Subject:</label>
                 {{subject}}
                 <button (click)="copyText('subject')" class="srt-button">
@@ -47,15 +56,40 @@
                 </button>
               </div>
 
+              <div class="form-group" *ngIf="this.templateToShow == 'EPA Language'">
+                <label>Subject:</label>
+                {{epaSubject}}
+                <button (click)="copyText('epaSubject')" class="srt-button">
+                  Copy Subject &nbsp;<i class="fa fa-copy" ></i>
+                </button>
+              </div>
+
               <div class="form-group">
-                <label for="message">Message:</label>
-                <button (click)="copyText('message')" class="srt-button" >
+                <label for="it_message">Message:</label>
+                <button (click)="copyText('it_message')" class="srt-button" *ngIf="this.templateToShow == 'IT Language'">
+                  Copy Message &nbsp;<i class="fa fa-copy" ></i>
+                </button>
+                <button (click)="copyText('epa_message')" class="srt-button" *ngIf="this.templateToShow == 'EPA Language'">
                     Copy Message &nbsp;<i class="fa fa-copy" ></i>
                 </button>
               </div>
 
               <div>
-                <quill-editor id="message" style="min-height: calc(100vh - 585px)" formControlName="message" [options]="editorOptions" (keydown)="skiptext($event)"></quill-editor>
+                <quill-editor id="it_message"
+                              style="min-height: calc(100vh - 585px)"
+                              formControlName="it_message" [options]="editorOptions"
+                              (keydown)="skiptext($event)"
+                              *ngIf="this.templateToShow == 'IT Language'"
+                ></quill-editor>
+              </div>
+
+              <div>
+                <quill-editor id="epa_message"
+                              style="min-height: calc(100vh - 585px)"
+                              formControlName="epa_message" [options]="editorOptions"
+                              (keydown)="skiptext($event)"
+                              *ngIf="this.templateToShow == 'EPA Language'"
+                ></quill-editor>
               </div>
 
             </div>
