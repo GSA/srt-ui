@@ -312,7 +312,8 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
       for (const s of solicitations.predictions) {
         csv += '\n';
         for (let i = 0; i < this.columns.length; i++) {
-          csv += '"' + s[this.columns[i].field] + '"' + csvSeparator;
+          let escaped_field = (s[this.columns[i].field] || '').replace(/"/g, '""' );
+          csv += '"' + escaped_field + '"' + csvSeparator;
         }
       }
       // if we got them all, send it. Otherwise pull another batch
