@@ -23,6 +23,7 @@ import { TableModule } from 'primeng/table';
 import { Ng2CompleterModule } from 'ng2-completer';
 import { FileUploadModule } from 'primeng';
 import {MasqComponent} from '../user/masq/masq.component';
+import {MetricDownloadsComponent} from './metric-downloads/metric-downloads.component';
 import {UserReportComponent} from '../user/reports/user.report.component';
 import {FeedbackReportTableComponent} from './admin-reports/feedback-report-table.component';
 import {FeedbackReportService} from './admin-reports/feedback-report.service';
@@ -53,11 +54,13 @@ import {FeedbackReportService} from './admin-reports/feedback-report.service';
   ],
   exports: [
     MasqComponent,
+    MetricDownloadsComponent,
     UserReportComponent,
     FeedbackReportTableComponent
   ],
   declarations: [
     MasqComponent,
+    MetricDownloadsComponent,
     UserReportComponent,
     FeedbackReportTableComponent
   ]

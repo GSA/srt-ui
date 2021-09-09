@@ -252,14 +252,17 @@ export class TopAgenciesPercentageComponent implements OnInit {
     else return name;
   }
 
-  
+
   /**
    * Get abbr of agency name
    * @param name
    */
-  public getAbbr(name){
-    var matches = name.match(/\b(\w)/g);              
-    var acronym = matches.join('');    
-    return acronym
+  public getAbbr(name) {
+    const matches = name.match(/\b(\w)/g);
+    if ( ! matches ) {
+      return name;
+    }
+    const acronym = matches.join('');
+    return acronym;
 }
 }
