@@ -11,6 +11,6 @@ export const environment = {
   USE_CLIENT_EMAIL: true,
   ENVIRONMENT: 'dev',
   feature_flags: {
-    estar: false
+    estar: true
   }
 };
