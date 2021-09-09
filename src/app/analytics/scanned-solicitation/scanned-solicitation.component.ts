@@ -70,7 +70,8 @@ export class ScannedSolicitationComponent implements OnInit {
           enabled: true,
           callbacks: {
               label : function(tooltipItem, data) {
-                  return '# scanned solicitations: ' + data.datasets[0].data[tooltipItem.index];
+                  return data.datasets[0].data[tooltipItem.index] + ' scanned solicitations and ' +
+                         data.datasets[1].data[tooltipItem.index] + ' updated solicitations';
               }
           },
           opacity: 1,
