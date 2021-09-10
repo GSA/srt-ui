@@ -9,6 +9,19 @@ import {NoticeTypesService} from '../../shared/services/noticeTypes.service';
 import * as moment from 'moment';
 import {environment} from 'environments/environment';
 
+interface TableSort {
+  field: string;
+  order: number;
+}
+interface TableState {
+  first: number;
+  rows: number;
+  filter: any;
+  sort: TableSort;
+  version: number;
+  timestamp: number;
+}
+
 @Component({
   selector: 'app-solicitation-report',
   templateUrl: './solicitation-report.component.html',
@@ -29,6 +42,16 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
   loading: boolean;
   totalRecordCount = 0;
   feature_flags = environment.feature_flags;
+  tableStateVersion = 1;
+  tableState: TableState =
+    {
+      first: 0,
+      rows: 15,
+      filter: null,
+      sort: {field: 'date', order: -1},
+      version: 1,
+      timestamp: 0
+    };
 
 
   stacked: Boolean = false;
@@ -110,6 +133,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
       this.columns.splice(i + 1, 0, {field: 'predictions.estar', title: 'EPA Review Result'});
     }
 
+    this.retstoreState();
   }
 
 
@@ -135,7 +159,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
           //  this.solicitations = this.sortByReviewResult(this.solicitations);
 
           this.getNoticeTypes(this.solicitations);
-          this.loading = false;
+          setTimeout(() => {this.loading = false; } , 1); // don't change the view data while we are rendering it.
 
           // give the PrimNG Table time to render, then set the default sort icon manually
           // to cover over a bug where the default column is not getting the arrow rendered
@@ -312,7 +336,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
       for (const s of solicitations.predictions) {
         csv += '\n';
         for (let i = 0; i < this.columns.length; i++) {
-          let escaped_field = (s[this.columns[i].field] || '').replace(/"/g, '""' );
+          const escaped_field = (s[this.columns[i].field] || '').replace(/"/g, '""' );
           csv += '"' + escaped_field + '"' + csvSeparator;
         }
       }
@@ -359,4 +383,27 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
 
   }
 
+  stageChange(event) {
+    this.tableState.first = event.first ? event.first : this.tableState.first;
+    this.tableState.sort.field = event.field ? event.field : this.tableState.sort.field;
+    this.tableState.sort.order = event.order ? event.order : this.tableState.sort.order;
+    this.tableState.timestamp = (new Date()).getTime();
+    localStorage.setItem('workloadTableState', JSON.stringify(this.tableState));
+  }
+
+  retstoreState() {
+    try {
+      const stateString = localStorage.getItem('workloadTableState');
+      if (stateString) {
+        const retreivedState = JSON.parse(stateString);
+        if (retreivedState.version === this.tableStateVersion) {
+          this.tableState = retreivedState;
+        }
+      }
+    } catch (e) {
+      console.log(e);
+      console.log('Unable to parse saved table state. Using default.');
+    }
+
+  }
 }
