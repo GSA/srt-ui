@@ -112,7 +112,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-sol>
-      <tr (click)="selectSol(sol)">
+      <tr (mousedown)="mouseDown(sol)" (mouseup)="mouseUp(sol)">
         <td class="ui-resizable-column col_solicitation"><span class="ui-column-title">Solicitation #</span>{{sol.solNum}}</td>
         <td class="ui-resizable-column col_title"><span class="ui-column-title">Title</span>{{sol.title}}</td>
         <td class="ui-resizable-column col_notice_type"><span class="ui-column-title">Notice Type</span>{{sol.noticeType}}</td>

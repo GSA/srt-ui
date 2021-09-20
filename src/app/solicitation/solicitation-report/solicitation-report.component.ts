@@ -36,6 +36,8 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
 
   solicitations: Array<any>;
   solicitation = {};
+  mouseDownTimestamp: number;
+  mouseDownSolicitation: any;
   ict: SelectItem[] = [];
   solType: SelectItem[] = [];
   revResult: SelectItem[] = [];
@@ -249,6 +251,21 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
       this.filterParams.agency = '';
     } else {
       this.filterParams.agency = localStorage.getItem('agency');
+    }
+  }
+
+  mouseDown(solicitation: any) {
+    this.mouseDownTimestamp = (new Date()).getTime();
+    console.log (this.mouseDownTimestamp);
+    this.mouseDownSolicitation = solicitation;
+  }
+
+  mouseUp(solicitation: any) {
+    const now = (new Date()).getTime();
+    console.log (now);
+    console.log ('diff: ' + (now - this.mouseDownTimestamp));
+    if ( (now - this.mouseDownTimestamp) < 300 && solicitation === this.mouseDownSolicitation) {
+      this.selectSol(solicitation);
     }
   }
 
