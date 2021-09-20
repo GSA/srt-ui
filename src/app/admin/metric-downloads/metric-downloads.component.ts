@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router} from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
 import {saveAs} from 'file-saver';
 
 
@@ -78,6 +76,11 @@ export class MetricDownloadsComponent implements OnInit {
         err => {
         }
       );
+  }
+
+  scroll(id) {
+    const el = document.getElementById(id);
+    window.scroll({top: el.offsetTop + 115, behavior: 'smooth'});
   }
 
 

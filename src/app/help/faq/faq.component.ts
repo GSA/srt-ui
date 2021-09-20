@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 // Services
-import { HelpService } from "../../shared/services/help.service";
-import * as $ from 'jquery'
+import { HelpService } from '../../shared/services/help.service';
+import * as $ from 'jquery';
 import {BaseComponent} from '../../base.component';
 import {Title} from '@angular/platform-browser';
 
 @Component({
-  selector: "app-faq",
-  templateUrl: "./faq.component.html",
-  styleUrls: ["./faq.component.css"]
+  selector: 'app-faq',
+  templateUrl: './faq.component.html',
+  styleUrls: ['./faq.component.css']
 })
 export class FaqComponent extends BaseComponent implements OnInit {
 
@@ -27,6 +27,7 @@ export class FaqComponent extends BaseComponent implements OnInit {
    * constructor
    * @param helpService
    * @param route
+   * @param ts
    */
   constructor(
     private helpService: HelpService,
@@ -45,7 +46,6 @@ export class FaqComponent extends BaseComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
 
     if (this.id !== null) {
-      const element = document.getElementById(this.id);
       if (this.id === 'ICT') {
         $('#search').val(
           'What is "Information and Communication Technology"(ICT)?'

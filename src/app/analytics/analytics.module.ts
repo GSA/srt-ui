@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 // open sources modules
 import { ChartsModule } from 'ng2-charts';
-import { TooltipModule } from "ng2-tooltip";
+import { TooltipModule } from 'ng2-tooltip';
 
 // main component
-import { AnalyticsComponent } from './analytics.component'
+import { AnalyticsComponent } from './analytics.component';
 
 // children components
 import { TopSrtActionsComponent } from './top-srt-actions/top-srt-actions.component';
@@ -21,9 +21,9 @@ import { PredictionResultComponent } from './prediction-result/prediction-result
 import { TopAgenciesPercentageComponent } from './top-agencies-percentage/top-agencies-percentage.component';
 import { UndeterminedSolicitationsComponent } from './undetermined-solicitations/undetermined-solicitations.component';
 import { LineChartsComponent } from './line-charts/line-charts.component';
-import { DonutChartComponent } from './donut-chart/donut-chart.component'
+import { DonutChartComponent } from './donut-chart/donut-chart.component';
 
-//Service
+// Service
 import { AnalyticsService } from './services/analytics.service';
 
 @NgModule({

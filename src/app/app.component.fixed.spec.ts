@@ -5,7 +5,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import {AuthGuard} from './auth-guard.service';
 import {AuthService} from './shared/services/auth.service';
 import {HttpClient, HttpHandler} from '@angular/common/http';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {

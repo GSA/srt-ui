@@ -5,7 +5,7 @@ import { ResultsDetailComponent } from './results-detail.component';
 describe('ResultsDetailComponent', () => {
   let component: ResultsDetailComponent;
   let fixture: ComponentFixture<ResultsDetailComponent>;
-  
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ResultsDetailComponent ]

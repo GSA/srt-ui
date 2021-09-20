@@ -288,7 +288,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
       .subscribe(
         msg => {
           this.titleService.setTitle('SRT - Solicitation ID ' + msg.id);
-          this.router.navigate(['/solicitation/report', msg.id]);
+          this.router.navigate(['/solicitation/report', msg.id]).catch(r => console.log(r));
         },
         () => {
           console.log('e131');

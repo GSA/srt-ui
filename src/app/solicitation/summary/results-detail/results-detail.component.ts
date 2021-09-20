@@ -59,7 +59,7 @@ export class ResultsDetailComponent implements OnInit {
     this.subscription = this.route.params.subscribe(
       (params: any) => {
         this.solicitationID = params['id'];
-        console.log(this.solicitationID);
+        // console.log(this.solicitationID);
         this.solicitationService.getSolicitation(this.solicitationID).subscribe(
           data => {
             if (data.parseStatus && Array.isArray(data.parseStatus)) {

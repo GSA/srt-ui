@@ -13,6 +13,7 @@ import {Title} from '@angular/platform-browser';
 
 @Directive({selector: 'baseChart'})
 
+// tslint:disable-next-line:directive-class-suffix
 export class AnalyticsComponent extends BaseComponent implements OnInit {
 
     /* ATTRIBUTES */
@@ -53,6 +54,7 @@ export class AnalyticsComponent extends BaseComponent implements OnInit {
      * constructor
      * @param AnalyticsService
      * @param router
+     * @param titleService
      */
     constructor(
         private AnalyticsService: AnalyticsService,
@@ -67,11 +69,10 @@ export class AnalyticsComponent extends BaseComponent implements OnInit {
      * filter on change
      * @param str
      */
-    onChange(str)
-    {
+    onChange(str) {
         this.selectedGovernment = str;
         this.filterActionChange = true;
-        if (str == 'Government-wide') {
+        if (str === 'Government-wide') {
             this.ICTforDisplay = this.ICT;
             this.isGovernmentWide = true;
             this.xAxis = 'Agency';
@@ -82,12 +83,9 @@ export class AnalyticsComponent extends BaseComponent implements OnInit {
           if (this.selectedPeriod === 'All') {
               this.selectedPeriod = 'This Year';
               this.xAxis = 'Month';
-          }
-          else if (this.selectedPeriod === 'This Year') {
+          } else if (this.selectedPeriod === 'This Year') {
               this.xAxis = 'Month';
-          }
-          else if (this.selectedPeriod === 'This Month')
-          {
+          } else if (this.selectedPeriod === 'This Month') {
               this.xAxis = 'Date';
           }
 
@@ -103,8 +101,7 @@ export class AnalyticsComponent extends BaseComponent implements OnInit {
         this.selectedPeriod = str;
         this.filterActionChange = true;
         // Get time period to filter.
-        switch (str)
-        {
+        switch (str) {
             case 'This Year':
                 this.formPeriod = new Date(new Date().getFullYear(), 0, 1);
                 this.toPeriod = new Date(new Date().getFullYear(), 11, 31);
@@ -128,7 +125,7 @@ export class AnalyticsComponent extends BaseComponent implements OnInit {
                 break;
         }
 
-        if (this.selectedGovernment == 'Government-wide') this.xAxis = 'Agency';
+        if (this.selectedGovernment === 'Government-wide') {this.xAxis = 'Agency'; }
 
 
         this.GetTotalData();
@@ -153,9 +150,7 @@ export class AnalyticsComponent extends BaseComponent implements OnInit {
                 err => {
                 }
             );
-        }
-        else
-        {
+        } else {
             agency = agency.split(' (')[0];
             this.agencyList = [agency];
         }
@@ -216,7 +211,7 @@ export class AnalyticsComponent extends BaseComponent implements OnInit {
      * @param id
      */
     go(id) {
-        this.router.navigateByUrl('faq', id);
+        this.router.navigateByUrl('faq', id).catch(r => console.log(r));
     }
 
 

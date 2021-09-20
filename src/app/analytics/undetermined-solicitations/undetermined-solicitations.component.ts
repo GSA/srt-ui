@@ -67,6 +67,7 @@ export class UndeterminedSolicitationsComponent implements OnInit {
   /**
    * lifecycle
    */
+  // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges() {
 
     if (this.UndeterminedSolicitationChart && !this.hasValue) {

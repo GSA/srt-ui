@@ -786,7 +786,7 @@ button,
 [type=reset],
 [type=image] {
   -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
   margin-top: 0.5em;
   margin-right: 0.5em;
   margin-bottom: 0.5em;
@@ -1239,7 +1239,7 @@ button.usa-button-big,
   outline: 0;
   padding: 0;
   text-align: left;
-  -webkit-font-smoothing: auto;
+  font-smoothing: auto;
 }
 
 .usa-button-unstyled:hover {
@@ -2020,7 +2020,7 @@ dfn {
   outline: 0;
   padding: 0;
   text-align: left;
-  -webkit-font-smoothing: auto;
+  font-smoothing: auto;
   background-color: #f1f1f1;
   background-image: url("../img/minus.png");
   background-image: url("../img/minus.svg");
@@ -2123,7 +2123,7 @@ dfn {
   outline: 0;
   padding: 0;
   text-align: left;
-  -webkit-font-smoothing: auto;
+  font-smoothing: auto;
   background-color: #f1f1f1;
   background-image: url("../img/minus.png");
   background-image: url("../img/minus.svg");
@@ -2432,7 +2432,7 @@ dfn {
   outline: 0;
   padding: 0;
   text-align: left;
-  -webkit-font-smoothing: auto;
+  font-smoothing: auto;
   padding-top: 1.3rem;
   padding-left: 4.8rem;
   background-position-x: right;
@@ -3259,7 +3259,7 @@ input.usa-input-medium {
   outline: 0;
   padding: 0;
   text-align: left;
-  -webkit-font-smoothing: auto;
+  font-smoothing: auto;
   background-color: #0071bc;
   color: #ffffff;
   display: inline;
@@ -3542,7 +3542,7 @@ input.usa-input-medium {
 
 .usa-nav-link {
   -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
 }
 
 @media screen and (min-width: 951px) {
@@ -3748,9 +3748,9 @@ input.usa-input-medium {
   outline: 0;
   padding: 0;
   text-align: left;
-  -webkit-font-smoothing: auto;
+  font-smoothing: auto;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
   font-weight: 400;
   padding: 1.4rem 1.5rem 1rem 1.8rem;
 }
@@ -3893,7 +3893,7 @@ input.usa-input-medium {
   outline: 0;
   padding: 0;
   text-align: left;
-  -webkit-font-smoothing: auto;
+  font-smoothing: auto;
   display: none;
 }
 
@@ -4016,7 +4016,7 @@ input.usa-input-medium {
   outline: 0;
   padding: 0;
   text-align: left;
-  -webkit-font-smoothing: auto;
+  font-smoothing: auto;
   margin: -1.2rem -1.5rem 2.4rem auto;
   float: right;
   height: 4.4rem;

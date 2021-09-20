@@ -15,12 +15,13 @@ import { FileUploader } from 'ng2-file-upload';
 })
 @Directive({ selector: '[ng2FileSelect]' })
 
+// tslint:disable-next-line:directive-class-suffix
 export class UploadComponent implements OnInit {
-  
+
   @Input() uploadDirectly;
-  @Input() currentId
+  @Input() currentId;
   public uploader: FileUploader = new FileUploader({});
-  public fileString = {}
+  public fileString = {};
   public hasBaseDropZoneOver: Boolean = false;
   public hasAnotherDropZoneOver: Boolean = false;
 
@@ -34,10 +35,10 @@ export class UploadComponent implements OnInit {
  */
   ngOnInit() {
     const url = environment.FILE_UPLOAD_API;
-    
+
     this.uploader.setOptions({
       url : url,
-      authToken: this.currentId = ' '+ this.authService.getToken(),
+      authToken: this.currentId = ' ' + this.authService.getToken(),
     });
     this.uploader.uploadAll();
   }
@@ -45,18 +46,19 @@ export class UploadComponent implements OnInit {
   /**
   * On Changes.
   */
-  ngOnChanges(){
-    
+  // tslint:disable-next-line:use-lifecycle-interface
+  ngOnChanges() {
+
 
   }
 
 
-   
-  public fileOverBase(e:any):void {
+
+  public fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
   }
- 
-  public fileOverAnother(e:any):void {
+
+  public fileOverAnother(e: any): void {
     this.hasAnotherDropZoneOver = e;
   }
 }
