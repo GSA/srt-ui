@@ -49,12 +49,13 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     {
       first: 0,
       rows: 15,
-      filter: null,
+      filter: {'active': {'value': true, 'matchMode': 'equals' }},
       sort: {field: 'date', order: -1},
       version: 1,
       timestamp: 0
     };
-
+  noticeTypeFilterModel: string;
+  reviewResultFilterModel: string;
 
   stacked: Boolean = false;
 
@@ -155,7 +156,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
           this.totalRecordCount = solicitations.totalCount;
           this.solicitations = solicitations.predictions;
           this.solicitationService.solicitations = solicitations.predictions;
-          this.dateScan = this.solicitations[0].date;
+          this.dateScan = this.solicitations[0] ? this.solicitations[0].date : null;
           $('.pDataTable').show();
           // sorting
           //  this.solicitations = this.sortByReviewResult(this.solicitations);
@@ -195,7 +196,9 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
   }
 
   loadSolicitationsLazy(event: LazyLoadEvent) {
+    this.filterChange();
     this.loading = true;
+    event.filters = { ...event.filters, ...this.tableState.filter};
 
     this.solicitationService.getFilteredSolicitations(event)
       .subscribe(
@@ -252,18 +255,16 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     } else {
       this.filterParams.agency = localStorage.getItem('agency');
     }
+    this.filterParams.filters = { ...this.filterParams.filters, ...this.tableState.filter };
   }
 
   mouseDown(solicitation: any) {
     this.mouseDownTimestamp = (new Date()).getTime();
-    console.log (this.mouseDownTimestamp);
     this.mouseDownSolicitation = solicitation;
   }
 
   mouseUp(solicitation: any) {
     const now = (new Date()).getTime();
-    console.log (now);
-    console.log ('diff: ' + (now - this.mouseDownTimestamp));
     if ( (now - this.mouseDownTimestamp) < 300 && solicitation === this.mouseDownSolicitation) {
       this.selectSol(solicitation);
     }
@@ -400,6 +401,37 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
 
   }
 
+  /**
+   * Function called when filters change or when you need to set
+   * the tableState based on the dropdown state.
+   */
+  filterChange() {
+    const noticeEl = document.getElementById('ddl_noticeTypes');
+    if (noticeEl) {
+      this.tableState.filter.noticeType = {
+        matchMode: 'equals', value: noticeEl.getElementsByClassName('ui-dropdown-label')[0].textContent
+      };
+      if (this.tableState.filter.noticeType.value === 'All') {
+        delete this.tableState.filter.noticeType;
+      }
+    }
+
+    const rrEl = document.getElementById('ddl_reviewRec');
+    if (rrEl) {
+      this.tableState.filter.reviewRec = {
+        matchMode: 'equals', value: rrEl.getElementsByClassName('ui-dropdown-label')[0].textContent
+      };
+      // adjust the Non-Compliant reviewRec filter to be "Non-compliant (Action Required)"
+      if (this.tableState.filter.reviewRec.value === 'Non-Compliant') {
+        this.tableState.filter.reviewRec.value = 'Non-compliant (Action Required)';
+      }
+      if (this.tableState.filter.reviewRec.value === 'All') {
+        delete this.tableState.filter.reviewRec;
+      }
+    }
+    localStorage.setItem('workloadTableState', JSON.stringify(this.tableState));
+  }
+
   stageChange(event) {
     this.tableState.first = event.first ? event.first : this.tableState.first;
     this.tableState.sort.field = event.field ? event.field : this.tableState.sort.field;
@@ -415,6 +447,11 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
         const retreivedState = JSON.parse(stateString);
         if (retreivedState.version === this.tableStateVersion) {
           this.tableState = retreivedState;
+          this.noticeTypeFilterModel = this.tableState.filter.noticeType ? this.tableState.filter.noticeType.value : 'All';
+          this.reviewResultFilterModel = this.tableState.filter.reviewRec ? this.tableState.filter.reviewRec.value : 'All';
+          this.solicitationService.firstLoadFilter = this.tableState.filter;
+        } else {
+          localStorage.removeItem('workloadTableState');
         }
       }
     } catch (e) {

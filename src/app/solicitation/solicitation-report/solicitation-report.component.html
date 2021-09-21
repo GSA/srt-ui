@@ -69,11 +69,9 @@
   <p-table #gb styleClass="pDataTable"
            [value]="solicitations"
            [lazy] = "true"
-           sortField="date"
-           sortOrder="-1"
            [loading]="loading"
            (onPage)="stageChange($event)"
-           (onFilter)="stageChange($event)"
+           (onFilter)="filterChange()"
            (onSort)="stageChange($event)"
            [(first)]="tableState.first"
            sortField="{{tableState.sort.field}}"
@@ -99,10 +97,10 @@
                       ariaLabelDesc="Activate to sort in descending order"
                       ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
           <br>
-          <p-dropdown id="ddl_noticeTypes" *ngSwitchCase="'noticeType'" [options]="noticeTypes"
+          <p-dropdown id="ddl_noticeTypes" *ngSwitchCase="'noticeType'" [options]="noticeTypes" [(ngModel)]="noticeTypeFilterModel"
                       (onChange)="gb.filter($event.value, col.field, 'equals')"></p-dropdown>
 
-          <p-dropdown id="ddl_reviewRec" *ngSwitchCase="'reviewRec'" [options]="reviewRec"
+          <p-dropdown id="ddl_reviewRec" *ngSwitchCase="'reviewRec'" [options]="reviewRec" [(ngModel)]="reviewResultFilterModel"
                       (onChange)="gb.filter($event.value, col.field, 'equals')"></p-dropdown>
 
           <p-dropdown id="ddl_predictions.estar" *ngSwitchCase="'predictions.estar'" [options]="epaDropdown"

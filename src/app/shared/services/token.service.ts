@@ -26,7 +26,7 @@ export class TokenService {
   public static getSessionExpiration() {
     const jwt = new JwtHelperService();
     const decoded = jwt.decodeToken(TokenService.getToken());
-    console.log (decoded);
+    // console.log (decoded);
     return decoded.user.sessionEnd;
   }
 

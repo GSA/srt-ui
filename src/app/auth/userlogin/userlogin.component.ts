@@ -44,6 +44,10 @@ export class UserloginComponent extends BaseComponent implements OnInit {
               private ts: Title) {
     super(ts);
     this.pageName = 'Solicitation Review Tool';
+
+    // reset the workload table saved state when you first log in
+    localStorage.removeItem('workloadTableState');
+
   }
 
   /**

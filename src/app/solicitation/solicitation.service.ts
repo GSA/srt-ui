@@ -44,6 +44,7 @@ export class SolicitationService {
   private updateUrl = environment.SERVER_URL + '/solicitation/';
   private emailUrl = environment.SERVER_URL + '/email/';
 
+  public firstLoadFilter: any = null;
   /* CONSTRUCTORS */
 
   /**
@@ -65,6 +66,8 @@ export class SolicitationService {
     } else if (!body.filters.active) {
       body.filters.active = {'value': true, 'matchMode': 'equals' };
     }
+    this.firstLoadFilter = null; // this isn't a first load call, so clear this if it's set
+
     return this.http
       .post<SolicitationResult>(this.solicitationsFilterUrl, body)
       .catch((error: any) => {
