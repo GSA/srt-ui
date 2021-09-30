@@ -155,11 +155,6 @@ button.srt-button {
   color: rgb(44, 129, 192)
 }
 
-.background div{
-  background-image: url(https://s3.amazonaws.com/srt.bucket/assets/SRT_DataScience.jpg);
-  height: 500px; background-repeat: no-repeat; background-size: contain; background-position: center;
-
-}
 
 .padding ul {
   padding: 0
