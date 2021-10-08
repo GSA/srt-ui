@@ -14,7 +14,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Security Notes
 
-In this past, this repository referenced images stored in S3 buckets. That practice was discontinued and the S3 buckets were de-allocated and are no longer used by or associated with GSA.
+In the past, this repository referenced images stored in S3 buckets. That practice was discontinued and the S3 buckets were de-allocated and are no longer used by or associated with GSA.
 
 ## Further help
 
