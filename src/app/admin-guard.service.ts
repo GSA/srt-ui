@@ -1,10 +1,10 @@
-import { Injectable }       from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   CanActivate, Router,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot, CanActivateChild
+  RouterStateSnapshot
 } from '@angular/router';
-import { AuthService } from './shared/services/auth.service'
+import { AuthService } from './shared/services/auth.service';
 import {AuthGuard} from './auth-guard.service';
 
 
@@ -19,6 +19,7 @@ export class AdminGuard implements CanActivate {
    * constructor
    * @param authService
    * @param router
+   * @param authGuard
    */
   constructor(
     private authService: AuthService, private router: Router, private authGuard: AuthGuard
@@ -30,7 +31,7 @@ export class AdminGuard implements CanActivate {
    * @param state
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.authGuard.canActivate(route, state) && this.authGuard.isGSAAdmin
+    return this.authGuard.canActivate(route, state) && this.authGuard.isGSAAdmin;
   }
 }
 

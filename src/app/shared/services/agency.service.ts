@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Headers, Http, Response } from '@angular/http';
-import { Observable } from 'rxjs';
-
-import { Agency } from '../agency';
+import { Http, Response } from '@angular/http';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
@@ -28,6 +25,6 @@ export class AgencyService {
    */
   public GetAgencies() {
       return this.http.get(this.agenciesUrl)
-            .map((response: Response)=> response.json());
+            .map((response: Response) => response.json());
   }
 }

@@ -13,7 +13,7 @@ export class FeedbackReportComponent extends BaseComponent implements OnInit {
   /* ATTRIBUTES */
 
   params = {
-    "$where" : "this.feedback.length > 0"
+    '$where' : 'this.feedback.length > 0'
   };
 
   feedback;
@@ -47,19 +47,22 @@ export class FeedbackReportComponent extends BaseComponent implements OnInit {
       data => {
         this.feedback = data;
         this.feedback.forEach(element => {
-          var history = element.history.filter(d => d.action == "provided feedback on the solicitation prediction result")[0];
+          const history = element.history.filter(d => d.action === 'provided feedback on the solicitation prediction result')[0];
           element.submitter = history.user;
           element.date = history.date;
         });
-        this.feedback.sort(function(a,b){
-          var aDate = new Date(a.date);
-          var bDate = new Date(b.date);
-          if (aDate > bDate) return -1;
-          else return 1;
-        })
+        this.feedback.sort(function(a, b){
+          const aDate = new Date(a.date);
+          const bDate = new Date(b.date);
+          if (aDate > bDate) {
+            return -1;
+          } else {
+            return 1;
+          }
+        });
       },
       error => console.log(error)
-    )
+    );
   }
 
 }

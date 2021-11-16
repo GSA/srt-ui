@@ -37,6 +37,7 @@ export class TopSrtActionsComponent implements OnInit {
   /**
    * lifecycle
    */
+  // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges() {
     if (this.TopSRTActionChart) {
       this.solicitationNumber = this.TopSRTActionChart.determinedICT;
@@ -46,7 +47,9 @@ export class TopSrtActionsComponent implements OnInit {
       this.updatedICTNumber = this.TopSRTActionChart.updatedICT;
       this.updatedCompliantICTNumber = this.TopSRTActionChart.updatedCompliantICT;
       this.updatedNonCompliantICTNumber = this.TopSRTActionChart.updatedNonCompliantICT;
-      this.selectedAgency = this.TopSRTActionChart.params.agency === 'Government-wide' ? 'all federal agencies' : 'the ' + this.TopSRTActionChart.params.agency;
+      this.selectedAgency = this.TopSRTActionChart.params.agency === 'Government-wide' ?
+                                     'all federal agencies' :
+                                     'the ' + this.TopSRTActionChart.params.agency;
     }
 
   }

@@ -11,11 +11,12 @@ import * as _ from 'underscore';
 @Component({
     selector: 'app-scanned-solicitation',
     templateUrl: './scanned-solicitation.component.html',
-    styleUrls: ['../analytics.component.css','./scanned-solicitation.component.css']
+    styleUrls: ['../analytics.component.css', './scanned-solicitation.component.css']
 })
 
 @Directive({selector: 'baseChart'})
 
+// tslint:disable-next-line:directive-class-suffix
 export class ScannedSolicitationComponent implements OnInit {
 
   /* ATTRIBUTES */
@@ -36,7 +37,7 @@ export class ScannedSolicitationComponent implements OnInit {
   public tabularData = '';
 
 
-  public barChartOptions:any = {
+  public barChartOptions: any = {
       legend: {
         display: true,
         position: 'bottom'
@@ -70,7 +71,8 @@ export class ScannedSolicitationComponent implements OnInit {
           enabled: true,
           callbacks: {
               label : function(tooltipItem, data) {
-                  return '# scanned solicitations: ' + data.datasets[0].data[tooltipItem.index];
+                  return data.datasets[0].data[tooltipItem.index] + ' scanned solicitations and ' +
+                         data.datasets[1].data[tooltipItem.index] + ' updated solicitations';
               }
           },
           opacity: 1,
@@ -80,7 +82,7 @@ export class ScannedSolicitationComponent implements OnInit {
 
 
   public colorsOverride: Array<Color> = [
-      { backgroundColor: _.range(32).map(function () { return '#2C81C0' })}
+      { backgroundColor: _.range(32).map(function () { return '#2C81C0'; })}
   ];
 
   /* CONSTRUCTOR */
@@ -138,6 +140,7 @@ export class ScannedSolicitationComponent implements OnInit {
   /**
    * lifecycle
    */
+  // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges() {
     if (this.ScannedSolicitationChart && !this.hasValue) {
         this.barChartLabels = [];
@@ -148,7 +151,7 @@ export class ScannedSolicitationComponent implements OnInit {
         const recentUpdatedSolicitationsByDate = this.stripYears(
           this.filterRecentDates(this.fromPeriod, this.solStats.updatedSolicitationsByDate)
         );
-        for (const d = this.fromPeriod; d <= this.toPeriod && i < 32; d.setDate(d.getDate() + 1)){
+        for (const d = this.fromPeriod; d <= this.toPeriod && i < 32; d.setDate(d.getDate() + 1)) {
             const formattedDay = ('0' + d.getDate()).slice(-2);
             const formattedMonth = ('0' + (d.getMonth() + 1)).slice(-2);
             const iDate = formattedMonth + formattedDay;
@@ -157,8 +160,8 @@ export class ScannedSolicitationComponent implements OnInit {
             this.barChartLabels.push(d.getMonth() + 1 + '/' + d.getDate());
             i++;
         }
-        for (let i = 0; i < this.newSolicitationData.length; i++) {
-          this.newSolicitationData[i] = (this.newSolicitationData[i]) ? this.newSolicitationData[i] : 0;
+        for (let j = 0; j < this.newSolicitationData.length; j++) {
+          this.newSolicitationData[j] = (this.newSolicitationData[j]) ? this.newSolicitationData[j] : 0;
         }
         this.tabularData = this.buildTable(this.newSolicitationData, this.barChartLabels);
       this.barChartData = [{
@@ -189,8 +192,8 @@ export class ScannedSolicitationComponent implements OnInit {
     const month_list = ['zero index', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     for (let i = 0; i < data.length; i++) {
       let month_num, day;
-      [month_num, day] = labels[i].split('/')
-      const month_name = month_list[month_num]
+      [month_num, day] = labels[i].split('/');
+      const month_name = month_list[month_num];
       table += `<tr><td>${month_name} ${day}</td><td>${data[i]}</td></tr>`;
     }
     table += '</tbody></table>';

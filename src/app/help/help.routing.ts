@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { Routes, RouterModule } from '@angular/router';
-import { HelpComponent } from './help.component'
+import { HelpComponent } from './help.component';
 import { FaqComponent} from './faq/faq.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 
@@ -17,7 +17,7 @@ const routes: Routes = [
         ]
     },
 
-]
+];
 
 
 @NgModule({
@@ -29,4 +29,4 @@ const routes: Routes = [
     ]
   })
   export class HelpRoutesModule { }
-  
+

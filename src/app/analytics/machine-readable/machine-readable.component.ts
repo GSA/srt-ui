@@ -1,16 +1,15 @@
-import { Component, OnInit, Input, ViewChild, Directive  } from '@angular/core';
+import {Component, Directive, Input, OnInit, ViewChild} from '@angular/core';
 
-import { BaseChartDirective } from 'ng2-charts';
-import { ChartsModule, Color } from 'ng2-charts';
-import * as $ from 'jquery';
+import {BaseChartDirective, Color} from 'ng2-charts';
 
 @Component({
   selector: 'app-machine-readable',
   templateUrl: './machine-readable.component.html',
-  styleUrls: ['../analytics.component.css','./machine-readable.component.css']
+  styleUrls: ['../analytics.component.css', './machine-readable.component.css']
 })
 
 @Directive({selector: 'baseChart'})
+// tslint:disable-next-line:directive-class-suffix
 export class MachineReadableComponent implements OnInit {
 
   /* ATTRIBUTES */
@@ -19,11 +18,11 @@ export class MachineReadableComponent implements OnInit {
   @ViewChild(BaseChartDirective, {static: false}) private baseChart;
 
   public hasValue = false;
-  public pieChartLabels:string[] = ['Machine Readable', 'Non Machine Readable'];
-  public pieChartData:any[] = [0, 0];
+  public pieChartLabels: string[] = ['Machine Readable', 'Non Machine Readable'];
+  public pieChartData: any[] = [0, 0];
 
-  public pieChartType:string = 'pie';
-  public options:any = {
+  public pieChartType = 'pie';
+  public options: any = {
     cutoutPercentage: 0,
     legend: {
         display: true,
@@ -34,12 +33,11 @@ export class MachineReadableComponent implements OnInit {
     tooltips: {
         enabled: true,
         callbacks: {
-            title:function(tooltipItem, data) {
-              var label = tooltipItem[0].index == 0 ? "Machine Readable: " : "Non Machine Readable: "
-              return  label;
+            title: function(tooltipItem, data) {
+              return  tooltipItem[0].index === 0 ? 'Machine Readable: ' : 'Non Machine Readable: ';
             },
-            label :function(tooltipItem, data) {
-              return  data.datasets[0].data[tooltipItem.index] + " documents"
+            label : function(tooltipItem, data) {
+              return  data.datasets[0].data[tooltipItem.index] + ' documents';
             }
         }
     },
@@ -72,15 +70,16 @@ export class MachineReadableComponent implements OnInit {
   /**
    * lifecycle
    */
+  // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges() {
 
     if (this.MachineReadableChart && !this.hasValue) {
-        var readable = this.MachineReadableChart.machineReadable;
-        var unreadable = this.MachineReadableChart.machineUnreadable;
-        var total = readable + unreadable;
+        const readable = this.MachineReadableChart.machineReadable;
+        const unreadable = this.MachineReadableChart.machineUnreadable;
+        const total = readable + unreadable;
         this.pieChartData = [this.MachineReadableChart.machineReadable, this.MachineReadableChart.machineUnreadable];
-        this.displayReadable = Math.round(readable / total * 1000) / 10 + "%";
-        this.displayUnreadable = Math.round(unreadable / total * 1000) / 10 + "%";
+        this.displayReadable = Math.round(readable / total * 1000) / 10 + '%';
+        this.displayUnreadable = Math.round(unreadable / total * 1000) / 10 + '%';
         this.hasValue = true;
         this.forceChartRefresh();
     }

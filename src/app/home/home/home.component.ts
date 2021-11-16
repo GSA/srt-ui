@@ -13,7 +13,7 @@ import {Title} from '@angular/platform-browser';
 export class HomeComponent extends BaseComponent implements OnInit {
 
   /* ATTRIBUTES */
-  currentID: string
+  currentID: string;
   isGSAAdmin = false;
 
   /* CONSTRUCTORS */
@@ -21,6 +21,8 @@ export class HomeComponent extends BaseComponent implements OnInit {
   /**
    * constructor
    * @param auth
+   * @param router
+   * @param titleService
    */
   constructor(
     private auth: AuthGuard,

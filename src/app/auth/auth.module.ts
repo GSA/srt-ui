@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule, ButtonModule, DropdownModule, CalendarModule} from 'primeng';
 import { TableModule } from 'primeng/table';
-import { TooltipModule } from 'primeng/tooltip';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 
 import { AuthRoutingModule } from './auth.routing';

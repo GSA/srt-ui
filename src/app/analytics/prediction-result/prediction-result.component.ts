@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, Directive  } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
 import { Color, Label, BaseChartDirective } from 'ng2-charts';
 import { ChartOptions, ChartType} from 'chart.js';
@@ -8,7 +8,7 @@ import {Globals} from 'globals';
 @Component({
   selector: 'app-prediction-result',
   templateUrl: './prediction-result.component.html',
-  styleUrls: ['../analytics.component.css','./prediction-result.component.css']
+  styleUrls: ['../analytics.component.css', './prediction-result.component.css']
 })
 export class PredictionResultComponent implements OnInit {
 
@@ -45,8 +45,8 @@ export class PredictionResultComponent implements OnInit {
     tooltips: {
         enabled: true,
         callbacks: {
-            label :function(tooltipItem, data) {
-              return  data.labels[tooltipItem.index] + ": " + data.datasets[0].data[tooltipItem.index] + " solicitation(s)"
+            label : function(tooltipItem, data) {
+              return  data.labels[tooltipItem.index] + ': ' + data.datasets[0].data[tooltipItem.index] + ' solicitation(s)';
             }
         }
     },
@@ -76,17 +76,18 @@ export class PredictionResultComponent implements OnInit {
   /**
    * lifecycle
    */
+  // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges() {
 
     if (this.PredictResultChart && !this.hasValue) {
         this.numCompliant = this.PredictResultChart.compliance;
         this.numNonCompliant = this.PredictResultChart.uncompliance;
-        let total = this.numCompliant + this.numNonCompliant ;
+        const total = this.numCompliant + this.numNonCompliant ;
         this.pieChartData = [this.numCompliant, this.numNonCompliant];
         this.displayCompliance = Math.round(this.numCompliant / total * 1000) / 10 + '%';
         this.displayUncompliance = Math.round(this.numNonCompliant / total * 1000) / 10 + '%';
         this.pieChartLabels = [ this.numCompliant + ' Compliant ' + this.displayCompliance,
-                                this.numNonCompliant + ' Non-compliant ' + this.displayUncompliance]
+                                this.numNonCompliant + ' Non-compliant ' + this.displayUncompliance];
         this.hasValue = true;
         this.forceChartRefresh();
     }

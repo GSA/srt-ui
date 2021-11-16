@@ -69,9 +69,13 @@
   <p-table #gb styleClass="pDataTable"
            [value]="solicitations"
            [lazy] = "true"
-           sortField="date"
-           sortOrder="-1"
            [loading]="loading"
+           (onPage)="stageChange($event)"
+           (onFilter)="filterChange()"
+           (onSort)="stageChange($event)"
+           [(first)]="tableState.first"
+           sortField="{{tableState.sort.field}}"
+           sortOrder="{{tableState.sort.order}}"
            (onLazyLoad)="loadSolicitationsLazy($event)"
            [totalRecords]="totalRecordCount"
            [rows]="15"
@@ -93,10 +97,13 @@
                       ariaLabelDesc="Activate to sort in descending order"
                       ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
           <br>
-          <p-dropdown id="ddl_noticeTypes" *ngSwitchCase="'noticeType'" [options]="noticeTypes"
+          <p-dropdown id="ddl_noticeTypes" *ngSwitchCase="'noticeType'" [options]="noticeTypes" [(ngModel)]="noticeTypeFilterModel"
                       (onChange)="gb.filter($event.value, col.field, 'equals')"></p-dropdown>
 
-          <p-dropdown id="ddl_reviewRec" *ngSwitchCase="'reviewRec'" [options]="reviewRec"
+          <p-dropdown id="ddl_reviewRec" *ngSwitchCase="'reviewRec'" [options]="reviewRec" [(ngModel)]="reviewResultFilterModel"
+                      (onChange)="gb.filter($event.value, col.field, 'equals')"></p-dropdown>
+
+          <p-dropdown id="ddl_predictions.estar" *ngSwitchCase="'predictions.estar'" [options]="epaDropdown"
                       (onChange)="gb.filter($event.value, col.field, 'equals')"></p-dropdown>
 
           <p-dropdown id="ddl_predictions.estar" *ngSwitchCase="'predictions.estar'" [options]="epaDropdown"
@@ -106,7 +113,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-sol>
-      <tr (click)="selectSol(sol)">
+      <tr (mousedown)="mouseDown(sol)" (mouseup)="mouseUp(sol)">
         <td class="ui-resizable-column col_solicitation"><span class="ui-column-title">Solicitation #</span>{{sol.solNum}}</td>
         <td class="ui-resizable-column col_title"><span class="ui-column-title">Title</span>{{sol.title}}</td>
         <td class="ui-resizable-column col_notice_type"><span class="ui-column-title">Notice Type</span>{{sol.noticeType}}</td>
