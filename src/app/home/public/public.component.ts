@@ -6,13 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./public.component.css']
 })
 export class PublicComponent implements OnInit {
-   
+
   /**
    * constructor
    */
-  constructor(
-    
-  ) { }
+  constructor() { }
 
   /**
    * lifecycle

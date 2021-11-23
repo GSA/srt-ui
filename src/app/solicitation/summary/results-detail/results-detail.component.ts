@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { SolicitationService } from '../../solicitation.service';
 import { Solicitation } from '../../../shared/solicitation';
 import * as moment from 'moment';
+import {environment} from 'environments/environment';
 
 @Component({
   selector: 'app-results-detail',
@@ -27,6 +28,7 @@ export class ResultsDetailComponent implements OnInit {
   public step1: Boolean = false;
   public step2: Boolean = false;
   public step3: Boolean = false;
+  feature_flags = environment.feature_flags;
 
 
   /* CONSTRUCTORS */
@@ -45,8 +47,8 @@ export class ResultsDetailComponent implements OnInit {
     this.solicitation = new Solicitation(null, null, null, null, null, null,
       {value: ''}, null, null, null, null, null, null,
       [{ name: '', status: '', attachment_url: '', formattedDate: '', postedDate: new Date() }],
-      { contact: '', name: '', position: '', email: '' }, null, null, null,
-      null, null, null, true);
+      [''], null, null, {psc: '', naics: '', naics_match: false, epa_psc_match: false},
+      null, null, null, null, true);
     this.solicitation.na_flag = false;
   }
 
@@ -57,20 +59,21 @@ export class ResultsDetailComponent implements OnInit {
     this.subscription = this.route.params.subscribe(
       (params: any) => {
         this.solicitationID = params['id'];
-        console.log(this.solicitationID);
+        // console.log(this.solicitationID);
         this.solicitationService.getSolicitation(this.solicitationID).subscribe(
           data => {
-            data.parseStatus.forEach(element => {
+            if (data.parseStatus && Array.isArray(data.parseStatus)) {
+              data.parseStatus.forEach(element => {
                 if (element.status === 'successfully parsed') {
                   element.status = 'Yes';
                 } else if (element.status === 'processing error') {
                   element.status = 'No';
                 }
                 element.formattedDate = moment(element.postedDate).format('L');
-            });
-
-            if (data.contactInfo.name === '') {
-              data.contactInfo.name = data.contactInfo.email;
+              });
+            } else {
+              console.log ('Error processing parse status for solicitaiton ' + data.solNum);
+              data.parseStatus = [{formattedDate: '', postedDate: null, name: '', status: '', attachment_url: ''}];
             }
 
             this.step1 = data.history.filter( function(e) {

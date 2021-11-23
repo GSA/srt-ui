@@ -1,12 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router} from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { JwtHelperService } from '@auth0/angular-jwt';
-
-
-// import services
-import { AuthGuard } from '../../auth-guard.service';
-import {TokenService} from '../../shared/services/token.service';
 import { UserService } from '../../shared/services/user.service';
 
 

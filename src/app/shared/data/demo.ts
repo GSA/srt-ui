@@ -1,13 +1,9 @@
 export class Demo {
-    
+
       /**
        * Constructor.
        */
-      public photo: String
-      
-      constructor(
-      ) {
-    
-      }
+      public photo: String;
+
+      constructor() {}
     }
-    

@@ -9,7 +9,7 @@ import { PrivateComponent } from './private/private.component';
 
 // ROUTES
 
-import { HomeRoutingModule } from './home.routing'
+import { HomeRoutingModule } from './home.routing';
 
 
 @NgModule({
@@ -19,10 +19,8 @@ import { HomeRoutingModule } from './home.routing'
     ],
     declarations: [
       HomeComponent,
-     
       PublicComponent,
       PrivateComponent
     ],
   })
   export class HomeModule { }
-  

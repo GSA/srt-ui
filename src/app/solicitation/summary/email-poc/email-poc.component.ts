@@ -28,13 +28,17 @@ export class EmailPocComponent implements OnInit {
   emailTo: String;
   emailCC: String;
   subject: String;
+  epaSubject: String;
   emailBody: String;
+  epaEmailBody: String;
   type: String = 'email';
   myForm: FormGroup;
   public step1: Boolean = false;
   public step2: Boolean = false;
   public step3: Boolean = false;
   public emailSent = false;
+  templateToShow: String = 'IT Language';  // this will either be 'IT Langauge' or 'EPA Language'
+  feature_flags = environment.feature_flags;
 
   public editorOptions = {
     placeholder: 'insert content...',
@@ -68,17 +72,25 @@ export class EmailPocComponent implements OnInit {
         this.solicitationService.getSolicitation(this.solicitationID).subscribe(
           data => {
 
-            data.parseStatus.forEach(element => {
-              if (element.status === 'successfully parsed') {
-                element.status = 'Yes';
-              } else if (element.status === 'processing error') {
-                element.status = 'No';
-              }
-            });
+            if (data.parseStatus && Array.isArray(data.parseStatus)) {
+              data.parseStatus.forEach(element => {
+                if (element.status === 'successfully parsed') {
+                  element.status = 'Yes';
+                } else if (element.status === 'processing error') {
+                  element.status = 'No';
+                }
+              });
+            } else {
+              console.log ('Error processing parse status for solicitaiton ' + data.solNum);
+              data.parseStatus = [{formattedDate: '', postedDate: null, name: '', status: '', attachment_url: ''}];
+            }
             this.emailSent = data.history.filter(function(e){return ((e['action'].indexOf('sent email to POC') > -1) ); }).length > 0;
-            this.emailTo = data.contactInfo.email; // "crowley+srttestemail@tcg.com";
+            console.log('contact info');
+            console.log(data.contactInfo.join(', '));
+            this.emailTo = data.contactInfo.join(', '); // "crowley+srttestemail@tcg.com";
             this.emailCC = localStorage.getItem('email');
             this.subject = 'Section 508 Requirements Assessment of ' + data.solNum + ', reviewed on ' + now;
+            this.epaSubject = 'EPA Requirements Assessment of ' + data.solNum + ', reviewed on ' + now;
             this.emailBody =
                   '<p>Solicitation Title: ' + data.title  + '</p>' +
                   '<p>Link: ' + '<a href=' + data.url + '>' + data.url + '</a></p>' +
@@ -111,12 +123,31 @@ export class EmailPocComponent implements OnInit {
                   '<p>Sincerely</p>' +
                   '<br>' +
                   '<p>Section 508 Program Manager';
+            this.epaEmailBody = '<p>Solicitation Title: ' + data.title  + '</p>' +
+              '<p>Link: ' + '<a href=' + data.url + '>' + data.url + '</a></p>' +
+              '<br>' +
+              '<p>Dear Acquisition Professional:</p>' +
+              '<br>' +
+              '<p>You are receiving this letter as the point of contact for the ' +
+              'solicitation referenced above......\n</p>' +
+              '<br>' +
+              '<p>To assist your efforts in addressing this issue, please refer ' +
+              'to .....\n</p>' +
+              '<br>' +
+              '<p>For additional assistance with questions or concerns ' +
+              'about the assessment of this solicitation, please reach out to....</p>' +
+              '<br>' +
+              '<p>Sincerely</p>' +
+              '<br>' +
+              '<p>';
 
             this.solicitation = data;
             this.myForm.controls['emailTo'].setValue(this.emailTo);
             this.myForm.controls['emailCC'].setValue(this.emailCC);
             this.myForm.controls['subject'].setValue(this.subject);
-            this.myForm.controls['message'].setValue(this.emailBody);
+            this.myForm.controls['epaSubject'].setValue(this.epaSubject);
+            this.myForm.controls['it_message'].setValue(this.emailBody);
+            this.myForm.controls['epa_message'].setValue(this.epaEmailBody);
           },
           err => console.log(err)
         );
@@ -126,7 +157,9 @@ export class EmailPocComponent implements OnInit {
         emailTo: new FormControl('crowley+srttestemail@tcg.com', Validators.required),
         emailCC: new FormControl(this.emailCC , Validators.required),
         subject: new FormControl(this.subject, Validators.required),
-        message: new FormControl(this.emailBody, Validators.required)
+        epaSubject: new FormControl(this.epaSubject, Validators.required),
+        it_message: new FormControl(this.emailBody, Validators.required),
+        epa_message: new FormControl(this.epaEmailBody, Validators.required)
       });
 
   }
@@ -224,5 +257,8 @@ export class EmailPocComponent implements OnInit {
       }
     }
 
+    selectLanguage(event) {
+      this.templateToShow = event.value;
+    }
 
 }

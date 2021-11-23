@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { SolicitationService } from '../../solicitation/solicitation.service';
-import { Solicitation } from '../../shared/solicitation';
 
 import { Email } from '../../solicitation/summary/email-poc/email';
 import {BaseComponent} from '../../base.component';
@@ -30,6 +29,7 @@ export class ContactUsComponent extends BaseComponent implements OnInit {
   /**
    * constructor
    * @param solicitationService
+   * @param ts
    */
   constructor(
     private solicitationService: SolicitationService,
@@ -57,7 +57,7 @@ export class ContactUsComponent extends BaseComponent implements OnInit {
   onSubmit() {
 
     // this.emailTo = 'marina.fox@gsa.gov';
-    //TODO: parameterize email contact address
+    // TODO: parameterize email contact address
     this.emailTo = 'crowley@tcg.com';
 
     this.emailCC = '';

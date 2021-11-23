@@ -6,8 +6,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { PublicComponent } from '../home/public/public.component';
 import { AuthComponent } from './auth.component';
 
-import { AuthGuard } from '../auth-guard.service';
-
 
 const routes: Routes = [
     {
@@ -24,8 +22,8 @@ const routes: Routes = [
     imports: [
         RouterModule.forChild(routes)
     ],
-    exports:[
+    exports: [
         RouterModule
     ]
 })
-export class AuthRoutingModule{}
+export class AuthRoutingModule {}

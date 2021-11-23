@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 // import services
@@ -29,9 +28,7 @@ export class MasqComponent implements OnInit {
     private route: ActivatedRoute,
     private auth: AuthGuard,
     private fb: FormBuilder,
-    private tokenService: TokenService,
-    private router: Router
-
+    private tokenService: TokenService
   ) {
   }
 

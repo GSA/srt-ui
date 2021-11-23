@@ -1,5 +1,5 @@
 // Module: SRTHeaderComponent
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../shared/services/auth.service';
@@ -85,7 +85,7 @@ export class HeaderComponent implements OnInit {
 
   closeMenus(parentElement) {
     const els = parentElement.getElementsByClassName('open');
-    for (let e of els) {
+    for (const e of els) {
       e.classList.remove('open');
     }
   }
@@ -93,6 +93,7 @@ export class HeaderComponent implements OnInit {
   /**
    * lifecycle
    */
+  // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges() {
   }
 
@@ -128,6 +129,6 @@ export class HeaderComponent implements OnInit {
   }
 
   menuClick(location) {
-    this.router.navigateByUrl(location);
+    this.router.navigateByUrl(location).catch(r => console.log(r));
   }
 }

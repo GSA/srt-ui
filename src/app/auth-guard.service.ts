@@ -1,10 +1,10 @@
-import { Injectable }       from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   CanActivate, Router,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot, CanActivateChild
-}                           from '@angular/router';
-import { AuthService } from './shared/services/auth.service'
+  RouterStateSnapshot
+} from '@angular/router';
+import { AuthService } from './shared/services/auth.service';
 import { Observable } from 'rxjs';
 
 
@@ -50,17 +50,17 @@ export class AuthGuard implements CanActivate {
         data => {
           this.isLogin = data.isLogin;
           if (data.isLogin) {
-            this.router.navigate([url]);
+            this.router.navigate([url]).catch(r => console.log(r));
             return true;
           } else {
-            this.router.navigate(['/auth']);
+            this.router.navigate(['/auth']).catch(r => console.log(r));
           }
-        })
+        });
     }
   }
 
 
-  //Kailun's new add
+  // Kailun's new add
 
     /**
    * Can activate child?

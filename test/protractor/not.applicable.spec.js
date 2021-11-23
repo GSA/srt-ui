@@ -2,7 +2,7 @@
 const {browser, element} = require('protractor')
 
 function clickRoute(route) {
-  browser.executeScript('document.querySelector(\'[ng-reflect-router-link="'+route+'"]\').click();');
+  browser.executeScript('document.querySelector(\'[ng-reflect-router-link="'+route+'"]\').click();').catch(r => console.log(r));
 }
 
 

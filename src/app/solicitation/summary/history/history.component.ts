@@ -84,6 +84,7 @@ export class HistoryComponent implements OnInit {
       });
   }
 
+  // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges() {
   }
 

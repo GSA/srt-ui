@@ -22,6 +22,16 @@
         <div style="padding: 20px" class="clearfix">
             <h1 class="srt-page-title srt-blue" style="padding-bottom: 5px;"  role="heading" aria-level="1">Solicitation Review Results for Section 508 Requirements</h1>
 
+          <!--
+           <div class="epa-toggle">
+             Show solicitaitons related to:
+             <select>
+               <option>All</option>
+               <option>Information Technology</option>
+               <option>EPA</option>
+             </select>
+           </div>
+          -->
             <div class="solic-table">
                     <div class="solic-keyword">
                     <label id="ksearch-label" for="ksearch" class="solic-keyword">Search all table content:
@@ -59,9 +69,13 @@
   <p-table #gb styleClass="pDataTable"
            [value]="solicitations"
            [lazy] = "true"
-           sortField="date"
-           sortOrder="-1"
            [loading]="loading"
+           (onPage)="stageChange($event)"
+           (onFilter)="filterChange()"
+           (onSort)="stageChange($event)"
+           [(first)]="tableState.first"
+           sortField="{{tableState.sort.field}}"
+           sortOrder="{{tableState.sort.order}}"
            (onLazyLoad)="loadSolicitationsLazy($event)"
            [totalRecords]="totalRecordCount"
            [rows]="15"
@@ -83,26 +97,41 @@
                       ariaLabelDesc="Activate to sort in descending order"
                       ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
           <br>
-          <p-dropdown id="ddl_noticeTypes" *ngSwitchCase="'noticeType'" [options]="noticeTypes"
+          <p-dropdown id="ddl_noticeTypes" *ngSwitchCase="'noticeType'" [options]="noticeTypes" [(ngModel)]="noticeTypeFilterModel"
                       (onChange)="gb.filter($event.value, col.field, 'equals')"></p-dropdown>
 
-          <p-dropdown id="ddl_reviewRec" *ngSwitchCase="'reviewRec'" [options]="reviewRec"
+          <p-dropdown id="ddl_reviewRec" *ngSwitchCase="'reviewRec'" [options]="reviewRec" [(ngModel)]="reviewResultFilterModel"
+                      (onChange)="gb.filter($event.value, col.field, 'equals')"></p-dropdown>
+
+          <p-dropdown id="ddl_predictions.estar" *ngSwitchCase="'predictions.estar'" [options]="epaDropdown"
+                      (onChange)="gb.filter($event.value, col.field, 'equals')"></p-dropdown>
+
+          <p-dropdown id="ddl_predictions.estar" *ngSwitchCase="'predictions.estar'" [options]="epaDropdown"
                       (onChange)="gb.filter($event.value, col.field, 'equals')"></p-dropdown>
 
         </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-sol>
-      <tr (click)="selectSol(sol)">
+      <tr (mousedown)="mouseDown(sol)" (mouseup)="mouseUp(sol)">
         <td class="ui-resizable-column col_solicitation"><span class="ui-column-title">Solicitation #</span>{{sol.solNum}}</td>
         <td class="ui-resizable-column col_title"><span class="ui-column-title">Title</span>{{sol.title}}</td>
         <td class="ui-resizable-column col_notice_type"><span class="ui-column-title">Notice Type</span>{{sol.noticeType}}</td>
         <td class="ui-resizable-column col_date_posted"><span class="ui-column-title">Date Posted</span>{{sol.date}}</td>
         <td class="ui-resizable-column col_review_result">
           <span class="ui-column-title">Review Result</span>
-          <button class="button {{'result-' + sol.predictions.value}}" (click)="selectSol(sol)"  style="border: none; text-align: left; padding: 0;">
-            <i class="fa fa-exclamation-triangle" style="padding-right: 5px;" *ngIf="sol.predictions.value == 'red'"></i>
+          <button class="button {{'result-' + ((sol.reviewRec == 'Not Applicable') ? 'black' : sol.predictions.value)}}" (click)="selectSol(sol)"  style="border: none; text-align: left; padding: 0;">
+              <i class="fa fa-exclamation-triangle" style="padding-right: 5px;" *ngIf="sol.predictions.value == 'red' && sol.reviewRec != 'Not Applicable'"></i>
             <span style="text-decoration: underline;">{{sol.reviewRec}}</span>
+          </button>
+        </td>
+        <td class="ui-resizable-column col_review_result" *ngIf="feature_flags.estar">
+          <span class="ui-column-title">EPA Review</span>
+          <button class="button {{'result-' + sol.predictions.estar}}" (click)="selectSol(sol)"  style="border: none; text-align: left; padding: 0;">
+            <i class="fa fa-exclamation-triangle" style="padding-right: 5px;" *ngIf="sol.predictions.estar == 'red' "></i>
+            <span style="">{{sol.predictions.estar == "green" ? "Compliant" :
+                             sol.predictions.estar == "red" ? "Non-compliant" :
+                             sol.predictions.estar == "Not Applicable" ? "Not Applicable" :  ""}}</span>
           </button>
         </td>
         <td class="ui-resizable-column col_action_status"><span class="ui-column-title">Action Status</span>{{sol.actionStatus}}</td>
