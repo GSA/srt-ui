@@ -106,6 +106,9 @@
           <p-dropdown id="ddl_predictions.estar" *ngSwitchCase="'predictions.estar'" [options]="epaDropdown"
                       (onChange)="gb.filter($event.value, col.field, 'equals')"></p-dropdown>
 
+          <p-dropdown id="ddl_predictions.estar" *ngSwitchCase="'predictions.estar'" [options]="epaDropdown"
+                      (onChange)="gb.filter($event.value, col.field, 'equals')"></p-dropdown>
+
         </th>
       </tr>
     </ng-template>
