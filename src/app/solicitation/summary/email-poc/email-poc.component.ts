@@ -85,8 +85,6 @@ export class EmailPocComponent implements OnInit {
               data.parseStatus = [{formattedDate: '', postedDate: null, name: '', status: '', attachment_url: ''}];
             }
             this.emailSent = data.history.filter(function(e){return ((e['action'].indexOf('sent email to POC') > -1) ); }).length > 0;
-            console.log('contact info');
-            console.log(data.contactInfo.join(', '));
             this.emailTo = data.contactInfo.join(', '); // "crowley+srttestemail@tcg.com";
             this.emailCC = localStorage.getItem('email');
             this.subject = 'Section 508 Requirements Assessment of ' + data.solNum + ', reviewed on ' + now;
