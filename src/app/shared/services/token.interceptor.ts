@@ -75,7 +75,6 @@ export class TokenInterceptor implements HttpInterceptor {
 
     router.events.subscribe( e => {
       if (e instanceof NavigationStart) {
-        this.logger.debug('Refreshing token based on Router hook.');
         if ( (! state.refresh_queued)  ) {
           setTimeout(() => refresh(http, router, logger, globals, tokenService), 3000);
           state.refresh_queued = true;

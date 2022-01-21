@@ -88,7 +88,13 @@ export class SolicitationService {
       .catch( (error: any ) => {
         console.log(error);
         return observableThrowError(error);
-      } );
+      } ).map ( response => {
+        response.url = this.urlFilter(response.url.toString());
+        response.parseStatus.forEach(element => {
+          element.attachment_url = this.urlFilter(element.attachment_url.toString());
+        });
+        return response;
+      });
   }
 
   /**
@@ -140,5 +146,19 @@ export class SolicitationService {
         console.log(error);
         return observableThrowError(error || 'Server Error');
       });
+  }
+
+  /**
+   * This funciton is called on URLs from sam.gov to translate them for our use.
+   * For now it only used to replace the domain beta.sam.gov with sam.gov.
+   * @param url
+   *
+   * @return fixedURL
+   */
+
+  urlFilter(url: string) {
+    const adjusted_url: string =  url.replace('://beta.sam.gov', '://sam.gov');
+    return adjusted_url;
+
   }
 }
