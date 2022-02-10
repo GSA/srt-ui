@@ -11,6 +11,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -23,15 +24,21 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/font-awesome/css/font-awesome.min.css",
+              "node_modules/font-awesome/css/font-awesome.min.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/chart.js/dist/Chart.bundle.min.js",
+              "node_modules/chart.js/dist/Chart.bundle.min.js"
             ]
           },
           "configurations": {
             "local": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -40,6 +47,12 @@
               ]
             },
             "dev": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -48,6 +61,12 @@
               ]
             },
             "staging": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -56,6 +75,12 @@
               ]
             },
             "prod": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "optimization": false,
               "sourceMap": false,
               "extractCss": false,
@@ -108,13 +133,13 @@
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/chart.js/dist/Chart.bundle.min.js",
+              "node_modules/chart.js/dist/Chart.bundle.min.js"
             ],
             "styles": [
               "src/styles.css",
               "src/nova-light-theme.css",
               "src/primeng.min.css",
-              "node_modules/font-awesome/css/font-awesome.min.css",
+              "node_modules/font-awesome/css/font-awesome.min.css"
             ],
             "assets": [
               "src/assets",
@@ -163,10 +188,13 @@
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
-      "styleext": "css"
+      "style": "css"
     },
     "@schematics/angular:directive": {
       "prefix": "app"
     }
+  },
+  "cli": {
+    "analytics": "b1610272-7f77-4b7a-8fe4-605ea9999775"
   }
 }

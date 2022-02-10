@@ -18,7 +18,7 @@ export class LineChartsComponent implements OnInit {
   @Input() selectedPeriod;
   @Input() toPeriod;
   @Input() fromPeriod;
-  @ViewChild(BaseChartDirective, {static: false}) private baseChart;
+  @ViewChild(BaseChartDirective) private baseChart;
 
   public angencyPass = {};
   public angencyTotal = {};

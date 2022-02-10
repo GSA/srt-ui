@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 
 // open sources modules
 import { ChartsModule } from 'ng2-charts';
-import { TooltipModule } from 'ng2-tooltip';
+import { TooltipModule } from 'ng2-tooltip-directive';
 
 // main component
 import { AnalyticsComponent } from './analytics.component';

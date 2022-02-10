@@ -1,6 +1,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "@angular/*" : ["./node_modules/@angular/*"]
+    },
     "downlevelIteration": true,
     "importHelpers": true,
     "outDir": "./dist/out-tsc",

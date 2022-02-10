@@ -11,14 +11,14 @@ import {Title} from '@angular/platform-browser';
   styleUrls: ['./analytics.component.css']
 })
 
-@Directive({selector: 'baseChart'})
+// @Directive({selector: 'baseChart'})
 
 // tslint:disable-next-line:directive-class-suffix
 export class AnalyticsComponent extends BaseComponent implements OnInit {
 
     /* ATTRIBUTES */
 
-    @ViewChild(BaseChartDirective, {static: false}) private baseChart;
+    @ViewChild(BaseChartDirective) private baseChart;
 
     solicitationNumber = 0;
 

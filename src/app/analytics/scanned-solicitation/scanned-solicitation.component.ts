@@ -14,7 +14,7 @@ import * as _ from 'underscore';
     styleUrls: ['../analytics.component.css', './scanned-solicitation.component.css']
 })
 
-@Directive({selector: 'baseChart'})
+// @Directive({selector: 'baseChart'})
 
 // tslint:disable-next-line:directive-class-suffix
 export class ScannedSolicitationComponent implements OnInit {
@@ -23,7 +23,7 @@ export class ScannedSolicitationComponent implements OnInit {
 
   @Input() ScannedSolicitationChart;
   @Input() solStats;
-  @ViewChild(BaseChartDirective, {static: false}) private baseChart;
+  @ViewChild(BaseChartDirective) private baseChart;
 
   public toPeriod: Date = new Date(new Date().getTime() /*- (1000 * 60 * 60 * 24 )*/);
   public fromPeriod: Date = new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 30 ));

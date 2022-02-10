@@ -14,5 +14,5 @@
     "../node_modules/ngx-quill-editor/index.ts",
     "../node_modules/ngx-quill-editor/quillEditor.module.ts"
   ],
-  "include": [ "**/*.ts", "*.ts", "../node_modules/ngx-quill-editor/*.ts"]
+  "include": [ "**/*.d.ts", "*.ts", "../node_modules/ngx-quill-editor/*.ts"]
 }

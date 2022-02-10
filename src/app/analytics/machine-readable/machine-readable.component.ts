@@ -8,14 +8,14 @@ import {BaseChartDirective, Color} from 'ng2-charts';
   styleUrls: ['../analytics.component.css', './machine-readable.component.css']
 })
 
-@Directive({selector: 'baseChart'})
+// @Directive({selector: 'baseChart'})
 // tslint:disable-next-line:directive-class-suffix
 export class MachineReadableComponent implements OnInit {
 
   /* ATTRIBUTES */
 
   @Input() MachineReadableChart;
-  @ViewChild(BaseChartDirective, {static: false}) private baseChart;
+  @ViewChild(BaseChartDirective) private baseChart;
 
   public hasValue = false;
   public pieChartLabels: string[] = ['Machine Readable', 'Non Machine Readable'];
