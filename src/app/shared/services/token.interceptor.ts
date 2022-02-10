@@ -6,6 +6,7 @@ import {
   HttpInterceptor, HttpClient
 } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import {tap} from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { TokenService } from './token.service';
 import {NavigationStart, Router} from '@angular/router';
@@ -106,18 +107,34 @@ export class TokenInterceptor implements HttpInterceptor {
         Authorization: `Bearer ${token}`
       }
     });
-    return next.handle(request).do(
-      () => { },
-      (error: any) => {
-        if (error.status === 401) {
-          this.logger.debug('Token rejected, redirecting to /auth');
-          this.globals.app.isLogin = false;
-          return this.router.navigate(['/auth']);
-        } else {
-          this.logger.error(error);
+
+    return next.handle(request).pipe(
+      tap(
+        // (event) => { next.handle(request); console.log ('ATC'); console.log(event);},
+        (event) => {},
+        (error) => {
+          if (error.status === 401) {
+            this.logger.debug('Token rejected, redirecting to /auth');
+            this.globals.app.isLogin = false;
+            return this.router.navigate(['/auth']);
+          } else {
+            this.logger.error(error);
+          }
         }
-      }
+      )
     );
+    // return next.handle(request).do(
+    //   () => { },
+    //   (error: any) => {
+    //     if (error.status === 401) {
+    //       this.logger.debug('Token rejected, redirecting to /auth');
+    //       this.globals.app.isLogin = false;
+    //       return this.router.navigate(['/auth']);
+    //     } else {
+    //       this.logger.error(error);
+    //     }
+    //   }
+    // );
   }
 }
 

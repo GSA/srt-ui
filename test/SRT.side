@@ -17,15 +17,12 @@
       "id": "2b1fecbe-a40b-432a-820b-2dd54401f0c6",
       "comment": "",
       "command": "click",
-      "target": "linkText=Manage/Review Workload",
+      "target": "xpath=//a[contains(@href, '/solicitation/report')]",
       "targets": [
-        ["linkText=Manage/Review Workload", "linkText"],
         ["css=#\\32 > a", "css:finder"],
-        ["xpath=//a[contains(text(),'Manage/Review Workload')]", "xpath:link"],
         ["xpath=//li[@id='2']/a", "xpath:idRelative"],
-        ["xpath=(//a[contains(@href, '')])[6]", "xpath:href"],
-        ["xpath=//li[2]/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Manage/Review Workload')]", "xpath:innerText"]
+        ["xpath=//a[contains(@href, '/solicitation/report')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"]
       ],
       "value": ""
     }, {
@@ -202,7 +199,7 @@
       "id": "9b4b7c5f-b79c-467f-9445-eb101bb48fa9",
       "comment": "",
       "command": "click",
-      "target": "linkText=User Management",
+      "target": "linkText=Administration",
       "targets": [
         ["linkText=User Management", "linkText"],
         ["css=#\\34 > a", "css:finder"],
@@ -214,36 +211,17 @@
       ],
       "value": ""
     }, {
-      "id": "548a84eb-baa8-4329-b374-3302f6c86c53",
-      "comment": "",
-      "command": "click",
-      "target": "linkText=APPROVED",
-      "targets": [
-        ["linkText=APPROVED", "linkText"],
-        ["css=#tab1 > a", "css:finder"],
-        ["xpath=//a[contains(text(),'APPROVED')]", "xpath:link"],
-        ["xpath=//li[@id='tab1']/a", "xpath:idRelative"],
-        ["xpath=//div[2]/div/ul/li[2]/a", "xpath:position"],
-        ["xpath=//a[contains(.,'APPROVED')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "073295f2-2153-44a0-9be7-a9a824c9d07d",
-      "comment": "",
-      "command": "waitForElementVisible",
-      "target": "xpath=//td[contains(.,'Al Crowley')]",
-      "targets": [],
-      "value": "10000"
-    }, {
-      "id": "79755651-110a-47c5-8406-202426187d37",
+      "id": "298294bf-704f-43e6-b4db-9a4fcc735f8e",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "xpath=//td[contains(.,'Al Crowley')]",
+      "target": "id=anchor-Feedback-Table",
       "targets": [
-        ["css=.even:nth-child(1) > td:nth-child(1)", "css:finder"],
-        ["xpath=//main[@id='content']/div/div[4]/table/tbody/tr/td", "xpath:idRelative"],
-        ["xpath=//td", "xpath:position"],
-        ["xpath=//td[contains(.,'Al Crowley')]", "xpath:innerText"]
+        ["id=anchor-Feedback-Table", "id"],
+        ["css=#anchor-Feedback-Table", "css:finder"],
+        ["xpath=//h1[@id='anchor-Feedback-Table']", "xpath:attributes"],
+        ["xpath=//main[@id='content']/div/div/div[2]/app-admin-feedback/div/h1", "xpath:idRelative"],
+        ["xpath=//app-admin-feedback/div/h1", "xpath:position"],
+        ["xpath=//h1[contains(.,'Feedback')]", "xpath:innerText"]
       ],
       "value": ""
     }, {
@@ -309,33 +287,6 @@
         ["xpath=//h2[contains(.,'Most Viewed FAQs')]", "xpath:innerText"]
       ],
       "value": ""
-    }, {
-      "id": "b821c1a0-6a60-45ec-ad87-8aead13b0147",
-      "comment": "",
-      "command": "click",
-      "target": "linkText=Feedback",
-      "targets": [
-        ["linkText=Feedback", "linkText"],
-        ["css=#\\37 > a", "css:finder"],
-        ["xpath=//a[contains(text(),'Feedback')]", "xpath:link"],
-        ["xpath=//li[@id='7']/a", "xpath:idRelative"],
-        ["xpath=(//a[contains(@href, '')])[11]", "xpath:href"],
-        ["xpath=//li[7]/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Feedback')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "298294bf-704f-43e6-b4db-9a4fcc735f8e",
-      "comment": "",
-      "command": "verifyElementPresent",
-      "target": "xpath=//th[contains(.,'Solicitation Feedback')]",
-      "targets": [
-        ["css=th:nth-child(1)", "css:finder"],
-        ["xpath=//main[@id='content']/div/div/table/tbody/tr/th", "xpath:idRelative"],
-        ["xpath=//th", "xpath:position"],
-        ["xpath=//th[contains(.,'Solicitation Feedback')]", "xpath:innerText"]
-      ],
-      "value": ""
     }]
   }, {
     "id": "9522a3db-9f9c-40b9-a50b-5e3eaa564154",
@@ -351,15 +302,12 @@
       "id": "6d3b4d1d-0119-463c-8fb0-9afb01bd12bf",
       "comment": "",
       "command": "click",
-      "target": "linkText=Manage/Review Workload",
+      "target": "xpath=//a[contains(@href, '/solicitation/report')]",
       "targets": [
-        ["linkText=Manage/Review Workload", "linkText"],
         ["css=#\\32 > a", "css:finder"],
-        ["xpath=//a[contains(text(),'Manage/Review Workload')]", "xpath:link"],
         ["xpath=//li[@id='2']/a", "xpath:idRelative"],
-        ["xpath=(//a[contains(@href, '')])[6]", "xpath:href"],
-        ["xpath=//li[2]/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Manage/Review Workload')]", "xpath:innerText"]
+        ["xpath=//a[contains(@href, '/solicitation/report')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"]
       ],
       "value": ""
     }, {
@@ -673,18 +621,22 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "f34b0f9c-2153-46e4-8114-4d6a67cb3540",
+      "comment": "",
+      "command": "answerOnNextPrompt",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "68a27656-718a-4576-acf5-4ce8e7ef2649",
       "comment": "",
       "command": "click",
-      "target": "linkText=Manage/Review Workload",
+      "target": "xpath=//a[contains(@href, '/solicitation/report')]",
       "targets": [
-        ["linkText=Manage/Review Workload", "linkText"],
         ["css=#\\32 > a", "css:finder"],
-        ["xpath=//a[contains(text(),'Manage/Review Workload')]", "xpath:link"],
         ["xpath=//li[@id='2']/a", "xpath:idRelative"],
-        ["xpath=(//a[contains(@href, '')])[6]", "xpath:href"],
-        ["xpath=//li[2]/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Manage/Review Workload')]", "xpath:innerText"]
+        ["xpath=//a[contains(@href, '/solicitation/report')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"]
       ],
       "value": ""
     }, {
@@ -794,15 +746,12 @@
       "id": "a1e09229-5dde-4f26-b170-98baaa6f3716",
       "comment": "",
       "command": "click",
-      "target": "linkText=Manage/Review Workload",
+      "target": "xpath=//a[contains(@href, '/solicitation/report')]",
       "targets": [
-        ["linkText=Manage/Review Workload", "linkText"],
         ["css=#\\32 > a", "css:finder"],
-        ["xpath=//a[contains(text(),'Manage/Review Workload')]", "xpath:link"],
         ["xpath=//li[@id='2']/a", "xpath:idRelative"],
         ["xpath=//a[contains(@href, '/solicitation/report')]", "xpath:href"],
-        ["xpath=//li[2]/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Manage/Review Workload')]", "xpath:innerText"]
+        ["xpath=//li[2]/a", "xpath:position"]
       ],
       "value": ""
     }, {
@@ -1001,15 +950,12 @@
       "id": "afd74e7c-7cc0-484e-9903-6c07298ba5c3",
       "comment": "",
       "command": "click",
-      "target": "linkText=Manage/Review Workload",
+      "target": "xpath=//a[contains(@href, '/solicitation/report')]",
       "targets": [
-        ["linkText=Manage/Review Workload", "linkText"],
         ["css=#\\32 > a", "css:finder"],
-        ["xpath=//a[contains(text(),'Manage/Review Workload')]", "xpath:link"],
         ["xpath=//li[@id='2']/a", "xpath:idRelative"],
         ["xpath=//a[contains(@href, '/solicitation/report')]", "xpath:href"],
-        ["xpath=//li[2]/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Manage/Review Workload')]", "xpath:innerText"]
+        ["xpath=//li[2]/a", "xpath:position"]
       ],
       "value": ""
     }, {
@@ -1088,6 +1034,20 @@
       ],
       "value": ""
     }, {
+      "id": "2ebaebdf-0a81-4480-a6fa-8aad414be99c",
+      "comment": "",
+      "command": "click",
+      "target": "css=#ddl_reviewRec label",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "42c8a16d-79d8-4dd9-9265-e54ba08408b9",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id='ddl_reviewRec']//p-dropdownitem[.='All']/li",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "0e8264dd-4b7a-4ada-9a83-5bf84401d0bf",
       "comment": "",
       "command": "type",
@@ -1130,20 +1090,6 @@
       ],
       "value": ""
     }, {
-      "id": "fddd0a5d-eb1d-4e49-8b2a-d85e41bff486",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//div[contains(@class,'srt-button')]//div[contains(text(),'Send Email')]",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "76d30ef4-fdf1-4995-910d-f9a1d58ec9dd",
-      "comment": "",
-      "command": "waitForElementVisible",
-      "target": "xpath=//div[contains(text(),'email is successfully')]",
-      "targets": [],
-      "value": "30000"
-    }, {
       "id": "07939f2e-7c3d-4579-8024-4b03b1259e59",
       "comment": "",
       "command": "click",
@@ -1171,13 +1117,6 @@
         ["xpath=//input", "xpath:position"]
       ],
       "value": "${sol_one}"
-    }, {
-      "id": "3b41d8f4-f4bb-481a-bd03-f8b75e0d98dc",
-      "comment": "",
-      "command": "verifyElementPresent",
-      "target": "xpath=//td[contains(@class, 'col_action_status') and contains(text(),'ent email') ]",
-      "targets": [],
-      "value": ""
     }, {
       "id": "d800449d-4e20-4048-96c3-58c43cbb109c",
       "comment": "",
@@ -1223,7 +1162,7 @@
     }, {
       "id": "472f2192-9ad6-472e-85a8-07ff184e41e1",
       "comment": "",
-      "command": "pause",
+      "command": "//pause",
       "target": "1000",
       "targets": [],
       "value": ""

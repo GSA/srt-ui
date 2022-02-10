@@ -46,7 +46,6 @@ import { TokenInterceptor } from './shared/services/token.interceptor';
 import { AppRoutingModule } from './app.routing';
 import {UploadComponent} from './shared/components/upload/upload.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
-import {HttpModule} from '@angular/http';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 import {Globals} from '../globals';
 import {AdminGuard} from './admin-guard.service';
@@ -73,7 +72,7 @@ import { AdminHeaderComponent } from './admin-header/admin-header.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    HttpModule,
+    HttpClientModule,
     AppRoutingModule,
     TooltipModule,
     AuthModule,
