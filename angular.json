@@ -83,7 +83,6 @@
               ],
               "optimization": false,
               "sourceMap": false,
-              "extractCss": false,
               "namedChunks": false,
               "aot": false,
               "extractLicenses": true,
