@@ -4,14 +4,13 @@
       <div class="visually-hidden">The agencies ranking is sorted by Compliance Rate where
         Compliance Rate = (Number of compliant solicitations divided by Total ICT solicitations)</div>
 
-      <sup class="supfont"
-            [tooltip]="chart" tooltipPlacement="bottom">
+      <sup class="supfont" >
             <i *ngIf="isGovernomentWide" tabindex="0" class="fa fa-info-circle info" aria-hidden="true" ></i>
         </sup>
-        <tooltip-content #chart [animation]="true" aria-hidden="true">
+<!--        <tooltip-content #chart [animation]="true" aria-hidden="true">
             <div>The agencies ranking is sorted by Compliance Rate where
                  Compliance Rate = (Number of compliant solicitations / Total ICT solicitations)</div>
-        </tooltip-content>
+        </tooltip-content> -->
     </div>
     <!-- bar chart -->
     <div class="top-agency-bar-chart" *ngIf="noData">

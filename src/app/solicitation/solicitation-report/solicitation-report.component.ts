@@ -209,8 +209,9 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
           $('.pDataTable').show();
 
           // convert the dates to a nice display format
-          const date_options = {year: 'numeric', month: 'short', day: 'numeric'};
+          const date_options = {year: 'numeric', month: 'short', day: 'numeric'} as const;
           for (const p of this.solicitations) {
+
             p.date = (new Date(p.date)).toLocaleDateString('en', date_options);
             p.actionDate = (new Date(p.actionDate)).toLocaleDateString('en', date_options);
           }

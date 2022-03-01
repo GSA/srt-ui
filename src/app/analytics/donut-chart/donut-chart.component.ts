@@ -17,7 +17,6 @@ export class DonutChartComponent implements OnInit, OnChanges {
 
   @Input() doughnutChartDataInput;
   @Input() title;
-  @Input() componentTooltip;
   @Input() note;
   @ViewChild(BaseChartDirective) private baseChart;
 

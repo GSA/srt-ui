@@ -2,44 +2,43 @@
 
     <div class="srt-blue undeter-solic-title">
       <h2 class="srt-blue chart">Last 30 Days Excluded Solicitations from SRT Prediction Results (By Category)</h2>
-        <sup class="undeter-solic-supfont"
-            [tooltip]="predictionResult" tooltipPlacement="bottom">
+        <sup class="undeter-solic-supfont" >
             <i tabindex="0" class="fa fa-info-circle info" aria-hidden="true" ></i>
         </sup>
-        <tooltip-content #predictionResult [animation]="true">
-            <div>'Other Undetermined' solicitations are solicitations with attachments that are currently failed to be accessed by the system due to various reasons (e.g., security redirect).</div>
-        </tooltip-content>
-    </div>
+      <!-- <tooltip-content #predictionResult [animation]="true">
+          <div>'Other Undetermined' solicitations are solicitations with attachments that are currently failed to be accessed by the system due to various reasons (e.g., security redirect).</div>
+      </tooltip-content> -->
+  </div>
 
-    <div class="undeter-solic-div">
-      <div class="undeter-solic-canvas">
-          <canvas baseChart
-                  [data]="pieChartData"
-                  [labels]="pieChartLabels"
-                  [options]="options"
-                  [colors]="colorsOverride"
-                  [chartType]="pieChartType">
-          </canvas>
-      </div>
-      <div class="undeter-solic-dispaly1" aria-hidden="true">
-            {{displayPresolicitation}}
-      </div>
-      <div class="undeter-solic-dispaly2" aria-hidden="true">
-            {{displayNonMachineReadable}}
-      </div>
-      <div class="undeter-solic-dispaly3" aria-hidden="true">
-            {{displayNoDocument}}
-      </div>
-      <div class="undeter-solic-dispaly4" aria-hidden="true">
-            {{displayOtherUndetermined}}
-      </div>
-      <div class="visually-hidden">
-        <p>Chart data:</p>
-        <p>Pre-solicitation {{displayPresolicitation}}</p>
-        <p>Non Machine Readable {{displayNonMachineReadable}}</p>
-        <p>No Documents {{displayNoDocument}}</p>
-        <p>Other Undetermined {{displayOtherUndetermined}}</p>
-      </div>
+  <div class="undeter-solic-div">
+    <div class="undeter-solic-canvas">
+        <canvas baseChart
+                [data]="pieChartData"
+                [labels]="pieChartLabels"
+                [options]="options"
+                [colors]="colorsOverride"
+                [chartType]="pieChartType">
+        </canvas>
     </div>
+    <div class="undeter-solic-dispaly1" aria-hidden="true">
+          {{displayPresolicitation}}
+    </div>
+    <div class="undeter-solic-dispaly2" aria-hidden="true">
+          {{displayNonMachineReadable}}
+    </div>
+    <div class="undeter-solic-dispaly3" aria-hidden="true">
+          {{displayNoDocument}}
+    </div>
+    <div class="undeter-solic-dispaly4" aria-hidden="true">
+          {{displayOtherUndetermined}}
+    </div>
+    <div class="visually-hidden">
+      <p>Chart data:</p>
+      <p>Pre-solicitation {{displayPresolicitation}}</p>
+      <p>Non Machine Readable {{displayNonMachineReadable}}</p>
+      <p>No Documents {{displayNoDocument}}</p>
+      <p>Other Undetermined {{displayOtherUndetermined}}</p>
+    </div>
+  </div>
 
 </div>

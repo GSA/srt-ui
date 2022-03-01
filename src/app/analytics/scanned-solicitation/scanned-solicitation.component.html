@@ -1,13 +1,12 @@
 
 <h2 class="srt-blue chart" *ngIf="hasValue" aria-labelledby="num-sol-tooltip">
     Scanned Solicitations
-    <sup class="supfont"
-        [tooltip]="Scanned" tooltipPlacement="bottom">
+    <sup class="supfont" >
         <i tabindex="0" alt="hi there" class="fa fa-info-circle info" aria-hidden="true" ></i>
     </sup>
-    <tooltip-content #Scanned [animation]="true">
+    <!-- <tooltip-content #Scanned [animation]="true">
         <div id="num-sol-tooltip" role="tooltip">Number of ICT solicitation scanned in the latest 30 days</div>
-    </tooltip-content>
+    </tooltip-content> -->
   <span (click)="downloadCSV()" style="padding-left: 10px; font-weight: normal; font-size: 12px;">Download CSV</span>
 </h2>
 

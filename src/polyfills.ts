@@ -45,7 +45,7 @@ import 'core-js/es6/reflect';
  * Zone JS is required by Angular itself.
  */
 (window as any).__Zone_enable_cross_context_check = true;
-import 'zone.js/dist/zone';  // Included with Angular CLI.
+import 'zone.js';  // Included with Angular CLI.
 
 
 

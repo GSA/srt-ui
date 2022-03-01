@@ -44,7 +44,6 @@ import { TokenInterceptor } from './shared/services/token.interceptor';
 
 // ROUTES
 import { AppRoutingModule } from './app.routing';
-import {UploadComponent} from './shared/components/upload/upload.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 import {Globals} from '../globals';
@@ -60,7 +59,6 @@ import { AdminHeaderComponent } from './admin-header/admin-header.component';
     AppComponent,
     HeaderComponent,
     AdminComponent,
-    UploadComponent,
     BaseComponent,
     AdminHeaderComponent,
     LoginReportsComponent

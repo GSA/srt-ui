@@ -4,7 +4,7 @@
     <div class="clearfix">
         <div role="heading" tabindex="0" aria-level="1" class="col-md-12  clearfix analytic-small-title">
             The data on the dashboard include only
-            <a [routerLink]="['/help/faq', 'ICT']" aria-label="definition of ICT" style="color:#0000C7">ICT</a>
+            <a routerLink="/help/faq" aria-label="definition of ICT" style="color:#0000C7">ICT</a>
             solicitations.  The following are excluded from the data on the dashboard: pre-solicitations,
             sources sought, special notices, award notice, intent to bundle requirements, solicitations with zero and/or non-machine-readable document(s),
             and other undetermined solicitations.
@@ -62,14 +62,16 @@
                       <app-donut-chart
                         [doughnutChartDataInput]="ComplianceRateChart"
                         [title]="'Preliminary Compliance Rate'"
-                        [componentTooltip]="'Compliance Rate = (Total compliant ICT solicitations / Total ICT solicitations scanned) * 100%'">
+                        >
+                        <!-- [componentTooltip]="'Compliance Rate = (Total compliant ICT solicitations / Total ICT solicitations scanned) * 100%'"-->
                       </app-donut-chart>
                     </div>
                     <div class="col-md-6 no-padding">
                       <app-donut-chart
                           [doughnutChartDataInput]="ConversionRateChart"
                           [title]="'Conversion Rate'"
-                          [componentTooltip]="'Conversion Rate = (# updated compliant solicitations / Total non-compliant ICT solicitations) * 100%'">
+                          >
+                        <!-- [componentTooltip]="'Conversion Rate = (# updated compliant solicitations / Total non-compliant ICT solicitations) * 100%'" -->
                       </app-donut-chart>
                     </div>
                 </div>
