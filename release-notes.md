@@ -1,23 +1,23 @@
 # SRT Client Release Notes
 
 ## Sprint 10 Release Notes - January 2022
-###Features
+### Features
 * Fix Point of Contact formatting to work with Array returned by updated sam.gov data
-###Security Fixes
+### Security Fixes
 * Package updates
 * S3 bucket legacy code removal
 
 ## Sprint 9 Release Notes - September 2021
-###Features 
+### Features 
 * package updates for SNYK and npm audit security fixes
 * Adding feature flag to toggle Energy Star UI changes
 * UI updates for EPA demo functionality
-###Security Fixes
+### Security Fixes
 * stability fixes to handle bad data and also adding some logging
 * Fixed the solicitation.contactInfo type
 
 ## Sprint 8 Release Notes - April 2021
-###Features
+### Features
 * Improved font contrasts to meet AAA 508 Compliance
 * Modified button colors to meet AAA 508 Compliance
 * Modified the system analytics to include both the new and updated solicitations for the Scanned Solicitations chart
@@ -25,11 +25,11 @@
 * Added Metric Downloads page to the Administration page
 * Added Predictions Metrics by Date and Agency report
 * Added Notice Type Change Metrics report.
-###Security updates
+### Security updates
 * Bug fix - Fixed issue causing crash on the Analytics page when an agency without a documented abbreviation is used
 
 ## Sprint 7 Release Notes
-###Features
+### Features
 * Added user login report bar chart
 * Time range select for user login report bar chart
 * Added visually hidden copy of bar chart data for screen readers
@@ -38,16 +38,16 @@
 * Added user feedback report table with global search and resizable columns
 * Added links to feedback and solicitation details to feedback table
 * Feedback data download in CSV format
-###Content
+### Content
 * Updated home page text
 * Added 2 questions/answers to the FAQ page
 * Updated Contact Us page to include link to ART
 * Continuous Integration / Continuous Deployment Changes
 * Added continuous deployment to cloud.gov
 * Added cloud.gov space specific service account credential support
-###Security
+### Security
 * Removed unused NPM modules
-###Fixes
+### Fixes
 * Replaced toLocaleString() function calls with the moment NPM module to prevent unicode characters in date strings
 * IE fixes for FAQ pages
 * IE compatibility fix for the solicitation NA flag
