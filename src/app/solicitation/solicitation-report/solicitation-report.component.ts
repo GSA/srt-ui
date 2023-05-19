@@ -82,9 +82,13 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     { field: 'actionStatus', title: 'Action Status'},
     { field: 'actionDate', title: 'Latest Action Date'},
     { field: 'agency', title: 'Agency'},
-    { field: 'office', title: 'Office'}
+    { field: 'office', title: 'Office'},
   ];
 
+  // Values we want exported but not displayed
+  hidden_columns = [
+    { field: 'url', title: 'URL'},
+  ];
 
   noticeTypes: Array<Object> = [
     {label : 'All', value : ''}
@@ -337,12 +341,16 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     const csvSeparator = ',';
     let csv = '';
 
+
+    // Adding hiding columns to the export
+    const export_columns = this.columns.concat(this.hidden_columns);
+
     // headers
-    for (let i = 0; i < this.columns.length; i++) {
-      const column = this.columns[i];
+    for (let i = 0; i < export_columns.length; i++) {
+      const column = export_columns[i];
       if (column.field) {
         csv += '"' + (column.title || column.field) + '"';
-        if (i < (this.columns.length - 1)) {
+        if (i < (export_columns.length - 1)) {
           csv += csvSeparator;
         }
       }
@@ -353,8 +361,8 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
       document.body.style.cursor = 'wait';
       for (const s of solicitations.predictions) {
         csv += '\n';
-        for (let i = 0; i < this.columns.length; i++) {
-          const escaped_field = (s[this.columns[i].field] || '').replace(/"/g, '""' );
+        for (let i = 0; i < export_columns.length; i++) {
+          const escaped_field = (s[export_columns[i].field] || '').replace(/"/g, '""' );
           csv += '"' + escaped_field + '"' + csvSeparator;
         }
       }

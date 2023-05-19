@@ -114,7 +114,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-sol>
       <tr (mousedown)="mouseDown(sol)" (mouseup)="mouseUp(sol)">
-        <td class="ui-resizable-column col_solicitation"><span class="ui-column-title">Solicitation #</span>{{sol.solNum}}</td>
+        <td class="ui-resizable-column col_solicitation"><span class="ui-column-title">Solicitation #</span><a href={{sol.url}}>{{sol.solNum}}</a></td>
         <td class="ui-resizable-column col_title"><span class="ui-column-title">Title</span>{{sol.title}}</td>
         <td class="ui-resizable-column col_notice_type"><span class="ui-column-title">Notice Type</span>{{sol.noticeType}}</td>
         <td class="ui-resizable-column col_date_posted"><span class="ui-column-title">Date Posted</span>{{sol.date}}</td>
@@ -138,6 +138,7 @@
         <td class="ui-resizable-column col_action_date"><span class="ui-column-title">Action Date</span>{{sol.actionDate}}</td>
         <td class="ui-resizable-column col_agency"><span class="ui-column-title">Agency</span>{{sol.agency}}</td>
         <td class="ui-resizable-column col_office"><span class="ui-column-title">Office</span>{{sol.office}}</td>
+        <td class="ui-resizable-column col_url" hidden><span class="ui-column-title">URL</span>{{sol.url}}</td>
       </tr>
     </ng-template>
 
