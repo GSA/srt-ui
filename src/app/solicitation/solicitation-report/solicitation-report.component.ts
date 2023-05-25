@@ -367,7 +367,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
         }
       }
       // if we got them all, send it. Otherwise pull another batch
-      if (filter.first === solicitations.totalCount) {
+      if (filter.first >= solicitations.totalCount) {
         this.sendBlob(csv);
         document.body.style.cursor = 'default';
       } else {
