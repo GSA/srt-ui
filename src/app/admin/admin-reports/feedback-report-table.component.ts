@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FeedbackReportService} from './feedback-report.service';
 
+
 @Component({
   selector: 'app-admin-feedback',
   templateUrl: './feedback-report-table.component.html',

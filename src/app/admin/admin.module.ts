@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {RouterModule} from '@angular/router';
 
 
 // Services
@@ -34,6 +35,7 @@ import {FeedbackReportService} from './admin-reports/feedback-report.service';
   imports: [
     CommonModule,
     UserRoutingModule,
+    RouterModule,
     TableModule,
     SharedModule,
     ButtonModule,
