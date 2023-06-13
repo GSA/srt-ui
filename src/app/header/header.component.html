@@ -12,12 +12,12 @@
           </a>
   <nav class="us-navbar navbar-default">
 
-        <div class="container-fluid" style="padding: 0;">
+        <div class="container-fluid">
             <div class="navbar-header nopadding" style="height: 60px" >
                 <a tabindex="-1" class="navbar-left" [routerLink]="['/home']" aria-label="SRT Home Page"><img id="srtlogo" alt='SRT Logo' src="../../assets/srtlogo.png"></a>
             </div>
 
-        <div class="collapse navbar-collapse" id="navbar" style="padding: 0;" role="navigation" aria-label="main navigation" >
+        <div class="collapse navbar-collapse" id="navbar" role="navigation" aria-label="main navigation" >
 
                 <ul *ngIf="isLogin" class="nav navbar-nav" >
                      <li data-toggle="tab" [ngClass]="{'active': GetHash('home')}" id="1" (click)="menuClick('/home');"><a [routerLink]="['/home']">Home</a></li>

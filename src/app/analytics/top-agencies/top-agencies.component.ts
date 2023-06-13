@@ -30,6 +30,11 @@ export class TopAgenciesComponent implements OnInit {
   public indexTo = 10;
   public maxSolicitation = 0;
   public noData: Boolean = true;
+  public chartToolTip = `The agencies ranking is sorted by Compliance Rate*
+    * Compliance Rate = (Number of compliant solicitations / Total ICT solicitations) %`;
+  
+
+
 
   /* CONSTRUCTOR */
 

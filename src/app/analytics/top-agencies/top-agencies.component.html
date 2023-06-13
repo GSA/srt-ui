@@ -2,14 +2,9 @@
     <div id="analyticTitle" class="srt-blue top-agency-title">
         {{barTitle}}&nbsp;&nbsp;
         <sup class="supfont"
-            [tooltip]="chart" tooltipPlacement="bottom">
+            [pTooltip]="chartToolTip" tooltipPosition="bottom">
             <i *ngIf="isGovernomentWide" tabindex="0" class="fa fa-info-circle info" aria-hidden="true" ></i>
         </sup>
-
-        <tooltip-content #chart [animation]="true">
-            <div>The agencies ranking is sorted by Compliance Rate*.</div>
-            <div>* Compliance Rate = (Number of compliant solicitations / Total ICT solicitations) %</div>
-        </tooltip-content>
 
     </div>
     <!-- bar chart -->

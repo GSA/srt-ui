@@ -28,21 +28,17 @@
 }
 
 /* Override for PrimeNG theme for the workflow table */
-body .ui-table .ui-table-tbody td.ui-resizable-column {
+body .p-datatable .p-datatable-tbody td.p-resizable-column {
   color: #111111;
 }
 body  p-paginator div a {
   color: #111111 !important;
 }
-body p-paginator div a.ui-state-active {
+body p-paginator div a.p-highlight {
   background-color: #112e51 !important;
   color: white !important;
   font-weight: bold;
 }
-body .ui-table .ui-sortable-column.ui-state-highlight {
-  background-color: #112e51 !important;
-}
-
 
 /* Override padding for bootstrap. */
 .no-padding {
@@ -60,19 +56,19 @@ body {
     font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif !important;
 }
 
-.ui-dropdown-label.ui-inputtext.ui-corner-all {
+.p-dropdown-label.p-inputtext.p-corner-all {
   font-size: 16px;
 }
 
-.ui-state-default.ui-unselectable-text.ui-sortable-column {
+.p-state-default.p-unselectable-text.p-sortable-column {
   font-size: 16px;
 }
-p-dropdown .ui-dropdown {
+p-dropdown .p-dropdown {
   min-width: 100%;
   max-width:100%;
 }
 
-.ui-calendar, .ui-calendar input {
+.p-calendar, .p-calendar input {
     width: 100% !important;
 }
 
@@ -81,14 +77,14 @@ p-dropdown .ui-dropdown {
 {
   font-size: 16px;
   color: #cc0000;
-  weight: bold;
+  font-weight: bold;
 }
 
 .result-green span,
 .result-green i
 {
   font-size: 16px;
-  weight: bold;
+  font-weight: bold;
   color: green;
 }
 
@@ -125,7 +121,8 @@ ul.cb-slide-show li {
     display: table;
     width: 100%;
     max-width: 600px;
-    float: right
+    float: right;
+    padding-right: 2em;
 }
 .solic-keyword{
     display: table-cell;
@@ -412,7 +409,7 @@ ul.cb-slide-show li {
     padding: 0px 20px;
 }
 
-body .ui-table .ui-table-tbody tr {
+body .p-datatable .p-datatable-tbody tr {
   border-bottom: 1px solid black;
 }
 
@@ -420,6 +417,7 @@ body .ui-table .ui-table-tbody tr {
   font-family: "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 14px;
   text-decoration: none;
+  padding: 0.3em;
 }
 
 @media (max-width: 45em) {
