@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { SharedModule, ButtonModule, DropdownModule, CalendarModule} from 'primeng';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { QuillEditorModule } from 'ngx-quill-editor';
@@ -34,7 +36,6 @@ import { PredictionHistoryComponent } from './summary/prediction-history/predict
     RouterModule,
 
     TableModule,
-    SharedModule,
     ButtonModule,
     DropdownModule,
     CalendarModule,

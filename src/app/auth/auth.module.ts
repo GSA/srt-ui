@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { SharedModule, ButtonModule, DropdownModule, CalendarModule} from 'primeng';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 
@@ -28,7 +30,6 @@ import { AuthComponent } from 'app/auth/auth.component';
       FormsModule,
       ReactiveFormsModule,
       TableModule,
-      SharedModule,
       ButtonModule,
       DropdownModule,
       CalendarModule,

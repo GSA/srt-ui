@@ -5,9 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 // open sources modules
-import { ChartsModule } from 'ng2-charts';
-import { TooltipModule } from 'ng2-tooltip';
-
+import { NgChartsModule } from 'ng2-charts';
+import { TooltipModule } from 'primeng/tooltip';
 // main component
 import { AnalyticsComponent } from './analytics.component';
 
@@ -30,7 +29,7 @@ import { AnalyticsService } from './services/analytics.service';
   imports: [
     CommonModule,
     HttpClientModule,
-    ChartsModule,
+    NgChartsModule,
     FormsModule,
     ReactiveFormsModule,
     TooltipModule,

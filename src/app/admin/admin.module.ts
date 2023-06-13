@@ -19,10 +19,12 @@ import { UserRoutingModule } from './admin.routing';
 // Components
 
 // Open Sources
-import { SharedModule, ButtonModule, DropdownModule, CalendarModule } from 'primeng';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
-import { Ng2CompleterModule } from 'ng2-completer';
-import { FileUploadModule } from 'primeng';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { FileUploadModule } from 'primeng/fileupload';
 import {MasqComponent} from '../user/masq/masq.component';
 import {MetricDownloadsComponent} from './metric-downloads/metric-downloads.component';
 import {UserReportComponent} from '../user/reports/user.report.component';
@@ -37,13 +39,12 @@ import {FeedbackReportService} from './admin-reports/feedback-report.service';
     UserRoutingModule,
     RouterModule,
     TableModule,
-    SharedModule,
     ButtonModule,
     DropdownModule,
     CalendarModule,
     FormsModule,
     ReactiveFormsModule,
-    Ng2CompleterModule,
+    AutoCompleteModule,
     FileUploadModule,
   ],
   providers: [
