@@ -1,5 +1,5 @@
 
-import {throwError as observableThrowError} from 'rxjs';
+import {throwError as observableThrowError, catchError} from 'rxjs';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
@@ -17,7 +17,7 @@ export class AnalyticsService {
   /* ATTRIBUTES */
 
   private AnalyticUrl = environment.SERVER_URL + '/Analytics';
-  private AgencyListUrl = environment.SERVER_URL + '/AgencyList';
+  private AgencyListUrl = environment.SERVER_URL + '/agencies';
   private CSVDownloadedSolicitationsReportUrl = environment.SERVER_URL + '/reports/solicitationDownloads?format=csv';
   private CSVPredictionMetricsReportUrl = environment.SERVER_URL + '/reports/predictionMetrics?format=csv';
   private CSVNoticeTypeChangeReportUrl = environment.SERVER_URL + '/reports/noticeTypeChangeReport?format=csv';
@@ -39,10 +39,12 @@ export class AnalyticsService {
    */
   getAnalytics (param) {
       return this.http.post<any>(this.AnalyticUrl, param)
-          .catch((error: any) => {
-            console.log(error);
-            return observableThrowError(error.json().error || 'Server Error');
-          });
+      .pipe( 
+        catchError((error: any ) => {
+          console.log(error);
+          return observableThrowError(() => (error.json().error || 'Server Error'))
+        }
+      ));
   }
 
   /**
@@ -50,10 +52,12 @@ export class AnalyticsService {
    */
   GetAgencyList() {
     return this.http.get<any>(this.AgencyListUrl)
-      .catch((error: any) => {
+    .pipe( 
+      catchError((error: any ) => {
         console.log(error);
-        return observableThrowError(error.json().error || 'Server Error');
-      });
+        return observableThrowError(() => (error.json().error || 'Server Error'))
+      }
+    ));
   }
 
   /**
@@ -63,10 +67,11 @@ export class AnalyticsService {
     return this.http.get<any>
     (this.CSVDownloadedSolicitationsReportUrl,
       { responseType: 'blob' as 'json'})
-      .catch((error: any) => {
-        console.log(error);
-        return observableThrowError(error.json().error || 'Server Error');
-      });
+      .pipe( 
+        catchError((error: any ) => {
+          return observableThrowError(() => (error.json().error || 'Server Error'))
+        }
+      ));
   }
 
   /**
@@ -76,10 +81,11 @@ export class AnalyticsService {
     return this.http.get<any>
     (this.CSVPredictionMetricsReportUrl,
       { responseType: 'blob' as 'json'})
-      .catch((error: any) => {
-        console.log(error);
-        return observableThrowError(error.json().error || 'Server Error');
-      });
+      .pipe( 
+        catchError((error: any ) => {
+          return observableThrowError(() => (error.json().error || 'Server Error'))
+        }
+      ));
   }
 
   /**
@@ -89,10 +95,11 @@ export class AnalyticsService {
     return this.http.get<any>
     (this.CSVNoticeTypeChangeReportUrl,
       { responseType: 'blob' as 'json'})
-      .catch((error: any) => {
-        console.log(error);
-        return observableThrowError(error.json().error || 'Server Error');
-      });
+      .pipe( 
+        catchError((error: any ) => {
+          return observableThrowError(() => (error.json().error || 'Server Error'))
+        }
+      ));
   }
 
 

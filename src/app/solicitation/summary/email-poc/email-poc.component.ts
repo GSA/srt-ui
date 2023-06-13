@@ -69,8 +69,8 @@ export class EmailPocComponent implements OnInit {
       (params: any) => {
         const now = new Date().toLocaleDateString();
         this.solicitationID = params['id'];
-        this.solicitationService.getSolicitation(this.solicitationID).subscribe(
-          data => {
+        this.solicitationService.getSolicitation(this.solicitationID).subscribe({
+          next: data => {
 
             if (data.parseStatus && Array.isArray(data.parseStatus)) {
               data.parseStatus.forEach(element => {
@@ -147,8 +147,8 @@ export class EmailPocComponent implements OnInit {
             this.myForm.controls['it_message'].setValue(this.emailBody);
             this.myForm.controls['epa_message'].setValue(this.epaEmailBody);
           },
-          err => console.log(err)
-        );
+          error: err => console.log(err)
+      });
       });
       this.emailCC = localStorage.getItem('email');
       this.myForm = new FormGroup({
@@ -194,13 +194,13 @@ export class EmailPocComponent implements OnInit {
   serverEmail(emailTo, subject, body, emailFrom, cc) {
     const emailContent = new Email(emailTo, subject, body, emailFrom, cc);
     this.solicitationService.sendContactEmail(emailContent)
-      .subscribe(
-        msg => {
+      .subscribe({
+        next: msg => {
           this.emailSuccess();
         },
-        err => {
+        error: err => {
           this.emailError(this.myForm.value.emailTo);
-        });
+        }});
   }
 
   emailSuccess() {
@@ -211,11 +211,13 @@ export class EmailPocComponent implements OnInit {
     this.solicitation.history.push({'date': now, 'action': 'sent email to POC', 'user': user , 'status' : 'Email Sent to POC'});
     this.emailSent = true;
     this.solicitationService.updateHistory(this.solicitation)
-      .subscribe(
-        m => {
+      .subscribe({
+        next: m => {
+          console.log('History updated successfully')
         },
-        err => {
-        });
+        error: err => {
+          console.log(`Error updating history -- ${err}`)
+        }});
   }
 
   copyText(field) {

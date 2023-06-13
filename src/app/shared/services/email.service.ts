@@ -1,4 +1,4 @@
-import {throwError as observableThrowError} from 'rxjs';
+import {throwError as observableThrowError, catchError} from 'rxjs';
 import {Injectable} from '@angular/core';
 
 
@@ -37,7 +37,11 @@ export class EmailService {
   updatePassword() {
     const body = JSON.stringify({});
     return this.http.post<any>(this.updatePasswordEmailUrl, body, httpOptions)
-      .catch((error) => observableThrowError(error.json()));
+      .pipe( 
+        catchError((error: any ) => {
+          return observableThrowError(() => error.json())
+        }
+      ));
   }
 
 
@@ -48,7 +52,11 @@ export class EmailService {
   resetPassword(email) {
     const body = JSON.stringify({email});
     return this.http.post<any>(this.resetPasswordEmailUrl, body, httpOptions)
-      .catch((error) => observableThrowError(error.json()));
+      .pipe( 
+        catchError((error: any ) => {
+          return observableThrowError(() => error.json())
+        }
+      ));
   }
 
 }

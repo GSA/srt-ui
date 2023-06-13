@@ -57,7 +57,7 @@ export class HelpUsImproveComponent implements OnInit {
       (params: any) => {
         this.solicitationID = params['id'];
         this.solicitationService.getSolicitation(this.solicitationID).subscribe(
-          data => {
+          { next: data => {
             if (data.parseStatus && Array.isArray(data.parseStatus)) {
               data.parseStatus.forEach(element => {
                 if (element.status === 'successfully parsed') {
@@ -92,7 +92,8 @@ export class HelpUsImproveComponent implements OnInit {
             this.getSurveys(data.solNum);
 
           },
-          err => console.log(err)
+         error: err => console.log(err)
+        }
         );
       });
   }
@@ -204,16 +205,16 @@ export class HelpUsImproveComponent implements OnInit {
       });
 
       this.solicitationService.updateHistory(this.solicitation)
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.feedbackSent = true;
           this.step3 = true;
           this.submissionInProgress = false;
           this.submissionComplete = true;
         },
-        () => {
+        error: () => {
           console.log('e189');
-        });
+        }});
   }
 
 }

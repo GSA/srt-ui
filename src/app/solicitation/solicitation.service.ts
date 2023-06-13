@@ -1,5 +1,5 @@
 
-import {throwError as observableThrowError,  Observable } from 'rxjs';
+import {throwError as observableThrowError,  Observable, catchError, map } from 'rxjs';
 import { Injectable} from '@angular/core';
 
 
@@ -70,11 +70,12 @@ export class SolicitationService {
 
     return this.http
       .post<SolicitationResult>(this.solicitationsFilterUrl, body)
-      .catch((error: any) => {
+      .pipe(
+        catchError((error: any) => {
           console.log(error);
-          return observableThrowError(error.message || 'Server Error');
+          return observableThrowError(() => (error.message || 'Server Error'));
         }
-      );
+      ));
   }
 
 
@@ -85,16 +86,17 @@ export class SolicitationService {
   getSolicitation(index: String): Observable<Solicitation> {
     const solUrl = this.solicitationUrl + index;
     return this.http.get<Solicitation>(solUrl)
-      .catch( (error: any ) => {
-        console.log(error);
-        return observableThrowError(error);
-      } ).map ( response => {
-        response.url = this.urlFilter(response.url.toString());
-        response.parseStatus.forEach(element => {
-          element.attachment_url = this.urlFilter(element.attachment_url.toString());
-        });
+      .pipe( 
+        catchError((error: any ) => {
+          console.log(error);
+          return observableThrowError(() => error);
+      }), map((response) => {
+            response.url = this.urlFilter(response.url.toString());
+            response.parseStatus.forEach(element => {
+              element.attachment_url = this.urlFilter(element.attachment_url.toString());
+            });
         return response;
-      });
+      }));
   }
 
   /**
@@ -104,9 +106,11 @@ export class SolicitationService {
   getSolicitationFeedback(filter) {
     return this.http
       .post(this.feedbackURL, filter)
-      .catch((error: any) =>
-        observableThrowError(error.json().error || 'Server Error')
-      );
+      .pipe( 
+        catchError((error: any ) => {
+          return observableThrowError(() => (error.json().error || 'Server Error'))
+        }
+      ));
   }
 
 
@@ -117,9 +121,11 @@ export class SolicitationService {
   sendContactEmail(emailContent) {
     return this.http
       .post(this.emailUrl, emailContent)
-      .catch((error: any) =>
-        observableThrowError(error.json().error || 'Server Error')
-      );
+      .pipe( 
+        catchError((error: any ) => {
+          return observableThrowError(() => (error.json().error || 'Server Error'))
+        }
+      ));
   }
 
   /**
@@ -129,11 +135,11 @@ export class SolicitationService {
   updateHistory(solicitation) {
     return this.http
       .post<Solicitation>(this.solicitationUrl, solicitation)
-      .catch((error: any) => {
-        console.log(error);
-        return observableThrowError(error.json().error || 'Server Error');
+      .pipe( 
+        catchError((error: any ) => {
+          return observableThrowError(() => (error.json().error || 'Server Error'))
         }
-      );
+      ));
   }
 
   update(solicitation) {
@@ -142,10 +148,11 @@ export class SolicitationService {
 
     return this.http
       .post(url, {solicitation: solicitation})
-      .catch( (error: any) => {
-        console.log(error);
-        return observableThrowError(error || 'Server Error');
-      });
+      .pipe( 
+        catchError((error: any ) => {
+          return observableThrowError(() => (error.json().error || 'Server Error'))
+        }
+      ));
   }
 
   /**

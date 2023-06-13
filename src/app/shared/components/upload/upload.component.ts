@@ -13,14 +13,15 @@ import { FileUploader } from 'ng2-file-upload';
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.css']
 })
-@Directive({ selector: '[ng2FileSelect]' })
+
+//@Directive({ selector: '[ng2FileSelect]' })
 
 // tslint:disable-next-line:directive-class-suffix
 export class UploadComponent implements OnInit {
 
   @Input() uploadDirectly;
   @Input() currentId;
-  public uploader: FileUploader = new FileUploader({});
+  public uploader: FileUploader;
   public fileString = {};
   public hasBaseDropZoneOver: Boolean = false;
   public hasAnotherDropZoneOver: Boolean = false;
@@ -34,10 +35,9 @@ export class UploadComponent implements OnInit {
  * On Init.
  */
   ngOnInit() {
-    const url = environment.FILE_UPLOAD_API;
-
-    this.uploader.setOptions({
-      url : url,
+    const URL = environment.FILE_UPLOAD_API;
+    this.uploader = new FileUploader({ 
+      url: URL,
       authToken: this.currentId = ' ' + this.authService.getToken(),
     });
     this.uploader.uploadAll();

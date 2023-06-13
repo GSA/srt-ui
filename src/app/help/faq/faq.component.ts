@@ -72,7 +72,7 @@ export class FaqComponent extends BaseComponent implements OnInit {
   getFAQs() {
     this.helpService
       .getFAQs()
-      .subscribe(data => (this.faq = data), error => console.log(error));
+      .subscribe({next: data => (this.faq = data), error: e => console.log(e)});
   }
 
   /**

@@ -1,7 +1,8 @@
 import {Component, OnInit, Renderer2, ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
 import {SolicitationService} from '../solicitation.service';
-import {LazyLoadEvent, SelectItem} from 'primeng';
+import {LazyLoadEvent} from 'primeng/api/lazyloadevent';
+import { SelectItem } from 'primeng/api/selectitem';
 import * as $ from 'jquery';
 import {Title} from '@angular/platform-browser';
 import {BaseComponent} from '../../base.component';
@@ -74,8 +75,8 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
   };
 
   columns = [
-    { field: 'solNum', title: 'Solicitation ID'},
-    { field: 'title', title: 'Solicitation Title'},
+    { field: 'solNum', title: 'ID'},
+    { field: 'title', title: 'Title'},
     { field: 'noticeType', title: 'Notice Type'},
     { field: 'date', title: 'Date Posted'},
     { field: 'reviewRec', title: 'SRT Review Result'},
@@ -155,8 +156,8 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     this.loading = true;
     this.initFilterParams();
     this.solicitationService.getFilteredSolicitations(this.filterParams)
-      .subscribe(
-        solicitations => {
+      .subscribe({
+        next: solicitations => {
           this.totalRecordCount = solicitations.totalCount;
           this.solicitations = solicitations.predictions;
           this.solicitationService.solicitations = solicitations.predictions;
@@ -175,10 +176,11 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
           }, 100);
 
         },
-        err => {
+        error: err => {
           console.log(err);
           this.loading = false;
-        });
+        }
+      });
 
     this.noticeTypesService.getNoticeTypes()
       .subscribe( (typesArray: Array<String>) => {
@@ -205,15 +207,15 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     event.filters = { ...event.filters, ...this.tableState.filter};
 
     this.solicitationService.getFilteredSolicitations(event)
-      .subscribe(
-        solicitations => {
+      .subscribe({
+        next: (solicitations) => {
           this.solicitations = solicitations.predictions;
           this.solicitationService.solicitations = solicitations.predictions;
           this.dateScan = this.solicitations[0] && this.solicitations[0].date;
-          $('.pDataTable').show();
+          $('.pDataTable .p-datatable-gridlines').show();
 
           // convert the dates to a nice display format
-          const date_options = {year: 'numeric', month: 'short', day: 'numeric'};
+          const date_options: Intl.DateTimeFormatOptions = {year: 'numeric', month: 'short', day: 'numeric'};
           for (const p of this.solicitations) {
             p.date = (new Date(p.date)).toLocaleDateString('en', date_options);
             p.actionDate = (new Date(p.actionDate)).toLocaleDateString('en', date_options);
@@ -227,11 +229,11 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
 
           // fix accessibility of paginator
           setTimeout( () => {
-            $('.ui-paginator-icon.pi-caret-right').attr('title', 'next page');
-            $('.ui-paginator-icon.pi-caret-left').attr('title', 'previous page');
-            $('a.ui-paginator-first').attr('title', 'first page');
-            $('a.ui-paginator-last').attr('title', 'last page');
-            $('a.ui-paginator-page').each(
+            $('.p-paginator-icon.pi-caret-right').attr('title', 'next page');
+            $('.p-paginator-icon.pi-caret-left').attr('title', 'previous page');
+            $('a.p-paginator-first').attr('title', 'first page');
+            $('a.p-paginator-last').attr('title', 'last page');
+            $('a.p-paginator-page').each(
               (idx, el) => {
                 const pageNum = $(el).text();
                 const title = 'page ' + pageNum;
@@ -241,10 +243,10 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
           }, 1000);
 
         },
-        err => {
+        error: (err) => {
           console.log(err);
-        });
-
+        }
+      });
   }
 
   /**
@@ -290,14 +292,14 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     });
 
     this.solicitationService.updateHistory(solicitation)
-      .subscribe(
-        msg => {
+      .subscribe({
+        next: msg => {
           this.titleService.setTitle('SRT - Solicitation ID ' + msg.id);
           this.router.navigate(['/solicitation/report', msg.id]).catch(r => console.log(r));
         },
-        () => {
-          console.log('e131');
-        });
+        error: (e) => {
+          console.log(e);
+        }});
   }
 
 
@@ -390,8 +392,9 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     const blob = new Blob([data], {
       type: 'text/csv;charset=utf-8;'
     });
-    if (window.navigator.msSaveOrOpenBlob) {
-      navigator.msSaveOrOpenBlob(blob, exportFilename);
+    const nav = (window.navigator as any)
+    if (nav.msSaveOrOpenBlob) {
+      nav.msSaveOrOpenBlob(blob, exportFilename);
     } else {
       const link = document.createElement('a');
       link.style.display = 'none';
@@ -417,7 +420,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     const noticeEl = document.getElementById('ddl_noticeTypes');
     if (noticeEl) {
       this.tableState.filter.noticeType = {
-        matchMode: 'equals', value: noticeEl.getElementsByClassName('ui-dropdown-label')[0].textContent
+        matchMode: 'equals', value: noticeEl.getElementsByClassName('p-dropdown-label')[0].textContent
       };
       if (this.tableState.filter.noticeType.value === 'All') {
         delete this.tableState.filter.noticeType;
@@ -427,7 +430,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     const rrEl = document.getElementById('ddl_reviewRec');
     if (rrEl) {
       this.tableState.filter.reviewRec = {
-        matchMode: 'equals', value: rrEl.getElementsByClassName('ui-dropdown-label')[0].textContent
+        matchMode: 'equals', value: rrEl.getElementsByClassName('p-dropdown-label')[0].textContent
       };
       // adjust the Non-Compliant reviewRec filter to be "Non-compliant (Action Required)"
       if (this.tableState.filter.reviewRec.value === 'Non-Compliant') {

@@ -11,7 +11,7 @@ import {Title} from '@angular/platform-browser';
   styleUrls: ['./analytics.component.css']
 })
 
-@Directive({selector: 'baseChart'})
+//@Directive({selector: 'baseChart'})
 
 // tslint:disable-next-line:directive-class-suffix
 export class AnalyticsComponent extends BaseComponent implements OnInit {
@@ -147,8 +147,6 @@ export class AnalyticsComponent extends BaseComponent implements OnInit {
                 data => {
                     this.agencyList = data;
                 },
-                err => {
-                }
             );
         } else {
             agency = agency.split(' (')[0];
@@ -191,8 +189,6 @@ export class AnalyticsComponent extends BaseComponent implements OnInit {
                 this.UndeterminedSolicitationChart = data.UndeterminedSolicitationChart;
                 this.filterActionChange = false;
             },
-            err => {
-            }
         );
     }
 

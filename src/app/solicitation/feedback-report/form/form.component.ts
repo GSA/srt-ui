@@ -17,6 +17,7 @@ export class FormComponent implements OnInit {
   title;
   solNum = 'atcsolnum';
 
+
   /* CONSTRUCTORS */
 
   /**
@@ -31,19 +32,23 @@ export class FormComponent implements OnInit {
     const solNum = this.route.snapshot.params['id'];
     const that = this;
     this.solicitationService.getSolicitationFeedback({solNum: solNum}).subscribe(
-      function (data: any) {
-        this.submitter = data.email;
-        this.date = data.date;
-        this.feedback = data.responses;
-        this.title = data.solNum;
-        this.solNum = data.solNum;
-      }.bind(this),
-      error => console.log('ERROR: ' + error)
+      {next: (data:any) => this.assignFeedback(data),
+      error: error => console.log('ERROR: ' + error)}
     );
   }
 
   ngOnInit() {
   }
 
+  /*
+  * METHODS
+  */
+  assignFeedback(feedback) {
+    this.submitter = feedback.email;
+    this.date = feedback.date;
+    this.feedback = feedback.responses;
+    this.title = feedback.solNum;
+    this.solNum = feedback.solNum;
+  }
 
 }
