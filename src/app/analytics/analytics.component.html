@@ -92,7 +92,9 @@
                     [selectedPeriod]="selectedPeriod"
                     [toPeriod]="toPeriod"
                     [fromPeriod]="fromPeriod"
-                    [xAxis]="xAxis"></app-top-agencies-percentage>
+                    [xAxis]="xAxis"
+                    [agencyList]="agencyList">
+                </app-top-agencies-percentage>
                 <app-line-charts
                      *ngIf="!isGovernmentWide"
                      [TopAgenciesChart]="TopAgenciesChart"

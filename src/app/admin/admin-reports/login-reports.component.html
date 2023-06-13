@@ -7,7 +7,7 @@
     </div>
     <div class="col-xs-4 col-sm-6">
       <div class="right-chart-control">
-        <button label="Download CSV" class="ui-button srt-button" style="float:none; display:inline; width:125px;" (click)="downloadLoginData(data)"  >Download CSV</button>
+        <button label="Download CSV" class="p-button srt-button" style="float:none; display:inline; width:125px;" (click)="downloadLoginData(data)"  >Download CSV</button>
         <p-dropdown [options]="timeSelection" (onChange)="timeChange($event)" [(ngModel)]="selection"></p-dropdown>
       </div>
     </div>
@@ -19,7 +19,7 @@
 
 
   <h1 class="srt-blue analytic-big-title" id="anchor-User-Login-Report">User Login Report</h1>
-  <p-table [value]="userData" [columns]="userChartCols">
+  <p-table [value]="userData" [columns]="userChartCols" styleClass="pDataTable p-datatable-gridlines">
     <ng-template pTemplate="header" let-columns>
       <tr>
         <th *ngFor="let col of userChartCols" [pSortableColumn]="col.field">
@@ -30,7 +30,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">
       <tr>
-        <td *ngFor="let col of columns">
+        <td *ngFor="let col of columns" class="srt-table-data">
           {{rowData[col.field]}}
         </td>
       </tr>

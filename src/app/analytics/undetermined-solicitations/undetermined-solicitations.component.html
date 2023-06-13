@@ -3,22 +3,18 @@
     <div class="srt-blue undeter-solic-title">
       <h2 class="srt-blue chart">Last 30 Days Excluded Solicitations from SRT Prediction Results (By Category)</h2>
         <sup class="undeter-solic-supfont"
-            [tooltip]="predictionResult" tooltipPlacement="bottom">
+            pTooltip="Other Undetermined' solicitations are solicitations with attachments that are currently failed to be accessed by the system due to various reasons (e.g., security redirect)."
+            tooltipPosition="bottom">
             <i tabindex="0" class="fa fa-info-circle info" aria-hidden="true" ></i>
         </sup>
-        <tooltip-content #predictionResult [animation]="true">
-            <div>'Other Undetermined' solicitations are solicitations with attachments that are currently failed to be accessed by the system due to various reasons (e.g., security redirect).</div>
-        </tooltip-content>
     </div>
 
     <div class="undeter-solic-div">
       <div class="undeter-solic-canvas">
           <canvas baseChart
                   [data]="pieChartData"
-                  [labels]="pieChartLabels"
                   [options]="options"
-                  [colors]="colorsOverride"
-                  [chartType]="pieChartType">
+                  [type]="pieChartType">
           </canvas>
       </div>
       <div class="undeter-solic-dispaly1" aria-hidden="true">

@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, ViewChild} from '@angular/core';
 
 import { BaseChartDirective } from 'ng2-charts';
-import { Color } from 'ng2-charts';
+import { Color } from 'chart.js';
+
 
 @Component({
   selector: 'app-undetermined-solicitations',
@@ -17,16 +18,18 @@ export class UndeterminedSolicitationsComponent implements OnInit {
 
   public hasValue = false;
   public pieChartLabels: string[] = ['Presolicitation', 'Other Undetermined', '0 Documents', 'Non-Machine Readable'];
-  public pieChartData: any[] = [0, 0, 0, 0];
+  public pieChartData: any;
 
   public pieChartType = 'pie';
   public options: any = {
-    cutoutPercentage: 0,
-    legend: {
-        display: true,
-        position: 'bottom',
-        onClick: function() {
-        }
+    cutout: 0,
+    plugins: {
+      legend: {
+          display: true,
+          position: 'bottom',
+          onClick: function() {
+          }
+      }
     },
     tooltips: {
         enabled: true,
@@ -39,11 +42,6 @@ export class UndeterminedSolicitationsComponent implements OnInit {
     maintainAspectRatio: false,
     responsive: true,
   };
-
-  colorsOverride: Array<Color> = [{
-      backgroundColor: [ '#2C81C0', '#ff0000', '#e8e8e8', '#FFB300' ],
-      hoverBackgroundColor: [ '#2C81C0', '#ff0000', '#e8e8e8', '#FFB300' ],
-  }];
 
   public displayPresolicitation = '';
   public displayNonMachineReadable = '';
@@ -76,7 +74,14 @@ export class UndeterminedSolicitationsComponent implements OnInit {
       const NonMachineReadable = this.UndeterminedSolicitationChart.latestNonMachineReadable;
       const NoDocument = this.UndeterminedSolicitationChart.latestNoDocument;
       const total = presolicitation + undetermined + NonMachineReadable + NoDocument;
-      this.pieChartData = [presolicitation, undetermined, NoDocument, NonMachineReadable ];
+      this.pieChartData = {
+        labels: this.pieChartLabels, 
+        datasets:  [{
+          data:[presolicitation, undetermined, NoDocument, NonMachineReadable],
+          backgroundColor: ['#2C81C0', '#ff0000', '#e8e8e8', '#FFB300'],
+          hoverBackgroundColor: ['#2C81C0', '#ff0000', '#e8e8e8', '#FFB300']
+        }
+      ]};
 
         this.displayPresolicitation = Math.round(presolicitation / total * 1000) / 10 + '%';
         this.displayNonMachineReadable = Math.round(NonMachineReadable / total * 1000) / 10 + '%';
@@ -92,7 +97,7 @@ export class UndeterminedSolicitationsComponent implements OnInit {
    */
   forceChartRefresh() {
       setTimeout(() => {
-          this.baseChart.refresh();
+          this.baseChart.update();
       }, 10);
   }
 

@@ -3,7 +3,8 @@ import {LoginReportService} from './login-report.service';
 import {SelectItem} from 'primeng/api';
 import {saveAs} from 'file-saver';
 import {parse} from 'json2csv';
-
+import { enUS } from 'date-fns/locale';
+import 'chartjs-adapter-date-fns';
 interface TimeSelection {
   days: number;
 }
@@ -43,31 +44,36 @@ export class LoginReportsComponent implements OnInit {
     this.selection = {days: 30};
 
     this.chartOptions = {
-      legend: {
-        display: false
+      plugins: {
+        legend: {
+          display: false
+        }
       },
       scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          },
-          scaleLabel: {
+        y: {
+          beginAtZero: true,
+          title: {
             display: true,
-            labelString: 'Total number of logins'
+            text: 'Total number of logins'
           }
-        }],
-        xAxes: [{
+        },
+        x: {
+          adapters: { 
+            date: {
+              locale: enUS, 
+            },
+          },
           display: true,
           type: 'time',
           time: {
-            parser: 'MM/DD/YYYY',
+            parser: 'MM/dd/yyyy',
             unit: 'day',
             unitStepSize: 1,
             displayFormats: {
-              'day': 'MM/DD/YYYY'
+              'day': 'MM/dd/yyyy'
             }
           }
-        }]
+        }
       }
     };
 
@@ -81,16 +87,17 @@ export class LoginReportsComponent implements OnInit {
     ];
 
     loginReportService.getLoginReport()
-      .subscribe(
-        data => {
+      .subscribe({
+        next: (data) => {
           this.data = data;
           this.chartifyLoginReport(data);
           this.chartifyUserReport(data);
 
         },
-        error => {
-          console.log(error);
+        error: (error) => {
+          console.log(`getLoginReport error -- ${error}`);
         }
+      }
       );
   }
 
@@ -98,16 +105,22 @@ export class LoginReportsComponent implements OnInit {
   chartifyLoginReport(data: any) {
 
     if (this.selection.days > 90) {
-      this.chartOptions.scales.xAxes[0].time.unit = 'month';
+      this.chartOptions.scales.x.time.unit = 'month';
     } else if (this.selection.days > 30) {
-      this.chartOptions.scales.xAxes[0].time.unit = 'week';
+      this.chartOptions.scales.x.time.unit = 'week';
     } else {
-      this.chartOptions.scales.xAxes[0].time.unit = 'day';
+      this.chartOptions.scales.x.time.unit = 'day';
     }
 
     this.loginData = {
       labels: [],
-      datasets: [{label: 'User Logins', data: [], fill: false, backgroundColor: '#2C81C0'}],
+      datasets: [
+        {
+          label: 'User Logins', 
+          data: [], 
+          fill: false, 
+          backgroundColor: '#2C81C0'
+        }],
     };
     this.readerSupplement = '<table style="border: 1px black solid"><thead><tr><th>Date</th><th>Login Count</th></tr></thead>';
 
@@ -128,6 +141,7 @@ export class LoginReportsComponent implements OnInit {
         this.readerSupplement += `<tr><td>${date}</td><td>${loginsForDay}</td>`;
       }
     });
+    console.log('Login data', this.loginData)
     this.readerSupplement += '</table>';
   }
 

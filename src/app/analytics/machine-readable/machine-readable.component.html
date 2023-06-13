@@ -6,7 +6,7 @@
             [tooltip]="MachineReadable" tooltipPlacement="bottom">
             <i tabindex="0" class="fa fa-info-circle info" aria-hidden="true" ></i>
         </sup>
-        <tooltip-content #MachineReadable [animation]="true">
+        <tooltip-content #MachineReadable >
             <div></div>
         </tooltip-content> -->
     </div>
@@ -17,8 +17,7 @@
                   [data]="pieChartData"
                   [labels]="pieChartLabels"
                   [options]="options"
-                  [colors]="colorsOverride"
-                  [chartType]="pieChartType">
+                  [type]="pieChartType">
           </canvas>
       </div>
       <div class="pieresultun">

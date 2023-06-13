@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
-import { Color, Label, BaseChartDirective } from 'ng2-charts';
-import { ChartOptions, ChartType} from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
+import { ChartType, ChartData } from 'chart.js';
 import {Globals} from 'globals';
 
 
@@ -25,23 +25,26 @@ export class PredictionResultComponent implements OnInit {
   public numNonCompliant = 0;
 
   public hasValue = false;
-  public pieChartLabels: Label[] = ['', ''];
-  public pieChartData: any[] = [0, 0];
+  public pieChartLabels: BaseChartDirective["labels"] = ['', ''];
+  public pieChartData: ChartData;
 
   public pieChartType: ChartType = 'pie';
   public barChartPlugins = [];
-  public options: ChartOptions = {
-    cutoutPercentage: 0,
-    legend: {
-        display: true,
-        position: 'bottom',
-        onClick: function() {
-        },
-        labels: {
-          fontColor: this.globals.chart_legend_text_color,
-          fontSize: 16
-        }
-    },
+  public options: any = {
+    plugins: {
+      legend: {
+          display: true,
+          position: 'bottom',
+          onClick: function() {
+          },
+          labels: {
+            color: '#000000',
+            font: {
+              size: 16
+            }
+          }
+      }
+  },
     tooltips: {
         enabled: true,
         callbacks: {
@@ -54,17 +57,13 @@ export class PredictionResultComponent implements OnInit {
     responsive: true,
   };
 
-  public colorsOverride: Array<Color> = [{
-      backgroundColor: [ this.globals.chart_color_1, this.globals.chart_color_2 ],
-      hoverBackgroundColor: [ this.globals.chart_color_1, this.globals.chart_color_2 ],
-  }];
 
   /* CONSTRUCTOR */
 
   /**
    * constructor
    */
-  constructor( public globals: Globals ) {
+  constructor( public globals: Globals ) { 
   }
 
   /**
@@ -83,11 +82,21 @@ export class PredictionResultComponent implements OnInit {
         this.numCompliant = this.PredictResultChart.compliance;
         this.numNonCompliant = this.PredictResultChart.uncompliance;
         const total = this.numCompliant + this.numNonCompliant ;
-        this.pieChartData = [this.numCompliant, this.numNonCompliant];
+        
         this.displayCompliance = Math.round(this.numCompliant / total * 1000) / 10 + '%';
         this.displayUncompliance = Math.round(this.numNonCompliant / total * 1000) / 10 + '%';
-        this.pieChartLabels = [ this.numCompliant + ' Compliant ' + this.displayCompliance,
-                                this.numNonCompliant + ' Non-compliant ' + this.displayUncompliance];
+
+        this.pieChartData = {
+          labels: [this.numCompliant + ' Compliant ' + this.displayCompliance,
+                   this.numNonCompliant + ' Non-compliant ' + this.displayUncompliance],
+        
+          datasets: [{
+            data: [this.numCompliant, this.numNonCompliant], 
+            backgroundColor: ['#2C81C0', '#ff0000'], 
+            borderColor: ['#2C81C0', '#ff0000']}
+          ]
+        };
+
         this.hasValue = true;
         this.forceChartRefresh();
     }
@@ -96,7 +105,7 @@ export class PredictionResultComponent implements OnInit {
   // refresh the charts
   forceChartRefresh() {
       setTimeout(() => {
-          this.baseChart.refresh();
+          this.baseChart.update();
       }, 10);
   }
 

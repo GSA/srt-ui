@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild, Directive } from '@angular/core';
 
 import { BaseChartDirective } from 'ng2-charts';
-import { Color } from 'ng2-charts';
 import {saveAs} from 'file-saver';
 import { AnalyticsService } from '../services/analytics.service';
 
@@ -14,7 +13,7 @@ import * as _ from 'underscore';
     styleUrls: ['../analytics.component.css', './scanned-solicitation.component.css']
 })
 
-@Directive({selector: 'baseChart'})
+//@Directive({selector: 'baseChart'})
 
 // tslint:disable-next-line:directive-class-suffix
 export class ScannedSolicitationComponent implements OnInit {
@@ -38,34 +37,18 @@ export class ScannedSolicitationComponent implements OnInit {
 
 
   public barChartOptions: any = {
-      legend: {
+      plugins: {
+        legend: {
         display: true,
         position: 'bottom'
+        }
       },
       scaleShowVerticalLines: false,
       maintainAspectRatio: false,
       responsive: true,
       barPercentage: 1.0,
       scales: {
-          xAxes: [{
-                  stacked: true,
-                  gridLines: {
-                      color: 'rgba(0, 0, 0, 0)',
-                  },
-                  barPercentage: 1.0,
-                  categoryPercentage: 0.9,
-              }],
-          yAxes: [{
-            stacked: true,
-            ticks: {
-              beginAtZero: true,
-              min: 0,
-            },
-              gridLines: {
-                  color: 'rgba(0, 0, 0, 0)',
-              }},
-          ],
-          labelString: 'probability'
+          
       },
       tooltips: {
           enabled: true,
@@ -80,11 +63,6 @@ export class ScannedSolicitationComponent implements OnInit {
   };
 
 
-
-  public colorsOverride: Array<Color> = [
-      { backgroundColor: _.range(32).map(function () { return '#2C81C0'; })}
-  ];
-
   /* CONSTRUCTOR */
 
   /**
@@ -92,7 +70,7 @@ export class ScannedSolicitationComponent implements OnInit {
    */
   constructor(
     private AnalyticsService: AnalyticsService,
-  ) {}
+  ) {  }
 
   /**
    * lifecycle
@@ -131,7 +109,7 @@ export class ScannedSolicitationComponent implements OnInit {
   stripYears(inArray: Object) {
     const result = {};
     for (const key of Object.keys(inArray) ) {
-      const newKey = key.substr(4);
+      const newKey = key.substring(4);
       result[newKey] = inArray[key];
     }
     return result;
@@ -164,13 +142,16 @@ export class ScannedSolicitationComponent implements OnInit {
           this.newSolicitationData[j] = (this.newSolicitationData[j]) ? this.newSolicitationData[j] : 0;
         }
         this.tabularData = this.buildTable(this.newSolicitationData, this.barChartLabels);
-      this.barChartData = [{
-        data: this.newSolicitationData,
-        label: 'New Solicitations'
-      }, {
-        data: this.updatedSolicitationData,
-        label: 'Updated Solicitations'
-      }];
+        this.barChartData = [{
+          data: this.newSolicitationData,
+          label: 'New Solicitations',
+          backgroundColor: '#2C81C0'
+        }, {
+          data: this.updatedSolicitationData,
+          label: 'Updated Solicitations',
+          backgroundColor: '#75c2fb'
+        }];
+
         this.hasValue = true;
         this.forceChartRefresh();
     }
@@ -207,7 +188,7 @@ export class ScannedSolicitationComponent implements OnInit {
    */
   forceChartRefresh() {
       setTimeout(() => {
-          this.baseChart.refresh();
+          this.baseChart.update();
       }, 10);
   }
 
@@ -215,12 +196,10 @@ export class ScannedSolicitationComponent implements OnInit {
     document.body.style.cursor = 'wait';
     this.AnalyticsService.GetDownloadedSolicitationsReport()
       .subscribe(
-        data => {
+        (data:any) => {
           saveAs(data, 'downloaded_solicitations_report.csv');
           document.body.style.cursor = 'default';
         },
-        err => {
-        }
       );
   }
 }

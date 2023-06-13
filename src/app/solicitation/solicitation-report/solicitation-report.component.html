@@ -19,7 +19,7 @@
 
 <div *ngIf="solicitations">
     <div class="row nopadding">
-        <div style="padding: 20px" class="clearfix">
+        <div style="padding-left: 5em" class="clearfix">
             <h1 class="srt-page-title srt-blue" style="padding-bottom: 5px;"  role="heading" aria-level="1">Solicitation Review Results for Section 508 Requirements</h1>
 
           <!--
@@ -46,7 +46,7 @@
                                 <span class=" glyphicon glyphicon-search"></span>
                             </button>
                         </span>
-                        <input id="ksearch" #gb
+                        <input pInputText id="ksearch" #gb
                                type="text"
                                class="search-query form-control"
                                placeholder="search string"
@@ -66,7 +66,7 @@
         </div>
 
 
-  <p-table #gb styleClass="pDataTable"
+  <p-table #gb styleClass="pDataTable p-datatable-gridlines"
            [value]="solicitations"
            [lazy] = "true"
            [loading]="loading"
@@ -82,29 +82,30 @@
            [paginator]="true"
            [rowsPerPageOptions]="[15, 25, 35, 45]"
            [pageLinks]="4"
-           [responsive]="true"
-           [resizableColumns]="true"
+           [resizableColumns]="false"
            [columns]="columns"
-           columnResizeMode="expand">
+           [globalFilterFields]="['solNum', 'title', 'date', 'actionDate', 'agency', 'office']"
+           >
     <ng-template pTemplate="header">
       <tr>
-        <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field" pResizableColumn>
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field" [id]="col.field" [ngSwitch]="col.field" pResizableColumn>
           {{col.title}}
 
           <p-sortIcon *ngIf="col.field !== undefined"
                       [field]="col.field"
                       ariaLabel="Activate to sort"
                       ariaLabelDesc="Activate to sort in descending order"
-                      ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                      ariaLabelAsc="Activate to sort in ascending order">
+                    </p-sortIcon>
+          <br>
           <br>
           <p-dropdown id="ddl_noticeTypes" *ngSwitchCase="'noticeType'" [options]="noticeTypes" [(ngModel)]="noticeTypeFilterModel"
                       (onChange)="gb.filter($event.value, col.field, 'equals')"></p-dropdown>
 
           <p-dropdown id="ddl_reviewRec" *ngSwitchCase="'reviewRec'" [options]="reviewRec" [(ngModel)]="reviewResultFilterModel"
-                      (onChange)="gb.filter($event.value, col.field, 'equals')"></p-dropdown>
-
-          <p-dropdown id="ddl_predictions.estar" *ngSwitchCase="'predictions.estar'" [options]="epaDropdown"
-                      (onChange)="gb.filter($event.value, col.field, 'equals')"></p-dropdown>
+                      (onChange)="gb.filter($event.value, col.field, 'equals')" 
+                      (onLazyLoad)="gb.filter($event.value, col.field, 'equals')"
+                      ></p-dropdown>
 
           <p-dropdown id="ddl_predictions.estar" *ngSwitchCase="'predictions.estar'" [options]="epaDropdown"
                       (onChange)="gb.filter($event.value, col.field, 'equals')"></p-dropdown>
@@ -114,19 +115,19 @@
     </ng-template>
     <ng-template pTemplate="body" let-sol>
       <tr (mousedown)="mouseDown(sol)" (mouseup)="mouseUp(sol)">
-        <td class="ui-resizable-column col_solicitation"><span class="ui-column-title">Solicitation #</span><a href={{sol.url}}>{{sol.solNum}}</a></td>
-        <td class="ui-resizable-column col_title"><span class="ui-column-title">Title</span>{{sol.title}}</td>
-        <td class="ui-resizable-column col_notice_type"><span class="ui-column-title">Notice Type</span>{{sol.noticeType}}</td>
-        <td class="ui-resizable-column col_date_posted"><span class="ui-column-title">Date Posted</span>{{sol.date}}</td>
-        <td class="ui-resizable-column col_review_result">
-          <span class="ui-column-title">Review Result</span>
+        <td class="p-resizable-column srt-table-data col_solicitation"><span class="p-column-title">Solicitation #</span><a href={{sol.url}}>{{sol.solNum}}</a></td>
+        <td class="p-resizable-column srt-table-data col_title"><span class="p-column-title">Title</span>{{sol.title}}</td>
+        <td class="p-resizable-column srt-table-data col_notice_type"><span class="p-column-title">Notice Type</span>{{sol.noticeType}}</td>
+        <td class="p-resizable-column srt-table-data col_date_posted"><span class="p-column-title">Date Posted</span>{{sol.date}}</td>
+        <td class="p-resizable-column srt-table-data col_review_result">
+          <span class="p-column-title">Review Result</span>
           <button class="button {{'result-' + ((sol.reviewRec == 'Not Applicable') ? 'black' : sol.predictions.value)}}" (click)="selectSol(sol)"  style="border: none; text-align: left; padding: 0;">
               <i class="fa fa-exclamation-triangle" style="padding-right: 5px;" *ngIf="sol.predictions.value == 'red' && sol.reviewRec != 'Not Applicable'"></i>
             <span style="text-decoration: underline;">{{sol.reviewRec}}</span>
           </button>
         </td>
-        <td class="ui-resizable-column col_review_result" *ngIf="feature_flags.estar">
-          <span class="ui-column-title">EPA Review</span>
+        <td class="p-resizable-column srt-table-data col_review_result" *ngIf="feature_flags.estar">
+          <span class="p-column-title">EPA Review</span>
           <button class="button {{'result-' + sol.predictions.estar}}" (click)="selectSol(sol)"  style="border: none; text-align: left; padding: 0;">
             <i class="fa fa-exclamation-triangle" style="padding-right: 5px;" *ngIf="sol.predictions.estar == 'red' "></i>
             <span style="">{{sol.predictions.estar == "green" ? "Compliant" :
@@ -134,16 +135,16 @@
                              sol.predictions.estar == "Not Applicable" ? "Not Applicable" :  ""}}</span>
           </button>
         </td>
-        <td class="ui-resizable-column col_action_status"><span class="ui-column-title">Action Status</span>{{sol.actionStatus}}</td>
-        <td class="ui-resizable-column col_action_date"><span class="ui-column-title">Action Date</span>{{sol.actionDate}}</td>
-        <td class="ui-resizable-column col_agency"><span class="ui-column-title">Agency</span>{{sol.agency}}</td>
-        <td class="ui-resizable-column col_office"><span class="ui-column-title">Office</span>{{sol.office}}</td>
-        <td class="ui-resizable-column col_url" hidden><span class="ui-column-title">URL</span>{{sol.url}}</td>
+        <td class="p-resizable-column srt-table-data col_action_status"><span class="p-column-title">Action Status</span>{{sol.actionStatus}}</td>
+        <td class="p-resizable-column srt-table-data col_action_date"><span class="p-column-title">Action Date</span>{{sol.actionDate}}</td>
+        <td class="p-resizable-column srt-table-data col_agency"><span class="p-column-title">Agency</span>{{sol.agency}}</td>
+        <td class="p-resizable-column col_url" hidden><span class="p-column-title">URL</span>{{sol.url}}</td>
+        <td class="p-resizable-column srt-table-data col_office"><span class="p-column-title">Office</span>{{sol.office}}</td>
       </tr>
     </ng-template>
 
   </p-table>
-
+  
   <div id="total-count">
     Total Solicitation {{totalRecordCount}}
   </div>

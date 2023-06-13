@@ -1,6 +1,6 @@
 import {Component, Directive, Input, OnInit, ViewChild} from '@angular/core';
 
-import {BaseChartDirective, Color} from 'ng2-charts';
+import {BaseChartDirective} from 'ng2-charts';
 
 @Component({
   selector: 'app-machine-readable',
@@ -8,7 +8,7 @@ import {BaseChartDirective, Color} from 'ng2-charts';
   styleUrls: ['../analytics.component.css', './machine-readable.component.css']
 })
 
-@Directive({selector: 'baseChart'})
+//@Directive({selector: 'baseChart'})
 // tslint:disable-next-line:directive-class-suffix
 export class MachineReadableComponent implements OnInit {
 
@@ -23,7 +23,13 @@ export class MachineReadableComponent implements OnInit {
 
   public pieChartType = 'pie';
   public options: any = {
-    cutoutPercentage: 0,
+    cutout: 0,
+    datasets: {
+      pie: {
+        backgroundColor: ['#2C81C0', '#ff0000'],
+        hoverBackgroundColor: ['#2C81C0', '#ff0000']
+      }
+    },
     legend: {
         display: true,
         position: 'bottom',
@@ -44,11 +50,6 @@ export class MachineReadableComponent implements OnInit {
     maintainAspectRatio: false,
     responsive: true,
   };
-
-  public colorsOverride: Array<Color> = [{
-    backgroundColor: [ '#2C81C0', '#f7f7f7'],
-    hoverBackgroundColor: [ '#2C81C0', '#f7f7f7'],
-  }];
 
   public displayUnreadable = '';
   public displayReadable = '';
@@ -87,7 +88,7 @@ export class MachineReadableComponent implements OnInit {
   // refresh the charts
   forceChartRefresh() {
       setTimeout(() => {
-          this.baseChart.refresh();
+          this.baseChart.update();
       }, 10);
   }
 }
