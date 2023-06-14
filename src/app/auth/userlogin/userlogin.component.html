@@ -12,12 +12,12 @@
             onClick=" (function() {
                         var client_host = window.location.hostname
                         var server_host = '';
-                        if (client_host === 'localhost') { server_host = '172.17.0.3:8080'}
+                        if (client_host === 'localhost') { server_host = 'localhost:3000'}
                         if (client_host === 'srt-client.app.cloud.gov' || client_host === 'srt.app.cloud.gov') { server_host = 'srt-server.app.cloud.gov' }
                         if (client_host === 'srt-client-dev.app.cloud.gov') { server_host = 'srt-server-dev.app.cloud.gov' }
                         if (client_host === 'srt-client-staging.app.cloud.gov') { server_host = 'srt-server-staging.app.cloud.gov' }
                         //default to current name for dev servers
-                        if (server_host === '') { server_host = '172.17.0.3:8080';}
+                        if (server_host === '') { server_host = 'localhost:3000';}
                         window.location = 'http://' + server_host + '/api/casLogin'
                       }()) ">Login with MAX</button>
   </div>
