@@ -41,11 +41,11 @@ export class UserReportComponent implements OnInit {
    */
   getUsers() {
     this.userService.getUsers(this.filterParams).subscribe(
-      data => {
+      {next: data => {
         this.users = data;
       },
-      error => { console.log(error); }
-    );
+      error: error => { console.log(error); }
+    });
   }
 
 

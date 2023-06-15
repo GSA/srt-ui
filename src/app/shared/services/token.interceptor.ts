@@ -3,14 +3,16 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
+  HttpResponse,
   HttpInterceptor, HttpClient
 } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { TokenService } from './token.service';
 import {NavigationStart, Router} from '@angular/router';
 import {NGXLogger} from 'ngx-logger';
 import {Globals} from '../../../globals';
+import { tap } from 'rxjs/operators';
 
 const state = {
   token_expires : 0,
@@ -29,7 +31,8 @@ const state = {
  */
 function refresh (http: HttpClient, router: Router, logger: NGXLogger, globals: Globals, tokenService: TokenService) {
   http.get(environment.SERVER_URL + '/renewToken')
-    .subscribe((data: any) => {
+    .subscribe({
+      next: (data: any) => {
       const now = new Date();
       tokenService.installToken(data.token);
       state.refresh_queued = false;  // clear out the queue marker
@@ -58,9 +61,10 @@ function refresh (http: HttpClient, router: Router, logger: NGXLogger, globals: 
         }
       }, Math.min(session_timeout, sessionEndInMS));
 
-    }, (error) => {
+    }, error: (error) => {
       logger.warn('error renewing token', error);
-    });
+    }
+  });
 }
 
 
@@ -106,18 +110,19 @@ export class TokenInterceptor implements HttpInterceptor {
         Authorization: `Bearer ${token}`
       }
     });
-    return next.handle(request).do(
-      () => { },
-      (error: any) => {
-        if (error.status === 401) {
-          this.logger.debug('Token rejected, redirecting to /auth');
-          this.globals.app.isLogin = false;
-          return this.router.navigate(['/auth']);
-        } else {
-          this.logger.error(error);
+    return next.handle(request).pipe(
+      tap(
+        error => {
+          const err = error as HttpResponse<any>;
+          if (err.status === 401) {
+            this.logger.debug('Token rejected, redirecting to /auth');
+            this.globals.app.isLogin = false;
+            return this.router.navigate(['/auth']);
+          } else {
+            this.logger.error(error);
+          }
         }
-      }
-    );
+    ));
   }
 }
 

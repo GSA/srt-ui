@@ -41,8 +41,6 @@ export class MetricDownloadsComponent implements OnInit {
           document.body.style.cursor = 'default';
           button_element.style.cursor = 'pointer';
         },
-        err => {
-        }
       );
   }
 
@@ -57,8 +55,6 @@ export class MetricDownloadsComponent implements OnInit {
           document.body.style.cursor = 'default';
           button_element.style.cursor = 'pointer';
         },
-        err => {
-        }
       );
   }
 
@@ -73,8 +69,6 @@ export class MetricDownloadsComponent implements OnInit {
           document.body.style.cursor = 'default';
           button_element.style.cursor = 'pointer';
         },
-        err => {
-        }
       );
   }
 

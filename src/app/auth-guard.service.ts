@@ -47,7 +47,7 @@ export class AuthGuard implements CanActivate {
       return true;
     } else {
        this.authService.checkToken().subscribe(
-        data => {
+        (data) => {
           this.isLogin = data.isLogin;
           if (data.isLogin) {
             this.router.navigate([url]).catch(r => console.log(r));

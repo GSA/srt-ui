@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
@@ -17,14 +16,13 @@ export class AgencyService {
    * @param http
    */
   constructor(
-    private http: Http
+    private http: HttpClient
   ) { }
 
   /**
    * Get agencies
    */
   public GetAgencies() {
-      return this.http.get(this.agenciesUrl)
-            .map((response: Response) => response.json());
+      return this.http.get(this.agenciesUrl, {responseType: 'json'});
   }
 }

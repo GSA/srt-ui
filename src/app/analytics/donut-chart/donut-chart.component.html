@@ -2,13 +2,10 @@
 
         <div class="srt-blue circle-chart">
           <h2 class="srt-blue chart">{{title}}</h2>
-            <sup class="supfont"
-                [tooltip]="donutChart" tooltipPlacement="bottom">
+            <sup class="supfont" pTooltip={{componentTooltip}}
+                    tooltipPosition="bottom">
                 <i tabindex="0" class="fa fa-info-circle info" aria-hidden="true" ></i>
             </sup>
-            <tooltip-content #donutChart [animation]="true" aria-hidden="true">
-                <div>{{componentTooltip}}</div>
-            </tooltip-content>
         </div>
 
         <div class="precposi">
@@ -20,8 +17,7 @@
                         [data]="doughnutChartData"
                         [labels]="doughnutChartLabels"
                         [options]="options"
-                        [colors]="colorsOverride"
-                        [chartType]="doughnutChartType">
+                        [type]="doughnutChartType">
                 </canvas>
             </div>
         </div>

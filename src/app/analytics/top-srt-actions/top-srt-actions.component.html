@@ -12,12 +12,9 @@
           <div class="clearfix analytic-overview-name" aria-hidden="true" >
               <div class="top-srt-floatleft">Total ICT Solicitations Scanned&nbsp;&nbsp;
                   <sup class="supfont"
-                      [tooltip]="TotalICT" tooltipPlacement="bottom" >
+                    pTooltip="Total number of ICT solicitations scanned from sam.gov for all federal agencies." tooltipPosition="bottom" >
                       <i tabindex="0" class="fa fa-info-circle info" aria-hidden="true" ></i>
                   </sup>
-                  <tooltip-content #TotalICT [animation]="true">
-                      <div role="tooltip" id="total-num-ict"> Total number of ICT solicitations scanned from sam.gov for all federal agencies.</div>
-                  </tooltip-content>
               </div>
               <div class="top-srt-floatright">{{solicitationNumber}}</div>
           </div>
@@ -35,12 +32,9 @@
           <div class="clearfix analytic-overview-name" aria-hidden="true" >
               <div class="top-srt-floatleft">Total Non-Compliant ICT Solicitations&nbsp;&nbsp;
                   <sup class="supfont"
-                      [tooltip]="TotalNonCompliantICT" tooltipPlacement="bottom">
+                      pTooltip="Total number of non-compliant ICT solicitations scanned from sam.gov for {{selectedAgency}}." tooltipPosition="bottom">
                       <i tabindex="0" class="fa fa-info-circle info" aria-hidden="true" ></i>
                   </sup>
-                  <tooltip-content #TotalNonCompliantICT [animation]="true">
-                      <div>Total number of non-compliant ICT solicitations scanned from sam.gov for {{selectedAgency}}.</div>
-                  </tooltip-content>
               </div>
               <div class="top-srt-floatright">{{nonCompliantICTNumber}}</div>
           </div>
@@ -57,12 +51,10 @@
           <div class="clearfix analytic-overview-name" aria-hidden="true" >
               <div class="top-srt-floatleft"># Solicitations Reviewed by 508 Coordinators&nbsp;&nbsp;
                   <sup class="supfont"
-                      [tooltip]="Reviewed" tooltipPlacement="bottom">
+                      pTooltip="Number of FebBizOpps solicitation links accessed through SRT by Section 508 coordinators. The solicitation links are visited for further review of SRT results prior to contacting the Point of Contact (PoC)."
+                       tooltipPosition="bottom">
                       <i tabindex="0" class="fa fa-info-circle info" aria-hidden="true"></i>
                   </sup>
-                  <tooltip-content #Reviewed [animation]="true">
-                      <div>Number of FebBizOpps solicitation links accessed through SRT by Section 508 coordinators. The solicitation links are visited for further review of SRT results prior to contacting the Point of Contact (PoC).</div>
-                  </tooltip-content>
               </div>
               <div class="top-srt-floatright">{{reviewed}}</div>
           </div>
@@ -79,12 +71,10 @@
           <div class="clearfix analytic-overview-name" aria-hidden="true" >
               <div class="top-srt-floatleft"># Emails Sent to POC&nbsp;&nbsp;
                   <sup class="supfont"
-                      [tooltip]="Emails" tooltipPlacement="bottom">
+                      pTooltip="Number of e-mails sent from Section 508 Coordinators to solicitations Point of Contact (POC)." 
+                      tooltipPosition="bottom">
                       <i tabindex="0" class="fa fa-info-circle info" aria-hidden="true"></i>
                   </sup>
-                  <tooltip-content #Emails [animation]="true">
-                      <div>Number of e-mails sent from Section 508 Coordinators to solicitations Point of Contact (POC).</div>
-                  </tooltip-content>
               </div>
               <div class="top-srt-floatright">{{emailSend}}</div>
           </div>
@@ -102,12 +92,10 @@
           <div class="clearfix analytic-overview-name" aria-hidden="true" >
               <div class="top-srt-floatleft"># Updated Solicitations&nbsp;&nbsp;
                   <sup class="supfont"
-                      [tooltip]="Updated0" tooltipPlacement="bottom">
+                      pTooltip="Number of ICT solicitations that have been re-scanned from sam.gov." 
+                      tooltipPosition="bottom">
                       <i tabindex="0" class="fa fa-info-circle info" aria-hidden="true"></i>
                   </sup>
-                  <tooltip-content #Updated0 [animation]="true">
-                      <div>Number of ICT solicitations that have been re-scanned from sam.gov.</div>
-                  </tooltip-content>
               </div>
               <div class="top-srt-floatright">{{updatedICTNumber}}</div>
           </div>
@@ -124,12 +112,10 @@
           <div class="clearfix analytic-overview-name" aria-hidden="true" >
               <div class="top-srt-floatleft"># Updated Non-compliant Solicitations&nbsp;&nbsp;
                   <sup class="supfont"
-                      [tooltip]="Updated1" tooltipPlacement="bottom">
+                      pTooltip="Number of ICT solicitations that have been re-scanned from sam.gov and remained non-compliant on SRT."
+                       tooltipPosition="bottom">
                       <i tabindex="0" class="fa fa-info-circle info" aria-hidden="true"></i>
                   </sup>
-                  <tooltip-content #Updated1 [animation]="true">
-                      <div>Number of ICT solicitations that have been re-scanned from sam.gov and remained non-compliant on SRT.</div>
-                  </tooltip-content>
               </div>
               <div class="top-srt-floatright">{{updatedNonCompliantICTNumber}}</div>
           </div>
@@ -147,12 +133,10 @@
           <div class="clearfix analytic-overview-name" aria-hidden="true" >
               <div class="top-srt-floatleft"># Updated Compliant Solicitations&nbsp;&nbsp;
                   <sup class="supfont"
-                      [tooltip]="Updated2" tooltipPlacement="bottom">
+                      pTooltip="Number of ICT solicitations that have been re-scanned from sam.gov and updated as compliant on SRT." 
+                      tooltipPosition="bottom">
                       <i tabindex="0" class="fa fa-info-circle info" aria-hidden="true"></i>
                   </sup>
-                  <tooltip-content #Updated2 [animation]="true">
-                      <div>Number of ICT solicitations that have been re-scanned from sam.gov and updated as compliant on SRT.</div>
-                  </tooltip-content>
               </div>
               <div class="top-srt-floatright">{{updatedCompliantICTNumber}}</div>
           </div>

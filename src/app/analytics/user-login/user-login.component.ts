@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { Color } from 'ng2-charts';
+import { Color } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
+
 
 
 @Component({
@@ -15,6 +17,8 @@ export class UserLoginComponent implements OnInit {
   public toPeriod: Date = new Date();
   public fromPeriod: Date = new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 31 ));
   public currentLoginUsers: Number = 24;
+  @ViewChild(BaseChartDirective, {static: false}) private baseChart;
+
 
   public lineChartData: Array<any> = [
     {
@@ -27,7 +31,17 @@ export class UserLoginComponent implements OnInit {
   public lineChartType = 'line';
 
   public options: any = {
-    cutoutPercentage: 85,
+    cutout: 85,
+    datasets: {
+      line: {
+        backgroundColor: 'rgba(255,255,255,0)',
+        borderColor: 'rgba(44,129,192,1)',
+        pointBackgroundColor: 'rgba(44,129,192,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(44,129,192,1)',
+      }
+    },
     legend: {
         display: false
     },
@@ -46,15 +60,6 @@ export class UserLoginComponent implements OnInit {
             }],
     }
   };
-
-  colorsOverride: Array<Color> = [{
-      backgroundColor: 'rgba(255,255,255,0)',
-      borderColor: 'rgba(44,129,192,1)',
-      pointBackgroundColor: 'rgba(44,129,192,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(44,129,192,1)'
-  }];
 
 
   /* CONSTRUCTOR */

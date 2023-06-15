@@ -46,7 +46,7 @@ export class HistoryComponent implements OnInit {
         this.solicitationID = params['id'];
         console.log(this.solicitationID);
         this.solicitationService.getSolicitation(this.solicitationID).subscribe(
-          data => {
+          {next: data => {
             data.parseStatus.forEach(element => {
               if (element.status === 'successfully parsed') {
                 element.status = 'Yes';
@@ -79,7 +79,7 @@ export class HistoryComponent implements OnInit {
               }
             });
           },
-          err => console.log(err)
+          error: err => console.log(err)}
         );
       });
   }

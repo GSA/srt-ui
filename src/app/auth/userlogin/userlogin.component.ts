@@ -79,8 +79,8 @@ export class UserloginComponent extends BaseComponent implements OnInit {
 
     } else {
       this.authService.login(user)
-        .subscribe(
-          data => {
+        .subscribe({
+          next: (data) => {
             // debugger
             console.log(data);
             localStorage.setItem('token', data.token);
@@ -112,11 +112,11 @@ export class UserloginComponent extends BaseComponent implements OnInit {
             }
             // this.router.navigate(['/home']);
           },
-          error => {
+          error: (error) => {
             this.errorMessage = true;
             this.errorInformation = error.error.message;
           }
-        );
+      });
     }
 
 

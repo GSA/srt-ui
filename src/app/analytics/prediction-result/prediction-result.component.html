@@ -8,11 +8,8 @@
       <div class="pieposition">
           <canvas baseChart
                   [data]="pieChartData"
-                  [labels]="pieChartLabels"
                   [options]="options"
-                  [colors]="colorsOverride"
-                  [chartType]="pieChartType"
-                  [plugins]="barChartPlugins"
+                  [type]="pieChartType"
                   tabindex="0"
                   aria-hidden="true">
             <p aria-hidden="true"> {{numCompliant}} compliant solicitations. {{displayCompliance}} of total.</p>

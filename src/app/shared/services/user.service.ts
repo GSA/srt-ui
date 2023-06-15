@@ -1,5 +1,5 @@
 
-import {throwError as observableThrowError} from 'rxjs';
+import {throwError as observableThrowError, catchError} from 'rxjs';
 import { EventEmitter, Injectable } from '@angular/core';
 
 
@@ -68,7 +68,11 @@ export class UserService {
   public updatePassword(filterParams) {
     const body = JSON.stringify(filterParams);
     return this.http.post<any>(this.updatePasswordUrl, body, httpOptions)
-      .catch((error) => observableThrowError(error.json()));
+      .pipe(
+        catchError( (error: any) => {
+         return observableThrowError(() => error.json())
+        }
+        ));
   }
 
 

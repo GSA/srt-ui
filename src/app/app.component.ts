@@ -71,19 +71,20 @@ export class AppComponent implements OnInit {
 
     this.clientVersionService
       .getVersionString()
-      .subscribe( (data: any) => {
-        // should come back in the form { "version" : "S4.9" , "build_date" : "2020-01-17.10.46.41" }
-        if ( (typeof(data) === 'object') && data.version ) {
-          this.clientVersion = ` / ${data.version}`;
-          this.clientBuildDate = data.build_date;
-        } else {
-          this.clientVersion = '';
-        }
-      },
-        (err: any) => {
-          this.clientVersion = '';
-        }
-      );
+      .subscribe({
+        next: (data: any) => {
+          // should come back in the form { "version" : "S4.9" , "build_date" : "2020-01-17.10.46.41" }
+          if ( (typeof(data) === 'object') && data.version ) {
+            this.clientVersion = ` / ${data.version}`;
+            this.clientBuildDate = data.build_date;
+          } else {
+            this.clientVersion = '';
+          }
+        },
+        error: (err: any) => {
+            this.clientVersion = '';
+          }
+      });
   }
 
 }

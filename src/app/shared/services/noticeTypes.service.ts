@@ -4,6 +4,8 @@ import {Globals} from '../../../globals';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {throwError as observableThrowError} from 'rxjs/internal/observable/throwError';
+import {catchError } from 'rxjs';
+
 
 @Injectable()
 export class NoticeTypesService {
@@ -20,10 +22,12 @@ export class NoticeTypesService {
    */
   public getNoticeTypes() {
     return this.http.get(this.noticeTypesUrl)
-      .catch( (error: any) => {
-        console.log(error);
-        return observableThrowError(error || 'Server Error');
-      });
+      .pipe(
+        catchError((error: any) => {
+          console.log(error);
+          return observableThrowError(() => (error || 'Server Error'));
+        }
+      ));
   }
 
 

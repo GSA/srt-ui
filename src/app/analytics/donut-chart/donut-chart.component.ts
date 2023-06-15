@@ -1,7 +1,8 @@
 import {Component, OnInit, Input, ViewChild, OnChanges} from '@angular/core';
 
 import { BaseChartDirective } from 'ng2-charts';
-import { Color } from 'ng2-charts';
+import { ChartData } from 'chart.js';
+
 import * as $ from 'jquery';
 
 
@@ -22,18 +23,18 @@ export class DonutChartComponent implements OnInit, OnChanges {
   @ViewChild(BaseChartDirective, {static: false}) private baseChart;
 
   public doughnutChartLabels: String[] = ['', ''];
-  public doughnutChartData: any[] = [0, 1];
+  public doughnutChartData: ChartData<'doughnut'>;
   public doughnutChartType: String = 'doughnut';
 
   public percentage: Number = 0;
-  public numerator: Number = 0;
+  public numerator: number = 0;
   public denominator: Number = 0;
   public id: String = '';
 
   public readerSupplement = '';
 
   public options: any = {
-      cutoutPercentage: 85,
+      cutout: '85%',
       legend: {
           display: false
       },
@@ -43,11 +44,6 @@ export class DonutChartComponent implements OnInit, OnChanges {
       maintainAspectRatio: false,
       responsive: true,
   };
-
-  public colorsOverride: Array<Color> = [{
-      backgroundColor: [ '#2C81C0', '#f7f7f7'],
-      hoverBackgroundColor: [ '#2C81C0', '#f7f7f7'],
-  }];
 
   /**
    * constructor
@@ -70,7 +66,15 @@ export class DonutChartComponent implements OnInit, OnChanges {
       if (this.title === 'Conversion Rate') {
         this.numerator = this.doughnutChartDataInput.updatedCompliantICT;
         this.denominator = this.doughnutChartDataInput.uncompliance;
-        this.doughnutChartData = [this.doughnutChartDataInput.updatedCompliantICT, this.doughnutChartDataInput.uncompliance];
+        this.doughnutChartData = { 
+          datasets: [{ 
+              data: [this.doughnutChartDataInput.updatedCompliantICT, this.doughnutChartDataInput.uncompliance],
+              backgroundColor: ['#2C81C0', '#f7f7f7'],
+              borderColor: ['#2C81C0', '#f7f7f7'],
+              hoverBackgroundColor: ['#2C81C0', '#f7f7f7']
+            }]
+        };
+
         this.percentage = this.doughnutChartDataInput.uncompliance === 0
           ? 0
           : Math.round(this.doughnutChartDataInput.updatedCompliantICT / this.doughnutChartDataInput.uncompliance * 100);
@@ -78,11 +82,19 @@ export class DonutChartComponent implements OnInit, OnChanges {
         this.id = 'ConversionRate';
         this.note = 'non-compliant ICT solicitations became compliant after they were updated sam.gov. ';
         this.readerSupplement = `That is a ${this.percentage} percent conversion rate.`;
-
+        console.log('Conversion Rate Data', this.doughnutChartData);
       } else if (this.title === 'Preliminary Compliance Rate') {
         this.numerator = this.doughnutChartDataInput.compliance;
         this.denominator = this.doughnutChartDataInput.determinedICT;
-        this.doughnutChartData = [this.numerator, this.doughnutChartDataInput.determinedICT - this.doughnutChartDataInput.compliance];
+        this.doughnutChartData = {
+          datasets: [
+            {
+              data: [this.numerator, this.doughnutChartDataInput.determinedICT - this.doughnutChartDataInput.compliance],
+              backgroundColor: ['#2C81C0', '#f7f7f7'],
+              borderColor: ['#2C81C0', '#f7f7f7'],
+              hoverBackgroundColor: ['#2C81C0', '#f7f7f7']
+            }]
+        };
         this.percentage = this.doughnutChartDataInput.determinedICT === 0
           ? 0
           : Math.round(this.doughnutChartDataInput.compliance / this.doughnutChartDataInput.determinedICT * 100);
@@ -90,6 +102,7 @@ export class DonutChartComponent implements OnInit, OnChanges {
         this.id = 'ComplianceRate';
         this.note = 'ICT machine readable solicitations scanned by SRT are Section 508 compliant solicitations. ';
         this.readerSupplement = `That is a ${this.percentage} percent compliance rate.`;
+        console.log('Preliminary Compliance Rate Data', this.doughnutChartData);
       }
 
       $('#' + this.id).each(function() {

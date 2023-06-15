@@ -61,7 +61,7 @@ export class ResultsDetailComponent implements OnInit {
         this.solicitationID = params['id'];
         // console.log(this.solicitationID);
         this.solicitationService.getSolicitation(this.solicitationID).subscribe(
-          data => {
+          {next: data => {
             if (data.parseStatus && Array.isArray(data.parseStatus)) {
               data.parseStatus.forEach(element => {
                 if (element.status === 'successfully parsed') {
@@ -103,7 +103,7 @@ export class ResultsDetailComponent implements OnInit {
             }
 
           },
-          err => console.log(err)
+          error: err => console.log(err)}
         );
       });
   }

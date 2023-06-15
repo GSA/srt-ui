@@ -1,5 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 
+
 import * as _ from 'underscore';
 
 
@@ -20,6 +21,7 @@ export class TopAgenciesPercentageComponent implements OnInit {
   @Input() toPeriod;
   @Input() fromPeriod;
   @Input() xAxis;
+  @Input() agencyList;
 
   barData = [];
   angencyTotal = {};
@@ -31,7 +33,8 @@ export class TopAgenciesPercentageComponent implements OnInit {
   public indexTo = 10;
   public maxSolicitation = 0;
   public noData: Boolean = true;
-
+  public chartToolTip = `The agencies ranking is sorted by Compliance Rate where
+    Compliance Rate = (Number of compliant solicitations / Total ICT solicitations)`;
 
   /* CONSTRUCTOR */
 
@@ -293,6 +296,12 @@ export class TopAgenciesPercentageComponent implements OnInit {
    * @param name
    */
   public getAbbr(name) {
+    for(let i = 0; i < this.agencyList.length; i++) {
+      if (this.agencyList[i].Agency === name && this.agencyList[i].Acronym) {
+        return this.agencyList[i].Acronym;
+      }
+    }
+
     const matches = name.match(/\b(\w)/g);
     if (!matches) {
       return name;

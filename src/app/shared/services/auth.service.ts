@@ -1,7 +1,6 @@
 
-import {throwError as observableThrowError } from 'rxjs';
+import {throwError as observableThrowError, catchError } from 'rxjs';
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/catch';
 
 // Class
 import { User } from '../user';
@@ -40,7 +39,11 @@ export class AuthService {
   signup(user: User) {
     const body = JSON.stringify(user);
     return this.http.post(this.userUrl, body, httpOptions)
-        .catch((error) => observableThrowError(error));
+      .pipe(
+        catchError( (error: any) => {
+        return observableThrowError(() => error)
+        }
+        ));
   }
 
   /**
@@ -51,7 +54,11 @@ export class AuthService {
   login(user: User) {
     const body = JSON.stringify(user);
     return this.http.post<any>(this.loginUrl, body, httpOptions)
-        .catch((error) => observableThrowError(error));
+      .pipe(
+        catchError( (error: any) => {
+        return observableThrowError(() => error)
+        }
+        ));
   }
 
 
@@ -70,7 +77,11 @@ export class AuthService {
   checkToken() {
     const body = localStorage;
     return this.http.post<any>(this.tokenUrl, body, httpOptions)
-        .catch((error) => observableThrowError(error));
+      .pipe(
+        catchError( (error: any) => {
+        return observableThrowError(() => error)
+        }
+        ));
   }
 
 
@@ -95,7 +106,11 @@ export class AuthService {
   resetPassword(email) {
     const body = JSON.stringify({ email });
     return this.http.post(this.resetUrl, body, httpOptions)
-      .catch((error) => observableThrowError(error.json()));
+      .pipe(
+        catchError( (error: any) => {
+        return observableThrowError(() => error.json())
+        }
+        ));
   }
 
 

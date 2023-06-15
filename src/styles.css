@@ -1,13 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import '../node_modules/primeng/resources/primeng.min.css';
-@import '../node_modules/primeng/resources/themes/nova-light/theme.css';
-@import '../node_modules/primeicons/primeicons.css';
+@import "../node_modules/primeng/resources/primeng.min.css";
+/*@import '../node_modules/primeng/resources/themes/nova/theme.css'; */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "../node_modules/primeicons/primeicons.css";
 
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600,700);
 body {
-  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
-  /* font-weight.*300 */;
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto",
+    "Arial", sans-serif;
+  /* font-weight.*300 */
 }
 
 html {
@@ -18,7 +20,6 @@ body a {
   color: #112e51;
 }
 
-
 /* button */
 
 .no-padding {
@@ -27,7 +28,7 @@ body a {
 }
 
 .btn-primary,
-button.ui-button {
+button.p-button {
   background-color: #112e51;
   border-color: #112e51;
 }
@@ -59,12 +60,12 @@ button.ui-button {
 }
 
 .srt-color {
-  color: #2C81C0;
+  color: #2c81c0;
 }
 
 /* button */
 
-button.srt-button ,
+button.srt-button,
 div.srt-button {
   width: 150px;
   background-color: #112e51;
@@ -92,11 +93,11 @@ div.srt-button {
 }
 
 .srt-button:hover {
-  box-shadow:0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.3);
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12),
+    0 3px 5px -1px rgba(0, 0, 0, 0.3);
 }
 
 /* shadow */
-
 
 /* banner */
 
@@ -106,7 +107,8 @@ div.srt-button {
   padding: 40px;
   color: white;
   height: 300px;
-  box-shadow:0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.3);
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12),
+    0 3px 5px -1px rgba(0, 0, 0, 0.3);
 }
 
 .srt-banner h1 {
@@ -118,32 +120,26 @@ div.srt-button {
   font-size: 16px;
 }
 
-
 /* Override bootstrap tooltip style */
 
 #analyticTitle .tooltip.in,
 #overview .tooltip.in,
 .tooltip.in {
-  opacity: 1 !important;;
+  opacity: 1 !important;
 }
-
 
 .info {
   color: #111;
-  font-size: 16px !important
+  font-size: 16px !important;
 }
 
-/* autocomplete  ng2-completer package*/
-
+/* autocomplete  p-autoComplete package*/
 
 .match {
-  color: #BE3430 !important;
+  color: #be3430 !important;
 }
 
-
-
 /* dropdown */
-
 
 .row-eq-height {
   display: -webkit-box;
@@ -152,9 +148,7 @@ div.srt-button {
   display: flex;
 }
 
-
-@media (max-width: 992px)
-{
+@media (max-width: 992px) {
   .row-eq-height {
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
@@ -163,32 +157,26 @@ div.srt-button {
 
 /* FAQ Page */
 
-
-
-.color span{
-  color: rgb(44, 129, 192)
+.color span {
+  color: rgb(44, 129, 192);
 }
-
 
 .padding ul {
-  padding: 0
+  padding: 0;
 }
 
-
-.olstyle ol{
-  list-style-type: lower-roman; padding: 0 0 20px 0;
+.olstyle ol {
+  list-style-type: lower-roman;
+  padding: 0 0 20px 0;
 }
-
-
 
 /* auth Page */
-
 
 /* nav skip*/
 /*
  * Class for elements that are only visible to the screen reader.
  */
-.visually-hidden ,
+.visually-hidden,
 .sr-only {
   border: 0;
   clip: rect(0 0 0 0);
@@ -245,9 +233,6 @@ div.srt-button {
   z-index: 10;
 }
 
-
-
-
 /*
  * We don't want the `.bypass-block-target` to have an outline on *just* focus,
  * since this will look strange if regular users click inside this element,
@@ -275,11 +260,17 @@ button:focus,
 input:focus {
   outline: solid 2px orange !important;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 /* Chart styles */
-.chart{
+.chart {
   font-size: 20px;
   margin-bottom: 20px;
   font-weight: 600;
@@ -287,15 +278,38 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   display: inline-block;
 }
 
-
 /* Table styles */
-body .ui-table .ui-table-thead > tr > th {
-  padding-right: .1em;
-  padding-left: .1em;
+body .p-datatable .p-datatable-thead > tr > th {
+  padding-right: 0.1em;
+  padding-left: 0.1em;
 }
 
-body .ui-table .ui-table-thead > tr > th {
+body .p-datatable .p-datatable-thead > tr > th {
   text-align: center;
+}
+
+body .p-datatable .p-datatable-tbody td.p-resizable-column {
+  color: #111111;
+}
+
+body .p-datatable .p-datatable-tbody > tr > td {
+  background-color: inherit;
+  border: 1px solid #c8c8c8;
+}
+
+.srt-table-data {
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.p-resizable-column#title {
+  width: 15%;
+}
+
+.p-resizable-column {
+  text-align: center;
+  width: 10%;
 }
 
 /* Reports */
@@ -306,13 +320,12 @@ body .ui-table .ui-table-thead > tr > th {
   font-weight: 500;
   font-size: 13px;
   margin: 0px !important;
-
 }
 
 .analytic-big-title {
   font-size: 36px;
   margin-bottom: 20px;
-  font-weight: 600
+  font-weight: 600;
 }
 
 .report-section {
@@ -325,9 +338,11 @@ body .ui-table .ui-table-thead > tr > th {
 
 .sticky-nav {
   padding: 0px 40px 0px 0px;
-  position: sticky; top: 60px; left: 0px; float: left;
+  position: sticky;
+  top: 60px;
+  left: 0px;
+  float: left;
 }
-
 
 .usa-sidenav-list {
   margin-top: 0;
@@ -356,7 +371,8 @@ body .ui-table .ui-table-thead > tr > th {
   border: none;
   color: #212121;
   display: block;
-  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto",
+    "Arial", sans-serif;
   line-height: 1.3;
   padding: 0.85rem 1rem 0.85rem 1.8rem;
   text-decoration: none;
@@ -379,7 +395,8 @@ body .ui-table .ui-table-thead > tr > th {
   border: none;
   color: #212121;
   display: block;
-  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto",
+    "Arial", sans-serif;
   line-height: 1.3;
   padding: 0.85rem 1rem 0.85rem 1.8rem;
   text-decoration: none;

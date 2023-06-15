@@ -1,5 +1,17 @@
 # SRT Client Release Notes
 
+## v0.1-230615 - June 2023
+### Features
+* Updated from Angular 9 to 15
+* Used primeng Tooltips instead of ng2-tooltips
+### Security Fixes
+* Removed unneeded update package 
+
+## v0.0-230525 - May 2023
+### Features
+* Added the URL to the export CSV
+* Add the SAM Link to the Table as a hyperlink for Sol ID
+
 ## Sprint 10 Release Notes - January 2022
 ### Features
 * Fix Point of Contact formatting to work with Array returned by updated sam.gov data

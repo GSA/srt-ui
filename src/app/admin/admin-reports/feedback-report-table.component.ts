@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FeedbackReportService} from './feedback-report.service';
 
+
 @Component({
   selector: 'app-admin-feedback',
   templateUrl: './feedback-report-table.component.html',
@@ -27,15 +28,15 @@ export class FeedbackReportTableComponent implements OnInit {
     this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.field}));
 
     feedbackReportService.getFeedbackReport()
-      .subscribe(
-        data => {
-          console.log(data);
+      .subscribe( {
+        next: data => {
+          console.log('Feedback Data', data);
           this.data = data;
         },
-        error => {
+        error: error => {
           console.log(error);
         }
-      );
+  });
   }
 
   ngOnInit() {

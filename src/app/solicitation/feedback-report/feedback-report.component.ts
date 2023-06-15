@@ -44,7 +44,7 @@ export class FeedbackReportComponent extends BaseComponent implements OnInit {
    */
   getFeedback() {
     this.solicitationService.getSolicitationFeedback(this.params).subscribe(
-      data => {
+      {next: data => {
         this.feedback = data;
         this.feedback.forEach(element => {
           const history = element.history.filter(d => d.action === 'provided feedback on the solicitation prediction result')[0];
@@ -61,7 +61,7 @@ export class FeedbackReportComponent extends BaseComponent implements OnInit {
           }
         });
       },
-      error => console.log(error)
+      error: e => console.log(e)}
     );
   }
 

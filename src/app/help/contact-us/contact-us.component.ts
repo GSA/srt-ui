@@ -79,8 +79,6 @@ export class ContactUsComponent extends BaseComponent implements OnInit {
     .subscribe(
       msg => {
         this.emailSent = true;
-      },
-      err => {
       });
   }
 
