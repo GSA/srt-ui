@@ -284,6 +284,10 @@ body .p-datatable .p-datatable-thead > tr > th {
   padding-left: 0.1em;
 }
 
+body .p-datatable .p-datatable-table {
+  table-layout: fixed;
+}
+
 body .p-datatable .p-datatable-thead > tr > th {
   text-align: center;
 }
@@ -295,6 +299,7 @@ body .p-datatable .p-datatable-tbody td.p-resizable-column {
 body .p-datatable .p-datatable-tbody > tr > td {
   background-color: inherit;
   border: 1px solid #c8c8c8;
+  word-wrap: break-word;
 }
 
 .srt-table-data {
