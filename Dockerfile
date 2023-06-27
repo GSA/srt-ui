@@ -32,16 +32,15 @@ RUN yarn run build-${environment}
 # Use official nginx image as the base image
 FROM nginx:alpine
 
-# Making the files for nginx logs
-RUN mkdir -p /app/nginx/logs
-RUN touch /app/nginx/logs/error.log
-RUN touch /app/nginx/logs/access.log
+# Set working directory to nginx asset directory
+WORKDIR /usr/share/nginx/html
+# Remove default nginx static assets
+RUN rm -rf ./*
+
 # Copy the build output to replace the default nginx contents.
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist .
 COPY --from=builder /app/dist/nginx.conf /etc/nginx/nginx.conf
 
 
 # Expose port 8080
-# EXPOSE 8080
-
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+EXPOSE 8080

@@ -7,6 +7,7 @@
     "dev": "ng serve  --disable-host-check --host 0.0.0.0 --watch --configuration=local ",
     "start": "ng serve",
     "build": "ng build --output-hashing=all",
+    "build-local": "ng build --output-hashing=all --configuration=local",
     "build-dev": "ng build --output-hashing=all --configuration=dev",
     "build-staging": "ng build --output-hashing=all --configuration=staging",
     "build-prod": "ng build --output-hashing=all --configuration=prod",
