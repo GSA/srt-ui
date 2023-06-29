@@ -4,5 +4,6 @@ applications:
   memory: 256M
   disk_quota: 1024M
   instances: 1
-  buildpack: staticfile_buildpack
-  path: ./dist/
+  routes:
+    - route: http://srt-client-staging.app.cloud.gov
+  

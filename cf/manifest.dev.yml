@@ -1,0 +1,10 @@
+---
+applications:
+- name: srt-client
+  memory: 256M
+  disk_quota: 1024M
+  instances: 1
+  routes:
+    - route: http://srt-client-dev.app.cloud.gov
+    - route: http://srt-client.app.cloud.gov
+  
