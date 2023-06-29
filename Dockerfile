@@ -42,5 +42,5 @@ COPY --from=builder /app/dist .
 COPY --from=builder /app/dist/nginx.conf /etc/nginx/nginx.conf
 
 
-# Expose port 8080
-EXPOSE 8080
+# Expose port 80
+EXPOSE 80

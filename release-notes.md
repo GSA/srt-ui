@@ -1,5 +1,9 @@
 # SRT Client Release Notes
 
+## v1.0-230627 - June 2023
+### Features
+* Built Docker Image for UI Client
+
 ## v0.1-230615 - June 2023
 ### Features
 * Updated from Angular 9 to 15
