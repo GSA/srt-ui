@@ -32,7 +32,6 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/srt-ui:dev-${{ steps.current-time.outputs.formattedTime }}
-          context: .
           build-args: |
             "environment=dev"
   cloudgov:
