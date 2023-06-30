@@ -42,6 +42,10 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v3.5.3
+      - 
+        name: Check Working Directory
+        run: |
+          ls -la
       -
         name: Push to Cloud.gov Dev Space
         uses: citizen-of-planet-earth/cf-cli-action@master
@@ -51,4 +55,4 @@ jobs:
           cf_password: ${{ secrets.CF_PASSWORD }}
           cf_org: gsa-ogp-srt
           cf_space: dev
-          command: push srt-ui-dev -f ${{ github.workspace }}/cf/manifest.dev.yml --docker-image ${{ secrets.DOCKERHUB_USERNAME }}/srt-ui:dev-${{ steps.current-time.outputs.formattedTime }}
+          command: push srt-ui-dev -f cf/manifest.dev.yml --docker-image ${{ secrets.DOCKERHUB_USERNAME }}/srt-ui:dev-${{ steps.current-time.outputs.formattedTime }}
