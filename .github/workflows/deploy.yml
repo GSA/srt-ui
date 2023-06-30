@@ -48,4 +48,4 @@ jobs:
           cf_password: ${{ secrets.CF_PASSWORD }}
           cf_org: gsa-ogp-srt
           cf_space: dev
-          command: push -f cf/manifest.dev.yml --docker-image ${{ secrets.DOCKERHUB_USERNAME }}/srt-ui:dev-${{ steps.current-time.outputs.formattedTime }}
+          command: push -f ./cf/manifest.dev.yml --docker-image ${{ secrets.DOCKERHUB_USERNAME }}/srt-ui:dev-${{ steps.current-time.outputs.formattedTime }}
