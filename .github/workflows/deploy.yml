@@ -9,7 +9,8 @@ jobs:
   docker:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
-
+    outputs:
+      formattedTime: ${{ steps.current-time.outputs.formattedTime }}
     steps:
       - 
         name: Get Current Time
@@ -55,4 +56,4 @@ jobs:
           cf_password: ${{ secrets.CF_PASSWORD }}
           cf_org: gsa-ogp-srt
           cf_space: dev
-          command: push srt-ui-dev -f cf/manifest.dev.yml --docker-image ${{ secrets.DOCKERHUB_USERNAME }}/srt-ui:dev-${{ steps.current-time.outputs.formattedTime }}
+          command: push srt-ui-dev -f cf/manifest.dev.yml --docker-image ${{ secrets.DOCKERHUB_USERNAME }}/srt-ui:dev-${{ needs.docker.outputs.formattedTime }}
