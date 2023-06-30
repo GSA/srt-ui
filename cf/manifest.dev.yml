@@ -7,4 +7,5 @@ applications:
   routes:
     - route: http://srt-client-dev.app.cloud.gov
     - route: http://srt-client.app.cloud.gov
-  
+  services:
+    - dev-server-deploy-service-account
