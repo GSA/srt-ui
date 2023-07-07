@@ -62,7 +62,7 @@
     "url-search-params-polyfill": "^8.2.3",
     "uswds": "^2.14.0",
     "web-animations-js": "^2.3.2",
-    "zone.js": "~0.13.0"
+    "zone.js": "~0.13.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.2.8",
