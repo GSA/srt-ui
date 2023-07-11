@@ -47,8 +47,10 @@ export class LineChartsComponent implements OnInit {
         pointHoverBorderColor: 'rgba(44,129,192,1)',
       }
     },
-    legend: {
-        display: false
+    plugins: {
+      legend: {
+          display: false
+        }
     },
     maintainAspectRatio: false,
     responsive: true,
@@ -102,13 +104,13 @@ export class LineChartsComponent implements OnInit {
         const array = this.TopAgenciesChart.topAgencies[this.selectedGovernment];
 
         if (this.selectedPeriod === 'This Year' || this.selectedPeriod === 'All') {
-          const percentage: any[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-          const pass: any[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-          const total: any[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          let percentage: any[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          let pass: any[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          let total: any[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
           for (const item of this.TopAgenciesChart.topAgencies[this.selectedGovernment])
           {
               if (item.date != null) {
-                  const date = +item.date.split('/')[0];
+                  const date = +item.date.split('-')[1];
                   if (item.predictions.value === 'green') {
                     pass[date - 1]++;
                   }
@@ -134,12 +136,13 @@ export class LineChartsComponent implements OnInit {
           };
           this.xAxis = 'Month';
           this.forceChartRefresh();
-        } else if (this.selectedPeriod === 'This Month') {
+        } 
+        else if (this.selectedPeriod === 'This Month') {
           const indexFrom = 1;
           const indexTo = this.toPeriod.getDate() + 1;
-          const percentage: any[] = [];
-          const pass: any[] = [];
-          const total: any[] = [];
+          let percentage: any[] = [];
+          let pass: any[] = [];
+          let total: any[] = [];
           this.lineChartLabels = [];
           const month = new Date().getMonth() + 1;
           for (let i = 1;  i < indexTo; i ++) {
@@ -148,11 +151,10 @@ export class LineChartsComponent implements OnInit {
             pass.push(0);
             total.push(0);
           }
-
           for (const item of this.TopAgenciesChart.topAgencies[this.selectedGovernment])
           {
-              if (item.date != null) {
-                  const date = +item.date.split('/')[1];
+              if (item.date != null && +item.date.split('-')[1] === month) {
+                  const date = +item.date.split('T')[0].split('-')[2];
                   if (item.predictions.value === 'green') {
                     pass[date - 1]++;
                   }
