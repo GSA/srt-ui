@@ -17,16 +17,16 @@
                   [type]="pieChartType">
           </canvas>
       </div>
-      <div class="undeter-solic-dispaly1" aria-hidden="true">
+      <div *ngIf="displayPresolicitation != '0%'" class="undeter-solic-dispaly1" aria-hidden="true">
             {{displayPresolicitation}}
       </div>
-      <div class="undeter-solic-dispaly2" aria-hidden="true">
+      <div *ngIf="displayNonMachineReadable != '0%'" class="undeter-solic-dispaly2" aria-hidden="true">
             {{displayNonMachineReadable}}
       </div>
-      <div class="undeter-solic-dispaly3" aria-hidden="true">
+      <div *ngIf="displayNoDocument != '0%'" class="undeter-solic-dispaly3" aria-hidden="true">
             {{displayNoDocument}}
       </div>
-      <div class="undeter-solic-dispaly4" aria-hidden="true">
+      <div  *ngIf="displayOtherUndetermined != '0%'" class="undeter-solic-dispaly4" aria-hidden="true">
             {{displayOtherUndetermined}}
       </div>
       <div class="visually-hidden">

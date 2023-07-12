@@ -34,7 +34,7 @@
                                 [ngModel]="selectedGovernment"
                                 (ngModelChange)="onChange($event)"  >
                             <option value="Government-wide" >Government-wide</option>
-                            <option *ngFor="let data of agencyList" >{{data}}</option>
+                            <option *ngFor="let data of agencyList" >{{data.Agency}}</option>
                         </select>
                     </div>
                 </div>
