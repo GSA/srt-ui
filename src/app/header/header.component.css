@@ -1,3 +1,5 @@
+
+/*
 #gsaDropdown ul.dropdown-menu{
 		padding: 5px 0px;
 		background-color: #112e51 !important;
@@ -5,29 +7,14 @@
 
 #gsaDropdown ul.dropdown-menu > li > a{
 		color: white;
-		/* font-weight.*300 */;
+		/* font-weight.*300 
 }
-
 
 #gsaDropdown ul.dropdown-menu > li > a:hover{
 		background-color: transparent!important;
 }
-.dropdown-item {
-	background-color: #112e51;
-	color: white;
-    border: none;
-    padding: 15px 0px;
-    text-align: left;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-		width: calc(100%);
-    margin-left: 0px;
-    padding-left: 15px;
-}
-.dropdown-toggle:focus {
-  outline: auto !important;
-}
+*/
+
 
 #srtlogo {
 	max-height: 40px;
@@ -107,15 +94,7 @@ hr {
 #navbar a {
 	padding-top: 20px;
 }
-#navbar a:link
-{
-    text-decoration: none;
-    color: #4c2c92;
-    font-family: Arial, sans-serif;
-    font-size: medium;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
+
 /*#navbar a:active
 {
     text-decoration: none;
@@ -149,4 +128,11 @@ hr {
 .dropdown-menu {
     left: auto;
     right: -1px;
+}
+
+#menu-logout {
+  padding: 10px 20px; 
+  font-weight:400; 
+  font-size:medium; 
+  font-family: Arial, sans-serif;
 }

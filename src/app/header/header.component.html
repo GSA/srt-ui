@@ -1,66 +1,76 @@
 <!-- SRTDashHeaderView -->
 
 <div id="header">
-        <a
-        id="skipMain" href="javascript:
+    <a id="skipMain" href="javascript:
         const oh=location.hash;
         location.hash='#content';
         location.hash=oh;
-        void(0);" class="visible-when-focused bypass-block-link"
-        style="color:black;">
-            Skip to Main content
-          </a>
-  <nav class="us-navbar navbar-default">
+        void(0);" class="visible-when-focused bypass-block-link" style="color:black;">
+        Skip to Main content
+    </a>
+    <nav class="us-navbar navbar navbar-expand-lg">
 
         <div class="container-fluid">
-            <div class="navbar-header nopadding" style="height: 60px" >
-                <a tabindex="-1" class="navbar-left" [routerLink]="['/home']" aria-label="SRT Home Page"><img id="srtlogo" alt='SRT Logo' src="../../assets/srtlogo.png"></a>
-            </div>
+            <a tabindex="-1" class="nopadding navbar-brand navbar-left" [routerLink]="['/home']"
+                aria-label="SRT Home Page"><img id="srtlogo" alt='SRT Logo' src="../../assets/srtlogo.png"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+                aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbar" role="navigation" aria-label="main navigation" >
+            <div class="collapse navbar-collapse" id="navbar" role="navigation" aria-label="main navigation" style="justify-content: end;">
 
-                <ul *ngIf="isLogin" class="nav navbar-nav" >
-                     <li data-toggle="tab" [ngClass]="{'active': GetHash('home')}" id="1" (click)="menuClick('/home');"><a [routerLink]="['/home']">Home</a></li>
-                     <li data-toggle="tab" [ngClass]="{'active': GetHash('solicitation')}" id="2" (click)="menuClick('/solicitation/report');"><a [routerLink]="['/solicitation/report']">Manage/Review<br/>Workload</a></li>
-                     <li data-toggle="tab" *ngIf="isGSAAdmin" [ngClass]="{'active': GetHash('analytics')}" id="3" (click)="menuClick('/analytics');"><a [routerLink]="['/analytics']" id="nav-analytics">View Analytics</a></li>
-                     <li data-toggle="tab" *ngIf="isGSAAdmin" [ngClass]="{'active': GetHash('admin')}" id="4" (click)="menuClick('/admin');"><a tabindex="{{ isGSAAdmin ? 0 : -1}}"  [routerLink]="['/admin']">Administration</a></li>
-                     <li><a target="_blank" href='https://app.buyaccessible.gov/'>Get Additional<br/>Resources</a></li>
-                     <li data-toggle="tab" [ngClass]="{'active': GetHash('contactus')}" id="5" (click)="menuClick('/help/contactus');"><a [routerLink]="['/help/contactus']">Contact Us</a></li>
-                     <li data-toggle="tab" [ngClass]="{'active': GetHash('faq')}" id="6"  (click)="menuClick('/help/faq');"><a [routerLink]="['/help/faq']"> FAQs</a></li>
-                </ul>
-
-                <div class="gsa_logo" >
-                    <div class='span-logo' >
-                        <img aria-label="GSA Logo" alt="GSA Logo" src='../../assets/gsa-logo.png'/>
-                    </div>
-                </div>
-                <ul *ngIf="isLogin" id="gsaDropdown" (keydown)="popUpMenuKey($event)" class="nav navbar-nav" style="float: right;"  >
-                    <li class="dropdown">
-                        <a *ngIf="isLogin" tabindex="0" id="menu-hello" class=""
-                                    style="font-weight: 400"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                                    (blur)="this.popUpMenuLostFocus()">Hello, {{firstName}}<span class="caret"></span></a>
-
-                        <ul class="dropdown-menu" role="listbox">
-                            <li>
-                              <button (blur)="this.popUpMenuLostFocus()"
-                                      id="menu-logout"
-                                      tabindex="0"
-                                      class="dropdown-item"
-                                      type="button"
-                                      style="padding: 10px 20px; font-weight:400; font-size:medium; font-family: Arial, sans-serif;"
-                                      (click)="onLogout()" role="option">Log Out</button>
-                            </li>
-                      </ul>
+                <ul *ngIf="isLogin" class="nav navbar-nav me-auto">
+                    <li class="nav-item" data-bs-toggle="tab" [ngClass]="{'active': GetHash('home')}" id="1"
+                        (click)="menuClick('/home');">
+                        <a class="nav-link" [routerLink]="['/home']">Home</a>
+                    </li>
+                    <li class="nav-item" data-bs-toggle="tab" [ngClass]="{'active': GetHash('solicitation')}" id="2"
+                        (click)="menuClick('/solicitation/report');">
+                        <a class="nav-link" [routerLink]="['/solicitation/report']">Solicitations</a>
+                    </li>
+                    <li class="nav-item" data-bs-toggle="tab" *ngIf="isGSAAdmin"
+                        [ngClass]="{'active': GetHash('analytics')}" id="3" (click)="menuClick('/analytics');">
+                        <a class="nav-link" [routerLink]="['/analytics']" id="nav-analytics">Analytics</a>
+                    </li>
+                    <li class="nav-item" data-bs-toggle="tab" *ngIf="isGSAAdmin" [ngClass]="{'active': GetHash('admin')}"
+                        id="4" (click)="menuClick('/admin');">
+                        <a class="nav-link" tabindex="{{ isGSAAdmin ? 0 : -1}}"
+                            [routerLink]="['/admin']">Administration</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" target="_blank" href='https://app.buyaccessible.gov/'>
+                            Additional Resources
+                        </a>
+                    </li>
+                    <li class="nav-item" data-bs-toggle="tab" [ngClass]="{'active': GetHash('contactus')}" id="5"
+                        (click)="menuClick('/help/contactus');">
+                        <a class="nav-link" [routerLink]="['/help/contactus']">Contact Us</a>
+                    </li>
+                    <li class="nav-item me-auto" data-bs-toggle="tab" [ngClass]="{'active': GetHash('faq')}" id="6"
+                        (click)="menuClick('/help/faq');">
+                        <a class="nav-link" [routerLink]="['/help/faq']"> FAQs</a>
                     </li>
                 </ul>
+                <ul class="nav navbar-nav">
+                    <li *ngIf="isLogin" id="gsaDropdown" class="nav-item">
+                        <a class="nav-link" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-weight: 400"> Hello, {{firstName}}<span class="caret"></span></a>
 
+                        <ul class="dropdown-menu me-5">
+                            <li>
+                                <a (blur)="this.popUpMenuLostFocus()" id="menu-logout" tabindex="0"
+                                    class="dropdown-item" type="button"
+                                    (click)="onLogout()" role="option">Log Out</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <div class='span-logo'>
+                        <img aria-label="GSA Logo" alt="GSA Logo" src='../../assets/gsa-logo.png' />
+                    </div>
+                </ul>
             </div>
 
         </div>
     </nav>
     <hr style="margin: 0; height: 0;">
 </div>
-
