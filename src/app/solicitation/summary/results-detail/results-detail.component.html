@@ -17,7 +17,7 @@
         <div class="col-md-8 col-sm-12">
           <div style="display: inline-block; font-weight: 500" *ngIf="solicitation">
             <div style="font-size: 24px; padding-bottom: 15px;">{{solicitation.title}}</div>
-            <div style="padding-bottom: 5px"><a target="_blank" href="{{solicitation.url}}">{{solicitation.url}}</a></div>
+            <div style="padding-bottom: 5px"><a target="_blank" href="{{solicitation.url}}" rel="noopener noreferrer">{{solicitation.url}}</a></div>
             <div *ngIf="solicitation.reviewRec !== 'Not Applicable' " style="padding-bottom: 5px">
               <span style="font-weight:600">Results:&nbsp;</span>
               <span style="font-weight:500" >{{solicitation.reviewRec}}</span>
