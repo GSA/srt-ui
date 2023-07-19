@@ -57,24 +57,26 @@
 
         <div class="col-md-12 no-padding clearfix analytic-section1-container" tabindex="0" role="region" aria-labelledby="region3">
             <div class="row-eq-height">
-                <div class="col-md-6 no-padding">
-                    <div class="col-md-6 no-padding">
-                      <app-donut-chart
-                        [doughnutChartDataInput]="ComplianceRateChart"
-                        [title]="'Preliminary Compliance Rate'"
-                        [componentTooltip]="'Compliance Rate = (Total compliant ICT solicitations / Total ICT solicitations scanned) * 100%'">
-                      </app-donut-chart>
-                    </div>
-                    <div class="col-md-6 no-padding">
-                      <app-donut-chart
-                          [doughnutChartDataInput]="ConversionRateChart"
-                          [title]="'Conversion Rate'"
-                          [componentTooltip]="'Conversion Rate = (# updated compliant solicitations / Total non-compliant ICT solicitations) * 100%'">
-                      </app-donut-chart>
+                <div class="col-md-12 col-lg-8 col-sm-12 no-padding">
+                    <div class="row">
+                        <div class="col-md-6 no-padding">
+                        <app-donut-chart
+                            [doughnutChartDataInput]="ComplianceRateChart"
+                            [title]="'Preliminary Compliance Rate'"
+                            [componentTooltip]="'Compliance Rate = (Total compliant ICT solicitations / Total ICT solicitations scanned) * 100%'">
+                        </app-donut-chart>
+                        </div>
+                        <div class="col-md-6 no-padding">
+                        <app-donut-chart
+                            [doughnutChartDataInput]="ConversionRateChart"
+                            [title]="'Conversion Rate'"
+                            [componentTooltip]="'Conversion Rate = (# updated compliant solicitations / Total non-compliant ICT solicitations) * 100%'">
+                        </app-donut-chart>
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 no-padding">
+                <div class="col-lg-4 col-md-12 col-sm-12 no-padding">
                     <app-top-srt-actions [TopSRTActionChart]="TopSRTActionChart"></app-top-srt-actions>
                 </div>
             </div>
