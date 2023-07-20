@@ -67,7 +67,7 @@ export class HelpUsImproveComponent implements OnInit {
                 }
               });
             } else {
-              console.log ('Error processing parse status for solicitaiton ' + data.solNum);
+              console.log ('Error processing parse status for solicitation ' + data.solNum);
               data.parseStatus = [{formattedDate: '', postedDate: null, name: '', status: '', attachment_url: ''}];
             }
 
