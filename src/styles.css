@@ -411,3 +411,8 @@ body .p-datatable .p-datatable-tbody > tr > td {
 .ql-snow a {
   color: #112e51 !important;
 }
+
+
+.panel-heading button:hover {
+  background: #BFDBFE;
+}
