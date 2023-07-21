@@ -8,8 +8,8 @@
                 <div class="gsa-subtitle">
                     An official website of the United States government
                 </div>
-                <div class="gsa-subtitle" style="cursor: pointer">
-                    <a href="" onclick="return false;" data-bs-toggle="collapse" data-bs-target="#msg" class="gov-msg collapsed" style="color:#0000C7">Here's how you know&nbsp;&nbsp;</a>
+                <div class="gsa-subtitle dropdown-toggle" style="cursor: pointer">
+                    <a href="" onclick="return false;" data-bs-toggle="collapse" data-bs-target="#msg" class="gov-msg collapsed" style="color:#0000C7">Here's how you know<span class="caret"></span></a>
                 </div>
             </div>
             <div style="float: right;" class="version">
@@ -18,26 +18,28 @@
               <span style="display:none">Server Build date: {{buildDate}}</span>
               <span style="display:none">Server Environment: {{environment}}</span>
             </div>
-            <div id="msg" class="collapse clearfix" style="max-width: 1040px; clear: both">
-                <div class="col-sm-6 nopadding">
-                    <div class="clearfix gsa-sintr">
-                        <div class="gsa-sicon">
-                            <img class="usa-banner-icon usa-media_block-img" width="38px" height="38px"  src="../assets/icon-dot-gov.svg" alt="Dot gov">
+            <div id="msg" class="collapse clearfix container" style="clear: both;">
+                <div class="row">
+                    <div class="col-sm-6 nopadding">
+                        <div class="clearfix gsa-sintr">
+                            <div class="gsa-sicon">
+                                <img class="usa-banner-icon usa-media_block-img" width="38px" height="38px"  src="../assets/icon-dot-gov.svg" alt="Dot gov">
+                            </div>
+                            <div class="gsa-scontent">
+                            <strong>The .gov means it’s official.</strong>
+                                <br>
+                                Federal government websites always use a .gov or .mil domain. Before sharing sensitive information online, make sure you’re on a .gov or .mil site by inspecting your browser’s address (or “location”) bar.
+                            </div>
                         </div>
-                        <div class="gsa-scontent">
-                          <strong>The .gov means it’s official.</strong>
-                              <br>
-                              Federal government websites always use a .gov or .mil domain. Before sharing sensitive information online, make sure you’re on a .gov or .mil site by inspecting your browser’s address (or “location”) bar.
-                         </div>
                     </div>
-                </div>
-                <div class="col-sm-6 nopadding">
-                    <div class="clearfix gsa-sintr">
-                        <div class="gsa-sicon">
-                           <img class="usa-banner-icon usa-media_block-img" width="38px" height="38px" src="../assets/icon-https.svg" alt="SSL">
-                        </div>
-                        <div class="gsa-scontent">
-                          <p>This site is also protected by an SSL (Secure Sockets Layer) certificate that’s been signed by the U.S. government. The <strong>https://</strong> means all transmitted data is encrypted &nbsp;— in other words, any information or browsing history that you provide is transmitted securely.</p>
+                    <div class="col-sm-6 nopadding">
+                        <div class="clearfix gsa-sintr">
+                            <div class="gsa-sicon">
+                            <img class="usa-banner-icon usa-media_block-img" width="38px" height="38px" src="../assets/icon-https.svg" alt="SSL">
+                            </div>
+                            <div class="gsa-scontent">
+                            <p>This site is also protected by an SSL (Secure Sockets Layer) certificate that’s been signed by the U.S. government. The <strong>https://</strong> means all transmitted data is encrypted &nbsp;— in other words, any information or browsing history that you provide is transmitted securely.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
