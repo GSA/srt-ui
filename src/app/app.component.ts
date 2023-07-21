@@ -42,21 +42,27 @@ export class AppComponent implements OnInit {
   ) {
     globals.app = this;
     authService.checkToken().subscribe(
-      data => {
+      {
+        next: (data) => {
         this.authGuard.isLogin = data.isLogin;
         this.authGuard.isGSAAdmin = data.isGSAAdmin;
         this.isLogin = this.authGuard.isLogin;
         this.isGSAAdmin = this.authGuard.isGSAAdmin;
         this.firstName = localStorage.getItem('firstName');
         this.lastName = localStorage.getItem('lastName');
+        
+        //console.log('data:', data);
+        //console.log('this:', this);
+
 
         // debugger
         if (!this.authGuard.isLogin) {
           // don't clear cache here when using MAX CAS prototype
           // localStorage.clear();
         }
-      },
-      (error) => { console.log(error); }
+        },
+        error: (err: any) => { console.log(err); }
+      }
     );
   }
 
