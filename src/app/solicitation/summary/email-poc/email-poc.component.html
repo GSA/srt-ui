@@ -40,41 +40,57 @@
 
 
             <div id="form-div">
-              <div class="form-group">
-                <label>To:</label>
-                {{emailTo}}
-                <button (click)="copyText('emailTo')" class="srt-button">
-                  Copy Email &nbsp;<i class="fa fa-copy" ></i>
-                </button>
+              <div class="row form-group">
+                <div class="col-lg-10 col-md-10 col-sm-6">
+                  <label>To:</label>
+                  {{emailTo}}
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-6">
+                  <button (click)="copyText('emailTo')" class="srt-button">
+                    Copy Email &nbsp;<i class="fa fa-copy" ></i>
+                  </button>
+                </div>
               </div>
 
-              <div class="form-group" *ngIf="this.templateToShow == 'IT Language'">
-                <label>Subject:</label>
-                {{subject}}
-                <button (click)="copyText('subject')" class="srt-button">
-                  Copy Subject &nbsp;<i class="fa fa-copy" ></i>
-                </button>
+              <div class="row form-group" *ngIf="this.templateToShow == 'IT Language'">
+                <div class="col-lg-10 col-md-10 col-sm-6">
+                  <label>Subject:</label>
+                  {{subject}}
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-6">
+                  <button (click)="copyText('subject')" class="srt-button">
+                    Copy Subject &nbsp;<i class="fa fa-copy" ></i>
+                  </button>
+                </div>
               </div>
 
-              <div class="form-group" *ngIf="this.templateToShow == 'EPA Language'">
-                <label>Subject:</label>
-                {{epaSubject}}
-                <button (click)="copyText('epaSubject')" class="srt-button">
-                  Copy Subject &nbsp;<i class="fa fa-copy" ></i>
-                </button>
+              <div class="row form-group" *ngIf="this.templateToShow == 'EPA Language'">
+                <div class="col-lg-10 col-md-10 col-sm-6">
+                  <label>Subject:</label>
+                  {{epaSubject}}
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-6">
+                  <button (click)="copyText('epaSubject')" class="srt-button">
+                    Copy Subject &nbsp;<i class="fa fa-copy" ></i>
+                  </button>
+                </div>
               </div>
 
-              <div class="form-group">
-                <label for="it_message">Message:</label>
-                <button (click)="copyText('it_message')" class="srt-button" *ngIf="this.templateToShow == 'IT Language'">
-                  Copy Message &nbsp;<i class="fa fa-copy" ></i>
-                </button>
-                <button (click)="copyText('epa_message')" class="srt-button" *ngIf="this.templateToShow == 'EPA Language'">
+              <div class="row form-group">
+                <div class="col-lg-10 col-md-10 col-sm-6">
+                  <label for="it_message">Message:</label>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-6">
+                  <button (click)="copyText('it_message')" class="srt-button" *ngIf="this.templateToShow == 'IT Language'">
                     Copy Message &nbsp;<i class="fa fa-copy" ></i>
-                </button>
+                  </button>
+                  <button (click)="copyText('epa_message')" class="srt-button" *ngIf="this.templateToShow == 'EPA Language'">
+                      Copy Message &nbsp;<i class="fa fa-copy" ></i>
+                  </button>
+                </div>
               </div>
 
-              <div>
+              <div class="pt-3">
                 <quill-editor id="it_message"
                               style="min-height: calc(100vh - 585px)"
                               formControlName="it_message" [options]="editorOptions"
@@ -83,7 +99,7 @@
                 ></quill-editor>
               </div>
 
-              <div>
+              <div class="pt-3">
                 <quill-editor id="epa_message"
                               style="min-height: calc(100vh - 585px)"
                               formControlName="epa_message" [options]="editorOptions"
