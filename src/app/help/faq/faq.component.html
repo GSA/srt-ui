@@ -26,14 +26,13 @@
 
       <!-- Search FAQs by text -->
 
-      <div class="pe-5" style="display: table; float: right">
-        <div style="display: table-cell; vertical-align: middle">
+      <div class="row px-5">
+        <div class="col-lg-11 d-flex justify-content-end">
           <input id="search" class="search-input" placeholder="Search FAQs" (keyup)="search()"
             aria-label="input area to search your question">
         </div>
-        <div style="display: table-cell; vertical-align: middle; cursor: pointer" (click)="search()"
-          class="search-button">
-          <i class="bi bi-search"></i>
+        <div style="cursor: pointer" class="search-button col-lg-1" (click)="search()">
+          <i class="bi bi-search" style="vertical-align: sub;"></i>
         </div>
       </div>
 
@@ -42,7 +41,7 @@
         <!-- Left navigation -->
 
         <div class="sticky-nav col-md-3">
-          <ul class="usa-sidenav-list">
+          <ul class="usa-sidenav-list sticky-top">
             <li>
               <a tabindex="0" data-bs-toggle="tab" (keydown.enter)="scroll('mostViewTitle')"
                 (keydown.space)="scroll('mostViewTitle')" (click)="scroll('mostViewTitle')">Most Viewed FAQs</a>
