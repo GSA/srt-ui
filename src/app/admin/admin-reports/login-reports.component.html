@@ -1,14 +1,18 @@
 <!--suppress TypeScriptUnresolvedVariable -->
-<div class="report-section">
+<div class="report-section pb-5">
 
   <div class="row">
     <div class="col-xs-8 col-sm-6">
       <h1 class="srt-blue analytic-big-title" id="anchor-Logins-Last-30-Days">Logins</h1>
     </div>
     <div class="col-xs-4 col-sm-6">
-      <div class="right-chart-control">
-        <button label="Download CSV" class="p-button srt-button" style="float:none; display:inline; width:125px;" (click)="downloadLoginData(data)"  >Download CSV</button>
-        <p-dropdown [options]="timeSelection" (onChange)="timeChange($event)" [(ngModel)]="selection"></p-dropdown>
+      <div class="row right-chart-control">
+        <div class="col-6">
+          <button label="Download CSV" type="button" class="btn p-button srt-button" style="display: inline-flex;" (click)="downloadLoginData(data)">Download CSV</button>
+        </div>
+        <div class="col-6">
+          <p-dropdown [options]="timeSelection" (onChange)="timeChange($event)" [(ngModel)]="selection"></p-dropdown>
+        </div>
       </div>
     </div>
   </div>
@@ -18,7 +22,7 @@
   <span class="visually-hidden" [innerHTML]="readerSupplement"></span>
 
 
-  <h1 class="srt-blue analytic-big-title" id="anchor-User-Login-Report">User Login Report</h1>
+  <h1 class="srt-blue analytic-big-title pt-3" id="anchor-User-Login-Report">User Login Report</h1>
   <p-table [value]="userData" [columns]="userChartCols" styleClass="pDataTable p-datatable-gridlines">
     <ng-template pTemplate="header" let-columns>
       <tr>
