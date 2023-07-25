@@ -33,6 +33,13 @@ font-size: 16px;
     vertical-align: top;
 }
 
+#art {
+  background-color: #fa9441;
+  outline: 0.25rem solid #2491ff;
+  color: #1b1b1b;
+  float: left;
+  width: 300px;
+  }
 
 .summary-content-padding{
   padding: 30px 20px

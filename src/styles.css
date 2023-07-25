@@ -76,12 +76,6 @@ div.srt-button {
   background-color: #112e51;
 }
 
-#art {
-background-color: #fa9441;
-outline: 0.25rem solid #2491ff;
-color: #1b1b1b;
-}
-
 .srt-button {
   background-color: #337ab7;
   border-radius: 5px;
@@ -89,7 +83,7 @@ color: #1b1b1b;
   color: #fff;
   cursor: pointer;
   display: table;
-  float: left;
+  float: right;
   font-weight: 500;
   font-size: 16px;
   height: 35px;
