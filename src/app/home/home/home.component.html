@@ -2,216 +2,217 @@
 
 <main id="content" class="bypass-block-target">
 
-    <div class="srt-home-head">
+  <div class="srt-home-head">
 
-      <div class="srt-head-position">
-        <div class="srt-head-text">
-          <div class="srt-head-display">
-            <div class="srt-head-padding">
-              <h1 class="srt-black srt-main-title">Solicitation Review Tool</h1>
-              <div style="font-size: 24px; font-weight:500;" class="srt-black srt-text-padding">
-                The Solicitation Review Tool (SRT) is provided to help agencies evaluate the overall solicitation compliance with accessibility,
-                cyber security, and other regulations and requirements.
-              </div>
+    <div class="srt-head-position">
+      <div class="srt-head-text">
+        <div class="srt-head-display">
+          <div class="srt-head-padding">
+            <h1 class="srt-black srt-main-title">Solicitation Review Tool</h1>
+            <div style="font-size: 24px; font-weight:500;" class="srt-black srt-text-padding">
+              The Solicitation Review Tool (SRT) is provided to help agencies evaluate the overall solicitation
+              compliance with accessibility,
+              cyber security, and other regulations and requirements.
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="container">
-        <div style="padding: 60px 40px;">
-            <div class="row">
+  <div class="container">
+    <div style="padding: 60px 40px;">
+      <div class="row">
 
-              <!-- Review/Manage Workload -->
-              <a [routerLink]="['/solicitation/report']" aria-labelledby="h3rmw" class="orange">
-                <div class="col-md-4 col-sm-6 srt-margin-bot">
-                      <div class="srt-1-1">
-                          <div>
-                              <div class="srt-main-box" >
-                                  <!-- image -->
-                                  <div class="srt-9-20">
-                                      <div>
-                                          <div class="srt-icon-padding">
-                                              <div class="srt-icon">
-                                                <img alt="Manage/Review Workload Icon" src='/assets/review-manage-workflow.png'/>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <!-- description -->
-                                  <div class="srt-11-20">
-                                      <div>
-                                          <div class="srt-block-padding">
-                                              <h2 style="color:black" id="h3rmw">Manage/Review Workload</h2>
-                                              <p style="color:black">Access and manage solicitation review results for your agency</p>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                </div>
-              </a>
-
-              <!-- View Analytic -->
-              <a [routerLink]="['/analytics']" aria-labelledby="h3va">
-                <div class="col-md-4 col-sm-6 srt-margin-bot">
-                    <div class="srt-1-1">
-                      <div class="ribbon" *ngIf="isGSAAdmin==false"><span>Coming soon</span></div>
-                      <div>
-                            <div class="srt-main-box" >
-                                <!-- image -->
-                                <div class="srt-9-20">
-                                    <div>
-                                        <div class="srt-icon-padding">
-                                            <div class="srt-icon">
-                                              <img alt='view analytics icon' class="button-icon" src="/assets/view-analytics.png"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- description -->
-                                <div class="srt-11-20">
-                                    <div>
-                                        <div class="srt-block-padding">
-                                            <h2 style="color:black" id="h3va">View Analytics</h2>
-                                            <p style="color:black">Visualize trend and discover insights from the analytics</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              </a>
-
-              <!-- Manage SRT Access Requests -->
-              <a [routerLink]="['/admin']" aria-labelledby="h3-admin-label" *ngIf="isGSAAdmin">
-                <div class="col-md-4 col-sm-6 srt-margin-bot">
-                    <div class="srt-1-1">
-                        <div>
-                            <div class="srt-main-box">
-                                <!-- image -->
-                                <div class="srt-9-20">
-                                    <div>
-                                        <div class="srt-icon-padding">
-                                            <div class="srt-icon">
-                                              <img alt='Administration' src='/assets/manage-srt-access-requests.png' />
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- description -->
-                                <div class="srt-11-20">
-                                    <div>
-                                        <div class="srt-block-padding">
-                                            <h2 style="color:black" id="h3-admin-label">Administration</h2>
-                                            <p style="color:black">View reports on user statistics, activities, and feedback.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              </a>
-
-              <!-- Get Additional Resources -->
-              <a target="_blank" href="https://app.buyaccessible.gov/" aria-labelledby="h3gar">
-                <div class="col-md-4 col-sm-6 srt-margin-bot" >
-                  <div class="srt-1-1">
+        <!-- Review/Manage Workload -->
+        <div class="col-md-4 col-sm-6 srt-margin-bot">
+          <a [routerLink]="['/solicitation/report']" aria-labelledby="h3rmw" class="orange">
+            <div class="srt-1-1">
+              <div>
+                <div class="srt-main-box">
+                  <!-- image -->
+                  <div class="srt-9-20">
                     <div>
-                      <div class="srt-main-box" >
-                        <!-- image -->
-                        <div class="srt-9-20">
-                          <div>
-                            <div class="srt-icon-padding">
-                              <div class="srt-icon">
-                                <img alt="Get Additional Resources" src="/assets/get-additional-resources.png"/>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- description -->
-                        <div class="srt-11-20">
-                          <div>
-                            <div class="srt-block-padding">
-                              <h2 style="color:black" id="h3gar">Get Additional Resources</h2>
-                              <p style="color:black">Need help with Accessibility requirements? Accessibility Requirements Tool can assist you with that</p>
-                            </div>
-                          </div>
+                      <div class="srt-icon-padding">
+                        <div class="srt-icon">
+                          <img alt="Manage/Review Workload Icon" src='/assets/review-manage-workflow.png' />
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </a>
-
-              <!-- Contact Us -->
-              <a [routerLink]="['/help/contactus']" aria-labelledby="h3cus">
-                <div class="col-md-4 col-sm-6 srt-margin-bot" >
-                  <div class="srt-1-1">
+                  <!-- description -->
+                  <div class="srt-11-20">
                     <div>
-                      <div class="srt-main-box" >
-                        <!-- image -->
-                        <div class="srt-9-20">
-                          <div>
-                            <div class="srt-icon-padding">
-                              <div class="srt-icon">
-                                <img alt="Contact Us" src="/assets/contact-us.png"/>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- description -->
-                        <div class="srt-11-20">
-                          <div>
-                            <div class="srt-block-padding">
-                              <h2 style="color:black" id="h3cus">Contact Us</h2>
-                              <p style="color:black">View contact information for the Solicitation Review Tool</p>
-                            </div>
-                          </div>
-                        </div>
+                      <div class="srt-block-padding">
+                        <h2 style="color:black" id="h3rmw">Manage/Review Solicitations</h2>
+                        <p style="color:black">Access and manage solicitation review results for your agency</p>
                       </div>
                     </div>
                   </div>
                 </div>
-              </a>
-
-              <!-- FAQ -->
-              <a [routerLink]="['/help/faq']" aria-labelledby="h3faq">
-                <div class="col-md-4 col-sm-6 srt-margin-bot">
-                    <div class="srt-1-1">
-                        <div>
-                            <div class="srt-main-box">
-                                <!-- image -->
-                                <div class="srt-9-20">
-                                    <div>
-                                        <div class="srt-icon-padding">
-                                            <div class="srt-icon">
-                                              <img alt="FAQ icon" src="/assets/faq.png"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- description -->
-                                <div class="srt-11-20">
-                                    <div>
-                                        <div class="srt-block-padding">
-                                            <h2 style="color:black" id="h3faq">FAQ</h2>
-                                            <p style="color:black">Review Frequently Asked Questions and learn more about SRT</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              </a>
-
+              </div>
             </div>
+          </a>
         </div>
+
+        <!-- View Analytic -->
+        <div class="col-md-4 col-sm-6 srt-margin-bot">
+          <a [routerLink]="['/analytics']" aria-labelledby="h3va">
+            <div class="srt-1-1">
+              <div>
+                <div class="srt-main-box">
+                  <!-- image -->
+                  <div class="srt-9-20">
+                    <div>
+                      <div class="srt-icon-padding">
+                        <div class="srt-icon">
+                          <img alt='view analytics icon' class="button-icon" src="/assets/view-analytics.png" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- description -->
+                  <div class="srt-11-20">
+                    <div>
+                      <div class="srt-block-padding">
+                        <h2 style="color:black" id="h3va">View Analytics</h2>
+                        <p style="color:black">Visualize trend and discover insights from the analytics</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Manage SRT Access Requests -->
+        <div class="col-md-4 col-sm-6 srt-margin-bot">
+          <a [routerLink]="['/admin']" aria-labelledby="h3-admin-label" *ngIf="isGSAAdmin">
+            <div class="srt-1-1">
+              <div>
+                <div class="srt-main-box">
+                  <!-- image -->
+                  <div class="srt-9-20">
+                    <div>
+                      <div class="srt-icon-padding">
+                        <div class="srt-icon">
+                          <img alt='Administration' src='/assets/manage-srt-access-requests.png' />
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- description -->
+                  <div class="srt-11-20">
+                    <div>
+                      <div class="srt-block-padding">
+                        <h2 style="color:black" id="h3-admin-label">Administration</h2>
+                        <p style="color:black">View reports on user statistics, activities, and feedback.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Get Additional Resources -->
+        <div class="col-md-4 col-sm-6 srt-margin-bot">
+          <a target="_blank" rel="noopener noreferrer" href="https://app.buyaccessible.gov/" aria-labelledby="h3gar">
+            <div class="srt-1-1">
+              <div>
+                <div class="srt-main-box">
+                  <!-- image -->
+                  <div class="srt-9-20">
+                    <div>
+                      <div class="srt-icon-padding">
+                        <div class="srt-icon">
+                          <img alt="Get Additional Resources" src="/assets/get-additional-resources.png" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- description -->
+                  <div class="srt-11-20">
+                    <div>
+                      <div class="srt-block-padding">
+                        <h2 style="color:black" id="h3gar">Get Additional Resources</h2>
+                        <p style="color:black">Need help with Accessibility requirements? Accessibility Requirements
+                          Tool can assist you with that</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Contact Us -->
+        <div class="col-md-4 col-sm-6 srt-margin-bot">
+          <a [routerLink]="['/help/contactus']" aria-labelledby="h3cus">
+            <div class="srt-1-1">
+              <div>
+                <div class="srt-main-box">
+                  <!-- image -->
+                  <div class="srt-9-20">
+                    <div>
+                      <div class="srt-icon-padding">
+                        <div class="srt-icon">
+                          <img alt="Contact Us" src="/assets/contact-us.png" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- description -->
+                  <div class="srt-11-20">
+                    <div>
+                      <div class="srt-block-padding">
+                        <h2 style="color:black" id="h3cus">Contact Us</h2>
+                        <p style="color:black">View contact information for the Solicitation Review Tool</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+
+        <!-- FAQ -->
+        <div class="col-md-4 col-sm-6 srt-margin-bot">
+          <a [routerLink]="['/help/faq']" aria-labelledby="h3faq">
+            <div class="srt-1-1">
+              <div>
+                <div class="srt-main-box">
+                  <!-- image -->
+                  <div class="srt-9-20">
+                    <div>
+                      <div class="srt-icon-padding">
+                        <div class="srt-icon">
+                          <img alt="FAQ icon" src="/assets/faq.png" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- description -->
+                  <div class="srt-11-20">
+                    <div>
+                      <div class="srt-block-padding">
+                        <h2 style="color:black" id="h3faq">FAQ</h2>
+                        <p style="color:black">Review Frequently Asked Questions and learn more about SRT</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
-  </main>
+  </div>
+</main>

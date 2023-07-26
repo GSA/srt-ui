@@ -4,18 +4,6 @@
     padding: 0px !important;
 }
 
-.gov-msg:after {
-    /* symbol for "opening" panels */
-    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
-    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
-    float: right;        /* adjust as needed */
-    color: inherit;         /* adjust as needed */
-    font-size: 10px;
-}
-.gov-msg.collapsed:after {
-    /* symbol for "collapsed" panels */
-    content: "\e113";    /* adjust as needed, taken from bootstrap.css */
-}
 
 * {
     font-family: Source Sans Pro !important
@@ -48,5 +36,5 @@ display: table
 .gsa-scontent{
     display: table-cell;
     vertical-align: top;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
 }

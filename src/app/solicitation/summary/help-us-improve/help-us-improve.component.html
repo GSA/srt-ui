@@ -39,9 +39,9 @@
         </div>
 
 
-        <div *ngIf="solicitation" class="clearfix impcontainer">
+        <div *ngIf="solicitation" class="clearfix impcontainer pt-3">
           <div class="imppostion">
-            <div style="padding-bottom: 20px;">
+            <div class="pb-3">
               <h2 class="srt-section-title" style="text-transform: uppercase; padding-bottom: 20px;">
                 solicitation review result
               </h2>
@@ -55,7 +55,7 @@
               </div>
               <div class="list">
                 <div class="list-title" style="width: 68px">SAM.gov Link:&nbsp;</div>
-                <div class="list-content"><a href="{{solicitation.url}}" target="_blank">{{solicitation.url}}</a></div>
+                <div class="list-content"><a href="{{solicitation.url}}" target="_blank" rel="noopener noreferrer">{{solicitation.url}}</a></div>
               </div>
               <div class="list">
                 <div class="list-title" style="width: 130px">Prediction Results:&nbsp; </div>

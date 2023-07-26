@@ -7,19 +7,19 @@
       <div>
         <form [formGroup]="masqForm" (ngSubmit)="onSubmit(masqForm)">
           <div class="row">
-            <div class="col-xs-2" style="text-align: right">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="text-align: right">
               <label for="agency">Agency:</label>
             </div>
-            <div class="col-xs-10">
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
               <input placeholder="" formControlName="agency" id="agency"/>
             </div>
           </div>
 
           <div class="row" style="padding-top: 10px;">
-            <div class="col-xs-2" style="text-align: right">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="text-align: right">
               <label for="role">User type:</label>
             </div>
-            <div class="col-xs-10">
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
               <select placeholder="Just a placeholder" formControlName="role" id="role">
                 <option value="Administrator">GSA Admin</option>
                 <option value="SRT Program Manager">SRT Admin</option>
@@ -31,7 +31,7 @@
           </div>
 
           <div class="row" style="padding-top: 10px;">
-            <div class="col-xs-2" style="text-align: right">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="text-align: right">
               <button type="submit">Submit</button>
             </div>
           </div>

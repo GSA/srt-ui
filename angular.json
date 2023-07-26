@@ -11,7 +11,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": ["os", "stream"],
+            "allowedCommonJsDependencies": [
+              "os",
+              "stream"
+            ],
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -59,7 +62,6 @@
             "prod": {
               "optimization": false,
               "sourceMap": false,
-              "extractCss": false,
               "namedChunks": false,
               "aot": false,
               "extractLicenses": true,

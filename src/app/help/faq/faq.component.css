@@ -53,6 +53,14 @@ text-align: center;
   margin-bottom: 40px;
 }
 
+.panel-heading button{
+  background: var(--surface-ground);
+}
+
+.panel-heading button:hover {
+  background: #BFDBFE;
+}
+
 .panel-body {
   font-size: 16px;
   font-weight: 500;
@@ -69,6 +77,8 @@ a.panel-link {
 a.panel-link:hover {
   text-decoration: none;
 }
+
+
 
 .panel-link:after {
   /*noinspection CssNoGenericFontName*/

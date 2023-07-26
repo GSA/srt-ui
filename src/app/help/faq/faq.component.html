@@ -2,80 +2,77 @@
   <div class="srt-banner blue">
     <div class="container">
       <h1>Frequently Asked Questions</h1>
-      <p>Solicitation Review Tool (SRT) is an automated predictive analysis application that performs scans of the SAM.gov
-        website and delivers: (1) a report containing all of the new solicitations for the previous
-        day; (2) a report of flagged solicitations that require manual review for specific regulatory requirements and compliance;
-        (3) a web-based portal for agency SMEs to perform manual reviews of flagged solicitations and to communicate with contracting
-        POCs for improvement; and (4) analytics and trending of flagged solicitations overtime by agency and government-wide.
+      <p>Solicitation Review Tool (SRT) is an automated predictive analysis application that performs scans of the
+        SAM.gov
+        website and delivers: <strong>(1)</strong> a report containing all of the new solicitations for the previous
+        day; <strong>(2)</strong> a report of flagged solicitations that require manual review for specific regulatory requirements and
+        compliance;
+        <strong>(3)</strong> a web-based portal for agency SMEs to perform manual reviews of flagged solicitations and to communicate
+        with contracting
+        POCs for improvement; and <strong>(4)</strong> analytics and trending of flagged solicitations overtime by agency and
+        government-wide.
       </p>
-      <p>SRT uses natural language processing, text mining, and machine learning algorithms to automatically identify whether
-        a solicitation contains sufficient compliance requirements for a particular use case (e.g. Section 508 Technical Requirements).
+      <p>SRT uses natural language processing, text mining, and machine learning algorithms to automatically identify
+        whether
+        a solicitation contains sufficient compliance requirements for a particular use case (e.g. Section 508 Technical
+        Requirements).
         To learn more about SRT read the FAQs below. </p>
     </div>
   </div>
 
-  <div class="container">
+  <div class="container-fluid">
 
     <div class="faq-content-div">
 
       <!-- Search FAQs by text -->
 
-      <div style="display: table; float: right">
-        <div style="display: table-cell; vertical-align: middle">
-          <input id="search" class="search-input" placeholder="Search FAQs" (keyup)="search()" aria-label="input area to search your question">
+      <div class="row px-5">
+        <div class="col-lg-11 d-flex justify-content-end">
+          <input id="search" class="search-input" placeholder="Search FAQs" (keyup)="search()"
+            aria-label="input area to search your question">
         </div>
-        <div style="display: table-cell; vertical-align: middle; cursor: pointer" (click)="search()" class="search-button">
-          Search
+        <div style="cursor: pointer" class="search-button col-lg-1" (click)="search()">
+          <i class="bi bi-search" style="vertical-align: sub;"></i>
         </div>
       </div>
 
-      <div class="row nopadding" style="clear: both">
+      <div class="row px-5" style="clear: both">
 
         <!-- Left navigation -->
 
-        <div class="sticky-nav">
-          <ul class="usa-sidenav-list">
+        <div class="sticky-nav col-md-3">
+          <ul class="usa-sidenav-list sticky-top">
             <li>
-              <a tabindex="0" data-toggle="tab"
-                 (keydown.enter)="scroll('mostViewTitle')"
-                 (keydown.space)="scroll('mostViewTitle')"
-                 (click)="scroll('mostViewTitle')">Most Viewed FAQs</a>
+              <a tabindex="0" data-bs-toggle="tab" (keydown.enter)="scroll('mostViewTitle')"
+                (keydown.space)="scroll('mostViewTitle')" (click)="scroll('mostViewTitle')">Most Viewed FAQs</a>
             </li>
             <li>
-              <a tabindex="0" data-toggle="tab"
-                 (keydown.enter)="scroll('backgroundInfoTitle')"
-                 (keydown.space)="scroll('backgroundInfoTitle')"
-                 (click)="scroll('backgroundInfoTitle')">Background</a>
+              <a tabindex="0" data-bs-toggle="tab" (keydown.enter)="scroll('backgroundInfoTitle')"
+                (keydown.space)="scroll('backgroundInfoTitle')" (click)="scroll('backgroundInfoTitle')">Background</a>
             </li>
             <li>
-              <a tabindex="0" data-toggle="tab"
-                 (keydown.enter)="scroll('aboutTitle')"
-                 (keydown.space)="scroll('aboutTitle')"
-                 (click)="scroll('aboutTitle')">About SRT</a>
+              <a tabindex="0" data-bs-toggle="tab" (keydown.enter)="scroll('aboutTitle')"
+                (keydown.space)="scroll('aboutTitle')" (click)="scroll('aboutTitle')">About SRT</a>
             </li>
             <li>
-              <a tabindex="0" data-toggle="tab"
-                 (keydown.enter)="scroll('scanningProcessTitle')"
-                 (keydown.space)="scroll('scanningProcessTitle')"
-                 (click)="scroll('scanningProcessTitle')">Explore the Scanning Process</a>
+              <a tabindex="0" data-bs-toggle="tab" (keydown.enter)="scroll('scanningProcessTitle')"
+                (keydown.space)="scroll('scanningProcessTitle')" (click)="scroll('scanningProcessTitle')">Explore the
+                Scanning Process</a>
             </li>
             <li>
-              <a tabindex="0" data-toggle="tab"
-                 (keydown.enter)="scroll('accessLevelTitle')"
-                 (keydown.space)="scroll('accessLevelTitle')"
-                 (click)="scroll('accessLevelTitle')">Understand Access Privileges</a>
+              <a tabindex="0" data-bs-toggle="tab" (keydown.enter)="scroll('accessLevelTitle')"
+                (keydown.space)="scroll('accessLevelTitle')" (click)="scroll('accessLevelTitle')">Understand Access
+                Privileges</a>
             </li>
             <li>
-              <a tabindex="0" data-toggle="tab"
-                 (keydown.enter)="scroll('manageWorkloadTitle')"
-                 (keydown.space)="scroll('manageWorkloadTitle')"
-                 (click)="scroll('manageWorkloadTitle')">Manage/ Review Solicitations</a>
+              <a tabindex="0" data-bs-toggle="tab" (keydown.enter)="scroll('manageWorkloadTitle')"
+                (keydown.space)="scroll('manageWorkloadTitle')" (click)="scroll('manageWorkloadTitle')">Manage/ Review
+                Solicitations</a>
             </li>
             <li>
-              <a tabindex="0" data-toggle="tab"
-                 (keydown.enter)="scroll('requestSupportTitle')"
-                 (keydown.space)="scroll('requestSupportTitle')"
-                 (click)="scroll('requestSupportTitle')">Request Support</a>
+              <a tabindex="0" data-bs-toggle="tab" (keydown.enter)="scroll('requestSupportTitle')"
+                (keydown.space)="scroll('requestSupportTitle')" (click)="scroll('requestSupportTitle')">Request
+                Support</a>
             </li>
           </ul>
         </div>
@@ -86,16 +83,17 @@
           <div class="faq-right-content">
             <div class="search-title" *ngFor="let section of faq;">
               <h2 id="{{section.title}}">{{section.name}}</h2>
-              <div class="panel-group" id="{{section.id}}" *ngIf="section.children">
-                <div class="panel panel-default search-content" *ngFor="let element of section.children; let i = index">
-
-                  <div class="panel-heading">
-                    <a class="panel-link collapsed" data-toggle="collapse" [attr.data-parent]="'#'+section.id" href="#{{section.id}}{{i}}" >
-                      <h3 class="panel-title" style="color:black">{{element.title}}</h3>
-                    </a>
-                  </div>
-                  <div id="{{section.id}}{{i}}" class="panel-collapse collapse" >
-                    <div class="panel-body"  [innerHTML]="element.body">
+              <div class="panel-group"  *ngIf="section.children">
+                <div id="{{section.id}}" class="accordion panel panel-default search-content" *ngFor="let element of section.children; let i = index">
+                  <div class="accordion-item panel-heading">
+                    <h3 class="accordion-header panel-title" style="color:black">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]='"#"+section.id+i' aria-expanded="false" aria-controls="{{section.id}}{{i}}" style="font-weight: 600;">
+                      {{element.title}}
+                      </button>
+                    </h3>
+                    <div id="{{section.id}}{{i}}" class="accordion-collapse collapse"  data-bs-parent="#{{section.id}}">
+                      <div class="accordion-body" [innerHTML]="element.body">
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -81,7 +81,7 @@ export class EmailPocComponent implements OnInit {
                 }
               });
             } else {
-              console.log ('Error processing parse status for solicitaiton ' + data.solNum);
+              console.log ('Error processing parse status for solicitation ' + data.solNum);
               data.parseStatus = [{formattedDate: '', postedDate: null, name: '', status: '', attachment_url: ''}];
             }
             this.emailSent = data.history.filter(function(e){return ((e['action'].indexOf('sent email to POC') > -1) ); }).length > 0;
