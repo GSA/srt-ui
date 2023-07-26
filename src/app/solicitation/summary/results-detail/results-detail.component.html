@@ -20,8 +20,19 @@
             <div style="padding-bottom: 5px"><a target="_blank" href="{{solicitation.url}}" rel="noopener noreferrer">{{solicitation.url}}</a></div>
             <div *ngIf="solicitation.reviewRec !== 'Not Applicable' " style="padding-bottom: 5px">
               <span style="font-weight:600">Results:&nbsp;</span>
-              <span style="font-weight:500" >{{solicitation.reviewRec}}</span>
-
+              <span style="font-weight:500" >{{solicitation.reviewRec}}</span>                    
+            <!-- insert button here for linking to ART -->
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <a href="https://section508.gov/art" target="_blank">
+                  <div id="art" class="srt-button" rel="noopener noreferrer">
+                    <div>
+                      Take Action: Get 508 Requirements
+                    </div>
+                  </div>
+                </a>
+              </div>
             </div>
           </div>
         </div>
