@@ -1,14 +1,18 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FeedbackReportComponent } from './feedback-report.component';
+import {SolicitationService} from '../solicitation.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('FeedbackReportComponent', () => {
   let component: FeedbackReportComponent;
   let fixture: ComponentFixture<FeedbackReportComponent>;
 
-  beforeEach(async(() => {
+  beforeEach((() => {
     TestBed.configureTestingModule({
-      declarations: [ FeedbackReportComponent ]
+      declarations: [ FeedbackReportComponent ],
+      imports: [HttpClientTestingModule],
+      providers: [SolicitationService]
     })
     .compileComponents();
   }));

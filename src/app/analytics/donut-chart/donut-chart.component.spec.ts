@@ -1,14 +1,20 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DonutChartComponent } from './donut-chart.component';
+import { TooltipModule } from 'primeng/tooltip';
+import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
+
+
 
 describe('DonutChartComponent', () => {
   let component: DonutChartComponent;
   let fixture: ComponentFixture<DonutChartComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ DonutChartComponent ]
+      declarations: [ DonutChartComponent ],
+      providers: [BaseChartDirective],
+      imports: [TooltipModule, NgChartsModule]
     })
     .compileComponents();
   }));

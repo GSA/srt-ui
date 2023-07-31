@@ -1,11 +1,13 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { FileService } from './file.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('FileService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FileService]
+      providers: [FileService],
+      imports: [HttpClientTestingModule]
     });
   });
 

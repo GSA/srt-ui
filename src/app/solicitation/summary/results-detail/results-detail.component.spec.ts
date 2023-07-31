@@ -1,17 +1,23 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ResultsDetailComponent } from './results-detail.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {SolicitationService} from '../../solicitation.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { SummaryComponent } from '../summary.component';
 
 describe('ResultsDetailComponent', () => {
   let component: ResultsDetailComponent;
   let fixture: ComponentFixture<ResultsDetailComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ ResultsDetailComponent ]
+      declarations: [SummaryComponent, ResultsDetailComponent ],
+      providers: [SolicitationService],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ResultsDetailComponent);

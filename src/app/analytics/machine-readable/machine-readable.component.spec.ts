@@ -1,14 +1,18 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MachineReadableComponent } from './machine-readable.component';
+import {BaseChartDirective} from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 
 describe('MachineReadableComponent', () => {
   let component: MachineReadableComponent;
   let fixture: ComponentFixture<MachineReadableComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MachineReadableComponent ]
+      declarations: [ MachineReadableComponent ],
+      providers: [BaseChartDirective],
+      imports: [NgChartsModule]
     })
     .compileComponents();
   }));

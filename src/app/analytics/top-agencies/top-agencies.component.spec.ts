@@ -1,14 +1,16 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TopAgenciesComponent } from './top-agencies.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 describe('TopAgenciesComponent', () => {
   let component: TopAgenciesComponent;
   let fixture: ComponentFixture<TopAgenciesComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TopAgenciesComponent ]
+      declarations: [ TopAgenciesComponent ],
+      imports: [TooltipModule]
     })
     .compileComponents();
   }));

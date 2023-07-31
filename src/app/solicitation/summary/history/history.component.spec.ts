@@ -1,17 +1,22 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HistoryComponent } from './history.component';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {SolicitationService} from '../../solicitation.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { SummaryComponent } from '../summary.component';
 describe('HistoryComponent', () => {
   let component: HistoryComponent;
   let fixture: ComponentFixture<HistoryComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ HistoryComponent ]
+      declarations: [ SummaryComponent, HistoryComponent ],
+      providers: [SolicitationService],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HistoryComponent);

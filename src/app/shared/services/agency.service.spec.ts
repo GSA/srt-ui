@@ -1,15 +1,17 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { AgencyService } from './agency.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AgencyService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AgencyService]
+      providers: [AgencyService],
+      imports: [HttpClientTestingModule]
     });
   });
 
-  it('should ...', inject([AgencyService], (service: AgencyService) => {
+  it('should provide', inject([AgencyService], (service: AgencyService) => {
     expect(service).toBeTruthy();
   }));
 });
