@@ -83,11 +83,14 @@ export class UserLoginComponent implements OnInit {
    */
   // tslint:disable-next-line:use-lifecycle-interface
   ngDoCheck() {
+    let labels = [];
     let i = 0;
-    for (const d = this.fromPeriod; d <= this.toPeriod && i < 32; d.setDate(d.getDate() + 1)) {
-        this.lineChartLabels.push(d.getMonth() + 1 + '/' + d.getDate());
-        i++;
+    const toPeriod = new Date(this.toPeriod);
+    for (let d = new Date(this.fromPeriod); d <= toPeriod && i < 32; d.setDate(d.getDate() + 1)) {
+      labels.push(d.getMonth() + 1 + '/' + d.getDate());
+      i++;
     }
+    this.lineChartLabels = labels;
   }
 
 }

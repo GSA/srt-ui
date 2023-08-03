@@ -7,7 +7,7 @@ export class Solicitation {
         public solNum: String,
         public title: String,
         public url: String,
-        public predictions: {value: String, history: [{value: String, date: String}]},
+        public predictions: {value: String, history: {value: String, date: String}[]},
         public reviewRec: String,
         public numDocs: String,
         public category_list: {value: String},
@@ -31,12 +31,12 @@ export class Solicitation {
         //   email: String
         // },
         public contactInfo: [String],
-        public history: [{
+        public history: {
           date: String,
           action: String,
           user: String,
           status: String
-        }],
+        }[],
         public feedback: [{
           questionID: String,
           question: String,

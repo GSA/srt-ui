@@ -124,7 +124,7 @@ export class HelpUsImproveComponent implements OnInit {
           // tslint:disable-next-line:one-line
           else {
             survey.Answer = (survey.Answer === '') ? answer : survey.Answer + ',' + answer;
-            this.surveyModel[survey.ID] =  (survey.Answer === '') ? answer : survey.Answer + ',' + answer;
+            this.surveyModel[survey.ID] =  survey.Answer
           }
       }
   }

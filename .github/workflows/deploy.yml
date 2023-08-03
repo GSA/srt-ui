@@ -12,6 +12,9 @@ jobs:
     outputs:
       formattedTime: ${{ steps.current-time.outputs.formattedTime }}
     steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3.5.3          
       - 
         name: Get Current Time
         uses: josStorer/get-current-time@v2.1.1
@@ -47,11 +50,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3.5.3
-      - 
-        name: Check Working Directory
-        run: |
-          ls -la
+        uses: actions/checkout@v3.5.3          
       -
         name: Push to Cloud.gov Dev Space
         uses: citizen-of-planet-earth/cf-cli-action@master

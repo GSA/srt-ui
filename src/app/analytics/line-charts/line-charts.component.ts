@@ -144,7 +144,7 @@ export class LineChartsComponent implements OnInit {
           let pass: any[] = [];
           let total: any[] = [];
           this.lineChartLabels = [];
-          const month = new Date().getMonth() + 1;
+          const month = (this.fromPeriod) ? this.fromPeriod.getMonth()+ 1 : new Date().getMonth() + 1;
           for (let i = 1;  i < indexTo; i ++) {
             this.lineChartLabels.push(month + '/' + i);
             percentage.push(0);

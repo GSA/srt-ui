@@ -95,7 +95,8 @@ export class ScannedSolicitationComponent implements OnInit {
   }
 
   filterRecentDates(fromDate: Date, inArray: Array<any>) {
-    const fromDateYYYYMMDD = this.formatDate(this.fromPeriod);
+    fromDate = (fromDate) ? fromDate : this.fromPeriod
+    const fromDateYYYYMMDD = this.formatDate(fromDate);
     const result = {};
     for (const key of Object.keys(inArray) ){
       if (key > fromDateYYYYMMDD) {
