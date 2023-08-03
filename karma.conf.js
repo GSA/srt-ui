@@ -47,7 +47,7 @@ module.exports = function (config) {
       ]
     },
     reporters: ['progress', 'kjhtml'],
-    browsers: ['ChromeHeadlessCustom',],
+    browsers: ['Chrome'],
     colors: true,
     port: 9876,
     logLevel: config.LOG_INFO,
