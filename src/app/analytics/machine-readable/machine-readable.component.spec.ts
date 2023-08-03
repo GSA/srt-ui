@@ -26,4 +26,16 @@ describe('MachineReadableComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should set pieChartData when MachineReadableChart is set', () => {
+    const machineReadableChart = { machineReadable: 10, machineUnreadable: 5 };
+    component.MachineReadableChart = machineReadableChart;
+
+    component.ngOnChanges();
+    expect(component.pieChartData).toEqual([10, 5]);
+    expect(component.displayReadable).toEqual('66.7%');
+    expect(component.displayUnreadable).toEqual('33.3%');
+
+  });
+
 });

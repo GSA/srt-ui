@@ -6,7 +6,6 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {NoticeTypesService} from '../../shared/services/noticeTypes.service';
 import { LoggerTestingModule } from 'ngx-logger/testing';
 import {Globals} from '../../../globals';
-import { before } from 'node:test';
 
 describe('SolicitationReportComponent', () => {
   let component: SolicitationReportComponent;
