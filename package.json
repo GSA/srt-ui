@@ -87,6 +87,7 @@
     "os-browserify": "^0.3.0",
     "phantomjs-prebuilt": "^2.1.16",
     "protractor": "^7.0.0",
+    "puppeteer": "^21.0.1",
     "snyk": "^1.1175.0",
     "stream-browserify": "^3.0.0",
     "ts-node": "~10.9.1",
