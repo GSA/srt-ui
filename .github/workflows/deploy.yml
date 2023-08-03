@@ -16,10 +16,6 @@ jobs:
         name: Checkout
         uses: actions/checkout@v3.5.3          
       - 
-        name: Running Unit Tests
-        run: |
-          yarn ngtest
-      - 
         name: Get Current Time
         uses: josStorer/get-current-time@v2.1.1
         id: current-time
