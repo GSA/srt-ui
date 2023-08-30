@@ -62,7 +62,7 @@
     "rxjs-compat": "^6.6.7",
     "tslib": "^2.5.3",
     "underscore": "^1.13.6",
-    "url-search-params-polyfill": "^8.2.3",
+    "url-search-params-polyfill": "^8.2.4",
     "uswds": "^2.14.0",
     "web-animations-js": "^2.3.2",
     "zone.js": "~0.13.1"

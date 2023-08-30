@@ -8419,10 +8419,10 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
-url-search-params-polyfill@^8.2.3:
-  version "8.2.3"
-  resolved "https://registry.yarnpkg.com/url-search-params-polyfill/-/url-search-params-polyfill-8.2.3.tgz#bc2fe7e9939fc1cce656bec2ecb3c34fc7e16a99"
-  integrity sha512-DTQqQ7tYuQlmCzAAPAE7ALvXZhqh6+WfCQ+kpbLyGMM/PHG90P95XtLFLw7XskcL+4x7TyyNDFxfGJrJXUk7jg==
+url-search-params-polyfill@^8.2.4:
+  version "8.2.4"
+  resolved "https://registry.yarnpkg.com/url-search-params-polyfill/-/url-search-params-polyfill-8.2.4.tgz#8454c99244d9c8e2331982cd552e01db27726173"
+  integrity sha512-6jWpuCn5DD+bUuqQK7yIzhE2lxkrDhxCVAj+STTl0DuBGIr3F1ptaIo14KHlngU1w5XmvhwsmH4wzSyyrZK7Tg==
 
 uswds@^2.14.0:
   version "2.14.0"
