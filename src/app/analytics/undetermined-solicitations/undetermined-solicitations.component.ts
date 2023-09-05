@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild} from '@angular/core';
 
 import { BaseChartDirective } from 'ng2-charts';
 import { Color } from 'chart.js';
+import { getChartLabelPlugin, PLUGIN_ID } from 'chart.js-plugin-labels-dv';
 
 
 @Component({
@@ -21,9 +22,25 @@ export class UndeterminedSolicitationsComponent implements OnInit {
   public pieChartData: any;
 
   public pieChartType = 'pie';
+  public pieChartPlugins = [getChartLabelPlugin()];
+
   public options: any = {
     cutout: 0,
+    layout: {
+      padding: {
+        top: 20,
+      }
+    },
     plugins: {
+      labels: {
+        render: 'percentage',
+        precision: 1,
+        fontSize: 16,
+        fontColor: '#fffff',
+        position: 'outside',
+        outsidePadding: 4,
+        textMargin: 6,
+      },
       legend: {
           display: true,
           position: 'bottom',
@@ -67,7 +84,6 @@ export class UndeterminedSolicitationsComponent implements OnInit {
    */
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges() {
-
     if (this.UndeterminedSolicitationChart && !this.hasValue) {
       const presolicitation = this.UndeterminedSolicitationChart.presolicitation;
       const undetermined = this.UndeterminedSolicitationChart.latestOtherUndetermined;

@@ -21,6 +21,7 @@ import { TopAgenciesPercentageComponent } from './top-agencies-percentage/top-ag
 import { UndeterminedSolicitationsComponent } from './undetermined-solicitations/undetermined-solicitations.component';
 import { LineChartsComponent } from './line-charts/line-charts.component';
 import { DonutChartComponent } from './donut-chart/donut-chart.component';
+import { SolicitationResultComponent } from './solicitation-result/solicitation-result.component';
 
 // Service
 import { AnalyticsService } from './services/analytics.service';
@@ -47,6 +48,7 @@ import { AnalyticsService } from './services/analytics.service';
     UndeterminedSolicitationsComponent,
     LineChartsComponent,
     DonutChartComponent,
+    SolicitationResultComponent,
   ],
   providers: [
     AnalyticsService
