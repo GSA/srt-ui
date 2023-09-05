@@ -11,13 +11,11 @@
     }
     .undeter-solic-div{
         position: relative;
-        max-width: 350px;
     }
 
     .undeter-solic-canvas{
         display: block;
         margin: 0px auto;
-        height: 280px;
         transform: translateZ(0);
         /* font-weight.*300 */
     }
