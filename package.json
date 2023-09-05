@@ -40,6 +40,7 @@
     "angular2-font-awesome": "^1.3.0",
     "angular2-tooltip": "^3.1.0",
     "chart.js": "^4.3.0",
+    "chart.js-plugin-labels-dv": "^5.0.1-beta",
     "chart.piecelabel.js": "^0.15.0",
     "chartjs-adapter-date-fns": "^3.0.0",
     "classlist.js": "^1.1.20150312",

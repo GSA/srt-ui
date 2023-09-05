@@ -2911,6 +2911,11 @@ chardet@^0.7.0:
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
+chart.js-plugin-labels-dv@^5.0.1-beta:
+  version "5.0.1-beta"
+  resolved "https://registry.yarnpkg.com/chart.js-plugin-labels-dv/-/chart.js-plugin-labels-dv-5.0.1-beta.tgz#d17a50d32e70d7575fb725062564480a33f67c84"
+  integrity sha512-Z0IZ5MpysGIpQ0awiPqxxvont0oQJcZZJnn23ujpbtsETQ0EmQGOGOU7zzTPuuLBLhVPYP+o8OLV+BKmjcoDJA==
+
 chart.js@^2.1.5:
   version "2.9.4"
   resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-2.9.4.tgz#0827f9563faffb2dc5c06562f8eb10337d5b9684"
