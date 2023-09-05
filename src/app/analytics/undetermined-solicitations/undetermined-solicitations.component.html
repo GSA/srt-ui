@@ -14,27 +14,9 @@
           <canvas baseChart
                   [data]="pieChartData"
                   [options]="options"
-                  [type]="pieChartType">
+                  [type]="pieChartType"
+                  [plugins]="pieChartPlugins">
           </canvas>
-      </div>
-      <div *ngIf="displayPresolicitation != '0%'" class="undeter-solic-dispaly1" aria-hidden="true">
-            {{displayPresolicitation}}
-      </div>
-      <div *ngIf="displayNonMachineReadable != '0%'" class="undeter-solic-dispaly2" aria-hidden="true">
-            {{displayNonMachineReadable}}
-      </div>
-      <div *ngIf="displayNoDocument != '0%'" class="undeter-solic-dispaly3" aria-hidden="true">
-            {{displayNoDocument}}
-      </div>
-      <div  *ngIf="displayOtherUndetermined != '0%'" class="undeter-solic-dispaly4" aria-hidden="true">
-            {{displayOtherUndetermined}}
-      </div>
-      <div class="visually-hidden">
-        <p>Chart data:</p>
-        <p>Pre-solicitation {{displayPresolicitation}}</p>
-        <p>Non Machine Readable {{displayNonMachineReadable}}</p>
-        <p>No Documents {{displayNoDocument}}</p>
-        <p>Other Undetermined {{displayOtherUndetermined}}</p>
       </div>
     </div>
 
