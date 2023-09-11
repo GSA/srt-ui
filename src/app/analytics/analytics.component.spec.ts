@@ -22,6 +22,7 @@ import { TopAgenciesPercentageComponent } from './top-agencies-percentage/top-ag
 import { UndeterminedSolicitationsComponent } from './undetermined-solicitations/undetermined-solicitations.component';
 import { LineChartsComponent } from './line-charts/line-charts.component';
 import { DonutChartComponent } from './donut-chart/donut-chart.component';
+import { SolicitationResultComponent } from './solicitation-result/solicitation-result.component';
 
 
 import {of} from 'rxjs';
@@ -37,7 +38,7 @@ describe('AnalyticsComponent', () => {
                       UserLoginComponent, MachineReadableComponent,
                       PredictionResultComponent, TopAgenciesPercentageComponent,
                       UndeterminedSolicitationsComponent, LineChartsComponent,
-                      DonutChartComponent, ],
+                      DonutChartComponent, SolicitationResultComponent],
       providers: [Globals, AnalyticsService, BaseChartDirective],
       imports: [NgChartsModule, TooltipModule, FormsModule, RouterTestingModule.withRoutes([]), HttpClientTestingModule]
     })

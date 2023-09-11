@@ -109,6 +109,8 @@
               (click)="selectSol(sol)" style="border: none; text-align: left; padding: 0;">
               <i class="fa fa-exclamation-triangle" style="padding-right: 5px;"
                 *ngIf="sol.predictions.value == 'red' && sol.reviewRec != 'Not Applicable'"></i>
+                <i class="bi bi-question-diamond-fill" style="padding-right: 5px;"
+                *ngIf="sol.predictions.value == 'yellow' && sol.reviewRec != 'Not Applicable'"></i>
               <span style="text-decoration: underline;">{{sol.reviewRec}}</span>
             </button>
           </td>
