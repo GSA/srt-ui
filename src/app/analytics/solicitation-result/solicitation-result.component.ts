@@ -19,9 +19,10 @@ export class SolicitationResultComponent {
   public numCompliant = 0;
   public numNonCompliant = 0;
   public numNotApplicable = 0;
+  public numCannotEvaluate = 0;
 
   public hasValue = false;
-  public pieChartLabels: string[] = ['Compliant', 'Not Compliant', 'Not Applicable'];
+  public pieChartLabels: string[] = ['Compliant', 'Not Compliant', 'Not Applicable', 'Cannot Evaluate'];
   public pieChartData: any;
 
   public pieChartType = 'pie';
@@ -74,14 +75,16 @@ export class SolicitationResultComponent {
       this.numCompliant = this.SolicitationResultChart.compliance;
       this.numNonCompliant = this.SolicitationResultChart.uncompliance;
       this.numNotApplicable = this.SolicitationResultChart.notApplicable;
+      this.numCannotEvaluate = this.SolicitationResultChart.cannotEvaluate;
+
       
       this.pieChartData = {
         labels: this.pieChartLabels,
 
         datasets: [{
-          data: [this.numCompliant, this.numNonCompliant, this.numNotApplicable], 
-          backgroundColor: ['#2C81C0', '#ff0000', '#e8e8e8',], 
-          borderColor: ['#2C81C0', '#ff0000', '#e8e8e8',]
+          data: [this.numCompliant, this.numNonCompliant, this.numNotApplicable, this.numCannotEvaluate], 
+          backgroundColor: ['#2C81C0', '#ff0000', '#e8e8e8', '#FFB300'], 
+          borderColor: ['#2C81C0', '#ff0000', '#e8e8e8','#FFB300']
         }]
       };
 
