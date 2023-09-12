@@ -99,6 +99,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     {label : 'All', value : ''},
     {label : 'Non-Compliant', value : 'Non-compliant (Action Required)'},
     {label : 'Compliant', value : 'Compliant'},
+    {label : 'Cannot Evaluate', value : 'Cannot Evaluate (Review Required)'},
     {label : 'Not Applicable', value : 'Not Applicable'},
   ];
 
@@ -106,7 +107,8 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     {label : 'All', value : ''},
     {label : 'Non-Compliant', value : 'red'},
     {label : 'Compliant', value : 'green'},
-    {label : 'Not Applicable', value : 'Not Applicable'},
+    {label : 'Cannot Evaluate', value : 'yellow'},
+    {label : 'Not Applicable', value : 'grey'},
   ];
 
 
@@ -435,6 +437,10 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
       // adjust the Non-Compliant reviewRec filter to be "Non-compliant (Action Required)"
       if (this.tableState.filter.reviewRec.value === 'Non-Compliant') {
         this.tableState.filter.reviewRec.value = 'Non-compliant (Action Required)';
+      }
+      // adjust the Cannot Evaluate reviewRec filter to be "Cannot Evaluate (Review Required)"
+      if (this.tableState.filter.reviewRec.value === 'Cannot Evaluate') {
+        this.tableState.filter.reviewRec.value = 'Cannot Evaluate (Review Required)';
       }
       if (this.tableState.filter.reviewRec.value === 'All') {
         delete this.tableState.filter.reviewRec;
