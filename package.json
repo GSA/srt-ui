@@ -48,7 +48,7 @@
     "date-fns": "^2.30.0",
     "file-saver": "^2.0.5",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.7.0",
+    "jquery": "^3.7.1",
     "json2csv": "^6.0.0-alpha.2",
     "moment": "^2.29.4",
     "ng2-charts": "^4.1.1",
