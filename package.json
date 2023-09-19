@@ -61,7 +61,7 @@
     "primeng": "^15.4.1",
     "rxjs": "^7.8.1",
     "rxjs-compat": "^6.6.7",
-    "tslib": "^2.5.3",
+    "tslib": "^2.6.2",
     "underscore": "^1.13.6",
     "url-search-params-polyfill": "^8.2.3",
     "uswds": "^2.14.0",
