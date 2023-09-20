@@ -106,7 +106,7 @@ export class LoginReportsComponent implements OnInit {
 
     if (this.selection.days > 90) {
       this.chartOptions.scales.x.time.unit = 'month';
-    } else if (this.selection.days > 30) {
+    } else if (this.selection.days >= 30) {
       this.chartOptions.scales.x.time.unit = 'week';
     } else {
       this.chartOptions.scales.x.time.unit = 'day';
@@ -122,25 +122,49 @@ export class LoginReportsComponent implements OnInit {
           backgroundColor: '#2C81C0'
         }],
     };
+
+    // Grab dates from current date back the select number of days
+    let chartLabelData: Array<Date> = (() => {
+      let current_date = new Date();
+      current_date.setHours(0, 0, 0, 0);
+      let empty_dates = [];
+    
+      for (let i = 0; i <= this.selection.days ; i++) {
+        empty_dates.push(new Date(current_date));
+        current_date.setDate(current_date.getDate() - 1);
+      }
+      
+      return empty_dates.reverse();
+    })();
+
+    let chartLoginData = Array(this.selection.days).fill(0);
+
+    this.loginData.labels = chartLabelData;
+    
     this.readerSupplement = '<table style="border: 1px black solid"><thead><tr><th>Date</th><th>Login Count</th></tr></thead>';
 
     Object.keys(data).forEach(date => {
       const dateLogin = new Date(date);
-      const daysAgo = (this.today.getTime() - dateLogin.getTime()) / this.msInDay;
-
-
-      if (daysAgo < this.selection.days) {
-        this.loginData.labels.push(date);
-
+      
+      let index;
+      if ((index = chartLabelData.findIndex( 
+        function (x) {
+            // Need to look at Value of Date because the Date object is different
+            return x.valueOf() === dateLogin.valueOf();
+          }
+          )) != -1) {
         let loginsForDay = 0;
         Object.keys(data[date]).forEach(email => {
           loginsForDay += data[date][email];
         });
-        this.loginData.datasets[0].data.push(loginsForDay);
+
+        chartLoginData[index] = loginsForDay;
 
         this.readerSupplement += `<tr><td>${date}</td><td>${loginsForDay}</td>`;
       }
     });
+
+    this.loginData.datasets[0].data = chartLoginData;
     console.log('Login data', this.loginData)
     this.readerSupplement += '</table>';
   }
