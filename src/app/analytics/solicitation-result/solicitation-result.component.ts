@@ -72,10 +72,12 @@ export class SolicitationResultComponent {
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges() {
     if (this.SolicitationResultChart && !this.hasValue) {
-      this.numCompliant = this.SolicitationResultChart.compliance;
-      this.numNonCompliant = this.SolicitationResultChart.uncompliance;
-      this.numNotApplicable = this.SolicitationResultChart.notApplicable;
-      this.numCannotEvaluate = this.SolicitationResultChart.cannotEvaluate;
+      // If the chart data is available, then display the chart
+      // If undefined, then set value to 0 (avoiding NaN)
+      this.numCompliant = this.SolicitationResultChart.compliance || 0;
+      this.numNonCompliant = this.SolicitationResultChart.uncompliance || 0;
+      this.numNotApplicable = this.SolicitationResultChart.notApplicable || 0;
+      this.numCannotEvaluate = this.SolicitationResultChart.cannotEvaluate || 0;
 
       
       this.pieChartData = {
@@ -87,6 +89,8 @@ export class SolicitationResultComponent {
           borderColor: ['#2C81C0', '#ff0000', '#e8e8e8','#FFB300']
         }]
       };
+
+      console.log('Sol-result piechart data', this.pieChartData);
 
       this.hasValue = true;
       this.forceChartRefresh();

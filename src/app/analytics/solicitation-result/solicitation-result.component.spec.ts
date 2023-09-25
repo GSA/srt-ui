@@ -60,4 +60,21 @@ describe('SolicitationResultComponent', () => {
     expect(component.hasValue).toBeTrue();
   });
 
+  it('should set data to zero if undefined', () => {
+    const chart = {
+      compliance: undefined,
+      uncompliance: undefined,
+      notApplicable: undefined,
+      cannotEvaluate: undefined,
+    };
+    component.SolicitationResultChart = chart;
+    component.hasValue = false;
+    component.ngOnChanges();
+    expect(component.numCompliant).toEqual(0);
+    expect(component.numNonCompliant).toEqual(0);
+    expect(component.numNotApplicable).toEqual(0);
+    expect(component.numCannotEvaluate).toEqual(0);
+    
+  });
+
 });
