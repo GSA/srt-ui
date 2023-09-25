@@ -90,8 +90,6 @@ export class SolicitationResultComponent {
         }]
       };
 
-      console.log('Sol-result piechart data', this.pieChartData);
-
       this.hasValue = true;
       this.forceChartRefresh();
     }
