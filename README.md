@@ -26,8 +26,8 @@ Access to the following platforms will also be required for development:
 ## Getting Started
 ### Download SRT Source Code 
 For both Mac and Ubuntu: 
-* Navigate to the desired folder to clone the srt-ui project. 
-* Then execute the following in the command line: 
+* In the command line, navigate to the desired folder to clone the srt-ui project. 
+* Then execute the following command: 
 ```
 git clone https://github.com/GSA/srt-ui.git
 cd srt-ui
@@ -98,18 +98,58 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
 source ~/.bashrc
 ```
 ### Install Yarn 
-Execute the following command to install yarn: 
-```
-npm install –global yarn
-```
-Alternatively, you can install yarn on Mac OS with the following command: 
-```
-brew install yarn
-```
-For more information on installing yarn, refer to the detailed information here: <https://classic.yarnpkg.com/en/docs/install#mac-stable>
+For the most up-to-date information on installing yarn on your system, go to this website: <https://yarnpkg.com/getting-started/install>.
+
+Note: npm is no longer the recommended way to install yarn. 
 
 ## Running the Project 
 * Run `ng serve` to start the SRT client locally. 
 * Then open a browser to this URL: <http://localhost:4200/>. 
 * Run `ng build` to build the project. 
 ## Deployment 
+### Build the Docker Image
+####  Development 
+```
+docker build . -t <docker_username>/srt-ui:<release_version>-dev --build-arg environment=dev 
+```
+####  Staging 
+```
+docker build . -t <docker_username>/srt-ui:<release_version>-staging --build-arg environment=staging 
+```
+#### Production 
+```
+docker build . -t <docker_username>/srt-ui:<release_version>-prod --build-arg environment=prod 
+```
+### Push to Docker  
+####  Development 
+```
+sudo docker push <docker_username>/srt-ui:<release_version>-dev 
+```
+####  Staging 
+```
+sudo docker push <docker_username>/srt-ui:<release_version>-staging 
+```
+#### Production 
+```
+sudo docker push <docker_username>/srt-ui:<release_version>-prod 
+```
+### Deploy to Cloud.gov
+####  Development 
+```
+cf push srt-ui-dev -f cf/manifest.dev.yml --docker-image <docker_username>/srt-ui:<release_version>-dev
+```
+####  Staging 
+```
+cf push srt-ui-staging -f cf/manifest.staging.yml --docker-image <docker_username>/srt-ui:<release_version>-staging
+```
+#### Production 
+```
+cf push srt-ui-prod -f cf/manifest.prod.yml --docker-image <docker_username>/srt-ui:<release_version>-prod
+```
+
+
+
+
+
+
+
