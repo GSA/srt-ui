@@ -102,10 +102,17 @@ For the most up-to-date information on installing yarn on your system, go to thi
 
 Note: npm is no longer the recommended way to install yarn. 
 
+### Install Node Modules with YARN
+In the project directory run:
+```
+yarn
+```
+
 ## Running the Project 
-* Run `ng serve` to start the SRT client locally. 
+* Run `yarn dev` to start the SRT client locally. 
 * Then open a browser to this URL: <http://localhost:4200/>. 
-* Run `ng build` to build the project. 
+* Run `yarn build-<env>` to build the project. (Not needed for deployment)
+
 ## Deployment 
 ### Build the Docker Image
 ####  Development 
