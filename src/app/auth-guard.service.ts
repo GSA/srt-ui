@@ -59,6 +59,27 @@ export class AuthGuard implements CanActivate {
     }
   }
 
+  /**
+   * check if user is admin
+  */
+  checkAdmin(): boolean {
+    if (this.isGSAAdmin) {
+      return true;
+    } else {
+      this.authService.checkToken().subscribe(
+        (data) => {
+          this.isGSAAdmin = data.isGSAAdmin;
+          if (data.isGSAAdmin) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+    }
+  }
+
+
+
 
   // Kailun's new add
 

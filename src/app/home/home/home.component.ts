@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthGuard } from '../../auth-guard.service';
-
 import { Router } from '@angular/router';
 import {BaseComponent} from '../../base.component';
 import {Title} from '@angular/platform-browser';
@@ -15,6 +14,8 @@ export class HomeComponent extends BaseComponent implements OnInit {
   /* ATTRIBUTES */
   currentID: string;
   isGSAAdmin = false;
+
+  private adminCheckTimes: number = 0;
 
   /* CONSTRUCTORS */
 
@@ -36,12 +37,32 @@ export class HomeComponent extends BaseComponent implements OnInit {
    * lifecycle
    */
   ngOnInit() {
-    this.isGSAAdmin = this.auth.isGSAAdmin;
+    this.loadAdminComponents();
     this.currentID = localStorage.getItem('id');
     this.pageName = 'SRT Home Page';
     super.ngOnInit();
+
+    this.checkAdmin();
   }
 
+  ngOnChanges(){
+  }
+  
+  loadAdminComponents(){
+    this.isGSAAdmin = this.auth.checkAdmin();    
+  }
 
+  checkAdmin(){
+    const interval = setInterval(() => {
+      this.loadAdminComponents();
+
+      if (this.adminCheckTimes > 1) {
+        clearInterval(interval);
+      }
+      this.adminCheckTimes++;
+
+    }, 2000);
+
+  }
 
 }
