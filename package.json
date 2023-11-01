@@ -1,6 +1,6 @@
 {
   "name": "srt",
-  "version": "1.4.0dev0",
+  "version": "1.4.0dev1",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
