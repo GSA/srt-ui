@@ -52,17 +52,23 @@
             return x[0] === 'token';
         });
 
-        if (ticketParam.length > 0) {
-        const data = JSON.parse(decodeURIComponent(ticketParam[0][1]));
-        localStorage.setItem('agency', data.agency);
-        localStorage.setItem('email', data.email);
-        localStorage.setItem('firstName', data.firstName);
-        localStorage.setItem('id', data.id);
-        localStorage.setItem('lastName', data.lastName);
-        localStorage.setItem('position', data.position);
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('userRole', data.userRole);
-        window.location = '/';
+        var url_string = window.location.href;
+        console.log(url_string);
+        var url = new URL(url_string);
+        var info = url.searchParams.get("info");
+        const data = JSON.parse(decodeURIComponent(info));
+
+        if (data) {
+          console.log('setting data');
+          if (data.agency !== undefined) localStorage.setItem('agency', data.agency);
+          if (data.email !== undefined) localStorage.setItem('email', data.email);
+          if (data.firstName !== undefined) localStorage.setItem('firstName', data.firstName);
+          if (data.id !== undefined) localStorage.setItem('id', data.id);
+          if (data.lastName !== undefined) localStorage.setItem('lastName', data.lastName);
+          if (data.position !== undefined) localStorage.setItem('position', data.position);
+          if (data.token !== undefined) localStorage.setItem('token', data.token);
+          if (data.userRole !== undefined) localStorage.setItem('userRole', data.userRole);
+          window.location = '/';
       }
       return false;
     }
