@@ -17,11 +17,11 @@ export class AuthService {
 
   public static TOKEN = 'token';
 
-  private userUrl = environment.SERVER_URL + '/auth';
+  private userUrl = environment.SERVER_URL + '/auth/user';
   private loginUrl = environment.SERVER_URL + '/auth/login';
   private tokenUrl = environment.SERVER_URL + '/auth/tokenCheck';
   private resetUrl = environment.SERVER_URL + '/auth/resetPassword';
-
+  private authUrl = environment.SERVER_URL + '/auth';
 
   /* CONSTRUCTOR */
 
@@ -84,6 +84,19 @@ export class AuthService {
         ));
   }
 
+  /**
+   * grab token
+   */
+  getAuthToken() {
+    const body = localStorage;
+    return this.http.post<any>(this.authUrl, body, httpOptions)
+      .pipe(
+        catchError( (error: any) => {
+        return observableThrowError(() => error)
+        }
+        ));
+  }
+  
 
   /**
    * Verify if User is logged in

@@ -57,7 +57,7 @@
 
         <!-- View Analytic -->
         <div class="col-md-4 col-sm-6 srt-margin-bot">
-          <a [routerLink]="['/analytics']" aria-labelledby="h3va">
+          <a [routerLink]="['/analytics']" aria-labelledby="h3va"  *ngIf="isGSAAdmin">
             <div class="srt-1-1">
               <div>
                 <div class="srt-main-box">
