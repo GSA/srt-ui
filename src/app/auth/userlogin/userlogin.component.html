@@ -5,7 +5,7 @@
   </div>
 
   <div class="text-center">
-    <button class="srt-button"
+    <button class="srt-button m-2"
             style="float:none; display:inline; margin-top:3em;"
             id="login"
             aria-label="Login with MAX"
@@ -21,10 +21,8 @@
                         window.location = 'http://' + server_host + '/api/casLogin'
                       }()) ">Login with MAX
     </button>
-  </div>
-  <div class="text-center">
-    <button class="srt-button"
-            style="float:none; display:inline; margin-top:3em;"
+    <button class="srt-button m-2"
+            style="float:none; display:inline; margin-top:3em; "
             id="login"
             aria-label="Login with Login.gov"
             onClick=" (function() {
@@ -37,10 +35,11 @@
                         //default to current name for dev servers
                         if (server_host === '') { server_host = 'localhost:3000';}
                         window.location = 'http://' + server_host + '/api/login'
-                      }()) ">Login with Login.gov
+                      }()) ">
+                      <img src="/assets/login-gov-logo.svg" alt="login-gov-logo" style="width: -webkit-fill-available;"/>
     </button>
   </div>
-
+  
 </main>
 
 
