@@ -104,10 +104,20 @@ export class HeaderComponent implements OnInit {
   onLogout() {
     const u = new Currentuser('', '', '', '', '', '');
     this.userService.saveUser(u);
-    this.authGuard.isLogin = false;
+    const loginMethod = localStorage.getItem('loginMethod');
     this.app.isLogin = false;
-    this.authService.logout();
-    this.router.navigateByUrl('auth').then();
+    this.authGuard.isLogin = false;
+
+    const logoutURL = this.authService.logout();
+
+    // TODO: Implement when only Login.gov is used
+    if (loginMethod === 'login.gov') {
+      window.location.href = logoutURL;
+    }
+    else {
+      this.router.navigateByUrl('auth').then();
+    }
+
   }
 
   /**
