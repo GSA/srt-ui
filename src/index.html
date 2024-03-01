@@ -68,6 +68,8 @@
           if (data.position !== undefined) localStorage.setItem('position', data.position);
           if (data.token !== undefined) localStorage.setItem('token', data.token);
           if (data.userRole !== undefined) localStorage.setItem('userRole', data.userRole);
+          if (data.loginMethod !== undefined) localStorage.setItem('loginMethod', data.loginMethod);
+
           window.location = '/';
       }
       return false;

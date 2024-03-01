@@ -19,6 +19,8 @@ export class AuthService {
 
   private userUrl = environment.SERVER_URL + '/auth/user';
   private loginUrl = environment.SERVER_URL + '/auth/login';
+  private logoutUrl = environment.SERVER_URL + '/logout';
+
   private tokenUrl = environment.SERVER_URL + '/auth/tokenCheck';
   private resetUrl = environment.SERVER_URL + '/auth/resetPassword';
   private authUrl = environment.SERVER_URL + '/auth';
@@ -69,6 +71,8 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.clear();
+
+    return this.logoutUrl
   }
 
   /**
