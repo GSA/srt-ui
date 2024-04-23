@@ -26,9 +26,7 @@
             <div *ngIf="solicitation.reviewRec !== 'Compliant'"> <!-- Button only displays for non-compliant solicitations -->
               <div class="row pt-2">
                 <div class="col-md-8">
-                  <a *ngIf="solicitation.reviewRec == 'Non-compliant (Action Required)'" id="art" href="https://section508.gov/art" target="_blank"  rel="noopener noreferrer" class="btn srt-button">
-                    Take Action: Get 508 Requirements
-                  </a>
+                  <app-art-iframe-dialog></app-art-iframe-dialog>
                 </div>
               </div>
             </div>

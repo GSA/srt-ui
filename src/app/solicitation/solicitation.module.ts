@@ -9,6 +9,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { QuillEditorModule } from 'ngx-quill-editor';
+import { DialogModule } from 'primeng/dialog';
 
 import { SolicitationRoutesModule } from './solicitation.routing';
 
@@ -26,7 +27,7 @@ import { SolicitationComponent } from './solicitation.component';
 import { FeedbackReportComponent } from './feedback-report/feedback-report.component';
 import { FormComponent } from './feedback-report/form/form.component';
 import { PredictionHistoryComponent } from './summary/prediction-history/prediction-history.component';
-
+import { ArtIframeDialogComponent } from './summary/results-detail/art-iframe-dialog/art-iframe-dialog.component';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { PredictionHistoryComponent } from './summary/prediction-history/predict
     DropdownModule,
     CalendarModule,
     TooltipModule,
+    DialogModule,
     SolicitationRoutesModule,
 
     QuillEditorModule,
@@ -55,6 +57,7 @@ import { PredictionHistoryComponent } from './summary/prediction-history/predict
     FeedbackReportComponent,
     FormComponent,
     PredictionHistoryComponent,
+    ArtIframeDialogComponent,
 
   ],
   providers: [
