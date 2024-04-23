@@ -81,10 +81,12 @@
 
     // TO-DO: build this into an angular hook rather than this hack
     function errorUpdater() {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has("error")) {
-            const el = document.getElementById("login-error");
-            el.innerHTML = '<p>' + urlParams.get('error') + '</p>';
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has("error")) {
+          const el = document.getElementById("login-error");
+          const p = document.createElement('p');
+          p.textContent = urlParams.get('error');
+          el.appendChild(p);
       }
     }
     setTimeout( errorUpdater, 1000);
