@@ -108,7 +108,7 @@ export class HeaderComponent implements OnInit {
     this.app.isLogin = false;
     this.authGuard.isLogin = false;
 
-    //const logoutURL = this.authService.logout();
+    const logoutURL = this.authService.logout();
 
     // TODO: Implement when only Login.gov is used
     //if (loginMethod === 'login.gov') {
