@@ -68,19 +68,19 @@ button.p-button {
 button.srt-button,
 div.srt-button {
   width: 150px;
-  background-color: #112e51;
+  background-color: #bbbbbb;
 }
 
 .srt-button {
   background-color: #337ab7;
   border-radius: 5px;
   border: none #2e6da4;
-  color: #fff;
+  color: #112e51;
   cursor: pointer;
   display: table;
   float: right;
-  font-weight: 500;
-  font-size: 16px;
+  font-weight: 800;
+  font-size: 20px;
   height: 35px;
   text-align: center;
   transition: all 100ms linear;
