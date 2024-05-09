@@ -1,0 +1,24 @@
+<p-button (click)="showDialog()" id="art" icon="pi pi-external-link" label="Take Action: Get 508 Language" class="btn srt-button"></p-button>
+<p-dialog header="Get 508 Language" 
+     [visible]="visible" 
+     [style]="{width: '50vw'}" 
+     [modal]="true"
+     [dismissableMask]="true"
+     [closeOnEscape]="true"
+     [responsive]="true"
+     [closable]="true">
+
+    <p>Check the boxes that fit your solicitation to get 508 Language from ART.</p>
+    
+    <div class="flex flex-column gap-2">
+        <div *ngFor="let category of categories; let i = index" class="field-checkbox">
+        <p-checkbox name="group" [label]="category.name" [value]="category.art_api" [(ngModel)]="selectedCategories" ></p-checkbox>
+        </div>
+    </div>
+    <pre></pre>
+    <button type="button" pButton icon="pi pi-times" label="Get Language" (click)="onSubmit()"></button>
+
+    <p-footer>
+        <button type="button" pButton icon="pi pi-times" (click)="visible = false" label="Close"></button>
+    </p-footer>
+</p-dialog>

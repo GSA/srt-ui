@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ArtIframeDialogComponent } from './art-iframe-dialog.component';
+import { ArtIframeDialogComponent } from './art-modal.component';
 
 describe('ArtIframeDialogComponent', () => {
   let component: ArtIframeDialogComponent;
