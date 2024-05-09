@@ -31,6 +31,10 @@ export class AdminGuard implements CanActivate {
    * @param state
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    if (!(this.authGuard.canActivate(route, state) && this.authGuard.isGSAAdmin)) {
+      this.router.navigate(['/auth']).catch(r => console.log(r));
+    }
+    
     return this.authGuard.canActivate(route, state) && this.authGuard.isGSAAdmin;
   }
 }
