@@ -17,7 +17,7 @@ const routes: Routes = [
   {path: 'auth', component: AuthComponent},
   {path: 'admin/accepted', component: AdminComponent, canActivate: [AuthGuard] , data: { isAccepted: true, isRejected: false }},
   {path: 'admin/masq', component: MasqComponent, canActivate: [AuthGuard] , data: {}},
-  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard] , data: { isAccepted: false, isRejected: false }},
+  {path: 'admin', component: AdminComponent, canActivate: [AdminGuard] , data: { isAccepted: false, isRejected: false }},
   {path: 'analytics', component: AnalyticsComponent, canActivate: [AdminGuard]},
   {path: 'help', component: HelpComponent, canActivate: [AuthGuard]},
 ];
