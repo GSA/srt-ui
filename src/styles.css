@@ -258,7 +258,7 @@ div.srt-button {
 a:focus,
 button:focus,
 input:focus {
-  outline: solid 2px orange !important;
+  outline: orange auto 2px !important;
 }
 html,
 body {
