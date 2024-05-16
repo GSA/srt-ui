@@ -6,7 +6,7 @@ import { UserService } from '../../shared/services/user.service';
 @Component({
   selector: 'app-user-report',
   templateUrl: './user.report.component.html',
-  styleUrls: ['./user.report.component.css']
+  styleUrls: ['./user.report.component.scss']
 })
 export class UserReportComponent implements OnInit {
 

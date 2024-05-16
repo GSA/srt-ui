@@ -14,7 +14,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-art-modal',
   templateUrl: './art-modal.component.html',
-  styleUrls: ['./art-modal.component.css'],
+  styleUrls: ['./art-modal.component.scss'],
 })
 export class ArtIframeDialogComponent {
   visible: boolean = false;

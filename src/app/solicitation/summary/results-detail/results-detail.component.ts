@@ -10,7 +10,7 @@ import {environment} from 'environments/environment';
 @Component({
   selector: 'app-results-detail',
   templateUrl: './results-detail.component.html',
-  styleUrls: ['./results-detail.component.css']
+  styleUrls: ['./results-detail.component.scss']
 })
 
 

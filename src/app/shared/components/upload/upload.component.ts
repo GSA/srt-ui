@@ -11,7 +11,7 @@ import { FileUploader } from 'ng2-file-upload';
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
-  styleUrls: ['./upload.component.css']
+  styleUrls: ['./upload.component.scss']
 })
 
 //@Directive({ selector: '[ng2FileSelect]' })

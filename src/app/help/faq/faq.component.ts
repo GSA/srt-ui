@@ -10,7 +10,7 @@ import {Title} from '@angular/platform-browser';
 @Component({
   selector: 'app-faq',
   templateUrl: './faq.component.html',
-  styleUrls: ['./faq.component.css']
+  styleUrls: ['./faq.component.scss']
 })
 export class FaqComponent extends BaseComponent implements OnInit {
 

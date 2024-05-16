@@ -89,6 +89,7 @@
     "phantomjs-prebuilt": "^2.1.16",
     "protractor": "^7.0.0",
     "puppeteer": "^21.0.1",
+    "schematics-scss-migrate": "^2.3.17",
     "snyk": "^1.1175.0",
     "stream-browserify": "^3.0.0",
     "ts-node": "~10.9.1",

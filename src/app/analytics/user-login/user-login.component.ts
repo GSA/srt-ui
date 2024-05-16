@@ -8,7 +8,7 @@ import { BaseChartDirective } from 'ng2-charts';
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.component.html',
-  styleUrls: ['./user-login.component.css']
+  styleUrls: ['./user-login.component.scss']
 })
 export class UserLoginComponent implements OnInit {
 
