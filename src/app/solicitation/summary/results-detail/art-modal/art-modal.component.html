@@ -1,24 +1,38 @@
 <p-button (click)="showDialog()" id="art" icon="pi pi-external-link" label="Take Action: Get 508 Language" class="btn srt-button"></p-button>
 <p-dialog header="Get 508 Language" 
-     [visible]="visible" 
+     [(visible)]="visible"
      [style]="{width: '50vw'}" 
-     [modal]="true"
-     [dismissableMask]="true"
-     [closeOnEscape]="true"
-     [responsive]="true"
-     [closable]="true">
+     [modal]="true">
 
     <p>Check the boxes that fit your solicitation to get 508 Language from ART.</p>
     
-    <div class="flex flex-column gap-2">
+    <div class="flex flex-column gap-2" class="art-selection">
         <div *ngFor="let category of categories; let i = index" class="field-checkbox">
-        <p-checkbox name="group" [label]="category.name" [value]="category.art_api" [(ngModel)]="selectedCategories" ></p-checkbox>
+            <p-checkbox name="group" [label]="category.name" [value]="category.art_api" [(ngModel)]="selectedCategories" ></p-checkbox>
+        
+            <!-- Subcategories -->
+            <div *ngIf="selectedCategories.includes(category.art_api)">
+                <div *ngFor="let subcategory of category.subcategories" class="subfield-checkbox">
+                <p-checkbox name="group" [label]="subcategory.name" [value]="subcategory.art_api" [(ngModel)]="selectedSubcategories" ></p-checkbox>
+                </div>
+            </div>
+        </div>
+    
+        <pre></pre>
+        <button class="usa-button usa-button--accent-warm" type="button" pButton icon="pi pi-arrow-circle-up" 
+            label="Get Language" (click)="onSubmit()"></button>
+        <button class="usa-button usa-button--outline mx-3" type="button" pButton icon="pi pi-times" 
+            label="Clear All" (click)="clearAll()"></button>
+    </div>
+    
+    <div class="py-4 px-2 art-language" [ngStyle]="{'display': display ? display : 'none'}" #copy_art>
+        <div  class="flex flex-column gap-2 pb-3" *ngFor="let section of art_language">
+            <app-art-section [section]="section"></app-art-section>
+        </div>
+        <div class="floating-button">
+            <button id="copy-button" class="usa-button usa-button--accent-warm" type="button" pButton icon="pi pi-copy" (click)="copyToClipBoard(copy_art)"></button>
+            <button id="download-button" class="usa-button usa-button--accent-warm" type="button" pButton icon="pi pi-download" (click)="makeAndDownloadDocument(copy_art)"></button>
         </div>
     </div>
-    <pre></pre>
-    <button type="button" pButton icon="pi pi-times" label="Get Language" (click)="onSubmit()"></button>
 
-    <p-footer>
-        <button type="button" pButton icon="pi pi-times" (click)="visible = false" label="Close"></button>
-    </p-footer>
 </p-dialog>

@@ -11,6 +11,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { QuillEditorModule } from 'ngx-quill-editor';
 import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ScrollTopModule } from 'primeng/scrolltop';
+
 
 import { SolicitationRoutesModule } from './solicitation.routing';
 
@@ -30,6 +32,7 @@ import { FeedbackReportComponent } from './feedback-report/feedback-report.compo
 import { FormComponent } from './feedback-report/form/form.component';
 import { PredictionHistoryComponent } from './summary/prediction-history/prediction-history.component';
 import { ArtIframeDialogComponent } from './summary/results-detail/art-modal/art-modal.component';
+import { ArtSectionComponent } from './summary/results-detail/art-modal/art-section/art-section.component';
 
 @NgModule({
   imports: [
@@ -44,6 +47,7 @@ import { ArtIframeDialogComponent } from './summary/results-detail/art-modal/art
     CalendarModule,
     TooltipModule,
     DialogModule,
+    ScrollTopModule,
     SolicitationRoutesModule,
 
     QuillEditorModule,
@@ -60,6 +64,7 @@ import { ArtIframeDialogComponent } from './summary/results-detail/art-modal/art
     FormComponent,
     PredictionHistoryComponent,
     ArtIframeDialogComponent,
+    ArtSectionComponent,
 
   ],
   providers: [

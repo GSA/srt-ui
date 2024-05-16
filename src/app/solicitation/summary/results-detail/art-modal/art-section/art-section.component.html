@@ -1,0 +1,6 @@
+<h1 *ngIf="section.title === ''">{{ section.code }}</h1>
+<h2>{{ section.title }}</h2>
+<p>{{ section.text }}</p>
+<div *ngFor="let subsection of section.sections">
+  <app-art-section [section]="subsection"></app-art-section>
+</div>

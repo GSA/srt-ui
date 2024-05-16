@@ -16,10 +16,8 @@ export class ArtService {
   getArtLanguage(art_categories: string[]) {
     let body = {}
     for (let c in art_categories){
-      body[c] = true;
+      body[art_categories[c]] = true;
     }
-
-    console.log('body:', body);
 
     return this.http.post(this.artURL, body)
     .pipe(
