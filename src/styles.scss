@@ -1,11 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* USWDS IMPORT */
+
+
+// Load USWDS source code
+@import "./assets/uswds/css/styles.css";
+
 @import "../node_modules/primeng/resources/primeng.min.css";
 /*@import '../node_modules/primeng/resources/themes/nova/theme.css'; */
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "../node_modules/primeicons/primeicons.css";
 
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600,700);
+
+
+
 body {
   font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto",
     "Arial", sans-serif;
@@ -27,11 +36,13 @@ body a {
   margin: 0 !important;
 }
 
+/*
 .btn-primary,
 button.p-button {
   background-color: #112e51;
   border-color: #112e51;
 }
+*/
 
 /* title */
 
