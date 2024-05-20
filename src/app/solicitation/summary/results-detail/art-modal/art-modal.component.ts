@@ -22,6 +22,7 @@ export class ArtIframeDialogComponent {
   art_url: SafeResourceUrl | undefined;
   art_language: any
   display: string
+  alert_display: string
 
   selectedCategories: string[] = [];
   selectedSubcategories: string[] = [];
@@ -124,10 +125,13 @@ export class ArtIframeDialogComponent {
 
   onSubmit(): void {
     // Process ART data here
-    //this.selectedCategories = this.formGroup.get('selectedCategories').value;
-    //console.log('This is your form:', form);
-    console.warn('Your order has been submitted', this.selectedCategories);
     
+    if (this.selectedCategories.length === 0 && this.selectedSubcategories.length === 0) {
+      this.alert_display = 'inherit'
+      return
+    }
+
+    this.alert_display = 'none'
     
     this.artService.getArtLanguage(this.selectedCategories)
       .subscribe(
@@ -150,6 +154,15 @@ export class ArtIframeDialogComponent {
     this.selectedSubcategories = [];
     this.display = 'none';
     this.art_language = null;
+  }
+
+  onParentChange(category) {
+    if (!this.selectedCategories.includes(category.art_api)) {
+      this.selectedSubcategories = this.selectedSubcategories.filter(subcategory => {
+        // Check if the subcategory is in the subcategories of the category that was unchecked
+        return !category.subcategories.map(sub => sub.art_api).includes(subcategory);
+      });
+    }
   }
 
   copyToClipBoard(elem) {

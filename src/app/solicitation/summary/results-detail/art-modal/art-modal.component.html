@@ -6,10 +6,12 @@
      id="art-modal-display">
 
     <p id="art-instructions">Check the boxes that fit your solicitation to get 508 Language from ART.</p>
-    
+    <div class="alert alert-danger" role="alert" [ngStyle]="{'display': alert_display ? alert_display : 'none'}">
+        Please select at least one checkbox.
+    </div>
     <div class="flex flex-column gap-2" class="row art-selection" id="art-checkboxes">
         <div *ngFor="let category of categories; let i = index" class="field-checkbox">
-            <p-checkbox name="group" [label]="category.name" [value]="category.art_api" [(ngModel)]="selectedCategories" ></p-checkbox>
+            <p-checkbox name="group" [label]="category.name" [value]="category.art_api" [(ngModel)]="selectedCategories" (onChange)="onParentChange(category)"></p-checkbox>
         
             <!-- Subcategories -->
             <div *ngIf="selectedCategories.includes(category.art_api)">
