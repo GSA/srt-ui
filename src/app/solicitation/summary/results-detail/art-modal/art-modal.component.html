@@ -1,12 +1,13 @@
-<p-button (click)="showDialog()" id="art" icon="pi pi-external-link" label="Take Action: Get 508 Language" class="btn srt-button"></p-button>
+<p-button (click)="showDialog()" id="art" icon="pi pi-external-link" label="Take Action: Get 508 Language" class="btn usa-button usa-button--accent-warm"></p-button>
 <p-dialog header="Get 508 Language" 
      [(visible)]="visible"
      [style]="{width: '50vw'}" 
-     [modal]="true">
+     [modal]="true"
+     id="art-modal-display">
 
-    <p>Check the boxes that fit your solicitation to get 508 Language from ART.</p>
+    <p id="art-instructions">Check the boxes that fit your solicitation to get 508 Language from ART.</p>
     
-    <div class="flex flex-column gap-2" class="art-selection">
+    <div class="flex flex-column gap-2" class="row art-selection" id="art-checkboxes">
         <div *ngFor="let category of categories; let i = index" class="field-checkbox">
             <p-checkbox name="group" [label]="category.name" [value]="category.art_api" [(ngModel)]="selectedCategories" ></p-checkbox>
         
@@ -21,18 +22,22 @@
         <pre></pre>
         <button class="usa-button usa-button--accent-warm" type="button" pButton icon="pi pi-arrow-circle-up" 
             label="Get Language" (click)="onSubmit()"></button>
-        <button class="usa-button usa-button--outline mx-3" type="button" pButton icon="pi pi-times" 
+        <button id="clear_all" class="usa-button usa-button--outline mx-3" type="button" pButton icon="pi pi-times" 
             label="Clear All" (click)="clearAll()"></button>
     </div>
     
-    <div class="py-4 px-2 art-language" [ngStyle]="{'display': display ? display : 'none'}" #copy_art>
+    <div class="row py-4 px-2 art-language" [ngStyle]="{'display': display ? display : 'none'}" #copy_art>
         <div  class="flex flex-column gap-2 pb-3" *ngFor="let section of art_language">
             <app-art-section [section]="section"></app-art-section>
         </div>
-        <div class="floating-button">
-            <button id="copy-button" class="usa-button usa-button--accent-warm" type="button" pButton icon="pi pi-copy" (click)="copyToClipBoard(copy_art)"></button>
-            <button id="download-button" class="usa-button usa-button--accent-warm" type="button" pButton icon="pi pi-download" (click)="makeAndDownloadDocument(copy_art)"></button>
+        <div class="row pb-3 mb-3 floating-button">
+            <button id="copy-button" class="btn" type="button" pButton icon="pi pi-copy" (click)="copyToClipBoard(copy_art)"></button>
+            <button id="download-button" class="btn" type="button" pButton icon="pi pi-download" (click)="makeAndDownloadDocument(copy_art)"></button>
         </div>
+    </div>
+    <div class="row py-3 mb-3" [ngStyle]="{'display': display ? display : 'none'}">
+        <button id="update-button" class="btn" type="button" pButton icon="pi pi-pencil" 
+                label="Update" (click)="updateLanguage()"></button>
     </div>
 
 </p-dialog>

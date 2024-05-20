@@ -177,4 +177,14 @@ export class ArtIframeDialogComponent {
     URL.revokeObjectURL(url);
   }
 
+  updateLanguage() {
+    const dialog = document.getElementsByClassName('p-dialog-content')[0];
+    if (dialog) {
+      dialog.scrollTop = 0; // Scroll to top of the dialog
+    }
+
+    this.art_language = []; // Remove art language
+    this.display = 'none';
+  }
+
 }

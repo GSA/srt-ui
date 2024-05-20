@@ -11,9 +11,10 @@
   padding-bottom: inherit;
 }
 
+
 ::ng-deep button.p-button{
-  background-color: #fa9441 !important;
-  outline: 0.25rem solid #2491ff;
+  background-color: #fa9441;
+  border: none;
   color: #1b1b1b;
   float: left;
   width: max-content;
@@ -26,6 +27,7 @@
   font-weight: bold;
 }
 
+
 .art-language {
   border: inset;
   position: relative;
@@ -36,7 +38,18 @@
   bottom: 10%;
   right: 0;
   display: flex;
-  margin-bottom: 5%;
+}
+
+#clear_all {
+  background-color: transparent;
+  box-shadow: inset 0 0 0 2px #005ea2;
+  color: #005ea2;
+}
+
+#clear_all:hover {
+  background-color: #0000001a !important;
+  box-shadow: inset 0 0 0 2px #000000;
+  color: #000000;
 }
 
 #copy-button{
