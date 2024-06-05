@@ -91,7 +91,7 @@ export class SolicitationService {
           console.log(error);
           return observableThrowError(() => error);
       }), map((response) => {
-            response.url = this.urlFilter(response.url.toString());
+            response.url = response.url ? this.urlFilter(response.url.toString()) : undefined;
             response.parseStatus.forEach(element => {
               element.attachment_url = this.urlFilter(element.attachment_url.toString());
             });
