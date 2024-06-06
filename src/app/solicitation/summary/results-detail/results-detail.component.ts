@@ -7,6 +7,8 @@ import { Solicitation } from '../../../shared/solicitation';
 import * as moment from 'moment';
 import {environment} from 'environments/environment';
 
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
+
 @Component({
   selector: 'app-results-detail',
   templateUrl: './results-detail.component.html',
@@ -42,7 +44,8 @@ export class ResultsDetailComponent implements OnInit {
   constructor(
     private solicitationService: SolicitationService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private $gaService: GoogleAnalyticsService
   ) {
     this.solicitation = new Solicitation(null, null, null, null, null, null,
       {value: ''}, null, null, null, null, null, null,
@@ -112,6 +115,8 @@ export class ResultsDetailComponent implements OnInit {
     this.solicitation.na_flag = event.target.checked;
     this.solicitationService.update(this.solicitation)
       .subscribe( (data) => {});
+
+      this.$gaService.event('not_applicable', 'make_srt_better', 'Not Applicable');
 
   }
 }

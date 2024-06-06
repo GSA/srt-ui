@@ -5,7 +5,7 @@ import { AuthGuard } from './auth-guard.service';
 import {Globals} from '../globals';
 import {VersionService} from './shared/services/version.service';
 import {ClientVersionService} from './shared/services/clientVersion.service';
-import {Title} from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-root',

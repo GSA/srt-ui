@@ -16,7 +16,7 @@ import { HomeModule } from './home/home.module';
 import { AdminModule } from 'app/admin/admin.module';
 import { TokenService } from './shared/services/token.service';
 import { ChartModule } from 'primeng/chart';
-
+import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
 
 import { SolicitationModule } from './solicitation/solicitation.module';
 import { ButtonModule } from 'primeng/button';
@@ -91,7 +91,9 @@ import { AdminHeaderComponent } from './admin-header/admin-header.component';
     AnalyticsModule,
     SolicitationModule,
     LoggerModule.forRoot({level: NgxLoggerLevel.DEBUG} ),
-    ChartModule
+    ChartModule,
+    NgxGoogleAnalyticsModule.forRoot('G-RZRRP7Q0BH'),
+    NgxGoogleAnalyticsRouterModule,
   ],
   providers: [
     AuthService,

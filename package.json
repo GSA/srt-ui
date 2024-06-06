@@ -55,6 +55,7 @@
     "ng2-completer": "^9.0.1",
     "ng2-file-upload": "^3.0.0",
     "ng2-quill-editor": "^2.0.0",
+    "ngx-google-analytics": "^14.0.1",
     "ngx-logger": "^5.0.12",
     "ngx-quill-editor": "^2.2.2",
     "primeicons": "^6.0.1",
