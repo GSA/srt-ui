@@ -26,21 +26,21 @@
 
             <ul class="nopadding summary-floatleft" >
                 <li [ngClass]="{'active' : type=='report'}">
-                    <a [routerLink]="['/solicitation/report', solicitationID]">STEP 1: VIEW RESULT</a>
+                    <a [routerLink]="['/solicitation/report', solicitationID]" (click)="onClickTabs('sol_result_tab', 'Solicitation Result Tab')">STEP 1: VIEW RESULT</a>
                 </li>
                 <li  [ngClass]="{'active' : type=='email'}">
-                    <a [routerLink]="['/solicitation/email', solicitationID]">STEP 2: EMAIL POC</a>
+                    <a [routerLink]="['/solicitation/email', solicitationID]" (click)="onClickTabs('email_tab', 'Email Tab')">STEP 2: EMAIL POC</a>
                 </li>
                  <li  [ngClass]="{'active' : type=='feedback'}">
-                    <a [routerLink]="['/solicitation/feedback', solicitationID]">STEP 3: MAKE SRT SMARTER</a>
+                    <a [routerLink]="['/solicitation/feedback', solicitationID]" (click)="onClickTabs('make_smarter_tab', 'Make Smarter Tab')">STEP 3: MAKE SRT SMARTER</a>
                 </li>
             </ul>
             <ul class="nopadding summary-floatright">
                 <li [ngClass]="{'active' : type=='prediction'}">
-                    <a [routerLink]="['/solicitation/prediction', solicitationID]">Prediction History</a>
+                    <a [routerLink]="['/solicitation/prediction', solicitationID]" (click)="onClickTabs('prediction_history_tab', 'Prediction History Tab')">Prediction History</a>
                 </li>
                 <li [ngClass]="{'active' : type=='history'}">
-                    <a [routerLink]="['/solicitation/history', solicitationID]">History</a>
+                    <a [routerLink]="['/solicitation/history', solicitationID]" (click)="onClickTabs('history_tab', 'History Tab')">History</a>
                 </li>
             </ul>
 
