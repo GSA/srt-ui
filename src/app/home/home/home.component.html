@@ -22,11 +22,11 @@
 
   <div class="container">
     <div style="padding: 60px 40px;">
-      <div class="row">
+      <div class="row" gaCategory="home_tiles">
 
         <!-- Review/Manage Workload -->
-        <div class="col-md-4 col-sm-6 srt-margin-bot">
-          <a [routerLink]="['/solicitation/report']" aria-labelledby="h3rmw" class="box-link">
+        <div class="col-md-4 col-sm-6 srt-margin-bot" >
+          <a [routerLink]="['/solicitation/report']" aria-labelledby="h3rmw" class="box-link" (click)="onClickTiles('solicitation_tile', 'Solitation Tile')">
             <div class="srt-1-1">
               <div>
                 <div class="srt-main-box">
@@ -57,7 +57,7 @@
 
         <!-- View Analytic -->
         <div class="col-md-4 col-sm-6 srt-margin-bot">
-          <a [routerLink]="['/analytics']" aria-labelledby="h3va" class="box-link"  *ngIf="isGSAAdmin">
+          <a [routerLink]="['/analytics']" aria-labelledby="h3va" class="box-link"  *ngIf="isGSAAdmin" (click)="onClickTiles('analytics_tile', 'Analytics Tile')">
             <div class="srt-1-1">
               <div>
                 <div class="srt-main-box">
@@ -88,7 +88,7 @@
 
         <!-- Manage SRT Access Requests -->
         <div class="col-md-4 col-sm-6 srt-margin-bot">
-          <a [routerLink]="['/admin']" aria-labelledby="h3-admin-label" class="box-link" *ngIf="isGSAAdmin">
+          <a [routerLink]="['/admin']" aria-labelledby="h3-admin-label" class="box-link" *ngIf="isGSAAdmin" (click)="onClickTiles('admin_tile', 'Admin Tile')">
             <div class="srt-1-1">
               <div>
                 <div class="srt-main-box">
@@ -120,7 +120,7 @@
 
         <!-- Get Additional Resources -->
         <div class="col-md-4 col-sm-6 srt-margin-bot">
-          <a target="_blank" rel="noopener noreferrer" href="https://app.buyaccessible.gov/" aria-labelledby="h3gar">
+          <a target="_blank" rel="noopener noreferrer" href="https://app.buyaccessible.gov/" aria-labelledby="h3gar" (click)="onClickTiles('art_tile', 'ART Tile')">
             <div class="srt-1-1">
               <div>
                 <div class="srt-main-box">
@@ -152,7 +152,7 @@
 
         <!-- Contact Us -->
         <div class="col-md-4 col-sm-6 srt-margin-bot">
-          <a [routerLink]="['/help/contactus']" class="box-link" aria-labelledby="h3cus">
+          <a [routerLink]="['/help/contactus']" class="box-link" aria-labelledby="h3cus" (click)="onClickTiles('contact_tile', 'Contact Tile')">
             <div class="srt-1-1">
               <div>
                 <div class="srt-main-box">
@@ -184,7 +184,7 @@
 
         <!-- FAQ -->
         <div class="col-md-4 col-sm-6 srt-margin-bot">
-          <a [routerLink]="['/help/faq']" class="box-link" aria-labelledby="h3faq">
+          <a [routerLink]="['/help/faq']" class="box-link" aria-labelledby="h3faq" (click)="onClickTiles('faq_tile', 'FAQ Tile')">
             <div class="srt-1-1">
               <div>
                 <div class="srt-main-box">
