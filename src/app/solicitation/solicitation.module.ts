@@ -9,12 +9,19 @@ import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { QuillEditorModule } from 'ngx-quill-editor';
+import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
+
+
 
 import { SolicitationRoutesModule } from './solicitation.routing';
 
 
+
 import { SolicitationService } from './solicitation.service';
+
+
 import { AuthGuard } from '../auth-guard.service';
+
 
 import { SolicitationReportComponent } from './solicitation-report/solicitation-report.component';
 import { SummaryComponent } from './summary/summary.component';
@@ -41,7 +48,8 @@ import { PredictionHistoryComponent } from './summary/prediction-history/predict
     CalendarModule,
     TooltipModule,
     SolicitationRoutesModule,
-
+    NgxGoogleAnalyticsModule.forRoot('G-RZRRP7Q0BH'),
+    NgxGoogleAnalyticsRouterModule,
     QuillEditorModule,
   ],
   declarations: [

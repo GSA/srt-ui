@@ -9,6 +9,7 @@ import {BaseComponent} from '../../base.component';
 import {NoticeTypesService} from '../../shared/services/noticeTypes.service';
 import * as moment from 'moment';
 import {environment} from 'environments/environment';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 interface TableSort {
   field: string;
@@ -127,7 +128,9 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     private router: Router,
     private titleService: Title,
     private noticeTypesService: NoticeTypesService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private $gaService: GoogleAnalyticsService
+
   ) {
     super(titleService);
     this.pageName = 'SRT - Manage/Review Workload';
@@ -284,6 +287,9 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
    * @param solicitation
    */
   selectSol(solicitation: any) {
+    
+    this.$gaService.event('select_sol_table', 'sol_section', 'Selected Solicitation from Table');
+
     const now = moment().format('MM/DD/YYYY');
     const user = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
     solicitation.history.push({
@@ -345,6 +351,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     const csvSeparator = ',';
     let csv = '';
 
+    this.$gaService.event('export_csv', 'exporting', 'Exporting Solicitations to CSV');
 
     // Adding hiding columns to the export
     const export_columns = this.columns.concat(this.hidden_columns);
