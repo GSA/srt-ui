@@ -17,81 +17,98 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrls: ['./art-modal.component.scss'],
 })
 export class ArtIframeDialogComponent {
+
+  
   visible: boolean = false;
+  shouldClearSubcategories: boolean = false;
+
   url = 'https://section508.gov/art'
   art_url: SafeResourceUrl | undefined;
   art_language: any
   display: string
   alert_display: string
 
-  selectedCategories: string[] = [];
-  selectedSubcategories: string[] = [];
+  art_body: any = {}
+  
+  selectedCategories: any[] = [];
+  selectedSubcategories: any[] = [];
 
   categories: any[] = [
-    { name: 'ICT Type', art_api: 'ict_type', 
+    { name: 'ICT Type', art_api: 'ict_type', type: 'array',
       subcategories: [
-        { name: 'ICT Products', art_api: 'ict_products'},
-        { name: 'ICT Services', art_api: 'ict_services'},
-        { name: 'None of the above', art_api: 'unknown'}
+        { name: 'ICT Products', art_api: 'it-prod'},
+        { name: 'ICT Services', art_api: 'it-serv'},
+        { name: 'None of the above', art_api: 'it-none'}
     ]},
-    { name: 'Exemptions & Exceptions', art_api: 'exemptions_exceptions', 
+    { name: 'Exemptions & Exceptions', art_api: 'exceptions', type: 'array',
       subcategories: [
-        {name: 'No exemptions apply', art_api: 'no_exemptions'},
-        {name: 'National Secuirty Exemption', art_api: 'national_security'},
-        {name: 'Undue Burden Exemption', art_api: 'undue_burden'},
-        {name: 'ICT Functions Located in Maintenance and Monitoring Spaces Exception', art_api: 'ict_functions'},
-        {name: 'Fundamental Alteration Exception', art_api: 'fundamental_alteration'},
-        {name: 'Federal Contracts Exception', art_api: 'federal_contracts'},
-        {name: 'Unknown', art_api: 'unknown'},
+        //{name: 'No exemptions apply', art_api: 'no_exemptions'}, Do we need?
+        {name: 'National Secuirty Exemption', art_api: 'excep-nat-sec'},
+        {name: 'Undue Burden Exemption', art_api: 'excep-und-bur'},
+        {name: 'ICT Functions Located in Maintenance and Monitoring Spaces Exception', art_api: 'excep-mon-spa'},
+        {name: 'Fundamental Alteration Exception', art_api: 'excep-alter'},
+        {name: 'Federal Contracts Exception', art_api: 'excep-fed-con'},
+        //{name: 'Unknown', art_api: 'unknown'},
     ]},
-    { name: 'Electronic Content', art_api: 'electronic_content', 
+    { name: 'Electronic Content', art_api: 'electronic_content', type:'object',
       subcategories: [
-        {name: 'Available through a website', art_api: 'website_content'},
-        {name: 'Product is public facing', art_api: 'public_content'},
-        {name: 'Agency official communication', art_api: 'official_communication'},
+        {name: 'Available through a website', art_api: 'is_website'},
+        {name: 'Product is public facing', art_api: 'is_public'},
+        {name: 'Agency official communication', art_api: 'is_official_communication'},
     ]},
-    { name: 'Software Criteria', art_api: 'software_criteria', 
+    { name: 'Software', art_api:'software_group', type:'object',
       subcategories: [
-        {name:'No end-user interface', art_api: 'no_end_user_interface'},
-        {name:'Assistive Technology', art_api: 'assistive_technology'},
-        {name: 'Web, desktop, server, mobile client applications', art_api: 'web_desktop_server_mobile'},
-        {name: 'Software authoring tools and platforms', art_api: 'software_authoring_tools'},
-        {name: 'Software Infrastructure', art_api: 'software_infrastructure'},
-        {name: 'Other', art_api: 'Other'},
-        {name: 'Unknown', art_api: 'unknown'},
-    ]},
-    { name: 'Cloud Services', art_api: 'cloud_services', 
-      subcategories: [
-        {name: 'Software as a Service (SaaS)', art_api: 'saas'},
-        {name: 'Platform as a Service (PaaS)', art_api: 'paas'},
-        {name: 'Other Cloud Services arrangement', art_api: 'other_cloud_services', 
+        { name: 'Software Criteria', art_api: 'software_criteria', type: 'array',
           subcategories: [
-            {name: 'Accessed Through the Web', art_api: 'accessed_through_web'},
-            {name: 'Creating Electronic Content', art_api: 'creating_electronic_content'},
-          ]},
-    ]},
-    { name: 'Hardware', art_api: 'hardware', 
+            {name:'Assistive Technology', art_api: 'assistive-technology'},
+            {name:'No end-user interface', art_api: 'no-user-interface'},
+            {name: 'Unknown', art_api: 'idk'},
+          ]
+         },
+         {name:'Electronic Authoring Tool', art_api: 'create_electronic_content'},
+         {name: 'Cloud Services', art_api: 'cloud_services', type: 'array',
+         subcategories: [
+          {name: 'Software as a Service (SaaS)', art_api: 'saas'},
+          {name: 'Platform as a Service (PaaS)', art_api: 'paas'},
+          {name: 'Other Cloud Services arrangement', art_api: 'other'},
+          {name: 'Unknown', art_api: 'idk'},
+          ]
+         },
+         {name: 'Software Purchases', art_api: 'software_purchase', type: 'array',
+          subcategories: [
+            {name: 'Web, desktop, server, mobile client applications', art_api: 'web-app'},
+            {name: 'Software authoring tools and platforms', art_api: 'auth-tool'},
+            {name: 'Software Infrastructure', art_api: 'software-infrastructure'},
+            {name: 'Other', art_api: 'other'},
+          ]
+         }
+      ]
+    },    
+    { name: 'Hardware', art_api: 'hardware_group', type: 'object',
       subcategories: [
-        {name: 'Computers and laptops', art_api: 'computers_and_laptops'},
-        {name: 'Tablet', art_api: 'tablet'},
-        {name: 'Printers, Scanners, or Copiers', art_api: 'printers_scanners_copiers'},
-        {name: 'Multi-function office machines', art_api: 'multi_function_office_machines'},
-        {name: 'Peripheral Equipment (i.e. keyboard, mouse)', art_api: 'peripheral_equipment'},
-        {name: 'Information kiosks and transaction machines', art_api: 'information_kiosks_transaction_machines'},
-        {name: 'Mobile phones', art_api: 'mobile_phones'},
-        {name: 'Video Teleconference Equipment', art_api: 'video_teleconference_equipment'},
-        {name: 'Video Displays or Monitors', art_api: 'video_displays_monitors'},
-        {name: 'Servers', art_api: 'servers'},
-        {name: 'Other', art_api: 'other'},
-        {name: 'Unknown', art_api: 'Unknown'},
+        {name: 'Hardware Items', art_api: 'hardware_items', type: 'array',
+          subcategories: [
+            {name: 'Computers and laptops', art_api: 'computer'},
+            {name: 'Tablet', art_api: 'tablet'},
+            {name: 'Printers, Scanners, or Copiers', art_api: 'printers_scanners_copiers'},
+            {name: 'Multi-function office machines', art_api: 'multi-functional'},
+            {name: 'Peripheral Equipment (i.e. keyboard, mouse)', art_api: 'peripheral'},
+            {name: 'Information kiosks and transaction machines', art_api: 'kiosk'},
+            {name: 'Mobile phones', art_api: 'mobile'},
+            {name: 'Video Teleconference Equipment', art_api: 'video-teleconference-equipment'},
+            {name: 'Video Displays or Monitors', art_api: 'video-monitor'},
+            {name: 'Other', art_api: 'other'},
+            {name: 'None of the above', art_api: 'none'},
+          ]
+        },
+        {name: 'Server is the physical installation or an Infrastructure as a Service (IaaS)', art_api: 'server_iaas'},
     ]},
-    { name: 'Support Documentation & Services', art_api: 'support_documentation_services', 
+    { name: 'Support Documentation & Services', art_api: 'support', type:'array',
       subcategories: [
-        {name: 'Automated self-service & Technical support', art_api: 'automated_self_service_technical_support'},
-        {name: 'Help Desk or Call service center', art_api: 'help_desk_call_service_center'},
-        {name: 'Product documentation', art_api: 'product_documentation'},
-        {name: 'Training Service', art_api: 'training_service'},
-        {name: 'None of the above', art_api: 'none_of_the_above'},
+        {name: 'Automated self-service & Technical support', art_api: 'technical'},
+        {name: 'Help Desk or Call service center', art_api: 'call'},
+        {name: 'Product documentation', art_api: 'doc'},
+        {name: 'Training Service', art_api: 'training'},
       ]
     }
 
@@ -123,9 +140,64 @@ export class ArtIframeDialogComponent {
       this.visible = true;
   }
 
+  processCategory(category){
+    console.log('category (processCategory):', category)
+
+    let artBody = {}
+
+    if (category.type === 'array') {
+      artBody[category.art_api] = category.subcategories.filter(subcategory => {
+        return this.isSubcategorySelected(subcategory.art_api);
+      }).map(subcategory => subcategory.art_api);
+    }
+    else if (category.type === 'object') {
+
+      artBody[category.art_api] = {}
+
+      category.subcategories.forEach(subcategory => {
+        if (this.isSubcategorySelected(subcategory.art_api)) {
+          Object.assign(artBody[category.art_api], this.processCategory(subcategory));
+        }
+      })
+    }
+    else {
+
+      if (category.isChecked) {
+        artBody[category.art_api] = true
+      }
+      else {
+        artBody[category.art_api] = false
+      }
+      
+    }
+
+    console.log('Art Body (processCategory):', artBody)
+
+    return artBody
+
+  }
+
+  createARTBody(){
+    // Make ART JSON body in structure shown above
+    //console.log('selected Categories:', this.selectedCategories)
+    //console.log('selected SubCategories:', this.selectedSubcategories)
+    
+    this.categories.forEach(category => {
+
+      if (this.isCategorySelected(category.art_api)) {
+        this.art_body = Object.assign(this.art_body, this.processCategory(category));
+      } else {
+        return
+      }
+    });
+
+  }
+
   onSubmit(): void {
     // Process ART data here
-    
+    console.log('Selected Categories:', this.selectedCategories)
+    console.log('Selected Subcategories:', this.selectedSubcategories)
+
     if (this.selectedCategories.length === 0 && this.selectedSubcategories.length === 0) {
       this.alert_display = 'inherit'
       return
@@ -133,7 +205,12 @@ export class ArtIframeDialogComponent {
 
     this.alert_display = 'none'
     
-    this.artService.getArtLanguage(this.selectedCategories)
+    this.createARTBody()
+
+    console.log('Art Body:', this.art_body)
+
+
+    this.artService.getArtLanguage(this.art_body)
       .subscribe(
         data => {
           console.log('Art Language Data:', data)
@@ -154,15 +231,36 @@ export class ArtIframeDialogComponent {
     this.selectedSubcategories = [];
     this.display = 'none';
     this.art_language = null;
+
+    this.categories.forEach(category => {
+      category.isChecked = false
+      
+      if (category.subcategories) {
+        category.subcategories.forEach(subcategory => {
+          subcategory.isChecked = false
+        })
+      }
+    
+    });
+    this.shouldClearSubcategories = true;
+
+    // Reset the flag after a tick to allow re-triggering if needed
+    setTimeout(() => this.shouldClearSubcategories = false, 0);
+
   }
 
   onParentChange(category) {
-    if (!this.selectedCategories.includes(category.art_api)) {
+    if (!this.selectedCategories.some(item => item.art_api === category.art_api)) {
       this.selectedSubcategories = this.selectedSubcategories.filter(subcategory => {
         // Check if the subcategory is in the subcategories of the category that was unchecked
         return !category.subcategories.map(sub => sub.art_api).includes(subcategory);
       });
-    }
+    } 
+  }
+
+  onCategoryChange(selected) {
+    this.selectedCategories = selected.selectedCategories;
+    this.selectedSubcategories = selected.selectedSubcategories
   }
 
   copyToClipBoard(elem) {
@@ -198,6 +296,14 @@ export class ArtIframeDialogComponent {
 
     this.art_language = []; // Remove art language
     this.display = 'none';
+  }
+
+  isSubcategorySelected(subcategoryArtApi: string): boolean {
+    return this.selectedSubcategories && this.selectedSubcategories.some(item => item.art_api === subcategoryArtApi);
+  }
+
+  isCategorySelected(categoryArtApi: string): boolean {
+    return this.selectedCategories && this.selectedCategories.some(item => item.art_api === categoryArtApi);
   }
 
 }

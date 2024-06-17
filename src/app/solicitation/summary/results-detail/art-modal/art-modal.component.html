@@ -11,16 +11,9 @@
     </div>
     <div class="flex flex-column gap-2" class="row art-selection" id="art-checkboxes">
         <div *ngFor="let category of categories; let i = index" class="field-checkbox">
-            <p-checkbox name="group" [label]="category.name" [value]="category.art_api" [(ngModel)]="selectedCategories" (onChange)="onParentChange(category)"></p-checkbox>
-        
-            <!-- Subcategories -->
-            <div *ngIf="selectedCategories.includes(category.art_api)">
-                <div *ngFor="let subcategory of category.subcategories" class="subfield-checkbox">
-                <p-checkbox name="group" [label]="subcategory.name" [value]="subcategory.art_api" [(ngModel)]="selectedSubcategories" ></p-checkbox>
-                </div>
-            </div>
+            <app-art-category [category]="category" [selectedCategories]="selectedCategories" [clearSelection]="shouldClearSubcategories" (change)="onCategoryChange($event)"></app-art-category>
         </div>
-    
+
         <pre></pre>
         <button class="usa-button usa-button--accent-warm" type="button" pButton icon="pi pi-arrow-circle-up" 
             label="Get Language" (click)="onSubmit()"></button>

@@ -33,6 +33,7 @@ import { FormComponent } from './feedback-report/form/form.component';
 import { PredictionHistoryComponent } from './summary/prediction-history/prediction-history.component';
 import { ArtIframeDialogComponent } from './summary/results-detail/art-modal/art-modal.component';
 import { ArtSectionComponent } from './summary/results-detail/art-modal/art-section/art-section.component';
+import { ArtCategoryComponent } from './summary/results-detail/art-modal/art-category/art-category.component';
 
 @NgModule({
   imports: [
@@ -65,6 +66,7 @@ import { ArtSectionComponent } from './summary/results-detail/art-modal/art-sect
     PredictionHistoryComponent,
     ArtIframeDialogComponent,
     ArtSectionComponent,
+    ArtCategoryComponent,
 
   ],
   providers: [

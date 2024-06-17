@@ -13,11 +13,8 @@ export class ArtService {
 
   constructor(private http: HttpClient) { }
 
-  getArtLanguage(art_categories: string[]) {
-    let body = {}
-    for (let c in art_categories){
-      body[art_categories[c]] = true;
-    }
+  getArtLanguage(body: any) {
+    body['solicitation_phase'] = "solicitation-development";
 
     return this.http.post(this.artURL, body)
     .pipe(
