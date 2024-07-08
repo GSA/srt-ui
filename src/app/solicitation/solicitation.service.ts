@@ -155,6 +155,18 @@ export class SolicitationService {
       ));
   }
 
+  postSolicitationART(id: string, body) { 
+    const url = `${this.updateUrl}/art/${id}`;
+
+    return this.http
+      .post(url, body)
+      .pipe( 
+        catchError((error: any ) => {
+          return observableThrowError(() => (error.json().error || 'Server Error'))
+        }
+      ));
+  }
+
   /**
    * This funciton is called on URLs from sam.gov to translate them for our use.
    * For now it only used to replace the domain beta.sam.gov with sam.gov.

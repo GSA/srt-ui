@@ -8,6 +8,8 @@ import {
 } from '@angular/core';
 
 import { ArtService } from './art.service';
+import { SolicitationService } from '../../../solicitation.service';
+import { ActivatedRoute } from '@angular/router';
 
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -21,6 +23,7 @@ export class ArtIframeDialogComponent {
   
   visible: boolean = false;
   shouldClearSubcategories: boolean = false;
+  solicitationId: string;
 
   url = 'https://section508.gov/art'
   art_url: SafeResourceUrl | undefined;
@@ -129,11 +132,17 @@ export class ArtIframeDialogComponent {
   constructor(
     public sanitizer: DomSanitizer,
     private artService: ArtService,
+    private solicitationService: SolicitationService,
+    private route: ActivatedRoute
   ) {
 
   }
 
   ngOnInit() {
+    // Subscribe to the params Observable to access the URL parameter
+    this.route.params.subscribe(params => {
+      this.solicitationId = params['id']; // Replace 'id' with the actual parameter name
+    });
   }
 
   showDialog() {
@@ -218,6 +227,9 @@ export class ArtIframeDialogComponent {
 
           if (data) {
             this.display = 'inherit'
+
+            this.solicitationService.postSolicitationART(this.solicitationId, data)
+
           }
 
         }
