@@ -3,6 +3,7 @@ import { AuthGuard } from '../../auth-guard.service';
 import { Router } from '@angular/router';
 import {BaseComponent} from '../../base.component';
 import {Title} from '@angular/platform-browser';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
   selector: 'app-home',
@@ -24,11 +25,13 @@ export class HomeComponent extends BaseComponent implements OnInit {
    * @param auth
    * @param router
    * @param titleService
+   * @param $gaService
    */
   constructor(
     private auth: AuthGuard,
     private router: Router,
-    private titleService: Title
+    private titleService: Title,
+    private $gaService: GoogleAnalyticsService
   ) {
     super(titleService);
   }
@@ -63,6 +66,10 @@ export class HomeComponent extends BaseComponent implements OnInit {
 
     }, 2000);
 
+  }
+
+  onClickTiles(action: string, label: string) {
+    this.$gaService.event(action, "home_tiles", label);
   }
 
 }

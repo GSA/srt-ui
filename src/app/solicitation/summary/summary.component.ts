@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 
 import { SolicitationService } from '../solicitation.service';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
   selector: 'app-summary',
@@ -30,7 +31,8 @@ export class SummaryComponent implements OnInit {
   constructor(
     private solicitationService: SolicitationService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private $gaService: GoogleAnalyticsService
   ) { }
 
   /**
@@ -46,4 +48,9 @@ export class SummaryComponent implements OnInit {
   ngOnChanges() {
     // console.log(this.solicitationID);
   }
+
+  onClickTabs(action: string, label: string) {
+    this.$gaService.event(action, "solicitation_tab", label);
+  }
+
 }

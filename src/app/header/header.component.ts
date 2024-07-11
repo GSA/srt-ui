@@ -7,6 +7,7 @@ import { Currentuser } from '../shared/currentuser';
 import { UserService } from '../shared/services/user.service';
 import { AppComponent } from '../app.component';
 import { AuthGuard } from '../auth-guard.service';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
   selector: 'app-header',
@@ -37,7 +38,9 @@ export class HeaderComponent implements OnInit {
     private app: AppComponent,
     private authService: AuthService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private $gaService: GoogleAnalyticsService
+
   ) {
       userService.updateCurrentUser.subscribe(currentUser => this.saveCurrentUser(currentUser));
       if (localStorage.getItem('firstName')) {
@@ -138,6 +141,9 @@ export class HeaderComponent implements OnInit {
   }
 
   menuClick(location) {
+    
+    this.$gaService.event(`navbar_${location.replace(/\//g, '')}`, 'navbar_click');
+
     this.router.navigateByUrl(location).catch(r => console.log(r));
   }
 }

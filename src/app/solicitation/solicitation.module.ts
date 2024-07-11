@@ -12,14 +12,18 @@ import { QuillEditorModule } from 'ngx-quill-editor';
 import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ScrollTopModule } from 'primeng/scrolltop';
+import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
+
 
 
 import { SolicitationRoutesModule } from './solicitation.routing';
 
 
+
 import { SolicitationService } from './solicitation.service';
 import { ArtService } from './summary/results-detail/art-modal/art.service';
 import { AuthGuard } from '../auth-guard.service';
+
 
 import { SolicitationReportComponent } from './solicitation-report/solicitation-report.component';
 import { SummaryComponent } from './summary/summary.component';
@@ -50,7 +54,8 @@ import { ArtCategoryComponent } from './summary/results-detail/art-modal/art-cat
     DialogModule,
     ScrollTopModule,
     SolicitationRoutesModule,
-
+    NgxGoogleAnalyticsModule.forRoot('G-RZRRP7Q0BH'),
+    NgxGoogleAnalyticsRouterModule,
     QuillEditorModule,
   ],
   declarations: [
