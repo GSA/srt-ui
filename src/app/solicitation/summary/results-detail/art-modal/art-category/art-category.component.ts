@@ -30,7 +30,8 @@ export class ArtCategoryComponent {
   
     this.change.emit({
       selectedCategories: this.selectedCategories,
-      selectedSubcategories: this.selectedSubcategories
+      selectedSubcategories: this.selectedSubcategories,
+      parent: null
     });
     
   }
@@ -52,7 +53,9 @@ export class ArtCategoryComponent {
 
   onParentChange(category) {    
     
-    if (!this.selectedCategories.some(item => item.art_api === category.art_api)) {
+    const isCategoryUnchecked = !this.selectedCategories.some(item => item.art_api === category.art_api);
+
+    if (isCategoryUnchecked) {
       this.selectedSubcategories = this.selectedSubcategories.filter(subcategory => {
         // Check if the subcategory is in the subcategories of the category that was unchecked
         return !category.subcategories.map(sub => sub.art_api).includes(subcategory.art_api);
@@ -61,7 +64,8 @@ export class ArtCategoryComponent {
 
     this.change.emit({
       selectedCategories: this.selectedCategories,
-      selectedSubcategories: this.selectedSubcategories
+      selectedSubcategories: this.selectedSubcategories,
+      parent: this.category.art_api
     });
 }
 

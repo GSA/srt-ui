@@ -28,6 +28,7 @@
         <div class="row pb-3 mb-3 floating-button">
             <button id="copy-button" class="btn" type="button" pButton icon="pi pi-copy" (click)="copyToClipBoard(copy_art)"></button>
             <button id="download-button" class="btn" type="button" pButton icon="pi pi-download" (click)="makeAndDownloadDocument(copy_art)"></button>
+
         </div>
     </div>
     <div class="row py-3 mb-3" [ngStyle]="{'display': display ? display : 'none'}">

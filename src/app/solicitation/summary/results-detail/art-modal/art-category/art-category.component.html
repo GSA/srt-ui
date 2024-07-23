@@ -4,12 +4,12 @@
 <div *ngIf="isItemSelected(category.art_api)">
     <div *ngFor="let subcategory of category.subcategories" class="subfield-checkbox">
         <!-- Use app-art-category recursively for each subcategory -->
-        <p-checkbox name="group" [label]="subcategory.name" [value]="{art_api: subcategory.art_api, type: subcategory.type || 'boolean'}" [(ngModel)]="selectedSubcategories" (onChange)="onParentChange(category)"></p-checkbox>
+        <p-checkbox name="group" [label]="subcategory.name" [value]="{art_api: subcategory.art_api, type: subcategory.type || 'boolean', parent:category.art_api}" [(ngModel)]="selectedSubcategories" (onChange)="onParentChange(category)"></p-checkbox>
     
         <div *ngIf="isItemSelected(subcategory.art_api)">
             <div *ngFor="let subsubcategory of subcategory.subcategories" class="subfield-checkbox">
                 <!-- Use app-art-category recursively for each subsubcategory -->
-                <p-checkbox name="group" [label]="subsubcategory.name" [value]="{art_api: subsubcategory.art_api, type: subsubcategory.type || 'boolean'}" [(ngModel)]="selectedSubcategories" (onChange)="onParentChange(category)"></p-checkbox>
+                <p-checkbox name="group" [label]="subsubcategory.name" [value]="{art_api: subsubcategory.art_api, type: subsubcategory.type || 'boolean', parent:category.art_api}" [(ngModel)]="selectedSubcategories" (onChange)="onParentChange(category)"></p-checkbox>
             </div>
         </div>
 

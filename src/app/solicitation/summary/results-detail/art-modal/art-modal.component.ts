@@ -227,7 +227,6 @@ export class ArtIframeDialogComponent {
 
           if (data) {
             this.display = 'inherit'
-
             this.solicitationService.postSolicitationART(this.solicitationId, data)
 
           }
@@ -271,8 +270,20 @@ export class ArtIframeDialogComponent {
   }
 
   onCategoryChange(selected) {
+    console.log('Selected:', selected)
+
     this.selectedCategories = selected.selectedCategories;
-    this.selectedSubcategories = selected.selectedSubcategories
+    let parent = selected.parent;
+
+    if (parent) {
+      // Remove all subcategories from selectedSubcategories that have the same parent as the selected subcategory
+      this.selectedSubcategories = this.selectedSubcategories.filter(item => item.parent !== parent);
+        
+      this.selectedSubcategories = [...this.selectedSubcategories, ...selected.selectedSubcategories];
+
+    } 
+
+    console.log('Selected Subcategories:', this.selectedSubcategories)
   }
 
   copyToClipBoard(elem) {
@@ -298,6 +309,10 @@ export class ArtIframeDialogComponent {
     link.click();
 
     URL.revokeObjectURL(url);
+  }
+
+  saveLanguageInDatabase(){
+    this.solicitationService.postSolicitationART(this.solicitationId, this.art_language)
   }
 
   updateLanguage() {
