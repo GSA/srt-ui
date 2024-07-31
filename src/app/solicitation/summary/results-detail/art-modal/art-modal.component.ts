@@ -227,7 +227,10 @@ export class ArtIframeDialogComponent {
 
           if (data) {
             this.display = 'inherit'
-            this.solicitationService.postSolicitationART(this.solicitationId, data)
+            this.solicitationService.postSolicitationART(this.solicitationId, data).subscribe({
+              next: (response) => console.log('Post Solicitation ART Response:', response),
+              error: (error) => console.error('Post Solicitation ART Error:', error)
+            })
 
           }
 

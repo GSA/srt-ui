@@ -156,12 +156,14 @@ export class SolicitationService {
   }
 
   postSolicitationART(id: string, body) { 
-    const url = `${this.updateUrl}/art/${id}`;
-
+    const url = `${this.updateUrl}art/${id}`;
+    //console.log('postSolicitationART URL: ', url);
+    //console.log('postSolicitationART Body: ', body);
     return this.http
       .post(url, body)
       .pipe( 
         catchError((error: any ) => {
+          console.error('postSolicitationART error: ', error);
           return observableThrowError(() => (error.json().error || 'Server Error'))
         }
       ));
