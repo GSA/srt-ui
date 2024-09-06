@@ -19,8 +19,7 @@ export class ArtService {
     return this.http.post(this.artURL, body)
     .pipe(
       catchError((error: any) => {
-        console.log(error);
-        return observableThrowError(() => (error.message || 'Server Error'));
+        return observableThrowError(() => (error.error.errors || ['Server Error']));
       }
     ));
     

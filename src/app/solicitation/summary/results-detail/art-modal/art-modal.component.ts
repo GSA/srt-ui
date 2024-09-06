@@ -30,12 +30,16 @@ export class ArtIframeDialogComponent {
   art_language: any
   display: string
   alert_display: string
+  warning_alert_display: string
+  warning_api_error: string[]
+
 
   art_body: any = {}
   
   selectedCategories: any[] = [];
   selectedSubcategories: any[] = [];
 
+  fieldNames: { [key: string]: string } = {};
   categories: any[] = [
     { name: 'ICT Type', art_api: 'ict_type', type: 'array',
       subcategories: [
@@ -65,16 +69,17 @@ export class ArtIframeDialogComponent {
           subcategories: [
             {name:'Assistive Technology', art_api: 'assistive-technology'},
             {name:'No end-user interface', art_api: 'no-user-interface'},
-            {name: 'Unknown', art_api: 'idk'},
+            {name: 'Unknown', art_api: 'idk_software'},
           ]
          },
+         {name: 'Accessible Through a Web Browser', art_api: "software_web"},
          {name:'Electronic Authoring Tool', art_api: 'create_electronic_content'},
          {name: 'Cloud Services', art_api: 'cloud_services', type: 'array',
          subcategories: [
           {name: 'Software as a Service (SaaS)', art_api: 'saas'},
           {name: 'Platform as a Service (PaaS)', art_api: 'paas'},
           {name: 'Other Cloud Services arrangement', art_api: 'other'},
-          {name: 'Unknown', art_api: 'idk'},
+          {name: 'Unknown', art_api: 'idk_cloud'},
           ]
          },
          {name: 'Software Purchases', art_api: 'software_purchase', type: 'array',
@@ -143,7 +148,29 @@ export class ArtIframeDialogComponent {
     this.route.params.subscribe(params => {
       this.solicitationId = params['id']; // Replace 'id' with the actual parameter name
     });
+
+    const buildFieldNameMapping = (categories: any[]): { [key: string]: string } => {
+      const mapping: { [key: string]: string } = {};
+    
+      const traverseCategories = (categories: any[]) => {
+        categories.forEach(category => {
+          if (category.art_api && category.name) {
+            mapping[category.art_api] = category.name;
+          }
+          if (category.subcategories) {
+            traverseCategories(category.subcategories);
+          }
+        });
+      };
+    
+      traverseCategories(categories);
+      return mapping;
+    };
+
+    this.fieldNames = buildFieldNameMapping(this.categories);
+
   }
+  
 
   showDialog() {
       this.visible = true;
@@ -157,7 +184,9 @@ export class ArtIframeDialogComponent {
     if (category.type === 'array') {
       artBody[category.art_api] = category.subcategories.filter(subcategory => {
         return this.isSubcategorySelected(subcategory.art_api);
-      }).map(subcategory => subcategory.art_api);
+      }).map(subcategory => {
+          return subcategory.art_api.startsWith('idk') ? 'idk' : subcategory.art_api;
+        });
     }
     else if (category.type === 'object') {
 
@@ -169,15 +198,8 @@ export class ArtIframeDialogComponent {
         }
       })
     }
-    else {
-
-      if (category.isChecked) {
-        artBody[category.art_api] = true
-      }
-      else {
-        artBody[category.art_api] = false
-      }
-      
+    else { 
+      artBody[category.art_api] = true
     }
 
     console.log('Art Body (processCategory):', artBody)
@@ -213,6 +235,7 @@ export class ArtIframeDialogComponent {
     }
 
     this.alert_display = 'none'
+    this.warning_alert_display = 'none'
     
     this.createARTBody()
 
@@ -220,8 +243,8 @@ export class ArtIframeDialogComponent {
 
 
     this.artService.getArtLanguage(this.art_body)
-      .subscribe(
-        data => {
+      .subscribe({
+        next: data => {
           console.log('Art Language Data:', data)
           this.art_language = data;
 
@@ -234,8 +257,31 @@ export class ArtIframeDialogComponent {
 
           }
 
+        },
+        error: error => {
+          let errors: string[] = [];
+
+          const replaceFieldNames = (error: string, fieldNames: { [key: string]: string }): string => {
+            return error.replace(/'([^']+)'/g, (match, p1) => {
+              console.log('Match:', match)
+              console.log('P1:', p1)
+              const parts = p1.split('.');
+              const art_api = parts[parts.length - 1];
+              return fieldNames[art_api] ? `'${fieldNames[art_api]}'` : match;
+            });
+          };
+
+          error.forEach(item => {
+            const friendlyMessage = replaceFieldNames(item, this.fieldNames);
+            errors.push(friendlyMessage);
+          })
+
+          this.warning_alert_display = 'inherit';
+          this.warning_api_error = errors;
+          
+          console.error('Error:', error)
         }
-      );
+      });
       
       console.log('Art Language:', this.art_language)
   }
