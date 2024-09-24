@@ -6,20 +6,20 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { AuthComponent } from './auth/auth.component';
-import { AuthGuard } from './auth-guard.service';
+import { AuthGuardFn } from './auth-guard.service';
 import { HelpComponent } from './help/help.component';
 import {MasqComponent} from './user/masq/masq.component';
-import {AdminGuard} from './admin-guard.service';
+import {AdminGuardFn} from './admin-guard.service';
 
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'auth', component: AuthComponent},
-  {path: 'admin/accepted', component: AdminComponent, canActivate: [AuthGuard] , data: { isAccepted: true, isRejected: false }},
-  {path: 'admin/masq', component: MasqComponent, canActivate: [AuthGuard] , data: {}},
-  {path: 'admin', component: AdminComponent, canActivate: [AdminGuard] , data: { isAccepted: false, isRejected: false }},
-  {path: 'analytics', component: AnalyticsComponent, canActivate: [AdminGuard]},
-  {path: 'help', component: HelpComponent, canActivate: [AuthGuard]},
+  {path: 'admin/accepted', component: AdminComponent, canActivate: [AuthGuardFn] , data: { isAccepted: true, isRejected: false }},
+  {path: 'admin/masq', component: MasqComponent, canActivate: [AuthGuardFn] , data: {}},
+  {path: 'admin', component: AdminComponent, canActivate: [AdminGuardFn] , data: { isAccepted: false, isRejected: false }},
+  {path: 'analytics', component: AnalyticsComponent, canActivate: [AdminGuardFn]},
+  {path: 'help', component: HelpComponent, canActivate: [AuthGuardFn]},
 ];
 
 @NgModule({

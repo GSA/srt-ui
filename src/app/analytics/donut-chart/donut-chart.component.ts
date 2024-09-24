@@ -9,7 +9,7 @@ import * as $ from 'jquery';
 @Component({
   selector: 'app-donut-chart',
   templateUrl: './donut-chart.component.html',
-  styleUrls: ['../analytics.component.css', './donut-chart.component.css']
+  styleUrls: ['../analytics.component.scss', './donut-chart.component.scss']
 })
 export class DonutChartComponent implements OnInit, OnChanges {
 

@@ -12,7 +12,7 @@ import { GoogleAnalyticsService } from 'ngx-google-analytics';
 @Component({
   selector: 'app-results-detail',
   templateUrl: './results-detail.component.html',
-  styleUrls: ['./results-detail.component.css']
+  styleUrls: ['./results-detail.component.scss']
 })
 
 

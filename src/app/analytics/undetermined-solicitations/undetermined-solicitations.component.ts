@@ -8,7 +8,7 @@ import { getChartLabelPlugin, PLUGIN_ID } from 'chart.js-plugin-labels-dv';
 @Component({
   selector: 'app-undetermined-solicitations',
   templateUrl: './undetermined-solicitations.component.html',
-  styleUrls: ['./undetermined-solicitations.component.css']
+  styleUrls: ['./undetermined-solicitations.component.scss']
 })
 export class UndeterminedSolicitationsComponent implements OnInit {
 

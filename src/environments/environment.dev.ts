@@ -8,6 +8,7 @@ export const environment = {
   SERVER_URL: 'https://srt-server-dev.app.cloud.gov/api',
   EMAIL_NOTIFICATION: true,
   FILE_UPLOAD_API: 'http://srt-server-dev.app.cloud.gov/file/upload',
+  ART_API_SERVER:'https://art-api.app.cloud.gov',
   USE_CLIENT_EMAIL: true,
   ENVIRONMENT: 'dev',
   feature_flags: {

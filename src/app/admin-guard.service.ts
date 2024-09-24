@@ -1,16 +1,19 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   CanActivate, Router,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot
+  RouterStateSnapshot,
+  CanActivateFn
 } from '@angular/router';
 import { AuthService } from './shared/services/auth.service';
 import {AuthGuard} from './auth-guard.service';
 
 
 
-@Injectable()
-export class AdminGuard implements CanActivate {
+@Injectable({
+  providedIn: 'root'
+})
+export class AdminGuard {
 
 
   /* CONSTRUCTOR */
@@ -40,3 +43,6 @@ export class AdminGuard implements CanActivate {
 }
 
 
+export const AdminGuardFn: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
+  return inject(AdminGuard).canActivate(next, state);
+}

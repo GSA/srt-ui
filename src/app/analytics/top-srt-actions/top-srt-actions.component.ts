@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'app-top-srt-actions',
   templateUrl: './top-srt-actions.component.html',
-  styleUrls: ['./top-srt-actions.component.css']
+  styleUrls: ['./top-srt-actions.component.scss']
 })
 export class TopSrtActionsComponent implements OnInit {
 

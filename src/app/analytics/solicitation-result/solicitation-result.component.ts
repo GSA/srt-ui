@@ -5,7 +5,7 @@ import { getChartLabelPlugin, PLUGIN_ID } from 'chart.js-plugin-labels-dv';
 @Component({
   selector: 'app-solicitation-result',
   templateUrl: './solicitation-result.component.html',
-  styleUrls: ['./solicitation-result.component.css']
+  styleUrls: ['./solicitation-result.component.scss']
 })
 export class SolicitationResultComponent {
 

@@ -24,6 +24,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
+import { DialogModule } from 'primeng/dialog';
 
 import { AutoCompleteModule } from 'primeng/autocomplete';
 
@@ -79,6 +80,7 @@ import { AdminHeaderComponent } from './admin-header/admin-header.component';
     HttpClientModule,
     AppRoutingModule,
     TooltipModule,
+    DialogModule,
     AuthModule,
     HomeModule,
     HelpModule,

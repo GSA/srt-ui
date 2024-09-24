@@ -14,7 +14,7 @@ import {Title} from '@angular/platform-browser';
 @Component({
   selector: 'app-userlogin',
   templateUrl: './userlogin.component.html',
-  styleUrls: ['./userlogin.component.css']
+  styleUrls: ['./userlogin.component.scss']
 })
 export class UserloginComponent extends BaseComponent implements OnInit {
 

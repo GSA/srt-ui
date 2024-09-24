@@ -10,7 +10,7 @@ import {AnalyticsService} from '../../analytics/services/analytics.service';
 @Component({
   selector: 'metric-downloads',
   templateUrl: './metric-downloads.component.html',
-  styleUrls: ['./metric-downloads.component.css']
+  styleUrls: ['./metric-downloads.component.scss']
 })
 export class MetricDownloadsComponent implements OnInit {
 

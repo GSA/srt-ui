@@ -13,7 +13,7 @@ import { Solicitation } from '../../../shared/solicitation';
 @Component({
   selector: 'app-prediction-history',
   templateUrl: './prediction-history.component.html',
-  styleUrls: ['./prediction-history.component.css']
+  styleUrls: ['./prediction-history.component.scss']
 })
 export class PredictionHistoryComponent implements OnInit {
 

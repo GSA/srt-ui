@@ -6,7 +6,7 @@ import {Title} from '@angular/platform-browser';
 @Component({
   selector: 'app-feedback-report',
   templateUrl: './feedback-report.component.html',
-  styleUrls: ['./feedback-report.component.css']
+  styleUrls: ['./feedback-report.component.scss']
 })
 export class FeedbackReportComponent extends BaseComponent implements OnInit {
 

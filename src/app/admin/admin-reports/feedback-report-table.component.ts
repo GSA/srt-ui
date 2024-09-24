@@ -5,7 +5,7 @@ import {FeedbackReportService} from './feedback-report.service';
 @Component({
   selector: 'app-admin-feedback',
   templateUrl: './feedback-report-table.component.html',
-  styleUrls: ['./feedback-report-table.component.css']
+  styleUrls: ['./feedback-report-table.component.scss']
 })
 export class FeedbackReportTableComponent implements OnInit {
 

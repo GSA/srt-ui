@@ -8,7 +8,7 @@ import {Title} from '@angular/platform-browser';
 @Component({
   selector: 'app-analytics',
   templateUrl: './analytics.component.html',
-  styleUrls: ['./analytics.component.css']
+  styleUrls: ['./analytics.component.scss']
 })
 
 //@Directive({selector: 'baseChart'})

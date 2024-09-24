@@ -5,7 +5,7 @@ import {BaseChartDirective} from 'ng2-charts';
 @Component({
   selector: 'app-machine-readable',
   templateUrl: './machine-readable.component.html',
-  styleUrls: ['../analytics.component.css', './machine-readable.component.css']
+  styleUrls: ['../analytics.component.scss', './machine-readable.component.scss']
 })
 
 //@Directive({selector: 'baseChart'})

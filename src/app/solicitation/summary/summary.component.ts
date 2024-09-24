@@ -8,7 +8,7 @@ import { GoogleAnalyticsService } from 'ngx-google-analytics';
 @Component({
   selector: 'app-summary',
   templateUrl: './summary.component.html',
-  styleUrls: ['./summary.component.css']
+  styleUrls: ['./summary.component.scss']
 })
 export class SummaryComponent implements OnInit {
 

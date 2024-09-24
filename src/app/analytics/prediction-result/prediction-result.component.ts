@@ -8,7 +8,7 @@ import {Globals} from 'globals';
 @Component({
   selector: 'app-prediction-result',
   templateUrl: './prediction-result.component.html',
-  styleUrls: ['../analytics.component.css', './prediction-result.component.css']
+  styleUrls: ['../analytics.component.scss', './prediction-result.component.scss']
 })
 export class PredictionResultComponent implements OnInit {
 

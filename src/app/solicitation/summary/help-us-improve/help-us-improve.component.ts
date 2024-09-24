@@ -10,7 +10,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'app-help-us-improve',
   templateUrl: './help-us-improve.component.html',
-  styleUrls: ['./help-us-improve.component.css']
+  styleUrls: ['./help-us-improve.component.scss']
 })
 export class HelpUsImproveComponent implements OnInit {
 

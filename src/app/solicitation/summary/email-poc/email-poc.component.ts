@@ -16,7 +16,7 @@ import * as $ from 'jquery';
 @Component({
   selector: 'app-email-poc',
   templateUrl: './email-poc.component.html',
-  styleUrls: ['./email-poc.component.css']
+  styleUrls: ['./email-poc.component.scss']
 })
 export class EmailPocComponent implements OnInit {
 

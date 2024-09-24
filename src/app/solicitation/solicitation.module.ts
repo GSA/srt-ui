@@ -9,6 +9,9 @@ import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { QuillEditorModule } from 'ngx-quill-editor';
+import { DialogModule } from 'primeng/dialog';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ScrollTopModule } from 'primeng/scrolltop';
 import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
 
 
@@ -18,8 +21,7 @@ import { SolicitationRoutesModule } from './solicitation.routing';
 
 
 import { SolicitationService } from './solicitation.service';
-
-
+import { ArtService } from './summary/results-detail/art-modal/art.service';
 import { AuthGuard } from '../auth-guard.service';
 
 
@@ -33,7 +35,9 @@ import { SolicitationComponent } from './solicitation.component';
 import { FeedbackReportComponent } from './feedback-report/feedback-report.component';
 import { FormComponent } from './feedback-report/form/form.component';
 import { PredictionHistoryComponent } from './summary/prediction-history/prediction-history.component';
-
+import { ArtIframeDialogComponent } from './summary/results-detail/art-modal/art-modal.component';
+import { ArtSectionComponent } from './summary/results-detail/art-modal/art-section/art-section.component';
+import { ArtCategoryComponent } from './summary/results-detail/art-modal/art-category/art-category.component';
 
 @NgModule({
   imports: [
@@ -41,12 +45,14 @@ import { PredictionHistoryComponent } from './summary/prediction-history/predict
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-
+    CheckboxModule,
     TableModule,
     ButtonModule,
     DropdownModule,
     CalendarModule,
     TooltipModule,
+    DialogModule,
+    ScrollTopModule,
     SolicitationRoutesModule,
     NgxGoogleAnalyticsModule.forRoot('G-RZRRP7Q0BH'),
     NgxGoogleAnalyticsRouterModule,
@@ -63,10 +69,14 @@ import { PredictionHistoryComponent } from './summary/prediction-history/predict
     FeedbackReportComponent,
     FormComponent,
     PredictionHistoryComponent,
+    ArtIframeDialogComponent,
+    ArtSectionComponent,
+    ArtCategoryComponent,
 
   ],
   providers: [
     SolicitationService,
+    ArtService,
     AuthGuard
   ],
     exports: [

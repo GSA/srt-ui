@@ -12,7 +12,7 @@ interface TimeSelection {
 @Component({
   selector: 'app-login-reports',
   templateUrl: './login-reports.component.html',
-  styleUrls: ['./login-reports.component.css']
+  styleUrls: ['./login-reports.component.scss']
 })
 
 export class LoginReportsComponent implements OnInit {
