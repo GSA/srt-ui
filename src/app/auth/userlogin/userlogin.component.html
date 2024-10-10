@@ -5,6 +5,19 @@
   </div>
 
   <div class="text-center">
+    <button *ngIf="is_dev" class="srt-button m-2"
+            style="float:none; display:inline; margin-top:3em;"
+            id="login"
+            aria-label="Login as Dev"
+            onClick=" (function() {
+                        var client_host = window.location.hostname
+                        var server_host = '';
+                        if (client_host === 'localhost') { server_host = 'localhost:3000'}
+                        //default to current name for dev servers
+                        if (server_host === '') { server_host = 'localhost:3000';}
+                        window.location = 'http://' + server_host + '/api/casLogin'
+                      }()) ">Login as DEV
+    </button>
     <button class="srt-button m-2"
             style="float:none; display:inline; margin-top:3em; "
             id="login"

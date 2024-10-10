@@ -11,6 +11,7 @@ import {environment} from '../../../environments/environment';
 import {BaseComponent} from '../../base.component';
 import {Title} from '@angular/platform-browser';
 
+
 @Component({
   selector: 'app-userlogin',
   templateUrl: './userlogin.component.html',
@@ -24,6 +25,8 @@ export class UserloginComponent extends BaseComponent implements OnInit {
   errorMessage = false;
   errorInformation = '';
   public loginUrl = environment.SERVER_URL + '/casLogin';
+
+  public is_dev = environment.ENVIRONMENT === 'local';
 
   /* CONSTRUCTOR */
 
