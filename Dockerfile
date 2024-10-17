@@ -1,7 +1,7 @@
 # Stage 1: Compile and Build angular codebase
 
 # base image
-FROM node:16-alpine as builder
+FROM node:20-alpine as builder
 
 # install chrome for protractor tests
 # RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -17,7 +17,6 @@ WORKDIR /app
 # install app dependencies
 COPY package.json ./
 COPY .snyk ./
-COPY yarn.lock ./
 
 RUN yarn install
 
@@ -30,7 +29,7 @@ RUN yarn run build-${environment}
 # Stage 2: Serve app with nginx server
 
 # Use official nginx image as the base image
-FROM nginx:1.25.3-alpine3.18
+FROM nginx:1.27.2-alpine
 
 # Set working directory to nginx asset directory
 WORKDIR /usr/share/nginx/html
