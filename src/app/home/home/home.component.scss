@@ -1,239 +1,135 @@
-.no-padding {
-    padding: 0px !important;
-    margin: 0px !important;
-}
-
-.srt-text-section {
-    width: 100%; text-align: center; height: 240px
-}
-
-.srt-text-section-title {
-    font-size: 24px; padding: 10px; border-bottom: 1px solid #dadada; font-weight: 500;
-}
-
-.srt-button {
-    font-size: 20px; padding: 10px; border-bottom: 1px solid #dadada
-}
-
-.center-it img{
-    margin: 0 auto;
-}
-
-#gsa {
-	max-width: 100%;
-	max-height: 200px;
-	float: left;
-}
-
-.container {
-    padding: 0 16px;
-}
-
-.title {
-    color: grey;
-    font-size: 18px;
+/* Global Styles */
+body {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 18px;
 }
 
 button:hover, a:hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
-body{font-family:'Open Sans Condensed',sans-serif;font-size:18px}
-
-.back-to a{color:#FFF; text-decoration:none}
-
-.thumbnail>img{width:100%; height: 200px; display:block}
-.thumbnail h3{font-size:26px}
-
-.thumbnail p{padding-top:8px; font-size:20px}
-.thumbnail .btn{align-self: center; position: absolute; bottom: 30px; margin:0; padding: 5px 3px; border-radius:0; box-shadow:0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12); font-size:20px}
-
-
-
-.srt-1-1:before {
-    content: "";
-    display: block;
-    padding-top: 100%;
-}
-
-.srt-9-20:before {
-    content: "";
-    display: block;
-    padding-top: 45%;
-}
-
-.srt-11-20:before {
-    content: "";
-    display: block;
-    padding-top: 55%;
-}
-
-.srt-9-20,
-.srt-11-20,
-.srt-1-1 {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    transition: all 150ms ease-in-out;
-}
-
-.srt-9-20 > div,
-.srt-11-20 > div,
-.srt-1-1 > div {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-}
-
-.srt-9-20 > div > div,
-.srt-11-20 > div > div,
-.srt-1-1 > div > div {
-    height: 100%;
-    width: 100%;
-}
-
-.srt-main-box {
-    border: 1px solid #dadada;
-    transition: all 150ms ease-in-out;
-    cursor: pointer;
-}
-
-.srt-main-box:hover {
-    border: 1px solid #78aeee;
-}
-
-.srt-1-1:hover {
-    box-shadow:0 6px 10px 0 rgba(120,174,238, 0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(120,174,238, 0.3);
-}
-
-.srt-main-box h3 {
-    margin-top: 0px;
-}
-
-.srt-main-box p {
-    margin-top: 20px;
-    font-size: 18px;
-    padding: 0px 30px;
-}
-
-.srt-home-head{
-    background-image: url('/assets/home-page-cover.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            height: 350px;
-            width: 100%;
-            opacity: 0.85;
-            position: relative;
-}
-.srt-head-position{
-        position: absolute;
-        top: 0px;
-        right: 0px;
-        bottom: 0px;
-        left: 0px;
-}
-
-.srt-head-text{
-    text-align: right;
-    display: table;
-    height: 100%;
-    width: 100%
-}
-.srt-head-display{
-    display: table-cell;
-    vertical-align: middle;
-
-}
-.srt-head-padding{
-    padding: 0px 60px;
-    max-width: 1000px;
-    float: right
-}
-.srt-main-title{
-    font-weight: 600;
-    border-bottom: 0.5px solid #112e51;
-    padding-bottom: 10px
-}
-.srt-text-padding{
-    padding-left: 100px;
-    padding-top: 20px
-}
-.srt-margin-bot{
-    margin-bottom: 30px
-}
-                        
-.srt-block-padding{
-    text-align: center;
-    padding: 0px 25px
-}
-
-.srt-icon img {
-  max-width:100%;
-  max-height:100%;
-}
-
-.srt-icon{
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 100%;
-    width: 100%;
-    text-align: center;
-}
-
-.srt-icon-padding{
-    padding: 20px;
+/* Hero Section */
+.usa-hero {
+  background-image: url('/assets/home-page-cover.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 350px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Push the callout to the right */
 }
 
 
 
+.usa-hero__overlay {
+  background-color: transparent !important;
+  padding: 20px;
+  color: #000;
+  text-align: right;
+  width: 60%; /* The width will be 75% of the parent */
+  margin-left: auto; /* This ensures the content pushes to the right */
+  margin-right: 0;
+}
 
+.usa-hero__callout {
+  background-color: transparent !important; /* Remove blue background */
+  display: flex;
+  flex-direction: column;
+  text-align: right; /* Align content inside to the right */
+  width: 100%; /* Make the callout take full width */
+  max-width: unset; /* Remove max-width constraint */
+}
 
-
-
-.ribbon {
-  position: absolute;
-  left: -5px; top: -5px;
-  z-index: 1;
-  overflow: hidden;
-  width: 75px; height: 75px;
+.usa-hero__heading {
+  font-size: 36px;
+  font-weight: 600;
+  text-decoration: underline;
+  padding-bottom: 10px;
+  color: black; /* Ensure heading text is black */
   text-align: right;
 }
-.ribbon span {
-  font-size: 10px;
-  font-weight: bold;
-  color: #FFF;
-  text-transform: uppercase;
+
+.usa-hero__callout .usa-prose {
+  padding-right: 0; /* Remove padding to ensure it can be fully centered */
+  max-width: 100%; /* Allow full width */
+  color: black;
+  text-align: right; /* Center the text */
+  margin: 0; /* Ensure text is centered horizontally */
+}
+/* Cards Section */
+.usa-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.usa-card__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  border-radius: 4px;
+}
+
+.usa-card__container--clickable {
+  cursor: pointer; /* Show the clicky hand cursor on hover */
+}
+
+.usa-card__container--clickable:hover,
+.usa-card__container--clickable:focus {
+  box-shadow: 0 0 0 3px #2491ff;
+  transform: translateY(-2px);
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.usa-card__media {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  height: 120px;
+}
+
+.usa-card__media img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.usa-card__media img[alt="FAQ Icon"] {
+  width: 160px;
+  height: 160px;
+  object-fit: contain; /* Ensures the image scales without distortion */
+}
+
+.usa-card__header,
+.usa-card__body {
+  flex: 1 1 auto;
+  padding: 0 1rem;
   text-align: center;
-  line-height: 20px;
-  transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-  width: 100px;
-  display: block;
-  background: #79A70A;
-  background: linear-gradient(#0B286D 0%, #0B286D 100%);
-  box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
-  position: absolute;
-  top: 19px; left: -21px;
 }
-.ribbon span::before {
-  content: "";
-  position: absolute; left: 0px; top: 100%;
-  z-index: -1;
-  /*border-left: 3px solid #0B286D;*/
-  /*border-right: 3px solid transparent;*/
-  /*border-bottom: 3px solid transparent;*/
-  /*border-top: 3px solid #0B286D;*/
+
+.usa-card__heading {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
 }
-.ribbon span::after {
-  content: "";
-  position: absolute; right: 0px; top: 100%;
-  z-index: -1;
-  /*border-left: 3px solid transparent;*/
-  /*border-right: 3px solid #0B286D;*/
-  /*border-bottom: 3px solid transparent;*/
-  /*border-top: 3px solid #0B286D;*/
+
+.usa-card__body p {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.tablet\:grid-col-4,
+.mobile-lg\:grid-col-6 {
+  margin-bottom: 1rem;
 }
