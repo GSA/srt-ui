@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-// Services
 import { HelpService } from '../../shared/services/help.service';
+import { BaseComponent } from '../../base.component';
+import { Title } from '@angular/platform-browser';
 import * as $ from 'jquery';
-import {BaseComponent} from '../../base.component';
-import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-faq',
@@ -14,21 +12,11 @@ import {Title} from '@angular/platform-browser';
 })
 export class FaqComponent extends BaseComponent implements OnInit {
 
-  /* ATTRIBUTES */
-
-  public faq: any[];
+  public faq: any[];  // Array of FAQs from the API
   public id = '';
-  public metrix = '{ (1) ∪ { (2) ∩ (3) } }';
   public params: any;
+  public expanded: { [key: string]: boolean } = {}; // Track accordion state
 
-  /* CONSTRUCTOR */
-
-  /**
-   * constructor
-   * @param helpService
-   * @param route
-   * @param ts
-   */
   constructor(
     private helpService: HelpService,
     private route: ActivatedRoute,
@@ -38,45 +26,40 @@ export class FaqComponent extends BaseComponent implements OnInit {
     this.pageName = 'SRT - Frequently Asked Questions';
   }
 
-  /**
-   * angular lifecycle
-   */
   ngOnInit() {
     super.ngOnInit();
     this.id = this.route.snapshot.params['id'];
 
     if (this.id !== null) {
       if (this.id === 'ICT') {
-        $('#search').val(
-          'What is "Information and Communication Technology"(ICT)?'
-        );
+        $('#search').val('What is "Information and Communication Technology"(ICT)?');
       } else if (this.id === 'EIT') {
-        $('#search').val(
-          'What is "Electronic and Information Technology"(E&IT)?'
-        );
+        $('#search').val('What is "Electronic and Information Technology"(E&IT)?');
       }
 
-      // Wait for html
+      // Wait for html to be rendered and trigger click for the given id
       setTimeout(() => {
         $('.' + this.id).click();
         this.search();
       }, 500);
     }
 
+    // Fetch FAQs
     this.getFAQs();
   }
 
   /**
-   * Get FAQs
+   * Fetch FAQs from the API
    */
   getFAQs() {
-    this.helpService
-      .getFAQs()
-      .subscribe({next: data => (this.faq = data), error: e => console.log(e)});
+    this.helpService.getFAQs().subscribe({
+      next: (data) => (this.faq = data),
+      error: (e) => console.log(e)
+    });
   }
 
   /**
-   * window scroll to selected ID
+   * Scroll window to selected element by ID
    * @param ID
    */
   scroll(ID) {
@@ -87,13 +70,30 @@ export class FaqComponent extends BaseComponent implements OnInit {
   }
 
   /**
-   * Search text
+   * Toggle Accordion visibility
+   * @param id - Unique ID for the accordion element
+   */
+  toggleAccordion(id: string) {
+    this.expanded[id] = !this.expanded[id];
+  }
+
+  /**
+   * Determine if an accordion section is expanded
+   * @param id - Unique ID for the accordion element
+   * @returns boolean
+   */
+  isExpanded(id: string): boolean {
+    return this.expanded[id] || false;
+  }
+
+  /**
+   * Perform search based on the input value
    */
   search() {
-    const txt = $('#search').val().toString();
+    const txt = $('#search').val().toString().toLowerCase();
 
     $('.search-content').each(function() {
-      if ( $(this).text().toLowerCase().indexOf(txt.toLowerCase()) !== -1) {
+      if ($(this).text().toLowerCase().indexOf(txt) !== -1) {
         $(this).show();
       } else {
         $(this).hide();
@@ -101,7 +101,7 @@ export class FaqComponent extends BaseComponent implements OnInit {
     });
 
     $('.search-title').each(function() {
-      if ( $(this).text().toLowerCase().indexOf(txt.toLowerCase()) !== -1) {
+      if ($(this).text().toLowerCase().indexOf(txt) !== -1) {
         $(this).show();
       } else {
         $(this).hide();

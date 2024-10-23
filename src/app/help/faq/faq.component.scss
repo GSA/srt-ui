@@ -102,3 +102,94 @@ a.panel-link:hover {
       display: none;
   }
 }
+/* Sticky sidenav with padding from the left */
+.sticky-sidenav {
+  position: sticky;
+  top: 80px; /* Adjust this to the height of your header plus any desired margin */
+  padding-left: 20px; /* Spacing from the left */
+  max-height: calc(100vh - 80px); /* Account for the header height */
+  overflow-y: auto; /* Allow scrolling if the sidenav content exceeds viewport height */
+}
+
+
+/* Ensure that parent containers do not interfere with sticky positioning */
+.grid-container {
+  overflow: visible; /* Make sure sticky works */
+  position: relative; /* Make sure the sticky element has the correct context */
+}
+
+.container-fluid {
+  overflow: visible !important; /* Make sure the sticky behavior is not blocked */
+}
+
+/* Remove bullet points from sidenav */
+.usa-sidenav__list {
+  list-style: none; /* Remove bullet points */
+  padding-left: 0; /* Remove default padding */
+}
+
+.usa-sidenav__item {
+  margin-bottom: 1rem; /* Add space between items */
+}
+
+.usa-sidenav__item a {
+  text-decoration: none; /* Remove underline */
+  color: #005ea2; /* Optional: USWDS primary color for links */
+}
+
+/* FAQ Content */
+.faq-content-div {
+  padding: 50px 0px;
+}
+
+/* FAQ Right Content Adjustments */
+.faq-right-content h2 {
+  padding: 0px 0px 20px 0px;
+  margin: 0px;
+  color: #155394;
+}
+
+.faq-right-content {
+  padding: 0px 0px 0px 20px;
+}
+
+/* Accordion content for transition */
+.accordion-content {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+  margin: 0;
+  padding: 0;
+}
+
+/* Expanded state */
+.accordion-content.expanded {
+  max-height: 500px;
+  padding: 1rem 0;
+  margin-bottom: 0;
+}
+
+/* Ensure no extra icon on the right */
+.usa-accordion__button::after {
+  display: none !important; /* Remove any automatically added symbol on the right */
+}
+
+/* Accordion symbol should be on the left and aligned properly */
+.accordion-symbol {
+  margin-right: 10px;
+  font-weight: bold;
+  font-size: 18px;
+  float: left; /* Ensure it stays on the left */
+  display: inline-block;
+}
+
+/* Align accordion button content to the left */
+.usa-accordion__button {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+/* Ensure the parent containers do not have overflow hidden */
+.grid-container {
+  overflow: visible;
+}
