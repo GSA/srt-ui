@@ -1,7 +1,8 @@
-#solsearch{
+#solsearch {
     width: 100%;
     float: right;
     border-radius: 50px;
+    margin-right: 10px; /* Add a small margin for better spacing */
 }
 
 #soltitle {
@@ -19,8 +20,18 @@
   padding-left: 20px;
 }
 #csvlogo {
-  max-height: 40px;
-  padding-left: 10px;
+    max-height: 40px;
+    padding-left: 10px;
+    margin-left: 15px; /* Add margin to space it nicely from other elements */
+}
+
+.grid-row.grid-gap {
+    gap: 0.5rem; /* Reduce the gap between grid items to bring them closer together */
+}
+
+.grid-col {
+    display: flex;
+    align-items: center; /* Align content vertically to look more balanced */
 }
 
 .button {
@@ -451,3 +462,67 @@ body .p-datatable .p-datatable-tbody tr {
 #content p-table table > thead > tr > th {
   overflow: visible;
 }
+
+
+/* Custom styles to override the usa-input and usa-input-group */
+.custom-input-group {
+    display: flex !important;
+    align-items: center !important;
+    margin-right: 15px !important;
+    padding: 20px !important;
+}
+
+.custom-input {
+    padding: 10px !important;
+    margin-right: 15px !important;
+    height: 2.5rem !important;
+    width: 100% !important;
+    max-width: 30rem; /* Optional: set a maximum width for the input */
+    border: 1px solid #565c65 !important;
+    border-radius: 4px !important;
+}
+
+.custom-button {
+    height: 2.5rem !important;
+    padding: 6px 12px !important;
+}
+
+.custom-container {
+    margin-bottom: 20px !important; /* Space between search bar and table */
+}
+
+:host ::ng-deep {
+    .p-dropdown {
+      width: 100%;  // Make dropdown width match column
+      min-width: 150px; // Set minimum width
+    }
+  
+    .p-dropdown-panel {
+      width: auto !important;  // Allow panel to size based on content
+      max-width: 300px;  // Maximum width for dropdown panel
+      overflow: hidden;  // Prevent overflow
+    }
+  
+    .p-dropdown-items-wrapper {
+      max-height: 200px;  // Limit height of dropdown list
+    }
+  
+    // Ensure dropdown options don't wrap and show ellipsis if too long
+    .p-dropdown-item {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  
+    // Prevent table resizing
+    .p-datatable {
+      table-layout: fixed;
+      width: 100%;
+    }
+  
+    // Ensure column headers maintain their width
+    .p-datatable-thead > tr > th {
+      overflow: visible;  // Allow dropdown to overflow
+      position: relative; // Required for dropdown positioning
+    }
+  }
