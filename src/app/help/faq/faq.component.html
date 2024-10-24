@@ -82,7 +82,7 @@
         <div class="col-md-9 nopadding">
           <div class="faq-right-content">
             <div class="search-title" *ngFor="let section of faq;">
-              <h2 id="{{section.title}}">{{section.name}}</h2>
+              <h2 class="search-title-header" id="{{section.title}}">{{section.name}}</h2>
               <div class="panel-group"  *ngIf="section.children">
                 <div id="{{section.id}}" class="accordion panel panel-default search-content" *ngFor="let element of section.children; let i = index">
                   <div class="accordion-item panel-heading">

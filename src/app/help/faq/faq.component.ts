@@ -79,11 +79,13 @@ export class FaqComponent extends BaseComponent implements OnInit {
    * window scroll to selected ID
    * @param ID
    */
-  scroll(ID) {
+  scroll(ID: string) {
     const element = document.getElementById(ID);
-    $('html, body').animate({
-      scrollTop: $(element).offset().top - 80
-    });
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth'
+      })
+    }
   }
 
   /**
