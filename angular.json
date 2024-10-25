@@ -26,15 +26,15 @@
               "src/nginx.conf"
             ],
            "styles": [
-  "src/styles.scss",
-  "node_modules/font-awesome/css/font-awesome.min.css",
-  "node_modules/@uswds/uswds/dist/css/uswds.min.css",  
-  "src/styles.scss"
+            "src/styles.scss",
+            "node_modules/font-awesome/css/font-awesome.min.css",
+            "node_modules/@uswds/uswds/dist/css/uswds.min.css",  
+            "src/styles.scss"
              ],
             "scripts": [
-  "node_modules/jquery/dist/jquery.min.js",
-  "node_modules/chart.js/dist/chart.js",
-  "node_modules/@uswds/uswds/dist/js/uswds.min.js"
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/chart.js/dist/chart.js",
+              "node_modules/@uswds/uswds/dist/js/uswds.min.js"
              ]
           },
           "configurations": {
