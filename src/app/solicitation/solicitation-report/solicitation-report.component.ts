@@ -27,8 +27,7 @@ interface TableState {
 @Component({
   selector: 'app-solicitation-report',
   templateUrl: './solicitation-report.component.html',
-  styleUrls: ['./solicitation-report.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./solicitation-report.component.scss']
 })
 export class SolicitationReportComponent extends BaseComponent implements OnInit {
 

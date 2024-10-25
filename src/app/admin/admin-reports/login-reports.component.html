@@ -8,7 +8,7 @@
     <div class="col-xs-4 col-sm-6">
       <div class="row right-chart-control">
         <div class="col-6">
-          <button label="Download CSV" type="button" class="btn p-button srt-button" style="display: inline-flex;" (click)="downloadLoginData(data)">Download CSV</button>
+          <button class="usa-button" type="button" (click)="downloadLoginData(data)">Download CSV</button>
         </div>
         <div class="col-6">
           <p-dropdown [options]="timeSelection" (onChange)="timeChange($event)" [(ngModel)]="selection"></p-dropdown>

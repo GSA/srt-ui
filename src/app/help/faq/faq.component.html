@@ -61,7 +61,7 @@
           <div class="grid-col-9">
             <div class="usa-accordion">
               <div *ngFor="let section of faq; let sectionIndex = index">
-                <h2 id="{{ section.title }}">{{ section.name }}</h2>
+                <h2 class="search-title-header" id="{{section.title}}">{{section.name}}</h2>
                 <div *ngIf="section.children">
                   <div *ngFor="let element of section.children; let i = index">
                     <!-- Accordion Button with + or - based on expansion state -->

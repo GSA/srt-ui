@@ -1,29 +1,46 @@
-<main id="content" class="bypass-block-target">
+<main id="content" class="usa-section bypass-block-target">
+  <div class="grid-container">
+    <app-admin-header (menuClick)="processMenuClick($event)"></app-admin-header>
 
-<div style="padding: 40px">
+    <!-- Approved Tab -->
+    <app-user-report *ngIf="this.activeTab == 'approved'"></app-user-report>
 
-  <app-admin-header (menuClick)="processMenuClick($event)" ></app-admin-header>
+    <!-- Masquerade Tab -->
+    <masquerade *ngIf="this.activeTab == 'masquerade'"></masquerade>
 
+    <!-- Metric Downloads Tab -->
+    <metric-downloads *ngIf="this.activeTab == 'metric-downloads'"></metric-downloads>
 
-  <app-user-report *ngIf="this.activeTab == 'approved'"></app-user-report>
-  <masquerade *ngIf="this.activeTab == 'masquerade'"></masquerade>
-  <metric-downloads *ngIf="this.activeTab == 'metric-downloads'"></metric-downloads>
+    <!-- Reports Tab -->
+    <div *ngIf="this.activeTab == 'reports'" class="grid-row grid-gap">
+      <!-- Sticky Sidebar -->
+      <nav class="usa-sidenav grid-col-2 sticky-sidenav">
+        <ul class="usa-sidenav__list no-bullets">
+          <li class="usa-sidenav__item">
+            <a href="javascript:void(0)" (click)="scroll('anchor-Logins-Last-30-Days')">Logins</a>
+          </li>
+          <li class="usa-sidenav__item">
+            <a href="javascript:void(0)" (click)="scroll('anchor-User-Login-Report')">User Login Report</a>
+          </li>
+          <li class="usa-sidenav__item">
+            <a href="javascript:void(0)" (click)="scroll('anchor-Feedback-Table')">Feedback Table</a>
+          </li>
+        </ul>
+      </nav>
 
-  <!-- reports -->
-  <div *ngIf="this.activeTab == 'reports'" style="clear:both;" class="row nopadding">
-    <div class="sticky-nav col-md-2 hidden-xs hidden-sm" style="padding-top:80px;">
-      <ul class="usa-sidenav-list sticky-top">
-        <li (click)="scroll('anchor-Logins-Last-30-Days');">Logins</li>
-        <li (click)="scroll('anchor-User-Login-Report');">User Login Report</li>
-        <li (click)="scroll('anchor-Feedback-Table');">Feedback Table</li>
-      </ul>
-    </div>
-
-    <div class="col-md-10 no-padding">
-      <app-login-reports></app-login-reports>
-      <app-admin-feedback></app-admin-feedback>
+            <!-- Main Content Area -->
+      <div class="grid-col-10">
+        <!-- Add IDs to the sections that correspond to the scroll targets -->
+        <div id="anchor-Logins-Last-30-Days" class="scroll-target">
+          <app-login-reports></app-login-reports>
+        </div>
+        <div id="anchor-User-Login-Report" class="scroll-target">
+          <app-user-login-report></app-user-login-report>
+        </div>
+        <div id="anchor-Feedback-Table" class="scroll-target">
+          <app-admin-feedback></app-admin-feedback>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 </main>
-

@@ -6,19 +6,24 @@
            [globalFilterFields]="['solicitation_number', 'title', 'question', 'answer', 'email', 'date', 'agency']"
            [columns]="cols" [resizableColumns]="true">
 
-    <ng-template pTemplate="caption">
-      <div style="text-align: right">
-        <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
-        <!--suppress TypeScriptUnresolvedVariable -->
-        <input type="text" size="30" placeholder="Global Filter"
-               (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto; margin-right: 25px">
-
-        <button type="button" pButton icon="pi pi-file" iconPos="left" label="CSV Export" (click)="dt.exportCSV()"
-                style="float:right"></button>
-      </div>
-    </ng-template>
-
-    <ng-template pTemplate="header">
+           <ng-template pTemplate="caption">
+            <div style="text-align: right">
+              <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+              <!-- Suppress TypeScriptUnresolvedVariable -->
+              <input type="text" size="30" placeholder="Global Filter"
+                     (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto; margin-right: 25px">
+          
+              <!-- USWDS Button with Custom Padding -->
+              <button type="button" class="usa-button custom-usa-button" (click)="dt.exportCSV()" style="float:right">
+                <span class="usa-icon" aria-hidden="true">
+                  <i class="pi pi-file" style="margin-right: 0.5rem;"></i>
+                </span>
+                CSV Export
+              </button>
+            </div>
+          </ng-template>
+          
+          <ng-template pTemplate="header">
       <tr>
         <th pResizableColumn style="width:15%">Solicitation Number</th>
         <th pResizableColumn style="width: 20%">Title</th>

@@ -1,4 +1,4 @@
-.us-tab-item-slide {
+us-tab-item-slide {
   text-align: center;
   line-height: 37px;
   display: inline-block;
@@ -36,4 +36,17 @@
 
 .us-tab-item-slide a:hover {
   text-decoration: none;
+}
+
+/* Remove bullets from the list and ensure the tabs are displayed horizontally */
+.usa-tabs__list--horizontal {
+  list-style-type: none; /* Remove bullets */
+  display: flex;         /* Align items horizontally */
+  padding-left: 0;       /* Remove default padding */
+  margin: 0;             /* Remove default margin */
+}
+
+/* Optional: Add some spacing between tab items */
+.usa-tabs__item {
+  margin-right: 1rem;    /* Add spacing between tabs */
 }
