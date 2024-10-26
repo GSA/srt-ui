@@ -33,7 +33,7 @@
     "@angular/router": "~15.2.10",
     "@auth0/angular-jwt": "^5.2.0",
     "@fullcalendar/core": "^6.1.14",
-    "@types/jquery": "^3.5.29",
+    "@types/jquery": "^3.5.31",
     "@types/quill": "2.0.14",
     "@uswds/uswds": "^3.8.0",
     "ag-grid": "^18.1.2",
