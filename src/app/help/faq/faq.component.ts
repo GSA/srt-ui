@@ -11,7 +11,6 @@ import * as $ from 'jquery';
   styleUrls: ['./faq.component.scss']
 })
 export class FaqComponent extends BaseComponent implements OnInit {
-
   public faq: any[];  // Array of FAQs from the API
   public id = '';
   public params: any;
@@ -29,21 +28,18 @@ export class FaqComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     super.ngOnInit();
     this.id = this.route.snapshot.params['id'];
-
     if (this.id !== null) {
       if (this.id === 'ICT') {
         $('#search').val('What is "Information and Communication Technology"(ICT)?');
       } else if (this.id === 'EIT') {
         $('#search').val('What is "Electronic and Information Technology"(E&IT)?');
       }
-
       // Wait for html to be rendered and trigger click for the given id
       setTimeout(() => {
         $('.' + this.id).click();
         this.search();
       }, 500);
     }
-
     // Fetch FAQs
     this.getFAQs();
   }
@@ -62,15 +58,14 @@ export class FaqComponent extends BaseComponent implements OnInit {
    * Scroll window to selected element by ID
    * @param ID
    */
-    scroll(ID: string) {
-      const element = document.getElementById(ID);
-      
-      if (element) {
-        element.scrollIntoView({
-          behavior: 'smooth'
-        })
-      }
+  scroll(ID: string) {
+    const element = document.getElementById(ID);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth'
+      })
     }
+  }
 
   /**
    * Toggle Accordion visibility
@@ -94,7 +89,6 @@ export class FaqComponent extends BaseComponent implements OnInit {
    */
   search() {
     const txt = $('#search').val().toString().toLowerCase();
-
     $('.search-content').each(function() {
       if ($(this).text().toLowerCase().indexOf(txt) !== -1) {
         $(this).show();
@@ -102,7 +96,6 @@ export class FaqComponent extends BaseComponent implements OnInit {
         $(this).hide();
       }
     });
-
     $('.search-title').each(function() {
       if ($(this).text().toLowerCase().indexOf(txt) !== -1) {
         $(this).show();

@@ -40,15 +40,22 @@
   scroll-margin-top: 3em;
 }
 
+.search-title-header {
+  scroll-margin-top: 3em;
+}
+
 .no-padding {
   padding: 0px !important;
   margin: 0px !important;
 }
 
-@media (max-width: 1200px) {
-  .usa-sidenav-list {
-    display: none;
-  }
+.panel-group .panel {
+  border-radius: 0;
+  border: none;
+}
+
+.panel-group {
+  margin-bottom: 3em;
 }
 
 .sticky-sidenav {
