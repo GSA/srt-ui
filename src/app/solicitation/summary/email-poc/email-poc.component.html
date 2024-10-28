@@ -1,128 +1,137 @@
-<main id="content" class="bypass-block-target">
-<app-summary [step1]="step1" [step2]="step2" [step3]="step3" [solicitationID]="solicitationID" [type]="type"></app-summary>
-<div class="container">
+<main id="content" class="usa-section padding-0" tabindex="-1">
+  <app-summary [step1]="step1" [step2]="step2" [step3]="step3" [solicitationID]="solicitationID" [type]="type"></app-summary>
+  
+  <div class="grid-container padding-0">
+    <div class="summary-content-padding">
+      <!-- Back Link -->
+      <div class="srt-title-padding">
+        <a [routerLink]="['/solicitation/report']" class="usa-link email-font">
+          < Back to Solicitation Review Results for Section 508 Requirements
+        </a>
+      </div>
 
-  <div class="clearfix summary-content-padding">
-    <div class="srt-title-padding">
-      <a [routerLink]="['/solicitation/report']" style="font-weight: 500" >
-        < Back to Solicitation Review Results for Section 508 Requirements</a>
-    </div>
-
-
-    <div class="row">
-      <div class="col-lg-10 col-md-12 nopadding">
-        <!--<legend style="font-weight: 500">Email Solicitation Point of Contact</legend>-->
-        <div class="alert alert-success email-font" *ngIf="emailSent">
-          Your email is successfully sent to the designated recipient(s), you will receive an email notification when the solicitation
-          is updated on sam.gov.
-        </div>
-        <div *ngIf="emailSent" class="email-font">
-          <a (click)="emailSent = false" id="rebutton">
-          Send another email
-      </a>
-        </div>
-
-
-        <div class="row">
-          <div id="instruction" class="col-lg-9 col-md-12">
-            Please copy the email and paste in your agency email to send to the user.
-          </div>
-          <div  class="col-lg-3 col-md-12" *ngIf="feature_flags.estar && solicitation && solicitation.noticeData.epa_psc_match">
-            <select style="margin-top: 1em" (change)="selectLanguage($event.target)">
-              <option>IT Language</option>
-              <option>EPA Language</option>
-            </select>
-          </div>
-        </div>
-
-        <form [formGroup]="myForm" [ngStyle]="{'display': emailSent ? 'none': 'block'}">
-          <div id="emailform">
-
-
-            <div id="form-div">
-              <div class="row form-group">
-                <div class="col-lg-10 col-md-10 col-sm-6">
-                  <label>To:</label>
-                  {{emailTo}}
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-6">
-                  <button (click)="copyText('emailTo')" class="srt-button">
-                    Copy Email &nbsp;<i class="fa fa-copy" ></i>
-                  </button>
-                </div>
-              </div>
-
-              <div class="row form-group" *ngIf="this.templateToShow == 'IT Language'">
-                <div class="col-lg-10 col-md-10 col-sm-6">
-                  <label>Subject:</label>
-                  {{subject}}
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-6">
-                  <button (click)="copyText('subject')" class="srt-button">
-                    Copy Subject &nbsp;<i class="fa fa-copy" ></i>
-                  </button>
-                </div>
-              </div>
-
-              <div class="row form-group" *ngIf="this.templateToShow == 'EPA Language'">
-                <div class="col-lg-10 col-md-10 col-sm-6">
-                  <label>Subject:</label>
-                  {{epaSubject}}
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-6">
-                  <button (click)="copyText('epaSubject')" class="srt-button">
-                    Copy Subject &nbsp;<i class="fa fa-copy" ></i>
-                  </button>
-                </div>
-              </div>
-
-              <div class="row form-group">
-                <div class="col-lg-10 col-md-10 col-sm-6">
-                  <label for="it_message">Message:</label>
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-6">
-                  <button (click)="copyText('it_message')" class="srt-button" *ngIf="this.templateToShow == 'IT Language'">
-                    Copy Message &nbsp;<i class="fa fa-copy" ></i>
-                  </button>
-                  <button (click)="copyText('epa_message')" class="srt-button" *ngIf="this.templateToShow == 'EPA Language'">
-                      Copy Message &nbsp;<i class="fa fa-copy" ></i>
-                  </button>
-                </div>
-              </div>
-
-              <div class="pt-3">
-                <quill-editor id="it_message"
-                              style="min-height: calc(100vh - 585px)"
-                              formControlName="it_message" [options]="editorOptions"
-                              (keydown)="skiptext($event)"
-                              *ngIf="this.templateToShow == 'IT Language'"
-                ></quill-editor>
-              </div>
-
-              <div class="pt-3">
-                <quill-editor id="epa_message"
-                              style="min-height: calc(100vh - 585px)"
-                              formControlName="epa_message" [options]="editorOptions"
-                              (keydown)="skiptext($event)"
-                              *ngIf="this.templateToShow == 'EPA Language'"
-                ></quill-editor>
-              </div>
-
+      <div class="grid-row grid-gap-0">
+        <div class="tablet:grid-col-10 no-padding">
+          <!-- Success Alert -->
+          <div class="usa-alert usa-alert--success email-font" *ngIf="emailSent">
+            <div class="usa-alert__body">
+              <p class="usa-alert__text">
+                Your email is successfully sent to the designated recipient(s), you will receive an email notification when the solicitation
+                is updated on sam.gov.
+              </p>
             </div>
           </div>
-        </form>
-      </div>
 
-      <div class="col-lg-1 col-md-2 nopadding">
-        <!-- send email button
-        <div class="srt-button" style="float: left">
+          <!-- Send Another Email Link -->
+          <div *ngIf="emailSent" class="email-font">
+            <a (click)="emailSent = false" id="rebutton">
+              Send another email
+            </a>
+          </div>
+
+          <!-- Instructions -->
+          <div class="grid-row grid-gap-0">
+            <div id="instruction" class="tablet:grid-col-9">
+              Please copy the email and paste in your agency email to send to the user.
+            </div>
+            <div class="tablet:grid-col-3" *ngIf="feature_flags.estar && solicitation && solicitation.noticeData.epa_psc_match">
+              <select class="usa-select margin-top-2" (change)="selectLanguage($event.target)">
+                <option>IT Language</option>
+                <option>EPA Language</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Email Form -->
+          <form [formGroup]="myForm" [ngStyle]="{'display': emailSent ? 'none': 'block'}" class="usa-form">
+            <div id="emailform">
+              <div id="form-div">
+                <!-- To Field -->
+                <div class="form-group">
+                  <div class="grid-row">
+                    <div class="tablet:grid-col-10">
+                      <label>To:</label>
+                      <span class="email-font">{{emailTo}}</span>
+                    </div>
+                    <div class="tablet:grid-col-2">
+                      <button (click)="copyText('emailTo')" class="usa-button srt-button">
+                        Copy Email &nbsp;<i class="fa fa-copy"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- IT Subject Field -->
+                <div class="form-group" *ngIf="this.templateToShow == 'IT Language'">
+                  <div class="grid-row">
+                    <div class="tablet:grid-col-10">
+                      <label>Subject:</label>
+                      <span class="email-font">{{subject}}</span>
+                    </div>
+                    <div class="tablet:grid-col-2">
+                      <button (click)="copyText('subject')" class="usa-button srt-button">
+                        Copy Subject &nbsp;<i class="fa fa-copy"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- EPA Subject Field -->
+                <div class="form-group" *ngIf="this.templateToShow == 'EPA Language'">
+                  <div class="grid-row">
+                    <div class="tablet:grid-col-10">
+                      <label>Subject:</label>
+                      <span class="email-font">{{epaSubject}}</span>
+                    </div>
+                    <div class="tablet:grid-col-2">
+                      <button (click)="copyText('epaSubject')" class="usa-button srt-button">
+                        Copy Subject &nbsp;<i class="fa fa-copy"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Message Field -->
+                <div class="form-group">
+                  <div class="grid-row">
+                    <div class="tablet:grid-col-10">
+                      <label for="it_message">Message:</label>
+                    </div>
+                    <div class="tablet:grid-col-2">
+                      <button (click)="copyText('it_message')" class="usa-button srt-button" *ngIf="this.templateToShow == 'IT Language'">
+                        Copy Message &nbsp;<i class="fa fa-copy"></i>
+                      </button>
+                      <button (click)="copyText('epa_message')" class="usa-button srt-button" *ngIf="this.templateToShow == 'EPA Language'">
+                        Copy Message &nbsp;<i class="fa fa-copy"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Quill Editor IT -->
+                  <div class="usa-prose margin-top-2" *ngIf="this.templateToShow == 'IT Language'">
+                    <quill-editor id="it_message"
+                                 class="editor-height"
+                                 formControlName="it_message" 
+                                 [options]="editorOptions"
+                                 (keydown)="skiptext($event)">
+                    </quill-editor>
+                  </div>
+
+                  <!-- Quill Editor EPA -->
+                  <div class="usa-prose margin-top-2" *ngIf="this.templateToShow == 'EPA Language'">
+                    <quill-editor id="epa_message"
+                                 class="editor-height"
+                                 formControlName="epa_message" 
+                                 [options]="editorOptions"
+                                 (keydown)="skiptext($event)">
+                    </quill-editor>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
-        -->
       </div>
-
-    </div> <!-- row -->
-
-
+    </div>
   </div>
-</div>
 </main>

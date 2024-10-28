@@ -1,83 +1,123 @@
+/* Base styles */
 .input {
   width: 100%;
 }
 
 .no-padding {
-    margin: 0 !important;
-    padding: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
+.padding-0 {
+  padding: 0 !important;
+}
+
+.grid-gap-0 {
+  gap: 0 !important;
+}
+
+/* Form elements */
 input.form-control {
-    font-weight: 500;
-    display: inline-block;
-    width: calc(100% - 70px);
+  font-weight: 500;
+  display: inline-block;
+  width: calc(100% - 70px);
 }
 
 label {
-    width: 65px;
-    margin-bottom: 5px;
-    display: inline-block;
-    font-weight: 700;
+  width: 65px;
+  margin-bottom: 5px;
+  display: inline-block;
+  font-weight: 700;
 }
 
+.form-group {
+  padding-bottom: 10px;
+}
+
+/* Editor styles */
 .ql-toolbar.ql-snow {
-    display: none !important;
+  display: none !important;
 }
 
-
-.email-font{
-    font-weight: 500
+/* Custom components */
+.email-font {
+  font-weight: 500;
 }
 
-/*.fr-toolbar.fr-desktop.fr-top.fr-basic.fr-sticky-off {
-    display: none !important
-}*/
-
-#rebutton{
-    font-size: 16px;
-    cursor: pointer;
-    float: right
-}
-#emailform{
-    font-weight: 500;
-    display: inline-block;
-    width: calc(100% - 25px);
-    vertical-align: top
-}
-#ebutton{
-    display: inline-block;
-    width: 150px;
-    vertical-align: top;
-    float: right
+#rebutton {
+  font-size: 16px;
+  cursor: pointer;
+  float: right;
 }
 
-.summary-content-padding{
-  padding: 30px 20px
+#emailform {
+  font-weight: 500;
+  display: inline-block;
+  width: calc(100% - 25px);
+  vertical-align: top;
 }
 
-#instruction{
+#ebutton {
+  display: inline-block;
+  width: 150px;
+  vertical-align: top;
+  float: right;
+}
+
+.summary-content-padding {
+  padding: 30px 20px;
+}
+
+#instruction {
   font-weight: 600;
   font-size: 16px;
   padding: 20px;
-  border: 1px solid #dadada
+  border: 1px solid #dadada;
 }
 
-#form-div{
+#form-div {
   padding-top: 20px;
 }
 
-div.form-group {
-  padding-bottom: 10px
-}
-
+/* Button styles */
 .form-group .srt-button {
   top: -10px;
   float: right;
-  display: inline;
+  display: inline-flex;  /* Changed to inline-flex */
+  align-items: center;   /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
   height: 2.5em;
   width: 8.5em;
+  white-space: nowrap;   /* Prevent text wrapping */
 }
 
 .form-group .srt-button i {
-  vertical-align: middle;
+  margin-left: 4px;      /* Add small space between text and icon */
+  line-height: 1;        /* Adjust line height to match text */
+}
+
+
+/* USWDS overrides */
+.usa-form {
+  max-width: none;
+}
+
+.usa-alert {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.usa-alert__text {
+  font-weight: 500;
+}
+
+.usa-button.srt-button {
+  background-color: #205493;
+  font-size: 14px;
+  padding: 6px 15px;
+  text-align: center;
+}
+
+.usa-button.srt-button:hover {
+  background-color: #112e51;
 }
