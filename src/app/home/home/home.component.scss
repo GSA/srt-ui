@@ -1,7 +1,7 @@
 /* Global Styles */
 body {
   font-family: 'Open Sans Condensed', sans-serif;
-  font-size: 18px;
+  font-size: 1.125rem; /* 18px */
 }
 
 button:hover, a:hover {
@@ -14,18 +14,16 @@ button:hover, a:hover {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 350px;
+  height: 21.875rem; /* 350px */
   position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-end; /* Push the callout to the right */
 }
 
-
-
 .usa-hero__overlay {
   background-color: transparent !important;
-  padding: 20px;
+  padding: 1.25rem; /* 20px */
   color: #000;
   text-align: right;
   width: 60%; /* The width will be 75% of the parent */
@@ -43,10 +41,10 @@ button:hover, a:hover {
 }
 
 .usa-hero__heading {
-  font-size: 36px;
+  font-size: 2.25rem; /* 36px */
   font-weight: 600;
   text-decoration: underline;
-  padding-bottom: 10px;
+  padding-bottom: 0.625rem; /* 10px */
   color: black; /* Ensure heading text is black */
   text-align: right;
 }
@@ -58,6 +56,7 @@ button:hover, a:hover {
   text-align: right; /* Center the text */
   margin: 0; /* Ensure text is centered horizontally */
 }
+
 /* Cards Section */
 .usa-card {
   height: 100%;
@@ -74,7 +73,7 @@ button:hover, a:hover {
   text-decoration: none;
   color: inherit;
   transition: box-shadow 0.3s ease, transform 0.3s ease;
-  border-radius: 4px;
+  border-radius: 0.25rem; /* 4px */
 }
 
 .usa-card__container--clickable {
@@ -83,8 +82,8 @@ button:hover, a:hover {
 
 .usa-card__container--clickable:hover,
 .usa-card__container--clickable:focus {
-  box-shadow: 0 0 0 3px #2491ff;
-  transform: translateY(-2px);
+  box-shadow: 0 0 0 0.1875rem #2491ff; /* 3px */
+  transform: translateY(-0.125rem); /* -2px */
   text-decoration: none;
   cursor: pointer;
   outline: none;
@@ -96,18 +95,18 @@ button:hover, a:hover {
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  height: 120px;
+  height: 7.5rem; /* 120px */
 }
 
 .usa-card__media img {
-  width: 80px;
-  height: 80px;
+  width: 5rem; /* 80px */
+  height: 5rem; /* 80px */
   object-fit: contain;
 }
 
 .usa-card__media img[alt="FAQ Icon"] {
-  width: 160px;
-  height: 160px;
+  width: 10rem; /* 160px */
+  height: 10rem; /* 160px */
   object-fit: contain; /* Ensures the image scales without distortion */
 }
 

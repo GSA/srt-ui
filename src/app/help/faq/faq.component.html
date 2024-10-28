@@ -11,7 +11,7 @@
           and <strong>(4)</strong> analytics and trending of flagged solicitations over time by agency and government-wide.
         </p>
         <p>
-          SRT uses natural language processing, text mining, and machine learning algorithms to automatically identify whether a solicitation contains sufficient compliance requirements for a particular use case (e.g. Section 508 Technical Requirements).
+          SRT uses natural language processing, text mining, and machine learning algorithms to automatically identify whether a solicitation contains sufficient compliance requirements for a particular use case (e.g., Section 508 Technical Requirements).
           To learn more about SRT, read the FAQs below.
         </p>
       </div>
@@ -22,7 +22,14 @@
     <div class="faq-content-div">
       <div class="row px-5">
         <div class="col-lg-11 d-flex justify-content-end">
-          <input id="search" class="search-input" placeholder="Search FAQs" (keyup)="search()" aria-label="input area to search your question">
+          <input
+            id="search"
+            class="search-input"
+            placeholder="Search FAQs"
+            (keyup)="search()"
+            #searchInput
+            aria-label="input area to search your question"
+          >
         </div>
         <div style="cursor: pointer" class="search-button col-lg-1" (click)="search()">
           <i class="bi bi-search" style="vertical-align: sub;"></i>
@@ -59,17 +66,22 @@
 
           <!-- FAQ Content Area -->
           <div class="grid-col-9">
-            <div class="usa-accordion">
-              <div *ngFor="let section of faq; let sectionIndex = index">
-                <h2 class="search-title-header" id="{{section.title}}">{{section.name}}</h2>
+            <div class="usa-accordion usa-accordion--bordered">
+              <div *ngFor="let section of faq; let sectionIndex = index" class="usa-accordion__item">
+                <h2 class="search-title-header" id="{{section.title}}">{{ section.name }}</h2>
                 <div *ngIf="section.children">
-                  <div *ngFor="let element of section.children; let i = index">
-                    <!-- Accordion Button with + or - based on expansion state -->
-                    <button class="usa-accordion__button" aria-expanded="{{ isExpanded(section.id + i) }}" aria-controls="faq-{{ section.id + i }}" (click)="toggleAccordion(section.id + i)">
-                      <span class="accordion-symbol">{{ isExpanded(section.id + i) ? '-' : '+' }}</span>
+                  <div *ngFor="let element of section.children; let i = index" class="usa-accordion__item">
+                    <button
+                      class="usa-accordion__button"
+                      [attr.aria-expanded]="isExpanded(sectionIndex, element.id)"
+                      [attr.aria-controls]="'faq-' + element.id"
+                      (click)="toggleAccordion(sectionIndex, element.id)">
                       {{ element.title }}
                     </button>
-                    <div id="faq-{{ section.id + i }}" class="usa-accordion__content usa-prose accordion-content" [ngClass]="{'expanded': isExpanded(section.id + i)}">
+                    <div
+                      [id]="'faq-' + element.id"
+                      class="usa-accordion__content usa-prose"
+                      *ngIf="isExpanded(sectionIndex, element.id)">
                       <div [innerHTML]="element.body"></div>
                     </div>
                   </div>

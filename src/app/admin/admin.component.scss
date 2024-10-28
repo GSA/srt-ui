@@ -1,49 +1,48 @@
-
 /* Remove bullet points from the sidenav list */
 .no-bullets {
     list-style-type: none; /* Remove bullet points */
     padding-left: 0;       /* Ensure no default padding */
     margin-left: 0;        /* Remove any margin */
-  }
+}
 
-  .scroll-target {
+.scroll-target {
     scroll-margin-top: 4em; /* Adjust this value to match the height of your navbar */
-  }
-  
+}
+
 /* Remove default padding for grid-container and other elements */
 .grid-container, .grid-col-10 {
-    padding-left: 10px !important;
+    padding-left: 0.625rem !important; /* 10px */
     padding-right: 0 !important;
     margin-left: 0; /* Optional: if margins are also an issue */
     margin-right: 0; /* Optional: if margins are also an issue */
-  }
-  
-  /* Add padding-top of 20px to the sidenav */
-  .usa-sidenav {
-    padding-top: 30px !important; /* Force top padding */
-    padding-left: 10px !important;   /* Ensure no left padding */
-    padding-right: 0 !important;  /* Ensure no right padding */
-  }
-  
-  /* Optional: Remove default USWDS padding on larger screens */
-  @media (min-width: 64em) {
-    .grid-container {
-      padding-left: 10px !important;
-      padding-right: 0 !important;
-    }
-  }
+}
 
-  /* Sticky sidenav with padding from the left */
+/* Add padding-top of 20px to the sidenav */
+.usa-sidenav {
+    padding-top: 1.875rem !important; /* 30px */
+    padding-left: 0.625rem !important; /* 10px */
+    padding-right: 0 !important;
+}
+
+/* Optional: Remove default USWDS padding on larger screens */
+@media (min-width: 64em) {
+    .grid-container {
+        padding-left: 0.625rem !important; /* 10px */
+        padding-right: 0 !important;
+    }
+}
+
+/* Sticky sidenav with padding from the left */
 .sticky-sidenav {
     position: sticky;
-    top: 45px; /* Adjust this to the height of your header plus any desired margin */
-    padding-left: 20px; /* Spacing from the left */
-    max-height: calc(100vh - 80px); /* Account for the header height */
+    top: 2.8125rem; /* 45px */
+    padding-left: 1.25rem; /* 20px */
+    max-height: calc(100vh - 5rem); /* 80px */
     overflow-y: auto; /* Allow scrolling if the sidenav content exceeds viewport height */
-  }
-  
-  /* Ensure that parent containers do not interfere with sticky positioning */
-  .grid-container {
+}
+
+/* Ensure that parent containers do not interfere with sticky positioning */
+.grid-container {
     overflow: visible; /* Make sure sticky works */
     position: relative; /* Ensure the sticky element has the correct context */
-  }
+}

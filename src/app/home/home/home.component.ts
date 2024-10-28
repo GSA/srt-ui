@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { AuthGuard } from '../../auth-guard.service';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { BaseComponent } from '../../base.component';
 import { Title } from '@angular/platform-browser';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
@@ -22,11 +22,9 @@ export class HomeComponent extends BaseComponent implements OnInit, OnDestroy {
   isGSAAdmin = false;
   private adminCheckTimes: number = 0;
   private interval: any;
-  private routerSubscription: Subscription;
 
   @ViewChild('gridContainer') gridContainer: ElementRef;
 
-  // Add the showGrid property
   showGrid = true;
 
   constructor(
@@ -44,27 +42,11 @@ export class HomeComponent extends BaseComponent implements OnInit, OnDestroy {
     this.pageName = 'SRT Home Page';
     super.ngOnInit();
     this.checkAdmin();
-
-    // Subscribe to router events
-    this.routerSubscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        if (this.router.url === '/home') {
-          // Toggle showGrid to force re-rendering
-          this.showGrid = false;
-          setTimeout(() => {
-            this.showGrid = true;
-          }, 0);
-        }
-      }
-    });
   }
 
   ngOnDestroy() {
     if (this.interval) {
       clearInterval(this.interval);
-    }
-    if (this.routerSubscription) {
-      this.routerSubscription.unsubscribe();
     }
   }
 

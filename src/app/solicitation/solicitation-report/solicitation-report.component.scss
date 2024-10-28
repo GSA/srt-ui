@@ -1,8 +1,8 @@
 /* Style for the CSV export icon */
 #csvlogo {
-    max-height: 40px;
-    padding-left: 10px;
-    margin-left: 15px; /* Add margin to space it nicely from other elements */
+    max-height: 2.5rem;
+    padding-left: 0.625rem;
+    margin-left: 0.9375rem; /* Add margin to space it nicely from other elements */
     cursor: pointer;
 }
 
@@ -34,7 +34,7 @@ body p-paginator div a.p-highlight {
 
 /* Table header styling */
 th {
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: bold !important;
     vertical-align: top;
 }
@@ -47,29 +47,29 @@ body {
 /* Result styles */
 .result-red span,
 .result-red i {
-    font-size: 16px;
+    font-size: 1rem;
     color: #cc0000;
     font-weight: bold;
 }
 
 .result-green span,
 .result-green i {
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: bold;
     color: green;
 }
 
 .result-yellow span,
 .result-yellow i {
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: bold;
     color: #635401;
 }
 
 /* Animation styles */
 ul.cb-slide-show {
-    padding-left: 0px;
-    font-size: 80px;
+    padding-left: 0;
+    font-size: 5rem;
     text-align: center;
 }
 
@@ -163,7 +163,7 @@ ul.cb-slide-show li {
 
 /* No solicitation message styles */
 .solic-nosolic {
-    height: calc(100vh - 60px);
+    height: calc(100vh - 3.75rem);
     display: table;
     width: 100%;
 }
@@ -175,7 +175,7 @@ ul.cb-slide-show li {
 
 /* Table styles */
 .pDataTable {
-    padding: 0px 20px;
+    padding: 0 1.25rem;
 }
 
 body .p-datatable .p-datatable-tbody tr {
@@ -185,7 +185,7 @@ body .p-datatable .p-datatable-tbody tr {
 /* Total count styles */
 #total-count {
     font-family: "Open Sans", "Helvetica Neue", sans-serif;
-    font-size: 14px;
+    font-size: 0.875rem;
     text-decoration: none;
     padding: 0.3em;
 }
@@ -216,46 +216,46 @@ body .p-datatable .p-datatable-tbody tr {
 
 /* Custom input group styles */
 .custom-container {
-    margin-bottom: 20px !important; /* Space between search bar and table */
+    margin-bottom: 1.25rem !important; /* Space between search bar and table */
 }
 
 .custom-input-group {
     display: flex !important;
     align-items: center !important;
-    margin-right: 15px !important;
-    padding: 20px !important;
+    margin-right: 0.9375rem !important;
+    padding: 1.25rem !important;
 }
 
 .custom-input {
-    padding: 10px !important;
-    margin-right: 15px !important;
+    padding: 0.625rem !important;
+    margin-right: 0.9375rem !important;
     height: 2.5rem !important;
     width: 100% !important;
     max-width: 30rem; /* Optional: set a maximum width for the input */
     border: 1px solid #565c65 !important;
-    border-radius: 4px !important;
+    border-radius: 0.25rem !important;
 }
 
 .custom-button {
     height: 2.5rem !important;
-    padding: 6px 12px !important;
+    padding: 0.375rem 0.75rem !important;
 }
 
 /* Dropdown and table adjustments */
 :host ::ng-deep {
     .p-dropdown {
         width: 100%; /* Make dropdown width match column */
-        min-width: 150px; /* Set minimum width */
+        min-width: 9.375rem; /* 150px converted to rem */
     }
 
     .p-dropdown-panel {
         width: auto !important; /* Allow panel to size based on content */
-        max-width: 300px; /* Maximum width for dropdown panel */
+        max-width: 18.75rem; /* 300px converted to rem */
         overflow: hidden; /* Prevent overflow */
     }
 
     .p-dropdown-items-wrapper {
-        max-height: 200px; /* Limit height of dropdown list */
+        max-height: 12.5rem; /* 200px converted to rem */
     }
 
     /* Ensure dropdown options don't wrap and show ellipsis if too long */

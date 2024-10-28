@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HelpService } from '../../shared/services/help.service';
 import { BaseComponent } from '../../base.component';
 import { Title } from '@angular/platform-browser';
-import * as $ from 'jquery';
 
 @Component({
   selector: 'app-faq',
@@ -13,8 +12,9 @@ import * as $ from 'jquery';
 export class FaqComponent extends BaseComponent implements OnInit {
   public faq: any[];  // Array of FAQs from the API
   public id = '';
-  public params: any;
   public expanded: { [key: string]: boolean } = {}; // Track accordion state
+
+  @ViewChild('searchInput') searchInput: ElementRef<HTMLInputElement>;
 
   constructor(
     private helpService: HelpService,
@@ -25,7 +25,7 @@ export class FaqComponent extends BaseComponent implements OnInit {
     this.pageName = 'SRT - Frequently Asked Questions';
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     super.ngOnInit();
     this.id = this.route.snapshot.params['id'];
     if (this.id !== null) {
@@ -36,7 +36,7 @@ export class FaqComponent extends BaseComponent implements OnInit {
       }
       // Wait for html to be rendered and trigger click for the given id
       setTimeout(() => {
-        $('.' + this.id).click();
+        this.prefillSearch(this.id);
         this.search();
       }, 500);
     }
@@ -45,18 +45,41 @@ export class FaqComponent extends BaseComponent implements OnInit {
   }
 
   /**
+   * Prefill search input based on the route parameter
+   * @param id - Search term identifier
+   */
+  prefillSearch(id: string): void {
+    const predefinedQuestions = {
+      ICT: 'What is "Information and Communication Technology"(ICT)?',
+      EIT: 'What is "Electronic and Information Technology"(E&IT)?'
+    };
+
+    this.searchInput.nativeElement.value = predefinedQuestions[id] || '';
+  }
+
+  /**
    * Fetch FAQs from the API
    */
-  getFAQs() {
+  getFAQs(): void {
     this.helpService.getFAQs().subscribe({
-      next: (data) => (this.faq = data),
+      next: (data) => {
+        this.faq = data;
+        // Initialize all accordion items as collapsed
+        this.faq.forEach((section, sectionIndex) => {
+          section.children?.forEach(item => {
+            this.expanded[this.getUniqueKey(sectionIndex, item.id)] = false;
+          });
+        });
+      },
       error: (e) => console.log(e)
     });
   }
 
   /**
-   * Scroll window to selected element by ID
-   * @param ID
+   * Generate a unique key for each accordion item based on section and item IDs.
+   * @param sectionIndex - The index of the section
+   * @param itemId - The unique ID of the accordion item within the section
+   * @returns A unique key string
    */
   scroll(ID: string) {
     const element = document.getElementById(ID);
@@ -68,20 +91,34 @@ export class FaqComponent extends BaseComponent implements OnInit {
   }
 
   /**
-   * Toggle Accordion visibility
-   * @param id - Unique ID for the accordion element
+   * Toggle Accordion visibility for a specific item within a section
+   * @param sectionIndex - The index of the section
+   * @param itemId - The unique ID of the accordion item
    */
-  toggleAccordion(id: string) {
-    this.expanded[id] = !this.expanded[id];
+  toggleAccordion(sectionIndex: number, itemId: string): void {
+    const uniqueKey = this.getUniqueKey(sectionIndex, itemId);
+    this.expanded[uniqueKey] = !this.expanded[uniqueKey];
   }
 
   /**
    * Determine if an accordion section is expanded
-   * @param id - Unique ID for the accordion element
+   * @param sectionIndex - The index of the section
+   * @param itemId - The unique ID of the accordion item
    * @returns boolean
    */
-  isExpanded(id: string): boolean {
-    return this.expanded[id] || false;
+  isExpanded(sectionIndex: number, itemId: string): boolean {
+    return this.expanded[this.getUniqueKey(sectionIndex, itemId)] || false;
+  }
+
+  /**
+   * Scroll window to selected element by ID
+   * @param ID - The ID of the element to scroll to
+   */
+  scroll(ID: string): void {
+    const element = document.getElementById(ID);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   /**

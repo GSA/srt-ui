@@ -1,43 +1,43 @@
 .faq-right-content h2 {
-  padding: 0px 0px 20px 0px;
-  margin: 0px;
+  padding: 0 0 1.25rem 0; /* 20px */
+  margin: 0;
   color: #155394;
 }
 
 .faq-right-content {
-  padding: 0px 0px 0px 20px;
+  padding: 0 0 0 1.25rem; /* 20px */
 }
 
 .search-input {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  height: 45px;
-  min-width: 300px;
+  border-top-left-radius: 0.3125rem; /* 5px */
+  border-bottom-left-radius: 0.3125rem; /* 5px */
+  height: 2.8125rem; /* 45px */
+  min-width: 18.75rem; /* 300px */
   border: 1px solid #205493;
   outline: none;
   box-shadow: none;
-  padding: 0px 10px;
+  padding: 0 0.625rem; /* 10px */
   font-weight: 500;
-  font-size: 16px;
-  margin-top: 20px; /* Added margin to the top */
+  font-size: 1rem; /* 16px */
+  margin-top: 1.25rem; /* 20px */
 }
 
 .search-button {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  width: 75px;
+  border-top-right-radius: 0.3125rem; /* 5px */
+  border-bottom-right-radius: 0.3125rem; /* 5px */
+  width: 4.6875rem; /* 75px */
   background-color: #205493;
   border-color: #205493;
   color: white;
-  font-size: 20px;
+  font-size: 1.25rem; /* 20px */
   font-weight: 500;
-  height: 45px;
+  height: 2.8125rem; /* 45px */
   text-align: center;
-  margin-top: 20px; /* Added margin to the top */
+  margin-top: 1.25rem; /* 20px */
 }
 
 .search-title-header {
-  scroll-margin-top: 3em;
+  scroll-margin-top: 3rem;
 }
 
 .search-title-header {
@@ -45,8 +45,8 @@
 }
 
 .no-padding {
-  padding: 0px !important;
-  margin: 0px !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 .panel-group .panel {
@@ -60,9 +60,9 @@
 
 .sticky-sidenav {
   position: sticky;
-  top: 80px;
-  padding-left: 20px;
-  max-height: calc(100vh - 80px);
+  top: 5rem; /* 80px */
+  padding-left: 1.25rem; /* 20px */
+  max-height: calc(100vh - 5rem); /* 80px */
   overflow-y: auto;
 }
 
@@ -98,7 +98,7 @@
 }
 
 .accordion-content.expanded {
-  max-height: 500px;
+  max-height: 31.25rem; /* 500px */
   padding: 1rem 0;
   margin-bottom: 0;
 }
@@ -108,9 +108,9 @@
 }
 
 .accordion-symbol {
-  margin-right: 10px;
+  margin-right: 0.625rem; /* 10px */
   font-weight: bold;
-  font-size: 18px;
+  font-size: 1.125rem; /* 18px */
   float: left;
   display: inline-block;
 }
