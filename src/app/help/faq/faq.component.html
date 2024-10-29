@@ -20,7 +20,8 @@
 
   <div class="container-fluid">
     <div class="faq-content-div">
-      <div class="row px-5">
+      <!-- Search Section -->
+      <div class="row px-5 mb-8">
         <div class="col-lg-11 d-flex justify-content-end">
           <input
             id="search"
@@ -39,27 +40,26 @@
       <!-- Main Content Area with Sidenav and FAQs -->
       <div class="grid-container usa-section">
         <div class="grid-row grid-gap">
-
           <!-- Left Sidenav - Sticky Position -->
           <nav class="usa-sidenav grid-col-3 sticky-sidenav">
-            <ul class="usa-sidenav__list">
+            <ul class="usa-sidenav__list clean-list">
               <li class="usa-sidenav__item">
-                <a href="javascript:void(0)" tabindex="0" (click)="scroll('mostViewTitle')">Most Viewed FAQs</a>
+                <a href="javascript:void(0)" tabindex="0" (click)="scroll('mostViewTitle')" class="sidenav-link">Most Viewed FAQs</a>
               </li>
               <li class="usa-sidenav__item">
-                <a href="javascript:void(0)" tabindex="0" (click)="scroll('backgroundInfoTitle')">Background</a>
+                <a href="javascript:void(0)" tabindex="0" (click)="scroll('backgroundInfoTitle')" class="sidenav-link">Background</a>
               </li>
               <li class="usa-sidenav__item">
-                <a href="javascript:void(0)" tabindex="0" (click)="scroll('aboutTitle')">About SRT</a>
+                <a href="javascript:void(0)" tabindex="0" (click)="scroll('aboutTitle')" class="sidenav-link">About SRT</a>
               </li>
               <li class="usa-sidenav__item">
-                <a href="javascript:void(0)" tabindex="0" (click)="scroll('scanningProcessTitle')">Explore the Scanning Process</a>
+                <a href="javascript:void(0)" tabindex="0" (click)="scroll('scanningProcessTitle')" class="sidenav-link">Explore the Scanning Process</a>
               </li>
               <li class="usa-sidenav__item">
-                <a href="javascript:void(0)" tabindex="0" (click)="scroll('manageWorkloadTitle')">Manage/ Review Solicitations</a>
+                <a href="javascript:void(0)" tabindex="0" (click)="scroll('manageWorkloadTitle')" class="sidenav-link">Manage/ Review Solicitations</a>
               </li>
               <li class="usa-sidenav__item">
-                <a href="javascript:void(0)" tabindex="0" (click)="scroll('requestSupportTitle')">Request Support</a>
+                <a href="javascript:void(0)" tabindex="0" (click)="scroll('requestSupportTitle')" class="sidenav-link">Request Support</a>
               </li>
             </ul>
           </nav>
@@ -67,16 +67,17 @@
           <!-- FAQ Content Area -->
           <div class="grid-col-9">
             <div class="usa-accordion usa-accordion--bordered">
-              <div *ngFor="let section of faq; let sectionIndex = index" class="usa-accordion__item">
-                <h2 class="search-title-header" id="{{section.title}}">{{ section.name }}</h2>
-                <div *ngIf="section.children">
-                  <div *ngFor="let element of section.children; let i = index" class="usa-accordion__item">
+              <div *ngFor="let section of faq; let sectionIndex = index" class="usa-accordion__item mb-8">
+                <h2 class="search-title-header mb-4" id="{{section.title}}">{{ section.name }}</h2>
+                <div *ngIf="section.children" class="faq-section">
+                  <div *ngFor="let element of section.children; let i = index" class="usa-accordion__item mb-4">
                     <button
-                      class="usa-accordion__button"
+                      class="usa-accordion__button custom-accordion-button"
                       [attr.aria-expanded]="isExpanded(sectionIndex, element.id)"
                       [attr.aria-controls]="'faq-' + element.id"
                       (click)="toggleAccordion(sectionIndex, element.id)">
-                      {{ element.title }}
+                      <span class="button-text">{{ element.title }}</span>
+                      <span class="expand-icon">{{ isExpanded(sectionIndex, element.id) ? '−' : '+' }}</span>
                     </button>
                     <div
                       [id]="'faq-' + element.id"
@@ -89,7 +90,6 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>

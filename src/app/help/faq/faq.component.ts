@@ -81,13 +81,8 @@ export class FaqComponent extends BaseComponent implements OnInit {
    * @param itemId - The unique ID of the accordion item within the section
    * @returns A unique key string
    */
-  scroll(ID: string) {
-    const element = document.getElementById(ID);
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth'
-      })
-    }
+  getUniqueKey(sectionIndex: number, itemId: string): string {
+    return `${sectionIndex}-${itemId}`;
   }
 
   /**

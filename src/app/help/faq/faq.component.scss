@@ -1,122 +1,130 @@
-.faq-right-content h2 {
-  padding: 0 0 1.25rem 0; /* 20px */
-  margin: 0;
-  color: #155394;
+.container-fluid {
+  padding-top: 2rem; /* Adjust the value as needed */
 }
 
-.faq-right-content {
-  padding: 0 0 0 1.25rem; /* 20px */
+/* Sticky sidebar styling */
+.sticky-sidenav {
+  position: sticky;
+  top: 5rem;
+  height: calc(100vh - 5rem);
+  overflow-y: auto;
+  padding-right: 2rem;
 }
 
-.search-input {
-  border-top-left-radius: 0.3125rem; /* 5px */
-  border-bottom-left-radius: 0.3125rem; /* 5px */
-  height: 2.8125rem; /* 45px */
-  min-width: 18.75rem; /* 300px */
-  border: 1px solid #205493;
-  outline: none;
-  box-shadow: none;
-  padding: 0 0.625rem; /* 10px */
-  font-weight: 500;
-  font-size: 1rem; /* 16px */
-  margin-top: 1.25rem; /* 20px */
-}
-
-.search-button {
-  border-top-right-radius: 0.3125rem; /* 5px */
-  border-bottom-right-radius: 0.3125rem; /* 5px */
-  width: 4.6875rem; /* 75px */
-  background-color: #205493;
-  border-color: #205493;
-  color: white;
-  font-size: 1.25rem; /* 20px */
-  font-weight: 500;
-  height: 2.8125rem; /* 45px */
-  text-align: center;
-  margin-top: 1.25rem; /* 20px */
-}
-
-.search-title-header {
-  scroll-margin-top: 3rem;
-}
-
-.search-title-header {
-  scroll-margin-top: 3em;
-}
-
-.no-padding {
+/* Clean list styling for sidenav */
+.clean-list {
+  list-style: none !important;
   padding: 0 !important;
   margin: 0 !important;
 }
 
-.panel-group .panel {
-  border-radius: 0;
-  border: none;
-}
-
-.panel-group {
-  margin-bottom: 3em;
-}
-
-.sticky-sidenav {
-  position: sticky;
-  top: 5rem; /* 80px */
-  padding-left: 1.25rem; /* 20px */
-  max-height: calc(100vh - 5rem); /* 80px */
-  overflow-y: auto;
-}
-
-.grid-container {
-  overflow: visible;
-  position: relative;
-}
-
-.container-fluid {
-  overflow: visible !important;
-}
-
-.usa-sidenav__list {
-  list-style: none;
-  padding-left: 0;
-}
-
 .usa-sidenav__item {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.usa-sidenav__item a {
+/* Sidenav link styling */
+.sidenav-link {
+  display: block;
+  color: #205493;
   text-decoration: none;
-  color: #005ea2;
+  padding: 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
 }
 
-.accordion-content {
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.3s ease-out, padding 0.3s ease-out;
-  margin: 0;
-  padding: 0;
+.sidenav-link:hover {
+  color: #112e51;
+  text-decoration: underline;
 }
 
-.accordion-content.expanded {
-  max-height: 31.25rem; /* 500px */
-  padding: 1rem 0;
-  margin-bottom: 0;
+/* Search input styling */
+.search-input {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  height: 45px;
+  min-width: 300px;
+  border: 1px solid #205493;
+  outline: none;
+  box-shadow: none;
+  padding: 0 10px;
+  font-weight: 500;
+  font-size: 16px;
 }
 
-.usa-accordion__button::after {
-  display: none !important;
+/* Search button styling */
+.search-button {
+  border-top-right-radius: 5px;
+
+
+  border-bottom-right-radius: 5px;
+  width: 75px;
+  background-color: #205493;
+  border-color: #205493;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  height: 45px;
+  text-align: center;
 }
 
-.accordion-symbol {
-  margin-right: 0.625rem; /* 10px */
-  font-weight: bold;
-  font-size: 1.125rem; /* 18px */
-  float: left;
-  display: inline-block;
-}
-
-.usa-accordion__button {
-  justify-content: flex-start;
+/* Custom accordion button styling */
+.custom-accordion-button {
+  width: 100%;
+  padding: 1rem 2rem !important;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  position: relative;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
   text-align: left;
   background-image: none !important;
+}
+
+.custom-accordion-button:hover {
+  background-color: #e6e6e6;
+}
+
+/* Button text and expand icon positioning */
+.button-text {
+  flex-grow: 1;
+  padding-right: 3rem;
+}
+
+.expand-icon {
+  position: absolute;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Accordion content styling */
+.usa-accordion__content {
+  padding: 1.5rem 2rem;
+  border: 1px solid #ddd;
+  border-radius: 0 0 4px 4px;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  background-color: white;
+}
+
+/* Section spacing */
+.faq-section {
+  margin-bottom: 2rem;
+}
+
+/* Search title header spacing */
+.search-title-header {
+  scroll-margin-top: 3rem;
+  color: #205493;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Add spacing between accordion items */
+.usa-accordion__item + .usa-accordion__item {
+  margin-top: 1rem;
 }
