@@ -2,8 +2,16 @@
 #header {
   width: 100%;
   background-color: white;
-  position: relative;
+  position: sticky;  /* Change from relative to sticky */
+  top: 0;           /* Stick to the top */
+  z-index: 1000;    /* Ensure header stays above other content */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* Optional: adds shadow for visual separation */
 }
+
+#header {
+  transition: box-shadow 0.3s ease;
+}
+
 
 .usa-header {
   padding: 0.5rem 0;

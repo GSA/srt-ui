@@ -29,16 +29,13 @@ export class FaqComponent extends BaseComponent implements OnInit {
     super.ngOnInit();
     this.id = this.route.snapshot.params['id'];
     if (this.id !== null) {
-      if (this.id === 'ICT') {
-        $('#search').val('What is "Information and Communication Technology"(ICT)?');
-      } else if (this.id === 'EIT') {
-        $('#search').val('What is "Electronic and Information Technology"(E&IT)?');
-      }
-      // Wait for html to be rendered and trigger click for the given id
-      setTimeout(() => {
+      if (this.id === 'ICT' || this.id === 'EIT') {
         this.prefillSearch(this.id);
-        this.search();
-      }, 500);
+        // Wait for html to be rendered and trigger search
+        setTimeout(() => {
+          this.search();
+        }, 500);
+      }
     }
     // Fetch FAQs
     this.getFAQs();
@@ -119,20 +116,26 @@ export class FaqComponent extends BaseComponent implements OnInit {
   /**
    * Perform search based on the input value
    */
-  search() {
-    const txt = $('#search').val().toString().toLowerCase();
-    $('.search-content').each(function() {
-      if ($(this).text().toLowerCase().indexOf(txt) !== -1) {
-        $(this).show();
-      } else {
-        $(this).hide();
+  search(): void {
+    const searchTerm = this.searchInput.nativeElement.value.toLowerCase();
+    
+    // Get all search content elements
+    const searchContentElements = document.querySelectorAll('.search-content');
+    const searchTitleElements = document.querySelectorAll('.search-title');
+
+    // Filter search content
+    searchContentElements.forEach(element => {
+      if (element instanceof HTMLElement) {
+        const isVisible = element.textContent?.toLowerCase().includes(searchTerm);
+        element.style.display = isVisible ? '' : 'none';
       }
     });
-    $('.search-title').each(function() {
-      if ($(this).text().toLowerCase().indexOf(txt) !== -1) {
-        $(this).show();
-      } else {
-        $(this).hide();
+
+    // Filter titles
+    searchTitleElements.forEach(element => {
+      if (element instanceof HTMLElement) {
+        const isVisible = element.textContent?.toLowerCase().includes(searchTerm);
+        element.style.display = isVisible ? '' : 'none';
       }
     });
   }

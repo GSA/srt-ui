@@ -11,7 +11,7 @@
           and <strong>(4)</strong> analytics and trending of flagged solicitations over time by agency and government-wide.
         </p>
         <p>
-          SRT uses natural language processing, text mining, and machine learning algorithms to automatically identify whether a solicitation contains sufficient compliance requirements for a particular use case (e.g., Section 508 Technical Requirements).
+          SRT uses natural language processing, text mining, and machine learning algorithms to automatically identify whether a solicitation contains sufficient compliance requirements for a particular use case (e.g. Section 508 Technical Requirements).
           To learn more about SRT, read the FAQs below.
         </p>
       </div>
@@ -67,10 +67,10 @@
           <!-- FAQ Content Area -->
           <div class="grid-col-9">
             <div class="usa-accordion usa-accordion--bordered">
-              <div *ngFor="let section of faq; let sectionIndex = index" class="usa-accordion__item mb-8">
-                <h2 class="search-title-header mb-4" id="{{section.title}}">{{ section.name }}</h2>
+              <div *ngFor="let section of faq; let sectionIndex = index" class="usa-accordion__item search-title">
+                <h2 class="search-title-header" id="{{section.title}}">{{ section.name }}</h2>
                 <div *ngIf="section.children" class="faq-section">
-                  <div *ngFor="let element of section.children; let i = index" class="usa-accordion__item mb-4">
+                  <div *ngFor="let element of section.children; let i = index" class="usa-accordion__item search-content">
                     <button
                       class="usa-accordion__button custom-accordion-button"
                       [attr.aria-expanded]="isExpanded(sectionIndex, element.id)"

@@ -1,5 +1,5 @@
 .container-fluid {
-  padding-top: 2rem; /* Adjust the value as needed */
+  padding-top: 2rem;
 }
 
 /* Sticky sidebar styling */
@@ -40,31 +40,29 @@
 
 /* Search input styling */
 .search-input {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  height: 45px;
-  min-width: 300px;
-  border: 1px solid #205493;
+  border-top-left-radius: 0.3125rem;
+  border-bottom-left-radius: 0.3125rem;
+  height: 2.8125rem;
+  min-width: 18.75rem;
+  border: 0.0625rem solid #205493;
   outline: none;
   box-shadow: none;
-  padding: 0 10px;
+  padding: 0 0.625rem;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 /* Search button styling */
 .search-button {
-  border-top-right-radius: 5px;
-
-
-  border-bottom-right-radius: 5px;
-  width: 75px;
+  border-top-right-radius: 0.3125rem;
+  border-bottom-right-radius: 0.3125rem;
+  width: 4.6875rem;
   background-color: #205493;
   border-color: #205493;
   color: white;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 500;
-  height: 45px;
+  height: 2.8125rem;
   text-align: center;
 }
 
@@ -73,9 +71,9 @@
   width: 100%;
   padding: 1rem 2rem !important;
   background-color: #f0f0f0;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-bottom: 0.5rem;
+  border: 0.0625rem solid #ddd;
+  border-radius: 0.25rem;
+  margin-bottom: 0.375rem;
   position: relative;
   display: flex !important;
   justify-content: space-between !important;
@@ -104,10 +102,9 @@
 /* Accordion content styling */
 .usa-accordion__content {
   padding: 1.5rem 2rem;
-  border: 1px solid #ddd;
-  border-radius: 0 0 4px 4px;
-  margin-top: -0.5rem;
-  margin-bottom: 1rem;
+  border: 0.0625rem solid #ddd;
+  border-radius: 0 0 0.25rem 0.25rem;
+  margin-top: -0.125rem;
   background-color: white;
 }
 
@@ -122,9 +119,20 @@
   color: #205493;
   font-size: 1.5rem;
   font-weight: bold;
+  margin-bottom: 1rem;
 }
 
-/* Add spacing between accordion items */
-.usa-accordion__item + .usa-accordion__item {
-  margin-top: 1rem;
+/* Spacing between main sections */
+.usa-accordion > .usa-accordion__item {
+  margin-bottom: 4rem;
+}
+
+/* Minimal spacing between accordion items within sections */
+.faq-section .usa-accordion__item {
+  margin-bottom: 0.125rem;
+}
+
+/* Remove margin from last accordion item in a section */
+.faq-section .usa-accordion__item:last-child {
+  margin-bottom: 0;
 }
