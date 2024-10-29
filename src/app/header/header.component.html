@@ -1,76 +1,74 @@
-<!-- SRTDashHeaderView -->
-
 <div id="header">
-    <a id="skipMain" href="javascript:
-        const oh=location.hash;
-        location.hash='#content';
-        location.hash=oh;
-        void(0);" class="visible-when-focused bypass-block-link" style="color:black;">
-        Skip to Main content
-    </a>
-    <nav class="us-navbar navbar navbar-expand-lg">
+    <a class="usa-skipnav" href="#content">Skip to Main Content</a>
 
-        <div class="container-fluid">
-            <a tabindex="-1" class="nopadding navbar-brand navbar-left" [routerLink]="['/home']"
-                aria-label="SRT Home Page"><img id="srtlogo" alt='SRT Logo' src="../../assets/srtlogo.png"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
-                aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <div class="usa-header usa-header--basic">
+        <div class="grid-container-widescreen">
+            <nav class="usa-nav" role="navigation" aria-label="main navigation">
+                <!-- Left Side: SRT Logo -->
+                <div class="logo-container">
+                    <a [routerLink]="['/home']" aria-label="SRT Home Page">
+                        <img src="../../assets/srtlogo.png" alt="SRT Logo" height="40">
+                    </a>
+                </div>
 
-            <div class="collapse navbar-collapse" id="navbar" role="navigation" aria-label="main navigation" style="justify-content: end;">
-
-                <ul *ngIf="isLogin" class="nav navbar-nav me-auto">
-                    <li class="nav-item" data-bs-toggle="tab" [ngClass]="{'active': GetHash('home')}" id="1"
-                        (click)="menuClick('/home');">
-                        <a class="nav-link" [routerLink]="['/home']">Home</a>
+                <!-- Center: Main Navigation -->
+                <ul class="usa-nav__primary" *ngIf="isLogin">
+                    <li class="usa-nav__primary-item">
+                        <a [routerLink]="['/home']" class="usa-nav__link" [class.usa-current]="GetHash('home')"
+                            (click)="menuClick('/home')">Home</a>
                     </li>
-                    <li class="nav-item" data-bs-toggle="tab" [ngClass]="{'active': GetHash('solicitation')}" id="2"
-                        (click)="menuClick('/solicitation/report');">
-                        <a class="nav-link" [routerLink]="['/solicitation/report']">Solicitations</a>
+                    <li class="usa-nav__primary-item">
+                        <a [routerLink]="['/solicitation/report']" class="usa-nav__link"
+                            [class.usa-current]="GetHash('solicitation')"
+                            (click)="menuClick('/solicitation/report')">Solicitations</a>
                     </li>
-                    <li class="nav-item" data-bs-toggle="tab" *ngIf="isGSAAdmin"
-                        [ngClass]="{'active': GetHash('analytics')}" id="3" (click)="menuClick('/analytics');">
-                        <a class="nav-link" [routerLink]="['/analytics']" id="nav-analytics">Analytics</a>
+                    <li class="usa-nav__primary-item" *ngIf="isGSAAdmin">
+                        <a [routerLink]="['/analytics']" class="usa-nav__link" [class.usa-current]="GetHash('analytics')"
+                            (click)="menuClick('/analytics')" id="nav-analytics">Analytics</a>
                     </li>
-                    <li class="nav-item" data-bs-toggle="tab" *ngIf="isGSAAdmin" [ngClass]="{'active': GetHash('admin')}"
-                        id="4" (click)="menuClick('/admin');">
-                        <a class="nav-link" tabindex="{{ isGSAAdmin ? 0 : -1}}"
-                            [routerLink]="['/admin']">Administration</a>
+                    <li class="usa-nav__primary-item" *ngIf="isGSAAdmin">
+                        <a [routerLink]="['/admin']" class="usa-nav__link" [class.usa-current]="GetHash('admin')"
+                            (click)="menuClick('/admin')" [attr.tabindex]="isGSAAdmin ? 0 : -1">Administration</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" target="_blank" rel="noopener noreferrer" href='https://app.buyaccessible.gov/'>
-                            Additional Resources
-                        </a>
+                    <li class="usa-nav__primary-item">
+                        <a href="https://app.buyaccessible.gov/" class="usa-nav__link" target="_blank"
+                            rel="noopener noreferrer">Additional Resources</a>
                     </li>
-                    <li class="nav-item" data-bs-toggle="tab" [ngClass]="{'active': GetHash('contactus')}" id="5"
-                        (click)="menuClick('/help/contactus');">
-                        <a class="nav-link" [routerLink]="['/help/contactus']">Contact Us</a>
+                    <li class="usa-nav__primary-item">
+                        <a [routerLink]="['/help/contactus']" class="usa-nav__link"
+                            [class.usa-current]="GetHash('contactus')"
+                            (click)="menuClick('/help/contactus')">Contact Us</a>
                     </li>
-                    <li class="nav-item me-auto" data-bs-toggle="tab" [ngClass]="{'active': GetHash('faq')}" id="6"
-                        (click)="menuClick('/help/faq');">
-                        <a class="nav-link" [routerLink]="['/help/faq']"> FAQs</a>
+                    <li class="usa-nav__primary-item">
+                        <a [routerLink]="['/help/faq']" class="usa-nav__link" [class.usa-current]="GetHash('faq')"
+                            (click)="menuClick('/help/faq')">FAQs</a>
                     </li>
                 </ul>
-                <ul class="nav navbar-nav">
-                    <li *ngIf="isLogin" id="gsaDropdown" class="nav-item">
-                        <a class="nav-link" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-weight: 400"> Hello, {{firstName}}<span class="caret"></span></a>
 
-                        <ul class="dropdown-menu me-5">
-                            <li>
-                                <a (blur)="this.popUpMenuLostFocus()" id="menu-logout" tabindex="0"
-                                    class="dropdown-item" type="button"
-                                    (click)="onLogout()" role="option">Log Out</a>
-                            </li>
-                        </ul>
+                <!-- Right Side: User Menu and GSA Logo -->
+                <ul class="right-nav-group">
+                    <li class="nav-item" *ngIf="isLogin">
+                        <div class="user-menu">
+                            <button class="usa-button usa-button--outline" type="button">
+                                Hello, {{firstName}}
+                                <svg class="usa-icon margin-left-05" aria-hidden="true" role="img">
+                                    <use xlink:href="/assets/img/sprite.svg#expand_more"></use>
+                                </svg>
+                            </button>
+                            <ul class="usa-nav__submenu" role="menu">
+                                <li role="none">
+                                    <a href="javascript:void(0)" (click)="onLogout()" (blur)="popUpMenuLostFocus()"
+                                        id="menu-logout" role="menuitem">Log Out</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    <div class='span-logo'>
-                        <img aria-label="GSA Logo" alt="GSA Logo" src='../../assets/gsa-logo.png' />
-                    </div>
+                    <li class="nav-item gsa-logo-item">
+                        <img src="../../assets/gsa-logo.png" alt="GSA Logo" aria-label="GSA Logo" height="40">
+                    </li>
                 </ul>
-            </div>
-
+            </nav>
         </div>
-    </nav>
-    <hr style="margin: 0; height: 0;">
+    </div>
+    <div class="border-bottom border-base-lighter"></div>
 </div>

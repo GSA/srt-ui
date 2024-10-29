@@ -1,33 +1,43 @@
+/* Additional custom styles to maintain original look while using USWDS */
 .register-title {
-    padding: 0px 0px 45px 0px;
-    font-size: 28px;
+    padding: 0 0 2rem 0;
+    font-size: 1.75rem;
     font-weight: 700;
-}
-
-.form-group label {
-    font-size: 16px;
+  }
+  
+  .usa-form-group label {
+    font-size: 1rem;
     width: 100%;
-}
-
-.error-form {
-    border: 2px solid #BE3430 !important;
-    border-radius: 0px;
-}
-
-.login-error{
-    color: #BE3430;
+  }
+  
+  .usa-input--error {
+    border: 2px solid #b50909 !important;
+  }
+  
+  .login-error {
+    color: #b50909;
     font-weight: bold;
-    margin-bottom: 20px;
-    margin-top: -10px
-}
-
-
-.form-group span.required{
-    color: red;
-    font-size: 150%;
-}
-
-.form-control.ng-touched.ng-invalid{
-   border: 2px solid red
-}
-
+    margin-bottom: 1.25rem;
+    margin-top: -0.625rem;
+  }
+  
+  .usa-form-group .usa-label--required::after {
+    color: #b50909;
+    content: " *";
+    font-size: 1.5em;
+  }
+  
+  .usa-input.ng-touched.ng-invalid {
+    border: 2px solid #b50909;
+  }
+  
+  /* Maintain original button margins */
+  .margin-2 {
+    margin: 2rem 0.5rem;
+  }
+  
+  /* Ensure login.gov logo fits button properly */
+  .width-full {
+    width: 100%;
+    height: auto;
+  }

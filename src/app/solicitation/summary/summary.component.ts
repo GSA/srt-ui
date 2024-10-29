@@ -11,46 +11,54 @@ import { GoogleAnalyticsService } from 'ngx-google-analytics';
   styleUrls: ['./summary.component.scss']
 })
 export class SummaryComponent implements OnInit {
+  @Input() solicitationID: string;
+  @Input() step1: boolean;
+  @Input() step2: boolean;
+  @Input() step3: boolean;
+  @Input() type: 'report' | 'email' | 'feedback' | 'prediction' | 'history';
 
-  /* ATTRIBUTES */
+  predictionHistory: { date: string; value: string }[] = [];
+  history: { date: string; user: string; action: string }[] = [];
 
-  @Input() solicitationID;
-  @Input() step1;
-  @Input() step2;
-  @Input() step3;
-  @Input() type;
-
-  /* CONSTRUCTORS */
-
-  /**
-   * constructor
-   * @param solicitationService
-   * @param route
-   * @param router
-   */
   constructor(
     private solicitationService: SolicitationService,
     private route: ActivatedRoute,
     private router: Router,
     private $gaService: GoogleAnalyticsService
-  ) { }
+  ) {}
 
-  /**
-   * lifecycle
-   */
   ngOnInit() {
+    // Initialize any necessary data
+    if (this.solicitationID) {
+      this.loadHistoryData();
+    }
   }
 
-  /**
-   * lifecycle
-   */
-  // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges() {
-    // console.log(this.solicitationID);
+    if (this.solicitationID) {
+      this.loadHistoryData();
+    }
   }
 
-  onClickTabs(action: string, label: string) {
+  private loadHistoryData() {
+    // Here you would typically load the history data from your service
+    // This is just a placeholder - implement actual service calls as needed
+    /*
+    this.solicitationService.getPredictionHistory(this.solicitationID).subscribe(
+      data => this.predictionHistory = data
+    );
+
+    this.solicitationService.getActionHistory(this.solicitationID).subscribe(
+      data => this.history = data
+    );
+    */
+  }
+
+  showActivitySelection(): boolean {
+    return !!this.solicitationID;
+  }
+
+  onClickTabs(action: string, label: string): void {
     this.$gaService.event(action, "solicitation_tab", label);
   }
-
 }

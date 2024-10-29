@@ -1,28 +1,31 @@
-<main id="content" class="bypass-block-target">
+<main id="content" class="usa-section bypass-block-target">
+  <div class="grid-container">
+    <div class="usa-alert usa-alert--error" id="login-error-wrapper" hidden>
+      <div class="usa-alert__body">
+        <div class="usa-alert__text" id="login-error"></div>
+      </div>
+    </div>
 
-  <div class="error" id="login-error-wrapper" style="size:2em; font-weight:bold; color:darkred; text-align: center">
-    <div class="error" id="login-error" style="color:darkred; text-align: center"></div>
-  </div>
-
-  <div class="text-center">
-    <button *ngIf="is_dev" class="srt-button m-2"
-            style="float:none; display:inline; margin-top:3em;"
-            id="login"
-            aria-label="Login as Dev"
-            onClick=" (function() {
+    <div class="display-flex flex-column flex-align-center">
+      <button *ngIf="is_dev" 
+              class="usa-button usa-button--outline margin-2"
+              id="login-dev"
+              aria-label="Login as Dev"
+              onClick=" (function() {
                         var client_host = window.location.hostname
                         var server_host = '';
                         if (client_host === 'localhost') { server_host = 'localhost:3000'}
                         //default to current name for dev servers
                         if (server_host === '') { server_host = 'localhost:3000';}
                         window.location = 'http://' + server_host + '/api/casLogin'
-                      }()) ">Login as DEV
-    </button>
-    <button class="srt-button m-2"
-            style="float:none; display:inline; margin-top:3em; "
-            id="login"
-            aria-label="Login with Login.gov"
-            onClick=" (function() {
+                      }()) ">
+        Login as DEV
+      </button>
+      
+      <button class="usa-button usa-button--outline margin-2"
+              id="login"
+              aria-label="Login with Login.gov"
+              onClick=" (function() {
                         var client_host = window.location.hostname
                         var server_host = '';
                         if (client_host === 'localhost') { server_host = 'localhost:3000'}
@@ -33,24 +36,8 @@
                         if (server_host === '') { server_host = 'localhost:3000';}
                         window.location = 'http://' + server_host + '/api/login'
                       }()) ">
-                      <img src="/assets/login-gov-logo.svg" alt="login-gov-logo" style="width: -webkit-fill-available;"/>
-    </button>
+        <img src="/assets/login-gov-logo.svg" alt="login-gov-logo" class="width-full"/>
+      </button>
+    </div>
   </div>
-  
 </main>
-
-
-<script>
-
-    function test (){
-        var client_host = window.location.hostname
-        var server_host = '';
-        if (client_host === 'localhost') { server_host = 'localhost:3000' }
-        if (client_host === 'srt-client.app.cloud.gov' || client_host === 'srt.app.cloud.gov') { server_host = 'srt-server.app.cloud.gov' }
-        if (client_host === 'srt-client-dev.app.cloud.gov') { server_host = 'srt-server-dev.app.cloud.gov' }
-        if (client_host === 'srt-client-staging.app.cloud.gov') { server_host = 'srt-server-staging.app.cloud.gov' }
-        //default to current name for dev servers
-        if (server_host === '') { server_host = client_host + ':3000';}
-        window.location = 'http://' + server_host + '/api/casLogin'
-    }
-</script>
