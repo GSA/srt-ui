@@ -277,3 +277,22 @@ body .p-datatable .p-datatable-tbody tr {
         position: relative; /* Required for dropdown positioning */
     }
 }
+
+/* Remove the default button border and outline */
+button {
+    border: none !important; /* Remove border */
+    outline: none !important; /* Remove outline */
+    box-shadow: none !important; /* Remove box-shadow if any */
+}
+
+/* Remove any border on table cells in this column */
+.p-datatable .p-datatable-tbody > tr > td.col_review_result {
+    border: none !important; /* Remove cell border for the specific column */
+}
+
+/* Specific override for the .table-button class if needed */
+.button.table-button {
+    border: none !important; /* Remove any border applied to buttons in this class */
+    outline: none !important;
+    box-shadow: none !important;
+}
