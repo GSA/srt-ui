@@ -70,17 +70,17 @@
             <dl class="usa-list">
               <div class="margin-bottom-2">
                 <dt class="display-inline-block font-sans-md">Solicitation Number:&nbsp;</dt>
-                <dd class="display-inline-block text-bold" id="solNum">{{solicitation.solNum}}</dd>
+                <dd class="display-inline-block" id="solNum">{{solicitation.solNum}}</dd>
               </div>
 
               <div class="margin-bottom-2">
                 <dt class="display-inline-block font-sans-md">Date Posted:&nbsp;</dt>
-                <dd class="display-inline-block text-bold" id="solDate">{{solicitation.date | date:'shortDate'}}</dd>
+                <dd class="display-inline-block" id="solDate">{{solicitation.date | date:'shortDate'}}</dd>
               </div>
 
               <div class="margin-bottom-2">
                 <dt class="display-inline-block font-sans-md">Solicitation Type:&nbsp;</dt>
-                <dd class="display-inline-block text-bold" id="solType">
+                <dd class="display-inline-block" id="solType">
                   {{solicitation.noticeType}}
                   <span *ngIf="!solicitation.active"> (not active)</span>
                 </dd>
@@ -96,7 +96,7 @@
                     </span>
                   </span>
                 </dt>
-                <dd class="display-inline-block text-bold" id="solICT">{{solicitation.category_list.value}}</dd>
+                <dd class="display-inline-block" id="solICT">{{solicitation.category_list.value}}</dd>
               </div>
 
               <div class="margin-bottom-2">
@@ -109,12 +109,12 @@
                     </span>
                   </span>
                 </dt>
-                <dd class="display-inline-block text-bold" id="solPSC">{{solicitation.noticeData.psc}}</dd>
+                <dd class="display-inline-block" id="solPSC">{{solicitation.noticeData.psc}}</dd>
               </div>
 
               <div class="margin-bottom-2" id="solDocs">
                 <dt class="display-inline-block font-sans-md">Total Documents Scanned:&nbsp;</dt>
-                <dd class="display-inline-block text-bold">
+                <dd class="display-inline-block">
                   <span *ngIf="solicitation.numDocs != 'No Document Links Found' &&
                               solicitation.numDocs != 'Insecure Redirect: Unable to Download' &&
                               solicitation.numDocs != 'Connection Failed' &&
@@ -173,17 +173,17 @@
             <dl class="usa-list">
               <div class="margin-bottom-2">
                 <dt class="display-inline-block font-sans-md">Agency:&nbsp;</dt>
-                <dd class="display-inline-block text-bold" id="solAgency">{{solicitation.agency}}</dd>
+                <dd class="display-inline-block" id="solAgency">{{solicitation.agency}}</dd>
               </div>
 
               <div class="margin-bottom-2">
                 <dt class="display-inline-block font-sans-md">Office:&nbsp;</dt>
-                <dd class="display-inline-block text-bold" id="solOffice">{{solicitation.office}}</dd>
+                <dd class="display-inline-block" id="solOffice">{{solicitation.office}}</dd>
               </div>
 
               <div class="margin-bottom-2">
                 <dt class="display-inline-block font-sans-md">Point of Contact:&nbsp;</dt>
-                <dd class="display-inline-block text-bold" id="solPOC">{{solicitation.contactInfo.join(', ')}}</dd>
+                <dd class="display-inline-block" id="solPOC">{{solicitation.contactInfo.join(', ')}}</dd>
               </div>
             </dl>
           </div>

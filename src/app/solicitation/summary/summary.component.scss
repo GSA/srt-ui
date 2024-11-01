@@ -116,3 +116,24 @@ ul.summary-steps li {
     padding: 0px;
     float: right
 }
+
+/* Override max-width to allow full width */
+.usa-process-list > .usa-process-list__item {
+    max-width: none;
+    width: 100%;
+}
+
+.full-width-container {
+    max-width: none;
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 0;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* Remove all padding from .usa-section */
+.usa-section {
+    padding: 0;
+}
+
