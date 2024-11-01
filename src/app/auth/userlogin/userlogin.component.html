@@ -12,31 +12,29 @@
               id="login-dev"
               aria-label="Login as Dev"
               onClick=" (function() {
-                        var client_host = window.location.hostname
+                        var client_host = window.location.hostname;
                         var server_host = '';
-                        if (client_host === 'localhost') { server_host = 'localhost:3000'}
-                        //default to current name for dev servers
-                        if (server_host === '') { server_host = 'localhost:3000';}
-                        window.location = 'http://' + server_host + '/api/casLogin'
+                        if (client_host === 'localhost') { server_host = 'localhost:3000'; }
+                        if (server_host === '') { server_host = 'localhost:3000'; }
+                        window.location = 'http://' + server_host + '/api/casLogin';
                       }()) ">
         Login as DEV
       </button>
-      
-      <button class="usa-button usa-button--outline margin-2"
-              id="login"
-              aria-label="Login with Login.gov"
+
+      <button class="usa-button usa-button--outline"
+              id="login-using-login-gov"
+              aria-label="Login using Login.gov"
               onClick=" (function() {
-                        var client_host = window.location.hostname
+                        var client_host = window.location.hostname;
                         var server_host = '';
-                        if (client_host === 'localhost') { server_host = 'localhost:3000'}
-                        if (client_host === 'srt-client.app.cloud.gov' || client_host === 'srt.app.cloud.gov') { server_host = 'srt-server.app.cloud.gov' }
-                        if (client_host === 'srt-client-dev.app.cloud.gov') { server_host = 'srt-server-dev.app.cloud.gov' }
-                        if (client_host === 'srt-client-staging.app.cloud.gov') { server_host = 'srt-server-staging.app.cloud.gov' }
-                        //default to current name for dev servers
-                        if (server_host === '') { server_host = 'localhost:3000';}
-                        window.location = 'http://' + server_host + '/api/login'
+                        if (client_host === 'localhost') { server_host = 'localhost:3000'; }
+                        if (client_host === 'srt-client.app.cloud.gov' || client_host === 'srt.app.cloud.gov') { server_host = 'srt-server.app.cloud.gov'; }
+                        if (client_host === 'srt-client-dev.app.cloud.gov') { server_host = 'srt-server-dev.app.cloud.gov'; }
+                        if (client_host === 'srt-client-staging.app.cloud.gov') { server_host = 'srt-server-staging.app.cloud.gov'; }
+                        if (server_host === '') { server_host = 'localhost:3000'; }
+                        window.location = 'http://' + server_host + '/api/login';
                       }()) ">
-        <img src="/assets/login-gov-logo.svg" alt="login-gov-logo" class="width-full"/>
+        Login using Login.gov
       </button>
     </div>
   </div>
