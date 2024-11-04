@@ -51,8 +51,8 @@
         </div>
         <div class="solic-export-cursor">
           <img tabindex="0" id="csvlogo" aria-label="export as csv" alt="export as csv"
-            src="../../../assets/downloadcsv.jpeg" style="float:left" (keydown.enter)="exportCSV({})"
-            (click)="exportCSV({})">
+            src="../../../assets/downloadcsv.jpeg" style="float:left" (keydown.enter)="exportCSV({}, gb.filters)"
+            (click)="exportCSV({}, gb.filters)">
         </div>
       </div>
 

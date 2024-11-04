@@ -347,7 +347,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
    *
    * @param options
    */
-  exportCSV (options) {
+  exportCSV (options, filters) {
     const csvSeparator = ',';
     let csv = '';
 
@@ -367,7 +367,12 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
       }
     }
 
-    const filter = {first: 0, rows: 1000};
+    let filter = {first: 0, rows: 1000, filters: {}};
+
+    if (filters) {
+      filter.filters = filters;
+    }
+       
     const appendSolicitations = (solicitations) => {
       document.body.style.cursor = 'wait';
       for (const s of solicitations.predictions) {
