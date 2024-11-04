@@ -346,6 +346,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
    * Copied from the PrimeNG prototype and then modified
    *
    * @param options
+   * @param filters - Filter values associated with the soliciation p-table
    */
   exportCSV (options, filters) {
     const csvSeparator = ',';
@@ -369,6 +370,8 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
 
     let filter = {first: 0, rows: 1000, filters: {}};
 
+    // The filters parameter is passed from the p-table element with the template reference variable #gb.
+    // It contains the current filtering criteria applied to the table, allowing the export to include only the filtered data.
     if (filters) {
       filter.filters = filters;
     }
@@ -393,7 +396,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
           .subscribe(appendSolicitations);
       }
     };
-
+    
     this.solicitationService
       .getFilteredSolicitations(filter)
       .subscribe( appendSolicitations );
