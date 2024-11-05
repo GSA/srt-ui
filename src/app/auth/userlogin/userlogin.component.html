@@ -2,73 +2,21 @@
 <html lang="en">
 <head>
   <link rel="stylesheet" href="https://designsystem.digital.gov/stylesheets/uswds.min.css">
+  <title>User Login</title>
 </head>
 <body>
   <div class="button-container">
     <div class="login-container">
       <span class="login-text">Sign in with:</span>
-      <a class="login-image" href="javascript:void(0);" onclick="(function() {
-        var client_host = window.location.hostname;
-        var server_host = '';
-        if (client_host === 'localhost') { server_host = 'localhost:3000'; }
-        if (client_host === 'srt-client.app.cloud.gov' || client_host === 'srt.app.cloud.gov') { server_host = 'srt-server.app.cloud.gov'; }
-        if (client_host === 'srt-client-dev.app.cloud.gov') { server_host = 'srt-server-dev.app.cloud.gov'; }
-        if (client_host === 'srt-client-staging.app.cloud.gov') { server_host = 'srt-server-staging.app.cloud.gov'; }
-        if (server_host === '') { server_host = 'localhost:3000'; }
-        window.location = 'http://' + server_host + '/api/login';
-      }())">
+      <a class="login-image" href="javascript:void(0);" (click)="loginWithLoginGov()">
         <img src="assets/login-gov-logo.svg" alt="Login.gov">
       </a>
     </div>
-
-    <!-- Spacer div to add padding between the buttons -->
-    <div class="spacer"></div>
-
-    <button class="usa-button dev-button" aria-label="Login as Dev" onclick="(function() {
-      var client_host = window.location.hostname;
-      var server_host = '';
-      if (client_host === 'localhost') { server_host = 'localhost:3000'; }
-      if (server_host === '') { server_host = 'localhost:3000'; }
-      window.location = 'http://' + server_host + '/api/casLogin';
-    }())">
+    
+    <!-- Conditionally show the Login as DEV button only in development environment -->
+    <button *ngIf="is_dev" class="usa-button dev-button" aria-label="Login as Dev" (click)="loginAsDev()">
       Login as DEV
     </button>
   </div>
-
-  <!-- Styles moved to the bottom of the page -->
-  <style>
-    /* Styling for the text and clickable logo */
-    .login-container {
-      display: flex;
-      align-items: center; /* Aligns items in the center vertically */
-    }
-    .login-text {
-      font-weight: bold;
-      font-size: 1.25em;
-      margin-right: 0.5em;
-    }
-    .login-image {
-      background-color: #e0e0e0; /* Light gray background */
-      padding: 0.25em;
-      border-radius: 5px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      text-decoration: none; /* Remove underline for link */
-    }
-    .login-image img {
-      height: 1.25em; /* Adjust size as needed */
-    }
-    .button-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 20vh; /* Center the content vertically */
-    }
-    .spacer {
-      margin-top: 1em; /* Adds space between the buttons */
-    }
-  </style>
 </body>
 </html>

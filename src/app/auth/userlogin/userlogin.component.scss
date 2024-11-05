@@ -1,29 +1,4 @@
-/* Styling for the text and clickable logo */
-.login-container {
-  display: flex;
-  align-items: center; /* Aligns items in the center vertically */
-}
-
-.login-text {
-  font-weight: bold;
-  font-size: 1.25em;
-  margin-right: 0.5em;
-}
-
-.login-image {
-  background-color: #e0e0e0; /* Light gray background */
-  padding: 0.25em;
-  border-radius: 5px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none; /* Remove underline for link */
-}
-
-.login-image img {
-  height: 1.25em; /* Adjust size as needed */
-}
-
+/* Center alignment for the container */
 .button-container {
   display: flex;
   flex-direction: column;
@@ -32,48 +7,34 @@
   height: 20vh; /* Center the content vertically */
 }
 
-.spacer {
-  margin-top: 1em; /* Adds space between the buttons */
+/* Styling for the login container text and logo */
+.login-container {
+  display: flex;
+  align-items: center; /* Aligns items vertically */
 }
 
-/* Existing styles */
-.register-title {
-  padding: 0 0 2rem 0;
-  font-size: 1.75rem;
-  font-weight: 700;
-}
-
-.usa-form-group label {
-  font-size: 1rem;
-  width: 100%;
-}
-
-.usa-input--error {
-  border: 2px solid #b50909 !important;
-}
-
-.login-error {
-  color: #b50909;
+.login-text {
   font-weight: bold;
-  margin-bottom: 1.25rem;
-  margin-top: -0.625rem;
+  font-size: 1.25em;
+  margin-right: 0.5em;
 }
 
-.usa-form-group .usa-label--required::after {
-  color: #b50909;
-  content: " *";
-  font-size: 1.5em;
+/* Styling for the Login.gov button container */
+.login-image {
+  background-color: #e0e0e0; /* Light gray background */
+  padding: 0.25em;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none; /* Remove underline */
+  
+  img {
+    height: 1.25em; /* Adjust size for the logo */
+  }
 }
 
-.usa-input.ng-touched.ng-invalid {
-  border: 2px solid #b50909;
-}
-
-.margin-2 {
-  margin: 2rem 0.5rem;
-}
-
-.width-full {
-  width: 100%;
-  height: auto;
+/* Adds space between the login container and the DEV login button */
+.dev-button {
+  margin-top: 1em;
 }
