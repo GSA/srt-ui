@@ -119,3 +119,28 @@
 .usa-button--big {
     font-size: 1.25rem;
 }
+
+/* Set font size for questions to 18px and use USWDS font */
+.font-heading-lg {
+    font-size: 18px;
+    font-family: var(--font-sans, 'Public Sans', sans-serif); /* USWDS default sans-serif */
+  }
+  
+  /* Add border radius to checkboxes */
+  .usa-checkbox__input {
+    border-radius: 4px;
+  }
+  
+  /* Style for textarea with padding and larger min-height for 'Additional feedback' */
+  .usa-textarea {
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+  
+  .usa-textarea[aria-labelledby*="additional-feedback"] {
+    min-height: 150px;
+  }
+  
+  .usa-card__heading {
+    font-family: 'Public Sans', sans-serif; /* USWDS sans-serif font */
+  }

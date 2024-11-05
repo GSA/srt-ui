@@ -38,6 +38,10 @@
   border-style: solid;
   border-color: transparent transparent #1b1b1b transparent;
 }
+.tooltip-wrapper {
+  vertical-align: super; /* Positions tooltips as superscript */
+  font-size: 0.8em; /* Adjust font size if needed */
+}
 
 #art {
   background-color: #fa9441;

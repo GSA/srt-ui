@@ -110,11 +110,12 @@
   align-items: center;
   padding: 0.5rem 1rem;
   background-color: transparent;
-  border: 1px solid #005ea2;
+  border: 1px solid #ffffff;
   color: #005ea2;
   font-weight: normal;
   margin: 0;
   white-space: nowrap;
+  box-shadow: none; /* Remove box shadow */
 }
 
 .usa-icon {

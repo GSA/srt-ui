@@ -132,8 +132,8 @@ ul.summary-steps li {
     padding-bottom: 2rem;
 }
 
-/* Remove all padding from .usa-section */
+/* Add padding and border-radius to .usa-section */
 .usa-section {
-    padding: 0;
+    padding: 2rem;
+    border-radius: 8px; /* Adjust the radius value as needed */
 }
-

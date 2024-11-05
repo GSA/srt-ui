@@ -121,3 +121,32 @@ label {
 .usa-button.srt-button:hover {
   background-color: #112e51;
 }
+
+/* Make "Copy" buttons wider */
+.form-group .srt-button {
+  top: -10px;
+  float: right;
+  display: inline-flex;  /* Maintain inline-flex for alignment */
+  align-items: center;   /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+  height: 2.5rem;
+  width: 10rem; /* Adjust width to make buttons wider */
+  white-space: nowrap;   /* Prevent text wrapping */
+}
+
+.form-group .srt-button i {
+  margin-left: 0.25rem; /* Spacing between text and icon */
+  line-height: 1;
+}
+
+/* Button base styles */
+.usa-button.srt-button {
+  background-color: #205493;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  text-align: center;
+}
+
+.usa-button.srt-button:hover {
+  background-color: #112e51;
+}
