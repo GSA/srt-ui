@@ -18,15 +18,11 @@ import { Title } from '@angular/platform-browser';
 })
 export class UserloginComponent extends BaseComponent implements OnInit {
 
-  /* ATTRIBUTES */
-
   myForm: FormGroup;
   errorMessage = false;
   errorInformation = '';
-  public loginUrl = environment.SERVER_URL + '/casLogin';
+  public loginUrl = `${environment.SERVER_URL}/casLogin`;
   public is_dev = environment.ENVIRONMENT === 'local';
-
-  /* CONSTRUCTOR */
 
   constructor(
     private app: AppComponent,
@@ -38,8 +34,6 @@ export class UserloginComponent extends BaseComponent implements OnInit {
   ) {
     super(ts);
     this.pageName = 'Solicitation Review Tool';
-
-    // reset the workload table saved state when you first log in
     localStorage.removeItem('workloadTableState');
   }
 
@@ -62,7 +56,7 @@ export class UserloginComponent extends BaseComponent implements OnInit {
     } else {
       this.authService.login(user).subscribe({
         next: (data) => {
-          console.log(data);
+          // Store user data in localStorage
           localStorage.setItem('token', data.token);
           localStorage.setItem('firstName', data.firstName);
           localStorage.setItem('lastName', data.lastName);
@@ -72,15 +66,28 @@ export class UserloginComponent extends BaseComponent implements OnInit {
           localStorage.setItem('id', data.id);
           localStorage.setItem('userRole', data.userRole);
 
+          // Update auth status
           this.authGuard.isLogin = true;
           this.app.isLogin = true;
-          this.authGuard.isGSAAdmin = (data.userRole === 'Administrator' || data.userRole === 'SRT Program Manager ') &&
-                                      data.agency.indexOf('General Services Administration') > -1;
-          this.app.isGSAAdmin = (data.userRole === 'Administrator' || data.userRole === 'SRT Program Manager ') &&
-                                      data.agency.indexOf('General Services Administration') > -1;
-          const currentUser = new Currentuser(data.firstName, data.lastName, data.agency, data.email, data.position, data.tempPassword);
+          
+          // Check if user is GSA Admin
+          const isGSAAdmin = (data.userRole === 'Administrator' || data.userRole === 'SRT Program Manager ') &&
+                            data.agency.indexOf('General Services Administration') > -1;
+          this.authGuard.isGSAAdmin = isGSAAdmin;
+          this.app.isGSAAdmin = isGSAAdmin;
+
+          // Save user and redirect
+          const currentUser = new Currentuser(
+            data.firstName,
+            data.lastName,
+            data.agency,
+            data.email,
+            data.position,
+            data.tempPassword
+          );
 
           this.user.saveUser(currentUser);
+          
           if (currentUser.tempPassword !== '') {
             this.router.navigate(['/user/updatePassword']).catch(r => console.log(r));
           } else {
@@ -95,42 +102,11 @@ export class UserloginComponent extends BaseComponent implements OnInit {
     }
   }
 
-  /**
-   * Redirect to the CAS login page for development environment
-   */
   loginAsDev() {
-    let serverHost = 'localhost:3000';
-    const clientHost = window.location.hostname;
-
-    if (clientHost !== 'localhost') {
-      serverHost = environment.SERVER_URL;
-    }
-
-    window.location.href = `http://${serverHost}/api/casLogin`;
+    window.location.href = `${environment.SERVER_URL}/casLogin`;
   }
 
-  /**
-   * Redirect to Login.gov login based on the current environment
-   */
   loginWithLoginGov() {
-    const clientHost = window.location.hostname;
-    let serverHost = '';
-
-    if (clientHost === 'localhost') {
-      serverHost = 'localhost:3000';
-    } else if (clientHost === 'srt-client.app.cloud.gov' || clientHost === 'srt.app.cloud.gov') {
-      serverHost = 'srt-server.app.cloud.gov';
-    } else if (clientHost === 'srt-client-dev.app.cloud.gov') {
-      serverHost = 'srt-server-dev.app.cloud.gov';
-    } else if (clientHost === 'srt-client-staging.app.cloud.gov') {
-      serverHost = 'srt-server-staging.app.cloud.gov';
-    }
-
-    if (serverHost === '') {
-      serverHost = 'localhost:3000';
-    }
-
-    window.location.href = `http://${serverHost}/api/login`;
+    window.location.href = `${environment.SERVER_URL}/login`;
   }
-
 }
