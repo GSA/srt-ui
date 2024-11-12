@@ -23,15 +23,47 @@ input.form-control {
   width: calc(100% - 70px);
 }
 
+/* Form group layout */
+.form-group {
+  padding-bottom: 10px;
+  position: relative; /* Add this for button positioning context */
+}
+
+.form-group .grid-row {
+  display: flex;
+  align-items: flex-start; /* Align items to top */
+  justify-content: space-between; /* Space between content and button */
+}
+
+.form-group .grid-row .tablet\:grid-col-10 {
+  flex: 0 0 75%; /* Reduce width to make room for button */
+  padding-right: 1rem; /* Add space between content and button */
+}
+
+.form-group .grid-row .tablet\:grid-col-2 {
+  flex: 0 0 auto; /* Let the button column size to content */
+}
+
+/* Label and content wrapper */
+.form-group .tablet\:grid-col-10 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* Allow content to wrap if needed */
+}
+
+/* Label styling */
 label {
   width: 65px;
-  margin-bottom: 5px;
+  margin-bottom: 0;
+  margin-right: 8px;
   display: inline-block;
   font-weight: 700;
 }
 
-.form-group {
-  padding-bottom: 10px;
+.email-font {
+  font-weight: 500;
+  word-break: break-word; /* Prevent text from pushing button */
+  flex: 1; /* Allow email text to take remaining space */
 }
 
 /* Editor styles */
@@ -40,10 +72,6 @@ label {
 }
 
 /* Custom components */
-.email-font {
-  font-weight: 500;
-}
-
 #rebutton {
   font-size: 16px;
   cursor: pointer;
@@ -81,21 +109,19 @@ label {
 
 /* Button styles */
 .form-group .srt-button {
-  top: -10px;
-  float: right;
-  display: inline-flex;  /* Changed to inline-flex */
-  align-items: center;   /* Center items vertically */
-  justify-content: center; /* Center items horizontally */
-  height: 2.5em;
-  width: 8.5em;
-  white-space: nowrap;   /* Prevent text wrapping */
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+  width: 10rem;
+  white-space: nowrap;
 }
 
 .form-group .srt-button i {
-  margin-left: 4px;      /* Add small space between text and icon */
-  line-height: 1;        /* Adjust line height to match text */
+  margin-left: 0.25rem;
+  line-height: 1;
 }
-
 
 /* USWDS overrides */
 .usa-form {
@@ -113,35 +139,6 @@ label {
 
 .usa-button.srt-button {
   background-color: #205493;
-  font-size: 14px;
-  padding: 6px 15px;
-  text-align: center;
-}
-
-.usa-button.srt-button:hover {
-  background-color: #112e51;
-}
-
-/* Make "Copy" buttons wider */
-.form-group .srt-button {
-  top: -10px;
-  float: right;
-  display: inline-flex;  /* Maintain inline-flex for alignment */
-  align-items: center;   /* Center items vertically */
-  justify-content: center; /* Center items horizontally */
-  height: 2.5rem;
-  width: 10rem; /* Adjust width to make buttons wider */
-  white-space: nowrap;   /* Prevent text wrapping */
-}
-
-.form-group .srt-button i {
-  margin-left: 0.25rem; /* Spacing between text and icon */
-  line-height: 1;
-}
-
-/* Button base styles */
-.usa-button.srt-button {
-  background-color: #205493;
   font-size: 1rem;
   padding: 0.5rem 1rem;
   text-align: center;
@@ -149,4 +146,11 @@ label {
 
 .usa-button.srt-button:hover {
   background-color: #112e51;
+}
+
+/* Ensure content doesn't wrap under button */
+.form-group .grid-row::after {
+  content: '';
+  display: table;
+  clear: both;
 }
