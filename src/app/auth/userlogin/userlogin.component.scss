@@ -1,33 +1,40 @@
-.register-title {
-    padding: 0px 0px 45px 0px;
-    font-size: 28px;
-    font-weight: 700;
+/* Center alignment for the container */
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 20vh; /* Center the content vertically */
 }
 
-.form-group label {
-    font-size: 16px;
-    width: 100%;
+/* Styling for the login container text and logo */
+.login-container {
+  display: flex;
+  align-items: center; /* Aligns items vertically */
 }
 
-.error-form {
-    border: 2px solid #BE3430 !important;
-    border-radius: 0px;
+.login-text {
+  font-weight: bold;
+  font-size: 1.25em;
+  margin-right: 0.5em;
 }
 
-.login-error{
-    color: #BE3430;
-    font-weight: bold;
-    margin-bottom: 20px;
-    margin-top: -10px
+/* Styling for the Login.gov button container */
+.login-image {
+  background-color: #e0e0e0; /* Light gray background */
+  padding: 0.25em;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none; /* Remove underline */
+  
+  img {
+    height: 1.25em; /* Adjust size for the logo */
+  }
 }
 
-
-.form-group span.required{
-    color: red;
-    font-size: 150%;
+/* Adds space between the login container and the DEV login button */
+.dev-button {
+  margin-top: 1em;
 }
-
-.form-control.ng-touched.ng-invalid{
-   border: 2px solid red
-}
-

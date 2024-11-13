@@ -1,59 +1,122 @@
-<div class="srt-banner blue">
-    <div class="container">
-        <h1>Solicitation Review Result Summary</h1>
-        <!--<div class="srt-section-title">About Solicitation Review Tool</div>       -->
-        <div class="summary-title">Solicitation Review Instructions and Next Steps:</div>
-        <ul class="summary-steps">
-            <li>
-                <div class="summary-steps">STEP 1 - </div>
-                <div class="summary-instr">Open the solicitation and review the documents to determine whether the solicitation is compliant;</div>
-            </li>
-            <li>
-                <div class="summary-steps">STEP 2 - </div>
-                <div class="summary-instr">Click on the “Email POC” button to share the results with the Point of Contact (POC) listed in the solicitation. Edit the proposed email message with any additional feedback to help improve the 508 compliance of the solicitation, copy and paste proposed email to your email to send; and</div>
-            </li>
-            <li>
-                <div class="summary-steps">STEP 3 - </div>
-                <div class="summary-instr">Click on the “MAKE SRT SMARTER” tab to fill out a short survey regarding the current solicitation, which will help to improve the accuracy of the prediction.</div>
-
-            </li>
-        </ul>
+<main id="content" class="usa-section">
+    <!-- Banner section -->
+    <div class="usa-section usa-section--dark bg-primary-darker">
+        <div class="grid-container full-width-container">
+        <h1 class="font-heading-xl margin-top-0 margin-bottom-2">Solicitation Review Result Summary</h1>
+        
+        <h2 class="font-heading-lg margin-bottom-2">Solicitation Review Instructions and Next Steps:</h2>
+        
+        <ol class="usa-process-list">
+          <li class="usa-process-list__item">
+            <h3 class="usa-process-list__heading">STEP 1</h3>
+            <p>Open the solicitation and review the documents to determine whether the solicitation is compliant;</p>
+          </li>
+          
+          <li class="usa-process-list__item">
+            <h3 class="usa-process-list__heading">STEP 2</h3>
+            <p>Click on the "Email POC" button to share the results with the Point of Contact (POC) listed in the solicitation. Edit the proposed email message with any additional feedback to help improve the 508 compliance of the solicitation, copy and paste proposed email to your email to send; and</p>
+          </li>
+          
+          <li class="usa-process-list__item">
+            <h3 class="usa-process-list__heading">STEP 3</h3>
+            <p>Click on the "MAKE SRT SMARTER" tab to fill out a short survey regarding the current solicitation, which will help to improve the accuracy of the prediction.</p>
+          </li>
+        </ol>
+      </div>
     </div>
-</div>
-<div class="row srt-tabs">
-    <div class="container px-5">
-        <div ng-if="showActivitySelection()" role="navigation" aria-label="step navigation">
-
-            <ul class="nopadding summary-floatleft" >
-                <li [ngClass]="{'active' : type=='report'}">
-                    <a [routerLink]="['/solicitation/report', solicitationID]" (click)="onClickTabs('sol_result_tab', 'Solicitation Result Tab')">STEP 1: VIEW RESULT</a>
+  
+    <!-- Navigation tabs -->
+    <div *ngIf="showActivitySelection()">
+      <div class="grid-container">
+        <nav class="usa-nav" role="navigation" aria-label="step navigation">
+          <!-- Primary steps -->
+          <ul class="usa-button-group usa-button-group--segmented">
+            <li class="usa-button-group__item">
+              <a [routerLink]="['/solicitation/report', solicitationID]"
+                 [class.usa-button--active]="type==='report'"
+                 class="usa-button"
+                 (click)="onClickTabs('sol_result_tab', 'Solicitation Result Tab')">
+                STEP 1: VIEW RESULT
+              </a>
+            </li>
+            <li class="usa-button-group__item">
+              <a [routerLink]="['/solicitation/email', solicitationID]"
+                 [class.usa-button--active]="type==='email'"
+                 class="usa-button"
+                 (click)="onClickTabs('email_tab', 'Email Tab')">
+                STEP 2: EMAIL POC
+              </a>
+            </li>
+            <li class="usa-button-group__item">
+              <a [routerLink]="['/solicitation/feedback', solicitationID]"
+                 [class.usa-button--active]="type==='feedback'"
+                 class="usa-button"
+                 (click)="onClickTabs('make_smarter_tab', 'Make Smarter Tab')">
+                STEP 3: MAKE SRT SMARTER
+              </a>
+            </li>
+          </ul>
+  
+          <!-- Secondary navigation -->
+          <ul class="usa-button-group display-flex flex-justify-end margin-top-2">
+            <li class="usa-button-group__item">
+              <a [routerLink]="['/solicitation/prediction', solicitationID]"
+                 [class.usa-button--active]="type==='prediction'"
+                 class="usa-button usa-button--outline"
+                 (click)="onClickTabs('prediction_history_tab', 'Prediction History Tab')">
+                Prediction History
+              </a>
+            </li>
+            <li class="usa-button-group__item">
+              <a [routerLink]="['/solicitation/history', solicitationID]"
+                 [class.usa-button--active]="type==='history'"
+                 class="usa-button usa-button--outline"
+                 (click)="onClickTabs('history_tab', 'History Tab')">
+                History
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  
+    <!-- Content sections -->
+    <div class="grid-container margin-top-4">
+      <div class="grid-row grid-gap">
+        <div class="grid-col-12">
+          <!-- Prediction History -->
+          <ng-container *ngIf="type === 'prediction'">
+            <div class="usa-prose">
+              <h2 class="font-heading-xl margin-bottom-2">
+                Prediction History
+              </h2>
+              <ul *ngIf="predictionHistory" class="usa-list usa-list--unstyled">
+                <li *ngFor="let entry of predictionHistory" class="margin-y-1">
+                  {{entry.date}} -
+                  <span *ngIf="entry.value === 'red'" class="text-bold text-secondary-dark">Non-Compliant</span>
+                  <span *ngIf="entry.value === 'green'" class="text-bold text-success">Compliant</span>
+                  <span *ngIf="entry.value !== 'green' && entry.value !== 'red'" class="text-bold">{{entry.value}}</span>
                 </li>
-                <li  [ngClass]="{'active' : type=='email'}">
-                    <a [routerLink]="['/solicitation/email', solicitationID]" (click)="onClickTabs('email_tab', 'Email Tab')">STEP 2: EMAIL POC</a>
+              </ul>
+            </div>
+          </ng-container>
+  
+          <!-- Action History -->
+          <ng-container *ngIf="type === 'history'">
+            <div class="usa-prose">
+              <h2 class="font-heading-xl margin-bottom-2">
+                Action History
+              </h2>
+              <ul *ngIf="history" class="usa-list usa-list--unstyled">
+                <li *ngFor="let action of history" class="margin-y-1">
+                  {{action.date}} -
+                  <span class="text-bold">{{action.user}}</span>
+                  {{action.action}}
                 </li>
-                 <li  [ngClass]="{'active' : type=='feedback'}">
-                    <a [routerLink]="['/solicitation/feedback', solicitationID]" (click)="onClickTabs('make_smarter_tab', 'Make Smarter Tab')">STEP 3: MAKE SRT SMARTER</a>
-                </li>
-            </ul>
-            <ul class="nopadding summary-floatright">
-                <li [ngClass]="{'active' : type=='prediction'}">
-                    <a [routerLink]="['/solicitation/prediction', solicitationID]" (click)="onClickTabs('prediction_history_tab', 'Prediction History Tab')">Prediction History</a>
-                </li>
-                <li [ngClass]="{'active' : type=='history'}">
-                    <a [routerLink]="['/solicitation/history', solicitationID]" (click)="onClickTabs('history_tab', 'History Tab')">History</a>
-                </li>
-            </ul>
-
+              </ul>
+            </div>
+          </ng-container>
         </div>
+      </div>
     </div>
-</div>
-
-<!-- <div class="container">
-
-    <div class="clearfix summary-content-padding">
-        <div class="srt-title-padding">
-            <a [routerLink]="['/solicitation/report']" style="font-weight: 500"> < Back to Solicitation Review Results for Section 508 Requirements</a>
-        </div>
-
-    </div>
-</div> -->
+  </main>

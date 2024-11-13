@@ -1,83 +1,146 @@
-.list {
-    margin-bottom: 10px;
+/* Layout and content styling */
+.usa-layout-container {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.list-title {
-    font-weight: 500;
-    display: inline-block;
-    vertical-align: baseline;
+.margin-bottom-4 {
+    margin-bottom: 1rem;
 }
 
-.list-content {
+.padding-x-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+/* Typography */
+.text-bold {
     font-weight: 700;
-    display: inline-block;
-    vertical-align: baseline;
 }
 
-.survey-radio-option {
-    display: table-cell;
-    text-align: left;
-    width: 35px;
+.text-base {
+    font-size: 1rem;
 }
 
-.summary-content-padding{
-  padding: 30px 20px
-}
-
-/* us web design standard */
-
+/* Checkbox and Radio Button Styling */
 [type=checkbox] + label, [type=radio] + label {
     cursor: pointer;
     font-weight: 400;
     margin-bottom: 0.5em;
 }
 
-input[type="checkbox"], input[type="radio"] {
+.usa-checkbox__input, input[type="checkbox"], input[type="radio"] {
     box-sizing: border-box;
+    padding: 0;
+    margin-right: 5px;
+    width: 1em;
+    height: 1em;
+}
+
+.usa-checkbox__label {
+    font-weight: 400;
+    margin-left: 0.5em;
+}
+
+/* Alerts */
+.usa-alert {
+    padding: 1rem;
+    border: 1px solid #dadada;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.usa-alert--success {
+    background-color: #e1f3e6;
+    border-color: #198038;
+}
+
+.usa-alert--info {
+    background-color: #e1eff6;
+    border-color: #005ea2;
+}
+
+.usa-alert__heading {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.usa-alert__text {
+    font-size: 1rem;
+}
+
+/* Form and Fieldset Styling */
+.usa-form {
+    margin-top: 1rem;
+}
+
+.usa-fieldset {
+    margin-top: 1rem;
+    border: none;
     padding: 0;
 }
 
-[type=checkbox], [type=radio] {
-    /*margin-left: -2rem;*/
-    /*position: absolute;*/
-  margin-right: 5px;
+.usa-legend {
+    font-weight: 700;
+    font-size: 1.1rem;
 }
 
-ul.checkbox-ul {
-  margin-left: 60px;
-}
-
-ul.checkbox-ul input[type="checkbox"]  {
-  width: 1em;
-  height: 1em;
-}
-
-.input-percentage {
-    width: 40px;
-    height: 23px;
-    margin-left: 15px;
-}
-.imsubmit{
-    width: 170px;
-    display: inline-block;
-    vertical-align: top
-}
-
-#instruction{
+.usa-label {
     font-weight: 600;
-    font-size: 16px;
-    padding: 20px 30px;
-    border: 1px solid #dadada
-}
-.imp-container{
-    font-size: 16px;
-    line-height: 1.5em;
-    font-weight: 500;
-    padding: 40px 0px;
-}
-.imppostion{
-    width: 100% ;
-    display: inline-block;
-    vertical-align: top
+    margin-bottom: 0.5rem;
+    display: block;
 }
 
+/* Textarea */
+.usa-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+/* Instruction Box */
+#instruction {
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid #dadada;
+}
+
+/* Button */
+.usa-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.usa-button--big {
+    font-size: 1.25rem;
+}
+
+/* Set font size for questions to 18px and use USWDS font */
+.font-heading-lg {
+    font-size: 18px;
+    font-family: var(--font-sans, 'Public Sans', sans-serif); /* USWDS default sans-serif */
+  }
+  
+  /* Add border radius to checkboxes */
+  .usa-checkbox__input {
+    border-radius: 4px;
+  }
+  
+  /* Style for textarea with padding and larger min-height for 'Additional feedback' */
+  .usa-textarea {
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+  
+  .usa-textarea[aria-labelledby*="additional-feedback"] {
+    min-height: 150px;
+  }
+  
+  .usa-card__heading {
+    font-family: 'Public Sans', sans-serif; /* USWDS sans-serif font */
+  }

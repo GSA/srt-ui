@@ -1,11 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-// Services
 import { HelpService } from '../../shared/services/help.service';
-import * as $ from 'jquery';
-import {BaseComponent} from '../../base.component';
-import {Title} from '@angular/platform-browser';
+import { BaseComponent } from '../../base.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-faq',
@@ -13,22 +10,12 @@ import {Title} from '@angular/platform-browser';
   styleUrls: ['./faq.component.scss']
 })
 export class FaqComponent extends BaseComponent implements OnInit {
-
-  /* ATTRIBUTES */
-
-  public faq: any[];
+  public faq: any[];  // Array of FAQs from the API
   public id = '';
-  public metrix = '{ (1) ∪ { (2) ∩ (3) } }';
-  public params: any;
+  public expanded: { [key: string]: boolean } = {}; // Track accordion state
 
-  /* CONSTRUCTOR */
+  @ViewChild('searchInput') searchInput: ElementRef<HTMLInputElement>;
 
-  /**
-   * constructor
-   * @param helpService
-   * @param route
-   * @param ts
-   */
   constructor(
     private helpService: HelpService,
     private route: ActivatedRoute,
@@ -38,75 +25,117 @@ export class FaqComponent extends BaseComponent implements OnInit {
     this.pageName = 'SRT - Frequently Asked Questions';
   }
 
-  /**
-   * angular lifecycle
-   */
-  ngOnInit() {
+  ngOnInit(): void {
     super.ngOnInit();
     this.id = this.route.snapshot.params['id'];
-
     if (this.id !== null) {
-      if (this.id === 'ICT') {
-        $('#search').val(
-          'What is "Information and Communication Technology"(ICT)?'
-        );
-      } else if (this.id === 'EIT') {
-        $('#search').val(
-          'What is "Electronic and Information Technology"(E&IT)?'
-        );
+      if (this.id === 'ICT' || this.id === 'EIT') {
+        this.prefillSearch(this.id);
+        // Wait for html to be rendered and trigger search
+        setTimeout(() => {
+          this.search();
+        }, 500);
       }
-
-      // Wait for html
-      setTimeout(() => {
-        $('.' + this.id).click();
-        this.search();
-      }, 500);
     }
-
+    // Fetch FAQs
     this.getFAQs();
   }
 
   /**
-   * Get FAQs
+   * Prefill search input based on the route parameter
+   * @param id - Search term identifier
    */
-  getFAQs() {
-    this.helpService
-      .getFAQs()
-      .subscribe({next: data => (this.faq = data), error: e => console.log(e)});
+  prefillSearch(id: string): void {
+    const predefinedQuestions = {
+      ICT: 'What is "Information and Communication Technology"(ICT)?',
+      EIT: 'What is "Electronic and Information Technology"(E&IT)?'
+    };
+
+    this.searchInput.nativeElement.value = predefinedQuestions[id] || '';
   }
 
   /**
-   * window scroll to selected ID
-   * @param ID
+   * Fetch FAQs from the API
    */
-  scroll(ID: string) {
+  getFAQs(): void {
+    this.helpService.getFAQs().subscribe({
+      next: (data) => {
+        this.faq = data;
+        // Initialize all accordion items as collapsed
+        this.faq.forEach((section, sectionIndex) => {
+          section.children?.forEach(item => {
+            this.expanded[this.getUniqueKey(sectionIndex, item.id)] = false;
+          });
+        });
+      },
+      error: (e) => console.log(e)
+    });
+  }
+
+  /**
+   * Generate a unique key for each accordion item based on section and item IDs.
+   * @param sectionIndex - The index of the section
+   * @param itemId - The unique ID of the accordion item within the section
+   * @returns A unique key string
+   */
+  getUniqueKey(sectionIndex: number, itemId: string): string {
+    return `${sectionIndex}-${itemId}`;
+  }
+
+  /**
+   * Toggle Accordion visibility for a specific item within a section
+   * @param sectionIndex - The index of the section
+   * @param itemId - The unique ID of the accordion item
+   */
+  toggleAccordion(sectionIndex: number, itemId: string): void {
+    const uniqueKey = this.getUniqueKey(sectionIndex, itemId);
+    this.expanded[uniqueKey] = !this.expanded[uniqueKey];
+  }
+
+  /**
+   * Determine if an accordion section is expanded
+   * @param sectionIndex - The index of the section
+   * @param itemId - The unique ID of the accordion item
+   * @returns boolean
+   */
+  isExpanded(sectionIndex: number, itemId: string): boolean {
+    return this.expanded[this.getUniqueKey(sectionIndex, itemId)] || false;
+  }
+
+  /**
+   * Scroll window to selected element by ID
+   * @param ID - The ID of the element to scroll to
+   */
+  scroll(ID: string): void {
     const element = document.getElementById(ID);
     if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth'
-      })
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 
   /**
-   * Search text
+   * Perform search based on the input value
    */
-  search() {
-    const txt = $('#search').val().toString();
+  search(): void {
+    const searchTerm = this.searchInput.nativeElement.value.toLowerCase();
+    
+    // Get all search content elements
+    const searchContentElements = document.querySelectorAll('.search-content');
+    const searchTitleElements = document.querySelectorAll('.search-title');
 
-    $('.search-content').each(function() {
-      if ( $(this).text().toLowerCase().indexOf(txt.toLowerCase()) !== -1) {
-        $(this).show();
-      } else {
-        $(this).hide();
+    // Filter search content
+    searchContentElements.forEach(element => {
+      if (element instanceof HTMLElement) {
+        const isVisible = element.textContent?.toLowerCase().includes(searchTerm);
+        element.style.display = isVisible ? '' : 'none';
       }
     });
 
-    $('.search-title').each(function() {
-      if ( $(this).text().toLowerCase().indexOf(txt.toLowerCase()) !== -1) {
-        $(this).show();
-      } else {
-        $(this).hide();
+    // Filter titles
+    searchTitleElements.forEach(element => {
+      if (element instanceof HTMLElement) {
+        const isVisible = element.textContent?.toLowerCase().includes(searchTerm);
+        element.style.display = isVisible ? '' : 'none';
       }
     });
   }

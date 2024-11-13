@@ -1,83 +1,156 @@
+/* Base styles */
 .input {
   width: 100%;
 }
 
 .no-padding {
-    margin: 0 !important;
-    padding: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
+.padding-0 {
+  padding: 0 !important;
+}
+
+.grid-gap-0 {
+  gap: 0 !important;
+}
+
+/* Form elements */
 input.form-control {
-    font-weight: 500;
-    display: inline-block;
-    width: calc(100% - 70px);
+  font-weight: 500;
+  display: inline-block;
+  width: calc(100% - 70px);
 }
 
+/* Form group layout */
+.form-group {
+  padding-bottom: 10px;
+  position: relative; /* Add this for button positioning context */
+}
+
+.form-group .grid-row {
+  display: flex;
+  align-items: flex-start; /* Align items to top */
+  justify-content: space-between; /* Space between content and button */
+}
+
+.form-group .grid-row .tablet\:grid-col-10 {
+  flex: 0 0 75%; /* Reduce width to make room for button */
+  padding-right: 1rem; /* Add space between content and button */
+}
+
+.form-group .grid-row .tablet\:grid-col-2 {
+  flex: 0 0 auto; /* Let the button column size to content */
+}
+
+/* Label and content wrapper */
+.form-group .tablet\:grid-col-10 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* Allow content to wrap if needed */
+}
+
+/* Label styling */
 label {
-    width: 65px;
-    margin-bottom: 5px;
-    display: inline-block;
-    font-weight: 700;
+  width: 65px;
+  margin-bottom: 0;
+  margin-right: 8px;
+  display: inline-block;
+  font-weight: 700;
 }
 
+.email-font {
+  font-weight: 500;
+  word-break: break-word; /* Prevent text from pushing button */
+  flex: 1; /* Allow email text to take remaining space */
+}
+
+/* Editor styles */
 .ql-toolbar.ql-snow {
-    display: none !important;
+  display: none !important;
 }
 
-
-.email-font{
-    font-weight: 500
+/* Custom components */
+#rebutton {
+  font-size: 16px;
+  cursor: pointer;
+  float: right;
 }
 
-/*.fr-toolbar.fr-desktop.fr-top.fr-basic.fr-sticky-off {
-    display: none !important
-}*/
-
-#rebutton{
-    font-size: 16px;
-    cursor: pointer;
-    float: right
-}
-#emailform{
-    font-weight: 500;
-    display: inline-block;
-    width: calc(100% - 25px);
-    vertical-align: top
-}
-#ebutton{
-    display: inline-block;
-    width: 150px;
-    vertical-align: top;
-    float: right
+#emailform {
+  font-weight: 500;
+  display: inline-block;
+  width: calc(100% - 25px);
+  vertical-align: top;
 }
 
-.summary-content-padding{
-  padding: 30px 20px
+#ebutton {
+  display: inline-block;
+  width: 150px;
+  vertical-align: top;
+  float: right;
 }
 
-#instruction{
+.summary-content-padding {
+  padding: 30px 20px;
+}
+
+#instruction {
   font-weight: 600;
   font-size: 16px;
   padding: 20px;
-  border: 1px solid #dadada
+  border: 1px solid #dadada;
 }
 
-#form-div{
+#form-div {
   padding-top: 20px;
 }
 
-div.form-group {
-  padding-bottom: 10px
-}
-
+/* Button styles */
 .form-group .srt-button {
-  top: -10px;
-  float: right;
-  display: inline;
-  height: 2.5em;
-  width: 8.5em;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+  width: 10rem;
+  white-space: nowrap;
 }
 
 .form-group .srt-button i {
-  vertical-align: middle;
+  margin-left: 0.25rem;
+  line-height: 1;
+}
+
+/* USWDS overrides */
+.usa-form {
+  max-width: none;
+}
+
+.usa-alert {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.usa-alert__text {
+  font-weight: 500;
+}
+
+.usa-button.srt-button {
+  background-color: #205493;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  text-align: center;
+}
+
+.usa-button.srt-button:hover {
+  background-color: #112e51;
+}
+
+/* Ensure content doesn't wrap under button */
+.form-group .grid-row::after {
+  content: '';
+  display: table;
+  clear: both;
 }

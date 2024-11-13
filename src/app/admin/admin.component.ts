@@ -44,9 +44,14 @@ export class AdminComponent extends BaseComponent implements OnInit {
     console.log(this.activeTab);
   }
 
-  scroll(id) {
-    const el = document.getElementById(id);
-    window.scroll({top: el.offsetTop + 115, behavior: 'smooth'});
+  scroll(ID: string) {
+    const element = document.getElementById(ID);
+    
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start' // This will align the element to the top of the view
+      });
+    }
   }
-
 }

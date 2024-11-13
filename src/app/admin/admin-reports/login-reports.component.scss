@@ -4,3 +4,42 @@
     float: right;
   }
 
+
+/* Style for the PrimeNG dropdown to match the USWDS button */
+.p-dropdown {
+  width: 100% !important; /* Match the width of the button */
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.75rem 1.25rem !important; /* Match the padding of the USWDS button */
+  font-size: 1.06rem !important; /* Match the font size */
+  font-family: 'Source Sans Pro', Helvetica Neue, Helvetica, Roboto, Arial, sans-serif !important; /* Match the font family */
+  background-color: #005ea2 !important; /* Match button background color */
+  color: #fff !important; /* Match button text color */
+  border: 0 !important; /* Remove border */
+  border-radius: 0.25rem !important; /* Match the border radius of the button */
+  box-sizing: border-box !important;
+}
+
+.p-dropdown .p-dropdown-label {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 700 !important; /* Match the font weight of the button */
+}
+
+.p-dropdown .p-dropdown-trigger {
+  background-color: #005ea2 !important; /* Match background color */
+  border-left: 1px solid #fff !important; /* Add white separator on the dropdown trigger */
+}
+
+.p-dropdown .p-dropdown-trigger:hover {
+  background-color: #003f6b !important; /* Hover state matching the USWDS button hover state */
+}
+
+.p-dropdown .p-inputtext {
+  padding: 0 !important; /* Ensure padding matches the button */
+  height: auto !important; /* Match height */
+}

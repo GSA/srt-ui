@@ -1,107 +1,75 @@
-#solsearch{
-    width: 100%;
-    float: right;
-    border-radius: 50px;
-}
-
-#soltitle {
-    text-decoration: none;
-    color: #205493;
-    /*font-family: Arial, sans-serif;*/
-    font-size: x-large;
-    font-weight: bold;
-    letter-spacing: 1px;
-    padding: 0px  20px;
-    width: 800px;
-}
-
-#csv {
-  padding-left: 20px;
-}
+/* Style for the CSV export icon */
 #csvlogo {
-  max-height: 40px;
-  padding-left: 10px;
+    max-height: 2.5rem;
+    padding-left: 0.625rem;
+    margin-left: 0.9375rem; /* Add margin to space it nicely from other elements */
+    cursor: pointer;
 }
 
+/* Align elements vertically */
+.grid-col {
+    display: flex;
+    align-items: center; /* Align content vertically to look more balanced */
+}
+
+/* Button styling */
 .button {
-  background-color: white;
+    background-color: white;
 }
 
 /* Override for PrimeNG theme for the workflow table */
 body .p-datatable .p-datatable-tbody td.p-resizable-column {
-  color: #111111;
+    color: #111111;
 }
-body  p-paginator div a {
-  color: #111111 !important;
+
+body p-paginator div a {
+    color: #111111 !important;
 }
+
 body p-paginator div a.p-highlight {
-  background-color: #112e51 !important;
-  color: white !important;
-  font-weight: bold;
+    background-color: #112e51 !important;
+    color: white !important;
+    font-weight: bold;
 }
 
-/* Override padding for bootstrap. */
-.no-padding {
-    margin: 0px !important;
-    padding: 0px !important;
-}
-
+/* Table header styling */
 th {
-  font-size: 18px;
-  font-weight: bold !important;
-  vertical-align: top;
+    font-size: 1.125rem;
+    font-weight: bold !important;
+    vertical-align: top;
 }
 
+/* Global font family */
 body {
     font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif !important;
 }
 
-.p-dropdown-label.p-inputtext.p-corner-all {
-  font-size: 16px;
-}
-
-.p-state-default.p-unselectable-text.p-sortable-column {
-  font-size: 16px;
-}
-p-dropdown .p-dropdown {
-  min-width: 100%;
-  max-width:100%;
-}
-
-.p-calendar, .p-calendar input {
-    width: 100% !important;
-}
-
+/* Result styles */
 .result-red span,
-.result-red i
-{
-  font-size: 16px;
-  color: #cc0000;
-  font-weight: bold;
+.result-red i {
+    font-size: 1rem;
+    color: #cc0000;
+    font-weight: bold;
 }
 
 .result-green span,
-.result-green i
-{
-  font-size: 16px;
-  font-weight: bold;
-  color: green;
+.result-green i {
+    font-size: 1rem;
+    font-weight: bold;
+    color: green;
 }
-
 
 .result-yellow span,
-.result-yellow i
-{
-  font-size: 16px;
-  font-weight: bold;
-  color: #635401;
+.result-yellow i {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #635401;
 }
 
-
-/*Animation */
+/* Animation styles */
 ul.cb-slide-show {
-    padding-left: 0px;
-    font-size: 80px;
+    padding-left: 0;
+    font-size: 5rem;
     text-align: center;
 }
 
@@ -109,345 +77,222 @@ ul.cb-slide-show li {
     list-style: none;
     display: inline;
 }
-/*solicitation report */
-.solic-nosolic{
-    height: calc(100vh - 60px);
-    display: table;
-    width: 100%;
-}
-.solic-nosolic-posi{
-    display:table-cell;
-    vertical-align:middle
-}
 
-.epa-toggle {
-  float:left;
-  margin-left: 20px;
-  margin-top: 1em;
-}
-
-.solic-table{
-    display: table;
-    width: 100%;
-    max-width: 600px;
-    float: right;
-    padding-right: 2em;
-}
-.solic-keyword{
-    display: table-cell;
-    vertical-align: middle;
-    width: 105px;
-    font-size: 16px;
-}
-.solic-table-cell{
-    display: table-cell;
-    vertical-align: middle;
-    width: 300px;
-}
-.solic-export{
-    display: table-cell;
-    vertical-align: middle;
-    width: 65px;
-}
-.solic-export-cursor{
-    display: table-cell;
-    vertical-align: middle;
-    width: 40px;
-    cursor: pointer
-}
-.solic-littlescan{
-    font-weight: 500;
-    float: left;
-    color: #186ba0
-}
 .cb-slide-show li span {
     opacity: 0.3;
     display: inline;
     -webkit-backface-visibility: hidden;
-    -webkit-animation: imageAnimation 3s linear infinite 0s;
-    -moz-animation: imageAnimation 3s linear infinite 0s;
-    -o-animation: imageAnimation 3s linear infinite 0s;
-    -ms-animation: imageAnimation 3s linear infinite 0s;
     animation: imageAnimation 3s linear infinite 0s;
 }
 
 .cb-slide-show li:nth-child(1) span {
-    -webkit-animation-delay: 0s;
-    -moz-animation-delay: 0s;
-    -o-animation-delay: 0s;
-    -ms-animation-delay: 0s;
     animation-delay: 0s;
 }
 
 .cb-slide-show li:nth-child(2) span {
-    -webkit-animation-delay: 0.25s;
-    -moz-animation-delay: 0.25s;
-    -o-animation-delay: 0.25s;
-    -ms-animation-delay: 0.25s;
     animation-delay: 0.25s;
 }
 
 .cb-slide-show li:nth-child(3) span {
-    -webkit-animation-delay: 0.5s;
-    -moz-animation-delay: 0.5s;
-    -o-animation-delay: 0.5s;
-    -ms-animation-delay: 0.5s;
     animation-delay: 0.5s;
 }
 
 .cb-slide-show li:nth-child(4) span {
-    -webkit-animation-delay: 0.75s;
-    -moz-animation-delay: 0.75s;
-    -o-animation-delay: 0.75s;
-    -ms-animation-delay: 0.75s;
     animation-delay: 0.75s;
 }
 
 .cb-slide-show li:nth-child(5) span {
-    -webkit-animation-delay: 1s;
-    -moz-animation-delay: 1s;
-    -o-animation-delay: 1s;
-    -ms-animation-delay: 1s;
     animation-delay: 1s;
 }
 
 .cb-slide-show li:nth-child(6) span {
-    -webkit-animation-delay: 1.25s;
-    -moz-animation-delay: 1.25s;
-    -o-animation-delay: 1.25s;
-    -ms-animation-delay: 1.25s;
     animation-delay: 1.25s;
 }
 
 .cb-slide-show li:nth-child(7) span {
-    -webkit-animation-delay: 1.5s;
-    -moz-animation-delay: 1.5s;
-    -o-animation-delay: 1.5s;
-    -ms-animation-delay: 1.5s;
     animation-delay: 1.5s;
 }
 
 .cb-slide-show li:nth-child(8) span {
-    -webkit-animation-delay: 1.75s;
-    -moz-animation-delay: 1.75s;
-    -o-animation-delay: 1.75s;
-    -ms-animation-delay: 1.75s;
     animation-delay: 1.75s;
 }
 
 .cb-slide-show li:nth-child(9) span {
-    -webkit-animation-delay: 2s;
-    -moz-animation-delay: 2s;
-    -o-animation-delay: 2s;
-    -ms-animation-delay: 2s;
     animation-delay: 2s;
 }
 
 .cb-slide-show li:nth-child(10) span {
-    -webkit-animation-delay: 2.25s;
-    -moz-animation-delay: 2.25s;
-    -o-animation-delay: 2.25s;
-    -ms-animation-delay: 2.25s;
     animation-delay: 2.25s;
 }
 
 .cb-slide-show li:nth-child(11) span {
-    -webkit-animation-delay: 2.5s;
-    -moz-animation-delay: 2.5s;
-    -o-animation-delay: 2.5s;
-    -ms-animation-delay: 2.5s;
     animation-delay: 2.5s;
 }
 
 .cb-slide-show li:nth-child(12) span {
-    -webkit-animation-delay: 2.75s;
-    -moz-animation-delay: 2.75s;
-    -o-animation-delay: 2.75s;
-    -ms-animation-delay: 2.75s;
     animation-delay: 2.75s;
 }
 
 .cb-slide-show li:nth-child(13) span {
-    -webkit-animation-delay: 3s;
-    -moz-animation-delay: 3s;
-    -o-animation-delay: 3s;
-    -ms-animation-delay: 3s;
     animation-delay: 3s;
 }
 
 @keyframes imageAnimation {
-  0% {
-      opacity: 0.5;
-      animation-timing-function: ease-in;
-  }
-
-  8% {
-      opacity: 1;
-      transform: scale(1.05);
-      animation-timing-function: ease-out;
-  }
-
-  17% {
-      opacity: 1;
-      transform: scale(1.05);
-  }
-
-  25% {
-      opacity: 0.5;
-      transform: scale(1.05);
-  }
-
-  100% {
-      opacity: 0.5;
-      transform: scale(1.05);
-  }
-}
-@-webkit-keyframes imageAnimation {
-  0% {
-      opacity: 0.5;
-      animation-timing-function: ease-in;
-  }
-
-  8% {
-      opacity: 1;
-      transform: scale(1.05);
-      animation-timing-function: ease-out;
-  }
-
-  17% {
-      opacity: 1;
-      transform: scale(1.05);
-  }
-
-  25% {
-      opacity: 0.5;
-      transform: scale(1.05);
-  }
-
-  100% {
-      opacity: 0.5;
-      transform: scale(1.05);
-  }
-}
-@-moz-keyframes imageAnimation {
-  0% {
-      opacity: 0.5;
-      animation-timing-function: ease-in;
-  }
-
-  8% {
-      opacity: 1;
-      transform: scale(1.05);
-      animation-timing-function: ease-out;
-  }
-
-  17% {
-      opacity: 1;
-      transform: scale(1.05);
-  }
-
-  25% {
-      opacity: 0.5;
-      transform: scale(1.05);
-  }
-
-  100% {
-      opacity: 0.5;
-      transform: scale(1.05);
-  }
+    0% {
+        opacity: 0.5;
+        animation-timing-function: ease-in;
+    }
+    8% {
+        opacity: 1;
+        transform: scale(1.05);
+        animation-timing-function: ease-out;
+    }
+    17% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    25% {
+        opacity: 0.5;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 0.5;
+        transform: scale(1.05);
+    }
 }
 
-@-o-keyframes imageAnimation {
-  0% {
-      opacity: 0.5;
-      animation-timing-function: ease-in;
-  }
-
-  8% {
-      opacity: 1;
-      transform: scale(1.05);
-      animation-timing-function: ease-out;
-  }
-
-  17% {
-      opacity: 1;
-      transform: scale(1.05);
-  }
-
-  25% {
-      opacity: 0.5;
-      transform: scale(1.05);
-  }
-
-  100% {
-      opacity: 0.5;
-      transform: scale(1.05);
-  }
-}
-@-ms-keyframes imageAnimation {
-  0% {
-      opacity: 0.5;
-      animation-timing-function: ease-in;
-  }
-
-  8% {
-      opacity: 1;
-      transform: scale(1.05);
-      animation-timing-function: ease-out;
-  }
-
-  17% {
-      opacity: 1;
-      transform: scale(1.05);
-  }
-
-  25% {
-      opacity: 0.5;
-      transform: scale(1.05);
-  }
-
-  100% {
-      opacity: 0.5;
-      transform: scale(1.05);
-  }
+/* No solicitation message styles */
+.solic-nosolic {
+    height: calc(100vh - 3.75rem);
+    display: table;
+    width: 100%;
 }
 
+.solic-nosolic-posi {
+    display: table-cell;
+    vertical-align: middle;
+}
 
-
+/* Table styles */
 .pDataTable {
-    padding: 0px 20px;
+    padding: 0 1.25rem;
 }
 
 body .p-datatable .p-datatable-tbody tr {
-  border-bottom: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
+/* Total count styles */
 #total-count {
-  font-family: "Open Sans", "Helvetica Neue", sans-serif;
-  font-size: 14px;
-  text-decoration: none;
-  padding: 0.3em;
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 0.875rem;
+    text-decoration: none;
+    padding: 0.3em;
 }
 
 @media (max-width: 45em) {
-  #total-count {
-    position: relative;
-    float:right;
-    right: 3em;
-    height: 3em;
-    top: .5em;
-  }
+    #total-count {
+        position: relative;
+        float: right;
+        right: 3em;
+        height: 3em;
+        top: 0.5em;
+    }
 }
+
 @media (min-width: 45em) {
-  #total-count {
-    top: -1.9em;
-    position: relative;
-    float: right;
-    right: 3em;
-  }
+    #total-count {
+        top: -1.9em;
+        position: relative;
+        float: right;
+        right: 3em;
+    }
 }
 
-
+/* Adjust overflow in table headers */
 #content p-table table > thead > tr > th {
-  overflow: visible;
+    overflow: visible;
+}
+
+/* Custom input group styles */
+.custom-container {
+    margin-bottom: 1.25rem !important; /* Space between search bar and table */
+}
+
+.custom-input-group {
+    display: flex !important;
+    align-items: center !important;
+    margin-right: 0.9375rem !important;
+    padding: 1.25rem !important;
+}
+
+.custom-input {
+    padding: 0.625rem !important;
+    margin-right: 0.9375rem !important;
+    height: 2.5rem !important;
+    width: 100% !important;
+    max-width: 30rem; /* Optional: set a maximum width for the input */
+    border: 1px solid #565c65 !important;
+    border-radius: 0.25rem !important;
+}
+
+.custom-button {
+    height: 2.5rem !important;
+    padding: 0.375rem 0.75rem !important;
+}
+
+/* Dropdown and table adjustments */
+:host ::ng-deep {
+    .p-dropdown {
+        width: 100%; /* Make dropdown width match column */
+        min-width: 9.375rem; /* 150px converted to rem */
+    }
+
+    .p-dropdown-panel {
+        width: auto !important; /* Allow panel to size based on content */
+        max-width: 18.75rem; /* 300px converted to rem */
+        overflow: hidden; /* Prevent overflow */
+    }
+
+    .p-dropdown-items-wrapper {
+        max-height: 12.5rem; /* 200px converted to rem */
+    }
+
+    /* Ensure dropdown options don't wrap and show ellipsis if too long */
+    .p-dropdown-item {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Prevent table resizing */
+    .p-datatable {
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    /* Ensure column headers maintain their width */
+    .p-datatable-thead > tr > th {
+        overflow: visible; /* Allow dropdown to overflow */
+        position: relative; /* Required for dropdown positioning */
+    }
+}
+
+/* Remove the default button border and outline */
+button {
+    border: none !important; /* Remove border */
+    outline: none !important; /* Remove outline */
+    box-shadow: none !important; /* Remove box-shadow if any */
+}
+
+/* Remove any border on table cells in this column */
+.p-datatable .p-datatable-tbody > tr > td.col_review_result {
+    border: none !important; /* Remove cell border for the specific column */
+}
+
+/* Specific override for the .table-button class if needed */
+.button.table-button {
+    border: none !important; /* Remove any border applied to buttons in this class */
+    outline: none !important;
+    box-shadow: none !important;
 }

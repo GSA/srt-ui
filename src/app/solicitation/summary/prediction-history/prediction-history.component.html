@@ -1,28 +1,33 @@
-<main id="content" class="bypass-block-target">
+<main id="content" class="usa-section">
   <app-summary [step1]="step1" [step2]="step2" [step3]="step3" [solicitationID]="solicitationID" [type]="type"></app-summary>
 
-  <div class="container">
-
-    <div class="clearfix summary-content-padding">
-      <div class="srt-title-padding">
-        <a [routerLink]="['/solicitation/report']" style="font-weight: 500">
-          < Back to Solicitation Review Results for Section 508 Requirements</a>
-      </div>
-      <div style="font-size: 16px;">
-        <div class="list-title" style="width: 100%;">
-          Prediction History
+  <div class="grid-container">
+    <div class="grid-row grid-gap">
+      <div class="grid-col-12">
+        <!-- Back link using USWDS typography and spacing -->
+        <div class="margin-bottom-4">
+          <a [routerLink]="['/solicitation/report']" class="usa-link usa-link--back">
+            Back to Solicitation Review Results for Section 508 Requirements
+          </a>
         </div>
-        <div class="list-content">
-          <ul *ngIf="predictionHistory" class="nopadding">
-            <li *ngFor="let entry of predictionHistory" style="list-style: none;">{{entry.date}} -
-              <span *ngIf="entry.value == 'red'" style="font-weight: 600">Non-Compliant</span>
-              <span *ngIf="entry.value == 'green'" style="font-weight: 600">Compliant</span>
-              <span *ngIf="entry.value != 'green' && entry.value != 'red'" style="font-weight: 600">{{entry.value}}</span>
+
+        <!-- Prediction History section -->
+        <div class="usa-prose">
+          <h2 class="font-heading-xl margin-bottom-2">
+            Prediction History
+          </h2>
+          
+          <!-- List using USWDS list styles -->
+          <ul *ngIf="predictionHistory" class="usa-list usa-list--unstyled">
+            <li *ngFor="let entry of predictionHistory" class="margin-y-1">
+              {{entry.date}} -
+              <span *ngIf="entry.value == 'red'" class="text-bold text-secondary-dark">Non-Compliant</span>
+              <span *ngIf="entry.value == 'green'" class="text-bold text-success">Compliant</span>
+              <span *ngIf="entry.value != 'green' && entry.value != 'red'" class="text-bold">{{entry.value}}</span>
             </li>
           </ul>
         </div>
       </div>
     </div>
-
   </div>
 </main>

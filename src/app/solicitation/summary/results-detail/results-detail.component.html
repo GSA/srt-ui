@@ -1,191 +1,194 @@
+<main id="content" class="usa-layout-docs__main">
+  <app-summary [step1]="step1" [step2]="step2" [step3]="step3" [solicitationID]="solicitationID" [type]="type"></app-summary>
 
-<main id="content" class="bypass-block-target">
-<app-summary [step1]="step1" [step2]="step2" [step3]="step3" [solicitationID]="solicitationID" [type]="type"></app-summary>
+  <div class="grid-container">
+    <div class="padding-3">
+      <div class="margin-bottom-2">
+        <a [routerLink]="['/solicitation/report']" class="usa-link font-sans-md">
+          &lt; Back to Solicitation Review Results for Section 508 Requirements
+        </a>
+      </div>
 
-<div class="container">
-
-  <div class="clearfix summary-content-padding">
-    <div class="srt-title-padding">
-      <a [routerLink]="['/solicitation/report']" style="font-weight: 500">
-        < Back to Solicitation Review Results for Section 508 Requirements</a>
-    </div>
-
-
-    <div id="detail">
-
-      <div class="row">
-        <div class="col-md-8 col-sm-12">
-          <div style="display: inline-block; font-weight: 500" *ngIf="solicitation">
-            <div style="font-size: 24px; padding-bottom: 15px;">{{solicitation.title}}</div>
-            <div style="padding-bottom: 5px"><a target="_blank" href="{{solicitation.url}}" rel="noopener noreferrer">{{solicitation.url}}</a></div>
-            <div *ngIf="solicitation.reviewRec !== 'Not Applicable' " style="padding-bottom: 5px">
-              <span style="font-weight:600">Results:&nbsp;</span>
-              <span style="font-weight:500" >{{solicitation.reviewRec}}</span>                    
-            <!-- insert button here for linking to ART -->
-            </div>
-            <div *ngIf="solicitation.reviewRec !== 'Compliant'"> <!-- Button only displays for non-compliant solicitations -->
-              <div class="row pt-2">
-                <div class="col-md-8">
-                  <app-art-modal></app-art-modal>
+      <div id="detail">
+        <div class="grid-row grid-gap">
+          <div class="tablet:grid-col-8">
+            <div class="font-sans-md" *ngIf="solicitation">
+              <h1 class="font-sans-xl margin-bottom-2">{{solicitation.title}}</h1>
+              <div class="margin-bottom-05">
+                <a class="usa-link" target="_blank" href="{{solicitation.url}}" rel="noopener noreferrer">{{solicitation.url}}</a>
+              </div>
+              <div class="margin-bottom-05" *ngIf="solicitation.reviewRec !== 'Not Applicable'">
+                <span class="text-bold">Results:&nbsp;</span>
+                <span class="font-sans-md">{{solicitation.reviewRec}}</span>
+              </div>
+              <div *ngIf="solicitation.reviewRec !== 'Compliant'">
+                <div class="grid-row padding-top-2">
+                  <div class="tablet:grid-col-8">
+                    <app-art-modal></app-art-modal>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="col-md-4 col-sm-12">
-          <div id="rbutton">
-            <div [routerLink]="['/solicitation/email', solicitationID]" class="srt-button" style="width: 150px; ">
-              <div>
+          <div class="tablet:grid-col-4">
+            <div id="rbutton">
+              <div [routerLink]="['/solicitation/email', solicitationID]" class="usa-button">
                 Email POC
               </div>
             </div>
-          </div>
-          <div class="row na-checkbox" id="na-checkbox">
-            <div class="col-xs-10">
-              <label id="na_check_label" for="na_check" >Section 508 is Not Applicable to this Solicitation:</label>
-              <input type="checkbox" id="na_check" [checked]="solicitation.na_flag" (change)="onNotApplicableClick($event)">
-            </div>
-            <div class="col-xs-1">
 
-            </div>
-
-          </div>
-          <div class="row na-checkbox" id="estar-na-checkbox" *ngIf="feature_flags.estar && solicitation.noticeData.epa_psc_match">
-            <div class="col-xs-10">
-              <label id="estar_na_check_label" for="estar_na_check" >EPA Review is Not Applicable to this Solicitation:</label>
-              <input type="checkbox" id="estar_na_check" [checked]="">
-            </div>
-            <div class="col-xs-1">
-
+            <div class="usa-checkbox margin-top-2">
+              <input 
+                class="usa-checkbox__input"
+                type="checkbox"
+                id="na_check"
+                [checked]="solicitation.na_flag"
+                (change)="onNotApplicableClick($event)"
+              >
+              <label class="usa-checkbox__label font-sans-md" for="na_check">
+                Section 508 is Not Applicable to this Solicitation:
+              </label>
             </div>
 
+            <div class="usa-checkbox margin-top-2" *ngIf="feature_flags.estar && solicitation.noticeData.epa_psc_match">
+              <input 
+                class="usa-checkbox__input"
+                type="checkbox"
+                id="estar_na_check"
+                [checked]=""
+              >
+              <label class="usa-checkbox__label font-sans-md" for="estar_na_check">
+                EPA Review is Not Applicable to this Solicitation:
+              </label>
+            </div>
           </div>
         </div>
 
+        <div class="grid-row grid-gap margin-top-4" *ngIf="solicitation">
+          <div class="tablet:grid-col-8">
+            <dl class="usa-list">
+              <div class="margin-bottom-2">
+                <dt class="display-inline-block font-sans-md">Solicitation Number:&nbsp;</dt>
+                <dd class="display-inline-block" id="solNum">{{solicitation.solNum}}</dd>
+              </div>
+
+              <div class="margin-bottom-2">
+                <dt class="display-inline-block font-sans-md">Date Posted:&nbsp;</dt>
+                <dd class="display-inline-block" id="solDate">{{solicitation.date | date:'shortDate'}}</dd>
+              </div>
+
+              <div class="margin-bottom-2">
+                <dt class="display-inline-block font-sans-md">Solicitation Type:&nbsp;</dt>
+                <dd class="display-inline-block" id="solType">
+                  {{solicitation.noticeType}}
+                  <span *ngIf="!solicitation.active"> (not active)</span>
+                </dd>
+              </div>
+
+              <div class="margin-bottom-2">
+                <dt class="display-inline-block font-sans-md">
+                  ICT (Yes/No):
+                  <span class="tooltip-wrapper">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <span class="tooltip-text">
+                      SRT identifies Information and Communication Technology (ICT) solicitations with a set of NAICS codes (334111, 334118, 3343, 33451, 334516, 334614, 5112, 518, 54169, 54121, 5415, 54169, and 61142).
+                    </span>
+                  </span>
+                </dt>
+                <dd class="display-inline-block" id="solICT">{{solicitation.category_list.value}}</dd>
+              </div>
+
+              <div class="margin-bottom-2">
+                <dt class="display-inline-block font-sans-md">
+                  PSC:
+                  <span class="tooltip-wrapper">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <span class="tooltip-text">
+                      Product and Service Code
+                    </span>
+                  </span>
+                </dt>
+                <dd class="display-inline-block" id="solPSC">{{solicitation.noticeData.psc}}</dd>
+              </div>
+
+              <div class="margin-bottom-2" id="solDocs">
+                <dt class="display-inline-block font-sans-md">Total Documents Scanned:&nbsp;</dt>
+                <dd class="display-inline-block">
+                  <span *ngIf="solicitation.numDocs != 'No Document Links Found' &&
+                              solicitation.numDocs != 'Insecure Redirect: Unable to Download' &&
+                              solicitation.numDocs != 'Connection Failed' &&
+                              solicitation.numDocs != 'Failed to Load' &&
+                              solicitation.numDocs != '0'">
+                    {{solicitation.parseStatus.length}} <span *ngIf="lockDocs">out of {{solicitation.numDocs}}</span>
+                  </span>
+                  <span *ngIf="!(solicitation.numDocs != 'No Document Links Found' &&
+                              solicitation.numDocs != 'Insecure Redirect: Unable to Download' &&
+                              solicitation.numDocs != 'Connection Failed' &&
+                              solicitation.numDocs != 'Failed to Load' &&
+                              solicitation.numDocs != '0')">
+                    {{solicitation.numDocs}}
+                  </span>
+                </dd>
+              </div>
+
+              <div class="margin-bottom-2" id="solParseStatus" *ngIf="solicitation.parseStatus.length != 0 || lockDocs">
+                <dt class="font-sans-md width-full">
+                  Machine Readable (Yes/No):
+                  <span class="tooltip-wrapper">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <span class="tooltip-text">
+                      Machine-readable documents are documents whose content can be readily processed by computers and electronically searchable. A digital image does not allow the text to be indexed and searched.
+                    </span>
+                  </span>
+                </dt>
+                <dd>
+                  <table class="usa-table usa-table--borderless width-full">
+                    <thead>
+                      <tr>
+                        <th scope="col">Filename</th>
+                        <th scope="col">Posted</th>
+                        <th scope="col">Machine Readable</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let doc of solicitation.parseStatus">
+                        <td><a href="{{doc.attachment_url}}" class="usa-link">{{doc.name}}</a></td>
+                        <td>{{doc.formattedDate}}</td>
+                        <td class="text-center">{{doc.status}}</td>
+                      </tr>
+                      <tr *ngFor="let lock of lockDocs">
+                        <td>solicitation_{{solicitation.solNum}}_document: Failed to Load</td>
+                        <td></td>
+                        <td class="text-center"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="tablet:grid-col-4">
+            <dl class="usa-list">
+              <div class="margin-bottom-2">
+                <dt class="display-inline-block font-sans-md">Agency:&nbsp;</dt>
+                <dd class="display-inline-block" id="solAgency">{{solicitation.agency}}</dd>
+              </div>
+
+              <div class="margin-bottom-2">
+                <dt class="display-inline-block font-sans-md">Office:&nbsp;</dt>
+                <dd class="display-inline-block" id="solOffice">{{solicitation.office}}</dd>
+              </div>
+
+              <div class="margin-bottom-2">
+                <dt class="display-inline-block font-sans-md">Point of Contact:&nbsp;</dt>
+                <dd class="display-inline-block" id="solPOC">{{solicitation.contactInfo.join(', ')}}</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
       </div>
-
-      <div class="row" *ngIf="solicitation" style="clear: both; padding-top: 30px;">
-
-        <div class="col-md-8">
-          <div class="list">
-            <div class="list-title">Solicitation Number:&nbsp;</div>
-            <div class="list-content" id="solNum">{{solicitation.solNum}}</div>
-          </div>
-
-          <div class="list">
-            <div class="list-title">Date Posted: </div>
-            &nbsp;
-            <div class="list-content" id="solDate">{{solicitation.date | date:'shortDate'}}</div>
-          </div>
-
-
-          <div class="list">
-            <div class="list-title">Solicitation Type:&nbsp;</div>
-            <div class="list-content" id="solType">{{solicitation.noticeType}}
-              <span *ngIf="!solicitation.active"> ( not active )</span>
-            </div>
-          </div>
-
-          <!--<div class="list">
-                  <div class="list-title">URL:&nbsp;</div>
-                  <div class="list-content"><a target="_blank" href="{{solicitation.url}}" (click)="ReviewSolicitation()">{{solicitation.url}}</a></div>
-              </div>-->
-
-          <div class="list">
-            <div class="list-title">ICT (Yes/No):
-              <sup pTooltip="SRT identifies Information and Communication Technology (ICT)
-                  solicitations with a set of NAICS codes (334111, 334118, 3343, 33451, 334516, 334614,
-                  5112, 518, 54169, 54121, 5415, 54169, and 61142).">
-                          <i class="fa fa-info-circle" aria-hidden="true"></i>
-              </sup>
-            </div>
-            &nbsp;
-            <div class="list-content" id="solICT">{{solicitation.category_list.value}}</div>
-          </div>
-
-          <div class="list">
-            <div class="list-title">PSC:
-              <sup pTooltip="Produce and Service Code ">
-                <i class="fa fa-info-circle" aria-hidden="true"></i>
-              </sup>
-            </div>
-            &nbsp;
-            <div class="list-content" id="solPSC">{{solicitation.noticeData.psc}}</div>
-          </div>
-
-          <div class="list" id="solDocs">
-            <div class="list-title">Total Documents Scanned:&nbsp;</div>
-            <div class="list-content">
-              <span *ngIf="solicitation.numDocs != 'No Document Links Found' &&
-                                  solicitation.numDocs != 'Insecure Redirect: Unable to Download' &&
-                                  solicitation.numDocs != 'Connection Failed' &&
-                                  solicitation.numDocs != 'Failed to Load' &&
-                                  solicitation.numDocs != '0'">
-                          {{solicitation.parseStatus.length}} <span *ngIf="lockDocs">out of {{solicitation.numDocs}}</span>
-              </span>
-              <span *ngIf="!(solicitation.numDocs != 'No Document Links Found' &&
-                                  solicitation.numDocs != 'Insecure Redirect: Unable to Download' &&
-                                  solicitation.numDocs != 'Connection Failed' &&
-                                  solicitation.numDocs != 'Failed to Load' &&
-                                  solicitation.numDocs != '0')">
-                          {{solicitation.numDocs}}
-                      </span>
-            </div>
-          </div>
-
-          <div class="list" *ngIf="solicitation.parseStatus.length != 0 || lockDocs" id="solParseStatus">
-            <div class="list-title" style="width: 100%">Machine Readable (Yes/No):
-              <sup pTooltip="Machine-readable documents are documents whose content can be readily processed by computers and electronically
-                  searchable. A digital image does not allow the text to be indexed and searched.">
-                          <i class="fa fa-info-circle" aria-hidden="true"></i>
-                      </sup>
-              &nbsp; </div>
-            <div class="list-content">
-              <table>
-                <tr>
-                  <td>Filename</td>
-                  <td>Posted</td>
-                  <td>Machine Readable</td>
-                </tr>
-                <tr *ngFor="let doc of solicitation.parseStatus">
-                  <td><a href="{{doc.attachment_url}}">{{doc.name}}</a></td>
-                  <td>{{doc.formattedDate}}</td>
-                  <td style="text-align: center">{{doc.status}}</td>
-                </tr>
-                <tr *ngFor="let lock of lockDocs">
-                  <td>solicitation_{{solicitation.solNum}}_document: Failed to Load</td>
-                  <td></td>
-                  <td style="text-align: center"></td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="list">
-            <div class="list-title">Agency:&nbsp;</div>
-            <div class="list-content" id="solAgency">{{solicitation.agency}}</div>
-          </div>
-
-          <div class="list">
-            <div class="list-title">Office:&nbsp;</div>
-            <div class="list-content" id="solOffice">{{solicitation.office}}</div>
-          </div>
-
-          <div class="list">
-            <div class="list-title">Point of Contact:&nbsp;</div>
-            <div class="list-content" id="solPOC">{{solicitation.contactInfo.join(', ')}}</div>
-          </div>
-        </div>
-      </div>
-
     </div>
-
-
-
-
   </div>
-</div>
 </main>

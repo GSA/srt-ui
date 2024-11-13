@@ -2,115 +2,151 @@
   <app-summary [step1]="step1" [step2]="step2" [step3]="step3" [solicitationID]="solicitationID" [type]="type">
   </app-summary>
 
-  <div class="container">
-
-    <div class="clearfix summary-content-padding">
-      <div class="srt-title-padding">
-        <a [routerLink]="['/solicitation/report']" style="font-weight: 500">
-          < Back to Solicitation Review Results for Section 508 Requirements</a>
+  <div class="usa-layout-container">
+    <div class="grid-container padding-4">
+      <!-- Back Link -->
+      <div class="margin-bottom-2">
+        <a [routerLink]="['/solicitation/report']" class="usa-link text-bold">
+          &lt; Back to Solicitation Review Results for Section 508 Requirements
+        </a>
       </div>
 
-      <div class="alert alert-success" *ngIf="feedbackSent && (!submissionComplete)" style="font-weight: 500">
-        Your have already provided feedback for this solicitation. You may updated your response below if you would like to update any of your answers
+      <!-- Alerts -->
+      <div class="usa-alert usa-alert--success margin-y-2" *ngIf="feedbackSent && (!submissionComplete)">
+        <div class="usa-alert__body">
+          <p class="usa-alert__text text-bold">
+            Your have already provided feedback for this solicitation. You may updated your response below if you would like to update any of your answers
+          </p>
+        </div>
       </div>
 
-      <div class="alert alert-success" *ngIf="submissionInProgress" style="font-weight: 500">
-        Saving your response. Please wait.
+      <div class="usa-alert usa-alert--info margin-y-2" *ngIf="submissionInProgress">
+        <div class="usa-alert__body">
+          <p class="usa-alert__text text-bold">
+            Saving your response. Please wait.
+          </p>
+        </div>
       </div>
 
-      <div class="alert alert-success" *ngIf="submissionComplete" style="font-weight: 500">
-        Your response has been sent
+      <div class="usa-alert usa-alert--success margin-y-2" *ngIf="submissionComplete">
+        <div class="usa-alert__body">
+          <p class="usa-alert__text text-bold">
+            Your response has been sent
+          </p>
+        </div>
       </div>
-
 
       <div *ngIf="(!submissionInProgress) && (!submissionComplete)">
-        <div id="instruction">
-          <h2 class="visually-hidden">Instructions</h2>
-          <div style="padding-bottom: 10px">The SRT Team welcome your Subject Matter Expertise to make our tool better for all. To review scanned solicitation
-            and provide your feedback, please follow the steps below:</div>
+        <!-- Instructions -->
+        <div id="instruction" class="usa-alert usa-alert--info margin-y-2">
+          <div class="usa-alert__body">
+            <h2 class="usa-alert__heading usa-sr-only">Instructions</h2>
+            <div class="usa-alert__text">
+              <p class="margin-bottom-1">The SRT Team welcome your Subject Matter Expertise to make our tool better for all. To review scanned solicitation
+                and provide your feedback, please follow the steps below:</p>
 
-          <div>1) Click on the solicitation’s “SAM.gov Link” provided below to access the solicitation on SAM.gov website and download the solicitation documents;</div>
-          <div>2) Evaluate the documents’ Section 508 conformance languages (here are some suggested keywords to search for in
-            the documents: Section 508, accessibility, EIT, compliance, conform, conformance, VPAT, Section 508 requirements,
-            WCAG, and Buy Accessible);</div>
-          <div>3) Answer the short survey below to provide manual review feedback; and</div>
-          <div>4) Click submit to send out your evaluation to the SRT Team.</div>
-
+              <div class="margin-y-1">1) Click on the solicitation's "SAM.gov Link" provided below to access the solicitation on SAM.gov website and download the solicitation documents;</div>
+              <div class="margin-y-1">2) Evaluate the documents' Section 508 conformance languages (here are some suggested keywords to search for in
+                the documents: Section 508, accessibility, EIT, compliance, conform, conformance, VPAT, Section 508 requirements,
+                WCAG, and Buy Accessible);</div>
+              <div class="margin-y-1">3) Answer the short survey below to provide manual review feedback; and</div>
+              <div class="margin-y-1">4) Click submit to send out your evaluation to the SRT Team.</div>
+            </div>
+          </div>
         </div>
 
+        <!-- Solicitation Details -->
+        <div *ngIf="solicitation" class="margin-top-4">
+          <div class="usa-card">
+            <div class="usa-card__container">
+              <div class="usa-card__header">
+                <h2 class="usa-card__heading text-uppercase margin-bottom-2">
+                  solicitation review result
+                </h2>
+              </div>
+              <div class="usa-card__body">
+                <div class="grid-row margin-bottom-2">
+                  <div class="grid-col-3 text-bold">Solicitation Title:</div>
+                  <div class="grid-col-9">{{solicitation.title}}</div>
+                </div>
+                <div class="grid-row margin-bottom-2">
+                  <div class="grid-col-3 text-bold">Solicitation Number:</div>
+                  <div class="grid-col-9">{{solicitation.solNum}}</div>
+                </div>
+                <div class="grid-row margin-bottom-2">
+                  <div class="grid-col-3 text-bold">SAM.gov Link:</div>
+                  <div class="grid-col-9">
+                    <a href="{{solicitation.url}}" target="_blank" rel="noopener noreferrer" class="usa-link">{{solicitation.url}}</a>
+                  </div>
+                </div>
+                <div class="grid-row margin-bottom-2">
+                  <div class="grid-col-3 text-bold">Prediction Results:</div>
+                  <div class="grid-col-9">{{solicitation.reviewRec}}</div>
+                </div>
 
-        <div *ngIf="solicitation" class="clearfix impcontainer pt-3">
-          <div class="imppostion">
-            <div class="pb-3">
-              <h2 class="srt-section-title" style="text-transform: uppercase; padding-bottom: 20px;">
-                solicitation review result
-              </h2>
-              <div class="list">
-                <div class="list-title" style="width: 120px">Solicitation Title:&nbsp;</div>
-                <div class="list-content">{{solicitation.title}}</div>
-              </div>
-              <div class="list">
-                <div class="list-title" style="width: 142px">Solicitation Number:&nbsp;</div>
-                <div class="list-content">{{solicitation.solNum}}</div>
-              </div>
-              <div class="list">
-                <div class="list-title" style="width: 68px">SAM.gov Link:&nbsp;</div>
-                <div class="list-content"><a href="{{solicitation.url}}" target="_blank" rel="noopener noreferrer">{{solicitation.url}}</a></div>
-              </div>
-              <div class="list">
-                <div class="list-title" style="width: 130px">Prediction Results:&nbsp; </div>
-                <div class="list-content">
-                  <ul class="nopadding">
-                    <li style="list-style: none; line-height: 18px;">{{solicitation.reviewRec}}</li>
-                  </ul>
+                <!-- Survey Questions -->
+                <ul *ngFor="let survey of surveys; let i = index" class="usa-list--unstyled">
+                  <li class="margin-top-4">
+                    <h3 *ngIf="survey.Question != 'Additional feedback:'" class="font-heading-lg margin-bottom-2">
+                      Q{{i+1}}. {{survey.Question}}
+                    </h3>
+
+                    <div class="margin-left-4">
+                      <p class="text-base margin-bottom-2 text-secondary">{{survey.Note}}</p>
+                      
+                      <!-- Checkboxes -->
+                      <div class="usa-checkbox__group">
+                        <div *ngFor="let choice of survey.Choices; let c=index"
+                             [ngStyle]="{'display': survey.Type=='multiple choice' ? 'inline-block' : 'block'}"
+                             class="margin-right-2 margin-bottom-1">
+                          <div class="usa-checkbox">
+                            <input 
+                              class="usa-checkbox__input"
+                              [attr.aria-label]="choice"
+                              [id]="survey.ID + choice"
+                              type="checkbox"
+                              [value]="choice"
+                              [ngModel]="surveyModel[i]==survey.Choices[c]"
+                              (ngModelChange)="checkBox(survey, choice, $event)"
+                            />
+                            <label class="usa-checkbox__label" [for]="survey.ID + choice">{{choice}}</label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Essay Questions -->
+                      <div *ngIf="survey.Type=='essay'" class="usa-form-group">
+                        <label [id]="survey.ID + '-label'" [for]="survey.ID + choice" class="usa-sr-only">
+                          textarea to enter your feedback
+                        </label>
+                        <textarea
+                          class="usa-textarea width-full"
+                          [attr.aria-labelledby]="survey.ID + '-label'"
+                          [id]="survey.ID + choice"
+                          [ngModel]="surveyModel[i]"
+                          (ngModelChange)="textarea(survey, $event)"
+                          [ngStyle]="{'min-height': survey.Question == 'Additional feedback:' ? '150px' : 'auto'}"
+                        ></textarea>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+
+                <!-- Submit Button -->
+                <div class="margin-top-4 padding-2">
+                  <button
+                    type="submit"
+                    class="usa-button"
+                    (click)="feedback()"
+                    aria-label="Submit Solicitation Review">
+                    Submit
+                  </button>
                 </div>
               </div>
             </div>
-
-          <ul *ngFor="let survey of surveys; let i = index" style="padding: 0px;">
-            <li style="list-style: none;">
-              <h3 style="font-size: 18px;" *ngIf="survey.Question != 'Additional feedback:'">Q{{i+1}}. {{survey.Question}}</h3>
-
-
-              <div style="padding-left: 60px;">
-                <span style="color: #899197">{{survey.Note}}</span>
-                <span style="padding: 5px 0px 0px 0px;" class="checkbox-ul">
-                  <div *ngFor="let choice of survey.Choices; let c=index" style="list-style: none; padding: 0px 15px 0px 0px;" [ngStyle]="{'display': survey.Type=='multiple choice' ? 'inline-block' : 'block'}">
-                    <input [attr.aria-label]="choice" id="{{survey.ID}}{{choice}}" style=""   [ngModel]="surveyModel[i]==survey.Choices[c]" (ngModelChange)="checkBox(survey, choice, $event)"
-                      type="checkbox" value="{{choice}}"/>
-                    <label aria-hidden="true" for="{{survey.ID}}{{choice}}">{{choice}}</label>
-
-                  </div>
-                  <div *ngIf="survey.Type=='essay'" style="list-style: none; padding: 0px 15px 0px 0px;">
-                    <div> <label id="{{survey.ID}}-label" for="{{survey.ID}}{{choice}}" style="position:absolute;
-                      left:-10000px;
-                      top:auto;
-                      width:1px;
-                      height:1px;
-                      overflow:hidden;">textarea to enter your feedback</label></div>
-                    <textarea [attr.aria-labelledby]="survey.ID + '-label'" id="{{survey.ID}}{{choice}}" class="form-control" [ngModel]="surveyModel[i]" (ngModelChange)="textarea(survey, $event)" [ngStyle]="{'min-height':survey.Question == 'Additional feedback:' ? '150px' : 'auto' }"> </textarea>
-                  </div>
-                </span>
-              </div>
-            </li>
-          </ul>
-
-            <div style="padding: 15px;">
-              <button aria-label="Submit Solicitation Review" type="submit" class="srt-button imsubmit" (click)="feedback()" aria-label="submit this feedback">Submit</button>
-            </div>
-
           </div>
         </div>
       </div>
-
     </div>
-
   </div>
-
-
-
-
-
-
-
 </main>

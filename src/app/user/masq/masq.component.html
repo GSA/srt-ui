@@ -1,43 +1,41 @@
 <main id="content" class="bypass-block-target">
+  <section class="usa-section">
+    <div class="usa-grid">
+      <!-- Added Heading -->
+      <h2 class="usa-heading">User Information Form</h2>
 
-  <div style="padding: 0px">
-
-
-
-      <div>
-        <form [formGroup]="masqForm" (ngSubmit)="onSubmit(masqForm)">
-          <div class="row">
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="text-align: right">
-              <label for="agency">Agency:</label>
-            </div>
-            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-              <input placeholder="" formControlName="agency" id="agency"/>
-            </div>
+      <form [formGroup]="masqForm" (ngSubmit)="onSubmit(masqForm)">
+        <div class="usa-form-group usa-grid">
+          <div class="usa-width-one-sixth">
+            <label for="agency" class="usa-label text-right">Agency:</label>
           </div>
-
-          <div class="row" style="padding-top: 10px;">
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="text-align: right">
-              <label for="role">User type:</label>
-            </div>
-            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-              <select placeholder="Just a placeholder" formControlName="role" id="role">
-                <option value="Administrator">GSA Admin</option>
-                <option value="SRT Program Manager">SRT Admin</option>
-                <option value="Section 508 Coordinator">Section 508 Coordinator</option>
-                <option value="CO / COR">CO / COR</option>
-                <option value="Executive User">Executive User</option>
-              </select>
-            </div>
+          <div class="usa-width-five-sixths">
+            <input class="usa-input" id="agency" formControlName="agency" />
           </div>
+        </div>
 
-          <div class="row" style="padding-top: 10px;">
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="text-align: right">
-              <button type="submit">Submit</button>
-            </div>
+        <div class="usa-form-group usa-grid" style="padding-top: 10px;">
+          <div class="usa-width-one-sixth">
+            <label for="role" class="usa-label text-right">User type:</label>
           </div>
+          <div class="usa-width-five-sixths">
+            <select class="usa-select" id="role" formControlName="role">
+              <option value="Administrator">GSA Admin</option>
+              <option value="SRT Program Manager">SRT Admin</option>
+              <option value="Section 508 Coordinator">Section 508 Coordinator</option>
+              <option value="CO / COR">CO / COR</option>
+              <option value="Executive User">Executive User</option>
+            </select>
+          </div>
+        </div>
 
-        </form>
-      </div>
+        <div class="usa-grid" style="padding-top: 10px;">
+          <div class="usa-width-one-sixth"></div>
+          <div class="usa-width-five-sixths">
+            <button type="submit" class="usa-button">Submit</button>
+          </div>
+        </div>
+      </form>
     </div>
-
+  </section>
 </main>

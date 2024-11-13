@@ -1,36 +1,46 @@
-.no-padding {
-    margin: 0 !important;
-    padding: 0 !important;
+.tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-left: 5px;
 }
 
-.list {
-    margin-bottom: 10px;
+.tooltip-wrapper .tooltip-text {
+  visibility: hidden;
+  background-color: #1b1b1b;
+  color: #fff;
+  text-align: left;
+  padding: 8px;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 1;
+  width: 300px;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 5px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
-.list-title {
-    font-weight: 400;
-    display: inline-block;
-    vertical-align: baseline;
+.tooltip-wrapper:hover .tooltip-text {
+  visibility: visible;
 }
 
-.list-content {
-    font-weight: 600;
-    display: inline-block;
-    vertical-align: baseline;
+/* Add arrow */
+.tooltip-wrapper .tooltip-text::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #1b1b1b transparent;
 }
-
-#detail {
-position: relative;
-font-size: 16px;
-}
-
-.liststyle{
-    list-style: none;
-    line-height: 18px
-}
-
-#rbutton{
-    vertical-align: top;
+.tooltip-wrapper {
+  vertical-align: super; /* Positions tooltips as superscript */
+  font-size: 0.8em; /* Adjust font size if needed */
 }
 
 #art {
@@ -48,38 +58,7 @@ font-size: 16px;
   font-weight: bold;
 }
 
-.summary-content-padding{
-  padding: 30px 20px
-}
-
-.row {
-  padding-bottom: 10px;
-}
-
-#rbutton div.srt-button {
-  float: none;
-  margin-bottom: 10px;
-}
-
-.na-checkbox div {
-  font-size: 20px;
-  padding: 0;
-  line-height: 30px;
-}
-
-.na-checkbox input {
-  height: 20px;
-  width: 20px;
-  display: inline;
-  margin-left:5px;
-  top:2px;
-  position: relative;
-}
-
-.na-checkbox label {
-  display: inline;
-}
-
 table td {
   padding: 0 20px;
 }
+
