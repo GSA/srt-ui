@@ -1,22 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <link rel="stylesheet" href="https://designsystem.digital.gov/stylesheets/uswds.min.css">
-  <title>User Login</title>
-</head>
-<body>
-  <div class="button-container">
-    <div class="login-container">
-      <span class="login-text">Sign in with:</span>
-      <a class="login-image" href="javascript:void(0);" (click)="loginWithLoginGov()">
-        <img src="assets/login-gov-logo.svg" alt="Login.gov">
-      </a>
-    </div>
-    
-    <!-- Conditionally show the Login as DEV button only in development environment -->
-    <button *ngIf="is_dev" class="usa-button dev-button" aria-label="Login as Dev" (click)="loginAsDev()">
-      Login as DEV
-    </button>
+<div class="button-container">
+  <div class="login-container">
+    <span class="login-text">Sign in with:</span>
+    <a class="login-image" href="javascript:void(0);" (click)="loginWithLoginGov()">
+      <img src="assets/login-gov-logo.svg" alt="Login.gov">
+    </a>
   </div>
-</body>
-</html>
+  <!-- Conditionally show the Login as DEV button only in development environment -->
+  <button *ngIf="is_dev" class="usa-button dev-button" aria-label="Login as Dev" (click)="loginAsDev()">
+    Login as DEV
+  </button>
+</div>
