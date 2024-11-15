@@ -73,4 +73,4 @@ jobs:
         name: Cloud Foundry Push
         env:
           DOCKER_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/srt-fbo-scraper:dev-${{ needs.docker.outputs.formattedTime }}
-        run: cf push srt-fbo-scraper-dev -f cf/manifest.dev.yml --docker-image $DOCKER_IMAGE
+        run: cf push srt-ui-dev -f cf/manifest.dev.yml --docker-image $DOCKER_IMAGE
