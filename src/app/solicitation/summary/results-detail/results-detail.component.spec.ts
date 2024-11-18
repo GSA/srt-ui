@@ -7,6 +7,16 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SummaryComponent } from '../summary.component';
 import { of } from 'rxjs';
 import { Solicitation } from 'app/shared/solicitation';
+import { ArtIframeDialogComponent } from './art-modal/art-modal.component';
+import { ArtCategoryComponent } from './art-modal/art-category/art-category.component';
+
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { CheckboxModule } from 'primeng/checkbox';
+
+import { ArtService } from './art-modal/art.service';
 
 describe('ResultsDetailComponent', () => {
   let component: ResultsDetailComponent;
@@ -16,9 +26,11 @@ describe('ResultsDetailComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SummaryComponent, ResultsDetailComponent ],
-      providers: [SolicitationService],
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])]
+      declarations: [SummaryComponent, ResultsDetailComponent, 
+        ArtIframeDialogComponent, ArtCategoryComponent],
+      providers: [SolicitationService, ArtService],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]),
+            CommonModule, FormsModule, ButtonModule, DialogModule, CheckboxModule]
     })
     .compileComponents();
   });

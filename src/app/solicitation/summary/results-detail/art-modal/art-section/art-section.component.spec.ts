@@ -14,6 +14,7 @@ describe('ArtSectionComponent', () => {
 
     fixture = TestBed.createComponent(ArtSectionComponent);
     component = fixture.componentInstance;
+    component.section = {text: 'test', value: 'test'}
     fixture.detectChanges();
   });
 
