@@ -1913,10 +1913,10 @@
   resolved "https://registry.npmjs.org/@types/jasmine/-/jasmine-4.3.2.tgz"
   integrity sha512-lKkWBcbxEZX/7nxPqEtv/OjPLaBa2j0o+hmv5Yn83b/+11C1kfBAkgvmrb13WDkmizUJ3B+jYrWh4M0YRtrzEQ==
 
-"@types/jquery@^3.5.29":
-  version "3.5.30"
-  resolved "https://registry.npmjs.org/@types/jquery/-/jquery-3.5.30.tgz"
-  integrity sha512-nbWKkkyb919DOUxjmRVk8vwtDb0/k8FKncmUKFi+NY+QXqWltooxTrswvz4LspQwxvLdvzBN1TImr6cw3aQx2A==
+"@types/jquery@^3.5.31":
+  version "3.5.32"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.5.32.tgz#3eb0da20611b92c7c49ebed6163b52a4fdc57def"
+  integrity sha512-b9Xbf4CkMqS02YH8zACqN1xzdxc3cO735Qe5AbSUFmyOiaWAbcpqh9Wna+Uk0vgACvoQHpWDg2rGdHkYPLmCiQ==
   dependencies:
     "@types/sizzle" "*"
 
