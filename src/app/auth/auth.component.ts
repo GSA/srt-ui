@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
   selector: 'app-auth',
@@ -14,7 +15,9 @@ export class AuthComponent implements OnInit {
   /**
    * constructor
    */
-  constructor() { }
+  constructor(
+    private $gaService: GoogleAnalyticsService
+  ) { }
 
   /**
    * lifecycle
@@ -28,6 +31,10 @@ export class AuthComponent implements OnInit {
    */
   ChangeDisplay(arg) {
     this.displayTab = arg;
+  }
+
+  onClickTiles(action: string, label: string) {
+    this.$gaService.event(action, 'auth_tiles', label);
   }
 
 }

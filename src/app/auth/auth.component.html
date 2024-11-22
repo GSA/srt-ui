@@ -1,21 +1,86 @@
 <div class="grid-container">
+  <div class="grid-row login-header-bg p-5 mt-2">
+    <h1 class="usa-heading" style="font-weight: bold;">Solicitation Review Tool</h1>
+    <h3 class="usa-heading usa-heading--third-level">
+      The Solicitation Review Tool (SRT) is provided to help agencies evaluate the overall solicitation compliance with accessibility, cyber security, and other regulations and requirements.
+    </h3>
+  </div>
+
+
   <div class="grid-row">
     <div class="grid-col-12">
       <div class="grid-row usa-prose">
         <div class="grid-col-8 tablet:grid-col-8 desktop:grid-col-8 desktop:grid-offset-2">
-          <div class="usa-card margin-y-4 padding-3">
+          <div class="usa-card margin-y-4 padding-3 card-shadow">
             <div class="usa-card__header">
-                <h1 class="usa-heading" style="font-weight: bold;">Solicitation Review Tool</h1>
+                
             </div>
             <div class="usa-card__body">
               <h3 class="usa-heading usa-heading--third-level">
-                The Solicitation Review Tool (SRT) is provided to help agencies evaluate the overall solicitation compliance with accessibility, cyber security, and other regulations and requirements.
+                To sign in and view your agency's solicitations, you'll need a Login.gov account associated with your <b>government email address</b>.
               </h3>
               <app-userlogin></app-userlogin>
+              <h5>
+                If you need help adding an email address to your Login.gov account, please visit the 
+                <a href="https://www.login.gov/help/manage-your-account/change-your-email-address/" target="_blank" rel="noopener noreferrer">Login.gov Help Page.</a>
+              </h5>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  
+
+  <div class="grid-row mt-5">
+    <div class="tablet:grid-col-2 mobile-lg:grid-col-6"></div>
+    <!-- Contact Us -->
+    <div class="tablet:grid-col-4 mobile-lg:grid-col-6">
+      <div class="usa-card">
+        <a
+          [routerLink]="['/help/contactus']"
+          aria-labelledby="h3cus"
+          class="usa-card__container usa-card__container--clickable"
+          (click)="onClickTiles('contact_tile', 'Contact Tile')"
+        >
+          <div class="usa-card__media">
+            <img alt="Contact Us Icon" src="/assets/contact-us.png" />
+          </div>
+          <div class="usa-card__header">
+            <h2 class="usa-card__heading" id="h3cus">Contact Us</h2>
+          </div>
+          <div class="usa-card__body">
+            <p>View contact information for the Solicitation Review Tool.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="tablet:grid-col-4 mobile-lg:grid-col-6">
+      <div class="usa-card">
+        <a
+          [routerLink]="['/help/faq']"
+          aria-labelledby="h3faq"
+          class="usa-card__container usa-card__container--clickable"
+          (click)="onClickTiles('faq_tile', 'FAQ Tile')"
+        >
+          <div class="usa-card__media">
+            <img alt="FAQ Icon" src="/assets/faq.png" />
+          </div>
+          <div class="usa-card__header">
+            <h2 class="usa-card__heading" id="h3faq">Learn More</h2>
+          </div>
+          <div class="usa-card__body">
+            <p>Review Frequently Asked Questions and learn more about SRT.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="tablet:grid-col-2 mobile-lg:grid-col-6"></div>
+
+  </div>
+
 </div>
