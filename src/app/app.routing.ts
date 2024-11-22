@@ -19,7 +19,7 @@ const routes: Routes = [
   {path: 'admin/masq', component: MasqComponent, canActivate: [AuthGuardFn] , data: {}},
   {path: 'admin', component: AdminComponent, canActivate: [AdminGuardFn] , data: { isAccepted: false, isRejected: false }},
   {path: 'analytics', component: AnalyticsComponent, canActivate: [AdminGuardFn]},
-  {path: 'help', component: HelpComponent, canActivate: [AuthGuardFn]},
+  {path: 'help', component: HelpComponent},
 ];
 
 @NgModule({
