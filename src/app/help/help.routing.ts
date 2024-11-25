@@ -11,9 +11,9 @@ const routes: Routes = [
     { path: 'help',
         component: HelpComponent,
         children: [
-            { path: 'faq', component: FaqComponent, canActivate: [AuthGuard] },
+            { path: 'faq', component: FaqComponent,  },
             { path: 'faq/:id', component: FaqComponent, canActivate: [AuthGuard] },
-            { path: 'contactus', component: ContactUsComponent, canActivate: [AuthGuard] },
+            { path: 'contactus', component: ContactUsComponent, },
         ]
     },
 
