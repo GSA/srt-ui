@@ -34,6 +34,12 @@
   }
 }
 
+.login-image:hover {
+  /* Increasing button size */
+  transform: scale(1.05);
+}
+
+
 /* Adds space between the login container and the DEV login button */
 .dev-button {
   margin-top: 1em;
