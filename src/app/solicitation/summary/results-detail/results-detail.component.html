@@ -24,7 +24,14 @@
               <div *ngIf="solicitation.reviewRec !== 'Compliant'">
                 <div class="grid-row padding-top-2">
                   <div class="tablet:grid-col-8">
-                    <app-art-modal></app-art-modal>
+                    <a class="btn usa-button usa-button--accent-warm" 
+                    href="https://app.buyaccessible.gov/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    <i class="pi pi-external-link"></i>Get 508 Language</a>
+                    <!-- Hotfix: Commented out the following line to prevent the ART modal from appearing for time being
+                      <app-art-modal></app-art-modal>
+                    -->
                   </div>
                 </div>
               </div>
