@@ -1,298 +1,290 @@
-/* Style for the CSV export icon */
-#csvlogo {
-    max-height: 2.5rem;
-    padding-left: 0.625rem;
-    margin-left: 0.9375rem; /* Add margin to space it nicely from other elements */
-    cursor: pointer;
-}
-
-/* Align elements vertically */
-.grid-col {
-    display: flex;
-    align-items: center; /* Align content vertically to look more balanced */
-}
-
-/* Button styling */
-.button {
-    background-color: white;
-}
-
-/* Override for PrimeNG theme for the workflow table */
-body .p-datatable .p-datatable-tbody td.p-resizable-column {
-    color: #111111;
-}
-
-body p-paginator div a {
-    color: #111111 !important;
-}
-
-body p-paginator div a.p-highlight {
-    background-color: #112e51 !important;
-    color: white !important;
+/* Main Container Styles */
+.main-container {
+    padding: 2rem;
+    font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  }
+  
+  /* Header Styles */
+  h1 {
+    font-size: 2.5rem;
     font-weight: bold;
-}
-
-/* Table header styling */
-th {
+    margin: 0 0 1rem 0;
+    color: #1b1b1b;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+    font-weight: normal;
+    margin: 0 0 1rem 0;
+    color: #1b1b1b;
+  }
+  
+  .description {
     font-size: 1.125rem;
-    font-weight: bold !important;
-    vertical-align: top;
-}
-
-/* Global font family */
-body {
-    font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif !important;
-}
-
-/* Result styles */
-.result-red span,
-.result-red i {
+    color: #1b1b1b;
+    margin-bottom: 2rem;
+  }
+  
+  /* Search and Export Section */
+  .search-export-container {
+    margin-bottom: 2rem;
+  }
+  
+  .search-button-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .search-input {
+    /* Updated styles for search input */
+    flex: 0 1 auto; /* Allow it to shrink but not grow beyond its content */
+    max-width: 400px; /* Set a maximum width */
+    width: 100%; /* Make it responsive */
+  
+    padding: 0.75rem;
+    border: 1px solid #565c65;
+    border-radius: 0.25rem;
     font-size: 1rem;
-    color: #cc0000;
+  }
+  
+  .search-button {
+    padding: 0.75rem 1.25rem;
+    background-color: #005ea2;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
     font-weight: bold;
-}
-
-.result-green span,
-.result-green i {
-    font-size: 1rem;
+    white-space: nowrap;
+  }
+  
+  .search-button:hover {
+    background-color: #0b4778;
+  }
+  
+  .export-link {
+    display: flex;
+    align-items: center;
+    color: #005ea2;
+    text-decoration: none;
     font-weight: bold;
-    color: green;
-}
-
-.result-yellow span,
-.result-yellow i {
-    font-size: 1rem;
+    white-space: nowrap;
+  }
+  
+  .export-link i {
+    margin-right: 0.5rem;
+  }
+  
+  .export-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Table Styles */
+  .srt-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  :host ::ng-deep {
+    .p-datatable {
+      .p-datatable-header {
+        background: #ffffff;
+        border: none;
+        padding: 1rem;
+      }
+  
+      .p-datatable-thead > tr > th {
+        background: #f0f0f0;
+        padding: 1rem;
+        border: 1px solid #dfe1e2;
+        color: #1b1b1b;
+        font-weight: bold;
+        text-align: left;
+      }
+  
+      .p-datatable-tbody > tr > td {
+        padding: 1rem;
+        border: 1px solid #dfe1e2;
+        color: #1b1b1b;
+      }
+  
+      .p-sortable-column:hover {
+        background: #e6e6e6;
+      }
+  
+      .p-paginator {
+        padding: 1rem;
+        background: #ffffff;
+        border: none;
+      }
+      .p-datatable-tbody > tr:hover {
+        background-color: #eaeaea; /* Dark background for the entire row */
+        color: #fff;           /* Light text for better contrast */
+        transition: background-color 0.3s ease; /* Smooth transition */
+      }
+    }
+  }
+  
+  /* Status Indicators */
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-weight: bold;
-    color: #635401;
-}
-
-/* Animation styles */
-ul.cb-slide-show {
+  }
+  
+  .status-indicator i {
+    font-size: 1.25rem;
+  }
+  
+  .status-compliant {
+    color: #00a91c;
+  }
+  
+  .status-compliant i {
+    color: #00a91c;
+  }
+  
+  .status-noncompliant {
+    color: #d54309;
+  }
+  
+  .status-noncompliant i {
+    color: #d54309;
+  }
+  
+  .status-not-applicable {
+    color: #ff9f00;
+  }
+  
+  .status-not-applicable i {
+    color: #ff9f00;
+  }
+  
+  .clickable-cell {
+    cursor: pointer;
+  }
+  
+  .clickable-cell:hover {
+    background-color: transparent; /* Remove hover effect on individual cells */
+  }
+  
+  .sol-num-cell {
+    cursor: default;
+  }
+  
+  .solicitation-link {
+    color: #005ea2;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .solicitation-link:hover {
+    text-decoration: underline;
+  }
+  
+  #total-count {
+    margin-top: 1rem;
+    text-align: right;
+    font-weight: 500;
+  }
+  
+  .header-with-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .header-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  /* Loading Animation */
+  .solic-nosolic {
+    height: calc(100vh - 60px);
+    display: table;
+    width: 100%;
+  }
+  
+  .solic-nosolic-posi {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  
+  .cb-slide-show {
     padding-left: 0;
     font-size: 5rem;
     text-align: center;
-}
-
-ul.cb-slide-show li {
-    list-style: none;
-    display: inline;
-}
-
-.cb-slide-show li span {
-    opacity: 0.3;
-    display: inline;
-    -webkit-backface-visibility: hidden;
-    animation: imageAnimation 3s linear infinite 0s;
-}
-
-.cb-slide-show li:nth-child(1) span {
-    animation-delay: 0s;
-}
-
-.cb-slide-show li:nth-child(2) span {
-    animation-delay: 0.25s;
-}
-
-.cb-slide-show li:nth-child(3) span {
-    animation-delay: 0.5s;
-}
-
-.cb-slide-show li:nth-child(4) span {
-    animation-delay: 0.75s;
-}
-
-.cb-slide-show li:nth-child(5) span {
-    animation-delay: 1s;
-}
-
-.cb-slide-show li:nth-child(6) span {
-    animation-delay: 1.25s;
-}
-
-.cb-slide-show li:nth-child(7) span {
-    animation-delay: 1.5s;
-}
-
-.cb-slide-show li:nth-child(8) span {
-    animation-delay: 1.75s;
-}
-
-.cb-slide-show li:nth-child(9) span {
-    animation-delay: 2s;
-}
-
-.cb-slide-show li:nth-child(10) span {
-    animation-delay: 2.25s;
-}
-
-.cb-slide-show li:nth-child(11) span {
-    animation-delay: 2.5s;
-}
-
-.cb-slide-show li:nth-child(12) span {
-    animation-delay: 2.75s;
-}
-
-.cb-slide-show li:nth-child(13) span {
-    animation-delay: 3s;
-}
-
-@keyframes imageAnimation {
+    
+    li {
+      list-style: none;
+      display: inline;
+      
+      span {
+        opacity: 0.3;
+        animation: imageAnimation 3s linear infinite;
+      }
+    }
+  }
+  
+  @for $i from 1 through 10 {
+    .cb-slide-show li:nth-child(#{$i}) span {
+      animation-delay: #{($i - 1) * 0.25}s;
+    }
+  }
+  
+  @keyframes imageAnimation {
     0% {
-        opacity: 0.5;
-        animation-timing-function: ease-in;
+      opacity: 0.3;
     }
-    8% {
-        opacity: 1;
-        transform: scale(1.05);
-        animation-timing-function: ease-out;
-    }
-    17% {
-        opacity: 1;
-        transform: scale(1.05);
-    }
-    25% {
-        opacity: 0.5;
-        transform: scale(1.05);
+    50% {
+      opacity: 1;
     }
     100% {
-        opacity: 0.5;
-        transform: scale(1.05);
+      opacity: 0.3;
     }
-}
-
-/* No solicitation message styles */
-.solic-nosolic {
-    height: calc(100vh - 3.75rem);
-    display: table;
-    width: 100%;
-}
-
-.solic-nosolic-posi {
-    display: table-cell;
-    vertical-align: middle;
-}
-
-/* Table styles */
-.pDataTable {
-    padding: 0 1.25rem;
-}
-
-body .p-datatable .p-datatable-tbody tr {
-    border-bottom: 1px solid black;
-}
-
-/* Total count styles */
-#total-count {
-    font-family: "Open Sans", "Helvetica Neue", sans-serif;
-    font-size: 0.875rem;
-    text-decoration: none;
-    padding: 0.3em;
-}
-
-@media (max-width: 45em) {
-    #total-count {
-        position: relative;
-        float: right;
-        right: 3em;
-        height: 3em;
-        top: 0.5em;
-    }
-}
-
-@media (min-width: 45em) {
-    #total-count {
-        top: -1.9em;
-        position: relative;
-        float: right;
-        right: 3em;
-    }
-}
-
-/* Adjust overflow in table headers */
-#content p-table table > thead > tr > th {
-    overflow: visible;
-}
-
-/* Custom input group styles */
-.custom-container {
-    margin-bottom: 1.25rem !important; /* Space between search bar and table */
-}
-
-.custom-input-group {
-    display: flex !important;
-    align-items: center !important;
-    margin-right: 0.9375rem !important;
-    padding: 1.25rem !important;
-}
-
-.custom-input {
-    padding: 0.625rem !important;
-    margin-right: 0.9375rem !important;
-    height: 2.5rem !important;
-    width: 100% !important;
-    max-width: 30rem; /* Optional: set a maximum width for the input */
-    border: 1px solid #565c65 !important;
-    border-radius: 0.25rem !important;
-}
-
-.custom-button {
-    height: 2.5rem !important;
-    padding: 0.375rem 0.75rem !important;
-}
-
-/* Dropdown and table adjustments */
-:host ::ng-deep {
-    .p-dropdown {
-        width: 100%; /* Make dropdown width match column */
-        min-width: 9.375rem; /* 150px converted to rem */
-    }
-
-    .p-dropdown-panel {
-        width: auto !important; /* Allow panel to size based on content */
-        max-width: 18.75rem; /* 300px converted to rem */
-        overflow: hidden; /* Prevent overflow */
-    }
-
-    .p-dropdown-items-wrapper {
-        max-height: 12.5rem; /* 200px converted to rem */
-    }
-
-    /* Ensure dropdown options don't wrap and show ellipsis if too long */
-    .p-dropdown-item {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    /* Prevent table resizing */
-    .p-datatable {
-        table-layout: fixed;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .search-button-group {
+        flex-direction: column;
         width: 100%;
+      }
+    
+      .search-input {
+        max-width: none; /* Allow full width on smaller screens */
+      }
+    
+      .search-button,
+      .export-link {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .main-container {
+      padding: 1rem;
     }
-
-    /* Ensure column headers maintain their width */
-    .p-datatable-thead > tr > th {
-        overflow: visible; /* Allow dropdown to overflow */
-        position: relative; /* Required for dropdown positioning */
+  
+    h1 {
+      font-size: 2rem;
     }
-}
-
-/* Remove the default button border and outline */
-button {
-    border: none !important; /* Remove border */
-    outline: none !important; /* Remove outline */
-    box-shadow: none !important; /* Remove box-shadow if any */
-}
-
-/* Remove any border on table cells in this column */
-.p-datatable .p-datatable-tbody > tr > td.col_review_result {
-    border: none !important; /* Remove cell border for the specific column */
-}
-
-/* Specific override for the .table-button class if needed */
-.button.table-button {
-    border: none !important; /* Remove any border applied to buttons in this class */
-    outline: none !important;
-    box-shadow: none !important;
-}
+  
+    h2 {
+      font-size: 1.5rem;
+    }
+  
+    .search-container {
+      flex-direction: column;
+    }
+  
+    .search-button {
+      width: 100%;
+    }
+  }

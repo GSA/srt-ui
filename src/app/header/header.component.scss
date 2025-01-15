@@ -2,216 +2,110 @@
 #header {
   width: 100%;
   background-color: white;
-  position: sticky;  /* Change from relative to sticky */
-  top: 0;           /* Stick to the top */
-  z-index: 1000;    /* Ensure header stays above other content */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* Optional: adds shadow for visual separation */
+  border-bottom: 1px solid #dfe1e2;
 }
-
-#header {
-  transition: box-shadow 0.3s ease;
-}
-
 
 .usa-header {
-  padding: 0.5rem 0;
+  padding: 0.75rem 0;
   border-bottom: none;
 }
 
 .grid-container-widescreen {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 2rem;
 }
 
-/* Main Navigation Container */
+/* Navigation Container */
 .usa-nav {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  width: 100%;
   padding: 0;
-  flex-wrap: nowrap;
+  width: 100%;
 }
 
-/* Left Logo */
+/* Logo Styling */
 .logo-container {
-  flex-shrink: 0;
-  padding-right: 2rem;
-}
-
-.logo-container img {
-  height: 40px;
-  width: auto;
-}
-
-/* Center Navigation */
-.usa-nav__primary {
   display: flex;
   align-items: center;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  flex-grow: 1;
-  justify-content: center;
   gap: 1rem;
+
+  .gsa-logo-img {
+    height: 50px;
+    width: auto;
+  }
+
+  .srt-logo-img {
+    height: 32px;
+    width: auto;
+  }
 }
 
-.usa-nav__primary-item {
-  margin: 0;
-}
-
-.usa-nav__link {
-  color: #1b1b1b;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  display: block;
-}
-
-.usa-nav__link:hover {
-  color: #005ea2;
-}
-
-.usa-current {
-  color: #005ea2;
-  font-weight: bold;
-}
-
-/* Right Side Navigation Group */
+/* Navigation Links */
 .right-nav-group {
   display: flex;
   align-items: center;
   list-style: none;
   margin: 0;
   padding: 0;
-  margin-left: auto;
+  gap: 1.5rem;
 }
 
-.right-nav-group .nav-item {
-  display: flex;
-  align-items: center;
-}
-
-.gsa-logo-item {
-  margin-left: 1rem;
-}
-
-.gsa-logo-item img {
-  height: 40px;
-  width: auto;
-}
-
-/* User Menu */
-.user-menu {
-  position: relative;
-}
-
-.usa-button.usa-button--outline {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  background-color: transparent;
-  border: 1px solid #ffffff;
-  color: #005ea2;
-  font-weight: normal;
+.nav-item {
   margin: 0;
-  white-space: nowrap;
-  box-shadow: none; /* Remove box shadow */
 }
 
-.usa-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-left: 0.5rem;
-}
-
-/* Dropdown Menu */
-.usa-nav__submenu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background: white;
-  border: 1px solid #dfe1e2;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  min-width: 150px;
-  display: block;
-  visibility: hidden; /* Hide initially */
-  opacity: 0;
-  z-index: 1000;
-  margin-top: 0.25rem;
-  padding: 0.5rem 0;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
-}
-
-/* Keep submenu visible briefly after mouse leaves button */
-.user-menu:hover .usa-nav__submenu,
-.usa-nav__submenu:hover {
-  visibility: visible;
-  opacity: 1;
-  transition-delay: 0s; /* Show immediately */
-}
-
-.user-menu:hover .usa-nav__submenu {
-  transition-delay: 0s, 0.2s; /* 200ms delay for hiding */
-}
-
-.usa-nav__submenu a {
-  color: #1b1b1b;
+.nav-link {
+  color: #71767a;
   text-decoration: none;
-  padding: 0.5rem 1rem;
-  display: block;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+
+  &:hover {
+    color: #1a4480;
+  }
 }
 
-.usa-nav__submenu a:hover {
-  background-color: #f0f0f0;
-}
-
-/* Skip Nav */
+/* Skip Nav (maintaining accessibility) */
 .usa-skipnav {
   position: absolute;
   left: -999em;
   padding: 0.5rem 1rem;
   background-color: white;
   z-index: 1000;
-}
 
-.usa-skipnav:focus {
-  left: 0;
-}
-
-/* Border Bottom */
-.border-bottom {
-  border-bottom: 1px solid #dfe1e2;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 1024px) {
-  .usa-nav__primary {
-      gap: 0.5rem;
-  }
-  
-  .usa-nav__link {
-      padding: 0.5rem;
+  &:focus {
+    left: 0;
   }
 }
 
+/* External link icon styling */
+.external-link-icon {
+  margin-left: 4px;
+  fill: currentColor;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .usa-nav {
-      flex-wrap: wrap;
+  .grid-container-widescreen {
+    padding: 0 1rem;
   }
-  
-  .usa-nav__primary {
-      order: 3;
-      width: 100%;
-      margin-top: 1rem;
-      flex-wrap: wrap;
-  }
-  
+
   .right-nav-group {
-      order: 2;
+    gap: 1rem;
   }
 
   .logo-container {
-      order: 1;
+    .gsa-logo-img {
+      height: 40px;
+    }
+
+    .srt-logo-img {
+      height: 24px;
+    }
   }
 }

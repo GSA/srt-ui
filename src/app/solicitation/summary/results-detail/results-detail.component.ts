@@ -59,58 +59,102 @@ export class ResultsDetailComponent implements OnInit {
    * lifecycle
    */
   ngOnInit() {
-    this.subscription = this.route.params.subscribe(
-      (params: any) => {
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras?.state?.['solicitation']) {
+      const data = navigation.extras.state['solicitation'];
+      
+      if (data.parseStatus && Array.isArray(data.parseStatus)) {
+        data.parseStatus.forEach(element => {
+          element.status = element.status === 'successfully parsed' ? 'Yes' : 
+                          element.status === 'processing error' ? 'No' : 
+                          element.status;
+          element.formattedDate = moment(element.postedDate).format('L');
+        });
+      } else {
+        console.log('Error processing parse status for solicitation ' + data.solNum);
+        data.parseStatus = [{
+          formattedDate: '', 
+          postedDate: null, 
+          name: '', 
+          status: '', 
+          attachment_url: ''
+        }];
+      }
+   
+      this.step1 = data.history?.filter(e => 
+        e['action'].indexOf('reviewed solicitation action requested summary') > -1
+      ).length > 0;
+   
+      this.step2 = data.history?.filter(e =>
+        e['action'].indexOf('sent email to POC') > -1
+      ).length > 0;
+   
+      this.step3 = data.history?.filter(e =>
+        e['action'].indexOf('provided feedback on the solicitation prediction result') > -1
+      ).length > 0;
+   
+      this.solicitation = data;
+      this.solicitationID = data.id;
+   
+      const totalDoc = Number(this.solicitation.numDocs);
+      if (!isNaN(totalDoc)) {
+        if (totalDoc !== this.solicitation.parseStatus.length) {
+          const lock = totalDoc - this.solicitation.parseStatus.length;
+          this.lockDocs = Array(lock).fill(0).map((_, i) => i + 1);
+        }
+      }
+   
+    } else {
+      this.subscription = this.route.params.subscribe(params => {
         this.solicitationID = params['id'];
-        // console.log(this.solicitationID);
-        this.solicitationService.getSolicitation(this.solicitationID).subscribe(
-          {next: data => {
+        this.solicitationService.getSolicitation(this.solicitationID).subscribe({
+          next: data => {
             if (data.parseStatus && Array.isArray(data.parseStatus)) {
               data.parseStatus.forEach(element => {
-                if (element.status === 'successfully parsed') {
-                  element.status = 'Yes';
-                } else if (element.status === 'processing error') {
-                  element.status = 'No';
-                }
+                element.status = element.status === 'successfully parsed' ? 'Yes' : 
+                                element.status === 'processing error' ? 'No' : 
+                                element.status;
                 element.formattedDate = moment(element.postedDate).format('L');
               });
             } else {
-              console.log ('Error processing parse status for solicitation ' + data.solNum);
-              data.parseStatus = [{formattedDate: '', postedDate: null, name: '', status: '', attachment_url: ''}];
+              console.log('Error processing parse status for solicitation ' + data.solNum);
+              data.parseStatus = [{
+                formattedDate: '', 
+                postedDate: null,
+                name: '',
+                status: '',
+                attachment_url: ''
+              }];
             }
-
-            this.step1 = data.history.filter( function(e) {
-              return e['action'].indexOf('reviewed solicitation action requested summary') > -1;
-            }).length > 0;
-            this.step2 = data.history.filter( function(e) {
-              return e['action'].indexOf('sent email to POC') > -1;
-            }).length > 0;
-            this.step3 = data.history.filter( function(e) {
-              return e['action'].indexOf('provided feedback on the solicitation prediction result') > -1;
-            }).length > 0;
-
+   
+            this.step1 = data.history?.filter(e =>
+              e['action'].indexOf('reviewed solicitation action requested summary') > -1
+            ).length > 0;
+   
+            this.step2 = data.history?.filter(e =>
+              e['action'].indexOf('sent email to POC') > -1
+            ).length > 0;
+   
+            this.step3 = data.history?.filter(e =>
+              e['action'].indexOf('provided feedback on the solicitation prediction result') > -1
+            ).length > 0;
+   
             this.solicitation = data;
-
+   
             const totalDoc = Number(this.solicitation.numDocs);
-
             if (!isNaN(totalDoc)) {
-              // doesn't have lock files
-              if (totalDoc === this.solicitation.parseStatus.length) {
-              } else {
+              if (totalDoc !== this.solicitation.parseStatus.length) {
                 const lock = totalDoc - this.solicitation.parseStatus.length;
-                this.lockDocs = [];
-                for (let i = 1; i <= lock; i++) {
-                  this.lockDocs.push(i);
-                }
+                this.lockDocs = Array(lock).fill(0).map((_, i) => i + 1);
               }
             }
-
           },
-          error: err => console.log(err)}
-        );
+          error: err => console.log(err)
+        });
       });
-  }
-
+    }
+   }
+   
   onNotApplicableClick(event) {
     this.solicitation.na_flag = event.target.checked;
     this.solicitationService.update(this.solicitation)
@@ -118,5 +162,9 @@ export class ResultsDetailComponent implements OnInit {
 
       this.$gaService.event('not_applicable', 'make_srt_better', 'Not Applicable');
 
+  }
+
+  onClickTabs(action: string, label: string): void {
+    this.$gaService.event(action, "solicitation_tab", label);
   }
 }
