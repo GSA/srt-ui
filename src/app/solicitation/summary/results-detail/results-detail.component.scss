@@ -1,64 +1,65 @@
-.tooltip-wrapper {
-  position: relative;
-  display: inline-block;
-  margin-left: 5px;
+/* Status badge - used in status-badge--compliant and status-badge--non-compliant classes */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  margin: 1rem 0;
 }
 
-.tooltip-wrapper .tooltip-text {
-  visibility: hidden;
-  background-color: #1b1b1b;
-  color: #fff;
-  text-align: left;
-  padding: 8px;
-  border-radius: 4px;
-  position: absolute;
-  z-index: 1;
-  width: 300px;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-top: 5px;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 1.5;
+.status-badge--compliant {
+  color: #00a91c;
 }
 
-.tooltip-wrapper:hover .tooltip-text {
-  visibility: visible;
+.status-badge--non-compliant {
+  color: #d83933;
 }
 
-/* Add arrow */
-.tooltip-wrapper .tooltip-text::after {
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent #1b1b1b transparent;
-}
-.tooltip-wrapper {
-  vertical-align: super; /* Positions tooltips as superscript */
-  font-size: 0.8em; /* Adjust font size if needed */
+.check-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  padding: 0.25rem;
+  border-radius: 50%;
 }
 
-#art {
-  background-color: #fa9441;
-  outline: 0.25rem solid #2491ff;
-  color: #1b1b1b;
-  float: left;
-  width: auto;
-  font-weight: bold;
+.status-badge--compliant .check-icon {
+  background-color: #00a91c;
 }
 
-#art:hover {
-  background-color: #c05600;
-  color: white;
-  font-weight: bold;
+.status-badge--non-compliant .check-icon {
+  background-color: #d83933;
 }
 
-table td {
-  padding: 0 20px;
+.check-icon path {
+  fill: white;
 }
 
+/* Layout containers */
+.feedback-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.main-content {
+  margin: 0;
+  padding: 2rem 0;
+}
+
+/* Icon styles */
+.icon-link {
+  font-size: 16px;
+  padding-left: 5px;
+  vertical-align: middle;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .feedback-container {
+    padding: 0 1rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+}
