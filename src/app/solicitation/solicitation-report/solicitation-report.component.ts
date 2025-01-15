@@ -30,7 +30,7 @@ interface TableState {
   styleUrls: ['./solicitation-report.component.scss']
 })
 export class SolicitationReportComponent extends BaseComponent implements OnInit {
-
+  today: Date = new Date(); 
 
 
   /* ATTRIBUTES */
