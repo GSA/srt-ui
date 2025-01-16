@@ -35,4 +35,16 @@ describe('ArtIframeDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should clear art_body on clearAll', () => {
+    component.art_body = { someKey: 'someValue' };
+    component.clearAll();
+    expect(component.art_body).toEqual({});
+  });
+
+  it('should clear art_body on updateLanguage', () => {
+    component.art_body = { someKey: 'someValue' };
+    component.updateLanguage();
+    expect(component.art_body).toEqual({});
+  });
 });
