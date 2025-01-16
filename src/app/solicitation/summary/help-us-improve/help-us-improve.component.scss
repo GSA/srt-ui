@@ -1,105 +1,207 @@
+/* Base styles following USWDS */
+body {
+    margin: 0;
+    font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+    line-height: 1.5;
+    color: #1b1b1b;
+}
+
+/* Layout */
 .feedback-container {
-    max-width: 1200px;
+    max-width: 64rem;
     margin: 0 auto;
     padding: 0 2rem;
 }
 
-.back-link {
-    font-weight: 500;
-    color: #0050d8;
-    text-decoration: none;
+.main-content {
+    margin: 0;
+    padding: 2rem 0;
 }
 
-.back-link:hover {
-    text-decoration: underline;
+/* Typography - USWDS text styles */
+h1 {
+    font-family: "Merriweather", "Georgia", "Cambria", "Times New Roman", "Times", serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: #1b1b1b;
 }
 
 .description {
     margin-bottom: 2rem;
-    color: #3d4551;
+    color: #1b1b1b;
+    max-width: 50rem;
+    line-height: 1.6;
+}
+
+/* USWDS Form Elements */
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-group p {
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+/* Radio buttons - USWDS style */
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.radio-group label {
+    display: block;
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+}
+
+.radio-group input[type="radio"] {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0;
+}
+
+/* Textarea - USWDS style */
+textarea {
+    width: 100%;
+    max-width: 50rem;
+    padding: 0.5rem;
+    border: 2px solid #565c65;
+    border-radius: 0;
+    font-size: 1rem;
+    line-height: 1.3;
+    margin-top: 0.5rem;
+}
+
+textarea:focus {
+    outline: 0.25rem solid #2491ff;
+    outline-offset: 0;
+}
+
+/* Back link - USWDS style */
+.back-link {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: #005ea2;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.back-link:hover {
+    color: #0b4778;
+    text-decoration: underline;
+}
+
+/* Solicitation info */
+.solicitation-info {
+    max-width: 50rem;
+    margin-top: 2rem;
 }
 
 .list {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
 .list-title {
-    font-weight: bold;
-    min-width: 142px;
+    font-weight: 700;
+    color: #1b1b1b;
 }
 
+/* Status badge - USWDS colors */
 .status-badge {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-weight: 500;
+    font-weight: 700;
+    padding: 0.5rem;
+    border-radius: 2px;
     margin: 1rem 0;
 }
 
 .status-badge--compliant {
-    color: #00a91c;
+    background-color: #ecf3ec;
+    color: #216e1f;
 }
 
 .status-badge--non-compliant {
-    color: #d83933;
+    background-color: #f4e3db;
+    color: #b50909;
+}
+
+.status-badge--cannot-evaluate {
+    background-color: #faf3d1;
+    color: #936f38;
 }
 
 .check-icon {
     width: 1.25rem;
     height: 1.25rem;
-    padding: 0.25rem;
-    border-radius: 50%;
 }
 
-.check-icon path {
-    fill: white;
-}
-
-.form-group {
-    margin-bottom: 2rem;
-}
-
-.radio-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.radio-group label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-textarea {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-}
-
+/* Submit button - USWDS style */
 .submit-button {
-    background-color: #1a4480;
+    background-color: #005ea2;
     color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 4px;
-    font-weight: 500;
+    border: 0;
+    border-radius: 0.25rem;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    font-weight: 700;
     cursor: pointer;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
 }
 
 .submit-button:hover {
-    background-color: #112f56;
+    background-color: #0b4778;
 }
 
-.success-message,
+.submit-button:disabled {
+    background-color: #c9c9c9;
+    cursor: not-allowed;
+}
+
+/* Messages */
+.success-message {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #ecf3ec;
+    border-left: 0.5rem solid #216e1f;
+    color: #216e1f;
+}
+
 .info-message {
     margin-top: 1rem;
     padding: 1rem;
-    background-color: #e7f4e4;
-    border: 1px solid #00a91c;
-    color: #2e8540;
+    background-color: #e7f6f8;
+    border-left: 0.5rem solid #009ec1;
+    color: #1b1b1b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 48em) {
+    .feedback-container {
+        padding: 0 1rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .list {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
 }
