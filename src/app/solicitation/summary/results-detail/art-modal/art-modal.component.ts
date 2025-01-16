@@ -257,6 +257,8 @@ export class ArtIframeDialogComponent {
 
           }
 
+          this.art_body = {};
+
         },
         error: error => {
           let errors: string[] = [];
@@ -291,6 +293,7 @@ export class ArtIframeDialogComponent {
     this.selectedSubcategories = [];
     this.display = 'none';
     this.art_language = null;
+    this.art_body = {};
 
     this.categories.forEach(category => {
       category.isChecked = false
@@ -371,6 +374,7 @@ export class ArtIframeDialogComponent {
     }
 
     this.art_language = []; // Remove art language
+    this.art_body = {}; // Remove art body
     this.display = 'none';
   }
 
