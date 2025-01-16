@@ -133,41 +133,38 @@ export class HelpUsImproveComponent implements OnInit {
    * get survey questions
    */
   getSurveys(solNum) {
-      this.surveyService.getSurveys().subscribe(
+    this.surveyService.getSurveys().subscribe(
         data => {
-          this.surveys = data.sort(function(a, b){
-            const aNum = +a.ID;
-            const bNum = +b.ID;
-            if (aNum > bNum) {
-              return 1;
-            } else {
-              return -1;
-            }
-          });
-          for (let i = 0; i < data.length; i++) {
-            this.surveyModel.push('');
-          }
+          // Remove duplicates based on ID
+          this.surveys = [...new Map(data.map(item => [item.ID, item])).values()]
+            .sort((a, b) => {
+              const aNum = +a.ID;
+              const bNum = +b.ID;
+              return aNum > bNum ? 1 : -1;
+            });
 
-          // now get the previous results and fill them in
+          // Initialize survey model
+          this.surveyModel = new Array(this.surveys.length).fill('');
+
+          // Get previous results and fill them in
           this.surveyService.getSurveyResults(solNum).subscribe(
             (feedback: any) => {
               this.previousAnswers = feedback;
               for (const f of feedback.responses) {
                 // checkbox
-                if (data[f.questionID].Type === 'choose one') {
-                  this.checkBox(data[f.questionID], f.answer, true);
+                if (this.surveys[f.questionID].Type === 'choose one') {
+                  this.checkBox(this.surveys[f.questionID], f.answer, true);
                 }
                 // textbox
-                if (data[f.questionID].Type === 'essay') {
-                  this.textarea(data[f.questionID], f.answer);
+                if (this.surveys[f.questionID].Type === 'essay') {
+                  this.textarea(this.surveys[f.questionID], f.answer);
                 }
               }
             }
           );
-
         }
-      );
-  }
+    );
+}
 
   /**
    * send out a feedback
