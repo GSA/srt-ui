@@ -12,6 +12,7 @@
         </svg>
         {{ solicitation?.reviewRec }}
       </div>
+
       <a [routerLink]="['/solicitation/history', solicitationID]"
         [class.usa-button--active]="type==='history'"
         class="usa-button usa-button--outline margin-x-2 padding-x-2"
@@ -19,11 +20,29 @@
         History
       </a>
 
-      <div *ngIf="solicitation?.reviewRec !== 'Compliant'" class="usa-alert usa-alert--warning margin-top-2">
-        <div class="usa-alert__body">
-          <p class="usa-alert__text">Solicitation does not include required 508 language.</p>
-          <p class="usa-alert__text">Use the ART tool to get the appropriate 508 language for this solicitation.</p>
-          <app-art-modal></app-art-modal>
+      <div class="grid-row grid-gap">
+        <div class="tablet:grid-col-8">
+          <div class="font-sans-md" *ngIf="solicitation">
+            <div class="margin-bottom-05">
+              <a class="usa-link" target="_blank" href="{{solicitation.url}}" rel="noopener noreferrer">{{solicitation.url}}</a>
+            </div>
+            <div class="margin-bottom-05" *ngIf="solicitation.reviewRec !== 'Not Applicable'">
+              <span class="text-bold">Results:&nbsp;</span>
+              <span class="font-sans-md">{{solicitation.reviewRec}}</span>
+            </div>
+            
+            <div *ngIf="solicitation?.reviewRec !== 'Compliant'" class="usa-alert usa-alert--warning margin-top-2">
+              <div class="usa-alert__body">
+                <p class="usa-alert__text">Solicitation does not include required 508 language.</p>
+                <p class="usa-alert__text">Use the ART tool to get the appropriate 508 language for this solicitation.</p>
+                <div class="grid-row padding-top-2">
+                  <div class="tablet:grid-col-8">
+                    <app-art-modal></app-art-modal>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

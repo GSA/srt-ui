@@ -47,12 +47,10 @@ describe('FaqComponent', () => {
     const mockElement = document.createElement('div');
     mockElement.id = 'test';
     spyOn(document, 'getElementById').and.returnValue(mockElement);
-    spyOn($.fn, 'animate');
+    spyOn(mockElement, 'scrollIntoView');
     component.scroll('test');
     expect(document.getElementById).toHaveBeenCalledWith('test');
-    expect($.fn.animate).toHaveBeenCalledWith({
-      scrollTop: $(mockElement).offset().top - 80
-    });
+    expect(mockElement.scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth', block: 'start' });
   });
 
   it('should search for text', () => {
