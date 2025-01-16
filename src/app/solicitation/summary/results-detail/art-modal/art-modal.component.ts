@@ -177,7 +177,7 @@ export class ArtIframeDialogComponent {
   }
 
   processCategory(category){
-    console.log('category (processCategory):', category)
+    console.debug('category (processCategory):', category)
 
     let artBody = {}
 
@@ -202,7 +202,7 @@ export class ArtIframeDialogComponent {
       artBody[category.art_api] = true
     }
 
-    console.log('Art Body (processCategory):', artBody)
+    console.debug('Art Body (processCategory):', artBody)
 
     return artBody
 
@@ -210,8 +210,8 @@ export class ArtIframeDialogComponent {
 
   createARTBody(){
     // Make ART JSON body in structure shown above
-    //console.log('selected Categories:', this.selectedCategories)
-    //console.log('selected SubCategories:', this.selectedSubcategories)
+    //console.debug('selected Categories:', this.selectedCategories)
+    //console.debug('selected SubCategories:', this.selectedSubcategories)
     
     this.categories.forEach(category => {
 
@@ -226,8 +226,8 @@ export class ArtIframeDialogComponent {
 
   onSubmit(): void {
     // Process ART data here
-    console.log('Selected Categories:', this.selectedCategories)
-    console.log('Selected Subcategories:', this.selectedSubcategories)
+    console.debug('Selected Categories:', this.selectedCategories)
+    console.debug('Selected Subcategories:', this.selectedSubcategories)
 
     if (this.selectedCategories.length === 0 && this.selectedSubcategories.length === 0) {
       this.alert_display = 'inherit'
@@ -239,19 +239,19 @@ export class ArtIframeDialogComponent {
     
     this.createARTBody()
 
-    console.log('Art Body:', this.art_body)
+    console.debug('Art Body:', this.art_body)
 
 
     this.artService.getArtLanguage(this.art_body)
       .subscribe({
         next: data => {
-          console.log('Art Language Data:', data)
+          console.debug('Art Language Data:', data)
           this.art_language = data;
 
           if (data) {
             this.display = 'inherit'
             this.solicitationService.postSolicitationART(this.solicitationId, data).subscribe({
-              next: (response) => console.log('Post Solicitation ART Response:', response),
+              next: (response) => console.debug('Post Solicitation ART Response:', response),
               error: (error) => console.error('Post Solicitation ART Error:', error)
             })
 
@@ -265,8 +265,8 @@ export class ArtIframeDialogComponent {
 
           const replaceFieldNames = (error: string, fieldNames: { [key: string]: string }): string => {
             return error.replace(/'([^']+)'/g, (match, p1) => {
-              console.log('Match:', match)
-              console.log('P1:', p1)
+              console.debug('Match:', match)
+              console.debug('P1:', p1)
               const parts = p1.split('.');
               const art_api = parts[parts.length - 1];
               return fieldNames[art_api] ? `'${fieldNames[art_api]}'` : match;
@@ -285,7 +285,7 @@ export class ArtIframeDialogComponent {
         }
       });
       
-      console.log('Art Language:', this.art_language)
+      console.debug('Art Language:', this.art_language)
   }
 
   clearAll() {
@@ -322,7 +322,7 @@ export class ArtIframeDialogComponent {
   }
 
   onCategoryChange(selected) {
-    console.log('Selected:', selected)
+    console.debug('Selected:', selected)
 
     this.selectedCategories = selected.selectedCategories;
     let parent = selected.parent;
@@ -335,13 +335,13 @@ export class ArtIframeDialogComponent {
 
     } 
 
-    console.log('Selected Subcategories:', this.selectedSubcategories)
+    console.debug('Selected Subcategories:', this.selectedSubcategories)
   }
 
   copyToClipBoard(elem) {
     navigator.clipboard.writeText(elem.innerText)
       .then(() => {
-        console.log('Text copied to clipboard');
+        console.debug('Text copied to clipboard');
         // Additional code after copying to clipboard
       })
       .catch((error) => {
