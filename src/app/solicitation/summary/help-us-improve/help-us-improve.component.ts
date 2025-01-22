@@ -39,10 +39,9 @@ export class HelpUsImproveComponent implements OnInit {
     private $gaService: GoogleAnalyticsService
   ) { }
 
-  // Add these new methods
   trackBackClick(): void {
     this.$gaService.event('navbar_solicitation_report', 'navbar_click');
-    this.router.navigateByUrl('/solicitation/report').catch(r => console.log(r));
+    this.router.navigateByUrl(`/solicitation/report/${this.solicitationID}`).catch(r => console.log(r));
   }
 
   trackSolicitationClick(solNum: string): void {

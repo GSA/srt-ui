@@ -2,7 +2,7 @@
 #header {
   width: 100%;
   background-color: white;
-  border-bottom: 0.0625rem solid #dfe1e2; /* 1px */
+  border-bottom: 0.0625rem solid #dfe1e2; 
 }
 
 .usa-header {
@@ -11,7 +11,7 @@
 }
 
 .grid-container-widescreen {
-  max-width: 75rem; /* 1200px */
+  max-width: 75rem; 
   margin: 0 auto;
   padding: 0 2rem;
 }
@@ -32,12 +32,12 @@
   gap: 1rem;
 
   .gsa-logo-img {
-    height: 3.125rem; /* 50px */
+    height: 3.125rem; 
     width: auto;
   }
 
   .srt-logo-img {
-    height: 2rem; /* 32px */
+    height: 2rem; 
     width: auto;
   }
 }
