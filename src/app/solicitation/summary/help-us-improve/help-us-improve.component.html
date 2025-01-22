@@ -1,7 +1,7 @@
 <div class="feedback-container">
   <main class="main-content">
     <div class="srt-title-padding">
-      <a [routerLink]="['/solicitation/report']" class="back-link">
+      <a class="back-link" (click)="trackBackClick()">
         < Back to Solicitation Review Results for Section 508 Requirements
       </a>
     </div>
@@ -17,7 +17,13 @@
       <div class="list">
         <div class="list-title">Solicitation Number:</div>
         <div class="list-content">
-          <a [href]="solicitation.url" target="_blank" rel="noopener noreferrer" class="usa-link">{{solicitation.solNum}}</a>
+          <a [href]="solicitation.url" 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             class="usa-link" 
+             (click)="trackSolicitationClick(solicitation.solNum.toString())">
+            {{solicitation.solNum}}
+          </a>
         </div>
       </div>
 
@@ -34,42 +40,49 @@
         {{ solicitation?.reviewRec }}
       </div>
 
-      <div *ngFor="let survey of surveys">
-        <div *ngIf="survey.Type === 'choose one'" class="form-group">
-          <p>{{survey.Question}}</p>
-          <div class="radio-group">
-            <label>
-              <input type="radio" [name]="'question'+survey.ID" value="yes" 
-                     (change)="checkBox(survey, 'yes', $event.target.checked)">
-              Yes
-            </label>
-            <label>
-              <input type="radio" [name]="'question'+survey.ID" value="no"
-                     (change)="checkBox(survey, 'no', $event.target.checked)">
-              No
-            </label>
+      <div *ngIf="feedbackSent && !submissionComplete" class="info-message">
+        You have previously provided feedback for this solicitation. You can submit again to update your response.
+      </div>
+
+      <form (ngSubmit)="submitFeedback()">
+        <div *ngFor="let survey of surveys">
+          <div *ngIf="survey.Type === 'choose one'" class="form-group">
+            <p>{{survey.Question}}</p>
+            <div class="radio-group">
+              <label>
+                <input type="radio" 
+                       [name]="'question'+survey.ID" 
+                       value="yes" 
+                       (change)="checkBox(survey, 'yes', $event.target.checked)">
+                Yes
+              </label>
+              <label>
+                <input type="radio" 
+                       [name]="'question'+survey.ID" 
+                       value="no"
+                       (change)="checkBox(survey, 'no', $event.target.checked)">
+                No
+              </label>
+            </div>
+          </div>
+
+          <div *ngIf="survey.Type === 'essay'" class="form-group">
+            <p>{{survey.Question}}</p>
+            <textarea rows="6" 
+                      (input)="textarea(survey, $event.target.value)"
+                      class="usa-textarea"></textarea>
           </div>
         </div>
 
-        <div *ngIf="survey.Type === 'essay'" class="form-group">
-          <p>{{survey.Question}}</p>
-          <textarea rows="6" (input)="textarea(survey, $event.target.value)"></textarea>
-        </div>
-      </div>
-
-      <button type="submit" 
-              class="submit-button" 
-              (click)="feedback()" 
-              [disabled]="submissionInProgress || feedbackSent">
-        {{submissionInProgress ? 'Submitting...' : (feedbackSent ? 'Feedback Sent' : 'Submit')}}
-      </button>
+        <button type="submit" 
+                class="submit-button"
+                [disabled]="submissionInProgress">
+          {{submissionInProgress ? 'Submitting...' : 'Submit Feedback'}}
+        </button>
+      </form>
 
       <div *ngIf="submissionComplete" class="success-message">
         Thank you for your feedback!
-      </div>
-
-      <div *ngIf="feedbackSent && !submissionComplete" class="info-message">
-        You have already provided feedback for this solicitation.
       </div>
     </div>
   </main>

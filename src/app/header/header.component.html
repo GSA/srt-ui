@@ -13,23 +13,23 @@
                 <!-- Right Side: Navigation -->
                 <ul class="right-nav-group">
                     <li class="nav-item">
-                        <a [routerLink]="['/home']" class="nav-link">Home</a>
+                        <a [routerLink]="['/home']" class="nav-link" (click)="menuClick('/home')">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a [routerLink]="['/solicitation/report']" class="nav-link">Daily Report</a>
+                        <a [routerLink]="['/solicitation/report']" class="nav-link" (click)="menuClick('/solicitation/report')">Daily Report</a>
                     </li>
                     <!-- Admin-only navigation items -->
                     <li class="nav-item" *ngIf="isGSAAdmin">
-                        <a [routerLink]="['/analytics']" class="nav-link" id="nav-analytics">Analytics</a>
+                        <a [routerLink]="['/analytics']" class="nav-link" id="nav-analytics" (click)="menuClick('/analytics')">Analytics</a>
                     </li>
                     <li class="nav-item" *ngIf="isGSAAdmin">
-                        <a [routerLink]="['/admin']" class="nav-link" tabindex="{{ isGSAAdmin ? 0 : -1}}">Administration</a>
+                        <a [routerLink]="['/admin']" class="nav-link" tabindex="{{ isGSAAdmin ? 0 : -1}}" (click)="menuClick('/admin')">Administration</a>
                     </li>
                     <li class="nav-item">
-                        <a [routerLink]="['/help/contactus']" class="nav-link">Contact us</a>
+                        <a [routerLink]="['/help/contactus']" class="nav-link" (click)="menuClick('/help/contactus')">Contact us</a>
                     </li>
                     <li class="nav-item">
-                        <a href="https://app.buyaccessible.gov/" target="_blank" rel="noopener noreferrer" class="nav-link">
+                        <a href="https://app.buyaccessible.gov/" target="_blank" rel="noopener noreferrer" class="nav-link" (click)="menuClick('art-tool')">
                             ART tool
                             <svg class="external-link-icon" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24">
                                 <path d="M5 3c-1.093 0-2 .907-2 2v14c0 1.093.907 2 2 2h14c1.093 0 2-.907 2-2v-7h-2v7H5V5h7V3H5zm9 0v2h3.586l-9.293 9.293 1.414 1.414L19 6.414V10h2V3h-7z"/>
@@ -37,7 +37,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a [routerLink]="['/help/faq']" class="nav-link">FAQs</a>
+                        <a [routerLink]="['/help/faq']" class="nav-link" (click)="menuClick('/help/faq')">FAQs</a>
                     </li>
                     <li class="nav-item">
                         <a href="javascript:void(0)" (click)="onLogout()" (blur)="popUpMenuLostFocus()"

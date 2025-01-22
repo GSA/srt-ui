@@ -2,7 +2,7 @@
 #header {
   width: 100%;
   background-color: white;
-  border-bottom: 1px solid #dfe1e2;
+  border-bottom: 0.0625rem solid #dfe1e2; /* 1px */
 }
 
 .usa-header {
@@ -11,7 +11,7 @@
 }
 
 .grid-container-widescreen {
-  max-width: 1200px;
+  max-width: 75rem; /* 1200px */
   margin: 0 auto;
   padding: 0 2rem;
 }
@@ -32,12 +32,12 @@
   gap: 1rem;
 
   .gsa-logo-img {
-    height: 50px;
+    height: 3.125rem; /* 50px */
     width: auto;
   }
 
   .srt-logo-img {
-    height: 32px;
+    height: 2rem; /* 32px */
     width: auto;
   }
 }
@@ -83,29 +83,32 @@
 
 /* External link icon styling */
 .external-link-icon {
-  margin-left: 4px;
+  margin-left: 0.25rem; 
   fill: currentColor;
   vertical-align: middle;
   display: inline-block;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .grid-container-widescreen {
-    padding: 0 1rem;
-  }
+.grid-container-widescreen {
+  width: 100%;
+  max-width: 100vh;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
 
+/* Responsive adjustments */
+@media (max-width: 48rem) { 
   .right-nav-group {
     gap: 1rem;
   }
 
   .logo-container {
     .gsa-logo-img {
-      height: 40px;
+      height: 2.5rem; 
     }
 
     .srt-logo-img {
-      height: 24px;
+      height: 1.5rem; 
     }
   }
 }
