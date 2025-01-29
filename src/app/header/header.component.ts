@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
   public currentID = '';
   @Input() isLogin;
   @Input() isGSAAdmin;
+  @Input() isApproved;
 
   /* CONSTRUCTORS */
 

@@ -6,8 +6,16 @@
     </h3>
   </div>
 
+  <div class="usa-alert usa-alert--error" *ngIf="isLogin && !isApproved" role="alert">
+    <div class="usa-alert__body">
+      <h4 class="usa-alert__heading">Request Access</h4>
+      <p class="usa-alert__text">
+        Your account is not approved. Please contact the SRT administrator (<a class="usa-link" href="mailto:srt@gsa.gov">srt&#64;gsa.gov</a>) to request access.
+      </p>
+    </div>
+  </div>
 
-  <div class="grid-row">
+  <div class="grid-row" *ngIf="!isLogin">
     <div class="grid-col-12">
       <div class="grid-row usa-prose">
         <div class="grid-col-8 tablet:grid-col-8 desktop:grid-col-8 desktop:grid-offset-2">

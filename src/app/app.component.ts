@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
 
   /* ATTRIBUTES */
 
+  isApproved = false;
   isLogin = false;
   isGSAAdmin = false;
   firstName = '';
@@ -45,12 +46,14 @@ export class AppComponent implements OnInit {
     authService.checkToken().subscribe(
       {
         next: (data) => {
-        this.authGuard.isLogin = data.isLogin;
-        this.authGuard.isGSAAdmin = data.isGSAAdmin;
-        this.isLogin = this.authGuard.isLogin;
-        this.isGSAAdmin = this.authGuard.isGSAAdmin;
-        this.firstName = localStorage.getItem('firstName');
-        this.lastName = localStorage.getItem('lastName');
+          this.authGuard.isApproved = data.isApproved;
+          this.authGuard.isLogin = data.isLogin;
+          this.authGuard.isGSAAdmin = data.isGSAAdmin;
+          this.isLogin = this.authGuard.isLogin;
+          this.isGSAAdmin = this.authGuard.isGSAAdmin;
+          this.isApproved = this.authGuard.isApproved;
+          this.firstName = localStorage.getItem('firstName');
+          this.lastName = localStorage.getItem('lastName');
         
         //console.log('data:', data);
         //console.log('this:', this);

@@ -18,6 +18,7 @@ export class AuthGuard  {
   /* ATTRIBUTES */
 
   public isLogin = false;
+  public isApproved = false;
   public isGSAAdmin = false;
 
   /* CONSTRUCTOR */
@@ -52,7 +53,11 @@ export class AuthGuard  {
        this.authService.checkToken().subscribe(
         (data) => {
           this.isLogin = data.isLogin;
-          if (data.isLogin) {
+          this.isApproved = data.isApproved;
+
+          console.log('data:', data);
+
+          if (data.isLogin && data.isApproved) {
             this.router.navigate([url]).catch(r => console.log(r));
             return true;
           } else {
