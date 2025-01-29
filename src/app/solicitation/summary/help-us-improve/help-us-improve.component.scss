@@ -1,146 +1,207 @@
-/* Layout and content styling */
-.usa-layout-container {
-    max-width: 1200px;
+/* Base styles following USWDS */
+body {
+    margin: 0;
+    font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+    line-height: 1.5;
+    color: #1b1b1b;
+}
+
+/* Layout */
+.feedback-container {
+    max-width: 64rem;
     margin: 0 auto;
+    padding: 0 2rem;
 }
 
-.margin-bottom-4 {
+.main-content {
+    margin: 0;
+    padding: 2rem 0;
+}
+
+/* Typography - USWDS text styles */
+h1 {
+    font-family: "Merriweather", "Georgia", "Cambria", "Times New Roman", "Times", serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
     margin-bottom: 1rem;
+    color: #1b1b1b;
 }
 
-.padding-x-4 {
-    padding-left: 1rem;
-    padding-right: 1rem;
+.description {
+    margin-bottom: 2rem;
+    color: #1b1b1b;
+    max-width: 50rem;
+    line-height: 1.6;
 }
 
-/* Typography */
-.text-bold {
+/* USWDS Form Elements */
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-group p {
+    margin-bottom: 1rem;
     font-weight: 700;
 }
 
-.text-base {
-    font-size: 1rem;
+/* Radio buttons - USWDS style */
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
 }
 
-/* Checkbox and Radio Button Styling */
-[type=checkbox] + label, [type=radio] + label {
-    cursor: pointer;
-    font-weight: 400;
-    margin-bottom: 0.5em;
-}
-
-.usa-checkbox__input, input[type="checkbox"], input[type="radio"] {
-    box-sizing: border-box;
-    padding: 0;
-    margin-right: 5px;
-    width: 1em;
-    height: 1em;
-}
-
-.usa-checkbox__label {
-    font-weight: 400;
-    margin-left: 0.5em;
-}
-
-/* Alerts */
-.usa-alert {
-    padding: 1rem;
-    border: 1px solid #dadada;
-    margin-bottom: 1rem;
-    font-weight: 600;
-}
-
-.usa-alert--success {
-    background-color: #e1f3e6;
-    border-color: #198038;
-}
-
-.usa-alert--info {
-    background-color: #e1eff6;
-    border-color: #005ea2;
-}
-
-.usa-alert__heading {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-}
-
-.usa-alert__text {
-    font-size: 1rem;
-}
-
-/* Form and Fieldset Styling */
-.usa-form {
-    margin-top: 1rem;
-}
-
-.usa-fieldset {
-    margin-top: 1rem;
-    border: none;
-    padding: 0;
-}
-
-.usa-legend {
-    font-weight: 700;
-    font-size: 1.1rem;
-}
-
-.usa-label {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+.radio-group label {
     display: block;
-}
-
-/* Textarea */
-.usa-textarea {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0.5rem;
-    font-size: 1rem;
-}
-
-/* Instruction Box */
-#instruction {
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 1.25rem 1.5rem;
-    border: 1px solid #dadada;
-}
-
-/* Button */
-.usa-button {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    text-align: center;
-    display: inline-block;
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 0.5rem;
     cursor: pointer;
 }
 
-.usa-button--big {
-    font-size: 1.25rem;
+.radio-group input[type="radio"] {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0;
 }
 
-/* Set font size for questions to 18px and use USWDS font */
-.font-heading-lg {
-    font-size: 18px;
-    font-family: var(--font-sans, 'Public Sans', sans-serif); /* USWDS default sans-serif */
-  }
-  
-  /* Add border radius to checkboxes */
-  .usa-checkbox__input {
-    border-radius: 4px;
-  }
-  
-  /* Style for textarea with padding and larger min-height for 'Additional feedback' */
-  .usa-textarea {
+/* Textarea - USWDS style */
+textarea {
+    width: 100%;
+    max-width: 50rem;
     padding: 0.5rem;
-    border-radius: 4px;
-  }
-  
-  .usa-textarea[aria-labelledby*="additional-feedback"] {
-    min-height: 150px;
-  }
-  
-  .usa-card__heading {
-    font-family: 'Public Sans', sans-serif; /* USWDS sans-serif font */
-  }
+    border: 2px solid #565c65;
+    border-radius: 0;
+    font-size: 1rem;
+    line-height: 1.3;
+    margin-top: 0.5rem;
+}
+
+textarea:focus {
+    outline: 0.25rem solid #2491ff;
+    outline-offset: 0;
+}
+
+/* Back link - USWDS style */
+.back-link {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: #005ea2;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.back-link:hover {
+    color: #0b4778;
+    text-decoration: underline;
+}
+
+/* Solicitation info */
+.solicitation-info {
+    max-width: 50rem;
+    margin-top: 2rem;
+}
+
+.list {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.list-title {
+    font-weight: 700;
+    color: #1b1b1b;
+}
+
+/* Status badge - USWDS colors */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    padding: 0.5rem;
+    border-radius: 2px;
+    margin: 1rem 0;
+}
+
+.status-badge--compliant {
+    background-color: #ecf3ec;
+    color: #216e1f;
+}
+
+.status-badge--non-compliant {
+    background-color: #f4e3db;
+    color: #b50909;
+}
+
+.status-badge--cannot-evaluate {
+    background-color: #faf3d1;
+    color: #936f38;
+}
+
+.check-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/* Submit button - USWDS style */
+.submit-button {
+    background-color: #005ea2;
+    color: white;
+    border: 0;
+    border-radius: 0.25rem;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 1.5rem;
+}
+
+.submit-button:hover {
+    background-color: #0b4778;
+}
+
+.submit-button:disabled {
+    background-color: #c9c9c9;
+    cursor: not-allowed;
+}
+
+/* Messages */
+.success-message {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #ecf3ec;
+    border-left: 0.5rem solid #216e1f;
+    color: #216e1f;
+}
+
+.info-message {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #e7f6f8;
+    border-left: 0.5rem solid #009ec1;
+    color: #1b1b1b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 48em) {
+    .feedback-container {
+        padding: 0 1rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .list {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+}

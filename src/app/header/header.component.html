@@ -4,67 +4,44 @@
     <div class="usa-header usa-header--basic">
         <div class="grid-container-widescreen">
             <nav class="usa-nav" role="navigation" aria-label="main navigation">
-                <!-- Left Side: SRT Logo -->
+                <!-- Left Side: Logo Group -->
                 <div class="logo-container">
-                    <a [routerLink]="['/home']" aria-label="SRT Home Page">
-                        <img src="../../assets/srtlogo.png" alt="SRT Logo" height="40">
-                    </a>
+                    <img src="../../assets/gsa-logo.png" alt="GSA Logo" aria-label="GSA Logo" class="gsa-logo-img">
+                    <img src="../../assets/srtlogo.png" alt="SRT Logo" class="srt-logo-img">
                 </div>
 
-                <!-- Center: Main Navigation -->
-                <ul class="usa-nav__primary" *ngIf="isLogin">
-                    <li class="usa-nav__primary-item">
-                        <a [routerLink]="['/home']" class="usa-nav__link" [class.usa-current]="GetHash('home')"
-                            (click)="menuClick('/home')">Home</a>
-                    </li>
-                    <li class="usa-nav__primary-item">
-                        <a [routerLink]="['/solicitation/report']" class="usa-nav__link"
-                            [class.usa-current]="GetHash('solicitation')"
-                            (click)="menuClick('/solicitation/report')">Solicitations</a>
-                    </li>
-                    <li class="usa-nav__primary-item" *ngIf="isGSAAdmin">
-                        <a [routerLink]="['/analytics']" class="usa-nav__link" [class.usa-current]="GetHash('analytics')"
-                            (click)="menuClick('/analytics')" id="nav-analytics">Analytics</a>
-                    </li>
-                    <li class="usa-nav__primary-item" *ngIf="isGSAAdmin">
-                        <a [routerLink]="['/admin']" class="usa-nav__link" [class.usa-current]="GetHash('admin')"
-                            (click)="menuClick('/admin')" [attr.tabindex]="isGSAAdmin ? 0 : -1">Administration</a>
-                    </li>
-                    <li class="usa-nav__primary-item">
-                        <a href="https://app.buyaccessible.gov/" class="usa-nav__link" target="_blank"
-                            rel="noopener noreferrer">Additional Resources</a>
-                    </li>
-                    <li class="usa-nav__primary-item">
-                        <a [routerLink]="['/help/contactus']" class="usa-nav__link"
-                            [class.usa-current]="GetHash('contactus')"
-                            (click)="menuClick('/help/contactus')">Contact Us</a>
-                    </li>
-                    <li class="usa-nav__primary-item">
-                        <a [routerLink]="['/help/faq']" class="usa-nav__link" [class.usa-current]="GetHash('faq')"
-                            (click)="menuClick('/help/faq')">FAQs</a>
-                    </li>
-                </ul>
-
-                <!-- Right Side: User Menu and GSA Logo -->
+                <!-- Right Side: Navigation -->
                 <ul class="right-nav-group">
-                    <li class="nav-item" *ngIf="isLogin">
-                        <div class="user-menu">
-                            <button class="usa-button usa-button--outline" type="button">
-                                Hello, {{firstName}}
-                                <svg class="usa-icon margin-left-05" aria-hidden="true" role="img">
-                                    <use xlink:href="/assets/img/sprite.svg#expand_more"></use>
-                                </svg>
-                            </button>
-                            <ul class="usa-nav__submenu" role="menu">
-                                <li role="none">
-                                    <a href="javascript:void(0)" (click)="onLogout()" (blur)="popUpMenuLostFocus()"
-                                        id="menu-logout" role="menuitem">Log Out</a>
-                                </li>
-                            </ul>
-                        </div>
+                    <li class="nav-item">
+                        <a [routerLink]="['/home']" class="nav-link" (click)="menuClick('/home')">Home</a>
                     </li>
-                    <li class="nav-item gsa-logo-item">
-                        <img src="../../assets/gsa-logo.png" alt="GSA Logo" aria-label="GSA Logo" height="40">
+                    <li class="nav-item">
+                        <a [routerLink]="['/solicitation/report']" class="nav-link" (click)="menuClick('/solicitation/report')">Daily Report</a>
+                    </li>
+                    <!-- Admin-only navigation items -->
+                    <li class="nav-item" *ngIf="isGSAAdmin">
+                        <a [routerLink]="['/analytics']" class="nav-link" id="nav-analytics" (click)="menuClick('/analytics')">Analytics</a>
+                    </li>
+                    <li class="nav-item" *ngIf="isGSAAdmin">
+                        <a [routerLink]="['/admin']" class="nav-link" tabindex="{{ isGSAAdmin ? 0 : -1}}" (click)="menuClick('/admin')">Administration</a>
+                    </li>
+                    <li class="nav-item">
+                        <a [routerLink]="['/help/contactus']" class="nav-link" (click)="menuClick('/help/contactus')">Contact us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://app.buyaccessible.gov/" target="_blank" rel="noopener noreferrer" class="nav-link" (click)="menuClick('art-tool')">
+                            ART tool
+                            <svg class="external-link-icon" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24">
+                                <path d="M5 3c-1.093 0-2 .907-2 2v14c0 1.093.907 2 2 2h14c1.093 0 2-.907 2-2v-7h-2v7H5V5h7V3H5zm9 0v2h3.586l-9.293 9.293 1.414 1.414L19 6.414V10h2V3h-7z"/>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a [routerLink]="['/help/faq']" class="nav-link" (click)="menuClick('/help/faq')">FAQs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" (click)="onLogout()" (blur)="popUpMenuLostFocus()"
+                        class="nav-link" role="menuitem">Log Out</a>
                     </li>
                 </ul>
             </nav>
