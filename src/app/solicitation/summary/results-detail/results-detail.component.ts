@@ -54,6 +54,7 @@ export class ResultsDetailComponent implements OnInit {
   ngOnInit() {
     try {
       const navigation = this.router.getCurrentNavigation();
+      
       if (navigation?.extras?.state?.['solicitation']) {
         const data = navigation.extras.state['solicitation'];
         this.processSolicitationData(data);
@@ -61,17 +62,19 @@ export class ResultsDetailComponent implements OnInit {
         this.loadSolicitationData();
       }
     } catch (error) {
-      console.error('Error initializing component:', error);
-      // Handle error appropriately - could add error state to component
+      console.error('[ngOnInit] Error initializing component:', error);
     }
   }
 
   private loadSolicitationData(): void {
     this.subscription = this.route.params.subscribe(params => {
       this.solicitationID = params['id'];
+      
       this.solicitationService.getSolicitation(this.solicitationID).subscribe({
-        next: data => this.processSolicitationData(data),
-        error: err => console.error('Error fetching solicitation:', err)
+        next: data => {
+          this.processSolicitationData(data);
+        },
+        error: err => console.error('[loadSolicitationData] Error:', err)
       });
     });
   }
@@ -83,37 +86,38 @@ export class ResultsDetailComponent implements OnInit {
       this.setSolicitationData(data);
       this.processDocuments();
     } catch (error) {
-      console.error('Error processing solicitation data:', error);
-      // Handle error appropriately
+      console.error('[processSolicitationData] Error:', error);
     }
   }
 
   private processParseStatus(data: any): void {
     if (data.parseStatus && Array.isArray(data.parseStatus)) {
-      data.parseStatus.forEach(element => {
+      data.parseStatus.forEach((element, index) => {
         element.status = this.mapStatus(element.status);
         element.formattedDate = moment(element.postedDate).format('L');
       });
     } else {
-      console.error('Error processing parse status for solicitation ' + data.solNum);
+      console.warn('[processParseStatus] Invalid parseStatus for solicitation:', data.solNum);
       data.parseStatus = this.getDefaultParseStatus();
     }
   }
 
   private mapStatus(status: string): string {
-    return status === 'successfully parsed' ? 'Yes' :
-           status === 'processing error' ? 'No' :
-           status;
+    const result = status === 'successfully parsed' ? 'Yes' :
+                  status === 'processing error' ? 'No' :
+                  status;
+    return result;
   }
 
   private getDefaultParseStatus(): ParseStatus {
-    return {
+    const defaultStatus = {
       formattedDate: '',
       postedDate: null,
       name: '',
       status: '',
       attachment_url: ''
     };
+    return defaultStatus;
   }
 
   private processSteps(data: any): void {
@@ -123,7 +127,8 @@ export class ResultsDetailComponent implements OnInit {
   }
 
   private checkStepCompletion(history: any[], actionText: string): boolean {
-    return history?.filter(e => e['action'].indexOf(actionText) > -1).length > 0;
+    const result = history?.filter(e => e['action'].indexOf(actionText) > -1).length > 0;
+    return result;
   }
 
   private setSolicitationData(data: any): void {
@@ -140,17 +145,19 @@ export class ResultsDetailComponent implements OnInit {
   }
 
   onNotApplicableClick(event: any): void {
+    console.log('[onNotApplicableClick] Event:', event.target.checked);
     this.solicitation.na_flag = event.target.checked;
     this.solicitationService.update(this.solicitation)
       .subscribe({
-        next: () => {},
-        error: (err) => console.error('Error updating solicitation:', err)
+        next: () => console.log('[onNotApplicableClick] Update successful'),
+        error: (err) => console.error('[onNotApplicableClick] Error:', err)
       });
 
     this.gaService.event('not_applicable', 'make_srt_better', 'Not Applicable');
   }
 
   onClickTabs(action: string, label: string): void {
+    console.log('[onClickTabs]', { action, label });
     this.gaService.event(action, "solicitation_tab", label);
   }
 }
