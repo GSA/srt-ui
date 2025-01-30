@@ -13,13 +13,13 @@ import {AdminGuardFn} from './admin-guard.service';
 
 
 const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: '', redirectTo: 'home', pathMatch: 'full', canActivate: [AuthGuardFn]},
   {path: 'auth', component: AuthComponent},
   {path: 'admin/accepted', component: AdminComponent, canActivate: [AuthGuardFn] , data: { isAccepted: true, isRejected: false }},
   {path: 'admin/masq', component: MasqComponent, canActivate: [AuthGuardFn] , data: {}},
   {path: 'admin', component: AdminComponent, canActivate: [AdminGuardFn] , data: { isAccepted: false, isRejected: false }},
   {path: 'analytics', component: AnalyticsComponent, canActivate: [AdminGuardFn]},
-  {path: 'help', component: HelpComponent},
+  {path: 'help', component: HelpComponent, canActivate: [AuthGuardFn]},
 ];
 
 @NgModule({

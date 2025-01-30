@@ -12,17 +12,17 @@
 
                 <!-- Right Side: Navigation -->
                 <ul class="right-nav-group">
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="isLogin && isApproved">
                         <a [routerLink]="['/home']" class="nav-link" (click)="menuClick('/home')">Home</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="isLogin && isApproved">
                         <a [routerLink]="['/solicitation/report']" class="nav-link" (click)="menuClick('/solicitation/report')">Daily Report</a>
                     </li>
                     <!-- Admin-only navigation items -->
-                    <li class="nav-item" *ngIf="isGSAAdmin">
+                    <li class="nav-item" *ngIf="isLogin && isGSAAdmin">
                         <a [routerLink]="['/analytics']" class="nav-link" id="nav-analytics" (click)="menuClick('/analytics')">Analytics</a>
                     </li>
-                    <li class="nav-item" *ngIf="isGSAAdmin">
+                    <li class="nav-item" *ngIf="isLogin && isGSAAdmin">
                         <a [routerLink]="['/admin']" class="nav-link" tabindex="{{ isGSAAdmin ? 0 : -1}}" (click)="menuClick('/admin')">Administration</a>
                     </li>
                     <li class="nav-item">
@@ -39,7 +39,7 @@
                     <li class="nav-item">
                         <a [routerLink]="['/help/faq']" class="nav-link" (click)="menuClick('/help/faq')">FAQs</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="isLogin">
                         <a href="javascript:void(0)" (click)="onLogout()" (blur)="popUpMenuLostFocus()"
                         class="nav-link" role="menuitem">Log Out</a>
                     </li>
