@@ -43,31 +43,37 @@ export class AppComponent implements OnInit {
     private clientVersionService: ClientVersionService
   ) {
     globals.app = this;
-    authService.checkToken().subscribe(
-      {
-        next: (data) => {
-          this.authGuard.isApproved = data.isApproved;
-          this.authGuard.isLogin = data.isLogin;
-          this.authGuard.isGSAAdmin = data.isGSAAdmin;
-          this.isLogin = this.authGuard.isLogin;
-          this.isGSAAdmin = this.authGuard.isGSAAdmin;
-          this.isApproved = this.authGuard.isApproved;
-          this.firstName = localStorage.getItem('firstName');
-          this.lastName = localStorage.getItem('lastName');
-        
-        //console.log('data:', data);
-        //console.log('this:', this);
+
+    const token = localStorage.getItem('token');
 
 
-        // debugger
-        if (!this.authGuard.isLogin) {
-          // don't clear cache here when using MAX CAS prototype
-          // localStorage.clear();
+    if(token) {
+      authService.checkToken().subscribe(
+        {
+          next: (data) => {
+            this.authGuard.isApproved = data.isApproved;
+            this.authGuard.isLogin = data.isLogin;
+            this.authGuard.isGSAAdmin = data.isGSAAdmin;
+            this.isLogin = this.authGuard.isLogin;
+            this.isGSAAdmin = this.authGuard.isGSAAdmin;
+            this.isApproved = this.authGuard.isApproved;
+            this.firstName = localStorage.getItem('firstName');
+            this.lastName = localStorage.getItem('lastName');
+          
+          //console.log('data:', data);
+          //console.log('this:', this);
+
+
+          // debugger
+          if (!this.authGuard.isLogin) {
+            // don't clear cache here when using MAX CAS prototype
+            // localStorage.clear();
+          }
+          },
+          error: (err: any) => { console.log(err); }
         }
-        },
-        error: (err: any) => { console.log(err); }
-      }
-    );
+      );
+    }
   }
 
   ngOnInit() {

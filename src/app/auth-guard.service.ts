@@ -47,6 +47,14 @@ export class AuthGuard  {
    * @param url
    */
   checkLogin(url: string): boolean {
+
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      this.router.navigate(['/auth']).catch(r => console.log(r));
+      return false;
+    }
+
     if (this.isLogin) {
       return true;
     } else {
