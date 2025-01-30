@@ -63,8 +63,6 @@ export class AuthGuard  {
           this.isLogin = data.isLogin;
           this.isApproved = data.isApproved;
 
-          console.log('data:', data);
-
           if (data.isLogin && data.isApproved) {
             this.router.navigate([url]).catch(r => console.log(r));
             return true;
