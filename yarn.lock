@@ -2092,10 +2092,10 @@
     postcss-csso "6.0.1"
     sass-embedded "1.69.5"
 
-"@uswds/uswds@^3.10.0":
-  version "3.10.0"
-  resolved "https://registry.yarnpkg.com/@uswds/uswds/-/uswds-3.10.0.tgz#f78ab69e26dec0080a92845b3dd1d9ddab26e6e9"
-  integrity sha512-LWFTQzp4e3kqtnD/Wsyfx9uGTkn5GEpzhscNWJMIsdWBGKtiu96QT99oRJUmcsB6HbGhR0Th0FtlK/Zzx2WghA==
+"@uswds/uswds@^3.11.0":
+  version "3.11.0"
+  resolved "https://registry.yarnpkg.com/@uswds/uswds/-/uswds-3.11.0.tgz#49a88b72914f0bb2dde8c9ca835dd56ee2809a4f"
+  integrity sha512-ze0MNXaZhgXLyNICpclm5g4pOGyU4/FE0DQTP5G19mHWB914vrCJvOxyTo2n1qGVMVwJtf6MtpBCnghAC8WaZA==
   dependencies:
     receptor "1.0.0"
     resolve-id-refs "0.1.0"
@@ -3712,10 +3712,10 @@ core-js-compat@^3.25.1:
   dependencies:
     browserslist "^4.23.0"
 
-core-js@^3.39.0:
-  version "3.39.0"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.39.0.tgz#57f7647f4d2d030c32a72ea23a0555b2eaa30f83"
-  integrity sha512-raM0ew0/jJUqkJ0E6e8UDtl+y/7ktFivgWvqw8dNSQeNWoSDLvQ1H/RN3aPXB9tBd4/FhyR4RDPGhsNIMsAn7g==
+core-js@^3.40.0:
+  version "3.40.0"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.40.0.tgz#2773f6b06877d8eda102fc42f828176437062476"
+  integrity sha512-7vsMc/Lty6AGnn7uFpYT56QesI5D2Y/UkgKounk87OP9Z2H9Z8kj6jzcSGAxFmUtDOS0ntK6lbQz+Nsa0Jj6mQ==
 
 core-util-is@1.0.2:
   version "1.0.2"
