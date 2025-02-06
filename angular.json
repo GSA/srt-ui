@@ -32,13 +32,9 @@
              ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/chart.js/dist/chart.js",
-              "node_modules/@uswds/uswds/dist/js/uswds.min.js",
-              {
-                "input": "./node_modules/@uswds/uswds/dist/js/uswds-init.min.js",
-                "inject": false,
-                "bundleName": "uswds-init"
-              }
+            "node_modules/chart.js/dist/chart.js",
+            "node_modules/@uswds/uswds/dist/js/uswds-init.min.js",
+            "node_modules/@uswds/uswds/dist/js/uswds.min.js"
             ]
           },
           "configurations": {

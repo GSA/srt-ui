@@ -1,134 +1,196 @@
-/* Global Styles */
-body {
-  font-family: 'Open Sans Condensed', sans-serif;
-  font-size: 1.125rem; /* 18px */
+/* Global Grid Container */
+.grid-container {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  max-width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
-button:hover, a:hover {
-  opacity: 0.7;
+/* Home Grid */
+.home-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 0 2rem;
+  max-width: 87.5rem; /* 1400px */
+  margin: 0 auto;
 }
 
-/* Hero Section */
-.usa-hero {
-  background-image: url('/assets/home-page-cover.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 21.875rem; /* 350px */
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end; /* Push the callout to the right */
+/* Card Wrapper */
+.card-wrapper {
+  transition: all 0.3s ease-in-out;
 }
-
-.usa-hero__overlay {
-  background-color: transparent !important;
-  padding: 1.25rem; /* 20px */
-  color: #000;
-  text-align: right;
-  width: 60%; /* The width will be 75% of the parent */
-  margin-left: auto; /* This ensures the content pushes to the right */
-  margin-right: 0;
+.card-wrapper:hover {
+  transform: translateY(-0.5rem) scale(1.02);
 }
-
-.usa-hero__callout {
-  background-color: transparent !important; /* Remove blue background */
+.card-wrapper:first-child {
+  height: 100%;
+}
+.card-wrapper:not(:first-child) {
   display: flex;
   flex-direction: column;
-  text-align: right; /* Align content inside to the right */
-  width: 100%; /* Make the callout take full width */
-  max-width: unset; /* Remove max-width constraint */
+  gap: 1.5rem;
 }
-
-.usa-hero__heading {
-  font-size: 2.25rem; /* 36px */
-  font-weight: 600;
-  text-decoration: underline;
-  padding-bottom: 0.625rem; /* 10px */
-  color: black; /* Ensure heading text is black */
-  text-align: right;
-}
-
-.usa-hero__callout .usa-prose {
-  padding-right: 0; /* Remove padding to ensure it can be fully centered */
-  max-width: 100%; /* Allow full width */
-  color: black;
-  text-align: right; /* Center the text */
-  margin: 0; /* Ensure text is centered horizontally */
-}
-
-/* Cards Section */
 .usa-card {
   height: 100%;
-  display: flex;
-  flex-direction: column;
 }
-
 .usa-card__container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   height: 100%;
-  text-decoration: none;
-  color: inherit;
   transition: box-shadow 0.3s ease, transform 0.3s ease;
-  border-radius: 0.25rem; /* 4px */
+}
+.card-wrapper:hover .usa-card__container {
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.12);
 }
 
-.usa-card__container--clickable {
-  cursor: pointer; /* Show the clicky hand cursor on hover */
+/* Responsive (Mobile) */
+@media (max-width: 48rem) {  /* 768px */
+  .home-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
-.usa-card__container--clickable:hover,
-.usa-card__container--clickable:focus {
-  box-shadow: 0 0 0 0.1875rem #2491ff; /* 3px */
-  transform: translateY(-0.125rem); /* -2px */
-  text-decoration: none;
-  cursor: pointer;
-  outline: none;
+/* SRT Specific Styles */
+.srt-home-head {
+  background-image: url('/assets/home-page-cover.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 21.875rem; /* 350px */
+  width: 100%;
+  opacity: 0.85;
+  position: relative;
+}
+.srt-head-position {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.srt-head-text {
+  text-align: right;
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+.srt-head-display {
+  display: table-cell;
+  vertical-align: middle;
+}
+.srt-head-padding {
+  padding: 0 3.75rem; /* 0 60px */
+  max-width: 62.5rem; /* 1000px */
+  float: right;
+}
+.srt-main-title {
+  font-weight: 600;
+  border-bottom: 0.03125rem solid #112e51; /* 0.5px */
+  padding-bottom: 0.625rem; /* 10px */
+}
+.srt-text-padding {
+  padding-left: 6.25rem; /* 100px */
+  padding-top: 1.25rem;  /* 20px */
+}
+.srt-black {
+  color: black;
 }
 
-.usa-card__media {
-  flex: 0 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-  height: 7.5rem; /* 120px */
+/* SRT Icon Styles */
+.srt-icon {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 6.25rem; /* 100px */
+  width: 6.25rem;  /* 100px */
+  margin: 0 auto;
 }
-
-.usa-card__media img {
-  width: 5rem; /* 80px */
-  height: 5rem; /* 80px */
+.srt-icon img {
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
-
-.usa-card__media img[alt="FAQ Icon"] {
-  width: 10rem; /* 160px */
-  height: 10rem; /* 160px */
-  object-fit: contain; /* Ensures the image scales without distortion */
+.srt-icon-padding {
+  padding: 1.25rem; /* 20px */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.usa-card__header,
-.usa-card__body {
-  flex: 1 1 auto;
+/* New Tiles Grid Layout */
+.tiles-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
   padding: 0 1rem;
+}
+.tile-row {
+  display: contents;
+}
+
+/* Tile Styles */
+.tile {
+  width: 20rem; /* 320px */
+  height: 20rem; /* 320px */
   text-align: center;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* No extra margin so tiles fill the space better */
+}
+.tile .usa-card,
+.tile .usa-card__container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.usa-card__heading {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
+/* FAQ Icon Overrides */
+.faq-icon {
+  width: 12.5rem; /* 200px */
+  height: 12.5rem; /* 200px */
+  position: relative;
 }
-
-.usa-card__body p {
+.faq-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.faq-heading-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   text-align: center;
-  margin-top: 0;
-  margin-bottom: 1rem;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 0.25rem 0; /* 4px 0 */
+}
+.faq-heading-overlay h2 {
+  margin: 0;
+  font-size: 1.2rem;
 }
 
-.tablet\:grid-col-4,
-.mobile-lg\:grid-col-6 {
-  margin-bottom: 1rem;
+/* Responsive (Tiles Grid) */
+@media (max-width: 48rem) {  /* 768px */
+  .tiles-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Check Solicitation Card Height */
+.solicitation-card {
+  height: calc((20rem * 2) + 1rem);
+}
+
+/* Hover Effects */
+.tile:hover .usa-card__container,
+.solicitation-card:hover .usa-card__container {
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
 }

@@ -1,161 +1,249 @@
-<!-- /home -->
-
 <main id="content" class="bypass-block-target">
-  
-<section class="usa-hero" aria-label="Introduction">
-  <div class="grid-container">
-    <div class="usa-hero__callout">
-      <h1 class="usa-hero__heading">
-        Solicitation Review Tool
-      </h1>
-      <p class="usa-hero__overlay">
-        The Solicitation Review Tool (SRT) is provided to help agencies evaluate the overall solicitation compliance with accessibility, cyber security, and other regulations and requirements.
-      </p>
+    <!-- Hero Banner -->
+    <div class="srt-home-head">
+      <div class="srt-head-position">
+        <div class="srt-head-text">
+          <div class="srt-head-display">
+            <div class="srt-head-padding">
+              <h1 class="srt-black srt-main-title">Solicitation Review Tool</h1>
+              <div style="font-size: 24px; font-weight:500;" class="srt-black srt-text-padding">
+                The Solicitation Review Tool (SRT) is provided to help agencies evaluate the overall solicitation
+                compliance with accessibility, cyber security, and other regulations and requirements.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
-<section class="usa-section">
-  <div class="grid-container" #gridContainer *ngIf="showGrid">
-    <div class="grid-row grid-gap">
 
-      <!-- Review/Manage Workload -->
-      <div class="tablet:grid-col-4 mobile-lg:grid-col-6">
-        <div class="usa-card">
-          <a
-            [routerLink]="['/solicitation/report']"
-            aria-labelledby="h3rmw"
-            class="usa-card__container usa-card__container--clickable"
-            (click)="onClickTiles('solicitation_tile', 'Solicitation Tile')"
-          >
-            <div class="usa-card__media">
-              <img alt="Manage/Review Workload Icon" src="/assets/review-manage-workflow.png" />
+    <!-- Padding between hero and content -->
+    <div style="padding: 20px 0;"></div>
+
+    <!-- Content Grid -->
+    <div class="grid-container">
+      <div class="grid-row grid-gap-4">
+        <!-- Left Column: Manual Review Card (50% width) -->
+        <div class="tablet:grid-col-6">
+          <!-- Added class "solicitation-card" for matching height -->
+          <div class="usa-card solicitation-card">
+            <div class="usa-card__container">
+              <header class="usa-card__header">
+                <div class="display-flex flex-justify">
+                  <h2 class="usa-card__heading">Check solicitation</h2>
+                  <button *ngIf="selectedFiles.length || (results && Object.keys(results).length > 0)"
+                    class="usa-button usa-button--unstyled" 
+                    (click)="resetAnalysis()"
+                    aria-label="Reset analysis">
+                    <i class="fas fa-redo-alt"></i> Reset
+                  </button>
+                </div>
+              </header>
+              <div class="usa-card__body">
+                <p>
+                  Upload your solicitation before it is posted to ensure it is 508‑compliant 
+                  / includes all required 508 language.
+                </p>
+                
+                <div class="usa-form-group">
+                  <label class="usa-label" for="file-input-multiple">
+                    Upload files for 508 compliance check
+                  </label>
+                  <span class="usa-hint" id="file-input-hint">
+                    Select PDF, DOC, or DOCX files
+                  </span>
+                  
+                  <input
+                    #fileInput
+                    id="file-input-multiple"
+                    class="usa-file-input"
+                    type="file"
+                    name="file-input"
+                    multiple
+                    accept=".pdf,.doc,.docx,.txt"
+                    (change)="onFileSelect($event)"
+                    aria-describedby="file-input-hint"
+                    [ngClass]="{'usa-file-input--drag': isDragging}"
+                    (dragenter)="handleDrag($event)"
+                    (dragover)="handleDrag($event)"
+                    (dragleave)="handleDrag($event)"
+                    (drop)="handleDrop($event)">
+
+                  <!-- Processing Alert -->
+                  <div *ngIf="processingFile" class="usa-alert usa-alert--info margin-top-2">
+                    <div class="usa-alert__body">
+                      <p class="usa-alert__text">Processing files...</p>
+                    </div>
+                  </div>
+
+                  <!-- Analysis Button -->
+                  <button 
+                    *ngIf="selectedFiles.length && !uploading && !analysisComplete"
+                    class="usa-button margin-top-2" 
+                    (click)="uploadFiles()">
+                    Analyze Selected Files
+                  </button>
+
+                  <!-- Results Section -->
+                  <div *ngIf="!uploading && results && Object.keys(results).length > 0" 
+                       class="margin-top-4">
+                    <h3>Analysis Results</h3>
+                    <table class="usa-table width-full">
+                      <thead>
+                        <tr>
+                          <th scope="col">Filename</th>
+                          <th scope="col">Compliance Status</th>
+                          <th scope="col">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let file of selectedFiles">
+                          <td [title]="file.name">{{ file.name }}</td>
+                          <td>
+                            <span *ngIf="results[file.name]"
+                                  [ngClass]="{
+                                    'text-success': results[file.name].status === 'compliant',
+                                    'text-error': results[file.name].status === 'non-compliant'
+                                  }">
+                              <strong>{{ results[file.name].status | titlecase }}</strong>
+                            </span>
+                          </td>
+                          <td>
+                            <div class="display-flex flex-row gap-2">
+                              <app-art-iframe-dialog 
+                                *ngIf="isNonCompliant(results[file.name]?.status)">
+                              </app-art-iframe-dialog>
+                              <app-art-modal></app-art-modal>
+                            </div>
+                          </td>                      
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="usa-card__header">
-              <h2 class="usa-card__heading" id="h3rmw">Manage/Review Solicitations</h2>
+          </div>
+        </div>
+
+        <!-- Right Column: Tiles Grid (50% width) -->
+        <div class="tablet:grid-col-6">
+          <div class="tiles-grid">
+            <!-- Row 1: Always visible -->
+            <div class="tile-row">
+              <!-- Manage/Review Solicitations Tile -->
+              <a [routerLink]="['/solicitation/report']"
+                 aria-labelledby="h3rmw"
+                 class="tile box-link"
+                 (click)="onClickTiles('solicitation_tile', 'Solicitation Tile')">
+                <div class="usa-card">
+                  <div class="usa-card__container">
+                    <div class="srt-icon-padding">
+                      <div class="srt-icon">
+                        <img alt="Manage/Review Workload Icon" src="/assets/review-manage-workflow.png" />
+                      </div>
+                    </div>
+                    <h2 class="usa-card__heading" id="h3rmw">Manage/Review Solicitations</h2>
+                  </div>
+                </div>
+              </a>
+
+              <!-- Get Additional Resources Tile -->
+              <a target="_blank"
+                 rel="noopener noreferrer"
+                 href="https://app.buyaccessible.gov/"
+                 aria-labelledby="h3gar"
+                 class="tile box-link"
+                 (click)="onClickTiles('art_tile', 'ART Tile')">
+                <div class="usa-card">
+                  <div class="usa-card__container">
+                    <div class="srt-icon-padding">
+                      <div class="srt-icon">
+                        <img alt="Additional Resources Icon" src="/assets/get-additional-resources.png" />
+                      </div>
+                    </div>
+                    <h2 class="usa-card__heading" id="h3gar">Get Additional Resources</h2>
+                  </div>
+                </div>
+              </a>
             </div>
-            <div class="usa-card__body">
-              <p>Access and manage solicitation review results for your agency.</p>
+
+            <!-- Row 2: Always visible -->
+            <div class="tile-row">
+              <!-- Contact Us Tile -->
+              <a [routerLink]="['/help/contactus']"
+                 class="tile box-link"
+                 aria-labelledby="h3cus"
+                 (click)="onClickTiles('contact_tile', 'Contact Tile')">
+                <div class="usa-card">
+                  <div class="usa-card__container">
+                    <div class="srt-icon-padding">
+                      <div class="srt-icon">
+                        <img alt="Contact Us Icon" src="/assets/contact-us.png" />
+                      </div>
+                    </div>
+                    <h2 class="usa-card__heading" id="h3cus">Contact Us</h2>
+                  </div>
+                </div>
+              </a>
+
+              <!-- FAQ Tile -->
+              <a [routerLink]="['/help/faq']"
+                 class="tile box-link faq-tile"
+                 aria-labelledby="h3faq"
+                 (click)="onClickTiles('faq_tile', 'FAQ Tile')">
+                <div class="usa-card">
+                  <div class="usa-card__container">
+                    <div class="srt-icon-padding">
+                      <div class="srt-icon faq-icon">
+                        <img alt="FAQ Icon" src="/assets/faq.png" />
+                        <div class="faq-heading-overlay">
+                          <h2 class="usa-card__heading" id="h3faq">FAQ</h2>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
             </div>
-          </a>
+
+            <!-- Row 3: Admin Only Tiles -->
+            <div class="tile-row" *ngIf="isGSAAdmin">
+              <!-- View Analytics Tile -->
+              <a [routerLink]="['/analytics']"
+                 aria-labelledby="h3va"
+                 class="tile box-link"
+                 (click)="onClickTiles('analytics_tile', 'Analytics Tile')">
+                <div class="usa-card">
+                  <div class="usa-card__container">
+                    <div class="srt-icon-padding">
+                      <div class="srt-icon">
+                        <img alt="View Analytics Icon" src="/assets/view-analytics.png" />
+                      </div>
+                    </div>
+                    <h2 class="usa-card__heading" id="h3va">View Analytics</h2>
+                  </div>
+                </div>
+              </a>
+
+              <!-- Administration Tile -->
+              <a [routerLink]="['/admin']"
+                 aria-labelledby="h3-admin-label"
+                 class="tile box-link"
+                 (click)="onClickTiles('admin_tile', 'Admin Tile')">
+                <div class="usa-card">
+                  <div class="usa-card__container">
+                    <div class="srt-icon-padding">
+                      <div class="srt-icon">
+                        <img alt="Administration Icon" src="/assets/manage-srt-access-requests.png" />
+                      </div>
+                    </div>
+                    <h2 class="usa-card__heading" id="h3-admin-label">Administration</h2>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-
-      <!-- View Analytics (Admin Only) -->
-      <div class="tablet:grid-col-4 mobile-lg:grid-col-6" *ngIf="isGSAAdmin">
-        <div class="usa-card">
-          <a
-            [routerLink]="['/analytics']"
-            aria-labelledby="h3va"
-            class="usa-card__container usa-card__container--clickable"
-            (click)="onClickTiles('analytics_tile', 'Analytics Tile')"
-          >
-            <div class="usa-card__media">
-              <img alt="View Analytics Icon" src="/assets/view-analytics.png" />
-            </div>
-            <div class="usa-card__header">
-              <h2 class="usa-card__heading" id="h3va">View Analytics</h2>
-            </div>
-            <div class="usa-card__body">
-              <p>Visualize trends and discover insights from the analytics.</p>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <!-- Manage SRT Access Requests (Admin Only) -->
-      <div class="tablet:grid-col-4 mobile-lg:grid-col-6" *ngIf="isGSAAdmin">
-        <div class="usa-card">
-          <a
-            [routerLink]="['/admin']"
-            aria-labelledby="h3-admin-label"
-            class="usa-card__container usa-card__container--clickable"
-            (click)="onClickTiles('admin_tile', 'Admin Tile')"
-          >
-            <div class="usa-card__media">
-              <img alt="Manage SRT Access Requests Icon" src="/assets/manage-srt-access-requests.png" />
-            </div>
-            <div class="usa-card__header">
-              <h2 class="usa-card__heading" id="h3-admin-label">Administration</h2>
-            </div>
-            <div class="usa-card__body">
-              <p>View reports on user statistics, activities, and feedback.</p>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <!-- Get Additional Resources -->
-      <div class="tablet:grid-col-4 mobile-lg:grid-col-6">
-        <div class="usa-card">
-          <a
-            href="https://app.buyaccessible.gov/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-labelledby="h3gar"
-            class="usa-card__container usa-card__container--clickable"
-            (click)="onClickTiles('art_tile', 'ART Tile')"
-          >
-            <div class="usa-card__media">
-              <img alt="Get Additional Resources Icon" src="/assets/get-additional-resources.png" />
-            </div>
-            <div class="usa-card__header">
-              <h2 class="usa-card__heading" id="h3gar">Get Additional Resources</h2>
-            </div>
-            <div class="usa-card__body">
-              <p>
-                Need help with Accessibility requirements? Accessibility Requirements Tool can assist
-                you with that.
-              </p>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <!-- Contact Us -->
-      <div class="tablet:grid-col-4 mobile-lg:grid-col-6">
-        <div class="usa-card">
-          <a
-            [routerLink]="['/help/contactus']"
-            aria-labelledby="h3cus"
-            class="usa-card__container usa-card__container--clickable"
-            (click)="onClickTiles('contact_tile', 'Contact Tile')"
-          >
-            <div class="usa-card__media">
-              <img alt="Contact Us Icon" src="/assets/contact-us.png" />
-            </div>
-            <div class="usa-card__header">
-              <h2 class="usa-card__heading" id="h3cus">Contact Us</h2>
-            </div>
-            <div class="usa-card__body">
-              <p>View contact information for the Solicitation Review Tool.</p>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <!-- FAQ -->
-      <div class="tablet:grid-col-4 mobile-lg:grid-col-6">
-        <div class="usa-card">
-          <a
-            [routerLink]="['/help/faq']"
-            aria-labelledby="h3faq"
-            class="usa-card__container usa-card__container--clickable"
-            (click)="onClickTiles('faq_tile', 'FAQ Tile')"
-          >
-            <div class="usa-card__media">
-              <img alt="FAQ Icon" src="/assets/faq.png" />
-            </div>
-            <div class="usa-card__header">
-              <h2 class="usa-card__heading" id="h3faq">FAQ</h2>
-            </div>
-            <div class="usa-card__body">
-              <p>Review Frequently Asked Questions and learn more about SRT.</p>
-            </div>
-          </a>
-        </div>
-      </div>
-
     </div>
-  </div>
-</section>
-</main>
+  </main>
