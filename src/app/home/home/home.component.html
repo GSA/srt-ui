@@ -44,12 +44,13 @@
                   / includes all required 508 language.
                 </p>
                 
+                <!-- File Input Section -->
                 <div class="usa-form-group">
                   <label class="usa-label" for="file-input-multiple">
                     Upload files for 508 compliance check
                   </label>
                   <span class="usa-hint" id="file-input-hint">
-                    Select PDF, DOC, or DOCX files
+                    Select PDF, TXT, DOC, or DOCX files
                   </span>
                   
                   <input
@@ -68,7 +69,7 @@
                     (dragleave)="handleDrag($event)"
                     (drop)="handleDrop($event)">
 
-                  <!-- Processing Alert -->
+                  <!-- Processing Alert (now only shown when analyze button is pressed) -->
                   <div *ngIf="processingFile" class="usa-alert usa-alert--info margin-top-2">
                     <div class="usa-alert__body">
                       <p class="usa-alert__text">Processing files...</p>
@@ -85,7 +86,7 @@
 
                   <!-- Results Section -->
                   <div *ngIf="!uploading && results && Object.keys(results).length > 0" 
-                       class="margin-top-4">
+                      class="margin-top-4">
                     <h3>Analysis Results</h3>
                     <table class="usa-table width-full">
                       <thead>
@@ -120,130 +121,126 @@
                     </table>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Right Column: Tiles Grid (50% width) -->
-        <div class="tablet:grid-col-6">
-          <div class="tiles-grid">
-            <!-- Row 1: Always visible -->
-            <div class="tile-row">
-              <!-- Manage/Review Solicitations Tile -->
-              <a [routerLink]="['/solicitation/report']"
-                 aria-labelledby="h3rmw"
-                 class="tile box-link"
-                 (click)="onClickTiles('solicitation_tile', 'Solicitation Tile')">
-                <div class="usa-card">
-                  <div class="usa-card__container">
-                    <div class="srt-icon-padding">
-                      <div class="srt-icon">
-                        <img alt="Manage/Review Workload Icon" src="/assets/review-manage-workflow.png" />
-                      </div>
-                    </div>
-                    <h2 class="usa-card__heading" id="h3rmw">Manage/Review Solicitations</h2>
-                  </div>
-                </div>
-              </a>
-
-              <!-- Get Additional Resources Tile -->
-              <a target="_blank"
-                 rel="noopener noreferrer"
-                 href="https://app.buyaccessible.gov/"
-                 aria-labelledby="h3gar"
-                 class="tile box-link"
-                 (click)="onClickTiles('art_tile', 'ART Tile')">
-                <div class="usa-card">
-                  <div class="usa-card__container">
-                    <div class="srt-icon-padding">
-                      <div class="srt-icon">
-                        <img alt="Additional Resources Icon" src="/assets/get-additional-resources.png" />
-                      </div>
-                    </div>
-                    <h2 class="usa-card__heading" id="h3gar">Get Additional Resources</h2>
-                  </div>
-                </div>
-              </a>
+        <!-- Right Column: Quick Links Container (50% width) -->
+<div class="tablet:grid-col-6">
+  <div class="quick-links-container">
+    <h2 class="quick-links-header">Quick Links</h2>
+    <div class="tiles-grid">
+      <!-- Manage/Review Solicitations Tile -->
+      <a [routerLink]="['/solicitation/report']"
+         aria-labelledby="h3rmw"
+         class="tile box-link"
+         (click)="onClickTiles('solicitation_tile', 'Solicitation Tile')">
+        <div class="usa-card">
+          <div class="usa-card__container">
+            <div class="srt-icon-padding">
+              <div class="srt-icon">
+                <img alt="Manage/Review Workload Icon" src="/assets/review-manage-workflow.png" />
+              </div>
             </div>
+            <h2 class="usa-card__heading" id="h3rmw">Manage/Review Solicitations</h2>
+          </div>
+        </div>
+      </a>
 
-            <!-- Row 2: Always visible -->
-            <div class="tile-row">
-              <!-- Contact Us Tile -->
-              <a [routerLink]="['/help/contactus']"
-                 class="tile box-link"
-                 aria-labelledby="h3cus"
-                 (click)="onClickTiles('contact_tile', 'Contact Tile')">
-                <div class="usa-card">
-                  <div class="usa-card__container">
-                    <div class="srt-icon-padding">
-                      <div class="srt-icon">
-                        <img alt="Contact Us Icon" src="/assets/contact-us.png" />
-                      </div>
-                    </div>
-                    <h2 class="usa-card__heading" id="h3cus">Contact Us</h2>
-                  </div>
-                </div>
-              </a>
-
-              <!-- FAQ Tile -->
-              <a [routerLink]="['/help/faq']"
-                 class="tile box-link faq-tile"
-                 aria-labelledby="h3faq"
-                 (click)="onClickTiles('faq_tile', 'FAQ Tile')">
-                <div class="usa-card">
-                  <div class="usa-card__container">
-                    <div class="srt-icon-padding">
-                      <div class="srt-icon faq-icon">
-                        <img alt="FAQ Icon" src="/assets/faq.png" />
-                        <div class="faq-heading-overlay">
-                          <h2 class="usa-card__heading" id="h3faq">FAQ</h2>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
+      <!-- Get Additional Resources Tile -->
+      <a target="_blank"
+         rel="noopener noreferrer"
+         href="https://app.buyaccessible.gov/"
+         aria-labelledby="h3gar"
+         class="tile box-link"
+         (click)="onClickTiles('art_tile', 'ART Tile')">
+        <div class="usa-card">
+          <div class="usa-card__container">
+            <div class="srt-icon-padding">
+              <div class="srt-icon">
+                <img alt="Additional Resources Icon" src="/assets/get-additional-resources.png" />
+              </div>
             </div>
+            <h2 class="usa-card__heading" id="h3gar">Get Additional Resources</h2>
+          </div>
+        </div>
+      </a>
 
-            <!-- Row 3: Admin Only Tiles -->
-            <div class="tile-row" *ngIf="isGSAAdmin">
-              <!-- View Analytics Tile -->
-              <a [routerLink]="['/analytics']"
-                 aria-labelledby="h3va"
-                 class="tile box-link"
-                 (click)="onClickTiles('analytics_tile', 'Analytics Tile')">
-                <div class="usa-card">
-                  <div class="usa-card__container">
-                    <div class="srt-icon-padding">
-                      <div class="srt-icon">
-                        <img alt="View Analytics Icon" src="/assets/view-analytics.png" />
-                      </div>
-                    </div>
-                    <h2 class="usa-card__heading" id="h3va">View Analytics</h2>
-                  </div>
-                </div>
-              </a>
+      <!-- Contact Us Tile -->
+      <a [routerLink]="['/help/contactus']"
+         class="tile box-link"
+         aria-labelledby="h3cus"
+         (click)="onClickTiles('contact_tile', 'Contact Tile')">
+        <div class="usa-card">
+          <div class="usa-card__container">
+            <div class="srt-icon-padding">
+              <div class="srt-icon">
+                <img alt="Contact Us Icon" src="/assets/contact-us.png" />
+              </div>
+            </div>
+            <h2 class="usa-card__heading" id="h3cus">Contact Us</h2>
+          </div>
+        </div>
+      </a>
 
-              <!-- Administration Tile -->
-              <a [routerLink]="['/admin']"
-                 aria-labelledby="h3-admin-label"
-                 class="tile box-link"
-                 (click)="onClickTiles('admin_tile', 'Admin Tile')">
-                <div class="usa-card">
-                  <div class="usa-card__container">
-                    <div class="srt-icon-padding">
-                      <div class="srt-icon">
-                        <img alt="Administration Icon" src="/assets/manage-srt-access-requests.png" />
-                      </div>
-                    </div>
-                    <h2 class="usa-card__heading" id="h3-admin-label">Administration</h2>
-                  </div>
+      <!-- FAQ Tile -->
+      <a [routerLink]="['/help/faq']"
+         class="tile box-link faq-tile"
+         aria-labelledby="h3faq"
+         (click)="onClickTiles('faq_tile', 'FAQ Tile')">
+        <div class="usa-card">
+          <div class="usa-card__container">
+            <div class="srt-icon-padding">
+              <div class="srt-icon faq-icon">
+                <img alt="FAQ Icon" src="/assets/faq.png" />
+                <div class="faq-heading-overlay">
+                  <h2 class="usa-card__heading" id="h3faq">FAQ</h2>
                 </div>
-              </a>
+              </div>
             </div>
           </div>
         </div>
+      </a>
+
+      <!-- View Analytics Tile -->
+      <a [routerLink]="['/analytics']"
+         aria-labelledby="h3va"
+         class="tile box-link"
+         (click)="onClickTiles('analytics_tile', 'Analytics Tile')">
+        <div class="usa-card">
+          <div class="usa-card__container">
+            <div class="srt-icon-padding">
+              <div class="srt-icon">
+                <img alt="View Analytics Icon" src="/assets/view-analytics.png" />
+              </div>
+            </div>
+            <h2 class="usa-card__heading" id="h3va">View Analytics</h2>
+          </div>
+        </div>
+      </a>
+
+      <!-- Administration Tile -->
+      <a [routerLink]="['/admin']"
+         aria-labelledby="h3-admin-label"
+         class="tile box-link"
+         (click)="onClickTiles('admin_tile', 'Admin Tile')">
+        <div class="usa-card">
+          <div class="usa-card__container">
+            <div class="srt-icon-padding">
+              <div class="srt-icon">
+                <img alt="Administration Icon" src="/assets/manage-srt-access-requests.png" />
+              </div>
+            </div>
+            <h2 class="usa-card__heading" id="h3-admin-label">Administration</h2>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
       </div>
     </div>
   </main>

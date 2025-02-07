@@ -179,22 +179,29 @@ export class HomeComponent
   }
   
 
-  async onFileSelect(event: any) {
+  onFileSelect(event: any): void {
+    // Clear previous analysis results and file selections
+    this.results = {};
+    this.analysisComplete = false;
+    this.selectedFiles = [];       // clear previously selected files
+    this.extractedTexts = {};      // clear previously extracted texts
+  
     const files: FileWithUI[] = Array.from(event.target.files || []);
-    console.log('UI: Files selected:', files.map((file) => file.name));
+    console.log('UI: Files selected:', files.map(file => file.name));
     if (!files.length) return;
-
-    const newFiles = this.filterNewFiles(files);
-    this.initializeNewFiles(newFiles);
-    await this.processNewFiles(newFiles);
-
+  
+    // Instead of filtering duplicates, just initialize the new files.
+    this.initializeNewFiles(files);
+  
+    // Log file selection event
     this.$gaService.event(
       'file_select',
       'compliance_check',
       `Files Selected: ${this.selectedFiles.length}`
     );
   }
-
+  
+  
   private filterNewFiles(files: FileWithUI[]): FileWithUI[] {
     return files.filter(
       (newFile) =>
@@ -209,9 +216,10 @@ export class HomeComponent
     newFiles.forEach((file) => {
       file.showText = false;
     });
-    this.selectedFiles = [...this.selectedFiles, ...newFiles];
-    this.processingFile = true;
+    this.selectedFiles = newFiles;
   }
+  
+  
 
   private async processNewFiles(newFiles: FileWithUI[]) {
     for (const file of newFiles) {
@@ -231,24 +239,46 @@ export class HomeComponent
     this.processingFile = false;
   }
 
-  async uploadFiles() {
+  async uploadFiles(): Promise<void> {
     if (!this.selectedFiles.length) return;
-
+  
+    // Show the processing alert when Analyze is clicked.
+    this.processingFile = true;
     this.uploading = true;
-    console.log('UI: Uploading files with extracted text:', this.extractedTexts);
+  
+    // Process the selected files only on Analyze button click.
+    for (const file of this.selectedFiles) {
+      try {
+        if (!this.extractedTexts[file.name]) {
+          console.log(`UI: Processing file: ${file.name}`);
+          if (!this.fileUploadService.validateFileType(file)) {
+            throw new Error('Invalid file type');
+          }
+          const text = await this.extractText(file);
+          console.log(`UI: Extracted text for ${file.name}:`, text.slice(0, 100)); // Log first 100 characters
+          this.extractedTexts[file.name] = text;
+        }
+      } catch (err: any) {
+        console.error(`UI: Error extracting text from ${file.name}:`, err);
+        this.extractedTexts[file.name] = `Error: ${err.message}`;
+      }
+    }
+  
     try {
-      this.results = await this.fileUploadService.analyzeDocuments(
-        this.extractedTexts
-      );
+      this.results = await this.fileUploadService.analyzeDocuments(this.extractedTexts);
       console.log('UI: Analysis results:', this.results);
       this.prepareSolicitationData();
       this.analysisComplete = true;
     } catch (error) {
       console.error('UI: Analysis failed:', error);
     } finally {
+      // Remove the processing alert when the analysis completes.
+      this.processingFile = false;
       this.uploading = false;
     }
   }
+  
+  
 
   private prepareSolicitationData() {
     const solId = `SOL-${Date.now()}`;
@@ -346,37 +376,34 @@ export class HomeComponent
   }
 
   resetAnalysis(): void {
-    console.log('UI: Resetting analysis state');
-    
-    // Reset file collections
-    this.selectedFiles = [];
-    this.extractedTexts = {};
-    this.results = {};
-    
-    // Reset state flags
-    this.uploading = false;
-    this.processingFile = false;
-    this.analysisComplete = false;
-    this.isDragging = false;
-    
-    // Clear and reinitialize file input
-    const fileInputEl = document.getElementById('file-input-multiple');
-    if (fileInputEl) {
-      // Remove the USWDS instance
-      fileInput.off(fileInputEl);
-      // Reset the native input value
-      (fileInputEl as HTMLInputElement).value = '';
-      // Create a new instance
-      fileInput.on(fileInputEl);
-    }
-
-    // Clear solicitation data
-    this.solicitationData = null;
-    localStorage.removeItem('currentSolicitation');
-
-    // Log analytics
-    this.$gaService.event('reset_analysis', 'compliance_check', 'Analysis Reset');
+  console.log('UI: Resetting analysis state');
+  
+  // Reset file collections and state flags
+  this.selectedFiles = [];
+  this.extractedTexts = {};
+  this.results = {};
+  this.uploading = false;
+  this.processingFile = false;
+  this.analysisComplete = false;
+  this.isDragging = false;
+  
+  // Clear the native file input value only,
+  // assuming the USWDS enhancement remains functional.
+  const fileInputEl = document.getElementById('file-input-multiple');
+  if (fileInputEl) {
+    // Simply clear the file input value to reset the selection.
+    (fileInputEl as HTMLInputElement).value = '';
   }
+
+  // Clear solicitation data from memory and local storage
+  this.solicitationData = null;
+  localStorage.removeItem('currentSolicitation');
+
+  // Log analytics event if needed
+  this.$gaService.event('reset_analysis', 'compliance_check', 'Analysis Reset');
+}
+
+  
 
   private async extractWordText(file: File): Promise<string> {
     console.log('UI: Extracting text from Word document:', file.name);
