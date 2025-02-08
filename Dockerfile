@@ -29,7 +29,7 @@ RUN yarn run build-${environment}
 # Stage 2: Serve app with nginx server
 
 # Use official nginx image as the base image
-FROM nginx:1.27.2-alpine
+FROM nginx:1.27.4-alpine
 
 # Set working directory to nginx asset directory
 WORKDIR /usr/share/nginx/html
