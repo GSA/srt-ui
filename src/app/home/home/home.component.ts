@@ -161,24 +161,6 @@ export class HomeComponent
   }
   
 
-  /**
-   * Handles the scroll event to create an infinite scroll effect.
-   */
-  private onInfiniteScroll(): void {
-    const container: HTMLElement = this.infiniteTilesContainer.nativeElement;
-    const halfScrollWidth = container.scrollWidth / 2;
-  
-    // When scrolling right: if the scrollLeft reaches the end of the first half, subtract halfScrollWidth.
-    if (container.scrollLeft >= halfScrollWidth) {
-      container.scrollLeft -= halfScrollWidth;
-    }
-    // When scrolling left: if scrollLeft is at or near 0, add halfScrollWidth.
-    else if (container.scrollLeft <= 0) {
-      container.scrollLeft += halfScrollWidth;
-    }
-  }
-  
-
   onFileSelect(event: any): void {
     // Clear previous analysis results and file selections
     this.results = {};
@@ -375,36 +357,36 @@ export class HomeComponent
     return text;
   }
 
+
   resetAnalysis(): void {
-  console.log('UI: Resetting analysis state');
-  
-  // Reset file collections and state flags
-  this.selectedFiles = [];
-  this.extractedTexts = {};
-  this.results = {};
-  this.uploading = false;
-  this.processingFile = false;
-  this.analysisComplete = false;
-  this.isDragging = false;
-  
-  // Clear the native file input value only,
-  // assuming the USWDS enhancement remains functional.
-  const fileInputEl = document.getElementById('file-input-multiple');
-  if (fileInputEl) {
-    // Simply clear the file input value to reset the selection.
-    (fileInputEl as HTMLInputElement).value = '';
-  }
+    console.log('UI: Resetting analysis state');
+    
+    // Reset file collections and state flags
+    this.selectedFiles = [];
+    this.extractedTexts = {};
+    this.results = {};
+    this.uploading = false;
+    this.processingFile = false;
+    this.analysisComplete = false;
+    this.isDragging = false;
+    
+    // Clear the native file input value only,
+    // assuming the USWDS enhancement remains functional.
+    const fileInputEl = document.getElementById('file-input-multiple');
+    if (fileInputEl) {
+        // Simply clear the file input value to reset the selection.
+        (fileInputEl as HTMLInputElement).value = '';
+    }
 
-  // Clear solicitation data from memory and local storage
-  this.solicitationData = null;
-  localStorage.removeItem('currentSolicitation');
+    // Clear solicitation data from memory and local storage
+    this.solicitationData = null;
+    localStorage.removeItem('currentSolicitation');
 
-  // Log analytics event if needed
-  this.$gaService.event('reset_analysis', 'compliance_check', 'Analysis Reset');
+    // Log analytics event if needed
+    this.$gaService.event('reset_analysis', 'compliance_check', 'Analysis Reset');
 }
 
   
-
   private async extractWordText(file: File): Promise<string> {
     console.log('UI: Extracting text from Word document:', file.name);
     const arrayBuffer = await file.arrayBuffer();

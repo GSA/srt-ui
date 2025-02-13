@@ -49,7 +49,6 @@ import { LoginReportsComponent } from './admin/admin-reports/login-reports.compo
 import { UploadComponent } from './shared/components/upload/upload.component';
 import { BaseComponent } from './base.component';
 import { AdminHeaderComponent } from './admin-header/admin-header.component';
-import { TestModalComponent } from './test-modal/test-modal.component';
 
 // Routes
 import { AppRoutingModule } from './app.routing';
@@ -63,8 +62,7 @@ import { Globals } from '../globals';
     UploadComponent,
     BaseComponent,
     AdminHeaderComponent,
-    LoginReportsComponent,
-    TestModalComponent
+    LoginReportsComponent
   ],
   imports: [
     // Angular Core Modules
