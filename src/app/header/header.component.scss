@@ -1,22 +1,28 @@
 /* Header Container */
 #header {
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Ensures the navbar stays above other content */
   width: 100%;
   background-color: white;
-  border-bottom: 0.0625rem solid #dfe1e2; 
+  border-bottom: 0.0625rem solid #dfe1e2;
 }
 
+
+/* Basic header styling */
 .usa-header {
   padding: 0.75rem 0;
   border-bottom: none;
 }
 
+/* Container for centering the header content */
 .grid-container-widescreen {
-  max-width: 75rem; 
+  max-width: 75rem;
   margin: 0 auto;
   padding: 0 2rem;
 }
 
-/* Navigation Container */
+/* Navigation Container (Flexbox for left/right layout) */
 .usa-nav {
   display: flex;
   justify-content: space-between;
@@ -30,16 +36,16 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+}
 
-  .gsa-logo-img {
-    height: 3.125rem; 
-    width: auto;
-  }
+.logo-container .gsa-logo-img {
+  height: 3.125rem;
+  width: auto;
+}
 
-  .srt-logo-img {
-    height: 2rem; 
-    width: auto;
-  }
+.logo-container .srt-logo-img {
+  height: 2rem;
+  width: auto;
 }
 
 /* Navigation Links */
@@ -62,10 +68,10 @@
   font-size: 0.9rem;
   display: inline-flex;
   align-items: center;
+}
 
-  &:hover {
-    color: #1a4480;
-  }
+.nav-link:hover {
+  color: #1a4480;
 }
 
 /* Skip Nav (maintaining accessibility) */
@@ -75,40 +81,31 @@
   padding: 0.5rem 1rem;
   background-color: white;
   z-index: 1000;
+}
 
-  &:focus {
-    left: 0;
-  }
+.usa-skipnav:focus {
+  left: 0;
 }
 
 /* External link icon styling */
 .external-link-icon {
-  margin-left: 0.25rem; 
+  margin-left: 0.25rem;
   fill: currentColor;
   vertical-align: middle;
   display: inline-block;
 }
 
-.grid-container-widescreen {
-  width: 100%;
-  max-width: 100vh;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
 /* Responsive adjustments */
-@media (max-width: 48rem) { 
+@media (max-width: 48rem) {
   .right-nav-group {
     gap: 1rem;
   }
 
-  .logo-container {
-    .gsa-logo-img {
-      height: 2.5rem; 
-    }
+  .logo-container .gsa-logo-img {
+    height: 2.5rem;
+  }
 
-    .srt-logo-img {
-      height: 1.5rem; 
-    }
+  .logo-container .srt-logo-img {
+    height: 1.5rem;
   }
 }

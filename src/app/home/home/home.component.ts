@@ -87,7 +87,6 @@ export class HomeComponent
   ngAfterViewInit() {
     console.log('UI: View initialized.');
     this.initializeFileInput();
-    this.initializeInfiniteTiles();
   }
 
   ngOnDestroy() {
@@ -147,19 +146,7 @@ export class HomeComponent
       fileInput.on(fileInputEl);
     }
   }
-  /**
-   * Duplicates the tile items and sets up a scroll listener to reset the scroll position
-   * when the user reaches half of the scrollable width.
-   */
-  private initializeInfiniteTiles(): void {
-    const container: HTMLElement = this.infiniteTilesContainer.nativeElement;
-    // Duplicate the tile items by appending a clone of the content.
-    container.innerHTML += container.innerHTML;
-    
-    // Attach our updated scroll event listener.
-    container.addEventListener('scroll', this.onInfiniteScroll.bind(this));
-  }
-  
+ 
 
   onFileSelect(event: any): void {
     // Clear previous analysis results and file selections
@@ -172,8 +159,32 @@ export class HomeComponent
     console.log('UI: Files selected:', files.map(file => file.name));
     if (!files.length) return;
   
-    // Instead of filtering duplicates, just initialize the new files.
-    this.initializeNewFiles(files);
+    // Define limits
+    const maxSize = 10 * 1024 * 1024; // 10MB per file
+    const maxFiles = 10; // Maximum number of files allowed at once
+    const validFiles: FileWithUI[] = [];
+  
+    if (files.length > maxFiles) {
+      alert(`Please select no more than ${maxFiles} files.`);
+      return;
+    }
+  
+    // Check each file's size and filter out files that exceed the limit.
+    for (const file of files) {
+      if (file.size > maxSize) {
+        alert(`The file "${file.name}" exceeds the maximum allowed size of 10MB.`);
+      } else {
+        validFiles.push(file);
+      }
+    }
+  
+    if (!validFiles.length) {
+      console.log('UI: No valid files selected.');
+      return;
+    }
+  
+    // Initialize only the valid files.
+    this.initializeNewFiles(validFiles);
   
     // Log file selection event
     this.$gaService.event(
@@ -182,6 +193,7 @@ export class HomeComponent
       `Files Selected: ${this.selectedFiles.length}`
     );
   }
+  
   
   
   private filterNewFiles(files: FileWithUI[]): FileWithUI[] {
@@ -286,8 +298,10 @@ export class HomeComponent
         name: file.name,
         attachment_url: '#',
         formattedDate: new Date().toLocaleDateString(),
-        status: this.results[file.name]?.status || 'Non-compliant',
-      })),
+        status: typeof this.results[file.name] === 'string'
+          ? this.results[file.name]
+          : this.results[file.name]?.status || 'Non-compliant',
+      })),      
     };
     localStorage.setItem(
       'currentSolicitation',

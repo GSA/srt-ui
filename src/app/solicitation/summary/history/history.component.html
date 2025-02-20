@@ -1,28 +1,39 @@
-<main id="content" class="usa-section">
-  <app-summary [step1]="step1" [step2]="step2" [step3]="step3" [solicitationID]="solicitationID" [type]="type"></app-summary>
+<main id="content" class="bypass-block-target">
+ 
+  <div class="container">
+    <div class="clearfix summary-content-padding">
+      
 
-  <div class="grid-container">
-    <div class="grid-row grid-gap">
-      <div class="grid-col-12">
-        <!-- Back link using USWDS typography and spacing -->
-        <div class="margin-bottom-4">
-          <a [routerLink]="['/solicitation/report']" class="usa-link usa-link--back">
-            Back to Solicitation Review Results for Section 508 Requirements
-          </a>
+      <!-- Prediction History -->
+      <div style="font-size: 16px;" class="margin-bottom-4">
+        <div class="list-title" style="width: 100%;">
+          Prediction History
         </div>
+        <div class="list-content">
+          <ul *ngIf="predictionHistory" class="nopadding">
+            <li *ngFor="let entry of predictionHistory" style="list-style: none;">
+              {{entry.date}} - 
+              <span [style.font-weight]="600">
+                <ng-container [ngSwitch]="entry.value">
+                  <ng-container *ngSwitchCase="'red'">Non-Compliant</ng-container>
+                  <ng-container *ngSwitchCase="'green'">Compliant</ng-container>
+                  <ng-container *ngSwitchDefault>{{entry.value}}</ng-container>
+                </ng-container>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-        <!-- Action History section -->
-        <div class="usa-prose">
-          <h2 class="font-heading-xl margin-bottom-2">
-            Action History
-          </h2>
-          
-          <!-- List using USWDS list styles -->
-          <ul *ngIf="history" class="usa-list usa-list--unstyled">
-            <li *ngFor="let action of history" class="margin-y-1">
-              {{action.date}} -
-              <span class="text-bold">{{action.user}}</span>
-              {{action.action}}
+      <!-- Action History -->
+      <div style="font-size: 16px;">
+        <div class="list-title" style="width: 100%;">
+          Action History
+        </div>
+        <div class="list-content">
+          <ul *ngIf="history" class="nopadding">
+            <li *ngFor="let action of history" style="list-style: none;">
+              {{action.date}} - <span style="font-weight: 600">{{action.user}}</span> {{action.action}}
             </li>
           </ul>
         </div>
