@@ -78,7 +78,7 @@
     "@angular/compiler-cli": "~15.2.9",
     "@schematics/angular": "~15.2.8",
     "@types/jasmine": "4.3.2",
-    "@types/node": "^22.10.1",
+    "@types/node": "^22.13.4",
     "@uswds/compile": "^1.1.0",
     "codelyzer": "^6.0.2",
     "jasmine-core": "~5.0.0",
