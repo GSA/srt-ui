@@ -1,7 +1,7 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-
+import * as moment from 'moment';
 import { SolicitationService } from '../../solicitation.service';
 import { Solicitation } from '../../../shared/solicitation';
 
@@ -11,81 +11,66 @@ import { Solicitation } from '../../../shared/solicitation';
   styleUrls: ['./history.component.scss']
 })
 export class HistoryComponent implements OnInit {
-  @Input() history;
-
-  /* ATTRIBUTES */
-
   solicitation: Solicitation;
   subscription: Subscription;
-  solicitationID: String;
-  type: String = 'history';
-  public step1: Boolean = false;
-  public step2: Boolean = false;
-  public step3: Boolean = false;
+  solicitationID: string;
+  type: string = 'history';
+  step1: boolean = false;
+  step2: boolean = false;
+  step3: boolean = false;
+  history: any[] = [];
+  predictionHistory: any[] = [];
 
-  /* CONSTRUCTORS */
-
-  /**
-   * constructor
-   * @param solicitationService
-   * @param router
-   * @param route
-   */
   constructor(
     private solicitationService: SolicitationService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
 
-  /**
-   * lifecycle
-   */
   ngOnInit() {
-    this.subscription = this.route.params.subscribe(
-      (params: any) => {
-        this.solicitationID = params['id'];
-        console.log(this.solicitationID);
-        this.solicitationService.getSolicitation(this.solicitationID).subscribe(
-          {next: data => {
-            data.parseStatus.forEach(element => {
-              if (element.status === 'successfully parsed') {
-                element.status = 'Yes';
-              } else if (element.status === 'processing error') {
-                element.status = 'No';
-              }
-            });
-
-            this.step1 = data.history.filter(function(e){
-              return e['action'].indexOf('reviewed solicitation action requested summary') > -1;
-            }).length > 0;
-            this.step2 = data.history.filter(function(e){
-              return e['action'].indexOf('sent email to POC') > -1;
-            }).length > 0;
-            this.step3 = data.history.filter(function(e){
-              return e['action'].indexOf('provided feedback on the solicitation prediction result') > -1;
-            }).length > 0;
-
-            this.solicitation = data;
-
-            this.history = data.history.sort(function(a, b){
-              const dateA = new Date(String(a.date));
-              const dateB = new Date(String(b.date));
-              if (dateA > dateB) {
-                return 1;
-              } else if (dateA < dateB) {
-                return -1;
-              } else {
-                return 0;
-              }
-            });
-          },
-          error: err => console.log(err)}
-        );
+    this.subscription = this.route.params.subscribe(params => {
+      this.solicitationID = params['id'];
+      this.solicitationService.getSolicitation(this.solicitationID).subscribe({
+        next: data => {
+          this.processParseStatus(data);
+          this.processStepStatus(data);
+          this.processHistory(data);
+          this.processPredictionHistory(data);
+          this.solicitation = data;
+        },
+        error: err => console.log(err)
       });
+    });
   }
 
-  // tslint:disable-next-line:use-lifecycle-interface
-  ngOnChanges() {
+  private processParseStatus(data: any) {
+    data.parseStatus.forEach(element => {
+      element.status = element.status === 'successfully parsed' ? 'Yes' : 
+                      element.status === 'processing error' ? 'No' : 
+                      element.status;
+    });
   }
 
+  private processStepStatus(data: any) {
+    this.step1 = data.history.some(e => e.action.includes('reviewed solicitation action requested summary'));
+    this.step2 = data.history.some(e => e.action.includes('sent email to POC'));
+    this.step3 = data.history.some(e => e.action.includes('provided feedback on the solicitation prediction result'));
+  }
+
+  private processHistory(data: any) {
+    this.history = data.history.sort((a, b) => {
+      const dateA = new Date(String(a.date));
+      const dateB = new Date(String(b.date));
+      return dateA > dateB ? 1 : dateA < dateB ? -1 : 0;
+    });
+  }
+
+  private processPredictionHistory(data: any) {
+    this.predictionHistory = data.predictions.history
+      .map(entry => ({
+        ...entry,
+        date: moment(entry.date).format('MM/DD/YYYY')
+      }))
+      .reverse();
+  }
 }

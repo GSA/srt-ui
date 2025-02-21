@@ -1,45 +1,44 @@
 # Stage 1: Compile and Build angular codebase
+FROM node:20-alpine AS builder
 
-# base image
-FROM node:20-alpine as builder
-
-# install chrome for protractor tests
-# RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-# RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-# RUN apt-get update && apt-get install -yq google-chrome-stable
-
-# Get passed in Arguments
 ARG environment
+ENV BUILD_ENV=${environment}
 
-# set working directory
 WORKDIR /app
 
-# install app dependencies
-COPY package.json ./
-COPY .snyk ./
+# Install Python and build dependencies
+RUN apk add --no-cache python3 make g++
 
+# Remove phantomjs-prebuilt from dependencies before install
+COPY package.json ./
+RUN sed -i '/phantomjs-prebuilt/d' package.json
+
+COPY .snyk ./
 RUN yarn install
 
 # Add the source code to app
 COPY . /app/
 
+# Copy USWDS assets
+RUN mkdir -p src/assets/uswds/img && \
+    cp -r node_modules/@uswds/uswds/dist/img/* src/assets/uswds/img/ && \
+    mkdir -p src/assets/uswds/fonts && \
+    cp -r node_modules/@uswds/uswds/dist/fonts/* src/assets/uswds/fonts/
+
 # Generate the build of the application
-RUN yarn run build-${environment}
+RUN yarn run build-${BUILD_ENV}
 
 # Stage 2: Serve app with nginx server
-
-# Use official nginx image as the base image
 FROM nginx:1.27.2-alpine
-
-# Set working directory to nginx asset directory
 WORKDIR /usr/share/nginx/html
-# Remove default nginx static assets
 RUN rm -rf ./*
 
 # Copy the build output to replace the default nginx contents.
 COPY --from=builder /app/dist .
 COPY --from=builder /app/dist/nginx.conf /etc/nginx/nginx.conf
 
+# Make sure nginx can access all files
+RUN chown -R nginx:nginx /usr/share/nginx/html && \
+    chmod -R 755 /usr/share/nginx/html
 
-# Expose port 80
 EXPOSE 80
