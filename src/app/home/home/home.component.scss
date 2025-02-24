@@ -213,6 +213,11 @@
   transform: scale(1.02);
 }
 
+.solicitation-card.no-hover:hover .usa-card__container {
+  box-shadow: none !important;
+  transform: none !important;
+}
+
 .usa-table td,
 .usa-table th {
   white-space: normal;
@@ -221,7 +226,6 @@
 }
 
 .quick-links-container {
-  border: 1px solid #dfe3e6;
   border-radius: 4px;
   padding: 1rem;
   background: #fff;
