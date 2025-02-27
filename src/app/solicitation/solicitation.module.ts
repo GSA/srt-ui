@@ -81,7 +81,8 @@ import { ArtCategoryComponent } from './summary/results-detail/art-modal/art-cat
   ],
     exports: [
         SolicitationComponent,
-        FeedbackReportComponent
+        FeedbackReportComponent,
+        ArtIframeDialogComponent
     ]
 })
 export class SolicitationModule { }
