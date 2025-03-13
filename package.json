@@ -42,7 +42,7 @@
     "angular2-tooltip": "^3.1.0",
     "body-parser": "1.20.3",
     "braces": "3.0.3",
-    "chart.js": "^4.4.7",
+    "chart.js": "^4.4.8",
     "chart.js-plugin-labels-dv": "^5.0.1-beta",
     "chart.piecelabel.js": "^0.15.0",
     "chartjs-adapter-date-fns": "^3.0.0",
