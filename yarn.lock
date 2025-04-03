@@ -2241,13 +2241,12 @@
     postcss-csso "6.0.1"
     sass-embedded "1.83.0"
 
-"@uswds/uswds@^3.11.0":
-  version "3.11.0"
-  resolved "https://registry.yarnpkg.com/@uswds/uswds/-/uswds-3.11.0.tgz#49a88b72914f0bb2dde8c9ca835dd56ee2809a4f"
-  integrity sha512-ze0MNXaZhgXLyNICpclm5g4pOGyU4/FE0DQTP5G19mHWB914vrCJvOxyTo2n1qGVMVwJtf6MtpBCnghAC8WaZA==
+"@uswds/uswds@^3.12.0":
+  version "3.12.0"
+  resolved "https://registry.yarnpkg.com/@uswds/uswds/-/uswds-3.12.0.tgz#a99606a57b04c56c810852356d8b698401d39e64"
+  integrity sha512-ZdHNwiJhE0Ve489khIIjvsEpWjjn/WfCqRMaEAs8Sb2Xqnb1aN7CCHX36KHrzdkzml6c8DXUwhH/ph62FjE8Pw==
   dependencies:
     receptor "1.0.0"
-    resolve-id-refs "0.1.0"
 
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"
@@ -8465,11 +8464,6 @@ resolve-from@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-5.0.0.tgz#c35225843df8f776df21c57557bc087e9dfdfc69"
   integrity sha512-qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw==
-
-resolve-id-refs@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/resolve-id-refs/-/resolve-id-refs-0.1.0.tgz#3126624b887489da8fc0ae889632f8413ac6c3ec"
-  integrity sha512-hNS03NEmVpJheF7yfyagNh57XuKc0z+NkSO0oBbeO67o6IJKoqlDfnNIxhjp7aTWwjmSWZQhtiGrOgZXVyM90w==
 
 resolve-options@^2.0.0:
   version "2.0.0"
