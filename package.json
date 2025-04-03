@@ -65,7 +65,7 @@
     "ngx-logger": "^5.0.12",
     "ngx-quill-editor": "^2.2.2",
     "path-to-regexp": "1.9.0",
-    "pdfjs-dist": "4.9.124",
+    "pdfjs-dist": "4.10.38",
     "primeicons": "^6.0.1",
     "primeng": "^15.4.1",
     "rxjs": "^7.8.1",
