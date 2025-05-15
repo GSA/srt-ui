@@ -1,0 +1,53 @@
+<h2 class="usa-heading margin-bottom-2">User Permissions</h2>
+
+<!-- 🔍 Search + 💾 Update side-by-side -->
+<div class="display-flex flex-align-end margin-bottom-2">
+  <div class="flex-1">
+    <label class="usa-label" for="searchUsers">Search (email or agency)</label>
+    <input
+      id="searchUsers"
+      type="text"
+      class="usa-input width-full"
+      placeholder="Start typing…"
+      [(ngModel)]="searchTerm" />
+  </div>
+
+  <!-- extra space between input and button -->
+  <button class="usa-button margin-left-2 margin-top-4" (click)="updateUsers()">
+    Update
+  </button>
+</div>
+
+<!-- 📜 Scrollable table wrapper -->
+<div class="scroll-wrapper">
+  <table class="usa-table usa-table--borderless">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Agency</th>
+        <th>User Type</th>
+        <th>Accepted</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of filteredUsers(); let i = index">
+        <td>{{ user.email }}</td>
+        <td>{{ user.agency }}</td>
+        <td>
+          <select class="usa-select" [(ngModel)]="user.userType">
+            <option *ngFor="let t of userTypes" [value]="t">{{ t }}</option>
+          </select>
+        </td>
+        <td><input type="checkbox" [(ngModel)]="user.isAccepted" /></td>
+        <td>
+          <button
+            class="usa-button usa-button--secondary"
+            (click)="removeUser(i)">
+            Remove
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

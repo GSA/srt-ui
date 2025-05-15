@@ -3,34 +3,51 @@
     <app-admin-header (menuClick)="processMenuClick($event)"></app-admin-header>
 
     <!-- Approved Tab -->
-    <app-user-report *ngIf="this.activeTab == 'approved'"></app-user-report>
+    <app-user-report *ngIf="activeTab === 'approved'"></app-user-report>
 
     <!-- Masquerade Tab -->
-    <masquerade *ngIf="this.activeTab == 'masquerade'"></masquerade>
+    <masquerade *ngIf="activeTab === 'masquerade'"></masquerade>
 
     <!-- Metric Downloads Tab -->
-    <metric-downloads *ngIf="this.activeTab == 'metric-downloads'"></metric-downloads>
+    <metric-downloads *ngIf="activeTab === 'metric-downloads'"></metric-downloads>
 
     <!-- Reports Tab -->
-    <div *ngIf="this.activeTab == 'reports'" class="grid-row grid-gap">
+    <div *ngIf="activeTab === 'reports'" class="grid-row grid-gap">
       <!-- Sticky Sidebar -->
       <nav class="usa-sidenav grid-col-2 sticky-sidenav">
         <ul class="usa-sidenav__list no-bullets">
+          <!-- NEW link -->
           <li class="usa-sidenav__item">
-            <a href="javascript:void(0)" (click)="scroll('anchor-Logins-Last-30-Days')">Logins</a>
+            <a href="javascript:void(0)" (click)="scroll('anchor-User-Permissions')">
+              User Permissions
+            </a>
+          </li>
+
+          <li class="usa-sidenav__item">
+            <a href="javascript:void(0)" (click)="scroll('anchor-Logins-Last-30-Days')">
+              Logins
+            </a>
           </li>
           <li class="usa-sidenav__item">
-            <a href="javascript:void(0)" (click)="scroll('anchor-User-Login-Report')">User Login Report</a>
+            <a href="javascript:void(0)" (click)="scroll('anchor-User-Login-Report')">
+              User Login Report
+            </a>
           </li>
           <li class="usa-sidenav__item">
-            <a href="javascript:void(0)" (click)="scroll('anchor-Feedback-Table')">Feedback Table</a>
+            <a href="javascript:void(0)" (click)="scroll('anchor-Feedback-Table')">
+              Feedback Table
+            </a>
           </li>
         </ul>
       </nav>
 
-            <!-- Main Content Area -->
+      <!-- Main Content Area -->
       <div class="grid-col-10">
-        <!-- Add IDs to the sections that correspond to the scroll targets -->
+        <!-- NEW section -->
+        <div id="anchor-User-Permissions" class="scroll-target">
+          <app-user-permissions></app-user-permissions>
+        </div>
+
         <div id="anchor-Logins-Last-30-Days" class="scroll-target">
           <app-login-reports></app-login-reports>
         </div>

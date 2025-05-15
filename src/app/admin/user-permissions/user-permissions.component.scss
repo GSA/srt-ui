@@ -1,0 +1,26 @@
+.user-permissions {
+    table {
+      width: 100%;
+    }
+  
+    .usa-button--secondary {
+      background-color: #e1e1e1;
+      color: #1b1b1b;
+      &:hover {
+        background-color: #c8c8c8;
+      }
+    }
+  
+    .margin-top-2 {
+      margin-top: 1rem;
+    }
+  }
+  
+    /* user-permissions.component.scss */
+  .scroll-wrapper {
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #dfe1e2;
+  }
+
+  
