@@ -18,7 +18,7 @@ export class UndeterminedSolicitationsComponent implements OnInit {
   @ViewChild(BaseChartDirective, { static: false }) private baseChart;
 
   public hasValue = false;
-  public pieChartLabels: string[] = ['Presolicitation', 'Other Undetermined', '0 Documents', 'Non-Machine Readable'];
+  public pieChartLabels: string[] = ['Presolicitation', 'Other Undetermined', 'No Documents', 'Non-Machine Readable'];
   public pieChartData: any;
 
   public pieChartType = 'pie';
@@ -94,8 +94,8 @@ export class UndeterminedSolicitationsComponent implements OnInit {
         labels: this.pieChartLabels,
         datasets: [{
           data: [presolicitation, undetermined, NoDocument, NonMachineReadable],
-          backgroundColor: ['#2C81C0', '#ff0000', '#e8e8e8', '#FFB300'],
-          hoverBackgroundColor: ['#2C81C0', '#ff0000', '#e8e8e8', '#FFB300']
+          backgroundColor: ['#2C81C0', '#ff0000', '#B46AF0', '#C28800'],
+          hoverBackgroundColor: ['#2C81C0', '#ff0000', '#B46AF0', '#C28800']
         }
         ]
       };

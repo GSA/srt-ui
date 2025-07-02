@@ -85,8 +85,8 @@ export class SolicitationResultComponent {
 
         datasets: [{
           data: [this.numCompliant, this.numNonCompliant, this.numNotApplicable, this.numCannotEvaluate],
-          backgroundColor: ['#00a91c', '#d54309', '#e8e8e8', '#0062FF'],
-          borderColor: ['#00a91c', '#d54309', '#e8e8e8', '#0062FF']
+          backgroundColor: ['#00a91c', '#d54309', '#900973', '#0062FF'],
+          borderColor: ['#00a91c', '#d54309', '#900973', '#0062FF']
         }]
       };
 

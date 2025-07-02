@@ -1,7 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UndeterminedSolicitationsComponent } from './undetermined-solicitations.component';
-import {BaseChartDirective} from 'ng2-charts';
+import { BaseChartDirective } from 'ng2-charts';
 import { NgChartsModule } from 'ng2-charts';
 
 describe('UndeterminedSolicitationsComponent', () => {
@@ -10,11 +10,11 @@ describe('UndeterminedSolicitationsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ UndeterminedSolicitationsComponent ],
+      declarations: [UndeterminedSolicitationsComponent],
       providers: [BaseChartDirective],
       imports: [NgChartsModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -37,11 +37,11 @@ describe('UndeterminedSolicitationsComponent', () => {
     component.UndeterminedSolicitationChart = chartData;
     component.ngOnChanges();
     expect(component.pieChartData).toEqual({
-      labels: ['Presolicitation', 'Other Undetermined', '0 Documents', 'Non-Machine Readable'],
+      labels: ['Presolicitation', 'Other Undetermined', 'No Documents', 'Non-Machine Readable'],
       datasets: [{
         data: [10, 20, 15, 5],
-        backgroundColor: ['#2C81C0', '#ff0000', '#e8e8e8', '#FFB300'],
-        hoverBackgroundColor: ['#2C81C0', '#ff0000', '#e8e8e8', '#FFB300']
+        backgroundColor: ['#2C81C0', '#ff0000', '#B46AF0', '#C28800'],
+        hoverBackgroundColor: ['#2C81C0', '#ff0000', '#B46AF0', '#C28800']
       }]
     });
   });
