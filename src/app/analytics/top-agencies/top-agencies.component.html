@@ -1,35 +1,33 @@
 <div class="padding-right">
     <div id="analyticTitle" class="srt-blue top-agency-title">
         {{barTitle}}&nbsp;&nbsp;
-        <sup class="supfont"
-            [pTooltip]="chartToolTip" tooltipPosition="bottom">
-            <i *ngIf="isGovernomentWide" tabindex="0" class="fa fa-info-circle info" aria-hidden="true" ></i>
+        <sup class="supfont" [pTooltip]="chartToolTip" tooltipPosition="bottom">
+            <i *ngIf="isGovernomentWide" tabindex="0" class="fa fa-info-circle info" aria-hidden="true"></i>
         </sup>
 
     </div>
     <!-- bar chart -->
     <div class="top-agency-bar-chart" *ngIf="noData">
         <div class="top-agency-nodata">
-              No data to show on this time period
+            No data to show on this time period
         </div>
     </div>
 
     <div class="top-agency-content" *ngIf="!noData">
         <div class="top-agency-position">
 
-            <div *ngFor="let xaxis of xAxisBreakPoint"
-                style="position: absolute;"
+            <div *ngFor="let xaxis of xAxisBreakPoint" style="position: absolute;"
                 [ngStyle]="{'left' : 'calc(100%/' + (xAxisBreakPoint.length - 1) / xaxis + ')'}">
                 {{xaxis * xAxisUnit}}
             </div>
 
         </div>
         <div class="top-agency-posi1">
-            <div class="top-agency-posi1-blue"></div>
+            <div class="top-agency-div1"></div>
             <div class="top-agency-posi1-display"># Compliant Solicitation(s)</div>
         </div>
         <div class="top-agency-posi2">
-            <div class="top-agency-posi1-white"></div>
+            <div class="top-agency-div2"></div>
             <div class="top-agency-posi1-display"># Non-Compliant Solicitation(s)</div>
         </div>
 
@@ -49,7 +47,8 @@ Non-Compliant Solicitations: {{(num[3] - num[2])}}">
                     <td class="top-agency-td2">
 
                         <div class="top-agency-div1" [ngStyle]="{'width': num[2]/maxSolicitation * 100 + '%'}"></div>
-                        <div class="top-agency-div2" [ngStyle]="{'width': (num[3] - num[2])/maxSolicitation * 100 + '%'}">
+                        <div class="top-agency-div2"
+                            [ngStyle]="{'width': (num[3] - num[2])/maxSolicitation * 100 + '%'}">
                             <div class="top-agency-div3" [hidden]="num[3]==0">
                                 {{num[1] | percent:'.0-0'}}
                             </div>

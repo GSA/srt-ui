@@ -20,13 +20,22 @@ export class TopSrtActionsComponent implements OnInit {
   public emailSend: number;
   public selectedAgency = 'Government wide';
 
+  // Add boolean flags for each tooltip
+  public showTotalIctTooltip = false;
+  public showNonCompliantIctTooltip = false;
+  public showReviewedTooltip = false;
+  public showEmailsSentTooltip = false;
+  public showUpdatedSolicitationsTooltip = false;
+  public showUpdatedNonCompliantTooltip = false;
+  public showUpdatedCompliantTooltip = false;
+
   /* CONSTRUCTOR */
 
   /**
    * constructor
    */
   constructor(
-  ) {}
+  ) { }
 
   /**
    * lifecycle
@@ -48,8 +57,8 @@ export class TopSrtActionsComponent implements OnInit {
       this.updatedCompliantICTNumber = this.TopSRTActionChart.updatedCompliantICT;
       this.updatedNonCompliantICTNumber = this.TopSRTActionChart.updatedNonCompliantICT;
       this.selectedAgency = this.TopSRTActionChart.params.agency === 'Government-wide' ?
-                                     'all federal agencies' :
-                                     'the ' + this.TopSRTActionChart.params.agency;
+        'all federal agencies' :
+        'the ' + this.TopSRTActionChart.params.agency;
     }
 
   }
