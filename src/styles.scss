@@ -98,7 +98,7 @@ div.srt-button {
   width: 100px;
 }
 
-.srt-button > div {
+.srt-button>div {
   display: table-cell;
   vertical-align: middle;
 }
@@ -218,6 +218,7 @@ div.srt-button {
   width: 1px;
   white-space: nowrap;
 }
+
 .visible-when-focused:focus {
   border: inherit;
   clip: inherit;
@@ -271,10 +272,12 @@ button:focus,
 input:focus {
   outline: orange auto 2px !important;
 }
+
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -290,7 +293,7 @@ body {
 }
 
 /* Table styles */
-body .p-datatable .p-datatable-thead > tr > th {
+body .p-datatable .p-datatable-thead>tr>th {
   padding-right: 0.1em;
   padding-left: 0.1em;
 }
@@ -299,7 +302,7 @@ body .p-datatable .p-datatable-table {
   table-layout: fixed;
 }
 
-body .p-datatable .p-datatable-thead > tr > th {
+body .p-datatable .p-datatable-thead>tr>th {
   text-align: center;
 }
 
@@ -307,7 +310,7 @@ body .p-datatable .p-datatable-tbody td.p-resizable-column {
   color: #111111;
 }
 
-body .p-datatable .p-datatable-tbody > tr > td {
+body .p-datatable .p-datatable-tbody>tr>td {
   background-color: inherit;
   border: 1px solid #c8c8c8;
   word-wrap: break-word;
@@ -368,18 +371,18 @@ body .p-datatable .p-datatable-tbody > tr > td {
   padding: 0px;
 }
 
-.usa-sidenav-list > li:first-child {
+.usa-sidenav-list>li:first-child {
   border-top: none;
 }
 
-.usa-sidenav-list > li {
+.usa-sidenav-list>li {
   background-color: transparent;
   border-top: 1px solid #5b616b;
   font-size: 1.7rem;
   cursor: pointer;
 }
 
-.usa-sidenav-list > li {
+.usa-sidenav-list>li {
   margin-bottom: 0;
 }
 
@@ -423,4 +426,47 @@ body .p-datatable .p-datatable-tbody > tr > td {
   color: #112e51 !important;
 }
 
+/* --- Definitive Universal Focus Indicator Styles --- */
 
+/* First, forcefully remove ALL existing outlines and box-shadows on focus
+   This targets everything and ensures no conflicting styles persist from browsers or libraries. */
+:focus {
+  outline: none !important;
+  /* Absolutely remove any default outline */
+  box-shadow: none !important;
+  /* Ensure no lingering box-shadows act as outlines */
+}
+
+/* Then, apply your desired thick, rectangular royal blue outline to all common interactive elements.
+   We use !important here to ensure it overrides even specific library styles. */
+a:focus,
+button:focus,
+input:focus,
+/* Targets all input types */
+select:focus,
+textarea:focus,
+[tabindex]:focus:not([tabindex="-1"]),
+/* Targets any element made focusable with tabindex, excluding unfocusable ones */
+.info:focus
+
+/* Include specific global classes if they are interactive and need this exact style */
+  {
+  outline: 4px solid #2491FF !important;
+  /* 4px thick, solid azure blue outline */
+  outline-offset: 2px !important;
+  /* 2px gap between element and outline */
+}
+
+/* Special Note on PrimeNG (and other UI libraries):
+   If, after the above, certain PrimeNG components still show an unwanted outline,
+   you might need to target their specific classes. You would find these classes
+   by using your browser's developer tools. For example:
+   .p-element:focus,
+   .p-button:focus,
+   .p-inputtext:focus {
+       outline: 3px solid #2491FF !important;
+       outline-offset: 2px !important;
+   }
+   This level of specificity is generally only needed if the general rules above are not enough
+   due to how the library applies its own focus styles.
+*/

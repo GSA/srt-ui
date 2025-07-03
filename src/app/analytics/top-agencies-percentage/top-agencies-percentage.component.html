@@ -1,18 +1,30 @@
 <div class="padding-right">
     <div id="analyticTitle" class="srt-blue top-agency-title">
-      <h2 class="srt-blue chart">{{barTitle}}</h2>
-      <div class="visually-hidden">The agencies ranking is sorted by Compliance Rate where
-        Compliance Rate = (Number of compliant solicitations divided by Total ICT solicitations)</div>
+        <h2 class="srt-blue chart">{{barTitle}}</h2>
+        <div class="visually-hidden">The agency ranking is sorted by Compliance Rate where
+            Compliance Rate = (Number of compliant ICT solicitations / Total ICT solicitations)</div>
 
-      <sup class="supfont"
-            [pTooltip]="chartToolTip" tooltipPosition="bottom">
-            <i *ngIf="isGovernomentWide" tabindex="0" class="fa fa-info-circle info" aria-hidden="true" ></i>
-        </sup>
+        <!-- <sup class="supfont" [pTooltip]="chartToolTip" tooltipPosition="bottom">
+            <i *ngIf="isGovernomentWide" tabindex="0" class="fa fa-info-circle info" aria-hidden="true"></i>
+        </sup> -->
+
+        <span class="tooltip-container">
+            <sup class="supfont tooltip-trigger" *ngIf="isGovernomentWide" tabindex="0" role="button"
+                [attr.aria-label]="chartToolTip" (focus)="showTooltip = true" (blur)="showTooltip = false"
+                (keydown.enter)="showTooltip = !showTooltip"
+                (keydown.space)="showTooltip = !showTooltip; $event.preventDefault()">
+                <i class="fa fa-info-circle info" aria-hidden="true"></i>
+            </sup>
+            <span class="tooltip-text" [class.show]="showTooltip">
+                {{chartToolTip}}
+            </span>
+        </span>
+
     </div>
     <!-- bar chart -->
     <div class="top-agency-bar-chart" *ngIf="noData">
         <div class="top-agency-nodata">
-              No data to show on this time period
+            No data to show on this time period
         </div>
     </div>
 
@@ -37,25 +49,27 @@
             <div>Compliant Rate (%)</div>
         </div>
         <div class="top-agency-posi4" aria-hidden="true"
-             [ngStyle]="{'width': (indexTo - indexFrom) * 30 + 'px', 'height': (indexTo - indexFrom) * 30 + 'px'}">
+            [ngStyle]="{'width': (indexTo - indexFrom) * 30 + 'px', 'height': (indexTo - indexFrom) * 30 + 'px'}">
             {{xAxis}}
         </div>
         <table class="top-agency-table">
-          <caption class="visually-hidden">Top 10 Section 508 Compliant Agencies</caption>
-          <thead>
-           <tr>
-             <th>Agency</th>
-             <th>Percentage Compliant Solicitations</th>
-           </tr>
-          </thead>
+            <caption class="visually-hidden">Top 10 Section 508 Compliant Agencies</caption>
+            <thead>
+                <tr>
+                    <th>Agency</th>
+                    <th>Percentage Compliant Solicitations</th>
+                </tr>
+            </thead>
             <tbody>
                 <tr *ngFor="let num of barData | slice:indexFrom:indexTo " style="width: 100%;" title="Total: {{num[3]}}
 Compliant Solicitations: {{num[2]}}
 Non-Compliant Solicitations: {{(num[3] - num[2])}}">
                     <td class="top-agency-td1">{{getAbbr(num[0])}}&nbsp;&nbsp;&nbsp;</td>
                     <td class="top-agency-td2">
-                        <div class="top-agency-div1" [ngStyle]="{'width': (num[2]/num[3]) * (num[2]/num[3]) * 100 + '%'}"></div>
-                        <div class="top-agency-div2" [ngStyle]="{'width': ((num[3] - num[2])/num[3]) * (num[2]/num[3]) * 100 + '%'}">
+                        <div class="top-agency-div1"
+                            [ngStyle]="{'width': (num[2]/num[3]) * (num[2]/num[3]) * 100 + '%'}"></div>
+                        <div class="top-agency-div2"
+                            [ngStyle]="{'width': ((num[3] - num[2])/num[3]) * (num[2]/num[3]) * 100 + '%'}">
                             <div class="top-agency-div3" [hidden]="num[1]==0">
                                 {{num[1] | percent:'.0-0'}}
                             </div>
