@@ -57,7 +57,7 @@ export class UndeterminedSolicitationsComponent implements OnInit {
   public showUnevaluatedTooltip = false; // Add this line
 
   // Add this property for tooltip content
-  public unevaluatedTooltipText = `Other Undetermined' solicitations are solicitations with attachments that are currently failed to be accessed by the system due to various reasons (e.g., security redirect).`; // Add this line
+  public unevaluatedTooltipText = 'Other Undetermined solicitations are solicitations with attachments that cannot be accessed by SRT for various reasons (e.g., security redirect).'; // Add this line
 
 
   public displayPresolicitation = '0%';
@@ -94,8 +94,8 @@ export class UndeterminedSolicitationsComponent implements OnInit {
         labels: this.pieChartLabels,
         datasets: [{
           data: [presolicitation, undetermined, NoDocument, NonMachineReadable],
-          backgroundColor: ['#2C81C0', '#ff0000', '#B46AF0', '#C28800'],
-          hoverBackgroundColor: ['#2C81C0', '#ff0000', '#B46AF0', '#C28800']
+          backgroundColor: ['#2C81C0', '#ff0000', '#C28800', '#B46AF0'],
+          hoverBackgroundColor: ['#2C81C0', '#ff0000', '#C28800', '#B46AF0']
         }
         ]
       };

@@ -40,8 +40,8 @@ describe('UndeterminedSolicitationsComponent', () => {
       labels: ['Presolicitation', 'Other Undetermined', 'No Documents', 'Non-Machine Readable'],
       datasets: [{
         data: [10, 20, 15, 5],
-        backgroundColor: ['#2C81C0', '#ff0000', '#B46AF0', '#C28800'],
-        hoverBackgroundColor: ['#2C81C0', '#ff0000', '#B46AF0', '#C28800']
+        backgroundColor: ['#2C81C0', '#ff0000', '#C28800', '#B46AF0'],
+        hoverBackgroundColor: ['#2C81C0', '#ff0000', '#C28800', '#B46AF0']
       }]
     });
   });
