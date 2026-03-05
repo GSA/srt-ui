@@ -5,7 +5,6 @@
   "scripts": {
     "ng": "ng",
     "dev": "ng serve  --disable-host-check --host 0.0.0.0 --watch --configuration=local ",
-    "postinstall": "node scripts/postinstall.js",
     "start": "ng serve",
     "build": "ng build --output-hashing=all",
     "build-local": "ng build --output-hashing=all --configuration=local",
