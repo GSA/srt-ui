@@ -1,14 +1,14 @@
-import {Component, OnInit, Renderer2, ViewEncapsulation} from '@angular/core';
-import {Router} from '@angular/router';
-import {SolicitationService} from '../solicitation.service';
-import {LazyLoadEvent} from 'primeng/api/lazyloadevent';
-import { SelectItem } from 'primeng/api/selectitem';
-import * as $ from 'jquery';
-import {Title} from '@angular/platform-browser';
-import {BaseComponent} from '../../base.component';
-import {NoticeTypesService} from '../../shared/services/noticeTypes.service';
-import * as moment from 'moment';
-import {environment} from 'environments/environment';
+import { Component, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
+import { SolicitationService } from '../solicitation.service';
+import { LazyLoadEvent } from 'primeng/api';
+import { SelectItem } from 'primeng/api';
+import $ from 'jquery';
+import { Title } from '@angular/platform-browser';
+import { BaseComponent } from '../../base.component';
+import { NoticeTypesService } from '../../shared/services/noticeTypes.service';
+import moment from 'moment';
+import { environment } from 'environments/environment';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 interface TableSort {
@@ -27,10 +27,11 @@ interface TableState {
 @Component({
   selector: 'app-solicitation-report',
   templateUrl: './solicitation-report.component.html',
-  styleUrls: ['./solicitation-report.component.scss']
+  styleUrls: ['./solicitation-report.component.scss'],
+  standalone: false
 })
 export class SolicitationReportComponent extends BaseComponent implements OnInit {
-  today: Date = new Date(); 
+  today: Date = new Date();
 
 
   /* ATTRIBUTES */
@@ -50,8 +51,8 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     {
       first: 0,
       rows: 15,
-      filter: {'active': {'value': true, 'matchMode': 'equals' }},
-      sort: {field: 'date', order: -1},
+      filter: { 'active': { 'value': true, 'matchMode': 'equals' } },
+      sort: { field: 'date', order: -1 },
       version: 1,
       timestamp: 0
     };
@@ -70,45 +71,45 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
     numDocs: '',
     reviewStatus: '',
     reviewRec: '',
-    filters: { 'active': {'value': true, 'matchMode': 'equals' }},
+    filters: { 'active': { 'value': true, 'matchMode': 'equals' } },
     rows: 15
   };
 
   columns = [
-    { field: 'solNum', title: 'ID'},
-    { field: 'title', title: 'Title'},
-    { field: 'noticeType', title: 'Notice Type'},
-    { field: 'date', title: 'Date Posted'},
-    { field: 'reviewRec', title: 'SRT Review Result'},
-    { field: 'actionStatus', title: 'Action Status'},
-    { field: 'actionDate', title: 'Latest Action Date'},
-    { field: 'agency', title: 'Agency'},
-    { field: 'office', title: 'Office'},
+    { field: 'solNum', title: 'ID' },
+    { field: 'title', title: 'Title' },
+    { field: 'noticeType', title: 'Notice Type' },
+    { field: 'date', title: 'Date Posted' },
+    { field: 'reviewRec', title: 'SRT Review Result' },
+    { field: 'actionStatus', title: 'Action Status' },
+    { field: 'actionDate', title: 'Latest Action Date' },
+    { field: 'agency', title: 'Agency' },
+    { field: 'office', title: 'Office' },
   ];
 
   // Values we want exported but not displayed
   hidden_columns = [
-    { field: 'url', title: 'URL'},
+    { field: 'url', title: 'URL' },
   ];
 
   noticeTypes: Array<Object> = [
-    {label : 'All', value : ''}
-    ];
+    { label: 'All', value: '' }
+  ];
 
   reviewRec: Array<Object> = [
-    {label : 'All', value : ''},
-    {label : 'Non-Compliant', value : 'Non-compliant (Action Required)'},
-    {label : 'Compliant', value : 'Compliant'},
-    {label : 'Cannot Evaluate', value : 'Cannot Evaluate (Review Required)'},
-    {label : 'Not Applicable', value : 'Not Applicable'},
+    { label: 'All', value: '' },
+    { label: 'Non-Compliant', value: 'Non-compliant (Action Required)' },
+    { label: 'Compliant', value: 'Compliant' },
+    { label: 'Cannot Evaluate', value: 'Cannot Evaluate (Review Required)' },
+    { label: 'Not Applicable', value: 'Not Applicable' },
   ];
 
   epaDropdown: Array<Object> = [
-    {label : 'All', value : ''},
-    {label : 'Non-Compliant', value : 'red'},
-    {label : 'Compliant', value : 'green'},
-    {label : 'Cannot Evaluate', value : 'yellow'},
-    {label : 'Not Applicable', value : 'grey'},
+    { label: 'All', value: '' },
+    { label: 'Non-Compliant', value: 'red' },
+    { label: 'Compliant', value: 'green' },
+    { label: 'Cannot Evaluate', value: 'yellow' },
+    { label: 'Not Applicable', value: 'grey' },
   ];
 
 
@@ -142,7 +143,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
           break;
         }
       }
-      this.columns.splice(i + 1, 0, {field: 'predictions.estar', title: 'EPA Review Result'});
+      this.columns.splice(i + 1, 0, { field: 'predictions.estar', title: 'EPA Review Result' });
     }
 
     this.retstoreState();
@@ -171,11 +172,11 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
           //  this.solicitations = this.sortByReviewResult(this.solicitations);
 
           this.getNoticeTypes(this.solicitations);
-          setTimeout(() => {this.loading = false; } , 1); // don't change the view data while we are rendering it.
+          setTimeout(() => { this.loading = false; }, 1); // don't change the view data while we are rendering it.
 
           // give the PrimNG Table time to render, then set the default sort icon manually
           // to cover over a bug where the default column is not getting the arrow rendered
-          setTimeout( () => {
+          setTimeout(() => {
             this.renderer.selectRootElement('p-sorticon[ng-reflect-field=\'date\']>i').classList.add('pi-sort-down');
           }, 100);
 
@@ -187,28 +188,28 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
       });
 
     this.noticeTypesService.getNoticeTypes()
-      .subscribe( (typesArray: Array<String>) => {
-        this.noticeTypes = [{label: 'All', value: ''}];
+      .subscribe((typesArray: Array<String>) => {
+        this.noticeTypes = [{ label: 'All', value: '' }];
         for (const t of typesArray) {
-          this.noticeTypes.push({label: t, value: t});
+          this.noticeTypes.push({ label: t, value: t });
         }
       });
 
-    this.ict.push({label: 'All', value: null});
-    this.ict.push({label: 'Yes', value: 'Yes'});
-    this.ict.push({label: 'No', value: 'No'});
+    this.ict.push({ label: 'All', value: null });
+    this.ict.push({ label: 'Yes', value: 'Yes' });
+    this.ict.push({ label: 'No', value: 'No' });
 
-    this.revResult.push({label: 'All', value: null});
-    this.revResult.push({label: 'Compliant', value: 'Compliant'});
-    this.revResult.push({label: 'Non-compliant (Action Required)', value: 'Non-compliant (Action Required)'});
-    this.revResult.push({label: 'Not Applicable', value: 'Not Applicable'});
+    this.revResult.push({ label: 'All', value: null });
+    this.revResult.push({ label: 'Compliant', value: 'Compliant' });
+    this.revResult.push({ label: 'Non-compliant (Action Required)', value: 'Non-compliant (Action Required)' });
+    this.revResult.push({ label: 'Not Applicable', value: 'Not Applicable' });
 
   }
 
   loadSolicitationsLazy(event: LazyLoadEvent) {
     this.filterChange();
     this.loading = true;
-    event.filters = { ...event.filters, ...this.tableState.filter};
+    event.filters = { ...event.filters, ...this.tableState.filter };
 
     this.solicitationService.getFilteredSolicitations(event)
       .subscribe({
@@ -219,7 +220,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
           $('.pDataTable .p-datatable-gridlines').show();
 
           // convert the dates to a nice display format
-          const date_options: Intl.DateTimeFormatOptions = {year: 'numeric', month: 'short', day: 'numeric'};
+          const date_options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
           for (const p of this.solicitations) {
             p.date = (new Date(p.date)).toLocaleDateString('en', date_options);
             p.actionDate = (new Date(p.actionDate)).toLocaleDateString('en', date_options);
@@ -232,7 +233,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
 
 
           // fix accessibility of paginator
-          setTimeout( () => {
+          setTimeout(() => {
             $('.p-paginator-icon.pi-caret-right').attr('title', 'next page');
             $('.p-paginator-icon.pi-caret-left').attr('title', 'previous page');
             $('a.p-paginator-first').attr('title', 'first page');
@@ -275,7 +276,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
 
   mouseUp(solicitation: any) {
     const now = (new Date()).getTime();
-    if ( (now - this.mouseDownTimestamp) < 300 && solicitation === this.mouseDownSolicitation) {
+    if ((now - this.mouseDownTimestamp) < 300 && solicitation === this.mouseDownSolicitation) {
       this.selectSol(solicitation);
     }
   }
@@ -286,7 +287,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
    * @param solicitation
    */
   selectSol(solicitation: any) {
-    
+
     this.$gaService.event('select_sol_table', 'sol_section', 'Selected Solicitation from Table');
 
     const now = moment().format('MM/DD/YYYY');
@@ -306,7 +307,8 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
         },
         error: (e) => {
           console.log(e);
-        }});
+        }
+      });
   }
 
 
@@ -323,18 +325,18 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
         let noticeCount: Number;
         if (noticeTypeMap.hasOwnProperty(element.noticeType)) {
           noticeCount = noticeTypeMap[element.noticeType].count + 1;
-          noticeTypeMap[element.noticeType] = {label: noticeTypeLabel, value: noticeTypeValue, count: noticeCount};
+          noticeTypeMap[element.noticeType] = { label: noticeTypeLabel, value: noticeTypeValue, count: noticeCount };
         } else {
           noticeCount = 1;
-          noticeTypeMap[element.noticeType] = {label: noticeTypeLabel, value: noticeTypeValue, count: noticeCount};
+          noticeTypeMap[element.noticeType] = { label: noticeTypeLabel, value: noticeTypeValue, count: noticeCount };
         }
       });
 
       this.solType = [];
-      this.solType.push({label: 'Any', value: null});
+      this.solType.push({ label: 'Any', value: null });
       for (const k in noticeTypeMap) {
         if (noticeTypeMap[k] !== null && noticeTypeMap[k] !== null) {
-          this.solType.push({label: noticeTypeMap[k].label + ' (' + noticeTypeMap[k].count + ')', value: noticeTypeMap[k].label});
+          this.solType.push({ label: noticeTypeMap[k].label + ' (' + noticeTypeMap[k].count + ')', value: noticeTypeMap[k].label });
         }
       }
     }
@@ -347,7 +349,7 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
    * @param options
    * @param filters - Filter values associated with the soliciation p-table
    */
-  exportCSV (options, filters) {
+  exportCSV(options, filters) {
     const csvSeparator = ',';
     let csv = '';
 
@@ -367,20 +369,20 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
       }
     }
 
-    let filter = {first: 0, rows: 1000, filters: {}};
+    let filter = { first: 0, rows: 1000, filters: {} };
 
     // The filters parameter is passed from the p-table element with the template reference variable #gb.
     // It contains the current filtering criteria applied to the table, allowing the export to include only the filtered data.
     if (filters) {
       filter.filters = filters;
     }
-       
+
     const appendSolicitations = (solicitations) => {
       document.body.style.cursor = 'wait';
       for (const s of solicitations.predictions) {
         csv += '\n';
         for (let i = 0; i < export_columns.length; i++) {
-          const escaped_field = (s[export_columns[i].field] || '').replace(/"/g, '""' );
+          const escaped_field = (s[export_columns[i].field] || '').replace(/"/g, '""');
           csv += '"' + escaped_field + '"' + csvSeparator;
         }
       }
@@ -395,10 +397,10 @@ export class SolicitationReportComponent extends BaseComponent implements OnInit
           .subscribe(appendSolicitations);
       }
     };
-    
+
     this.solicitationService
       .getFilteredSolicitations(filter)
-      .subscribe( appendSolicitations );
+      .subscribe(appendSolicitations);
 
     return;
   };

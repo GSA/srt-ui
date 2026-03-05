@@ -2,8 +2,9 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ContactUsComponent } from './contact-us.component';
 import { SolicitationService } from '../../solicitation/solicitation.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ContactUsComponent', () => {
   let component: ContactUsComponent;
@@ -11,10 +12,10 @@ describe('ContactUsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ContactUsComponent ],
-      providers: [SolicitationService],
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])]
-    })
+    declarations: [ContactUsComponent],
+    imports: [RouterTestingModule.withRoutes([])],
+    providers: [SolicitationService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 

@@ -1,22 +1,22 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "lib": ["es2022", "dom"],
     "outDir": "../out-tsc/app",
     "baseUrl": "",
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true 
+    "resolveJsonModule": true
   },
   "exclude": [
     "test.ts",
     "**/*.spec.ts",
     "../node_modules/karma/config.tpl.ts"
   ],
-  "files": [
-    "../node_modules/ngx-quill-editor/index.ts",
-    "../node_modules/ngx-quill-editor/quillEditor.module.ts"
-  ],
-  "include": [ "**/*.ts", "*.ts", "../node_modules/ngx-quill-editor/*.ts"]
+  "include": [
+    "**/*.ts",
+    "*.ts"
+  ]
 }

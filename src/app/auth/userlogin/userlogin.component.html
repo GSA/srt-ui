@@ -6,7 +6,9 @@
     </a>
   </div>
   <!-- Conditionally show the Login as DEV button only in development environment -->
-  <button *ngIf="is_dev" class="usa-button dev-button" aria-label="Login as Dev" (click)="loginAsDev()">
-    Login as DEV
-  </button>
+  @if (is_dev) {
+    <button class="usa-button dev-button" aria-label="Login as Dev" (click)="loginAsDev()">
+      Login as DEV
+    </button>
+  }
 </div>

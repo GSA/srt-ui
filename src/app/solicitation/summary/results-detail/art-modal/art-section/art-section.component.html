@@ -1,10 +1,11 @@
-<ng-container *ngIf="section.text === ''; else notEmptyText">
+@if (section.text === '') {
   <h1>{{ section.code }} {{ section.title }}</h1>
-</ng-container>
-<ng-template #notEmptyText>
+} @else {
   <h2>{{ section.title }}</h2>
-</ng-template>
+}
 <p>{{ section.text }}</p>
-<div *ngFor="let subsection of section.sections" class="ps-3">
-  <app-art-section [section]="subsection"></app-art-section>
-</div>
+@for (subsection of section.sections; track subsection) {
+  <div class="ps-3">
+    <app-art-section [section]="subsection"></app-art-section>
+  </div>
+}

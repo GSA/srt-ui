@@ -5,9 +5,10 @@ import { BaseComponent } from '../../base.component';
 import { Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-faq',
-  templateUrl: './faq.component.html',
-  styleUrls: ['./faq.component.scss']
+    selector: 'app-faq',
+    templateUrl: './faq.component.html',
+    styleUrls: ['./faq.component.scss'],
+    standalone: false
 })
 export class FaqComponent extends BaseComponent implements OnInit {
   public faq: any[];  // Array of FAQs from the API

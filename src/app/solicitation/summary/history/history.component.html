@@ -1,8 +1,8 @@
 <main id="content" class="bypass-block-target">
- 
+
   <div class="container">
     <div class="clearfix summary-content-padding">
-      
+
 
       <!-- Prediction History -->
       <div style="font-size: 16px;" class="margin-bottom-4">
@@ -10,18 +10,28 @@
           Prediction History
         </div>
         <div class="list-content">
-          <ul *ngIf="predictionHistory" class="nopadding">
-            <li *ngFor="let entry of predictionHistory" style="list-style: none;">
-              {{entry.date}} - 
-              <span [style.font-weight]="600">
-                <ng-container [ngSwitch]="entry.value">
-                  <ng-container *ngSwitchCase="'red'">Non-Compliant</ng-container>
-                  <ng-container *ngSwitchCase="'green'">Compliant</ng-container>
-                  <ng-container *ngSwitchDefault>{{entry.value}}</ng-container>
-                </ng-container>
-              </span>
-            </li>
-          </ul>
+          @if (predictionHistory) {
+            <ul class="nopadding">
+              @for (entry of predictionHistory; track entry) {
+                <li style="list-style: none;">
+                  {{entry.date}} -
+                  <span [style.font-weight]="600">
+                    @switch (entry.value) {
+                      @case ('red') {
+                        Non-Compliant
+                      }
+                      @case ('green') {
+                        Compliant
+                      }
+                      @default {
+                        {{entry.value}}
+                      }
+                    }
+                  </span>
+                </li>
+              }
+            </ul>
+          }
         </div>
       </div>
 
@@ -31,11 +41,15 @@
           Action History
         </div>
         <div class="list-content">
-          <ul *ngIf="history" class="nopadding">
-            <li *ngFor="let action of history" style="list-style: none;">
-              {{action.date}} - <span style="font-weight: 600">{{action.user}}</span> {{action.action}}
-            </li>
-          </ul>
+          @if (history) {
+            <ul class="nopadding">
+              @for (action of history; track action) {
+                <li style="list-style: none;">
+                  {{action.date}} - <span style="font-weight: 600">{{action.user}}</span> {{action.action}}
+                </li>
+              }
+            </ul>
+          }
         </div>
       </div>
     </div>

@@ -14,9 +14,10 @@ import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-art-modal',
-  templateUrl: './art-modal.component.html',
-  styleUrls: ['./art-modal.component.scss'],
+    selector: 'app-art-modal',
+    templateUrl: './art-modal.component.html',
+    styleUrls: ['./art-modal.component.scss'],
+    standalone: false
 })
 export class ArtIframeDialogComponent {
 

@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import * as moment from 'moment';
+import moment from 'moment';
 import { SolicitationService } from '../../solicitation.service';
 import { Solicitation } from '../../../shared/solicitation';
 
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
-  styleUrls: ['./history.component.scss']
+  styleUrls: ['./history.component.scss'],
+  standalone: false
 })
 export class HistoryComponent implements OnInit {
   solicitation: Solicitation;
@@ -45,9 +46,9 @@ export class HistoryComponent implements OnInit {
 
   private processParseStatus(data: any) {
     data.parseStatus.forEach(element => {
-      element.status = element.status === 'successfully parsed' ? 'Yes' : 
-                      element.status === 'processing error' ? 'No' : 
-                      element.status;
+      element.status = element.status === 'successfully parsed' ? 'Yes' :
+        element.status === 'processing error' ? 'No' :
+          element.status;
     });
   }
 

@@ -3,9 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { SolicitationService } from '../../solicitation.service';
 
 @Component({
-  selector: 'app-feedback-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss']
+    selector: 'app-feedback-form',
+    templateUrl: './form.component.html',
+    styleUrls: ['./form.component.scss'],
+    standalone: false
 })
 export class FormComponent implements OnInit {
 

@@ -3,9 +3,10 @@ import { BaseChartDirective } from 'ng2-charts';
 import { getChartLabelPlugin, PLUGIN_ID } from 'chart.js-plugin-labels-dv';
 
 @Component({
-  selector: 'app-solicitation-result',
-  templateUrl: './solicitation-result.component.html',
-  styleUrls: ['./solicitation-result.component.scss']
+    selector: 'app-solicitation-result',
+    templateUrl: './solicitation-result.component.html',
+    styleUrls: ['./solicitation-result.component.scss'],
+    standalone: false
 })
 export class SolicitationResultComponent {
 

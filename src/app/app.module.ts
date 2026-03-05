@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 // Feature Modules
@@ -54,68 +54,60 @@ import { AdminHeaderComponent } from './admin-header/admin-header.component';
 import { AppRoutingModule } from './app.routing';
 import { Globals } from '../globals';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    AdminComponent,
-    UploadComponent,
-    BaseComponent,
-    AdminHeaderComponent,
-    LoginReportsComponent
-  ],
-  imports: [
-    // Angular Core Modules
-    CommonModule,
-    BrowserModule,
-    RouterModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    AppRoutingModule,
-    
-    // Feature Modules
-    AuthModule,
-    HomeModule,
-    HelpModule,
-    AdminModule,
-    AnalyticsModule,
-    SolicitationModule, // Import SolicitationModule only once
-    
-    // PrimeNG Modules
-    TooltipModule,
-    DialogModule,
-    TableModule,
-    ButtonModule,
-    DropdownModule,
-    CalendarModule,
-    AutoCompleteModule,
-    ChartModule,
-    
-    // Third Party Modules
-    LoggerModule.forRoot({level: NgxLoggerLevel.DEBUG}),
-    NgxGoogleAnalyticsModule.forRoot('G-RZRRP7Q0BH'),
-    NgxGoogleAnalyticsRouterModule
-  ],
-  providers: [
-    AuthService,
-    UserService,
-    AgencyService,
-    SurveyService,
-    MasqService,
-    TokenService,
-    AuthGuard,
-    AdminGuard,
-    NoticeTypesService,
-    ArtService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    },
-    Globals,
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        HeaderComponent,
+        AdminComponent,
+        UploadComponent,
+        BaseComponent,
+        AdminHeaderComponent,
+        LoginReportsComponent
+    ],
+    bootstrap: [AppComponent], imports: [
+        // Angular Core Modules
+        CommonModule,
+        BrowserModule,
+        RouterModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AppRoutingModule,
+        // Feature Modules
+        AuthModule,
+        HomeModule,
+        HelpModule,
+        AdminModule,
+        AnalyticsModule,
+        SolicitationModule, // Import SolicitationModule only once
+        // PrimeNG Modules
+        TooltipModule,
+        DialogModule,
+        TableModule,
+        ButtonModule,
+        DropdownModule,
+        CalendarModule,
+        AutoCompleteModule,
+        ChartModule,
+        // Third Party Modules
+        LoggerModule.forRoot({ level: NgxLoggerLevel.DEBUG }),
+        NgxGoogleAnalyticsModule.forRoot('G-RZRRP7Q0BH'),
+        NgxGoogleAnalyticsRouterModule], providers: [
+        AuthService,
+        UserService,
+        AgencyService,
+        SurveyService,
+        MasqService,
+        TokenService,
+        AuthGuard,
+        AdminGuard,
+        NoticeTypesService,
+        ArtService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptor,
+            multi: true
+        },
+        Globals,
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule { }

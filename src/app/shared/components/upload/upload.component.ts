@@ -9,9 +9,10 @@ import { FileUploader } from 'ng2-file-upload';
 
 
 @Component({
-  selector: 'app-upload',
-  templateUrl: './upload.component.html',
-  styleUrls: ['./upload.component.scss']
+    selector: 'app-upload',
+    templateUrl: './upload.component.html',
+    styleUrls: ['./upload.component.scss'],
+    standalone: false
 })
 
 //@Directive({ selector: '[ng2FileSelect]' })

@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-top-srt-actions',
-  templateUrl: './top-srt-actions.component.html',
-  styleUrls: ['./top-srt-actions.component.scss']
+    selector: 'app-top-srt-actions',
+    templateUrl: './top-srt-actions.component.html',
+    styleUrls: ['./top-srt-actions.component.scss'],
+    standalone: false
 })
 export class TopSrtActionsComponent implements OnInit {
 

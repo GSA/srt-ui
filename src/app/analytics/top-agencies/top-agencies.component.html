@@ -1,64 +1,69 @@
 <div class="padding-right">
-    <div id="analyticTitle" class="srt-blue top-agency-title">
-        {{barTitle}}&nbsp;&nbsp;
-        <sup class="supfont" [pTooltip]="chartToolTip" tooltipPosition="bottom">
-            <i *ngIf="isGovernomentWide" tabindex="0" class="fa fa-info-circle info" aria-hidden="true"></i>
-        </sup>
+  <div id="analyticTitle" class="srt-blue top-agency-title">
+    {{barTitle}}&nbsp;&nbsp;
+    <sup class="supfont" [pTooltip]="chartToolTip" tooltipPosition="bottom">
+      @if (isGovernomentWide) {
+        <i tabindex="0" class="fa fa-info-circle info" aria-hidden="true"></i>
+      }
+    </sup>
 
+  </div>
+  <!-- bar chart -->
+  @if (noData) {
+    <div class="top-agency-bar-chart">
+      <div class="top-agency-nodata">
+        No data to show on this time period
+      </div>
     </div>
-    <!-- bar chart -->
-    <div class="top-agency-bar-chart" *ngIf="noData">
-        <div class="top-agency-nodata">
-            No data to show on this time period
-        </div>
-    </div>
+  }
 
-    <div class="top-agency-content" *ngIf="!noData">
-        <div class="top-agency-position">
-
-            <div *ngFor="let xaxis of xAxisBreakPoint" style="position: absolute;"
-                [ngStyle]="{'left' : 'calc(100%/' + (xAxisBreakPoint.length - 1) / xaxis + ')'}">
-                {{xaxis * xAxisUnit}}
-            </div>
-
-        </div>
-        <div class="top-agency-posi1">
-            <div class="top-agency-div1"></div>
-            <div class="top-agency-posi1-display"># Compliant Solicitation(s)</div>
-        </div>
-        <div class="top-agency-posi2">
-            <div class="top-agency-div2"></div>
-            <div class="top-agency-posi1-display"># Non-Compliant Solicitation(s)</div>
-        </div>
-
-        <div class="top-agency-posi3">
-            <div># Solicitation(s)</div>
-        </div>
-        <div class="top-agency-posi4"
-            [ngStyle]="{'width': (indexTo - indexFrom) * 30 + 'px', 'height': (indexTo - indexFrom) * 30 + 'px'}">
-            {{xAxis}}
-        </div>
-        <table class="top-agency-table">
-            <tbody>
-                <tr *ngFor="let num of barData | slice:indexFrom:indexTo " style="width: 100%;" title="Total: {{num[3]}}
+  @if (!noData) {
+    <div class="top-agency-content">
+      <div class="top-agency-position">
+        @for (xaxis of xAxisBreakPoint; track xaxis) {
+          <div style="position: absolute;"
+            [ngStyle]="{'left' : 'calc(100%/' + (xAxisBreakPoint.length - 1) / xaxis + ')'}">
+            {{xaxis * xAxisUnit}}
+          </div>
+        }
+      </div>
+      <div class="top-agency-posi1">
+        <div class="top-agency-div1"></div>
+        <div class="top-agency-posi1-display"># Compliant Solicitation(s)</div>
+      </div>
+      <div class="top-agency-posi2">
+        <div class="top-agency-div2"></div>
+        <div class="top-agency-posi1-display"># Non-Compliant Solicitation(s)</div>
+      </div>
+      <div class="top-agency-posi3">
+        <div># Solicitation(s)</div>
+      </div>
+      <div class="top-agency-posi4"
+        [ngStyle]="{'width': (indexTo - indexFrom) * 30 + 'px', 'height': (indexTo - indexFrom) * 30 + 'px'}">
+        {{xAxis}}
+      </div>
+      <table class="top-agency-table">
+        <tbody>
+          @for (num of barData | slice:indexFrom:indexTo ; track num) {
+<tr style="width: 100%;" title="Total: {{num[3]}}
 Compliant Solicitations: {{num[2]}}
 Non-Compliant Solicitations: {{(num[3] - num[2])}}">
-                    <td class="top-agency-td1">{{GetAbbr(num[0])}}&nbsp;&nbsp;&nbsp;</td>
-                    <td class="top-agency-td2">
-
-                        <div class="top-agency-div1" [ngStyle]="{'width': num[2]/maxSolicitation * 100 + '%'}"></div>
-                        <div class="top-agency-div2"
-                            [ngStyle]="{'width': (num[3] - num[2])/maxSolicitation * 100 + '%'}">
-                            <div class="top-agency-div3" [hidden]="num[3]==0">
-                                {{num[1] | percent:'.0-0'}}
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
+              <td class="top-agency-td1">{{GetAbbr(num[0])}}&nbsp;&nbsp;&nbsp;</td>
+              <td class="top-agency-td2">
+                <div class="top-agency-div1" [ngStyle]="{'width': num[2]/maxSolicitation * 100 + '%'}"></div>
+                <div class="top-agency-div2"
+                  [ngStyle]="{'width': (num[3] - num[2])/maxSolicitation * 100 + '%'}">
+                  <div class="top-agency-div3" [hidden]="num[3]==0">
+                    {{num[1] | percent:'.0-0'}}
+                  </div>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
     </div>
+  }
 
 
 </div>
