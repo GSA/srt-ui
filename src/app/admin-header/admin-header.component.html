@@ -1,19 +1,22 @@
 <div class="active-tabs" ng-if="showActivitySelection()">
   <div class="custom-tabs">
     <ul class="custom-tabs__list">
-      <li class="custom-tabs__item" 
-          [ngClass]="{'custom-tabs__item--active': active['masquerade']}"
-          (click)="menuClick.emit('masquerade'); setActiveTab('masquerade')">
+      <li class="custom-tabs__item" [ngClass]="{'custom-tabs__item--active': active['masquerade']}"
+        (click)="menuClick.emit('masquerade'); setActiveTab('masquerade')" tabindex="0"
+        (keydown.enter)="menuClick.emit('masquerade'); setActiveTab('masquerade')"
+        (keydown.space)="menuClick.emit('masquerade'); setActiveTab('masquerade')">
         <a class="custom-tabs__link">MASQUERADE</a>
       </li>
-      <li class="custom-tabs__item" 
-          [ngClass]="{'custom-tabs__item--active': active['reports']}"
-          (click)="menuClick.emit('reports'); setActiveTab('reports')">
+      <li class="custom-tabs__item" [ngClass]="{'custom-tabs__item--active': active['reports']}"
+        (click)="menuClick.emit('reports'); setActiveTab('reports')" tabindex="0"
+        (keydown.enter)="menuClick.emit('reports'); setActiveTab('reports')"
+        (keydown.space)="menuClick.emit('reports'); setActiveTab('reports')">
         <a class="custom-tabs__link">REPORTS</a>
       </li>
-      <li class="custom-tabs__item" 
-          [ngClass]="{'custom-tabs__item--active': active['metric-downloads']}"
-          (click)="menuClick.emit('metric-downloads'); setActiveTab('metric-downloads')">
+      <li class="custom-tabs__item" [ngClass]="{'custom-tabs__item--active': active['metric-downloads']}"
+        (click)="menuClick.emit('metric-downloads'); setActiveTab('metric-downloads')" tabindex="0"
+        (keydown.enter)="menuClick.emit('metric-downloads'); setActiveTab('metric-downloads')"
+        (keydown.space)="menuClick.emit('metric-downloads'); setActiveTab('metric-downloads')">
         <a class="custom-tabs__link">METRIC DOWNLOADS</a>
       </li>
     </ul>

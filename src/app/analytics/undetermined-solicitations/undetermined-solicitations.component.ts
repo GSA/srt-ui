@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild} from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
 import { BaseChartDirective } from 'ng2-charts';
 import { Color } from 'chart.js';
@@ -15,10 +15,10 @@ export class UndeterminedSolicitationsComponent implements OnInit {
   /* ATTRIBUTES */
 
   @Input() UndeterminedSolicitationChart;
-  @ViewChild(BaseChartDirective, {static: false}) private baseChart;
+  @ViewChild(BaseChartDirective, { static: false }) private baseChart;
 
   public hasValue = false;
-  public pieChartLabels: string[] = ['Presolicitation', 'Other Undetermined', '0 Documents', 'Non-Machine Readable'];
+  public pieChartLabels: string[] = ['Presolicitation', 'Other Undetermined', 'No Documents', 'Non-Machine Readable'];
   public pieChartData: any;
 
   public pieChartType = 'pie';
@@ -42,36 +42,36 @@ export class UndeterminedSolicitationsComponent implements OnInit {
         textMargin: 6,
       },
       legend: {
-          display: true,
-          position: 'bottom',
-          onClick: function() {
-          }
+        display: true,
+        position: 'bottom',
+        onClick: function () {
+        }
       }
     },
     tooltips: {
-        enabled: true,
-        callbacks: {
-            label : function(tooltipItem, data) {
-              return  data.labels[tooltipItem.index] + ': ' + data.datasets[0].data[tooltipItem.index] + ' solicitation(s)';
-            }
-        }
-    },
-    maintainAspectRatio: false,
-    responsive: true,
+      enabled: false, // Disable default chart.js tooltips if they interfere
+    }
   };
 
-  public displayPresolicitation = '';
-  public displayNonMachineReadable = '';
-  public displayNoDocument = '';
-  public displayOtherUndetermined= '';
+  // Add this property to control tooltip visibility
+  public showUnevaluatedTooltip = false; // Add this line
+
+  // Add this property for tooltip content
+  public unevaluatedTooltipText = 'Other Undetermined solicitations are solicitations with attachments that cannot be accessed by SRT for various reasons (e.g., security redirect).'; // Add this line
+
+
+  public displayPresolicitation = '0%';
+  public displayOtherUndetermined = '0%';
+  public displayNoDocument = '0%';
+  public displayNonMachineReadable = '0%';
+
 
   /* CONSTRUCTOR */
 
   /**
    * constructor
    */
-  constructor(
-  ) {}
+  constructor() { }
 
   /**
    * lifecycle
@@ -91,30 +91,32 @@ export class UndeterminedSolicitationsComponent implements OnInit {
       const NoDocument = this.UndeterminedSolicitationChart.latestNoDocument;
       const total = presolicitation + undetermined + NonMachineReadable + NoDocument;
       this.pieChartData = {
-        labels: this.pieChartLabels, 
-        datasets:  [{
-          data:[presolicitation, undetermined, NoDocument, NonMachineReadable],
-          backgroundColor: ['#2C81C0', '#ff0000', '#e8e8e8', '#FFB300'],
-          hoverBackgroundColor: ['#2C81C0', '#ff0000', '#e8e8e8', '#FFB300']
+        labels: this.pieChartLabels,
+        datasets: [{
+          data: [presolicitation, undetermined, NoDocument, NonMachineReadable],
+          backgroundColor: ['#2C81C0', '#ff0000', '#C28800', '#B46AF0'],
+          hoverBackgroundColor: ['#2C81C0', '#ff0000', '#C28800', '#B46AF0']
         }
-      ]};
+        ]
+      };
 
-        this.displayPresolicitation = Math.round(presolicitation / total * 1000) / 10 + '%';
-        this.displayNonMachineReadable = Math.round(NonMachineReadable / total * 1000) / 10 + '%';
-        this.displayNoDocument = Math.round(NoDocument / total * 1000) / 10 + '%';
-        this.displayOtherUndetermined = Math.round(undetermined / total * 1000) / 10 + '%';
-        this.hasValue = true;
-        this.forceChartRefresh();
+      this.displayPresolicitation = Math.round(presolicitation / total * 1000) / 10 + '%';
+      this.displayNonMachineReadable = Math.round(NonMachineReadable / total * 1000) / 10 + '%';
+      this.displayNoDocument = Math.round(NoDocument / total * 1000) / 10 + '%';
+      this.displayOtherUndetermined = Math.round(undetermined / total * 1000) / 10 + '%';
+
+      this.hasValue = true;
+      this.forceChartRefresh();
     }
   }
 
   /**
-   * refresh chart
+   * lifecycle
    */
   forceChartRefresh() {
-      setTimeout(() => {
-          this.baseChart.update();
-      }, 10);
+    setTimeout(() => {
+      this.baseChart.update();
+    }, 10);
   }
 
 }

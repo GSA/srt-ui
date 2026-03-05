@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 
 import * as _ from 'underscore';
@@ -33,8 +33,11 @@ export class TopAgenciesPercentageComponent implements OnInit {
   public indexTo = 10;
   public maxSolicitation = 0;
   public noData: Boolean = true;
-  public chartToolTip = `The agencies ranking is sorted by Compliance Rate where
-    Compliance Rate = (Number of compliant solicitations / Total ICT solicitations)`;
+  public chartToolTip = `The agency ranking is sorted by Compliance Rate where
+    Compliance Rate = (Number of compliant ICT solicitations / Total ICT solicitations)`;
+
+  // Add this property to control tooltip visibility
+  public showTooltip = false; // Add this line
 
   /* CONSTRUCTOR */
 
@@ -199,7 +202,7 @@ export class TopAgenciesPercentageComponent implements OnInit {
    * @param name
    */
   public getAbbr(name) {
-    for(let i = 0; i < this.agencyList.length; i++) {
+    for (let i = 0; i < this.agencyList.length; i++) {
       if (this.agencyList[i].Agency === name && this.agencyList[i].Acronym) {
         return this.agencyList[i].Acronym;
       }
