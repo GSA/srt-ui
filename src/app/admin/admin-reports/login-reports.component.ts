@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {LoginReportService} from './login-report.service';
-import {SelectItem} from 'primeng/api';
-import {saveAs} from 'file-saver';
-import {parse} from 'json2csv';
+import { Component, OnInit } from '@angular/core';
+import { LoginReportService } from './login-report.service';
+import { SelectItem } from 'primeng/api';
+import { saveAs } from 'file-saver';
 import { enUS } from 'date-fns/locale';
 import 'chartjs-adapter-date-fns';
 interface TimeSelection {
@@ -10,10 +9,10 @@ interface TimeSelection {
 }
 
 @Component({
-    selector: 'app-login-reports',
-    templateUrl: './login-reports.component.html',
-    styleUrls: ['./login-reports.component.scss'],
-    standalone: false
+  selector: 'app-login-reports',
+  templateUrl: './login-reports.component.html',
+  styleUrls: ['./login-reports.component.scss'],
+  standalone: false
 })
 
 export class LoginReportsComponent implements OnInit {
@@ -34,15 +33,15 @@ export class LoginReportsComponent implements OnInit {
     this.today.setHours(0, 0, 0, 0); // dates from db don't include timestamp, so remove that from our 'today' var
 
     this.timeSelection = [
-      {label: 'Show 7 days', value: {days: 7}},
-      {label: 'Show 14 days', value: {days: 14}},
-      {label: 'Show 30 days', value: {days: 30}},
-      {label: 'Show 60 days', value: {days: 60}},
-      {label: 'Show 90 days', value: {days: 90}},
-      {label: 'Show 180 days', value: {days: 180}},
-      {label: 'Show 365 days', value: {days: 365}}
+      { label: 'Show 7 days', value: { days: 7 } },
+      { label: 'Show 14 days', value: { days: 14 } },
+      { label: 'Show 30 days', value: { days: 30 } },
+      { label: 'Show 60 days', value: { days: 60 } },
+      { label: 'Show 90 days', value: { days: 90 } },
+      { label: 'Show 180 days', value: { days: 180 } },
+      { label: 'Show 365 days', value: { days: 365 } }
     ];
-    this.selection = {days: 30};
+    this.selection = { days: 30 };
 
     this.chartOptions = {
       plugins: {
@@ -59,9 +58,9 @@ export class LoginReportsComponent implements OnInit {
           }
         },
         x: {
-          adapters: { 
+          adapters: {
             date: {
-              locale: enUS, 
+              locale: enUS,
             },
           },
           display: true,
@@ -80,11 +79,11 @@ export class LoginReportsComponent implements OnInit {
 
 
     this.userChartCols = [
-      { field: 'email', header: 'Email Address'},
-      { field: 'lastLogin', header: 'Last Login'},
-      { field: 'sevenDays', header: 'Logins Last 7 Days'},
-      { field: 'thirtyDays', header: 'Logins Last 30 Days'},
-      { field: 'totalLogins', header: 'Total Logins All Time'}
+      { field: 'email', header: 'Email Address' },
+      { field: 'lastLogin', header: 'Last Login' },
+      { field: 'sevenDays', header: 'Logins Last 7 Days' },
+      { field: 'thirtyDays', header: 'Logins Last 30 Days' },
+      { field: 'totalLogins', header: 'Total Logins All Time' }
     ];
 
     loginReportService.getLoginReport()
@@ -117,9 +116,9 @@ export class LoginReportsComponent implements OnInit {
       labels: [],
       datasets: [
         {
-          label: 'User Logins', 
-          data: [], 
-          fill: false, 
+          label: 'User Logins',
+          data: [],
+          fill: false,
           backgroundColor: '#2C81C0'
         }],
     };
@@ -129,31 +128,31 @@ export class LoginReportsComponent implements OnInit {
       let current_date = new Date();
       current_date.setHours(0, 0, 0, 0);
       let empty_dates = [];
-    
-      for (let i = 0; i <= this.selection.days ; i++) {
+
+      for (let i = 0; i <= this.selection.days; i++) {
         empty_dates.push(new Date(current_date));
         current_date.setDate(current_date.getDate() - 1);
       }
-      
+
       return empty_dates.reverse();
     })();
 
     let chartLoginData = Array(this.selection.days).fill(0);
 
     this.loginData.labels = chartLabelData;
-    
+
     this.readerSupplement = '<table style="border: 1px black solid"><thead><tr><th>Date</th><th>Login Count</th></tr></thead>';
 
     Object.keys(data).forEach(date => {
       const dateLogin = new Date(date);
-      
+
       let index;
-      if ((index = chartLabelData.findIndex( 
+      if ((index = chartLabelData.findIndex(
         function (x) {
-            // Need to look at Value of Date because the Date object is different
-            return x.valueOf() === dateLogin.valueOf();
-          }
-          )) != -1) {
+          // Need to look at Value of Date because the Date object is different
+          return x.valueOf() === dateLogin.valueOf();
+        }
+      )) != -1) {
         let loginsForDay = 0;
         Object.keys(data[date]).forEach(email => {
           loginsForDay += data[date][email];
@@ -185,8 +184,8 @@ export class LoginReportsComponent implements OnInit {
     Object.keys(data).forEach(date => {
 
       Object.keys(data[date]).forEach(email => {
-        if (! userAccumulator[email]) {
-          userAccumulator[email] = { email: email, totalLogins: 0, sevenDays: 0, thirtyDays: 0, lastLogin: date};
+        if (!userAccumulator[email]) {
+          userAccumulator[email] = { email: email, totalLogins: 0, sevenDays: 0, thirtyDays: 0, lastLogin: date };
         }
         userAccumulator[email].totalLogins += data[date][email];
         totals.totalLogins += data[date][email];
@@ -212,7 +211,7 @@ export class LoginReportsComponent implements OnInit {
       });
     });
 
-    Object.keys(userAccumulator).forEach( email => {
+    Object.keys(userAccumulator).forEach(email => {
       this.userData.push(userAccumulator[email]);
     });
     this.userData.push(totals);
@@ -226,17 +225,20 @@ export class LoginReportsComponent implements OnInit {
   downloadLoginData(data: any) {
 
     const flatData = [];
-    Object.keys(data).forEach( day => {
-      Object.keys(data[day]).forEach( email => {
+    Object.keys(data).forEach(day => {
+      Object.keys(data[day]).forEach(email => {
         flatData.push(
-          {date: day, email: email, 'number of logins': data[day][email]}
+          { date: day, email: email, 'number of logins': data[day][email] }
         );
       });
 
     });
 
-    const csv = parse(flatData, ['email', 'date', 'number of logins']);
-    saveAs(new Blob([csv], {type: 'text/csv; charset=utf-8'}), 'srt-login-report.csv');
+    const fields = ['email', 'date', 'number of logins'];
+    const header = fields.join(',');
+    const rows = flatData.map(row => fields.map(f => '"' + String(row[f] ?? '').replace(/"/g, '""') + '"').join(','));
+    const csv = [header, ...rows].join('\n');
+    saveAs(new Blob([csv], { type: 'text/csv; charset=utf-8' }), 'srt-login-report.csv');
   }
 
   ngOnInit() {

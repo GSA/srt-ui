@@ -13,11 +13,11 @@
           "options": {
             "allowedCommonJsDependencies": [
               "os",
-              "stream"
-            ],
-            "externalDependencies": [
               "stream",
-              "os"
+              "file-saver",
+              "mammoth",
+              "moment",
+              "@kurkle/color"
             ],
             "outputPath": {
               "base": "dist",
@@ -41,7 +41,6 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/chart.js/dist/chart.js",
               "node_modules/@uswds/uswds/dist/js/uswds-init.min.js",
               "node_modules/@uswds/uswds/dist/js/uswds.min.js"
             ],
