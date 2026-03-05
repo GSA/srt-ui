@@ -36,10 +36,11 @@ interface AnalysisResult {
 }
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-  providers: [FileUploadService],
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
+    providers: [FileUploadService],
+    standalone: false
 })
 export class HomeComponent
   extends BaseComponent

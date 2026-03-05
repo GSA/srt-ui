@@ -9,33 +9,42 @@
       "projectType": "application",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "allowedCommonJsDependencies": [
               "os",
               "stream"
             ],
-            "outputPath": "dist",
+            "externalDependencies": [
+              "stream",
+              "os"
+            ],
+            "outputPath": {
+              "base": "dist"
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "polyfills": ["zone.js", "zone.js/testing"],
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "assets": [
               "src/assets",
               "src/favicon.ico",
               "src/nginx.conf"
             ],
-           "styles": [
-            "src/styles.scss",
-            "node_modules/font-awesome/css/font-awesome.min.css",
-            "node_modules/@uswds/uswds/dist/css/uswds.min.css"
-             ],
+            "styles": [
+              "src/styles.scss",
+              "node_modules/font-awesome/css/font-awesome.min.css",
+              "node_modules/@uswds/uswds/dist/css/uswds.min.css"
+            ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-            "node_modules/chart.js/dist/chart.js",
-            "node_modules/@uswds/uswds/dist/js/uswds-init.min.js",
-            "node_modules/@uswds/uswds/dist/js/uswds.min.js"
-            ]
+              "node_modules/chart.js/dist/chart.js",
+              "node_modules/@uswds/uswds/dist/js/uswds-init.min.js",
+              "node_modules/@uswds/uswds/dist/js/uswds.min.js"
+            ],
+            "browser": "src/main.ts"
           },
           "configurations": {
             "local": {
@@ -68,8 +77,6 @@
               "namedChunks": false,
               "aot": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": false,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -82,34 +89,37 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "srt:build"
+            "buildTarget": "srt:build"
           },
           "configurations": {
             "local": {
-              "browserTarget": "srt:build:local"
+              "buildTarget": "srt:build:local"
             },
             "dev": {
-              "browserTarget": "srt:build:dev"
+              "buildTarget": "srt:build:dev"
             },
             "staging": {
-              "browserTarget": "srt:build:staging"
+              "buildTarget": "srt:build:staging"
             },
             "production": {
-              "browserTarget": "srt:build:production"
+              "buildTarget": "srt:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "srt:build"
+            "buildTarget": "srt:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "karmaConfig": "karma.conf.js",
-            "polyfills": ["zone.js", "zone.js/testing"],
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
@@ -170,10 +180,30 @@
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
-      "style": "css"
+      "style": "css",
+      "type": "component"
     },
     "@schematics/angular:directive": {
-      "prefix": "app"
+      "prefix": "app",
+      "type": "directive"
+    },
+    "@schematics/angular:service": {
+      "type": "service"
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
     }
   },
   "cli": {

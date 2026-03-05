@@ -28,10 +28,12 @@
           <th scope="col">Answer</th>
         </tr>
 
-        <tr *ngFor="let item of feedback">
-          <td style="font-weight: 800">{{item.question}}<br><span style="color: #899197">{{item.note}}</span></td>
-          <td>{{item.answer}}</td>
-        </tr>
+        @for (item of feedback; track item) {
+          <tr>
+            <td style="font-weight: 800">{{item.question}}<br><span style="color: #899197">{{item.note}}</span></td>
+            <td>{{item.answer}}</td>
+          </tr>
+        }
       </table>
     </div>
   </div>

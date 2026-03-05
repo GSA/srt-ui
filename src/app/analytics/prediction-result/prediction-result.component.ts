@@ -6,9 +6,10 @@ import { Globals } from 'globals';
 
 
 @Component({
-  selector: 'app-prediction-result',
-  templateUrl: './prediction-result.component.html',
-  styleUrls: ['../analytics.component.scss', './prediction-result.component.scss']
+    selector: 'app-prediction-result',
+    templateUrl: './prediction-result.component.html',
+    styleUrls: ['../analytics.component.scss', './prediction-result.component.scss'],
+    standalone: false
 })
 export class PredictionResultComponent implements OnInit {
 

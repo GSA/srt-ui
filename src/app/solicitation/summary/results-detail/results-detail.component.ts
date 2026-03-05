@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SolicitationService } from '../../solicitation.service';
 import { Solicitation } from '../../../shared/solicitation';
-import * as moment from 'moment';
+import moment from 'moment';
 import { environment } from 'environments/environment';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
@@ -18,7 +18,8 @@ interface ParseStatus {
 @Component({
   selector: 'app-results-detail',
   templateUrl: './results-detail.component.html',
-  styleUrls: ['./results-detail.component.scss']
+  styleUrls: ['./results-detail.component.scss'],
+  standalone: false
 })
 export class ResultsDetailComponent implements OnInit {
   public lockDocs: number[];
@@ -53,8 +54,8 @@ export class ResultsDetailComponent implements OnInit {
 
   ngOnInit() {
     try {
-      const navigation = this.router.getCurrentNavigation();
-      
+      const navigation = this.router.currentNavigation();
+
       if (navigation?.extras?.state?.['solicitation']) {
         const data = navigation.extras.state['solicitation'];
         this.processSolicitationData(data);
@@ -69,7 +70,7 @@ export class ResultsDetailComponent implements OnInit {
   private loadSolicitationData(): void {
     this.subscription = this.route.params.subscribe(params => {
       this.solicitationID = params['id'];
-      
+
       this.solicitationService.getSolicitation(this.solicitationID).subscribe({
         next: data => {
           this.processSolicitationData(data);
@@ -104,8 +105,8 @@ export class ResultsDetailComponent implements OnInit {
 
   private mapStatus(status: string): string {
     const result = status === 'successfully parsed' ? 'Yes' :
-                  status === 'processing error' ? 'No' :
-                  status;
+      status === 'processing error' ? 'No' :
+        status;
     return result;
   }
 

@@ -6,9 +6,10 @@ import {BaseComponent} from '../base.component';
 import {Title} from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+    selector: 'app-admin',
+    templateUrl: './admin.component.html',
+    styleUrls: ['./admin.component.scss'],
+    standalone: false
 })
 export class AdminComponent extends BaseComponent implements OnInit {
 

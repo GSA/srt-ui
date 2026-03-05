@@ -1,7 +1,8 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { AnalyticsService } from './analytics.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 
 describe('AnalyticsService', () => {
@@ -11,10 +12,10 @@ describe('AnalyticsService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [],
-      imports: [HttpClientTestingModule],
-      providers: [AnalyticsService]
-    }).compileComponents();
+    declarations: [],
+    imports: [],
+    providers: [AnalyticsService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
 
     service = TestBed.inject(AnalyticsService);
 

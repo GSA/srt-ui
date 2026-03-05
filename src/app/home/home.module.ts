@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
@@ -18,7 +18,7 @@ import { ScrollTopModule } from 'primeng/scrolltop';
 import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
 
 // Quill Editor
-import { QuillEditorModule } from 'ngx-quill-editor';
+import { QuillModule } from 'ngx-quill';
 
 // Components
 import { HomeComponent } from './home/home.component';
@@ -36,37 +36,33 @@ import { SolicitationModule } from '../solicitation/solicitation.module';
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    ButtonModule,
-    DropdownModule,
-    CalendarModule,
-    TableModule,
-    TooltipModule,
-    DialogModule,
-    CheckboxModule,
-    ScrollTopModule,
-    NgxGoogleAnalyticsModule.forRoot('G-RZRRP7Q0BH'),
-    NgxGoogleAnalyticsRouterModule,
-    QuillEditorModule,
-    SolicitationModule
-  ],
-  declarations: [
-    HomeComponent,
-    PublicComponent,
-    PrivateComponent
-  ],
-  providers: [
-    FileUploadService,
-    AuthGuard
-  ],
-  exports: [
-    HomeComponent
-  ]
+    declarations: [
+        HomeComponent,
+        PublicComponent,
+        PrivateComponent
+    ],
+    exports: [
+        HomeComponent
+    ], imports: [CommonModule,
+        HomeRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule,
+        ButtonModule,
+        DropdownModule,
+        CalendarModule,
+        TableModule,
+        TooltipModule,
+        DialogModule,
+        CheckboxModule,
+        ScrollTopModule,
+        NgxGoogleAnalyticsModule.forRoot('G-RZRRP7Q0BH'),
+        NgxGoogleAnalyticsRouterModule,
+        QuillModule,
+        SolicitationModule], providers: [
+            FileUploadService,
+            AuthGuard,
+            provideHttpClient(withInterceptorsFromDi())
+        ]
 })
 export class HomeModule { }

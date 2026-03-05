@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
@@ -26,35 +26,29 @@ import { SolicitationResultComponent } from './solicitation-result/solicitation-
 // Service
 import { AnalyticsService } from './services/analytics.service';
 
-@NgModule({
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    NgChartsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    TooltipModule,
-    RouterModule
-  ],
-  declarations: [
-    AnalyticsComponent,
-    TopSrtActionsComponent,
-    TopAgenciesComponent,
-    ScannedSolicitationComponent,
-    UserLoginComponent,
-    MachineReadableComponent,
-    PredictionResultComponent,
-    TopAgenciesPercentageComponent,
-    UndeterminedSolicitationsComponent,
-    LineChartsComponent,
-    DonutChartComponent,
-    SolicitationResultComponent,
-  ],
-  providers: [
-    AnalyticsService
-  ],
-  exports: [
-    AnalyticsComponent
-  ]
-})
+@NgModule({ declarations: [
+        AnalyticsComponent,
+        TopSrtActionsComponent,
+        TopAgenciesComponent,
+        ScannedSolicitationComponent,
+        UserLoginComponent,
+        MachineReadableComponent,
+        PredictionResultComponent,
+        TopAgenciesPercentageComponent,
+        UndeterminedSolicitationsComponent,
+        LineChartsComponent,
+        DonutChartComponent,
+        SolicitationResultComponent,
+    ],
+    exports: [
+        AnalyticsComponent
+    ], imports: [CommonModule,
+        NgChartsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TooltipModule,
+        RouterModule], providers: [
+        AnalyticsService,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AnalyticsModule { }

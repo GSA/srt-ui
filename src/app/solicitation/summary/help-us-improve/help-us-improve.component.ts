@@ -6,12 +6,13 @@ import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { SolicitationService } from '../../solicitation.service';
 import { SurveyService } from '../../../survey.service';
 import { Solicitation } from '../../../shared/solicitation';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
   selector: 'app-help-us-improve',
   templateUrl: './help-us-improve.component.html',
-  styleUrls: ['./help-us-improve.component.scss']
+  styleUrls: ['./help-us-improve.component.scss'],
+  standalone: false
 })
 export class HelpUsImproveComponent implements OnInit {
   /* ATTRIBUTES */
@@ -78,19 +79,19 @@ export class HelpUsImproveComponent implements OnInit {
               data.parseStatus = [{ formattedDate: '', postedDate: null, name: '', status: '', attachment_url: '' }];
             }
 
-            this.step1 = data.history.filter(function(e) {
+            this.step1 = data.history.filter(function (e) {
               return e['action'].indexOf('reviewed solicitation action requested summary') > -1;
             }).length > 0;
-            this.step2 = data.history.filter(function(e) {
+            this.step2 = data.history.filter(function (e) {
               return e['action'].indexOf('sent email to POC') > -1;
             }).length > 0;
-            this.step3 = data.history.filter(function(e) {
+            this.step3 = data.history.filter(function (e) {
               return e['action'].indexOf('provided feedback on the solicitation prediction result') > -1;
             }).length > 0;
             this.solicitation = data;
 
             const user = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
-            this.feedbackSent = this.solicitation.history.filter(function(e) {
+            this.feedbackSent = this.solicitation.history.filter(function (e) {
               return (
                 (e['action'].indexOf('provided feedback on the solicitation prediction result') > -1)
                 && (e['user'].indexOf(user) > -1));

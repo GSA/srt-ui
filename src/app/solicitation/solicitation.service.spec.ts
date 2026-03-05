@@ -1,15 +1,16 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { SolicitationService } from './solicitation.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('SolicitationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [],
-      imports: [HttpClientTestingModule],
-      providers: [SolicitationService]
-    });
+    declarations: [],
+    imports: [],
+    providers: [SolicitationService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
   });
 
   it('should ...', inject([SolicitationService], (service: SolicitationService) => {

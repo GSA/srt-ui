@@ -1,9 +1,10 @@
 import { Component, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 
 @Component({
-  selector: 'app-art-category',
-  templateUrl: './art-category.component.html',
-  styleUrls: ['./art-category.component.scss']
+    selector: 'app-art-category',
+    templateUrl: './art-category.component.html',
+    styleUrls: ['./art-category.component.scss'],
+    standalone: false
 })
 export class ArtCategoryComponent {
   @Input() category: any;

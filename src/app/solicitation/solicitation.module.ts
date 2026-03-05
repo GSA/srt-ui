@@ -8,7 +8,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
-import { QuillEditorModule } from 'ngx-quill-editor';
+import { QuillModule } from 'ngx-quill';
 import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ScrollTopModule } from 'primeng/scrolltop';
@@ -56,7 +56,7 @@ import { ArtCategoryComponent } from './summary/results-detail/art-modal/art-cat
     SolicitationRoutesModule,
     NgxGoogleAnalyticsModule.forRoot('G-RZRRP7Q0BH'),
     NgxGoogleAnalyticsRouterModule,
-    QuillEditorModule,
+    QuillModule.forRoot(),
   ],
   declarations: [
     SolicitationReportComponent,
@@ -79,10 +79,10 @@ import { ArtCategoryComponent } from './summary/results-detail/art-modal/art-cat
     ArtService,
     AuthGuard
   ],
-    exports: [
-        SolicitationComponent,
-        FeedbackReportComponent,
-        ArtIframeDialogComponent
-    ]
+  exports: [
+    SolicitationComponent,
+    FeedbackReportComponent,
+    ArtIframeDialogComponent
+  ]
 })
 export class SolicitationModule { }

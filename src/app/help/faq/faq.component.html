@@ -30,7 +30,7 @@
             (keyup)="search()"
             #searchInput
             aria-label="input area to search your question"
-          >
+            >
         </div>
         <div style="cursor: pointer" class="search-button col-lg-1" (click)="search()">
           <i class="bi bi-search" style="vertical-align: sub;"></i>
@@ -67,27 +67,35 @@
           <!-- FAQ Content Area -->
           <div class="grid-col-9">
             <div class="usa-accordion usa-accordion--bordered">
-              <div *ngFor="let section of faq; let sectionIndex = index" class="usa-accordion__item search-title">
-                <h2 class="search-title-header" id="{{section.title}}">{{ section.name }}</h2>
-                <div *ngIf="section.children" class="faq-section">
-                  <div *ngFor="let element of section.children; let i = index" class="usa-accordion__item search-content">
-                    <button
-                      class="usa-accordion__button custom-accordion-button"
-                      [attr.aria-expanded]="isExpanded(sectionIndex, element.id)"
-                      [attr.aria-controls]="'faq-' + element.id"
-                      (click)="toggleAccordion(sectionIndex, element.id)">
-                      <span class="button-text">{{ element.title }}</span>
-                      <span class="expand-icon">{{ isExpanded(sectionIndex, element.id) ? '−' : '+' }}</span>
-                    </button>
-                    <div
-                      [id]="'faq-' + element.id"
-                      class="usa-accordion__content usa-prose"
-                      *ngIf="isExpanded(sectionIndex, element.id)">
-                      <div [innerHTML]="element.body"></div>
+              @for (section of faq; track section; let sectionIndex = $index) {
+                <div class="usa-accordion__item search-title">
+                  <h2 class="search-title-header" id="{{section.title}}">{{ section.name }}</h2>
+                  @if (section.children) {
+                    <div class="faq-section">
+                      @for (element of section.children; track element; let i = $index) {
+                        <div class="usa-accordion__item search-content">
+                          <button
+                            class="usa-accordion__button custom-accordion-button"
+                            [attr.aria-expanded]="isExpanded(sectionIndex, element.id)"
+                            [attr.aria-controls]="'faq-' + element.id"
+                            (click)="toggleAccordion(sectionIndex, element.id)">
+                            <span class="button-text">{{ element.title }}</span>
+                            <span class="expand-icon">{{ isExpanded(sectionIndex, element.id) ? '−' : '+' }}</span>
+                          </button>
+                          @if (isExpanded(sectionIndex, element.id)) {
+                            <div
+                              [id]="'faq-' + element.id"
+                              class="usa-accordion__content usa-prose"
+                              >
+                              <div [innerHTML]="element.body"></div>
+                            </div>
+                          }
+                        </div>
+                      }
                     </div>
-                  </div>
+                  }
                 </div>
-              </div>
+              }
             </div>
           </div>
         </div>

@@ -3,13 +3,14 @@ import { Component, OnInit, Input, ViewChild, OnChanges } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartData } from 'chart.js';
 
-import * as $ from 'jquery';
+import $ from 'jquery';
 
 
 @Component({
-  selector: 'app-donut-chart',
-  templateUrl: './donut-chart.component.html',
-  styleUrls: ['../analytics.component.scss', './donut-chart.component.scss']
+    selector: 'app-donut-chart',
+    templateUrl: './donut-chart.component.html',
+    styleUrls: ['../analytics.component.scss', './donut-chart.component.scss'],
+    standalone: false
 })
 export class DonutChartComponent implements OnInit, OnChanges {
 

@@ -3,9 +3,10 @@ import {Component, OnInit, Input} from '@angular/core';
 import * as _ from 'underscore';
 
 @Component({
-  selector: 'app-top-agencies',
-  templateUrl: './top-agencies.component.html',
-  styleUrls: ['../analytics.component.scss', './top-agencies.component.scss']
+    selector: 'app-top-agencies',
+    templateUrl: './top-agencies.component.html',
+    styleUrls: ['../analytics.component.scss', './top-agencies.component.scss'],
+    standalone: false
 })
 export class TopAgenciesComponent implements OnInit {
 

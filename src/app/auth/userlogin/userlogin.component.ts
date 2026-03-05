@@ -12,9 +12,10 @@ import { BaseComponent } from '../../base.component';
 import { Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-userlogin',
-  templateUrl: './userlogin.component.html',
-  styleUrls: ['./userlogin.component.scss']
+    selector: 'app-userlogin',
+    templateUrl: './userlogin.component.html',
+    styleUrls: ['./userlogin.component.scss'],
+    standalone: false
 })
 export class UserloginComponent extends BaseComponent implements OnInit, AfterViewInit {
 

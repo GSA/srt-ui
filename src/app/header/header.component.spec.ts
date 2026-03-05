@@ -1,7 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { UserService } from '../shared/services/user.service';
 import { AuthService } from '../shared/services/auth.service';
@@ -11,6 +11,7 @@ import { Globals } from '../../globals';
 import { VersionService } from '../shared/services/version.service';
 import {ClientVersionService} from '../shared/services/clientVersion.service';
 import { AuthComponent } from 'app/auth/auth.component';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 
 describe('HeaderComponent', () => {
@@ -50,14 +51,14 @@ describe('HeaderComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ],
-      providers: [UserService, AuthService, 
-                AuthGuard, AppComponent, Globals, 
-                VersionService, ClientVersionService],
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([
-        {path: 'auth', component: AuthComponent}
-      ])]
-    })
+    declarations: [HeaderComponent],
+    imports: [RouterTestingModule.withRoutes([
+            { path: 'auth', component: AuthComponent }
+        ])],
+    providers: [UserService, AuthService,
+        AuthGuard, AppComponent, Globals,
+        VersionService, ClientVersionService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 
