@@ -1,0 +1,13 @@
+
+<div class="linechart">
+    <div class="positiony">{{yAxis}}</div>
+    <div class="positionx">{{xAxis}}</div>
+    <div class="positionchart"> 
+        <canvas baseChart
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="options"
+                [type]="lineChartType">
+        </canvas>
+    </div>
+</div>

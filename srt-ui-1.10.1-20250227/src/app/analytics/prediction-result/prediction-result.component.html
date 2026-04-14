@@ -1,0 +1,30 @@
+<div class="chartcontainerp">
+
+    <h2 class="srt-blue piechart">
+        Preliminary Prediction Findings
+    </h2>
+
+    <div class="precposi">
+      <div class="pieposition">
+          <canvas baseChart
+                  [data]="pieChartData"
+                  [options]="options"
+                  [type]="pieChartType"
+                  tabindex="0"
+                  aria-hidden="true">
+            <p aria-hidden="true"> {{numCompliant}} compliant solicitations. {{displayCompliance}} of total.</p>
+            <p aria-hidden="true"> {{numNonCompliant}} non-compliant solicitations. {{displayUncompliance}} of total</p>
+          </canvas>
+        <p class="visually-hidden">Pie chart data</p>
+        <p class="visually-hidden"> {{numCompliant}} compliant solicitations which is {{displayCompliance}} of total.</p>
+        <p class="visually-hidden"> {{numNonCompliant}} non-compliant solicitations which is {{displayUncompliance}} of total</p>
+      </div>
+      <div class="pieresult" aria-hidden="true">
+            {{displayCompliance}}
+      </div>
+      <div class="pieresultun" aria-hidden="true">
+            {{displayUncompliance}}
+      </div>
+    </div>
+
+</div>

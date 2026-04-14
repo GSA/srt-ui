@@ -1,0 +1,227 @@
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
+
+import { SolicitationService } from '../../solicitation.service';
+import { SurveyService } from '../../../survey.service';
+import { Solicitation } from '../../../shared/solicitation';
+import * as moment from 'moment';
+
+@Component({
+  selector: 'app-help-us-improve',
+  templateUrl: './help-us-improve.component.html',
+  styleUrls: ['./help-us-improve.component.scss']
+})
+export class HelpUsImproveComponent implements OnInit {
+  /* ATTRIBUTES */
+  public surveys;
+  public surveyModel = [];
+  public feedbackSent = false;
+  public previousAnswers = null;
+  public submissionInProgress = false;
+  public submissionComplete = false;
+  private solNum = null;
+
+  solicitation: Solicitation;
+  subscription: Subscription;
+  solicitationID: string;
+  type: string = 'feedback';
+  public step1: boolean = false;
+  public step2: boolean = false;
+  public step3: boolean = false;
+
+  constructor(
+    private solicitationService: SolicitationService,
+    private surveyService: SurveyService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private $gaService: GoogleAnalyticsService
+  ) { }
+
+  trackBackClick(): void {
+    this.$gaService.event('navbar_solicitation_report', 'navbar_click');
+    this.router.navigateByUrl(`/solicitation/report/${this.solicitationID}`).catch(r => console.log(r));
+  }
+
+  trackSolicitationClick(solNum: string): void {
+    this.$gaService.event('solicitation_link', 'click', solNum);
+  }
+
+  submitFeedback(): void {
+    this.feedback();
+    if (this.solicitation?.solNum) {
+      this.$gaService.event('feedback_submit', 'click', this.solicitation.solNum.toString());
+    }
+  }
+
+
+  /**
+   * lifecycle
+   */
+  ngOnInit() {
+    this.subscription = this.route.params.subscribe(
+      (params: any) => {
+        this.solicitationID = params['id'];
+        this.solicitationService.getSolicitation(this.solicitationID).subscribe({
+          next: data => {
+            if (data.parseStatus && Array.isArray(data.parseStatus)) {
+              data.parseStatus.forEach(element => {
+                if (element.status === 'successfully parsed') {
+                  element.status = 'Yes';
+                } else if (element.status === 'processing error') {
+                  element.status = 'No';
+                }
+              });
+            } else {
+              console.log('Error processing parse status for solicitation ' + data.solNum);
+              data.parseStatus = [{ formattedDate: '', postedDate: null, name: '', status: '', attachment_url: '' }];
+            }
+
+            this.step1 = data.history.filter(function(e) {
+              return e['action'].indexOf('reviewed solicitation action requested summary') > -1;
+            }).length > 0;
+            this.step2 = data.history.filter(function(e) {
+              return e['action'].indexOf('sent email to POC') > -1;
+            }).length > 0;
+            this.step3 = data.history.filter(function(e) {
+              return e['action'].indexOf('provided feedback on the solicitation prediction result') > -1;
+            }).length > 0;
+            this.solicitation = data;
+
+            const user = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
+            this.feedbackSent = this.solicitation.history.filter(function(e) {
+              return (
+                (e['action'].indexOf('provided feedback on the solicitation prediction result') > -1)
+                && (e['user'].indexOf(user) > -1));
+            }).length > 0;
+
+            this.getSurveys(data.solNum);
+          },
+          error: err => console.log(err)
+        });
+      }
+    );
+  }
+
+  /**
+   * text area
+   * @param survey
+   * @param answer
+   */
+  textarea(survey, answer) {
+    survey.Answer = answer;
+    this.surveyModel[survey.ID] = answer;
+  }
+
+  /**
+   * check box
+   * @param survey
+   * @param answer
+   * @param checked
+   */
+  checkBox(survey, answer, checked) {
+    if (checked) {
+      if (survey.Type !== 'multiple response') {
+        survey.Answer = answer;
+        this.surveyModel[survey.ID] = answer;
+      } else {
+        survey.Answer = (survey.Answer === '') ? answer : survey.Answer + ',' + answer;
+        this.surveyModel[survey.ID] = survey.Answer;
+      }
+    }
+  }
+
+  /**
+   * get survey questions
+   */
+  getSurveys(solNum) {
+    this.surveyService.getSurveys().subscribe(
+      data => {
+        this.surveys = data.sort((a, b) => {
+          const aNum = +a.ID;
+          const bNum = +b.ID;
+          return aNum > bNum ? 1 : -1;
+        }); // Sort by ID
+
+        this.surveyModel = new Array(this.surveys.length).fill('');
+
+        this.surveyService.getSurveyResults(solNum).subscribe(
+          (feedback: any) => {
+            if (feedback && feedback.responses) { // Check if feedback and responses exist
+              for (const f of feedback.responses) {
+                if (this.surveys && this.surveys[f.questionID]) { // Check if survey exists
+                  if (this.surveys[f.questionID].Type === 'choose one') {
+                    this.checkBox(this.surveys[f.questionID], f.answer, true);
+                  }
+                  if (this.surveys[f.questionID].Type === 'essay') {
+                    this.textarea(this.surveys[f.questionID], f.answer);
+                  }
+                } else {
+                  console.warn(`Survey with ID ${f.questionID} not found.`);
+                }
+              }
+            } else {
+              console.warn("No feedback responses found.");
+            }
+          },
+          error => {
+            console.error("Error getting survey results:", error);
+          }
+        );
+      },
+      error => {
+        console.error("Error getting surveys:", error);
+      }
+    );
+  }
+
+  /**
+   * send out a feedback
+   */
+  feedback() {
+    this.submissionInProgress = true;
+    const now = moment().format('MM/DD/YYYY');
+    const user = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
+    this.solicitation.history.push({
+      'date': now,
+      'action': 'provided feedback on the solicitation prediction result',
+      'user': user,
+      'status': ''
+    });
+
+    this.solicitation.newFeedbackSubmission = true;
+
+    this.solicitation.feedback = null; // clear out the old records.
+    this.surveys.forEach(element => {
+      if (this.solicitation.feedback == null) {
+        this.solicitation.feedback = [{
+          'questionID': element.ID,
+          'question': element.Question,
+          'note': element.Note,
+          'answer': element.Answer
+        }];
+      } else {
+        this.solicitation.feedback.push({
+          'questionID': element.ID,
+          'question': element.Question,
+          'note': element.Note,
+          'answer': element.Answer
+        });
+      }
+    });
+
+    this.solicitationService.updateHistory(this.solicitation)
+      .subscribe({
+        next: () => {
+          this.feedbackSent = true;
+          this.step3 = true;
+          this.submissionInProgress = false;
+          this.submissionComplete = true;
+        },
+        error: () => {
+          console.log('e189');
+        }
+      });
+  }
+}

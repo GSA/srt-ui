@@ -1,0 +1,704 @@
+<!-- Page Header -->
+<section class="srt-page-header" aria-label="Page header" *ngIf="solicitation">
+    <div class="grid-container">
+        <div class="grid-row">
+            <div class="grid-col-12">
+                <button class="usa-button usa-button--unstyled back-link" (click)="goBack()"
+                    aria-label="Back to daily report">
+                    ← Back to Report
+                </button>
+                <h1>Solicitation Analysis Report</h1>
+                <p>Comprehensive 508 compliance analysis for Solicitation:
+                    <strong>{{solicitation.solicitation_number}}</strong>
+                </p>
+                <div class="margin-top-1">
+                    <span class="srt-status srt-status--success" role="status"
+                        aria-label="Processing status: Analysis Complete">
+                        ✓ Analysis Complete
+                    </span>
+                    <span class="srt-confidence margin-left-2"
+                        [attr.aria-label]="'Confidence score: ' + confidenceScore + ' out of 10'">
+                        <span class="srt-data-label">Confidence:</span>
+                        <div class="srt-confidence-bar">
+                            <div class="srt-confidence-fill"
+                                [class.srt-confidence-fill--high]="confidenceLevel === 'high'"
+                                [class.srt-confidence-fill--medium]="confidenceLevel === 'medium'"
+                                [class.srt-confidence-fill--low]="confidenceLevel === 'low'"
+                                [style.width.%]="confidenceScore * 10"></div>
+                        </div>
+                        <span>{{confidenceScore}}/10</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Loading State -->
+<div class="grid-container usa-section" *ngIf="loading">
+    <div class="loading-container">
+        <p>Loading analysis data...</p>
+    </div>
+</div>
+
+<!-- Error State -->
+<div class="grid-container usa-section" *ngIf="error && !loading">
+    <div class="usa-alert usa-alert--error">
+        <div class="usa-alert__body">
+            <p class="usa-alert__text">{{error}}</p>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<main id="main-content" *ngIf="solicitation && !loading">
+    <div class="grid-container usa-section">
+
+        <!-- Tab Navigation -->
+        <div class="srt-tabs" role="tablist" aria-label="Analysis sections">
+            <ul class="srt-tab-list">
+                <li role="presentation">
+                    <button class="srt-tab-button" role="tab" [attr.aria-selected]="activeTab === 'overview'"
+                        (click)="setTab('overview')" [attr.tabindex]="activeTab === 'overview' ? 0 : -1"
+                        id="overview-tab" aria-controls="overview-panel">
+                        Overview
+                    </button>
+                </li>
+                <li role="presentation">
+                    <button class="srt-tab-button" role="tab" [attr.aria-selected]="activeTab === 'files'"
+                        (click)="setTab('files')" [attr.tabindex]="activeTab === 'files' ? 0 : -1" id="files-tab"
+                        aria-controls="files-panel">
+                        Files Analyzed
+                    </button>
+                </li>
+                <li role="presentation">
+                    <button class="srt-tab-button" role="tab" [attr.aria-selected]="activeTab === 'compliance'"
+                        (click)="setTab('compliance')" [attr.tabindex]="activeTab === 'compliance' ? 0 : -1"
+                        id="compliance-tab" aria-controls="compliance-panel">
+                        508 Compliance
+                    </button>
+                </li>
+                <li role="presentation">
+                    <button class="srt-tab-button" role="tab" [attr.aria-selected]="activeTab === 'recommendations'"
+                        (click)="setTab('recommendations')" [attr.tabindex]="activeTab === 'recommendations' ? 0 : -1"
+                        id="recommendations-tab" aria-controls="recommendations-panel">
+                        Recommendations
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- =================== OVERVIEW TAB =================== -->
+        <div class="srt-tab-panel" role="tabpanel" id="overview-panel" aria-labelledby="overview-tab"
+             [attr.aria-hidden]="activeTab !== 'overview'" *ngIf="activeTab === 'overview'">
+
+            <!-- Solicitation Overview -->
+            <div class="srt-data-card srt-overview-card">
+                <h3>Solicitation Overview</h3>
+                <div class="srt-data-grid">
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Title</span>
+                        <span class="srt-data-value" style="font-size: 1.1rem; font-weight: 600;">{{solicitation.title || 'Untitled'}}</span>
+                    </div>
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Agency</span>
+                        <span class="srt-data-value">{{solicitation.agency || 'Unknown'}}</span>
+                    </div>
+                    <div class="srt-data-item" *ngIf="solicitation.ai_procurement_type">
+                        <span class="srt-data-label">AI-Detected Procurement Type</span>
+                        <span class="srt-data-value">{{solicitation.ai_procurement_type}}</span>
+                    </div>
+                    <div class="srt-data-item" *ngIf="solicitation.website_source">
+                        <span class="srt-data-label">Source</span>
+                        <span class="srt-data-value">{{solicitation.website_source}}</span>
+                    </div>
+                </div>
+
+                <!-- AI Procurement Description (Stage 5 Summary) -->
+                <div class="srt-data-item margin-top-2" *ngIf="solicitation.procurement_description">
+                    <span class="srt-data-label">Procurement Description (AI Summary)</span>
+                    <blockquote class="matched-chunk" style="margin-top: 0.5rem; border-left-color: #1a4480; background-color: #f1f4f8;">
+                        <div class="chunk-icon" style="color: #1a4480;">📄</div>
+                        <p style="font-size: 1rem;">{{solicitation.procurement_description}}</p>
+                    </blockquote>
+                </div>
+
+                <!-- AI Solicitation Assessment (Comprehensive Stage 5 Explanation) -->
+                <div class="srt-data-item margin-top-2" *ngIf="solicitation.solicitation_explanation || solicitation.ai_solicitation_explanation">
+                    <span class="srt-data-label">Comprehensive 508 Review</span>
+                    <div class="md-content" [innerHTML]="renderMarkdown(solicitation.solicitation_explanation || solicitation.ai_solicitation_explanation)"></div>
+                </div>
+
+                <!-- File Consistency Assessment -->
+                <div class="srt-data-item margin-top-2" *ngIf="solicitation.ai_file_consistency_assessment">
+                    <span class="srt-data-label">File Consistency Assessment</span>
+                    <blockquote class="matched-chunk" style="margin-top: 0.5rem; border-left-color: #005ea2;">
+                        <div class="chunk-icon" style="color: #005ea2;">📋</div>
+                        <p>{{solicitation.ai_file_consistency_assessment}}</p>
+                    </blockquote>
+                </div>
+
+                <!-- Conflict Resolution Summary -->
+                <div class="srt-data-item margin-top-2" *ngIf="solicitation.ai_conflict_resolution_summary">
+                    <span class="srt-data-label">Conflict Resolution Summary</span>
+                    <blockquote class="matched-chunk" style="margin-top: 0.5rem; border-left-color: #ffbe2e;">
+                        <div class="chunk-icon" style="color: #ffbe2e;">⚠</div>
+                        <p>{{solicitation.ai_conflict_resolution_summary}}</p>
+                    </blockquote>
+                </div>
+
+                <!-- Vendor Responsibilities -->
+                <div class="srt-data-item margin-top-2" *ngIf="solicitation.ai_vendor_responsibilities?.length">
+                    <span class="srt-data-label">Vendor Responsibilities</span>
+                    <ul class="findings-list">
+                        <li *ngFor="let resp of solicitation.ai_vendor_responsibilities">{{resp}}</li>
+                    </ul>
+                </div>
+
+                <!-- Key Findings -->
+                <div class="srt-data-item margin-top-2" *ngIf="solicitation.ai_key_findings?.length">
+                    <span class="srt-data-label">Key Findings</span>
+                    <ul class="findings-list">
+                        <li *ngFor="let finding of solicitation.ai_key_findings">{{finding}}</li>
+                    </ul>
+                </div>
+
+                <!-- Priority Recommendations -->
+                <div class="srt-data-item margin-top-2" *ngIf="solicitation.ai_priority_recommendations?.length">
+                    <span class="srt-data-label">Priority Recommendations</span>
+                    <div class="srt-recommendation" *ngFor="let rec of solicitation.ai_priority_recommendations; let i = index">
+                        <h4>{{i + 1}}. {{rec}}</h4>
+                    </div>
+                </div>
+
+                <!-- Recommended Actions -->
+                <div class="srt-data-item margin-top-2" *ngIf="solicitation.ai_recommended_actions?.length">
+                    <span class="srt-data-label">Recommended Actions</span>
+                    <div class="usa-alert usa-alert--warning" style="margin-top: 0.5rem;">
+                        <div class="usa-alert__body">
+                            <p class="usa-alert__text" *ngFor="let action of solicitation.ai_recommended_actions">
+                                • {{action}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Solicitation Details -->
+            <div class="srt-data-card">
+                <h3>Solicitation Details</h3>
+                <div class="srt-data-grid">
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Solicitation Number</span>
+                        <span class="srt-data-value">{{solicitation.solicitation_number}}</span>
+                    </div>
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Date Analyzed</span>
+                        <span class="srt-data-value">{{formatDateLong(solicitation.created_at)}}</span>
+                    </div>
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Procurement Type</span>
+                        <span class="srt-data-value">{{solicitation.procurement_type || 'N/A'}}</span>
+                    </div>
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">ICT Applicable</span>
+                        <span class="srt-data-value">
+                            <span class="srt-status"
+                                [ngClass]="solicitation.ai_applicable ? 'srt-status--info' : 'srt-status--warning'">
+                                {{solicitation.ai_applicable ? 'Yes' : 'No'}}
+                            </span>
+                        </span>
+                    </div>
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Complexity</span>
+                        <span class="srt-data-value">{{solicitation.procurement_complexity || 'N/A'}}</span>
+                    </div>
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Overall Compliance</span>
+                        <span class="srt-data-value">
+                            <span class="srt-status"
+                                [ngClass]="solicitation.ai_compliant ? 'srt-status--success' : 'srt-status--error'">
+                                {{solicitation.ai_compliant ? 'Compliant' : 'Non-Compliant'}}
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Processing Summary -->
+            <div class="srt-data-card">
+                <h3>Processing Summary</h3>
+                <div class="srt-data-grid">
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Processing Status</span>
+                        <span class="srt-data-value">
+                            <span class="srt-status srt-status--success">SUCCESS</span>
+                        </span>
+                    </div>
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Analysis Date</span>
+                        <span class="srt-data-value">{{formatDateLong(solicitation.updated_at ||
+                            solicitation.created_at)}}</span>
+                    </div>
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Files Processed</span>
+                        <span class="srt-data-value">{{solicitation.total_files}} files</span>
+                    </div>
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Total Matches</span>
+                        <span class="srt-data-value">{{solicitation.total_matches}} matches</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ML Compliance Prediction (Stage 6: Legacy Scikit-Learn) -->
+            <div class="srt-data-card srt-ml-prediction-card">
+                <h3>
+                    <span class="ml-badge">ML</span>
+                    Stage 6: Compliance Prediction (Legacy Model)
+                </h3>
+                <div class="usa-alert" [ngClass]="solicitation.setfit_compliant === true ? 'usa-alert--success' : 
+                    (solicitation.setfit_compliant === false ? 'usa-alert--error' : 'usa-alert--info')" 
+                    style="margin-bottom: 1rem;">
+                    <div class="usa-alert__body">
+                        <h4 class="usa-alert__heading" *ngIf="solicitation.setfit_compliant !== null && solicitation.setfit_compliant !== undefined">
+                            ML Determination: {{solicitation.setfit_compliant ? 'Compliant' : 'Non-Compliant'}}
+                        </h4>
+                        <h4 class="usa-alert__heading" *ngIf="solicitation.setfit_compliant === null || solicitation.setfit_compliant === undefined">
+                            ML Determination: Pending
+                        </h4>
+                        <p class="usa-alert__text">
+                            This is the final compliance override produced by the legacy Scikit-Learn binary classifier. 
+                            It operates independently from the RAG/LLM analysis above.
+                        </p>
+                    </div>
+                </div>
+                <div class="srt-data-grid">
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">ML Compliant</span>
+                        <span class="srt-data-value">
+                            <span class="srt-status" *ngIf="solicitation.setfit_compliant !== null && solicitation.setfit_compliant !== undefined"
+                                [ngClass]="solicitation.setfit_compliant ? 'srt-status--success' : 'srt-status--error'">
+                                {{solicitation.setfit_compliant ? 'Compliant' : 'Non-Compliant'}}
+                            </span>
+                            <span class="srt-status srt-status--warning" *ngIf="solicitation.setfit_compliant === null || solicitation.setfit_compliant === undefined">
+                                Not yet evaluated
+                            </span>
+                        </span>
+                    </div>
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">ML Confidence</span>
+                        <span class="srt-data-value">
+                            <span *ngIf="solicitation.setfit_confidence !== null && solicitation.setfit_confidence !== undefined">
+                                {{(solicitation.setfit_confidence * 100).toFixed(1)}}%
+                                <span style="color: #71767a; font-size: 0.85rem; margin-left: 0.5rem;">
+                                    (raw: {{solicitation.setfit_confidence}})
+                                </span>
+                            </span>
+                            <span *ngIf="solicitation.setfit_confidence === null || solicitation.setfit_confidence === undefined">N/A</span>
+                        </span>
+                    </div>
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Prediction Source</span>
+                        <span class="srt-data-value">
+                            <span class="srt-status srt-status--info" *ngIf="solicitation.prediction_source">
+                                {{solicitation.prediction_source}}
+                            </span>
+                            <span *ngIf="!solicitation.prediction_source">N/A</span>
+                        </span>
+                    </div>
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Schema Version</span>
+                        <span class="srt-data-value">{{solicitation.analysis_version || 'N/A'}}</span>
+                    </div>
+                </div>
+                <div class="srt-data-item margin-top-2" *ngIf="solicitation.setfit_signal_text">
+                    <span class="srt-data-label">Signal Text (first 500 chars evaluated by model)</span>
+                    <blockquote class="matched-chunk" style="margin-top: 0.5rem;">
+                        <div class="chunk-icon">📄</div>
+                        <p>{{solicitation.setfit_signal_text}}</p>
+                    </blockquote>
+                </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="srt-data-card">
+                <h3>Contact Information</h3>
+                <div class="srt-data-grid">
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Agency</span>
+                        <span class="srt-data-value">{{solicitation.agency || 'Unknown'}}</span>
+                    </div>
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Risk Level</span>
+                        <span class="srt-data-value">
+                            <span class="srt-status" [ngClass]="{'srt-status--error': solicitation.ai_overall_risk_level === 'High',
+                                'srt-status--warning': solicitation.ai_overall_risk_level === 'Medium',
+                                'srt-status--success': solicitation.ai_overall_risk_level === 'Low'}">
+                                {{solicitation.ai_overall_risk_level}}
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ICT Classification (Aggregated from Documents) -->
+            <div class="srt-data-card" *ngIf="documents.length">
+                <h3>ICT Classification (Across All Documents)</h3>
+                <div class="srt-data-grid">
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Has COTS Products</span>
+                        <span class="srt-data-value">{{solicitation.ai_has_cots_products ? 'Yes' : 'No'}}</span>
+                    </div>
+                </div>
+                <div class="margin-top-2">
+                    <span class="srt-data-label">Detected ICT Types</span>
+                    <div class="ict-types-grid" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
+                        <ng-container *ngFor="let doc of documents">
+                            <ng-container *ngFor="let ict of doc.ict_types">
+                                <span *ngIf="ict.is_applicable" class="srt-status srt-status--success"
+                                    style="font-size: 0.8rem; text-transform: none;">
+                                    ✓ {{ict.ict_type}} ({{doc.file_name | slice:0:20}}...)
+                                </span>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="margin-top-2">
+                    <span class="srt-data-label">Per-Document ICT Explanation</span>
+                    <div *ngFor="let doc of documents">
+                        <div *ngIf="doc.ict_explanation" style="margin-top: 0.5rem;">
+                            <span style="font-weight: 600; font-size: 0.85rem; color: #454545;">{{doc.file_name}}:</span>
+                            <blockquote class="matched-chunk" style="margin-top: 0.25rem; border-left-color: #8168b3;">
+                                <div class="chunk-icon" style="color: #8168b3;">🖥</div>
+                                <p>{{doc.ict_explanation}}</p>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accessibility Analysis -->
+            <div class="srt-data-card" *ngIf="solicitation.ai_key_findings && solicitation.ai_key_findings.length">
+                <h3>Accessibility Analysis</h3>
+                <div class="srt-data-item margin-bottom-2">
+                    <span class="srt-data-label">Key Findings</span>
+                    <ul class="findings-list">
+                        <li *ngFor="let finding of solicitation.ai_key_findings">{{finding}}</li>
+                    </ul>
+                </div>
+                <div class="srt-data-item" *ngIf="solicitation.ai_file_consistency_assessment">
+                    <span class="srt-data-label">File Consistency</span>
+                    <span class="srt-data-value">{{solicitation.ai_file_consistency_assessment}}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- =================== FILES ANALYZED TAB =================== -->
+        <div class="srt-tab-panel" role="tabpanel" id="files-panel" aria-labelledby="files-tab"
+            [attr.aria-hidden]="activeTab !== 'files'" *ngIf="activeTab === 'files'">
+
+            <div class="srt-data-card">
+                <h3>Scan Results</h3>
+                <p class="margin-bottom-2" style="color: #454545;">
+                    All files have been successfully processed and analyzed for Section 508 compliance requirements.
+                </p>
+
+                <div style="overflow-x: auto;">
+                    <table class="usa-table usa-table--borderless" role="table" aria-label="File scan results">
+                        <thead>
+                            <tr>
+                                <th scope="col">Filename</th>
+                                <th scope="col">Date Posted</th>
+                                <th scope="col">Machine Readable</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let doc of documents">
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <div class="srt-file-icon"
+                                            [style.background-color]="getFileIconColor(doc.file_name)"
+                                            style="width: 1.5rem; height: 1.5rem; font-size: 0.625rem; line-height: 1.5rem;"
+                                            aria-hidden="true">
+                                            {{getFileExtension(doc.file_name)}}
+                                        </div>
+                                        <span>{{doc.file_name}}</span>
+                                    </div>
+                                </td>
+                                <td>{{formatDate(doc.modification_date || doc.created_at)}}</td>
+                                <td>
+                                    <span class="srt-status"
+                                        [ngClass]="doc.text_quality_score > 0 ? 'srt-status--success' : 'srt-status--warning'">
+                                        {{doc.text_quality_score > 0 ? '✓ YES' : '✗ NO'}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="srt-status srt-status--success">
+                                        ✓ PROCESSED
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <button class="usa-button usa-button--outline margin-top-2"
+                    [routerLink]="['/solicitation/feedback', solNum]">
+                    Provide Feedback
+                </button>
+            </div>
+
+            <!-- Per-Document AI Analysis Breakdown -->
+            <div class="srt-data-card" *ngFor="let doc of documents">
+                <h3>
+                    <div class="srt-file-icon"
+                        [style.background-color]="getFileIconColor(doc.file_name)"
+                        style="width: 1.5rem; height: 1.5rem; font-size: 0.6rem; line-height: 1.5rem; display: inline-flex; align-items: center; justify-content: center; border-radius: 0.25rem; color: white; font-weight: 700; margin-right: 0.5rem; vertical-align: middle;"
+                        aria-hidden="true">
+                        {{getFileExtension(doc.file_name)}}
+                    </div>
+                    {{doc.file_name}}
+                </h3>
+                <div class="srt-data-grid">
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">508 Applicable</span>
+                        <span class="srt-data-value">
+                            <span class="srt-status"
+                                [ngClass]="doc.is_508_applicable ? 'srt-status--success' : 'srt-status--warning'">
+                                {{doc.is_508_applicable ? 'Yes' : 'No'}}
+                            </span>
+                        </span>
+                    </div>
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Compliant</span>
+                        <span class="srt-data-value">
+                            <span class="srt-status"
+                                [ngClass]="doc.is_compliant ? 'srt-status--success' : 'srt-status--error'">
+                                {{doc.is_compliant ? 'Compliant' : 'Non-Compliant'}}
+                            </span>
+                        </span>
+                    </div>
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Confidence Score</span>
+                        <span class="srt-data-value">{{doc.confidence_score || 'N/A'}}</span>
+                    </div>
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Matches Found</span>
+                        <span class="srt-data-value">{{doc.matches_found || 0}}</span>
+                    </div>
+                </div>
+
+                <div class="srt-data-item margin-top-2" *ngIf="doc.applicability_explanation">
+                    <span class="srt-data-label">Applicability Explanation</span>
+                    <blockquote class="matched-chunk" style="margin-top: 0.5rem;">
+                        <div class="chunk-icon">🔍</div>
+                        <p>{{doc.applicability_explanation}}</p>
+                    </blockquote>
+                </div>
+
+                <div class="srt-data-item margin-top-2" *ngIf="doc.compliance_explanation">
+                    <span class="srt-data-label">Compliance Explanation</span>
+                    <blockquote class="matched-chunk" style="margin-top: 0.5rem; border-left-color: #005ea2;">
+                        <div class="chunk-icon" style="color: #005ea2;">⚖</div>
+                        <p>{{doc.compliance_explanation}}</p>
+                    </blockquote>
+                </div>
+
+                <div class="srt-data-item margin-top-2" *ngIf="doc.ict_explanation">
+                    <span class="srt-data-label">ICT Classification Explanation</span>
+                    <blockquote class="matched-chunk" style="margin-top: 0.5rem; border-left-color: #8168b3;">
+                        <div class="chunk-icon" style="color: #8168b3;">🖥</div>
+                        <p>{{doc.ict_explanation}}</p>
+                    </blockquote>
+                </div>
+
+                <!-- ICT Types for this document -->
+                <div class="srt-data-item margin-top-2" *ngIf="doc.ict_types?.length">
+                    <span class="srt-data-label">ICT Types Detected</span>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
+                        <span *ngFor="let ict of doc.ict_types" class="srt-status"
+                            [ngClass]="ict.is_applicable ? 'srt-status--success' : 'srt-status--warning'"
+                            style="font-size: 0.8rem; text-transform: none;">
+                            {{ict.is_applicable ? '✓' : '✗'}} {{ict.ict_type}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- =================== 508 COMPLIANCE TAB =================== -->
+        <div class="srt-tab-panel" role="tabpanel" id="compliance-panel" aria-labelledby="compliance-tab"
+            [attr.aria-hidden]="activeTab !== 'compliance'" *ngIf="activeTab === 'compliance'">
+
+            <!-- Compliance Grid -->
+            <div class="srt-compliance-grid">
+                <div class="srt-compliance-item"
+                    [ngClass]="solicitation.ai_applicable ? 'srt-compliance-item--compliant' : ''">
+                    <div class="srt-compliance-icon">{{solicitation.ai_applicable ? '✓' : '✗'}}</div>
+                    <div class="srt-compliance-label">508 Applicable</div>
+                    <div class="srt-compliance-value">{{solicitation.ai_applicable ? 'Yes - ICT products identified' :
+                        'No ICT products identified'}}</div>
+                </div>
+                <div class="srt-compliance-item"
+                    [ngClass]="solicitation.ai_compliant ? 'srt-compliance-item--compliant' : 'srt-compliance-item--non-compliant'">
+                    <div class="srt-compliance-icon">{{solicitation.ai_compliant ? '✓' : '✗'}}</div>
+                    <div class="srt-compliance-label">Overall Compliance</div>
+                    <div class="srt-compliance-value">{{solicitation.ai_compliant ? 'Compliant' : 'Non-Compliant'}}
+                    </div>
+                </div>
+                <div class="srt-compliance-item"
+                    [ngClass]="solicitation.ai_explicit_508_coverage ? 'srt-compliance-item--compliant' : ''">
+                    <div class="srt-compliance-icon">{{solicitation.ai_explicit_508_coverage ? '✓' : '⚠'}}</div>
+                    <div class="srt-compliance-label">Explicit 508 Mention</div>
+                    <div class="srt-compliance-value">{{solicitation.ai_explicit_508_coverage ? 'Explicit mention found'
+                        : 'No explicit mention found'}}</div>
+                </div>
+                <div class="srt-compliance-item"
+                    [ngClass]="confidenceScore >= 7 ? 'srt-compliance-item--compliant' : (confidenceScore < 4 ? 'srt-compliance-item--non-compliant' : '')">
+                    <div class="srt-compliance-icon" style="font-size: 1.5rem;">{{confidenceScore}}</div>
+                    <div class="srt-compliance-label">Confidence Score</div>
+                    <div class="srt-compliance-value">{{confidenceLevel | titlecase}} confidence
+                        ({{confidenceScore}}/10)</div>
+                </div>
+            </div>
+
+            <!-- Compliance Details -->
+            <div class="srt-data-card" *ngIf="bestDocument">
+                <h3>Compliance Details</h3>
+                <div class="srt-data-grid">
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Matches Found</span>
+                        <span class="srt-data-value">{{solicitation.total_matches}}</span>
+                    </div>
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Match Strength</span>
+                        <span class="srt-data-value">{{bestDocument.vector_match_strength || 'N/A'}}</span>
+                    </div>
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Vector Match Strength</span>
+                        <span class="srt-data-value">{{bestDocument.vector_match_strength || 'N/A'}}</span>
+                    </div>
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Key Standards</span>
+                        <span class="srt-data-value">Section 508</span>
+                    </div>
+                </div>
+                <div class="srt-data-item margin-top-2" *ngIf="bestDocument.compliance_explanation">
+                    <span class="srt-data-label">Compliance Explanation</span>
+                    <div class="md-content" [innerHTML]="renderMarkdown(bestDocument.compliance_explanation)"></div>
+                </div>
+            </div>
+
+            <!-- Match Analysis -->
+            <div class="srt-data-card" *ngFor="let match of matches; let i = index">
+                <h3>Match Analysis <span *ngIf="matches.length > 1">#{{i + 1}}</span></h3>
+                <div class="srt-data-grid">
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Match Index</span>
+                        <span class="srt-data-value">{{match.chunk_index}}</span>
+                    </div>
+                    <div class="srt-data-item">
+                        <span class="srt-data-label">Similarity Score</span>
+                        <span class="srt-data-value">{{match.similarity_score}}
+                            ({{getSimilarityPercent(match.similarity_score)}})</span>
+                    </div>
+                </div>
+                <div class="srt-data-item margin-top-1">
+                    <span class="srt-data-label">Explicit Mention in Chunk</span>
+                    <span class="srt-data-value">
+                        <span class="srt-status"
+                            [ngClass]="match.explicit_accessibility_mention ? 'srt-status--success' : 'srt-status--error'">
+                            {{match.explicit_accessibility_mention ? 'YES' : 'NO'}}
+                        </span>
+                    </span>
+                </div>
+                <div class="srt-data-item margin-top-2">
+                    <span class="srt-data-label">Matched Text Chunk</span>
+                    <blockquote class="matched-chunk">
+                        <div class="chunk-icon">ℹ</div>
+                        <p>"{{match.chunk_text}}"</p>
+                    </blockquote>
+                </div>
+                <div class="srt-data-item margin-top-2" *ngIf="match.match_explanation">
+                    <span class="srt-data-label">Match Explanation</span>
+                    <div class="match-explanation md-content" [innerHTML]="renderMarkdown(match.match_explanation)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="srt-data-card" *ngIf="matches.length === 0">
+                <h3>Match Analysis</h3>
+                <p style="color: #454545;">No vector matches were found for this solicitation.</p>
+            </div>
+        </div>
+
+        <!-- =================== RECOMMENDATIONS TAB =================== -->
+        <div class="srt-tab-panel" role="tabpanel" id="recommendations-panel" aria-labelledby="recommendations-tab"
+            [attr.aria-hidden]="activeTab !== 'recommendations'" *ngIf="activeTab === 'recommendations'">
+
+            <!-- Compliance Recommendations -->
+            <div class="srt-data-card"
+                *ngIf="solicitation.ai_priority_recommendations && solicitation.ai_priority_recommendations.length">
+                <h3>Compliance Recommendations</h3>
+                <div class="srt-recommendation"
+                    *ngFor="let rec of solicitation.ai_priority_recommendations; let i = index">
+                    <h4>{{i + 1}}. {{rec}}</h4>
+                </div>
+            </div>
+
+            <!-- Recommended Actions -->
+            <div class="srt-data-card"
+                *ngIf="solicitation.ai_recommended_actions && solicitation.ai_recommended_actions.length">
+                <h3>Critical Action Items</h3>
+                <div class="usa-alert usa-alert--warning margin-bottom-2">
+                    <div class="usa-alert__body">
+                        <p class="usa-alert__text" *ngFor="let action of solicitation.ai_recommended_actions">
+                            • {{action}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copy-Pastable Compliance Clause -->
+            <div class="srt-data-card">
+                <h3>Copy-Pastable Compliance Clause</h3>
+                <div class="clause-instruction">
+                    <div class="clause-icon">ℹ</div>
+                    <div>
+                        <h4>Add This Clause to Make Solicitation Compliant</h4>
+                        <p><strong>Instructions:</strong> Copy the text below and add it to your solicitation document
+                            to ensure Section 508 compliance:</p>
+                    </div>
+                </div>
+                <div class="clause-container">
+                    <button class="usa-button usa-button--accent-cool copy-btn" (click)="copyClause()">
+                        📋 Copy Clause
+                    </button>
+                    <pre
+                        class="clause-text">SECTION 508 ACCESSIBILITY COMPLIANCE REQUIREMENTS
+
+52.239-40 ACCESSIBILITY OF ELECTRONIC AND INFORMATION TECHNOLOGY (JUN 2001)
+
+(a) The contractor shall ensure that all Electronic and Information Technology (EIT) supplies and services provided under this contract comply with the accessibility standards set forth in 36 CFR Part 1194, Section 508 of the Rehabilitation Act of 1973 (29 U.S.C. 794d), as amended.
+
+(b) ICT Products and Services: All Information and Communication Technology (ICT) products must conform to the Revised Section 508 Standards (36 CFR Part 1194) and Web Content Accessibility Guidelines (WCAG) 2.0 Level AA success criteria.
+
+(c) Voluntary Product Accessibility Template (VPAT): The contractor shall provide a completed VPAT 2.4 (or most current version) for each ICT product or service delivered under this contract.
+
+(d) Accessibility Testing: All ICT deliverables must undergo accessibility testing using both automated tools and manual evaluation methods.
+
+(e) Support Documentation and Services: All user manuals, training materials, help documentation, and customer support services must be provided in accessible formats.
+
+(f) Interface Accessibility: Digital interfaces must provide keyboard navigation alternatives, sufficient color contrast ratios (minimum 4.5:1), compatibility with assistive technologies, and adjustable font sizes.
+
+(g) Remediation Requirements: The contractor must remediate any accessibility issues at no additional cost to the Government within 30 days of notification.
+
+(h) Compliance Verification: The Government reserves the right to conduct independent accessibility testing of all ICT deliverables.</pre>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>

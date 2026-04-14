@@ -1,0 +1,76 @@
+name: SRT-UI DEV Deploy
+
+on:
+  push:
+    branches:
+      - 'dev'
+
+jobs:
+  docker:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+    outputs:
+      formattedTime: ${{ steps.current-time.outputs.formattedTime }}
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3.5.3          
+      - 
+        name: Get Current Time
+        uses: josStorer/get-current-time@v2.1.1
+        id: current-time
+        with:
+          format: YYYYMMDD-HHmmss
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          version: v0.9.1
+      - 
+        name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/srt-ui:dev-${{ steps.current-time.outputs.formattedTime }}
+          build-args: |
+            "environment=dev"
+  cloudgov:
+    name: Deploying to Cloud.gov
+    runs-on: ubuntu-latest
+    needs: docker
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3.5.3          
+      -
+        name: Update Cloud Foundry Public Key and Repository
+        run: |
+          wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo gpg --dearmor -o /usr/share/keyrings/cli.cloudfoundry.org.gpg
+          echo "deb [signed-by=/usr/share/keyrings/cli.cloudfoundry.org.gpg] https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+          sudo apt-get update
+      -
+        name: Install Cloud Foundry CLI
+        run: sudo apt-get install -y cf8-cli
+      -
+        name: Cloud Foundry Login
+        env:
+          CF_API: https://api.fr.cloud.gov
+          CF_USERNAME: ${{ secrets.CF_USER }}
+          CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
+          CF_ORG: gsa-ogp-srt
+          CF_SPACE: dev
+        run: cf login -a $CF_API -u $CF_USERNAME -p $CF_PASSWORD -o $CF_ORG -s $CF_SPACE
+      -
+        name: Cloud Foundry Push
+        env:
+          DOCKER_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/srt-ui:dev-${{ needs.docker.outputs.formattedTime }}
+        run: cf push srt-ui-dev -f cf/manifest.dev.yml --docker-image $DOCKER_IMAGE

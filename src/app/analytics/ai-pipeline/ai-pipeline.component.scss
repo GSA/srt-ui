@@ -1,0 +1,237 @@
+.pipeline-container {
+  padding: 2rem;
+  background-color: #f4f7f9;
+  min-height: calc(100vh - 100px);
+  color: #212529;
+  font-family: 'Inter', 'Roboto', sans-serif;
+}
+
+.header-section {
+  margin-bottom: 2rem;
+  
+  h1 {
+    font-size: 2.2rem;
+    color: #1a4480;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+  
+  p {
+    color: #5b616b;
+    font-size: 1.1rem;
+  }
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+
+  @media(max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e1e5e9;
+
+  h2 {
+    font-size: 1.3rem;
+    color: #112e51;
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+  }
+
+  .subtitle {
+    color: #71767a;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Pipeline Flow Design */
+.flow-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stage-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0.5rem;
+
+  .stage-icon {
+    background-color: #1a4480;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 4px 8px rgba(26, 68, 128, 0.2);
+  }
+
+  .stage-details {
+    background-color: #f8f9fa;
+    border: 1px solid #dfe1e2;
+    border-radius: 8px;
+    padding: 1rem;
+    width: 90%;
+    text-align: left;
+
+    h3 {
+      margin: 0 0 0.25rem 0;
+      font-size: 1rem;
+      color: #112e51;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: #5b616b;
+      line-height: 1.4;
+    }
+  }
+
+  .connector {
+    color: #aeb0b5;
+    font-size: 1.5rem;
+    margin: 0.5rem 0;
+  }
+}
+
+/* Active Prompts Viewer */
+.agent-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.agent-btn {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #494440;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #e2e2e2;
+  }
+
+  &.active {
+    background-color: #005ea2;
+    color: white;
+    border-color: #005ea2;
+  }
+}
+
+.prompt-viewer {
+  background-color: #212529;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+
+  .viewer-header {
+    background-color: #323a45;
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #4a5059;
+
+    .label {
+      color: #aeb0b5;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      margin-right: 0.5rem;
+    }
+
+    color: white;
+    font-size: 0.9rem;
+
+    .model-badge {
+      background-color: #4f803c;
+      color: white;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+  }
+
+  .code-block {
+    padding: 0;
+    
+    .code-header {
+      padding: 0.5rem 1rem;
+      background-color: #111;
+      color: #888;
+      font-size: 0.75rem;
+      font-family: monospace;
+    }
+
+    pre {
+      margin: 0;
+      padding: 1.5rem;
+      overflow-x: auto;
+      
+      code {
+        color: #a6e22e;
+        font-family: 'Consolas', 'Monaco', monospace;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        white-space: pre-wrap;
+      }
+    }
+  }
+}
+
+/* Telemetry Stats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+
+  @media(max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.stat-box {
+  background: linear-gradient(135deg, #1a4480 0%, #112e51 100%);
+  border-radius: 8px;
+  padding: 1.5rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  h4 {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 400;
+    opacity: 0.8;
+  }
+
+  .stat-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+  }
+}

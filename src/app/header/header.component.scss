@@ -109,3 +109,32 @@
     height: 1.5rem;
   }
 }
+
+/* Dropdown Menu Support */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  min-width: 170px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  z-index: 1001;
+  border-radius: 4px;
+  padding: 0.5rem 0;
+  border: 1px solid #dfe1e2;
+  margin-top: 0; /* Remove gap that breaks hovering */
+}
+
+.dropdown-item {
+  color: #71767a;
+  padding: 0.6rem 1rem;
+  text-decoration: none;
+  display: block;
+  font-size: 0.9rem;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+  color: #1a4480;
+}

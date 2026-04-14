@@ -1,0 +1,10 @@
+<ng-container *ngIf="section.text === ''; else notEmptyText">
+  <h1>{{ section.code }} {{ section.title }}</h1>
+</ng-container>
+<ng-template #notEmptyText>
+  <h2>{{ section.title }}</h2>
+</ng-template>
+<p>{{ section.text }}</p>
+<div *ngFor="let subsection of section.sections" class="ps-3">
+  <app-art-section [section]="subsection"></app-art-section>
+</div>

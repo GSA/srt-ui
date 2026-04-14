@@ -64,6 +64,11 @@ export class AuthGuard  {
           } else {
             this.router.navigate(['/auth']).catch(r => console.log(r));
           }
+        },
+        (error) => {
+          console.error('Token check failed:', error);
+          localStorage.removeItem('token');
+          this.router.navigate(['/auth']).catch(r => console.log(r));
         });
     }
     return false

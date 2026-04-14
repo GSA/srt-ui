@@ -40,14 +40,22 @@
                 <!-- Admin-only navigation items -->
                 @if (isGSAAdmin) {
                   <li class="nav-item">
-                    <a
-                      [routerLink]="['/analytics']"
-                      class="nav-link"
+                  <li class="nav-item usa-nav__primary-item" style="position: relative;">
+                    <button
+                      type="button"
+                      class="nav-link usa-accordion__button"
                       id="nav-analytics"
-                      (click)="menuClick('/analytics')"
-                      >Analytics</a
-                      >
-                    </li>
+                      [attr.aria-expanded]="isAnalyticsDropdownOpen ? 'true' : 'false'"
+                      (click)="isAnalyticsDropdownOpen = !isAnalyticsDropdownOpen"
+                      style="background: transparent; border: none; font-size: 0.9rem; color: #71767a; cursor: pointer; display: inline-flex; align-items: center; padding: 0.5rem 0;"
+                      >Analytics 
+                      <i class="fa fa-angle-down" style="margin-left: 8px;"></i>
+                    </button>
+                    <ul class="dropdown-menu usa-nav__submenu" [ngStyle]="{'display': isAnalyticsDropdownOpen ? 'block' : 'none'}" style="margin-top: 0; padding-left: 0; list-style: none;">
+                      <li><a [routerLink]="['/analytics']" class="dropdown-item" (click)="isAnalyticsDropdownOpen = false; menuClick('/analytics')">System Analytics</a></li>
+                      <li><a [routerLink]="['/analytics/ai-pipeline']" class="dropdown-item" (click)="isAnalyticsDropdownOpen = false; menuClick('/analytics/ai-pipeline')">AI Pipeline</a></li>
+                    </ul>
+                  </li>
                   }
                   @if (isGSAAdmin) {
                     <li class="nav-item">

@@ -1,0 +1,85 @@
+<div class="pipeline-container">
+  <div class="header-section">
+    <h1>AI Pipeline Breakdown</h1>
+    <p>Real-time analytics and underlying multi-agent reasoning architecture for the GSA SRT compliance platform.</p>
+  </div>
+
+  <div class="dashboard-grid">
+    <!-- Pipeline Overview -->
+    <div class="card pipeline-flow-card">
+      <h2>SRT Solicitation Evaluation Pipeline</h2>
+      <p class="subtitle">Complete NAICS filtering, document analysis, and legacy ML validation workflow.</p>
+      
+      <div class="flow-container">
+        <div *ngFor="let stage of pipelineStages; let i = index" class="stage-item">
+          <div class="stage-icon">
+            <i class="fa fa-{{stage.icon}}"></i>
+          </div>
+          <div class="stage-details">
+            <h3>{{ i + 1 }}. {{ stage.name }}</h3>
+            <p>{{ stage.description }}</p>
+          </div>
+          <div class="connector" *ngIf="i < pipelineStages.length - 1">
+             <i class="fa fa-chevron-down"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Prompts Viewer -->
+    <div class="card prompts-card">
+      <h2>Current System Prompts</h2>
+      <p class="subtitle">Review the exact instructions driving our AI Agents via the US AI API.</p>
+      
+      <div class="agent-selector">
+        <button 
+          *ngFor="let prompt of prompts" 
+          [class.active]="selectedPrompt?.role === prompt.role"
+          (click)="selectPrompt(prompt)"
+          class="agent-btn">
+          {{ prompt.role }}
+        </button>
+      </div>
+
+      <div class="prompt-viewer" *ngIf="selectedPrompt">
+        <div class="viewer-header">
+          <div>
+            <span class="label">Task:</span> {{ selectedPrompt.name }}
+          </div>
+          <div>
+            <span class="label model-badge">Model: {{ selectedPrompt.model }}</span>
+          </div>
+        </div>
+        <div class="code-block">
+          <div class="code-header">System Instruction</div>
+          <pre><code>{{ selectedPrompt.systemPrompt }}</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Telemetry and Data Stats -->
+  <div class="card telemetry-card">
+    <h2>Data Persistence Overview</h2>
+    <p class="subtitle">The outputs of this pipeline are actively captured in the following backend SQL tables:</p>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <h4>rag-documents</h4>
+        <span class="stat-value">Chunks</span>
+      </div>
+      <div class="stat-box">
+        <h4>rag-solicitations</h4>
+        <span class="stat-value">Determinations</span>
+      </div>
+      <div class="stat-box">
+        <h4>rag-vector-matches</h4>
+        <span class="stat-value">Raw Excerpts</span>
+      </div>
+      <div class="stat-box">
+        <h4>rag-document-quality-metrics</h4>
+        <span class="stat-value">Forensic Scores</span>
+      </div>
+    </div>
+  </div>
+
+</div>

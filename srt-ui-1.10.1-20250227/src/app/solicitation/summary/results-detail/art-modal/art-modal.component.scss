@@ -1,0 +1,72 @@
+.ui-dialog-titlebar-close {
+    display:none;
+  }
+
+#art {
+  display: contents;
+}
+
+.art-selection{
+  display: flow-root;
+  padding-bottom: inherit;
+}
+
+
+::ng-deep button.p-button{
+  background-color: #fa9441;
+  border: none;
+  color: #1b1b1b;
+  float: left;
+  width: max-content;
+  font-weight: bold;
+}
+
+::ng-deep button.p-button:hover {
+  background-color: #c05600 !important;
+  color: white;
+  font-weight: bold;
+}
+
+
+.art-language {
+  border: inset;
+  position: relative;
+}
+
+.floating-button {
+  position: sticky;
+  bottom: 10%;
+  right: 0;
+  display: flex;
+}
+
+#clear_all {
+  background-color: transparent;
+  box-shadow: inset 0 0 0 2px #005ea2;
+  color: #005ea2;
+}
+
+#clear_all:hover {
+  background-color: #0000001a !important;
+  box-shadow: inset 0 0 0 2px #000000;
+  color: #000000;
+}
+
+#copy-button{
+  position: absolute;
+  right: 7%;
+}
+
+#download-button{
+  position: absolute;
+  right: 0;
+}
+
+.field-checkbox {
+  font-size: large;
+}
+
+.subfield-checkbox {
+  padding-left: 1em;
+  font-size: medium;
+}

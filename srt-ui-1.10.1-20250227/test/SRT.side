@@ -1,0 +1,1249 @@
+{
+  "id": "e2a4bf81-5260-49ef-993c-1e3568b4e9b5",
+  "version": "2.0",
+  "name": "SRT",
+  "url": "http://localhost:4200/",
+  "tests": [{
+    "id": "1888497e-83be-4bcf-85eb-4febba184060",
+    "name": "All-pages",
+    "commands": [{
+      "id": "739da2ad-434d-4ce0-bcf7-adc20235191b",
+      "comment": "",
+      "command": "run",
+      "target": "Function-Setup",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2b1fecbe-a40b-432a-820b-2dd54401f0c6",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Manage/Review Workload",
+      "targets": [
+        ["linkText=Manage/Review Workload", "linkText"],
+        ["css=#\\32 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Manage/Review Workload')]", "xpath:link"],
+        ["xpath=//li[@id='2']/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '')])[6]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Manage/Review Workload')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "afb52670-bc95-41c5-98f6-332a558cf749",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//span[contains(text(), \"Non-compliant\")]",
+      "targets": [
+        ["css=.ui-datatable-even:nth-child(1) .button > span", "css:finder"],
+        ["xpath=//main[@id='content']/div/p-datatable/div/div/table/tbody/tr/td[5]/span[2]/div/span/button/span", "xpath:idRelative"],
+        ["xpath=//span[2]/div/span/button/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3be5761e-d699-4d7f-8914-72bde9dd7e7f",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=STEP 2: EMAIL POC",
+      "targets": [
+        ["linkText=STEP 2: EMAIL POC", "linkText"],
+        ["css=.summary-floatleft > li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'STEP 2: EMAIL POC')]", "xpath:link"],
+        ["xpath=//main[@id='content']/app-summary/div[2]/div/div/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/solicitation/email/1171')]", "xpath:href"],
+        ["xpath=//div[2]/div/div/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'STEP 2: EMAIL POC')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4011fb56-44db-4ad7-a8db-62390790a0f1",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=STEP 3: MAKE SRT SMARTER",
+      "targets": [
+        ["linkText=STEP 3: MAKE SRT SMARTER", "linkText"],
+        ["css=.nopadding > li:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'STEP 3: MAKE SRT SMARTER')]", "xpath:link"],
+        ["xpath=//main[@id='content']/app-summary/div[2]/div/div/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/solicitation/feedback/1171')]", "xpath:href"],
+        ["xpath=//div[2]/div/div/ul/li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'STEP 3: MAKE SRT SMARTER')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b08b9d30-de46-4656-9f13-07e5d89d7479",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "xpath=(//button[contains(.,'Submit')] | //div[contains(.,'Your response is successfully submitted')] )",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "b82de8c3-197a-4920-81ee-5b98293af318",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=(//button[contains(.,'Submit')] | //div[contains(.,'Your response is successfully submitted')] )",
+      "targets": [
+        ["css=.srt-button", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//main[@id='content']/div/div/div[2]/div[2]/div/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "80e08a2a-7c93-40fc-bd75-4d775d4b98ee",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//a[contains(text(),'Prediction History')]",
+      "targets": [
+        ["css=.summary-floatright > li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Prediction History')]", "xpath:link"],
+        ["xpath=//main[@id='content']/app-summary/div[2]/div/div/ul[2]/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/solicitation/prediction/1174')]", "xpath:href"],
+        ["xpath=//div[2]/div/div/ul[2]/li/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6d467800-1b2a-4486-a7e0-24a591ec7829",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=.list-title",
+      "targets": [
+        ["css=.list-title", "css:finder"],
+        ["xpath=//main[@id='content']/div/div/div[2]/div", "xpath:idRelative"],
+        ["xpath=//main/div/div/div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "eb3ac08c-f705-40a1-b931-3693e303903a",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=(//a[contains(text(),'History')])[2]",
+      "targets": [
+        ["css=.summary-floatright > li:nth-child(2) > a", "css:finder"],
+        ["xpath=(//a[contains(text(),'History')])[2]", "xpath:link"],
+        ["xpath=//main[@id='content']/app-summary/div[2]/div/div/ul[2]/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/solicitation/history/1174')]", "xpath:href"],
+        ["xpath=//ul[2]/li[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "dff91ab8-e738-42f0-8edc-f95a787376b8",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f526fec6-c800-47b7-befc-8c2531b22a47",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//main[@id='content']/div/div/div[2]/div[2]/ul/li",
+      "targets": [
+        ["css=.list-content li:nth-child(1)", "css:finder"],
+        ["xpath=//main[@id='content']/div/div/div[2]/div[2]/ul/li", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/ul/li", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "60d14247-8b8e-43ce-9f4b-c33e1e2ab6e2",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=View Analytics",
+      "targets": [
+        ["linkText=View Analytics", "linkText"],
+        ["css=#\\33 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'View Analytics')]", "xpath:link"],
+        ["xpath=//li[@id='3']/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '')])[7]", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'View Analytics')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "470757e3-8c01-461d-815a-bd7dc4afe5ec",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "css=.chart",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "92565f22-f323-4b00-909d-feea7769ef9c",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=.chart",
+      "targets": [
+        ["css=.chart", "css:finder"],
+        ["xpath=//main[@id='content']/div/div/div[2]/div[2]/app-scanned-solicitation/div", "xpath:idRelative"],
+        ["xpath=//app-scanned-solicitation/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3dd20f37-fe1a-480d-a09a-99c03012c767",
+      "comment": "",
+      "command": "//verifyElementNotPresent",
+      "target": "xpath=//*[contains(text(), \"NaN\")]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8ec209fb-9871-435d-a05c-016a567c7c19",
+      "comment": "",
+      "command": "//waitForElementPresent",
+      "target": "css=.undeter-solic-canvas > .chartjs-render-monitor",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9c1176d7-3fb0-49ee-ab3b-a43043147737",
+      "comment": "",
+      "command": "//waitForElementNotPresent",
+      "target": "xpath=//*[contains(text(), \"NaN\")]",
+      "targets": [],
+      "value": "5000"
+    }, {
+      "id": "9b4b7c5f-b79c-467f-9445-eb101bb48fa9",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=User Management",
+      "targets": [
+        ["linkText=User Management", "linkText"],
+        ["css=#\\34 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'User Management')]", "xpath:link"],
+        ["xpath=//li[@id='4']/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '')])[8]", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'User Management')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "548a84eb-baa8-4329-b374-3302f6c86c53",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=APPROVED",
+      "targets": [
+        ["linkText=APPROVED", "linkText"],
+        ["css=#tab1 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'APPROVED')]", "xpath:link"],
+        ["xpath=//li[@id='tab1']/a", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'APPROVED')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "073295f2-2153-44a0-9be7-a9a824c9d07d",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "xpath=//td[contains(.,'Al Crowley')]",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "79755651-110a-47c5-8406-202426187d37",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//td[contains(.,'Al Crowley')]",
+      "targets": [
+        ["css=.even:nth-child(1) > td:nth-child(1)", "css:finder"],
+        ["xpath=//main[@id='content']/div/div[4]/table/tbody/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"],
+        ["xpath=//td[contains(.,'Al Crowley')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "733659b9-14a3-4265-8321-e5739bda40ed",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Contact Us",
+      "targets": [
+        ["linkText=Contact Us", "linkText"],
+        ["css=#\\35 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Contact Us')]", "xpath:link"],
+        ["xpath=//li[@id='5']/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '')])[9]", "xpath:href"],
+        ["xpath=//li[5]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Contact Us')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "10093d76-76fc-49c7-856f-6977b2508ef5",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//b[contains(.,'srt@gsa.gov')]",
+      "targets": [
+        ["css=b", "css:finder"],
+        ["xpath=//main[@id='content']/div/div/p/b", "xpath:idRelative"],
+        ["xpath=//b", "xpath:position"],
+        ["xpath=//b[contains(.,'srt@gsa.gov')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "54bc9c5d-7325-4c19-afeb-0af7db7a227c",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=FAQs",
+      "targets": [
+        ["linkText=FAQs", "linkText"],
+        ["css=#\\36 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'FAQs')]", "xpath:link"],
+        ["xpath=//li[@id='6']/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '')])[10]", "xpath:href"],
+        ["xpath=//li[6]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'FAQs')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "419aecf8-9987-4e07-8b2b-9c1f1e8639f9",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3f71d270-7f4b-459a-a08b-152da84a8c61",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=mostViewTitle",
+      "targets": [
+        ["id=mostViewTitle", "id"],
+        ["css=#mostViewTitle", "css:finder"],
+        ["xpath=//h2[@id='mostViewTitle']", "xpath:attributes"],
+        ["xpath=//main[@id='content']/div[2]/div/div[2]/div[2]/div/div/h2", "xpath:idRelative"],
+        ["xpath=//h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Most Viewed FAQs')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b821c1a0-6a60-45ec-ad87-8aead13b0147",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Feedback",
+      "targets": [
+        ["linkText=Feedback", "linkText"],
+        ["css=#\\37 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Feedback')]", "xpath:link"],
+        ["xpath=//li[@id='7']/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '')])[11]", "xpath:href"],
+        ["xpath=//li[7]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Feedback')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "298294bf-704f-43e6-b4db-9a4fcc735f8e",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//th[contains(.,'Solicitation Feedback')]",
+      "targets": [
+        ["css=th:nth-child(1)", "css:finder"],
+        ["xpath=//main[@id='content']/div/div/table/tbody/tr/th", "xpath:idRelative"],
+        ["xpath=//th", "xpath:position"],
+        ["xpath=//th[contains(.,'Solicitation Feedback')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "9522a3db-9f9c-40b9-a50b-5e3eaa564154",
+    "name": "Toggle Not Applicable",
+    "commands": [{
+      "id": "ed6da81f-e61c-4087-a236-68219cb33297",
+      "comment": "",
+      "command": "run",
+      "target": "Function-Setup",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6d3b4d1d-0119-463c-8fb0-9afb01bd12bf",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Manage/Review Workload",
+      "targets": [
+        ["linkText=Manage/Review Workload", "linkText"],
+        ["css=#\\32 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Manage/Review Workload')]", "xpath:link"],
+        ["xpath=//li[@id='2']/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '')])[6]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Manage/Review Workload')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cccf7cf7-c1f4-4ab2-8ac7-f72ecffccee7",
+      "comment": "",
+      "command": "waitForElementNotPresent",
+      "target": "xpath=//div[@id='loading']",
+      "targets": [],
+      "value": "5000"
+    }, {
+      "id": "fa197e3b-f26a-4470-96d9-f267764e3af2",
+      "comment": "",
+      "command": "//executeScript",
+      "target": "return document.querySelector(\"table .ui-datatable-even td span:nth-of-type(2)\").textContent",
+      "targets": [],
+      "value": "sid"
+    }, {
+      "id": "342a7ffb-036b-42d3-bd31-b97ffe3c4831",
+      "comment": "",
+      "command": "storeText",
+      "target": "css=.ui-table-tbody > .ng-star-inserted:nth-child(1) > .ui-resizable-column:nth-child(1)",
+      "targets": [
+        ["css=.ui-table-tbody > .ng-star-inserted:nth-child(1) > .ui-resizable-column:nth-child(1)", "css:finder"],
+        ["xpath=//main[@id='content']/div/p-table/div/div/table/tbody/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"],
+        ["xpath=//td[contains(.,'0000003281')]", "xpath:innerText"]
+      ],
+      "value": "sid"
+    }, {
+      "id": "8dd5b15b-4a8f-4270-b7b1-7f8adaab1a7e",
+      "comment": "",
+      "command": "echo",
+      "target": "Using solicitation ID ${sid}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8599e654-a1d0-4ceb-9829-714f32fd6b96",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=(//button[contains(.,'compliant')])[1]",
+      "targets": [
+        ["css=.ui-datatable-even:nth-child(1) .button > span", "css:finder"],
+        ["xpath=//main[@id='content']/div/p-datatable/div/div/table/tbody/tr/td[5]/span[2]/span/button/span", "xpath:idRelative"],
+        ["xpath=//span[2]/span/button/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8e2d61cb-bbf3-429d-b98c-910409443260",
+      "comment": "",
+      "command": "verifyNotChecked",
+      "target": "id=na_check",
+      "targets": [
+        ["id=na_check", "id"],
+        ["css=#na_check", "css:finder"],
+        ["xpath=//input[@id='na_check']", "xpath:attributes"],
+        ["xpath=//div[@id='na-checkbox']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8d35e65b-b01e-4ee2-a155-b41156b72a3f",
+      "comment": "",
+      "command": "click",
+      "target": "id=na_check",
+      "targets": [
+        ["id=na_check", "id"],
+        ["css=#na_check", "css:finder"],
+        ["xpath=//input[@id='na_check']", "xpath:attributes"],
+        ["xpath=//div[@id='na-checkbox']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6f513bbd-fae6-4a17-9002-c87ded70e058",
+      "comment": "",
+      "command": "verifyChecked",
+      "target": "id=na_check",
+      "targets": [
+        ["id=na_check", "id"],
+        ["css=#na_check", "css:finder"],
+        ["xpath=//input[@id='na_check']", "xpath:attributes"],
+        ["xpath=//div[@id='na-checkbox']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2c056bf0-e67e-4031-b6dd-b96eddff19fb",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=< Back to Solicitation Review Results for Section 508 Requirements",
+      "targets": [
+        ["linkText=< Back to Solicitation Review Results for Section 508 Requirements", "linkText"],
+        ["css=.srt-title-padding > a", "css:finder"],
+        ["xpath=//a[contains(text(),'< Back to Solicitation Review Results for Section 508 Requirements')]", "xpath:link"],
+        ["xpath=//main[@id='content']/div/div/div/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/solicitation/report')])[2]", "xpath:href"],
+        ["xpath=//main/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'< Back to Solicitation Review Results for Section 508 Requirements')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fc549cca-d4f1-467e-8288-77d3166f29e0",
+      "comment": "",
+      "command": "type",
+      "target": "id=ksearch",
+      "targets": [
+        ["id=ksearch", "id"],
+        ["css=#ksearch", "css:finder"],
+        ["xpath=//input[@id='ksearch']", "xpath:attributes"],
+        ["xpath=//div[@id='solsearch']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${sid}"
+    }, {
+      "id": "8ab5514b-cc24-490b-9fd1-837b2f776070",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.button > span",
+      "targets": [
+        ["css=.button > span", "css:finder"],
+        ["xpath=//main[@id='content']/div/p-datatable/div/div/table/tbody/tr/td[5]/span[2]/span/button/span", "xpath:idRelative"],
+        ["xpath=//span[2]/span/button/span", "xpath:position"]
+      ],
+      "value": "Not Applicable"
+    }, {
+      "id": "c6a60372-4f32-4a53-89a6-705e07685a02",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=(//button[contains(.,'Not Applicable')])[1]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e9f21ddf-01f7-487b-a900-1a358213c07b",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "xpath=//div[@id='detail']//div[contains(.,'Solicitation Number')]",
+      "targets": [
+        ["css=.col-md-8 > .list:nth-child(1) > .list-title", "css:finder"],
+        ["xpath=//div[@id='detail']/div[2]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div/div/div", "xpath:position"]
+      ],
+      "value": "10000"
+    }, {
+      "id": "567b0161-6f80-4343-9b6f-6ace3d259f67",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return document.getElementById('solNum').textContent",
+      "targets": [],
+      "value": "${new_sid}"
+    }, {
+      "id": "d8f44393-f357-47dc-9227-15b45e3ad6f0",
+      "comment": "",
+      "command": "echo",
+      "target": "new PID ${new_sid}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c8f23f0a-d541-4159-b9f5-a2ddf1153c4a",
+      "comment": "",
+      "command": "verify",
+      "target": "${new_sid}",
+      "targets": [],
+      "value": "${sid}"
+    }, {
+      "id": "c9591703-fb88-4f01-829a-dccc5828936e",
+      "comment": "",
+      "command": "verifyChecked",
+      "target": "id=na_check",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5fd162c7-f532-47b7-8f5b-548771002ede",
+      "comment": "",
+      "command": "click",
+      "target": "id=na_check",
+      "targets": [
+        ["id=na_check", "id"],
+        ["css=#na_check", "css:finder"],
+        ["xpath=//input[@id='na_check']", "xpath:attributes"],
+        ["xpath=//div[@id='na-checkbox']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "982fec61-8ff8-4795-ae02-d2737586225d",
+      "comment": "",
+      "command": "verifyNotChecked",
+      "target": "id=na_check",
+      "targets": [
+        ["id=na_check", "id"],
+        ["css=#na_check", "css:finder"],
+        ["xpath=//input[@id='na_check']", "xpath:attributes"],
+        ["xpath=//div[@id='na-checkbox']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "922443d3-9a6a-4755-b850-c79572e19af2",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=< Back to Solicitation Review Results for Section 508 Requirements",
+      "targets": [
+        ["linkText=< Back to Solicitation Review Results for Section 508 Requirements", "linkText"],
+        ["css=.srt-title-padding > a", "css:finder"],
+        ["xpath=//a[contains(text(),'< Back to Solicitation Review Results for Section 508 Requirements')]", "xpath:link"],
+        ["xpath=//main[@id='content']/div/div/div/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/solicitation/report')])[2]", "xpath:href"],
+        ["xpath=//main/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'< Back to Solicitation Review Results for Section 508 Requirements')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d908b3bd-ff79-4a77-b739-6bcc8cd31935",
+      "comment": "",
+      "command": "type",
+      "target": "id=ksearch",
+      "targets": [
+        ["id=ksearch", "id"],
+        ["css=#ksearch", "css:finder"],
+        ["xpath=//input[@id='ksearch']", "xpath:attributes"],
+        ["xpath=//div[@id='solsearch']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${sid}"
+    }, {
+      "id": "5e16df06-3613-4e71-9ab9-eecf1829304f",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=(//button[contains(.,'compliant')])[1]",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "dd31db17-b6e2-46dc-b048-8cecafc19601",
+    "name": "Function-Login",
+    "commands": [{
+      "id": "bec096f0-f1fd-4d9e-8de4-6559e677b5a2",
+      "comment": "",
+      "command": "echo",
+      "target": "Login Function",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "616bb0b9-02c8-41c2-aacf-b30e47cf35b5",
+      "comment": "",
+      "command": "if",
+      "target": "document.getElementById('login') != null",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f0c08060-c0a3-4d10-8771-6400d48f44f5",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[contains(.,'Login with MAX')]",
+      "targets": [
+        ["css=.srt-button", "css:finder"],
+        ["xpath=//button[@onclick=\" (function() {\n                        let client_host = window.location.hostname\n                        let server_host = ''\n                        if (client_host === 'localhost') { server_host = 'localhost:3000' }\n                        if (client_host === 'srt-client.app.cloud.gov' || client_host === 'srt.app.cloud.gov') { server_host = 'srt-server.app.cloud.gov' }\n                        if (client_host === 'srt-client-dev.app.cloud.gov') { server_host = 'srt-server-dev.app.cloud.gov' }\n                        if (client_host === 'srt-client-staging.app.cloud.gov') { server_host = 'srt-server-staging.app.cloud.gov' }\n                        window.location = 'http://' + server_host + '/api/casLogin'\n                      }()) \"]", "xpath:attributes"],
+        ["xpath=//main[@id='content']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Login with MAX')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "337d7c2b-eafe-4dd1-a854-cc95bf6006cd",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "6bff13ad-0b85-41ad-9c15-11b345855e4c",
+    "name": "Function-Setup",
+    "commands": [{
+      "id": "1d5e37fc-3b18-4102-baa1-89d04ab0541d",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "df730524-8187-4af9-bf96-f9089d3580bd",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1200x1424",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "188e85cd-9929-4fca-8c68-95e7a80b4125",
+      "comment": "",
+      "command": "setSpeed",
+      "target": "300",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c52aa7d5-1e56-4bd1-95ff-fd7c562117f8",
+      "comment": "",
+      "command": "run",
+      "target": "Function-Login",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "cad747ac-0162-4e0b-bf31-d7bc7192ab4f",
+    "name": "Survey - Verify clicking one check box does not make two light up",
+    "commands": [{
+      "id": "b0cf403d-dacf-408d-8860-5d2d476d81f0",
+      "comment": "",
+      "command": "run",
+      "target": "Function-Setup",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "68a27656-718a-4576-acf5-4ce8e7ef2649",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Manage/Review Workload",
+      "targets": [
+        ["linkText=Manage/Review Workload", "linkText"],
+        ["css=#\\32 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Manage/Review Workload')]", "xpath:link"],
+        ["xpath=//li[@id='2']/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '')])[6]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Manage/Review Workload')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8559e412-56a1-4451-87a6-97f0b2be7206",
+      "comment": "",
+      "command": "waitForElementNotPresent",
+      "target": "xpath=//div[@id='loading']",
+      "targets": [],
+      "value": "5000"
+    }, {
+      "id": "138a6451-6653-4ff3-8351-8517e810a8d0",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=3",
+      "targets": [
+        ["linkText=3", "linkText"],
+        ["css=.ui-paginator-page:nth-child(3)", "css:finder"],
+        ["xpath=(//a[contains(text(),'3')])[3]", "xpath:link"],
+        ["xpath=//main[@id='content']/div/p-datatable/div/p-paginator/div/span/a[3]", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[8]", "xpath:href"],
+        ["xpath=//a[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "86171413-7c48-44b5-92e5-763220e8538e",
+      "comment": "Store the Solicitation ID in ${sid}",
+      "command": "executeScript",
+      "target": "return document.querySelector(\"p-table table tbody > tr:nth-child(1) > td:nth-child(1)\").textContent",
+      "targets": [],
+      "value": "sid"
+    }, {
+      "id": "ea7ae462-7661-416a-80b6-9f090d4c4796",
+      "comment": "",
+      "command": "echo",
+      "target": "Using solicitation ID ${sid}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e20856ad-401d-4083-b44b-e5ef01928aba",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=(//button[contains(.,'compliant')])[1]",
+      "targets": [
+        ["css=.ui-datatable-even:nth-child(1) .button > span", "css:finder"],
+        ["xpath=//main[@id='content']/div/p-datatable/div/div/table/tbody/tr/td[5]/span[2]/span/button/span", "xpath:idRelative"],
+        ["xpath=//span[2]/span/button/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8668a782-4c44-4d0c-acf0-527e28298b9f",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=STEP 3: MAKE SRT SMARTER",
+      "targets": [
+        ["linkText=STEP 3: MAKE SRT SMARTER", "linkText"],
+        ["css=.nopadding > li:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'STEP 3: MAKE SRT SMARTER')]", "xpath:link"],
+        ["xpath=//main[@id='content']/app-summary/div[2]/div/div/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/solicitation/feedback/1171')]", "xpath:href"],
+        ["xpath=//div[2]/div/div/ul/li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'STEP 3: MAKE SRT SMARTER')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "efaa2296-6c06-4fa1-b9df-61a59cfe903c",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//label[contains(.,'Yes')]",
+      "targets": [
+        ["css=.ng-star-inserted:nth-child(2) > li .ng-star-inserted:nth-child(1) > label", "css:finder"],
+        ["xpath=//main[@id='content']/div/div/div[2]/div[2]/div/ul/li/ul/li/label", "xpath:idRelative"],
+        ["xpath=//label", "xpath:position"],
+        ["xpath=//label[contains(.,'Yes')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4a5e760f-b7ea-4dd0-b960-c2f701232404",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//label[contains(.,'Yes')]",
+      "targets": [
+        ["css=.ng-star-inserted:nth-child(2) > li .ng-star-inserted:nth-child(1) > label", "css:finder"],
+        ["xpath=//main[@id='content']/div/div/div[2]/div[2]/div/ul/li/ul/li/label", "xpath:idRelative"],
+        ["xpath=//label", "xpath:position"],
+        ["xpath=//label[contains(.,'Yes')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fe5e4f22-6bbd-4f24-acc2-6fe8466cad5d",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "css=input[type=checkbox]:checked",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "4366f9c9-c3a9-4404-a046-57038747f54d",
+    "name": "Workload Table",
+    "commands": [{
+      "id": "fe338879-3ee2-4fb5-9c98-59277da9ffb1",
+      "comment": "",
+      "command": "run",
+      "target": "Function-Setup",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a1e09229-5dde-4f26-b170-98baaa6f3716",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Manage/Review Workload",
+      "targets": [
+        ["linkText=Manage/Review Workload", "linkText"],
+        ["css=#\\32 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Manage/Review Workload')]", "xpath:link"],
+        ["xpath=//li[@id='2']/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/solicitation/report')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Manage/Review Workload')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d23f34b4-d0dd-41ed-9123-165c884f34a5",
+      "comment": "",
+      "command": "click",
+      "target": "css=#ddl_reviewRec label",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7097a813-e647-44a4-99f0-3eeed3a28013",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id='ddl_reviewRec']//p-dropdownitem[.='Compliant']/li",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c34e2d9d-e439-4400-8a58-459d07855616",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "xpath=//span[contains(.,'Non-compliant')]",
+      "targets": [],
+      "value": "//*[@id='ddl_reviewRec']//p-dropdownitem[contains(.,'Non-compliant')]/li"
+    }, {
+      "id": "51df4f0c-048e-4aaa-9fc7-0f6bdafa6f1b",
+      "comment": "",
+      "command": "click",
+      "target": "css=#ddl_noticeTypes label",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "02e7a937-e228-4b25-84fb-05bc88579c84",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id='ddl_noticeTypes']//p-dropdownitem[.='Solicitation']/li",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "31e1faeb-a8d9-41e9-b7fc-1e11c99a1520",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "xpath=//td[contains(text(),'Combined')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "68570320-a0d7-49a8-8d14-c729370a363a",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "xpath=//td[contains(.,'Presolicitation')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ca93fe37-ee49-428d-bd66-1d0f3e7eb80e",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//th[contains(text(),'Solicitation ID')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "94299d77-5fd2-4535-b17c-7409c9af45c5",
+      "comment": "",
+      "command": "storeText",
+      "target": "css=.ui-table-tbody > .ng-star-inserted:nth-child(1) > .ui-resizable-column:nth-child(1)",
+      "targets": [
+        ["css=.ui-table-tbody > .ng-star-inserted:nth-child(1) > .ui-resizable-column:nth-child(1)", "css:finder"],
+        ["xpath=//main[@id='content']/div/p-table/div/div/table/tbody/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"],
+        ["xpath=//td[contains(.,'0000003281')]", "xpath:innerText"]
+      ],
+      "value": "sol_one"
+    }, {
+      "id": "c5c20f0e-384b-4c98-a2ba-f6c31891b2b6",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//th[contains(text(),'Solicitation ID')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0a5b60e0-d88e-41cb-a7be-7281b77463d9",
+      "comment": "",
+      "command": "storeText",
+      "target": "css=.ui-table-tbody > .ng-star-inserted:nth-child(1) > .ui-resizable-column:nth-child(1)",
+      "targets": [
+        ["css=.ui-table-tbody > .ng-star-inserted:nth-child(1) > .ui-resizable-column:nth-child(1)", "css:finder"],
+        ["xpath=//main[@id='content']/div/p-table/div/div/table/tbody/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"],
+        ["xpath=//td[contains(.,'0000003281')]", "xpath:innerText"]
+      ],
+      "value": "sol_two"
+    }, {
+      "id": "b62316f3-db30-4f9c-8543-8cb30632c78f",
+      "comment": "",
+      "command": "echo",
+      "target": "I got ${sol_one} and ${sol_two}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "00b0577a-86ee-4353-8e46-11950b9f83fb",
+      "comment": "",
+      "command": "store",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0d635526-4918-4010-a8b4-d85e20ac666b",
+      "comment": "Test that the solicitation sort worked.  ",
+      "command": "if",
+      "target": "'${sol_one}' > '${sol_two}'",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cec15d3e-e982-4ec6-9402-1da55352e442",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=#noelementhere",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c45984d3-a486-4fb0-b307-ce9e3b5ba7c6",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7a6556a8-b193-42bc-8bd6-83dd299f8de7",
+      "comment": "",
+      "command": "click",
+      "target": "css=#ddl_reviewRec label",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7b2f46ff-8649-458f-8c79-96257741913e",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id='ddl_reviewRec']//p-dropdownitem[.='All']/li",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b608424b-ecbb-42d2-8b27-e067be0ed336",
+      "comment": "",
+      "command": "click",
+      "target": "css=#ddl_noticeTypes label",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fca7374a-c517-4222-b25d-bf783b252f10",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id='ddl_noticeTypes']//p-dropdownitem[.='All']/li",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "36d25a67-f2df-4f9f-8161-5c1ef3403507",
+      "comment": "",
+      "command": "type",
+      "target": "id=ksearch",
+      "targets": [
+        ["id=ksearch", "id"],
+        ["css=#ksearch", "css:finder"],
+        ["xpath=//input[@id='ksearch']", "xpath:attributes"],
+        ["xpath=//div[@id='solsearch']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${sol_two}"
+    }, {
+      "id": "b82ed626-34ff-47b4-b855-540329cdd1e5",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='solsearch']//button",
+      "targets": [
+        ["css=.glyphicon", "css:finder"],
+        ["xpath=//div[@id='solsearch']/span/button/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a15c1dca-b695-43f9-bffb-5c6da61f9bbb",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "xpath=//td[contains(text(),'${sol_two}')]",
+      "targets": [],
+      "value": "30000"
+    }]
+  }, {
+    "id": "a4df6636-f8ad-462f-bc7d-b0049bf96b6b",
+    "name": "Action Status Test",
+    "commands": [{
+      "id": "4c68fa0c-3393-4995-8c2a-5e997bb5a128",
+      "comment": "",
+      "command": "run",
+      "target": "Function-Setup",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "afd74e7c-7cc0-484e-9903-6c07298ba5c3",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Manage/Review Workload",
+      "targets": [
+        ["linkText=Manage/Review Workload", "linkText"],
+        ["css=#\\32 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Manage/Review Workload')]", "xpath:link"],
+        ["xpath=//li[@id='2']/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/solicitation/report')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Manage/Review Workload')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2144233b-7741-43be-a0b4-23331e7ffac9",
+      "comment": "",
+      "command": "click",
+      "target": "css=#ddl_reviewRec label",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c7a38b3d-5c62-40c0-96f0-e87e1fb50220",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id='ddl_reviewRec']//p-dropdownitem[.='Non-Compliant']/li",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "95b77f0e-e281-4d9c-bcba-61ea4be77408",
+      "comment": "",
+      "command": "storeText",
+      "target": "css=.ui-table-tbody > .ng-star-inserted:nth-child(1) > .ui-resizable-column:nth-child(1)",
+      "targets": [
+        ["css=.ui-table-tbody > .ng-star-inserted:nth-child(1) > .ui-resizable-column:nth-child(1)", "css:finder"],
+        ["xpath=//main[@id='content']/div/p-table/div/div/table/tbody/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"],
+        ["xpath=//td[contains(.,'0000003281')]", "xpath:innerText"]
+      ],
+      "value": "sol_one"
+    }, {
+      "id": "f47f1448-2bc4-4abe-a542-294d3b198062",
+      "comment": "",
+      "command": "type",
+      "target": "id=ksearch",
+      "targets": [
+        ["id=ksearch", "id"],
+        ["css=#ksearch", "css:finder"],
+        ["xpath=//input[@id='ksearch']", "xpath:attributes"],
+        ["xpath=//div[@id='solsearch']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${sol_one}"
+    }, {
+      "id": "5a981b0a-06c5-4c36-8f60-44ac3e5f6668",
+      "comment": "",
+      "command": "echo",
+      "target": "Working with ${sol_one}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "357a478e-7284-44de-a348-7a5d4c412e60",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//td[contains(@class, 'col_review_result')]/button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "855af2c6-f824-401f-803f-dc3b70360050",
+      "comment": "",
+      "command": "click",
+      "target": "id=na_check",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ee337d24-9743-44c8-b9ca-7c275efd0c45",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=< Back to Solicitation Review Results for Section 508 Requirements",
+      "targets": [
+        ["linkText=< Back to Solicitation Review Results for Section 508 Requirements", "linkText"],
+        ["css=.srt-title-padding > a", "css:finder"],
+        ["xpath=//a[contains(text(),'< Back to Solicitation Review Results for Section 508 Requirements')]", "xpath:link"],
+        ["xpath=//main[@id='content']/div/div/div/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/solicitation/report')])[3]", "xpath:href"],
+        ["xpath=//main/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'< Back to Solicitation Review Results for Section 508 Requirements')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0e8264dd-4b7a-4ada-9a83-5bf84401d0bf",
+      "comment": "",
+      "command": "type",
+      "target": "id=ksearch",
+      "targets": [
+        ["id=ksearch", "id"],
+        ["css=#ksearch", "css:finder"],
+        ["xpath=//input[@id='ksearch']", "xpath:attributes"],
+        ["xpath=//div[@id='solsearch']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${sol_one}"
+    }, {
+      "id": "2511557f-dd3a-4124-b023-bab27d0e5cc2",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//td[contains(@class, 'col_action_status') and contains(text(),'pplicable') ]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a13686d9-d4a6-4111-bf0a-dfe8fc557f22",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//td[contains(@class, 'col_review_result')]/button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2d4c299a-747f-460e-a960-7b055cac59ee",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=STEP 2: EMAIL POC",
+      "targets": [
+        ["linkText=STEP 2: EMAIL POC", "linkText"],
+        ["css=.summary-floatleft > li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'STEP 2: EMAIL POC')]", "xpath:link"],
+        ["xpath=//main[@id='content']/app-summary/div[2]/div/div/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/solicitation/email/1284')]", "xpath:href"],
+        ["xpath=//div[2]/div/div/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'STEP 2: EMAIL POC')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fddd0a5d-eb1d-4e49-8b2a-d85e41bff486",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[contains(@class,'srt-button')]//div[contains(text(),'Send Email')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "76d30ef4-fdf1-4995-910d-f9a1d58ec9dd",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "xpath=//div[contains(text(),'email is successfully')]",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "07939f2e-7c3d-4579-8024-4b03b1259e59",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=< Back to Solicitation Review Results for Section 508 Requirements",
+      "targets": [
+        ["linkText=< Back to Solicitation Review Results for Section 508 Requirements", "linkText"],
+        ["css=.srt-title-padding > a", "css:finder"],
+        ["xpath=//a[contains(text(),'< Back to Solicitation Review Results for Section 508 Requirements')]", "xpath:link"],
+        ["xpath=//main[@id='content']/div/div/div/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/solicitation/report')])[3]", "xpath:href"],
+        ["xpath=//main/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'< Back to Solicitation Review Results for Section 508 Requirements')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a60c09d3-6e96-4784-a23e-a01886b97d7c",
+      "comment": "",
+      "command": "type",
+      "target": "id=ksearch",
+      "targets": [
+        ["id=ksearch", "id"],
+        ["css=#ksearch", "css:finder"],
+        ["xpath=//input[@id='ksearch']", "xpath:attributes"],
+        ["xpath=//div[@id='solsearch']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${sol_one}"
+    }, {
+      "id": "3b41d8f4-f4bb-481a-bd03-f8b75e0d98dc",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//td[contains(@class, 'col_action_status') and contains(text(),'ent email') ]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d800449d-4e20-4048-96c3-58c43cbb109c",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//td[contains(@class, 'col_review_result')]/button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0e700b9c-8db6-4349-8548-3aa07cabdecf",
+      "comment": "",
+      "command": "click",
+      "target": "id=na_check",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "84b0ef05-486b-4bd1-a1d3-3445406a2483",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=< Back to Solicitation Review Results for Section 508 Requirements",
+      "targets": [
+        ["linkText=< Back to Solicitation Review Results for Section 508 Requirements", "linkText"],
+        ["css=.srt-title-padding > a", "css:finder"],
+        ["xpath=//a[contains(text(),'< Back to Solicitation Review Results for Section 508 Requirements')]", "xpath:link"],
+        ["xpath=//main[@id='content']/div/div/div/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/solicitation/report')])[3]", "xpath:href"],
+        ["xpath=//main/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'< Back to Solicitation Review Results for Section 508 Requirements')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a1414863-d2da-4bb0-9d4a-46cfb8f44156",
+      "comment": "",
+      "command": "type",
+      "target": "id=ksearch",
+      "targets": [
+        ["id=ksearch", "id"],
+        ["css=#ksearch", "css:finder"],
+        ["xpath=//input[@id='ksearch']", "xpath:attributes"],
+        ["xpath=//div[@id='solsearch']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${sol_one}"
+    }, {
+      "id": "472f2192-9ad6-472e-85a8-07ff184e41e1",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "52f0d426-ac74-4062-8de4-ec6deaf9e162",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//td[contains(@class, 'col_action_status') and contains(text(),'pplicable') ]",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "ec5d1633-94d5-45f8-b8d9-b52a4d08b1ec",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["1888497e-83be-4bcf-85eb-4febba184060", "cad747ac-0162-4e0b-bf31-d7bc7192ab4f", "9522a3db-9f9c-40b9-a50b-5e3eaa564154", "4366f9c9-c3a9-4404-a046-57038747f54d", "a4df6636-f8ad-462f-bc7d-b0049bf96b6b"]
+  }],
+  "urls": ["http://localhost:4200/", "http://srt-client.app.cloud.gov/"],
+  "plugins": []
+}

@@ -1,0 +1,52 @@
+
+> srt@1.8.2 dev
+> ng serve  --disable-host-check --host 0.0.0.0 --watch --configuration=local --port 4201
+
+Prebundling has been configured but will not be used because scripts optimization is enabled.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+The "disableHostCheck" option will not be used because it is not supported by the "@angular-devkit/build-angular:application" builder.
+❯ Building...
+One or more browsers which are configured in the project's Browserslist configuration will be ignored as ES5 output is not supported by the Angular CLI.
+Ignored browsers:
+kaios 2.5, op_mini all
+One or more browsers which are configured in the project's Browserslist configuration fall outside Angular's browser support for this version.
+Unsupported browsers:
+and_qq 14.9, and_uc 15.5, android 145, chrome 109, kaios 3.0-3.1, op_mob 80, opera 125, opera 124, samsung 29, samsung 28
+✔ Building...
+Initial chunk files | Names         |  Raw size | Estimated transfer size
+main.js             | main          |   2.67 MB |               583.64 kB
+styles.css          | styles        | 802.47 kB |                64.84 kB
+scripts.js          | scripts       | 163.46 kB |                48.35 kB
+polyfills.js        | polyfills     |  66.73 kB |                18.73 kB
+chunk-YOJKCELP.js   | -             |  22.01 kB |                 7.23 kB
+
+                    | Initial total |   3.73 MB |               722.78 kB
+
+Lazy chunk files    | Names         |  Raw size | Estimated transfer size
+chunk-YFC2IJTX.js   | quill         | 184.29 kB |                47.05 kB
+
+Application bundle generation complete. [8.654 seconds] - 2026-03-18T17:00:33.032Z
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mModule 'quill-delta' used by 'node_modules/quill/core.js' is not ESM[0m
+
+  CommonJS or AMD dependencies can cause optimization bailouts.
+  For more information see: [4mhttps://angular.dev/tools/cli/build#configuring-commonjs-dependencies[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mModule '@uswds/uswds/js/usa-file-input' used by 'src/app/home/home/home.component.ts' is not ESM[0m
+
+  CommonJS or AMD dependencies can cause optimization bailouts.
+  For more information see: [4mhttps://angular.dev/tools/cli/build#configuring-commonjs-dependencies[0m
+
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+One or more browsers which are configured in the project's Browserslist configuration will be ignored as ES5 output is not supported by the Angular CLI.
+Ignored browsers:
+kaios 2.5, op_mini all
+One or more browsers which are configured in the project's Browserslist configuration fall outside Angular's browser support for this version.
+Unsupported browsers:
+and_qq 14.9, and_uc 15.5, android 145, chrome 109, kaios 3.0-3.1, op_mob 80, opera 125, opera 124, samsung 29, samsung 28
+  ➜  Local:   http://localhost:4201/
+  ➜  Network: http://192.168.40.8:4201/
+  ➜  press h + enter to show help

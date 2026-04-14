@@ -21,6 +21,8 @@ export class HeaderComponent implements OnInit {
 
   @Input() firstName = '';
   public currentID = '';
+  public isAnalyticsDropdownOpen = false;
+  
   @Input() isLogin;
   @Input() isGSAAdmin;
   @Input() isApproved;

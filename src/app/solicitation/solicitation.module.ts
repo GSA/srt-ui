@@ -38,6 +38,7 @@ import { PredictionHistoryComponent } from './summary/prediction-history/predict
 import { ArtIframeDialogComponent } from './summary/results-detail/art-modal/art-modal.component';
 import { ArtSectionComponent } from './summary/results-detail/art-modal/art-section/art-section.component';
 import { ArtCategoryComponent } from './summary/results-detail/art-modal/art-category/art-category.component';
+import { RagAnalysisComponent } from './summary/rag-analysis/rag-analysis.component';
 
 @NgModule({
   imports: [
@@ -72,6 +73,7 @@ import { ArtCategoryComponent } from './summary/results-detail/art-modal/art-cat
     ArtIframeDialogComponent,
     ArtSectionComponent,
     ArtCategoryComponent,
+    RagAnalysisComponent,
 
   ],
   providers: [

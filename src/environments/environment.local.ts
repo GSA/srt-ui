@@ -6,9 +6,9 @@
 export const environment = {
   production: false,
   // SERVER_URL: 'http://localhost:3000',
-  SERVER_URL: 'http://localhost:8080/api',
+  SERVER_URL: 'http://localhost:3000/api',
   EMAIL_NOTIFICATION: true,
-  FILE_UPLOAD_API: 'http://localhost:8080/file/upload',
+  FILE_UPLOAD_API: 'http://localhost:3000/file/upload',
   ART_API_SERVER: 'https://art-api-dev.app.cloud.gov',
   needToken: false,
   USE_CLIENT_EMAIL: true,
