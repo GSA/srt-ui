@@ -28,6 +28,12 @@ export class HomeComponent
   Object = Object;
 
   // — Pipeline state —
+  pipelineVersion: 'v1' | 'v2' = 'v1';
+  showVectorMatches = false;
+  showStageDebug = false;
+  showOverrideResults = false;
+  pipelineStageCount = 0;
+  pipelineTotalStages = 7;
   selectedFile: File | null = null;
   selectedFiles: File[] = [];
   rawText = '';
@@ -193,6 +199,7 @@ export class HomeComponent
     this.allResults = [];
     this.isRunning = true;
     this.stageLog = [];
+    this.pipelineStageCount = 0;
     this.currentStageMessage = 'Connecting to pipeline...';
     this.reportReady = false;
     this.showPipelineLog = false;
@@ -335,7 +342,9 @@ export class HomeComponent
 
     let completedResult: any = null;
     let progressiveResult: any = { success: true };
-    const apiUrl = `${environment.SERVER_URL}/rag-analytics/playground/analyze?stream=true`;
+    const apiUrl = this.pipelineVersion === 'v2'
+      ? `${environment.SERVER_URL}/pipeline-v2/analyze`
+      : `${environment.SERVER_URL}/rag-analytics/playground/analyze?stream=true`;
     console.log('UI: Calling RAG pipeline (SSE) at', apiUrl, file ? file.name : 'raw_text');
 
     fetch(apiUrl, {
@@ -469,6 +478,11 @@ export class HomeComponent
       case 'stage':
         this.currentStageMessage = data.message || data.stage;
         this.stageLog.push(`⏳ ${data.message}`);
+        // Count major pipeline stages for progress bar
+        const majorStages = ['extract', 'machine_readable', 'is_solicitation', 'applicability', 'ict', 'vector', 'summary', 'ml_done', 'gate_stop'];
+        if (majorStages.includes(data.stage)) {
+          this.pipelineStageCount = Math.min(this.pipelineStageCount + 1, this.pipelineTotalStages);
+        }
         break;
 
       case 'stage_result':

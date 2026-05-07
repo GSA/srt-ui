@@ -42,6 +42,13 @@
           <p class="educational-note__text">This tool checks whether your solicitation includes the required Section 508 language. It does not evaluate the uploaded document itself for accessibility.</p>
         </div>
 
+        <!-- Pipeline Version Toggle -->
+        <div class="pipeline-toggle">
+          <span class="pipeline-toggle__label">Pipeline:</span>
+          <button class="pipeline-toggle__btn" [class.pipeline-toggle__btn--active]="pipelineVersion === 'v1'" (click)="pipelineVersion = 'v1'">v1 (Current)</button>
+          <button class="pipeline-toggle__btn" [class.pipeline-toggle__btn--active]="pipelineVersion === 'v2'" (click)="pipelineVersion = 'v2'">v2 (Laura's)</button>
+        </div>
+
         <!-- File Upload Zone -->
         <div
           class="upload-zone"
@@ -98,6 +105,20 @@
           </button>
         </div>
 
+        <!-- Pipeline Progress (takes over card while running) -->
+        @if (isRunning) {
+          <div class="pipeline-progress">
+            <h4 class="pipeline-progress__title">Analyzing {{ selectedFiles.length > 0 ? selectedFiles[0].name : 'document' }}</h4>
+            <div class="pipeline-progress__bar-wrap">
+              <div class="pipeline-progress__bar" [style.width.%]="(pipelineStageCount / pipelineTotalStages) * 100"></div>
+            </div>
+            <div class="pipeline-progress__status">
+              <span class="pipeline-progress__step">Step {{ pipelineStageCount }} of {{ pipelineTotalStages }}</span>
+              <span class="pipeline-progress__label">{{ currentStageMessage }}</span>
+            </div>
+          </div>
+        }
+
         <!-- Error Message -->
         @if (errorMessage) {
           <div class="error-alert" role="alert">⚠️ {{ errorMessage }}</div>
@@ -144,24 +165,139 @@
           <button class="report-toolbar__close" (click)="resetAnalysis()">
             <span class="material-symbols-outlined">arrow_back</span> Back to Upload
           </button>
-          <button class="report-toolbar__debug" (click)="showPipelineLog = !showPipelineLog">
-            <span class="material-symbols-outlined">terminal</span> {{ showPipelineLog ? 'Hide' : 'Show' }} Pipeline Log
-          </button>
+          @if (pipelineVersion === 'v2') {
+            <button class="report-toolbar__debug" (click)="showStageDebug = !showStageDebug">
+              <span class="material-symbols-outlined">code</span> {{ showStageDebug ? 'Hide' : 'Show' }} Prompts & Responses
+            </button>
+          }
         </div>
 
-        <!-- Debug: Pipeline Log -->
-        @if (showPipelineLog) {
-          <div class="stage-log" style="margin-bottom: 1.5rem;">
-            <h4 class="stage-log__title">Pipeline Progress</h4>
-            <ul class="stage-log__list">
-              @for (entry of stageLog; track entry) {
-                <li class="stage-log__item">{{ entry }}</li>
-              }
-            </ul>
+        <!-- Debug: Stage Prompts & Responses (v2 only) -->
+        @if (showStageDebug && pipelineResults?.debug) {
+          <div class="debug-panel">
+            <h4 class="debug-panel__title">Stage Prompts & AI Responses</h4>
+
+            @if (pipelineResults.debug.machine_readable?.system_prompt) {
+              <div class="debug-stage">
+                <h5 class="debug-stage__name">Stage 1a: Machine Readability (gemini-2.5-pro)</h5>
+                <details class="debug-stage__details">
+                  <summary>System Prompt</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.machine_readable.system_prompt }}</pre>
+                </details>
+                <details class="debug-stage__details">
+                  <summary>User Prompt (truncated)</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.machine_readable.user_prompt }}</pre>
+                </details>
+                <details class="debug-stage__details" open>
+                  <summary>AI Response</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.machine_readable.raw_response }}</pre>
+                </details>
+              </div>
+            }
+
+            @if (pipelineResults.debug.is_solicitation?.system_prompt) {
+              <div class="debug-stage">
+                <h5 class="debug-stage__name">Stage 1b: Is Solicitation (gemini-2.5-pro)</h5>
+                <details class="debug-stage__details">
+                  <summary>System Prompt</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.is_solicitation.system_prompt }}</pre>
+                </details>
+                <details class="debug-stage__details">
+                  <summary>User Prompt (truncated)</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.is_solicitation.user_prompt }}</pre>
+                </details>
+                <details class="debug-stage__details" open>
+                  <summary>AI Response</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.is_solicitation.raw_response }}</pre>
+                </details>
+              </div>
+            }
+
+            @if (pipelineResults.debug.applicability?.system_prompt) {
+              <div class="debug-stage">
+                <h5 class="debug-stage__name">Stage 2: 508 Applicability (gemini-2.5-pro)</h5>
+                <details class="debug-stage__details">
+                  <summary>System Prompt</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.applicability.system_prompt }}</pre>
+                </details>
+                <details class="debug-stage__details">
+                  <summary>User Prompt (truncated)</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.applicability.user_prompt }}</pre>
+                </details>
+                <details class="debug-stage__details" open>
+                  <summary>AI Response</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.applicability.raw_response }}</pre>
+                </details>
+              </div>
+            }
+
+            @if (pipelineResults.debug.ict?.system_prompt) {
+              <div class="debug-stage">
+                <h5 class="debug-stage__name">Stage 3: ICT Classification (gemini-2.5-pro)</h5>
+                <details class="debug-stage__details">
+                  <summary>System Prompt</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.ict.system_prompt }}</pre>
+                </details>
+                <details class="debug-stage__details">
+                  <summary>User Prompt (truncated)</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.ict.user_prompt }}</pre>
+                </details>
+                <details class="debug-stage__details" open>
+                  <summary>AI Response</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.ict.raw_response }}</pre>
+                </details>
+              </div>
+            }
+
+            @if (pipelineResults.debug.vector_validation) {
+              <div class="debug-stage">
+                <h5 class="debug-stage__name">Stage 4: Vector Match Validation (gemini-2.5-flash)</h5>
+                <details class="debug-stage__details" open>
+                  <summary>AI Validation Response</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.vector_validation }}</pre>
+                </details>
+              </div>
+            }
+
+            @if (pipelineResults.debug.summary?.system_prompt) {
+              <div class="debug-stage">
+                <h5 class="debug-stage__name">Stage 5: Document Summary (gemini-2.5-pro)</h5>
+                <details class="debug-stage__details">
+                  <summary>System Prompt</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.summary.system_prompt }}</pre>
+                </details>
+                <details class="debug-stage__details">
+                  <summary>User Prompt (truncated)</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.summary.user_prompt }}</pre>
+                </details>
+                <details class="debug-stage__details" open>
+                  <summary>AI Response</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.summary.raw_response }}</pre>
+                </details>
+              </div>
+            }
           </div>
         }
 
         <!-- Determination Card -->
+        @if (pipelineResults?.stopped_at_gate) {
+          <section class="determination-card determination-card--stopped">
+            <div class="determination-card__content">
+              <span class="determination-card__label">Pipeline Stopped</span>
+              <h2 class="determination-card__verdict">{{ pipelineResults.stopped_at_gate === 'machine_readable' ? 'NOT MACHINE READABLE' : 'NOT A SOLICITATION' }}</h2>
+              <p class="determination-card__desc">{{ pipelineResults.gate_message }}</p>
+              @if (pipelineResults.stopped_at_gate === 'is_solicitation' && pipelineResults.is_solicitation?.explanation) {
+                <p class="determination-card__desc" style="margin-top: 0.5rem; font-style: italic;">{{ pipelineResults.is_solicitation.explanation }}</p>
+              }
+              @if (pipelineResults.stopped_at_gate === 'machine_readable' && pipelineResults.machine_readable?.explanation) {
+                <p class="determination-card__desc" style="margin-top: 0.5rem; font-style: italic;">{{ pipelineResults.machine_readable.explanation }}</p>
+              }
+            </div>
+            <div class="determination-card__badge determination-card__badge--stopped">
+              <span class="material-symbols-outlined determination-card__icon">block</span>
+            </div>
+          </section>
+        } @else {
         <section class="determination-card" [class.determination-card--compliant]="pipelineResults.ml_prediction?.prediction === 'compliant'" [class.determination-card--noncompliant]="pipelineResults.ml_prediction?.prediction === 'non_compliant'">
           <div class="determination-card__content">
             <span class="determination-card__label">Section 508 Integration Assessment</span>
@@ -172,6 +308,57 @@
             <span class="material-symbols-outlined determination-card__icon">{{ pipelineResults.ml_prediction?.prediction === 'compliant' ? 'verified' : 'warning' }}</span>
           </div>
         </section>
+        }
+
+        @if (!pipelineResults?.stopped_at_gate) {
+
+        <!-- Gates Summary Row (v2) — all 3 gates at top -->
+        @if (pipelineVersion === 'v2') {
+          <section class="report-section" style="margin-bottom: 1.5rem;">
+            <h2 class="section-title">Analysis Gates</h2>
+            <div class="gates-grid gates-grid--three">
+              @if (pipelineResults.machine_readable) {
+                <div class="gate-card" [class.gate-card--pass]="pipelineResults.machine_readable.is_machine_readable" [class.gate-card--fail]="!pipelineResults.machine_readable.is_machine_readable">
+                  <div class="gate-card__header">
+                    <span class="material-symbols-outlined gate-card__status-icon" [class.gate-card__status-icon--pass]="pipelineResults.machine_readable.is_machine_readable" [class.gate-card__status-icon--fail]="!pipelineResults.machine_readable.is_machine_readable">{{ pipelineResults.machine_readable.is_machine_readable ? 'check_circle' : 'cancel' }}</span>
+                    <h4 class="gate-card__title">Q1: Machine Readable</h4>
+                  </div>
+                  <p class="gate-card__result">{{ pipelineResults.machine_readable.is_machine_readable ? 'Yes' : 'No' }}</p>
+                </div>
+              }
+              @if (pipelineResults.is_solicitation) {
+                <div class="gate-card" [class.gate-card--pass]="pipelineResults.is_solicitation.is_solicitation" [class.gate-card--fail]="!pipelineResults.is_solicitation.is_solicitation">
+                  <div class="gate-card__header">
+                    <span class="material-symbols-outlined gate-card__status-icon" [class.gate-card__status-icon--pass]="pipelineResults.is_solicitation.is_solicitation" [class.gate-card__status-icon--fail]="!pipelineResults.is_solicitation.is_solicitation">{{ pipelineResults.is_solicitation.is_solicitation ? 'check_circle' : 'cancel' }}</span>
+                    <h4 class="gate-card__title">Q2: Is a Solicitation</h4>
+                  </div>
+                  <p class="gate-card__result">{{ pipelineResults.is_solicitation.is_solicitation ? 'Yes' : 'No' }}</p>
+                </div>
+              }
+              @if (pipelineResults.applicability) {
+                <div class="gate-card" [class.gate-card--pass]="pipelineResults.applicability.is_508_applicable" [class.gate-card--fail]="!pipelineResults.applicability.is_508_applicable">
+                  <div class="gate-card__header">
+                    <span class="material-symbols-outlined gate-card__status-icon" [class.gate-card__status-icon--pass]="pipelineResults.applicability.is_508_applicable" [class.gate-card__status-icon--fail]="!pipelineResults.applicability.is_508_applicable">{{ pipelineResults.applicability.is_508_applicable ? 'check_circle' : 'cancel' }}</span>
+                    <h4 class="gate-card__title">Q3: Section 508 Applies</h4>
+                  </div>
+                  <p class="gate-card__result">{{ pipelineResults.applicability.is_508_applicable ? 'Yes' : 'No' }}</p>
+                </div>
+              }
+            </div>
+            @if (pipelineResults.applicability && !pipelineResults.applicability.is_508_applicable) {
+              <div class="gate-stop-note">
+                <p><strong>Section 508 does not apply to this procurement.</strong> No further action required.</p>
+                <p class="gate-stop-note__explanation">{{ pipelineResults.applicability.applicability_explanation }}</p>
+                <button class="gate-stop-note__override" (click)="showOverrideResults = !showOverrideResults">
+                  {{ showOverrideResults ? 'Hide' : 'Show' }} analysis anyway
+                </button>
+              </div>
+            }
+          </section>
+        }
+
+        <!-- Full results (show if 508 applies, or if user overrides) -->
+        @if (pipelineVersion !== 'v2' || pipelineResults?.applicability?.is_508_applicable || showOverrideResults) {
 
         <!-- Executive Summary + Metadata -->
         <section class="report-grid">
@@ -180,6 +367,8 @@
             <div class="summary-box">
               @if (pipelineResults.synthesis?.executive_summary) {
                 <p class="summary-box__text">{{ pipelineResults.synthesis.executive_summary }}</p>
+              } @else if (pipelineResults.document_summary?.document_summary) {
+                <p class="summary-box__text">{{ pipelineResults.document_summary.document_summary }}</p>
               }
             </div>
           </div>
@@ -248,8 +437,8 @@
           </section>
         }
 
-        <!-- Applicability (per-file) -->
-        @if (getActiveReport()?.applicability) {
+        <!-- Applicability (per-file, v1 only) -->
+        @if (pipelineVersion === 'v1' && getActiveReport()?.applicability) {
           <section class="report-section">
             <div class="applicability-box">
               <h2 class="applicability-box__title">Section 508 Applicability</h2>
@@ -266,8 +455,54 @@
           </section>
         }
 
-        <!-- ART Requirements Table (per-file) -->
-        @if (getActiveReport()?.art_clauses?.language) {
+        <!-- Vector Matches (v2 only) -->
+        @if (pipelineVersion === 'v2' && pipelineResults?.vector_matches?.matches?.length > 0) {
+          <section class="report-section">
+            <div class="vector-summary">
+              <div class="vector-summary__left">
+                <h2 class="section-title">Section 508 Evidence — Vector Matches</h2>
+                <div class="vector-stats">
+                  <span class="vector-stats__item"><strong>{{ pipelineResults.vector_matches.matches_found }}</strong> matches found</span>
+                  <span class="vector-stats__item"><strong>{{ pipelineResults.vector_matches.meaningful_matches }}</strong> meaningful</span>
+                  <span class="vector-stats__item">Strength: <strong>{{ pipelineResults.vector_matches.match_strength }}</strong></span>
+                </div>
+              </div>
+              <button class="vector-toggle-btn" (click)="showVectorMatches = !showVectorMatches">
+                {{ showVectorMatches ? 'Hide' : 'Show' }} Matches
+                <span class="material-symbols-outlined">{{ showVectorMatches ? 'expand_less' : 'expand_more' }}</span>
+              </button>
+            </div>
+            @if (showVectorMatches) {
+              <p class="vector-intro">Passages in your solicitation matched against the Section 508 standards corpus. Matches validated as meaningful by the AI are highlighted.</p>
+              <div class="vector-matches-list">
+                @for (match of pipelineResults.vector_matches.matches; track match.chunk_index) {
+                  <div class="vector-match" [class.vector-match--meaningful]="match.llm_meaningful" [class.vector-match--noise]="!match.llm_meaningful">
+                    <div class="vector-match__header">
+                      <span class="vector-match__score">{{ (match.similarity_score * 100).toFixed(0) }}%</span>
+                      <span class="vector-match__badge">{{ match.llm_meaningful ? '✓ Meaningful' : '✗ Noise' }}</span>
+                    </div>
+                    <div class="vector-match__body">
+                      <div class="vector-match__col">
+                        <span class="vector-match__label">Solicitation Text</span>
+                        <p class="vector-match__text">{{ match.chunk_text }}</p>
+                      </div>
+                      <div class="vector-match__col">
+                        <span class="vector-match__label">508 Standard</span>
+                        <p class="vector-match__text">{{ match.matched_standard }}</p>
+                      </div>
+                    </div>
+                    @if (match.llm_reason) {
+                      <p class="vector-match__reason">{{ match.llm_reason }}</p>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          </section>
+        }
+
+        <!-- ART Requirements Table (per-file) — v1 only -->
+        @if (pipelineVersion === 'v1' && getActiveReport()?.art_clauses?.language) {
           <section class="report-section">
             <h2 class="section-title">Section 508 Requirements</h2>
             <div class="art-explainer">
@@ -301,7 +536,7 @@
             </div>
           </section>
         }
-        @if (getActiveReport()?.art_clauses?.error) {
+        @if (pipelineVersion === 'v1' && getActiveReport()?.art_clauses?.error) {
           <section class="report-section">
             <h2 class="section-title">Section 508 Requirements (ART)</h2>
             <p class="stage-card__note">{{ getActiveReport().art_clauses.error }}</p>
@@ -309,11 +544,11 @@
         }
 
         <!-- Key Findings (per-file) -->
-        @if (getActiveReport()?.synthesis?.key_findings?.length) {
+        @if (getActiveReport()?.synthesis?.key_findings?.length || pipelineResults?.document_summary?.key_findings?.length) {
           <section class="report-section">
             <h2 class="section-title">Key Findings</h2>
             <div class="findings-grid">
-              @for (finding of getActiveReport().synthesis.key_findings; track finding; let i = $index) {
+              @for (finding of (getActiveReport()?.synthesis?.key_findings || pipelineResults?.document_summary?.key_findings); track finding; let i = $index) {
                 <div class="finding-card">
                   <div class="finding-card__icon-wrap"><span class="material-symbols-outlined finding-card__icon">{{ i % 2 === 0 ? 'analytics' : 'fact_check' }}</span></div>
                   <p class="finding-card__text">{{ finding }}</p>
@@ -330,6 +565,9 @@
             <div class="summary-box"><p class="summary-box__text">{{ getActiveReport().synthesis.procurement_description }}</p></div>
           </section>
         }
+
+        } <!-- end @if (508 applies || override) -->
+        } <!-- end @if (!stopped_at_gate) -->
 
         <p class="pipeline-note">{{ pipelineResults.pipeline_note }}</p>
       </div>

@@ -1385,3 +1385,451 @@ $focus-ring:     #2491FF;
     line-height: 1.5;
   }
 }
+
+/* ── Pipeline Toggle ── */
+.pipeline-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+
+  &__label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #71767a;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  &__btn {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border: 1px solid #dfe1e2;
+    border-radius: 2px;
+    background: #fff;
+    color: #71767a;
+    cursor: pointer;
+    transition: all 0.15s;
+
+    &--active {
+      background: #112e51;
+      border-color: #112e51;
+      color: #fff;
+    }
+
+    &:hover:not(&--active) {
+      border-color: #112e51;
+      color: #112e51;
+    }
+  }
+}
+
+/* ── Vector Matches (v2) ── */
+.vector-intro {
+  font-size: 0.9375rem;
+  color: #71767a;
+  margin: 0 0 1rem;
+}
+
+.vector-stats {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+  background: #f0f0f0;
+  border-radius: 2px;
+
+  &__item {
+    font-size: 0.875rem;
+    color: #1b1b1b;
+  }
+}
+
+.vector-matches-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.vector-match {
+  border: 1px solid #dfe1e2;
+  border-radius: 4px;
+  padding: 1rem;
+  background: #fff;
+
+  &--meaningful {
+    border-left: 4px solid #2e6e2e;
+  }
+
+  &--noise {
+    border-left: 4px solid #e5a000;
+    opacity: 0.7;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  &__score {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #112e51;
+    background: #e7f2f8;
+    padding: 0.125rem 0.5rem;
+    border-radius: 2px;
+  }
+
+  &__badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  &--meaningful &__badge { color: #2e6e2e; }
+  &--noise &__badge { color: #92400e; }
+
+  &__body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    @media (max-width: 640px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  &__label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #71767a;
+  }
+
+  &__text {
+    font-size: 0.8125rem;
+    color: #1b1b1b;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  &__reason {
+    font-size: 0.8125rem;
+    color: #71767a;
+    font-style: italic;
+    margin: 0.5rem 0 0;
+    padding-top: 0.5rem;
+    border-top: 1px solid #f0f0f0;
+  }
+}
+
+/* ── Vector Summary Header ── */
+.vector-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.vector-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border: 1px solid #dfe1e2;
+  border-radius: 2px;
+  background: #fff;
+  color: #112e51;
+  cursor: pointer;
+
+  &:hover {
+    background: #f0f0f0;
+  }
+
+  .material-symbols-outlined {
+    font-size: 1.125rem;
+  }
+}
+
+/* ── Debug Panel (Prompts & Responses) ── */
+.debug-panel {
+  background: #1b1b1b;
+  border-radius: 4px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+
+  &__title {
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 1rem;
+  }
+}
+
+.debug-stage {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #333;
+  padding-bottom: 1rem;
+
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  &__name {
+    color: #73b3e7;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    margin: 0 0 0.75rem;
+  }
+
+  &__details {
+    margin-bottom: 0.5rem;
+
+    summary {
+      color: #a0a0a0;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.25rem 0;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+
+      &:hover { color: #fff; }
+    }
+  }
+
+  &__code {
+    background: #0d0d0d;
+    border: 1px solid #333;
+    border-radius: 2px;
+    padding: 0.75rem;
+    color: #e6e6e6;
+    font-family: 'Source Code Pro', 'Courier New', monospace;
+    font-size: 0.6875rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 400px;
+    overflow-y: auto;
+    margin: 0.25rem 0 0;
+  }
+}
+
+/* ── Pre-Analysis Gate Cards ── */
+.gates-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.gate-card {
+  border: 1px solid #dfe1e2;
+  border-radius: 4px;
+  padding: 1rem 1.25rem;
+  border-left: 4px solid #dfe1e2;
+
+  &--pass { border-left-color: #2e6e2e; }
+  &--fail { border-left-color: #b50909; }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__status-icon {
+    font-size: 1.25rem;
+
+    &--pass { color: #2e6e2e; }
+    &--fail { color: #b50909; }
+  }
+
+  &__icon { font-size: 1.125rem; }
+
+  &__title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #71767a;
+    margin: 0;
+  }
+
+  &__result {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1b1b1b;
+    margin: 0 0 0.25rem;
+  }
+
+  &__explanation {
+    font-size: 0.8125rem;
+    color: #71767a;
+    margin: 0;
+    line-height: 1.4;
+  }
+}
+
+/* ── Stopped Determination Card ── */
+.determination-card--stopped {
+  border-left-color: #1b1b1b !important;
+  background: #f0f0f0 !important;
+
+  .determination-card__verdict,
+  .determination-card__label,
+  .determination-card__desc {
+    color: #1b1b1b;
+  }
+}
+
+.determination-card__badge--stopped {
+  .determination-card__icon {
+    color: #1b1b1b;
+  }
+}
+
+/* ── Applicability Note ── */
+.applicability-box__note {
+  margin: 0.75rem 0 0;
+  padding: 0.5rem 0.75rem;
+  background: #fef3c7;
+  border-left: 3px solid #e5a000;
+  font-size: 0.875rem;
+  color: #1b1b1b;
+  font-weight: 500;
+}
+
+/* ── Three-column gates grid ── */
+.gates-grid--three {
+  grid-template-columns: 1fr 1fr 1fr;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Gate Stop Note (508 N/A) ── */
+.gate-stop-note {
+  margin-top: 1rem;
+  padding: 1rem 1.25rem;
+  background: #fef3c7;
+  border-left: 4px solid #e5a000;
+  border-radius: 2px;
+
+  p {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: #1b1b1b;
+    line-height: 1.5;
+  }
+
+  &__explanation {
+    margin-top: 0.5rem !important;
+    font-size: 0.8125rem !important;
+    color: #71767a !important;
+    font-style: italic;
+  }
+
+  &__override {
+    margin-top: 0.75rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border: 1px solid #1b1b1b;
+    border-radius: 2px;
+    background: #fff;
+    color: #1b1b1b;
+    cursor: pointer;
+
+    &:hover {
+      background: #1b1b1b;
+      color: #fff;
+    }
+  }
+}
+
+/* ── Pipeline Progress Overlay ── */
+.pipeline-progress {
+  background: #112e51;
+  border-radius: 4px;
+  padding: 2rem;
+  margin-top: 1rem;
+  color: #fff;
+  animation: fadeIn 0.2s ease;
+
+  &__title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 1.25rem;
+    color: #fff;
+  }
+
+  &__bar-wrap {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+
+  &__bar {
+    height: 100%;
+    background: #73b3e7;
+    border-radius: 4px;
+    transition: width 0.5s ease;
+  }
+
+  &__status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__step {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  &__label {
+    font-size: 0.875rem;
+    color: #73b3e7;
+    font-weight: 500;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
