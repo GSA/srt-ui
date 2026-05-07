@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&display=swap');
+
+$primary: #1183d4;
+$navy: #112E51;
+
+.ai-analytics {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Public Sans', sans-serif;
+
+  &__header {
+    margin-bottom: 2rem;
+    border-bottom: 2px solid $primary;
+    padding-bottom: 1rem;
+  }
+
+  &__title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: $navy;
+    margin: 0;
+  }
+
+  &__subtitle {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0.25rem 0 0;
+  }
+
+  &__loading, &__error {
+    padding: 2rem;
+    text-align: center;
+    font-size: 1rem;
+    color: #555;
+  }
+
+  &__error { color: #d83933; }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.stat-card {
+  background: #fff;
+  border: 1px solid #dfe1e2;
+  border-radius: 0.25rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+
+  &__value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: $navy;
+  }
+
+  &__label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &--green &__value { color: #2e8540; }
+  &--red &__value { color: #d83933; }
+}
+
+.meta-row {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  font-size: 0.8rem;
+  color: #717782;
+
+  &__item {
+    display: inline-block;
+  }
+}
+
+.section {
+  margin-bottom: 2rem;
+
+  &__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: $navy;
+    margin: 0 0 1rem;
+  }
+}
+
+.usage-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+
+  th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #dfe1e2;
+  }
+
+  th {
+    background: #f0f0f0;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #555;
+  }
+
+  tbody tr:hover {
+    background: #f9fafb;
+  }
+}

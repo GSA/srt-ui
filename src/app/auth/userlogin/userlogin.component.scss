@@ -1,46 +1,73 @@
-/* Center alignment for the container */
-.button-container {
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+.userlogin-actions {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 20vh; /* Center the content vertically */
+  gap: 0.75rem;
+  width: 100%;
+  margin-top: 0.5rem;
 }
 
-/* Styling for the login container text and logo */
-.login-container {
-  display: flex;
-  align-items: center; /* Aligns items vertically */
-}
-
-.login-text {
-  font-weight: bold;
-  font-size: 1.25em;
-  margin-right: 0.5em;
-}
-
-/* Styling for the Login.gov button container */
-.login-image {
-  background-color: #e0e0e0; /* Light gray background */
-  padding: 0.25em;
-  border-radius: 5px;
+.login-gov-btn {
+  width: 100%;
+  background: #0467ae;
+  color: #fff;
+  font-family: 'Public Sans', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.875rem 1.5rem;
+  border: none;
+  border-radius: 0.125rem;
   cursor: pointer;
-  display: inline-flex;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  text-decoration: none; /* Remove underline */
-  
-  img {
-    height: 1.25em; /* Adjust size for the logo */
+  gap: 0.5rem;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #1A4480;
+  }
+
+  &:focus {
+    outline: 3px solid #2491ff;
+    outline-offset: 2px;
+  }
+
+  .material-symbols-outlined {
+    font-size: 1.125rem;
   }
 }
 
-.login-image:hover {
-  /* Increasing button size */
-  transform: scale(1.05);
-}
+.dev-login-btn {
+  width: 100%;
+  background: transparent;
+  color: #71767A;
+  font-family: 'Public Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.625rem 1.5rem;
+  border: 1px solid #DFE1E2;
+  border-radius: 0.125rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
 
+  &:hover {
+    background: #F0F0F0;
+    color: #1B1B1B;
+    border-color: #71767A;
+  }
 
-/* Adds space between the login container and the DEV login button */
-.dev-button {
-  margin-top: 1em;
+  &:focus {
+    outline: 3px solid #2491ff;
+    outline-offset: 2px;
+  }
+
+  .material-symbols-outlined {
+    font-size: 1rem;
+  }
 }

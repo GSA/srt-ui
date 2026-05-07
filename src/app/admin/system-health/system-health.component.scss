@@ -1,0 +1,269 @@
+:host {
+  display: block;
+  padding: 1rem 0;
+}
+
+.system-health {
+  padding: 0;
+}
+
+// USWDS card overrides for health cards
+.usa-card__container {
+  border-radius: 4px;
+  border: 1px solid #dfe1e2;
+}
+
+.health-card-body {
+  padding: 1rem;
+  border-left: 4px solid #dfe1e2;
+
+  &--ok { border-left-color: #2e6e2e; }
+  &--warn { border-left-color: #e5a000; }
+  &--error { border-left-color: #b50909; }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__icon {
+    font-size: 1.125rem;
+  }
+
+  &__title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #71767a;
+  }
+
+  &__value {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1b1b1b;
+    margin: 0;
+  }
+
+  &__meta {
+    font-size: 0.8125rem;
+    color: #71767a;
+    margin: 0.25rem 0 0;
+  }
+
+  &__error {
+    font-size: 0.8125rem;
+    color: #b50909;
+    margin: 0.25rem 0 0;
+  }
+}
+
+// ── Pipeline section ─────────────────────────────────────────────
+
+.pipeline-days-select {
+  width: auto;
+  min-width: 100px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.pipeline-panel {
+  background: #fff;
+  border: 1px solid #dfe1e2;
+  border-radius: 4px;
+  padding: 1rem 1.25rem;
+
+  &__title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #1b1b1b;
+    margin: 0 0 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #dfe1e2;
+  }
+}
+
+// Document type horizontal bar chart
+.doc-type-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.doc-type-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  &__label {
+    width: 80px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #1b1b1b;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  &__bar-track {
+    flex: 1;
+    height: 20px;
+    background: #f0f0f0;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  &__bar {
+    height: 100%;
+    border-radius: 3px;
+    min-width: 2px;
+    transition: width 0.3s ease;
+
+    &--pdf { background: #005ea2; }
+    &--docx { background: #2e6e2e; }
+    &--txt { background: #71767a; }
+    &--spreadsheet { background: #0d7ea2; }
+    &--html { background: #8168b3; }
+    &--other { background: #e5a000; }
+  }
+
+  &__count {
+    width: 50px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #1b1b1b;
+    text-align: right;
+    flex-shrink: 0;
+  }
+}
+
+// Unreadable file types list
+.unreadable-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid #f0f0f0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__ext {
+    font-family: 'Source Code Pro', 'Courier New', monospace;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #b50909;
+  }
+
+  &__count {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #1b1b1b;
+  }
+}
+
+// Daily breakdown table
+.pipeline-table-wrap {
+  overflow-x: auto;
+}
+
+.pipeline-table {
+  width: 100%;
+  font-size: 0.8125rem;
+
+  th {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #71767a;
+    white-space: nowrap;
+    padding: 0.5rem 0.75rem;
+  }
+
+  td {
+    padding: 0.4rem 0.75rem;
+    white-space: nowrap;
+  }
+
+  tbody tr:hover {
+    background: #f0f0f0;
+  }
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-green {
+  color: #2e6e2e;
+  font-weight: 600;
+}
+
+.text-error {
+  color: #b50909;
+}
+
+.text-error-dark {
+  color: #b50909;
+  font-weight: 600;
+}
+
+.font-weight-bold {
+  font-weight: 700;
+}
+
+// ── Log viewer ───────────────────────────────────────────────────
+
+.log-container {
+  background: #1b1b1b;
+  border-radius: 4px;
+  padding: 0.75rem;
+  max-height: 500px;
+  overflow-y: auto;
+  font-family: 'Source Code Pro', 'Courier New', monospace;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+.log-entry {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.125rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+  &__time {
+    color: #71767a;
+    white-space: nowrap;
+    min-width: 120px;
+  }
+
+  &__level {
+    font-weight: 700;
+    text-transform: uppercase;
+    min-width: 50px;
+    font-size: 0.6875rem;
+  }
+
+  &__message {
+    color: #e6e6e6;
+    word-break: break-word;
+  }
+}
+
+.log-level {
+  &--error { color: #f87171; }
+  &--warn { color: #fbbf24; }
+  &--info { color: #60a5fa; }
+  &--debug { color: #71767a; }
+}

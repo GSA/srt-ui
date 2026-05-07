@@ -41,4 +41,4 @@ COPY --from=builder /app/dist/nginx.conf /etc/nginx/nginx.conf
 RUN chown -R nginx:nginx /usr/share/nginx/html && \
     chmod -R 755 /usr/share/nginx/html
 
-EXPOSE 80
+CMD sed -i -e 's/listen 80;/listen '"${PORT:-8080}"';/g' /etc/nginx/nginx.conf && nginx -g 'daemon off;'

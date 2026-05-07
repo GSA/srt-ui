@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 interface AgentPrompt {
   role: string;
@@ -11,7 +12,7 @@ interface AgentPrompt {
 @Component({
   selector: 'app-ai-pipeline',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './ai-pipeline.component.html',
   styleUrls: ['./ai-pipeline.component.scss'],
 })
@@ -157,6 +158,12 @@ Return ONLY valid JSON:
   ];
 
   public selectedPrompt: AgentPrompt | null = null;
+  public playgroundText: string = '';
+  public playgroundRunning: boolean = false;
+  public playgroundResults: any = null;
+  public playgroundError: string = '';
+
+  constructor() {}
 
   ngOnInit() {
     this.selectedPrompt = this.prompts[0];
@@ -164,5 +171,39 @@ Return ONLY valid JSON:
 
   selectPrompt(prompt: AgentPrompt) {
     this.selectedPrompt = prompt;
+  }
+
+  runPlayground() {
+    if (!this.playgroundText || this.playgroundText.length < 10) {
+      this.playgroundError = 'Please enter at least 10 characters.';
+      return;
+    }
+    this.playgroundRunning = true;
+    this.playgroundError = '';
+    this.playgroundResults = null;
+
+    fetch('/api/rag-analytics/playground/analyze', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ text: this.playgroundText })
+    })
+    .then(response => {
+      if (!response.ok) {
+        return response.json().then(err => { throw err; }).catch(err => {
+          throw new Error(err.error || 'Failed to run analysis.');
+        });
+      }
+      return response.json();
+    })
+    .then(data => {
+      this.playgroundResults = data;
+      this.playgroundRunning = false;
+    })
+    .catch(error => {
+      this.playgroundError = error.message || 'Failed to run analysis.';
+      this.playgroundRunning = false;
+    });
   }
 }

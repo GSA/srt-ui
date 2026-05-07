@@ -1,0 +1,390 @@
+<div class="system-health">
+  <div class="grid-row flex-align-center margin-bottom-3">
+    <div class="grid-col-fill">
+      <h2 class="srt-section-title srt-blue">System Health</h2>
+      <p class="usa-intro">Monitor SRT infrastructure, services, and recent application logs.</p>
+    </div>
+    <div class="grid-col-auto">
+      <button class="usa-button usa-button--outline" (click)="refresh(); loadLogs()" [disabled]="loading">
+        Refresh All
+      </button>
+      @if (lastChecked) {
+        <span class="text-base font-sans-xs margin-left-1">Checked: {{ lastChecked | date:'shortTime' }}</span>
+      }
+    </div>
+  </div>
+
+  @if (loading) {
+    <div class="text-center padding-4">Checking system health...</div>
+  } @else if (health) {
+
+    <!-- Status Cards Row 1 -->
+    <div class="grid-row grid-gap margin-bottom-3">
+      <div class="grid-col-4">
+        <div class="usa-card">
+          <div class="usa-card__container">
+            <div class="usa-card__body health-card-body" [ngClass]="health.database?.status === 'healthy' ? 'health-card-body--ok' : 'health-card-body--error'">
+              <div class="health-card-body__header">
+                <span class="health-card-body__icon">{{ health.database?.status === 'healthy' ? '✅' : '❌' }}</span>
+                <span class="health-card-body__title">Database</span>
+              </div>
+              <p class="health-card-body__value">{{ health.database?.connected ? 'Connected' : 'Disconnected' }}</p>
+              @if (health.database?.status !== 'healthy') {
+                <p class="health-card-body__error">{{ health.database?.error }}</p>
+              } @else {
+                <p class="health-card-body__meta">Database responding normally</p>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-col-4">
+        <div class="usa-card">
+          <div class="usa-card__container">
+            <div class="usa-card__body health-card-body" [ngClass]="health.usai_api?.configured ? 'health-card-body--ok' : 'health-card-body--warn'">
+              <div class="health-card-body__header">
+                <span class="health-card-body__icon">{{ health.usai_api?.configured ? '✅' : '⚠️' }}</span>
+                <span class="health-card-body__title">USAi API</span>
+              </div>
+              <p class="health-card-body__value">{{ health.usai_api?.configured ? 'API key configured' : 'Not configured' }}</p>
+              <p class="health-card-body__meta">{{ health.usai_api?.base_url }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-col-4">
+        <div class="usa-card">
+          <div class="usa-card__container">
+            <div class="usa-card__body health-card-body health-card-body--ok">
+              <div class="health-card-body__header">
+                <span class="health-card-body__icon">⏱️</span>
+                <span class="health-card-body__title">Server Uptime</span>
+              </div>
+              <p class="health-card-body__value">{{ formatUptime(health.uptime?.seconds) }}</p>
+              <p class="health-card-body__meta">Node {{ health.uptime?.node_version }} · {{ health.uptime?.memory_mb }}MB heap</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Status Cards Row 2 -->
+    <div class="grid-row grid-gap margin-bottom-3">
+      <div class="grid-col-4">
+        <div class="usa-card">
+          <div class="usa-card__container">
+            <div class="usa-card__body health-card-body health-card-body--ok">
+              <div class="health-card-body__header">
+                <span class="health-card-body__icon">👥</span>
+                <span class="health-card-body__title">Users</span>
+              </div>
+              <p class="health-card-body__value">{{ health.users?.active }} active</p>
+              <p class="health-card-body__meta">{{ health.users?.total }} total registered</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-col-4">
+        <div class="usa-card">
+          <div class="usa-card__container">
+            <div class="usa-card__body health-card-body" [ngClass]="health.manual_upload?.analyses_last_24h > 0 ? 'health-card-body--ok' : 'health-card-body--warn'">
+              <div class="health-card-body__header">
+                <span class="health-card-body__icon">📤</span>
+                <span class="health-card-body__title">Manual Upload (24h)</span>
+              </div>
+              <p class="health-card-body__value">{{ health.manual_upload?.analyses_last_24h || 0 }} analyses</p>
+              @if (health.manual_upload?.last_run) {
+                <p class="health-card-body__meta">Last run: {{ health.manual_upload.last_run | date:'short' }}</p>
+              } @else {
+                <p class="health-card-body__meta">No recent activity</p>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-col-4">
+        <div class="usa-card">
+          <div class="usa-card__container">
+            <div class="usa-card__body health-card-body health-card-body--ok">
+              <div class="health-card-body__header">
+                <span class="health-card-body__icon">🌐</span>
+                <span class="health-card-body__title">Environment</span>
+              </div>
+              <p class="health-card-body__value">{{ health.uptime?.node_version || 'Unknown' }}</p>
+              <p class="health-card-body__meta">Memory: {{ health.uptime?.memory_mb }}MB used</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- SCHEDULED PIPELINE (SAM.gov) SECTION                          -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="grid-row flex-align-center margin-top-4 margin-bottom-2">
+      <div class="grid-col-fill">
+        <h3 class="srt-section-title srt-blue">Scheduled Pipeline — SAM.gov Scraper</h3>
+        <p class="text-base font-sans-sm">Solicitation scanning performance from the nightly SAM.gov pipeline.</p>
+      </div>
+      <div class="grid-col-auto display-flex flex-align-center">
+        <label class="usa-label margin-right-1 margin-bottom-0 font-sans-xs" for="pipeline-days">Period</label>
+        <select class="usa-select usa-select--small pipeline-days-select" id="pipeline-days"
+                [(ngModel)]="pipelineDays" (change)="onPipelineDaysChange()">
+          <option [ngValue]="7">7 days</option>
+          <option [ngValue]="14">14 days</option>
+          <option [ngValue]="30">30 days</option>
+          <option [ngValue]="60">60 days</option>
+          <option [ngValue]="90">90 days</option>
+        </select>
+      </div>
+    </div>
+
+    @if (pipelineLoading) {
+      <div class="text-center padding-3">Loading pipeline stats...</div>
+    } @else if (pipelineStats) {
+
+      <!-- Pipeline Summary Cards -->
+      <div class="grid-row grid-gap margin-bottom-3">
+        <div class="grid-col-3">
+          <div class="usa-card">
+            <div class="usa-card__container">
+              <div class="usa-card__body health-card-body health-card-body--ok">
+                <div class="health-card-body__header">
+                  <span class="health-card-body__icon">📋</span>
+                  <span class="health-card-body__title">Solicitations</span>
+                </div>
+                <p class="health-card-body__value">{{ pipelineStats.totals.solicitations | number }}</p>
+                <p class="health-card-body__meta">unique packages scanned</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-col-3">
+          <div class="usa-card">
+            <div class="usa-card__container">
+              <div class="usa-card__body health-card-body health-card-body--ok">
+                <div class="health-card-body__header">
+                  <span class="health-card-body__icon">📄</span>
+                  <span class="health-card-body__title">Documents</span>
+                </div>
+                <p class="health-card-body__value">{{ pipelineStats.totals.documents | number }}</p>
+                <p class="health-card-body__meta">total documents processed</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-col-3">
+          <div class="usa-card">
+            <div class="usa-card__container">
+              <div class="usa-card__body health-card-body health-card-body--ok">
+                <div class="health-card-body__header">
+                  <span class="health-card-body__icon">✅</span>
+                  <span class="health-card-body__title">Readable</span>
+                </div>
+                <p class="health-card-body__value">{{ pipelineStats.totals.readable | number }}</p>
+                <p class="health-card-body__meta">{{ getReadablePercent() }}% of documents</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-col-3">
+          <div class="usa-card">
+            <div class="usa-card__container">
+              <div class="usa-card__body health-card-body" [ngClass]="pipelineStats.totals.unreadable > 0 ? 'health-card-body--warn' : 'health-card-body--ok'">
+                <div class="health-card-body__header">
+                  <span class="health-card-body__icon">{{ pipelineStats.totals.unreadable > 0 ? '⚠️' : '✅' }}</span>
+                  <span class="health-card-body__title">Unreadable</span>
+                </div>
+                <p class="health-card-body__value">{{ pipelineStats.totals.unreadable | number }}</p>
+                <p class="health-card-body__meta">{{ getUnreadablePercent() }}% unable to scan</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Document Type Breakdown -->
+      <div class="grid-row grid-gap margin-bottom-3">
+        <div class="grid-col-8">
+          <div class="pipeline-panel">
+            <h4 class="pipeline-panel__title">Document Type Breakdown</h4>
+            <div class="doc-type-bars">
+              @if (pipelineStats.totals.documents > 0) {
+                <div class="doc-type-row">
+                  <span class="doc-type-row__label">PDF</span>
+                  <div class="doc-type-row__bar-track">
+                    <div class="doc-type-row__bar doc-type-row__bar--pdf"
+                         [style.width.%]="(pipelineStats.totals.by_type.pdf / pipelineStats.totals.documents) * 100"></div>
+                  </div>
+                  <span class="doc-type-row__count">{{ pipelineStats.totals.by_type.pdf | number }}</span>
+                </div>
+                <div class="doc-type-row">
+                  <span class="doc-type-row__label">DOCX</span>
+                  <div class="doc-type-row__bar-track">
+                    <div class="doc-type-row__bar doc-type-row__bar--docx"
+                         [style.width.%]="(pipelineStats.totals.by_type.docx / pipelineStats.totals.documents) * 100"></div>
+                  </div>
+                  <span class="doc-type-row__count">{{ pipelineStats.totals.by_type.docx | number }}</span>
+                </div>
+                <div class="doc-type-row">
+                  <span class="doc-type-row__label">TXT</span>
+                  <div class="doc-type-row__bar-track">
+                    <div class="doc-type-row__bar doc-type-row__bar--txt"
+                         [style.width.%]="(pipelineStats.totals.by_type.txt / pipelineStats.totals.documents) * 100"></div>
+                  </div>
+                  <span class="doc-type-row__count">{{ pipelineStats.totals.by_type.txt | number }}</span>
+                </div>
+                <div class="doc-type-row">
+                  <span class="doc-type-row__label">Spreadsheet</span>
+                  <div class="doc-type-row__bar-track">
+                    <div class="doc-type-row__bar doc-type-row__bar--spreadsheet"
+                         [style.width.%]="(pipelineStats.totals.by_type.spreadsheet / pipelineStats.totals.documents) * 100"></div>
+                  </div>
+                  <span class="doc-type-row__count">{{ pipelineStats.totals.by_type.spreadsheet | number }}</span>
+                </div>
+                <div class="doc-type-row">
+                  <span class="doc-type-row__label">HTML</span>
+                  <div class="doc-type-row__bar-track">
+                    <div class="doc-type-row__bar doc-type-row__bar--html"
+                         [style.width.%]="(pipelineStats.totals.by_type.html / pipelineStats.totals.documents) * 100"></div>
+                  </div>
+                  <span class="doc-type-row__count">{{ pipelineStats.totals.by_type.html | number }}</span>
+                </div>
+                <div class="doc-type-row">
+                  <span class="doc-type-row__label">Other</span>
+                  <div class="doc-type-row__bar-track">
+                    <div class="doc-type-row__bar doc-type-row__bar--other"
+                         [style.width.%]="(pipelineStats.totals.by_type.other / pipelineStats.totals.documents) * 100"></div>
+                  </div>
+                  <span class="doc-type-row__count">{{ pipelineStats.totals.by_type.other | number }}</span>
+                </div>
+              } @else {
+                <p class="text-base font-sans-xs">No documents in this period.</p>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-col-4">
+          <div class="pipeline-panel">
+            <h4 class="pipeline-panel__title">Unreadable File Types</h4>
+            @if (pipelineStats.unreadable_types?.length > 0) {
+              <div class="unreadable-list">
+                @for (item of pipelineStats.unreadable_types; track item.extension) {
+                  <div class="unreadable-list__row">
+                    <span class="unreadable-list__ext">.{{ item.extension }}</span>
+                    <span class="unreadable-list__count">{{ item.count | number }}</span>
+                  </div>
+                }
+              </div>
+            } @else {
+              <p class="text-base font-sans-xs">No unreadable documents in this period.</p>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Daily Breakdown Table -->
+      <div class="pipeline-panel margin-bottom-3">
+        <h4 class="pipeline-panel__title">Daily Breakdown</h4>
+        @if (pipelineStats.daily?.length > 0) {
+          <div class="pipeline-table-wrap">
+            <table class="usa-table usa-table--borderless usa-table--compact pipeline-table">
+              <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col" class="text-right">Solicitations</th>
+                  <th scope="col" class="text-right">Documents</th>
+                  <th scope="col" class="text-right">PDF</th>
+                  <th scope="col" class="text-right">DOCX</th>
+                  <th scope="col" class="text-right">TXT</th>
+                  <th scope="col" class="text-right">Spreadsheet</th>
+                  <th scope="col" class="text-right">HTML</th>
+                  <th scope="col" class="text-right">Other</th>
+                  <th scope="col" class="text-right">Readable</th>
+                  <th scope="col" class="text-right text-error">Unreadable</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (day of pipelineStats.daily; track day.date) {
+                  <tr>
+                    <td>{{ day.date | date:'MM/dd/yyyy' }}</td>
+                    <td class="text-right">{{ day.solicitations | number }}</td>
+                    <td class="text-right font-weight-bold">{{ day.documents | number }}</td>
+                    <td class="text-right">{{ day.by_type.pdf | number }}</td>
+                    <td class="text-right">{{ day.by_type.docx | number }}</td>
+                    <td class="text-right">{{ day.by_type.txt | number }}</td>
+                    <td class="text-right">{{ day.by_type.spreadsheet | number }}</td>
+                    <td class="text-right">{{ day.by_type.html | number }}</td>
+                    <td class="text-right">{{ day.by_type.other | number }}</td>
+                    <td class="text-right text-green">{{ day.readable | number }}</td>
+                    <td class="text-right text-error-dark">{{ day.unreadable | number }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        } @else {
+          <p class="text-base font-sans-xs padding-2">No pipeline activity in the last {{ pipelineDays }} days.</p>
+        }
+      </div>
+
+    } @else {
+      <div class="text-center padding-3 text-base">Unable to load pipeline stats.</div>
+    }
+
+    <!-- Application Logs -->
+    <h3 class="srt-section-title srt-blue margin-top-4 margin-bottom-2">Application Logs</h3>
+
+    <div class="grid-row grid-gap margin-bottom-2">
+      <div class="grid-col-4">
+        <label class="usa-label" for="log-search">Search logs</label>
+        <input class="usa-input" id="log-search" type="text"
+               [(ngModel)]="logFilter" (input)="onLogFilterChange()"
+               placeholder="Filter by message..." />
+      </div>
+      <div class="grid-col-3">
+        <label class="usa-label" for="log-level">Level</label>
+        <select class="usa-select" id="log-level" [(ngModel)]="logLevel" (change)="onLogFilterChange()">
+          <option value="">All levels</option>
+          <option value="error">Error</option>
+          <option value="warn">Warning</option>
+          <option value="info">Info</option>
+          <option value="debug">Debug</option>
+        </select>
+      </div>
+      <div class="grid-col-auto display-flex flex-align-end">
+        <button class="usa-button usa-button--outline" (click)="loadLogs()" [disabled]="logsLoading">
+          Refresh Logs
+        </button>
+      </div>
+    </div>
+
+    @if (logsLoading) {
+      <div class="text-center padding-2">Loading logs...</div>
+    } @else {
+      <div class="log-container">
+        @for (log of logs; track log.timestamp) {
+          <div class="log-entry">
+            <span class="log-entry__time">{{ log.timestamp | date:'short' }}</span>
+            <span class="log-entry__level" [ngClass]="getLogLevelClass(log.level)">{{ log.level }}</span>
+            <span class="log-entry__message">{{ log.message }}</span>
+          </div>
+        }
+        @if (logs.length === 0) {
+          <div class="text-center padding-3 text-base">
+            No logs found. Logs are stored in the <code>winston_logs</code> table and also streamed to <code>logs.fr.cloud.gov</code>.
+          </div>
+        }
+      </div>
+      <p class="text-base font-sans-xs margin-top-1">Showing {{ logs.length }} most recent entries</p>
+    }
+  }
+</div>

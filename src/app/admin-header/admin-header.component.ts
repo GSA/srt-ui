@@ -13,9 +13,13 @@ export class AdminHeaderComponent implements OnInit {
 
   constructor() {
     this.active = {};
+    this.active['user-management'] = true;
+    this.active['website-analytics'] = false;
     this.active['accepted'] = false;
     this.active['masquerade'] = false;
-    this.active['reports'] = true;
+    this.active['reports'] = false;
+    this.active['audit-log'] = false;
+    this.active['system-health'] = false;
     this.active['feedback'] = false;
   }
 

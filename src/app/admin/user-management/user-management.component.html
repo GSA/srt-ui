@@ -1,0 +1,182 @@
+<div class="user-management">
+  <h2 class="srt-section-title srt-blue">User Management</h2>
+  <p class="usa-intro">Manage SRT user accounts — click any agency, role, or status cell to edit it inline.</p>
+
+  <!-- Success / Error Alerts -->
+  @if (successMessage) {
+    <div class="usa-alert usa-alert--success usa-alert--slim" role="alert">
+      <div class="usa-alert__body"><p class="usa-alert__text">{{ successMessage }}</p></div>
+    </div>
+  }
+  @if (errorMessage) {
+    <div class="usa-alert usa-alert--error usa-alert--slim" role="alert">
+      <div class="usa-alert__body"><p class="usa-alert__text">{{ errorMessage }}</p></div>
+    </div>
+  }
+
+  <!-- Filters Bar -->
+  <div class="grid-row grid-gap margin-top-2 margin-bottom-2">
+    <div class="grid-col-4">
+      <label class="usa-label" for="user-search">Search users</label>
+      <input class="usa-input" id="user-search" type="text"
+             [(ngModel)]="searchText" (input)="onSearchChange()"
+             placeholder="Name or email..." />
+    </div>
+    <div class="grid-col-3">
+      <label class="usa-label" for="status-filter">Status</label>
+      <select class="usa-select" id="status-filter" [(ngModel)]="statusFilter" (change)="onFilterChange()">
+        <option value="">All statuses</option>
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+        <option value="pending">Pending</option>
+      </select>
+    </div>
+    <div class="grid-col-3">
+      <label class="usa-label" for="agency-filter">Agency</label>
+      <select class="usa-select" id="agency-filter" [(ngModel)]="agencyFilter" (change)="onFilterChange()">
+        <option value="">All agencies</option>
+        @for (a of agencies; track a.id) {
+          <option [value]="a.agency">{{ a.acronym || a.agency }}</option>
+        }
+      </select>
+    </div>
+    <div class="grid-col-2 display-flex flex-align-end">
+      <button class="usa-button usa-button--outline" (click)="loadUsers()" [disabled]="loading">
+        Refresh
+      </button>
+    </div>
+  </div>
+
+  <!-- Bulk Actions -->
+  @if (selectedUserIds.size > 0) {
+    <div class="usa-alert usa-alert--info usa-alert--slim margin-bottom-2" role="status">
+      <div class="usa-alert__body">
+        <p class="usa-alert__text">
+          {{ selectedUserIds.size }} user(s) selected.
+          <button class="usa-button usa-button--secondary usa-button--small margin-left-1" (click)="bulkDeactivate()">
+            Deactivate Selected
+          </button>
+        </p>
+      </div>
+    </div>
+  }
+
+  <!-- Users Table -->
+  @if (loading) {
+    <div class="text-center padding-4">Loading users...</div>
+  } @else {
+    <div style="overflow-x: auto;">
+      <table class="usa-table usa-table--striped usa-table--borderless width-full" role="table" aria-label="User management table">
+        <thead>
+          <tr>
+            <th scope="col">
+              <input type="checkbox" class="usa-checkbox__input" id="select-all"
+                     [checked]="selectAll" (change)="toggleSelectAll()" />
+              <label class="usa-checkbox__label usa-sr-only" for="select-all">Select all</label>
+            </th>
+            <th scope="col">Email</th>
+            <th scope="col">Agency</th>
+            <th scope="col">Role</th>
+            <th scope="col">Status</th>
+            <th scope="col">Created</th>
+            <th scope="col">Updated</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of filteredUsers; track user.id) {
+            <tr>
+              <td>
+                <input type="checkbox" class="usa-checkbox__input" [id]="'sel-' + user.id"
+                       [checked]="selectedUserIds.has(user.id)" (change)="toggleSelect(user.id)" />
+                <label class="usa-checkbox__label usa-sr-only" [for]="'sel-' + user.id">Select {{ user.email }}</label>
+              </td>
+              <td>{{ user.email }}</td>
+
+              <!-- Inline Editable: Agency -->
+              <td>
+                @if (inlineEditing?.id === user.id && inlineEditing?.field === 'agency') {
+                  <select class="inline-select" [ngModel]="user.agency"
+                          (ngModelChange)="saveInlineEdit(user, 'agency', $event)"
+                          (blur)="cancelInlineEdit()">
+                    <option value="">— None —</option>
+                    @for (a of agencies; track a.id) {
+                      <option [value]="a.agency">{{ a.agency }}</option>
+                    }
+                  </select>
+                } @else {
+                  <span class="editable-cell" (click)="startInlineEdit(user, 'agency')"
+                        title="Click to change agency">
+                    {{ user.agency || '—' }}
+                    <span class="editable-cell__hint">✎</span>
+                  </span>
+                }
+              </td>
+
+              <!-- Inline Editable: Role -->
+              <td>
+                @if (inlineEditing?.id === user.id && inlineEditing?.field === 'userRole') {
+                  <select class="inline-select" [ngModel]="user.userRole"
+                          (ngModelChange)="saveInlineEdit(user, 'userRole', $event)"
+                          (blur)="cancelInlineEdit()">
+                    @for (role of roles; track role) {
+                      <option [value]="role">{{ role }}</option>
+                    }
+                  </select>
+                } @else {
+                  <span class="editable-cell" (click)="startInlineEdit(user, 'userRole')"
+                        title="Click to change role">
+                    {{ user.userRole || '—' }}
+                    <span class="editable-cell__hint">✎</span>
+                  </span>
+                }
+              </td>
+
+              <!-- Inline Editable: Status -->
+              <td>
+                <button class="status-toggle" (click)="toggleStatus(user)"
+                        [title]="getUserStatus(user) === 'Active' ? 'Click to deactivate' : 'Click to activate'"
+                        [attr.aria-label]="'Toggle status for ' + user.firstName + ' ' + user.lastName">
+                  <span class="srt-badge" [ngClass]="getStatusClass(user)">
+                    {{ getUserStatus(user) }}
+                  </span>
+                </button>
+              </td>
+
+              <td>{{ user.creationDate || '—' }}</td>
+              <td>{{ user.updatedAt | date:'short' }}</td>
+            </tr>
+          }
+          @if (filteredUsers.length === 0) {
+            <tr><td colspan="7" class="text-center padding-2">No users found.</td></tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="text-base font-sans-xs margin-top-1">Showing {{ filteredUsers.length }} of {{ users.length }} users</p>
+  }
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- CONFIRMATION MODAL                                                 -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+@if (pendingAction) {
+  <div class="confirm-overlay" (click)="cancelAction()" role="dialog" aria-modal="true"
+       [attr.aria-label]="pendingAction.title">
+    <div class="confirm-modal" (click)="$event.stopPropagation()">
+      <div class="confirm-modal__header">
+        <span class="confirm-modal__icon">⚠️</span>
+        <h3 class="confirm-modal__title">{{ pendingAction.title }}</h3>
+        <button class="confirm-modal__close" (click)="cancelAction()" aria-label="Close confirmation">✕</button>
+      </div>
+      <div class="confirm-modal__body">
+        <p class="confirm-modal__message">{{ pendingAction.message }}</p>
+      </div>
+      <div class="confirm-modal__footer">
+        <button class="usa-button usa-button--outline" (click)="cancelAction()">Cancel</button>
+        <button class="usa-button" [ngClass]="pendingAction.confirmClass" (click)="confirmAction()">
+          {{ pendingAction.confirmLabel }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

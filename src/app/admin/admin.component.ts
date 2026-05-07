@@ -14,7 +14,7 @@ import {Title} from '@angular/platform-browser';
 export class AdminComponent extends BaseComponent implements OnInit {
 
   /* ATTRIBUTES */
-  public activeTab = 'reports';
+  public activeTab = 'user-management';
 
   /* CONSTRUCTORS */
 

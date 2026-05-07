@@ -1,5 +1,5 @@
 // Module: SRTHeaderComponent
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, HostListener} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../shared/services/auth.service';
@@ -26,6 +26,19 @@ export class HeaderComponent implements OnInit {
   @Input() isLogin;
   @Input() isGSAAdmin;
   @Input() isApproved;
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    const analyticsBtn = document.getElementById('nav-analytics');
+    const dropdownMenu = analyticsBtn?.parentElement?.querySelector('.dropdown-menu');
+    
+    if (this.isAnalyticsDropdownOpen && analyticsBtn && dropdownMenu) {
+      if (!analyticsBtn.contains(target) && !dropdownMenu.contains(target)) {
+        this.isAnalyticsDropdownOpen = false;
+      }
+    }
+  }
 
   /* CONSTRUCTORS */
 

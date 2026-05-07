@@ -2,6 +2,26 @@
   <div class="grid-container">
     <app-admin-header (menuClick)="processMenuClick($event)"></app-admin-header>
 
+    <!-- User Management Tab -->
+    @if (this.activeTab == 'user-management') {
+      <app-user-management></app-user-management>
+    }
+
+    <!-- Website Analytics Tab -->
+    @if (this.activeTab == 'website-analytics') {
+      <app-website-analytics></app-website-analytics>
+    }
+
+    <!-- Audit Log Tab -->
+    @if (this.activeTab == 'audit-log') {
+      <app-audit-log></app-audit-log>
+    }
+
+    <!-- System Health Tab -->
+    @if (this.activeTab == 'system-health') {
+      <app-system-health></app-system-health>
+    }
+
     <!-- Approved Tab -->
     @if (this.activeTab == 'approved') {
       <app-user-report></app-user-report>
@@ -36,7 +56,6 @@
         </nav>
         <!-- Main Content Area -->
         <div class="grid-col-10">
-          <!-- Add IDs to the sections that correspond to the scroll targets -->
           <div id="anchor-Logins-Last-30-Days" class="scroll-target">
             <app-login-reports></app-login-reports>
           </div>

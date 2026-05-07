@@ -1,13 +1,12 @@
-<div class="button-container">
-  <div class="login-container">
-    <span class="login-text">Sign in with:</span>
-    <a class="login-image" href="javascript:void(0);" (click)="loginWithLoginGov()">
-      <img src="assets/login-gov-logo.svg" alt="Login.gov">
-    </a>
-  </div>
-  <!-- Conditionally show the Login as DEV button only in development environment -->
+<div class="userlogin-actions">
+  <button class="login-gov-btn" (click)="loginWithLoginGov()" aria-label="Sign in with Login.gov">
+    <span class="material-symbols-outlined">login</span>
+    Sign in with Login.gov
+  </button>
+
   @if (is_dev) {
-    <button class="usa-button dev-button" aria-label="Login as Dev" (click)="loginAsDev()">
+    <button class="dev-login-btn" (click)="loginAsDev()" aria-label="Login as Dev">
+      <span class="material-symbols-outlined">developer_mode</span>
       Login as DEV
     </button>
   }

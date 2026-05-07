@@ -1,0 +1,67 @@
+<div class="audit-log">
+  <h2 class="srt-section-title srt-blue">Audit Log</h2>
+  <p class="usa-intro">Track all admin actions — who changed what, when.</p>
+
+  @if (loading) {
+    <div class="text-center padding-4">Loading audit log...</div>
+  } @else {
+    <div style="overflow-x: auto;">
+      <table class="usa-table usa-table--borderless usa-table--striped width-full" role="table" aria-label="Admin audit log">
+        <thead>
+          <tr>
+            <th scope="col">Timestamp</th>
+            <th scope="col">Admin</th>
+            <th scope="col">Action</th>
+            <th scope="col">Target</th>
+            <th scope="col">Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (entry of entries; track entry.id) {
+            <tr>
+              <td>{{ entry.created_at | date:'short' }}</td>
+              <td>{{ entry.admin_email }}</td>
+              <td>
+                <span class="srt-badge" [ngClass]="getActionBadgeClass(entry.action)">
+                  {{ entry.action }}
+                </span>
+              </td>
+              <td>{{ entry.target_email || entry.target_id }}</td>
+              <td class="details-cell">
+                @if (entry.details) {
+                  <details>
+                    <summary>View</summary>
+                    <pre class="details-pre">{{ formatDetails(entry.details) }}</pre>
+                  </details>
+                } @else {
+                  —
+                }
+              </td>
+            </tr>
+          }
+          @if (entries.length === 0) {
+            <tr><td colspan="5" class="text-center padding-2">No audit entries yet.</td></tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="grid-row flex-justify margin-top-2">
+      <div class="grid-col-auto">
+        <span class="text-base font-sans-xs">
+          Showing {{ currentPage * pageSize + 1 }}–{{ Math.min((currentPage + 1) * pageSize, totalCount) }} of {{ totalCount }}
+        </span>
+      </div>
+      <div class="grid-col-auto">
+        <button class="usa-button usa-button--outline usa-button--small" (click)="prevPage()" [disabled]="currentPage === 0">
+          Previous
+        </button>
+        <button class="usa-button usa-button--outline usa-button--small margin-left-1" (click)="nextPage()"
+                [disabled]="(currentPage + 1) * pageSize >= totalCount">
+          Next
+        </button>
+      </div>
+    </div>
+  }
+</div>

@@ -11,6 +11,8 @@ import {HelpComponent} from './help/help.component';
 import {MasqComponent} from './user/masq/masq.component';
 import {AdminGuardFn} from './admin-guard.service';
 import {AiPipelineComponent} from './analytics/ai-pipeline/ai-pipeline.component';
+import {AiPlaygroundComponent} from './analytics/ai-playground/ai-playground.component';
+import {AiAnalyticsComponent} from './analytics/ai-analytics/ai-analytics.component';
 
 
 const routes: Routes = [
@@ -21,6 +23,8 @@ const routes: Routes = [
   {path: 'admin', component: AdminComponent, canActivate: [AdminGuardFn] , data: { isAccepted: false, isRejected: false }},
   {path: 'analytics', component: AnalyticsComponent, canActivate: [AdminGuardFn]},
   {path: 'analytics/ai-pipeline', component: AiPipelineComponent, canActivate: [AdminGuardFn]},
+  {path: 'analytics/ai-playground', component: AiPlaygroundComponent, canActivate: [AdminGuardFn]},
+  {path: 'analytics/ai-analytics', component: AiAnalyticsComponent, canActivate: [AdminGuardFn]},
   {path: 'help', component: HelpComponent, canActivate: [AuthGuardFn]},
 ];
 

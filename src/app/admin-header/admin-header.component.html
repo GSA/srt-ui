@@ -1,17 +1,41 @@
 <div class="active-tabs" ng-if="showActivitySelection()">
   <div class="custom-tabs">
     <ul class="custom-tabs__list">
-      <li class="custom-tabs__item" [ngClass]="{'custom-tabs__item--active': active['masquerade']}"
-        (click)="menuClick.emit('masquerade'); setActiveTab('masquerade')" tabindex="0"
-        (keydown.enter)="menuClick.emit('masquerade'); setActiveTab('masquerade')"
-        (keydown.space)="menuClick.emit('masquerade'); setActiveTab('masquerade')">
-        <a class="custom-tabs__link">MASQUERADE</a>
+      <li class="custom-tabs__item" [ngClass]="{'custom-tabs__item--active': active['user-management']}"
+        (click)="menuClick.emit('user-management'); setActiveTab('user-management')" tabindex="0"
+        (keydown.enter)="menuClick.emit('user-management'); setActiveTab('user-management')"
+        (keydown.space)="menuClick.emit('user-management'); setActiveTab('user-management')">
+        <a class="custom-tabs__link">USER MANAGEMENT</a>
+      </li>
+      <li class="custom-tabs__item" [ngClass]="{'custom-tabs__item--active': active['website-analytics']}"
+        (click)="menuClick.emit('website-analytics'); setActiveTab('website-analytics')" tabindex="0"
+        (keydown.enter)="menuClick.emit('website-analytics'); setActiveTab('website-analytics')"
+        (keydown.space)="menuClick.emit('website-analytics'); setActiveTab('website-analytics')">
+        <a class="custom-tabs__link">WEBSITE ANALYTICS</a>
       </li>
       <li class="custom-tabs__item" [ngClass]="{'custom-tabs__item--active': active['reports']}"
         (click)="menuClick.emit('reports'); setActiveTab('reports')" tabindex="0"
         (keydown.enter)="menuClick.emit('reports'); setActiveTab('reports')"
         (keydown.space)="menuClick.emit('reports'); setActiveTab('reports')">
         <a class="custom-tabs__link">REPORTS</a>
+      </li>
+      <li class="custom-tabs__item" [ngClass]="{'custom-tabs__item--active': active['audit-log']}"
+        (click)="menuClick.emit('audit-log'); setActiveTab('audit-log')" tabindex="0"
+        (keydown.enter)="menuClick.emit('audit-log'); setActiveTab('audit-log')"
+        (keydown.space)="menuClick.emit('audit-log'); setActiveTab('audit-log')">
+        <a class="custom-tabs__link">AUDIT LOG</a>
+      </li>
+      <li class="custom-tabs__item" [ngClass]="{'custom-tabs__item--active': active['system-health']}"
+        (click)="menuClick.emit('system-health'); setActiveTab('system-health')" tabindex="0"
+        (keydown.enter)="menuClick.emit('system-health'); setActiveTab('system-health')"
+        (keydown.space)="menuClick.emit('system-health'); setActiveTab('system-health')">
+        <a class="custom-tabs__link">SYSTEM HEALTH</a>
+      </li>
+      <li class="custom-tabs__item" [ngClass]="{'custom-tabs__item--active': active['masquerade']}"
+        (click)="menuClick.emit('masquerade'); setActiveTab('masquerade')" tabindex="0"
+        (keydown.enter)="menuClick.emit('masquerade'); setActiveTab('masquerade')"
+        (keydown.space)="menuClick.emit('masquerade'); setActiveTab('masquerade')">
+        <a class="custom-tabs__link">MASQUERADE</a>
       </li>
       <li class="custom-tabs__item" [ngClass]="{'custom-tabs__item--active': active['metric-downloads']}"
         (click)="menuClick.emit('metric-downloads'); setActiveTab('metric-downloads')" tabindex="0"

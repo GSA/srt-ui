@@ -13,9 +13,10 @@
               aria-label="GSA Logo"
               class="gsa-logo-img"
               />
+            <span class="logo-divider"></span>
             <img
-              src="../../assets/srtlogo.png"
-              alt="SRT Logo"
+              src="../../assets/srt-logo.png"
+              alt="Solicitation Review Tool Logo"
               class="srt-logo-img"
               />
           </div>
@@ -54,6 +55,8 @@
                     <ul class="dropdown-menu usa-nav__submenu" [ngStyle]="{'display': isAnalyticsDropdownOpen ? 'block' : 'none'}" style="margin-top: 0; padding-left: 0; list-style: none;">
                       <li><a [routerLink]="['/analytics']" class="dropdown-item" (click)="isAnalyticsDropdownOpen = false; menuClick('/analytics')">System Analytics</a></li>
                       <li><a [routerLink]="['/analytics/ai-pipeline']" class="dropdown-item" (click)="isAnalyticsDropdownOpen = false; menuClick('/analytics/ai-pipeline')">AI Pipeline</a></li>
+                      <li><a [routerLink]="['/analytics/ai-playground']" class="dropdown-item" (click)="isAnalyticsDropdownOpen = false; menuClick('/analytics/ai-playground')">AI Playground</a></li>
+                      <li><a [routerLink]="['/analytics/ai-analytics']" class="dropdown-item" (click)="isAnalyticsDropdownOpen = false; menuClick('/analytics/ai-analytics')">AI Analytics</a></li>
                     </ul>
                   </li>
                   }

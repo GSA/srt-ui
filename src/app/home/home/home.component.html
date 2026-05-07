@@ -1,276 +1,339 @@
-<main id="content" class="bypass-block-target">
+<main id="content" class="bypass-block-target srt-home">
+
   <!-- Hero Banner -->
-  <div class="srt-home-head">
-    <div class="srt-head-position">
-      <div class="srt-head-text">
-        <div class="srt-head-display">
-          <div class="srt-head-padding">
-            <h1 class="srt-black srt-main-title">Solicitation Review Tool</h1>
-            <div style="font-size: 24px; font-weight:500;" class="srt-black srt-text-padding">
-              The Solicitation Review Tool (SRT) is provided to help agencies evaluate the overall solicitation
-              compliance with accessibility, cyber security, and other regulations and requirements.
-            </div>
+  <section class="hero-banner">
+    <div class="hero-banner__inner">
+      <div class="hero-banner__text">
+        <h2 class="hero-banner__heading">Solicitation Review Tool 2.0</h2>
+        <p class="hero-banner__subtext">Instantly assess federal solicitations for inclusion of relevant Section 508 requirements before publication.</p>
+      </div>
+      <div class="hero-banner__actions">
+        <a [routerLink]="['/solicitation/report']" class="hero-btn hero-btn--primary" (click)="onClickTiles('daily_dashboard', 'Explore Daily Dashboard')">
+          Explore Daily Dashboard
+        </a>
+        <a href="https://www.access-board.gov/ict/" target="_blank" rel="noopener noreferrer" class="hero-btn hero-btn--outline">
+          View Section 508 Standards
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Grid -->
+  <div class="content-grid" [class.content-grid--hidden]="reportReady">
+
+    <!-- Left Column: Pre-publication Solicitation Review -->
+    <div class="content-grid__main">
+      <div class="prediction-card">
+        <div class="prediction-card__header">
+          <div>
+            <h3 class="prediction-card__title">Pre-publication Solicitation Review</h3>
+            <p class="prediction-card__desc">Upload a pre-publication solicitation document to check for integration of Section 508 requirements.</p>
           </div>
+          @if (selectedFiles.length > 0 || rawText.length > 10) {
+            <button class="prediction-card__reset" (click)="resetAnalysis()" aria-label="Reset analysis">
+              <span class="material-symbols-outlined">restart_alt</span> Reset
+            </button>
+          }
         </div>
+
+        <!-- Educational Note -->
+        <div class="educational-note">
+          <span class="material-symbols-outlined educational-note__icon">info</span>
+          <p class="educational-note__text">This tool checks whether your solicitation includes the required Section 508 language. It does not evaluate the uploaded document itself for accessibility.</p>
+        </div>
+
+        <!-- File Upload Zone -->
+        <div
+          class="upload-zone"
+          [class.upload-zone--active]="isDragging"
+          tabindex="0"
+          (dragenter)="handleDrag($event)"
+          (dragover)="handleDrag($event)"
+          (dragleave)="handleDrag($event)"
+          (drop)="handleDrop($event)"
+          (click)="fileInputRef.click()"
+        >
+          <span class="material-symbols-outlined upload-zone__icon">cloud_upload</span>
+          <h4 class="upload-zone__title">Drag and drop a file here, or click to browse</h4>
+          <p class="upload-zone__hint">Supports PDF, DOCX, TXT — Max 50MB</p>
+          <span class="upload-zone__btn">Browse files</span>
+          <input #fileInputRef id="file-input-adhoc" type="file" accept=".pdf,.doc,.docx,.txt" multiple (change)="onFileSelect($event)" (click)="$event.stopPropagation()" class="upload-zone__native-input" />
+        </div>
+
+        <!-- Selected Files Info -->
+        @if (selectedFiles.length > 0) {
+          <div class="file-info">
+            <span class="file-info__name">📎 {{ selectedFiles.length }} file{{ selectedFiles.length > 1 ? 's' : '' }} selected</span>
+            <button class="file-info__remove" (click)="removeFile()">✖ Clear</button>
+          </div>
+          @if (selectedFiles.length > 1) {
+            <ul class="file-list">
+              @for (f of selectedFiles; track f.name) {
+                <li class="file-list__item">{{ f.name }} ({{ (f.size / 1024).toFixed(1) }} KB)</li>
+              }
+            </ul>
+          } @else {
+            <div class="file-info file-info--detail">
+              <span class="file-info__name">{{ selectedFiles[0].name }} ({{ (selectedFiles[0].size / 1024).toFixed(1) }} KB)</span>
+            </div>
+          }
+        }
+
+        <!-- Raw Text Input -->
+        <div class="raw-text-section">
+          <label class="raw-text-section__label">Or paste text directly:</label>
+          <textarea class="raw-text-section__textarea" [(ngModel)]="rawText" placeholder="Paste solicitation text here to bypass file upload..." rows="4"></textarea>
+        </div>
+
+        <!-- Run Pipeline Button -->
+        <div class="prediction-card__footer">
+          <button class="scan-btn" [disabled]="(selectedFiles.length === 0 && (!rawText || rawText.length < 10)) || isRunning" [class.scan-btn--disabled]="(selectedFiles.length === 0 && (!rawText || rawText.length < 10)) || isRunning" [class.scan-btn--loading]="isRunning" (click)="runPipeline()">
+            @if (isRunning) {
+              <span class="scan-btn__spinner"></span>
+              Analyzing...
+            } @else {
+              <span class="material-symbols-outlined">document_scanner</span>
+              Run Section 508 Review
+            }
+          </button>
+        </div>
+
+        <!-- Error Message -->
+        @if (errorMessage) {
+          <div class="error-alert" role="alert">⚠️ {{ errorMessage }}</div>
+        }
+      </div>
+    </div>
+
+    <!-- Right Column: Sidebar -->
+    <div class="content-grid__sidebar">
+      <div class="sidebar-card">
+        <h3 class="sidebar-card__title">Section 508 Integration Assessment</h3>
+        <p class="sidebar-card__desc">Our AI-powered scanner reviews your solicitation packages to determine whether Section 508 accessibility requirements are properly referenced and incorporated into the solicitation language.</p>
+        <ul class="sidebar-checks">
+          <li class="sidebar-checks__item">
+            <span class="material-symbols-outlined sidebar-checks__icon">accessibility_new</span>
+            <div>
+              <h4 class="sidebar-checks__heading">Section 508 Integration Check</h4>
+              <p class="sidebar-checks__text">Determines whether Section 508 accessibility requirements are properly referenced and incorporated into the solicitation language.</p>
+            </div>
+          </li>
+          <li class="sidebar-checks__item">
+            <span class="material-symbols-outlined sidebar-checks__icon">summarize</span>
+            <div>
+              <h4 class="sidebar-checks__heading">Solicitation Report Summary</h4>
+              <p class="sidebar-checks__text">Generates a comprehensive AI analysis of the entire solicitation package, summarizing integration posture and key findings.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="help-card">
+        <h4 class="help-card__title"><span class="material-symbols-outlined">help</span> Need Assistance?</h4>
+        <p class="help-card__text">If you encounter issues with the review tool or need help interpreting results, please review the <a [routerLink]="['/help/faq']">FAQs</a> or <a [routerLink]="['/help/contactus']">contact support</a>.</p>
       </div>
     </div>
   </div>
 
-  <!-- Padding between hero and content -->
-  <div style="padding: 10px 0;"></div>
+  <!-- Full-Screen Report Overlay -->
+  @if (reportReady && pipelineResults) {
+    <div class="report-overlay" [class.report-overlay--visible]="pipelineResults">
+      <div class="report-overlay__inner">
 
-  <!-- Content Grid -->
-  <div class="grid-container">
-    <div class="grid-row grid-gap-4">
+        <!-- Report Toolbar -->
+        <div class="report-toolbar">
+          <button class="report-toolbar__close" (click)="resetAnalysis()">
+            <span class="material-symbols-outlined">arrow_back</span> Back to Upload
+          </button>
+          <button class="report-toolbar__debug" (click)="showPipelineLog = !showPipelineLog">
+            <span class="material-symbols-outlined">terminal</span> {{ showPipelineLog ? 'Hide' : 'Show' }} Pipeline Log
+          </button>
+        </div>
 
-      <!-- Left Column: Manual Review Card (50% width) -->
-      <div class="tablet:grid-col-6 left-panel">
+        <!-- Debug: Pipeline Log -->
+        @if (showPipelineLog) {
+          <div class="stage-log" style="margin-bottom: 1.5rem;">
+            <h4 class="stage-log__title">Pipeline Progress</h4>
+            <ul class="stage-log__list">
+              @for (entry of stageLog; track entry) {
+                <li class="stage-log__item">{{ entry }}</li>
+              }
+            </ul>
+          </div>
+        }
 
-        <div class="usa-card solicitation-card no-hover">
-          <div class="usa-card__container">
-            <header class="usa-card__header">
-              <div class="display-flex flex-justify">
-                <h2 class="usa-card__heading">Check solicitation</h2>
-                @if (selectedFiles.length || (results && Object.keys(results).length > 0)) {
-                  <button
-                    class="usa-button usa-button--unstyled"
-                    (click)="resetAnalysis()"
-                    aria-label="Reset analysis"
-                    >
-                    <i class="fas fa-redo-alt"></i> Reset
-                  </button>
+        <!-- Determination Card -->
+        <section class="determination-card" [class.determination-card--compliant]="pipelineResults.ml_prediction?.prediction === 'compliant'" [class.determination-card--noncompliant]="pipelineResults.ml_prediction?.prediction === 'non_compliant'">
+          <div class="determination-card__content">
+            <span class="determination-card__label">Section 508 Integration Assessment</span>
+            <h2 class="determination-card__verdict">{{ pipelineResults.ml_prediction?.prediction === 'compliant' ? 'INCLUDED' : pipelineResults.ml_prediction?.prediction === 'non_compliant' ? 'NOT INCLUDED' : 'UNDETERMINED' }}</h2>
+            <p class="determination-card__desc">The SRT pipeline has analyzed solicitation <strong>{{ pipelineResults.file_name }}</strong> for integration of Section 508 accessibility requirements.</p>
+          </div>
+          <div class="determination-card__badge">
+            <span class="material-symbols-outlined determination-card__icon">{{ pipelineResults.ml_prediction?.prediction === 'compliant' ? 'verified' : 'warning' }}</span>
+          </div>
+        </section>
+
+        <!-- Executive Summary + Metadata -->
+        <section class="report-grid">
+          <div class="report-grid__main">
+            <h2 class="section-title">Executive Summary</h2>
+            <div class="summary-box">
+              @if (pipelineResults.synthesis?.executive_summary) {
+                <p class="summary-box__text">{{ pipelineResults.synthesis.executive_summary }}</p>
+              }
+            </div>
+          </div>
+          <div class="report-grid__sidebar">
+            <h3 class="meta-title">Report Metadata</h3>
+            <div class="meta-box">
+              <div class="meta-box__item"><span class="meta-box__label">Review Date</span><span class="meta-box__value">{{ pipelineResults.generated_at | date:'mediumDate' }}</span></div>
+              <div class="meta-box__item"><span class="meta-box__label">ML Model</span><span class="meta-box__value">{{ pipelineResults.ml_prediction?.source || 'srt-ml' }}</span></div>
+              <div class="meta-box__item"><span class="meta-box__label">Pipeline</span><span class="meta-box__value">v{{ pipelineResults.pipeline_version }}</span></div>
+              <div class="meta-box__item"><span class="meta-box__label">Document</span><span class="meta-box__value">{{ pipelineResults.file_name }}</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Multi-file Tabs -->
+        @if (pipelineResults.multi_file && pipelineResults.reports?.length > 1) {
+          <section class="report-section">
+            <h2 class="section-title">Individual File Results</h2>
+            <div class="file-tabs">
+              @for (report of pipelineResults.reports; track $index; let i = $index) {
+                <button class="file-tabs__tab" [class.file-tabs__tab--active]="selectedTab === i" (click)="selectedTab = i">
+                  <span class="material-symbols-outlined file-tabs__icon">{{ report.ml_prediction?.prediction === 'compliant' ? 'check_circle' : 'cancel' }}</span>
+                  {{ report.file_name }}
+                </button>
+              }
+            </div>
+            <div class="file-tab-content">
+              <div class="file-tab-result">
+                <div class="file-tab-result__header">
+                  <span class="file-tab-result__badge" [class.file-tab-result__badge--pass]="pipelineResults.reports[selectedTab]?.ml_prediction?.prediction === 'compliant'" [class.file-tab-result__badge--fail]="pipelineResults.reports[selectedTab]?.ml_prediction?.prediction !== 'compliant'">
+                    {{ pipelineResults.reports[selectedTab]?.ml_prediction?.prediction === 'compliant' ? 'Included' : 'Not Included' }}
+                  </span>
+                  <span class="file-tab-result__name">{{ pipelineResults.reports[selectedTab]?.file_name }}</span>
+                </div>
+                @if (pipelineResults.reports[selectedTab]?.synthesis?.executive_summary) {
+                  <p class="file-tab-result__summary">{{ pipelineResults.reports[selectedTab].synthesis.executive_summary }}</p>
+                }
+                @if (pipelineResults.reports[selectedTab]?.ict_classification?.primary_ict_category) {
+                  <p class="file-tab-result__meta"><strong>ICT:</strong> {{ pipelineResults.reports[selectedTab].ict_classification.primary_ict_category }}</p>
+                }
+                @if (pipelineResults.reports[selectedTab]?.applicability?.applicability_explanation) {
+                  <p class="file-tab-result__meta"><strong>Applicability:</strong> {{ pipelineResults.reports[selectedTab].applicability.applicability_explanation }}</p>
                 }
               </div>
-            </header>
-            <div class="usa-card__body">
-              <p>
-                Upload your solicitation's files before it is posted to ensure it is 508‑compliant.
-              </p>
+            </div>
+          </section>
+        }
 
-              <!-- File Input Section -->
-              <div class="usa-form-group">
-                <label class="usa-label" for="file-input-multiple">
-                  Upload files for 508 compliance check
-                </label>
-                <span class="usa-hint" id="file-input-hint">
-                  Select up to 10 files (each no larger than 10MB) in PDF, TXT, DOC, or DOCX format.
+        <!-- ICT Classification (per-file) -->
+        @if (getActiveReport()?.ict_classification?.ict_types) {
+          <section class="report-section">
+            <h2 class="section-title">ICT Classification</h2>
+            <div class="ict-bento">
+              @for (entry of getActiveIctTypes(); track entry) {
+                <div class="ict-bento__card">
+                  <div class="ict-bento__header">
+                    <span class="material-symbols-outlined ict-bento__icon">{{ getIctIcon(entry) }}</span>
+                    <h4 class="ict-bento__name">{{ entry }}</h4>
+                  </div>
+                </div>
+              }
+            </div>
+            @if (getActiveReport()?.ict_classification?.explanation) {
+              <p class="ict-explanation">{{ getActiveReport().ict_classification.explanation }}</p>
+            }
+          </section>
+        }
+
+        <!-- Applicability (per-file) -->
+        @if (getActiveReport()?.applicability) {
+          <section class="report-section">
+            <div class="applicability-box">
+              <h2 class="applicability-box__title">Section 508 Applicability</h2>
+              <div class="applicability-box__status">
+                <span class="applicability-badge" [class.applicability-badge--yes]="getActiveReport()?.applicability?.is_508_applicable" [class.applicability-badge--no]="!getActiveReport()?.applicability?.is_508_applicable">
+                  {{ getActiveReport()?.applicability?.is_508_applicable ? '508 APPLIES' : 'NOT APPLICABLE' }}
                 </span>
+                <span class="applicability-box__confidence">Confidence: {{ getActiveReport()?.applicability?.confidence_score }}/10</span>
+              </div>
+              @if (getActiveReport()?.applicability?.applicability_explanation) {
+                <p class="applicability-box__text">{{ getActiveReport().applicability.applicability_explanation }}</p>
+              }
+            </div>
+          </section>
+        }
 
-                <input
-                  #fileInput
-                  id="file-input-multiple"
-                  class="usa-file-input"
-                  type="file"
-                  name="file-input"
-                  multiple
-                  accept=".pdf,.doc,.docx,.txt"
-                  (change)="onFileSelect($event)"
-                  aria-describedby="file-input-hint"
-                  [ngClass]="{'usa-file-input--drag': isDragging}"
-                  (dragenter)="handleDrag($event)"
-                  (dragover)="handleDrag($event)"
-                  (dragleave)="handleDrag($event)"
-                  (drop)="handleDrop($event)"
-                  />
-
-                <!-- Processing Alert (only shown when analyze button is pressed) -->
-                @if (processingFile) {
-                  <div class="usa-alert usa-alert--info margin-top-2">
-                    <div class="usa-alert__body">
-                      <p class="usa-alert__text">Processing files...</p>
-                    </div>
-                  </div>
-                }
-
-                <!-- Analysis Button -->
-                @if (selectedFiles.length && !uploading && !analysisComplete) {
-                  <button
-                    class="usa-button margin-top-2"
-                    (click)="uploadFiles()"
-                    >
-                    Analyze Selected Files
-                  </button>
-                }
-
-                <!-- Results Section -->
-                @if (!uploading && results && Object.keys(results).length > 0) {
-                  <div class="margin-top-4">
-                    <h3>Analysis Results</h3>
-                    <div class="scrollable-table">
-                      <table class="usa-table width-full">
-                        <thead>
-                          <tr>
-                            <th scope="col">Filename</th>
-                            <th scope="col">Compliance Status</th>
-                            <th scope="col">Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          @for (file of selectedFiles; track file) {
-                            <tr>
-                              <td [title]="file.name">
-                                {{ file.name }}
-                              </td>
-                              <td>
-                                @if (results[file.name]) {
-                                  <span
-            [ngClass]="{
-              'text-success': results[file.name] === 'compliant',
-              'text-error': results[file.name] === 'non-compliant'
-            }"
-                                    >
-                                    <strong>{{ results[file.name] | titlecase }}</strong>
-                                  </span>
-                                }
-                              </td>
-                              @if (results[file.name] === 'non-compliant') {
-                                <td>
-                                  <div class="display-flex flex-row gap-2">
-                                    <app-art-iframe-dialog></app-art-iframe-dialog>
-                                    <app-art-modal></app-art-modal>
-                                  </div>
-                                </td>
-                              }
-                              @if (results[file.name] !== 'non-compliant') {
-                                <td></td>
-                              }
-                            </tr>
-                          }
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                }
-
+        <!-- ART Requirements Table (per-file) -->
+        @if (getActiveReport()?.art_clauses?.language) {
+          <section class="report-section">
+            <h2 class="section-title">Section 508 Requirements</h2>
+            <div class="art-explainer">
+              <div class="art-explainer__icon">
+                <span class="material-symbols-outlined">info</span>
+              </div>
+              <div class="art-explainer__content">
+                <p class="art-explainer__title">What is this?</p>
+                <p class="art-explainer__text">The <strong>Accessibility Requirements Tool (ART)</strong> is a GSA-provided service that generates the specific Section 508 accessibility requirements applicable to your procurement. Based on the ICT types identified in this solicitation ({{ getActiveIctTypes().join(', ') }}), the ART API returned the requirements below. These are the requirements your solicitation should reference.</p>
               </div>
             </div>
-          </div>
-        </div>
+            <p class="art-instruction-text">The requirements below belong in the Terms and Conditions or Requirements section of your solicitation. A reference to these requirements should be added to the initial Section 508 clause.</p>
+            <div class="art-note">
+              <span class="material-symbols-outlined">info</span>
+              <p>This tool provides Section 508 requirements guidance. It does not review FAR clauses, agency-specific requirements, clauses, or provisions.</p>
+            </div>
+            <div class="art-table-wrap">
+              <table class="art-table">
+                <thead><tr><th>Code</th><th>Requirement</th><th>Detail</th></tr></thead>
+                <tbody>
+                  @for (section of getActiveReport().art_clauses.language; track section.code || section.title) {
+                    <tr class="art-table__section-row"><td class="art-table__code">{{ section.code }}</td><td colspan="2"><strong>{{ section.title }}</strong></td></tr>
+                    @if (section.sections?.length) {
+                      @for (sub of section.sections; track sub.code || sub.title) {
+                        <tr><td class="art-table__code">{{ sub.code }}</td><td class="art-table__title">{{ sub.title }}</td><td class="art-table__text">{{ sub.text }}</td></tr>
+                      }
+                    }
+                  }
+                </tbody>
+              </table>
+            </div>
+          </section>
+        }
+        @if (getActiveReport()?.art_clauses?.error) {
+          <section class="report-section">
+            <h2 class="section-title">Section 508 Requirements (ART)</h2>
+            <p class="stage-card__note">{{ getActiveReport().art_clauses.error }}</p>
+          </section>
+        }
 
+        <!-- Key Findings (per-file) -->
+        @if (getActiveReport()?.synthesis?.key_findings?.length) {
+          <section class="report-section">
+            <h2 class="section-title">Key Findings</h2>
+            <div class="findings-grid">
+              @for (finding of getActiveReport().synthesis.key_findings; track finding; let i = $index) {
+                <div class="finding-card">
+                  <div class="finding-card__icon-wrap"><span class="material-symbols-outlined finding-card__icon">{{ i % 2 === 0 ? 'analytics' : 'fact_check' }}</span></div>
+                  <p class="finding-card__text">{{ finding }}</p>
+                </div>
+              }
+            </div>
+          </section>
+        }
+
+        <!-- Procurement Description (per-file) -->
+        @if (getActiveReport()?.synthesis?.procurement_description) {
+          <section class="report-section">
+            <h2 class="section-title">Procurement Description</h2>
+            <div class="summary-box"><p class="summary-box__text">{{ getActiveReport().synthesis.procurement_description }}</p></div>
+          </section>
+        }
+
+        <p class="pipeline-note">{{ pipelineResults.pipeline_note }}</p>
       </div>
-
-      <!-- Quick Links Container -->
-      <div class="quick-links-container">
-        <h2 class="quick-links-header">Quick Links</h2>
-        <div class="tiles-grid">
-          <!-- Manage/Review Solicitations Tile -->
-          <a
-            [routerLink]="['/solicitation/report']"
-            aria-labelledby="h3rmw"
-            class="tile box-link"
-            (click)="onClickTiles('solicitation_tile', 'Solicitation Tile')"
-            >
-            <div class="usa-card">
-              <div class="usa-card__container">
-                <div class="srt-icon-padding">
-                  <div class="srt-icon">
-                    <img alt="Manage/Review Workload Icon" src="/assets/review-manage-workflow.png" />
-                  </div>
-                </div>
-                <h2 class="usa-card__heading" id="h3rmw">Manage/Review Solicitations</h2>
-              </div>
-            </div>
-          </a>
-
-          <!-- Additional Resources Tile -->
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://app.buyaccessible.gov/"
-            aria-labelledby="h3gar"
-            class="tile box-link"
-            (click)="onClickTiles('art_tile', 'ART Tile')"
-            >
-            <div class="usa-card">
-              <div class="usa-card__container">
-                <div class="srt-icon-padding">
-                  <div class="srt-icon">
-                    <img alt="Additional Resources Icon" src="/assets/get-additional-resources.png" />
-                  </div>
-                </div>
-                <h2 class="usa-card__heading" id="h3gar">Get Additional Resources</h2>
-              </div>
-            </div>
-          </a>
-
-          <!-- Contact Us Tile -->
-          <a
-            [routerLink]="['/help/contactus']"
-            class="tile box-link"
-            aria-labelledby="h3cus"
-            (click)="onClickTiles('contact_tile', 'Contact Tile')"
-            >
-            <div class="usa-card">
-              <div class="usa-card__container">
-                <div class="srt-icon-padding">
-                  <div class="srt-icon">
-                    <img alt="Contact Us Icon" src="/assets/contact-us.png" />
-                  </div>
-                </div>
-                <h2 class="usa-card__heading" id="h3cus">Contact Us</h2>
-              </div>
-            </div>
-          </a>
-
-          <!-- FAQ Tile -->
-          <a
-            [routerLink]="['/help/faq']"
-            class="tile box-link"
-            aria-labelledby="h3faq"
-            (click)="onClickTiles('faq_tile', 'FAQ Tile')"
-            >
-            <div class="usa-card">
-              <div class="usa-card__container">
-                <div class="srt-icon-padding">
-                  <div class="srt-icon faq-icon">
-                    <img alt="FAQ Icon" src="/assets/faq.png" />
-                  </div>
-                </div>
-                <h2 class="usa-card__heading" id="h3faq">FAQ</h2>
-              </div>
-            </div>
-          </a>
-
-          <!-- View Analytics Tile -->
-          <a
-            [routerLink]="['/analytics']"
-            aria-labelledby="h3va"
-            class="tile box-link"
-            (click)="onClickTiles('analytics_tile', 'Analytics Tile')"
-            >
-            <div class="usa-card">
-              <div class="usa-card__container">
-                <div class="srt-icon-padding">
-                  <div class="srt-icon">
-                    <img alt="View Analytics Icon" src="/assets/view-analytics.png" />
-                  </div>
-                </div>
-                <h2 class="usa-card__heading" id="h3va">View Analytics</h2>
-              </div>
-            </div>
-          </a>
-
-          <!-- Administration Tile -->
-          <a
-            [routerLink]="['/admin']"
-            aria-labelledby="h3-admin-label"
-            class="tile box-link"
-            (click)="onClickTiles('admin_tile', 'Admin Tile')"
-            >
-            <div class="usa-card">
-              <div class="usa-card__container">
-                <div class="srt-icon-padding">
-                  <div class="srt-icon">
-                    <img alt="Administration Icon" src="/assets/manage-srt-access-requests.png" />
-                  </div>
-                </div>
-                <h2 class="usa-card__heading" id="h3-admin-label">Administration</h2>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
-
     </div>
-  </div>
+  }
+
 </main>

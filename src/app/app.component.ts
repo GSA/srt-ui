@@ -5,6 +5,7 @@ import { AuthGuard } from './auth-guard.service';
 import {Globals} from '../globals';
 import {VersionService} from './shared/services/version.service';
 import {ClientVersionService} from './shared/services/clientVersion.service';
+import {ActivityTrackerService} from './shared/services/activity-tracker.service';
 
 
 @Component({
@@ -41,7 +42,8 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private globals: Globals,
     private versionService: VersionService,
-    private clientVersionService: ClientVersionService
+    private clientVersionService: ClientVersionService,
+    private activityTracker: ActivityTrackerService
   ) {
     globals.app = this;
 

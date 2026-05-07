@@ -1,103 +1,160 @@
 <!-- Loading State -->
-<main id="content" class="usa-layout-docs" role="main">
+<main id="content" class="report-page" role="main">
   @if (!solicitations) {
-    <div class="solic-nosolic">
-      <div class="solic-nosolic-posi" id="loading">
-        <ul class="cb-slide-show">
-          <i class="fa fa-cog fa-spin loading-icon"></i>
-          @for (char of 'LOADING...'.split(''); track char; let i = $index) {
-            <li>
-              <span>{{char}}</span>
-            </li>
-          }
-        </ul>
+    <div class="loading-state">
+      <div class="loading-state__inner">
+        <span class="material-symbols-outlined loading-state__icon">hourglass_top</span>
+        <p class="loading-state__text">Loading solicitations...</p>
       </div>
     </div>
   }
 
-  <!-- Main Content -->
   @if (solicitations) {
-    <div class="main-container">
-      <div class="header-section">
-        <h1 class="usa-display-lg">Daily report</h1>
-        <h2 class="usa-display-md">SRT results for {{ today | date:'MMMM d, yyyy' }}</h2>
-        <p class="usa-prose description">Review the solicitations posted to SAM.gov for 508 compliance for your agency</p>
+    <!-- Page Header -->
+    <header class="report-header">
+      <div class="report-header__left">
+        <h1 class="report-header__title">Daily Report Dashboard</h1>
+        <p class="report-header__subtitle">SRT results for {{ today | date:'MMMM d, yyyy' }}</p>
       </div>
-      <!-- Search and Export Section -->
-      <div class="search-export-container">
-        <div class="search-button-group">
-          <input type="text" #searchInput placeholder="Search table" class="search-input"
-            (input)="dt.filterGlobal($event.target.value, 'contains')">
-          <button class="usa-button">
-            Search table
-          </button>
-          <a href="#" (click)="$event.preventDefault(); dt.exportCSV();" class="export-link">
-            <i class="fa fa-download"></i>
-            Export as CSV file
-          </a>
+      <div class="report-header__actions">
+        <button class="header-btn header-btn--secondary" (click)="loadSolicitationsLazy(tableState)">
+          <span class="material-symbols-outlined">refresh</span>
+          Refresh Data
+        </button>
+        <button class="header-btn header-btn--primary" (click)="exportCSV({}, dt.filters)">
+          <span class="material-symbols-outlined">download</span>
+          Export CSV
+        </button>
+      </div>
+    </header>
+
+    <!-- Content: Sidebar + Table -->
+    <div class="report-body">
+
+      <!-- Filter Sidebar -->
+      <aside class="filter-sidebar">
+        <div class="filter-sidebar__inner">
+          <div class="filter-sidebar__header">
+            <h2 class="filter-sidebar__title">Filter Results</h2>
+          </div>
+
+          <!-- Search -->
+          <fieldset class="filter-group">
+            <legend class="filter-group__legend">Search</legend>
+            <input
+              type="text"
+              #searchInput
+              placeholder="Search solicitations..."
+              class="filter-input"
+              (input)="dt.filterGlobal($event.target.value, 'contains')"
+            />
+          </fieldset>
+
+          <!-- Review Result Filter -->
+          <fieldset class="filter-group">
+            <legend class="filter-group__legend">Integration Status</legend>
+            <p-dropdown
+              id="ddl_reviewRec"
+              [options]="reviewRec"
+              [(ngModel)]="reviewResultFilterModel"
+              (onChange)="dt.filter($event.value, 'reviewRec', 'equals')"
+              styleClass="filter-dropdown"
+            ></p-dropdown>
+          </fieldset>
         </div>
-      </div>
-      <!-- Table Section -->
-      <p-table #dt [value]="solicitations" [columns]="columns" [rows]="15" [rowsPerPageOptions]="[15, 25, 35, 45]"
-        [paginator]="true" [totalRecords]="totalRecordCount" [loading]="loading" [lazy]="true"
-        (onLazyLoad)="loadSolicitationsLazy($event)" styleClass="srt-table">
-        <!-- Table Header -->
-        <ng-template pTemplate="header">
-          <tr>
-            <th pSortableColumn="solNum" scope="col">Solicitation #<p-sortIcon field="solNum"></p-sortIcon></th>
-            <th pSortableColumn="title" scope="col">Title<p-sortIcon field="title"></p-sortIcon></th>
-            <th pSortableColumn="noticeType" scope="col">Notice Type<p-sortIcon field="noticeType"></p-sortIcon></th>
-            <th pSortableColumn="date" scope="col">Date<p-sortIcon field="date"></p-sortIcon></th>
-            <th>
-              <div class="header-with-filter">
-                <div class="header-title" pSortableColumn="reviewRec" scope="col">
-                  Review Result
+      </aside>
+
+      <!-- Main Data Table Area -->
+      <section class="report-table-area">
+
+        <!-- Active Filters Bar -->
+        <div class="active-filters-bar">
+          <span class="active-filters-bar__label">
+            <span class="material-symbols-outlined">filter_list</span>
+            Active Filters:
+          </span>
+          @if (reviewResultFilterModel && reviewResultFilterModel !== 'All' && reviewResultFilterModel !== '') {
+            <span class="filter-chip">
+              Status: {{ reviewResultFilterModel }}
+              <button class="filter-chip__close" (click)="reviewResultFilterModel = ''; dt.filter('', 'reviewRec', 'equals')" aria-label="Remove filter">
+                <span class="material-symbols-outlined">close</span>
+              </button>
+            </span>
+          }
+          <div class="active-filters-bar__count">
+            Showing {{ solicitations?.length || 0 }} of {{ totalRecordCount }} records
+          </div>
+        </div>
+
+        <!-- PrimeNG Table -->
+        <div class="table-wrapper">
+          <p-table #dt [value]="solicitations" [columns]="columns" [rows]="15" [rowsPerPageOptions]="[15, 25, 35, 45]"
+            [paginator]="true" [totalRecords]="totalRecordCount" [loading]="loading" [lazy]="true"
+            (onLazyLoad)="loadSolicitationsLazy($event)" styleClass="report-datatable">
+
+            <!-- Table Header -->
+            <ng-template pTemplate="header">
+              <tr>
+                <th pSortableColumn="solNum" scope="col">
+                  Solicitation ID
+                  <p-sortIcon field="solNum"></p-sortIcon>
+                </th>
+                <th pSortableColumn="title" scope="col">
+                  Title
+                  <p-sortIcon field="title"></p-sortIcon>
+                </th>
+                <th pSortableColumn="noticeType" scope="col">
+                  Notice Type
+                  <p-sortIcon field="noticeType"></p-sortIcon>
+                </th>
+                <th pSortableColumn="date" scope="col">
+                  Post Date
+                  <p-sortIcon field="date"></p-sortIcon>
+                </th>
+                <th pSortableColumn="reviewRec" scope="col">
+                  Status
                   <p-sortIcon field="reviewRec"></p-sortIcon>
-                </div>
-                <p-dropdown id="ddl_reviewRec" [options]="reviewRec" [(ngModel)]="reviewResultFilterModel"
-                  (onChange)="dt.filter($event.value, 'reviewRec', 'equals')"
-                  (onLazyLoad)="dt.filter($event.value, 'reviewRec', 'equals')">
-                </p-dropdown>
-              </div>
-            </th>
-            <th pSortableColumn="actionDate" scope="col">Latest action date<p-sortIcon field="actionDate"></p-sortIcon>
-          </th>
-          <th pSortableColumn="office" scope="col">Office<p-sortIcon field="office"></p-sortIcon></th>
-        </tr>
-      </ng-template>
-      <!-- Table Body -->
-      <!-- Table Body -->
-      <ng-template pTemplate="body" let-solicitation>
-        <tr (mousedown)="mouseDown(solicitation)" (mouseup)="mouseUp(solicitation)">
-          <td class="sol-num-cell">
-            <a [href]="solicitation.url" target="_blank" class="solicitation-link"
-            (click)="$event.stopPropagation()">{{solicitation.solNum}}</a>
-          </td>
-          <td class="clickable-cell">{{solicitation.title}}</td>
-          <td class="clickable-cell">{{solicitation.noticeType}}</td>
-          <td class="clickable-cell">{{solicitation.date | date:'MMM d, yyyy'}}</td>
-          <td class="clickable-cell">
-            <div class="status-indicator" [ngClass]="{
-          'status-compliant': solicitation.reviewRec === 'Compliant',
-          'status-noncompliant': solicitation.reviewRec === 'Non-compliant (Action Required)',
-          'status-not-applicable': solicitation.reviewRec === 'Cannot Evaluate (Review Required)'
-        }">
-              <i class="fa" [ngClass]="{
-            'fa-check-circle': solicitation.reviewRec === 'Compliant',
-            'fa-exclamation-triangle': solicitation.reviewRec === 'Non-compliant (Action Required)',
-            'fa-exclamation-circle': solicitation.reviewRec === 'Cannot Evaluate (Review Required)'
-          }"></i>
-              {{solicitation.reviewRec}}
-            </div>
-          </td>
-          <td class="clickable-cell">{{solicitation.actionDate | date:'MMM d, yyyy'}}</td>
-          <td class="clickable-cell">{{solicitation.office}}</td>
-        </tr>
-      </ng-template>
-    </p-table>
-    <div id="total-count">
-      Total Solicitations: {{totalRecordCount}}
+                </th>
+                <th scope="col" class="actions-col">Actions</th>
+              </tr>
+            </ng-template>
+
+            <!-- Table Body -->
+            <ng-template pTemplate="body" let-solicitation>
+              <tr (mousedown)="mouseDown(solicitation)" (mouseup)="mouseUp(solicitation)" class="table-row">
+                <td>
+                  <a [href]="solicitation.url" target="_blank" class="sol-link"
+                    (click)="$event.stopPropagation()">{{ solicitation.solNum }}</a>
+                </td>
+                <td class="title-cell">{{ solicitation.title }}</td>
+                <td class="muted-cell">{{ solicitation.noticeType }}</td>
+                <td class="date-cell">{{ solicitation.date }}</td>
+                <td>
+                  <span class="status-badge" [ngClass]="{
+                    'status-badge--noncompliant': solicitation.reviewRec === 'Non-compliant (Action Required)',
+                    'status-badge--compliant': solicitation.reviewRec === 'Compliant',
+                    'status-badge--review': solicitation.reviewRec === 'Cannot Evaluate (Review Required)',
+                    'status-badge--na': solicitation.reviewRec === 'Not Applicable'
+                  }">
+                    {{ solicitation.reviewRec === 'Non-compliant (Action Required)' ? 'Non-Compliant' :
+                       solicitation.reviewRec === 'Cannot Evaluate (Review Required)' ? 'Cannot Evaluate' :
+                       solicitation.reviewRec }}
+                  </span>
+                </td>
+                <td class="actions-col">
+                  <button class="view-details-btn" (click)="$event.stopPropagation(); selectSol(solicitation)">
+                    View Details
+                  </button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+
+        <div class="total-count">
+          Total Solicitations: {{ totalRecordCount }}
+        </div>
+      </section>
     </div>
-  </div>
-}
+  }
 </main>
