@@ -28,7 +28,7 @@ export class HomeComponent
   Object = Object;
 
   // — Pipeline state —
-  pipelineVersion: 'v1' | 'v2' = 'v1';
+  pipelineVersion: 'v1' | 'v2' | 'v3' = 'v1';
   showVectorMatches = false;
   showStageDebug = false;
   showOverrideResults = false;
@@ -342,10 +342,15 @@ export class HomeComponent
 
     let completedResult: any = null;
     let progressiveResult: any = { success: true };
-    const apiUrl = this.pipelineVersion === 'v2'
+    const apiUrl = (this.pipelineVersion === 'v2' || this.pipelineVersion === 'v3')
       ? `${environment.SERVER_URL}/pipeline-v2/analyze`
       : `${environment.SERVER_URL}/rag-analytics/playground/analyze?stream=true`;
     console.log('UI: Calling RAG pipeline (SSE) at', apiUrl, file ? file.name : 'raw_text');
+
+    // For v2/v3, append pipeline_version to formData so backend knows which prompts to use
+    if (this.pipelineVersion === 'v2' || this.pipelineVersion === 'v3') {
+      formData.append('pipeline_version', this.pipelineVersion);
+    }
 
     fetch(apiUrl, {
       method: 'POST',
