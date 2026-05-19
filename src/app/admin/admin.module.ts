@@ -35,6 +35,7 @@ import {WebsiteAnalyticsComponent} from './website-analytics/website-analytics.c
 import {AuditLogComponent} from './audit-log/audit-log.component';
 import {SystemHealthComponent} from './system-health/system-health.component';
 import {AdminManagementService} from '../shared/services/admin-management.service';
+import {EmailTemplatesComponent} from './email-templates/email-templates.component';
 import {ChartModule} from 'primeng/chart';
 
 
@@ -71,7 +72,8 @@ import {ChartModule} from 'primeng/chart';
     UserManagementComponent,
     WebsiteAnalyticsComponent,
     AuditLogComponent,
-    SystemHealthComponent
+    SystemHealthComponent,
+    EmailTemplatesComponent
   ],
   declarations: [
     MasqComponent,
@@ -81,7 +83,8 @@ import {ChartModule} from 'primeng/chart';
     UserManagementComponent,
     WebsiteAnalyticsComponent,
     AuditLogComponent,
-    SystemHealthComponent
+    SystemHealthComponent,
+    EmailTemplatesComponent
   ]
 })
   export class AdminModule { }

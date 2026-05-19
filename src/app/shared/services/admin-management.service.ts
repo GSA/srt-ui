@@ -82,4 +82,18 @@ export class AdminManagementService {
   trackBatch(events: any[]): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/analytics/track-batch`, { events });
   }
+
+  // ── Email ──────────────────────────────────────────────────────────
+
+  sendBulkEmail(payload: {
+    templateId: string;
+    subject: string;
+    body: string;
+    recipientMode: string;
+    agency?: string;
+    role?: string;
+    inactivityDays?: number;
+  }): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/admin/send-bulk-email`, payload);
+  }
 }

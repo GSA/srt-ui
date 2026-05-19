@@ -1,148 +1,265 @@
 <main id="content" class="main-content usa-section">
   <div class="feedback-container usa-layout-container">
-    <div id="detail">
-      <h1 class="font-sans-xl margin-bottom-2">{{solicitation.title}}</h1>
 
-      <div class="status-badge"
-        [ngClass]="{'status-badge--compliant': solicitation?.reviewRec === 'Compliant', 'status-badge--non-compliant': solicitation?.reviewRec !== 'Compliant'}">
-        <svg viewBox="0 0 24 24" class="check-icon">
-          @if (solicitation?.reviewRec === 'Compliant') {
-            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-          }
-          @if (solicitation?.reviewRec !== 'Compliant') {
-            <path
-              d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-          }
-        </svg>
-        {{ solicitation?.reviewRec }}
+    <!-- Loading State -->
+    @if (loading) {
+      <div class="text-center padding-4">Loading analysis...</div>
+    }
+
+    @if (!loading && solicitation) {
+      <!-- Back Button -->
+      <div class="margin-bottom-2">
+        <a [routerLink]="['/solicitation/report']" class="usa-link">
+          <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 18px;">arrow_back</span>
+          Back to Daily Report
+        </a>
       </div>
-      <a [routerLink]="['/solicitation/history', solicitationID]"
-        [class.usa-button--active]="type==='history'"
-        class="usa-button usa-button--outline margin-x-2 padding-x-2"
-        (click)="onClickTabs('history_tab', 'History Tab')">
-        History
-      </a>
 
-      @if (solicitation?.reviewRec !== 'Compliant') {
-        <div class="usa-alert usa-alert--warning margin-top-2">
-          <div class="usa-alert__body">
-            <p class="usa-alert__text">Solicitation does not include required 508 language.</p>
-            <p class="usa-alert__text">Use the ART tool to get the appropriate 508 language for this solicitation.</p>
-            <app-art-modal></app-art-modal>
-          </div>
+      <!-- Title -->
+      <h1 class="font-sans-xl margin-bottom-1">{{ solicitation.title || solicitation.solNum }}</h1>
+      <p class="font-sans-xs text-base-dark margin-bottom-3">{{ solicitation.solNum }} · {{ solicitation.agency }} · {{ solicitation.date | date:'mediumDate' }}</p>
+
+      <!-- Determination Card -->
+      <section class="determination-card" [class.determination-card--compliant]="solicitation?.reviewRec === 'Compliant'" [class.determination-card--noncompliant]="solicitation?.reviewRec !== 'Compliant'">
+        <div class="determination-card__content">
+          <span class="determination-card__label">Section 508 Integration Assessment</span>
+          <h2 class="determination-card__verdict">{{ solicitation?.reviewRec === 'Compliant' ? 'INCLUDED' : 'NOT INCLUDED' }}</h2>
+          <p class="determination-card__desc">The SRT pipeline has analyzed solicitation <strong>{{ solicitation.solNum }}</strong> for integration of Section 508 accessibility requirements.</p>
         </div>
+        <div class="determination-card__badge">
+          <span class="material-symbols-outlined determination-card__icon">{{ solicitation?.reviewRec === 'Compliant' ? 'verified' : 'warning' }}</span>
+        </div>
+      </section>
+
+      <!-- RAG Analysis Section (if available) -->
+      @if (ragData) {
+        <!-- Executive Summary -->
+        @if (ragData.solicitation_explanation || ragData.ai_explanation) {
+          <section class="report-section">
+            <h2 class="section-title">Executive Summary</h2>
+            <div class="summary-box">
+              <p class="summary-box__text">{{ ragData.solicitation_explanation || ragData.ai_explanation }}</p>
+            </div>
+          </section>
+        }
+
+        <!-- ICT Classification -->
+        @if (ragDocuments?.length > 0 && getActiveIctTypes().length > 0) {
+          <section class="report-section">
+            <h2 class="section-title">ICT Classification</h2>
+            <div class="ict-bento">
+              @for (ict of getActiveIctTypes(); track ict) {
+                <div class="ict-bento__card">
+                  <div class="ict-bento__header">
+                    <span class="material-symbols-outlined ict-bento__icon">{{ getIctIcon(ict) }}</span>
+                    <h4 class="ict-bento__name">{{ ict }}</h4>
+                  </div>
+                </div>
+              }
+            </div>
+          </section>
+        }
+
+        <!-- Section 508 Applicability -->
+        @if (ragData.ai_applicable !== undefined) {
+          <section class="report-section">
+            <div class="applicability-box">
+              <h2 class="applicability-box__title">Section 508 Applicability</h2>
+              <div class="applicability-box__status">
+                <span class="applicability-badge" [class.applicability-badge--yes]="ragData.ai_applicable" [class.applicability-badge--no]="!ragData.ai_applicable">
+                  {{ ragData.ai_applicable ? 'SECTION 508 APPLIES' : 'NOT APPLICABLE' }}
+                </span>
+              </div>
+            </div>
+          </section>
+        }
+
+        <!-- Vector Match Evidence -->
+        @if (ragMatches?.length > 0) {
+          <section class="report-section">
+            <h2 class="section-title">Section 508 Evidence</h2>
+            <p class="font-sans-xs text-base-dark margin-bottom-2">{{ ragMatches.length }} vector matches found against the Section 508 standards corpus. Matches validated as meaningful are highlighted.</p>
+            <div class="vector-matches-list">
+              @for (match of ragMatches.slice(0, 10); track match.id) {
+                <div class="vector-match" [class.vector-match--meaningful]="match.is_meaningful_508_match" [class.vector-match--noise]="!match.is_meaningful_508_match">
+                  <div class="vector-match__header">
+                    <span class="vector-match__score">{{ (match.similarity_score * 100).toFixed(0) }}%</span>
+                    <span class="vector-match__badge">{{ match.is_meaningful_508_match ? '✓ Meaningful' : '✗ Not meaningful' }}</span>
+                    <span class="vector-match__file">{{ match.file_name }}</span>
+                  </div>
+                  <div class="vector-match__body">
+                    <div class="vector-match__col">
+                      <span class="vector-match__label">Solicitation Text</span>
+                      <p class="vector-match__text">{{ match.chunk_text }}</p>
+                    </div>
+                    <div class="vector-match__col">
+                      <span class="vector-match__label">508 Standard</span>
+                      <p class="vector-match__text">{{ match.matched_standard_text }}</p>
+                    </div>
+                  </div>
+                  @if (match.validation_reasoning) {
+                    <p class="vector-match__reason">{{ match.validation_reasoning }}</p>
+                  }
+                </div>
+              }
+            </div>
+          </section>
+        }
+
+        <!-- ART Requirements (for non-compliant only) -->
+        @if (solicitation?.reviewRec !== 'Compliant' && artRequirements) {
+          <section class="report-section">
+            <h2 class="section-title">Section 508 Requirements</h2>
+            <div class="art-explainer">
+              <div class="art-explainer__icon">
+                <span class="material-symbols-outlined">info</span>
+              </div>
+              <div class="art-explainer__content">
+                <p class="art-explainer__title">What is this?</p>
+                <p class="art-explainer__text">The <strong>Accessibility Requirements Tool (ART)</strong> generated the specific Section 508 requirements applicable to this procurement based on the ICT types identified ({{ getActiveIctTypes().join(', ') }}). These are the requirements this solicitation should reference.</p>
+              </div>
+            </div>
+            <p class="art-instruction-text">The requirements below belong in the Terms and Conditions or Requirements section of the solicitation. A reference to these requirements should be added to the initial Section 508 clause.</p>
+            <div class="art-note">
+              <span class="material-symbols-outlined">info</span>
+              <p>This tool provides Section 508 requirements guidance. It does not review FAR clauses, agency-specific requirements, clauses, or provisions.</p>
+            </div>
+            @if (artRequirements.language) {
+              <div class="art-table-wrap">
+                <table class="art-table">
+                  <thead><tr><th>Code</th><th>Requirement</th><th>Detail</th></tr></thead>
+                  <tbody>
+                    @for (section of artRequirements.language; track section.code || section.title) {
+                      <tr class="art-table__section-row"><td class="art-table__code">{{ section.code }}</td><td colspan="2"><strong>{{ section.title }}</strong></td></tr>
+                      @if (section.sections?.length) {
+                        @for (sub of section.sections; track sub.code || sub.title) {
+                          <tr><td class="art-table__code">{{ sub.code }}</td><td class="art-table__title">{{ sub.title }}</td><td class="art-table__text">{{ sub.text }}</td></tr>
+                        }
+                      }
+                    }
+                  </tbody>
+                </table>
+              </div>
+            }
+            @if (artLoading) {
+              <p class="text-base-dark">Loading ART requirements...</p>
+            }
+            @if (artError) {
+              <p class="text-error">{{ artError }}</p>
+            }
+          </section>
+        }
+
+        <!-- Per-File Results -->
+        @if (ragDocuments?.length > 1) {
+          <section class="report-section">
+            <h2 class="section-title">Individual File Results</h2>
+            <div class="file-tabs">
+              @for (doc of ragDocuments; track doc.id; let i = $index) {
+                <button class="file-tabs__tab" [class.file-tabs__tab--active]="selectedDocTab === i" (click)="selectedDocTab = i">
+                  <span class="material-symbols-outlined file-tabs__icon">{{ doc.is_compliant ? 'check_circle' : 'cancel' }}</span>
+                  {{ doc.file_name }}
+                </button>
+              }
+            </div>
+            <div class="file-tab-content">
+              <div class="file-tab-result">
+                <div class="file-tab-result__header">
+                  <span class="file-tab-result__badge" [class.file-tab-result__badge--pass]="ragDocuments[selectedDocTab]?.is_compliant" [class.file-tab-result__badge--fail]="!ragDocuments[selectedDocTab]?.is_compliant">
+                    {{ ragDocuments[selectedDocTab]?.is_compliant ? 'Included' : 'Not Included' }}
+                  </span>
+                  <span class="file-tab-result__name">{{ ragDocuments[selectedDocTab]?.file_name }}</span>
+                </div>
+                @if (ragDocuments[selectedDocTab]?.document_summary) {
+                  <p class="file-tab-result__summary">{{ ragDocuments[selectedDocTab].document_summary }}</p>
+                }
+                @if (ragDocuments[selectedDocTab]?.applicability_explanation) {
+                  <p class="file-tab-result__meta"><strong>Applicability:</strong> {{ ragDocuments[selectedDocTab].applicability_explanation }}</p>
+                }
+              </div>
+            </div>
+          </section>
+        }
       }
 
-      <div class="grid-row grid-gap margin-top-4">
-        <div class="tablet:grid-col-8">
-          <h2>Details</h2>
-          <dl class="usa-description-list">
-            <div class="margin-bottom-2">
-              <dt class="usa-description-list__term">Solicitation number:&nbsp;</dt>
-              <dd class="usa-description-list__description" id="solNum">
-                <a [href]="solicitation.url" target="_blank" class="usa-link">{{solicitation.solNum}}</a>
-                <i class="fa fa-external-link icon-link" aria-hidden="true"></i>
-              </dd>
-            </div>
-
-            <div class="margin-bottom-2">
-              <dt class="usa-description-list__term">Date posted:&nbsp;</dt>
-              <dd class="usa-description-list__description" id="solDate">{{solicitation.date | date:'shortDate'}}</dd>
-            </div>
-
-            <div class="margin-bottom-2">
-              <dt class="usa-description-list__term">Solicitation type:&nbsp;</dt>
-              <dd class="usa-description-list__description" id="solType">{{solicitation.noticeType}}
-                @if (!solicitation.active) {
-                  <span> (not active)</span>
+      <!-- Contact & Metadata Grid -->
+      <section class="report-section">
+        <div class="grid-row grid-gap margin-top-3">
+          <div class="tablet:grid-col-8">
+            <h2 class="section-title">Scan Results</h2>
+            <table class="usa-table" data-sortable="true">
+              <thead>
+                <tr>
+                  <th scope="col">Filename</th>
+                  <th scope="col">Date posted</th>
+                  <th scope="col">Machine readable</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (doc of solicitation.parseStatus; track doc) {
+                  <tr>
+                    <td><a href="{{ doc.attachment_url }}" class="usa-link">{{ doc.name }}</a></td>
+                    <td>{{ doc.formattedDate }}</td>
+                    <td>{{ doc.status }}</td>
+                  </tr>
                 }
-              </dd>
-            </div>
+              </tbody>
+            </table>
 
-            <div class="margin-bottom-2">
-              <dt class="usa-description-list__term">
-                ICT (Yes/No):
-                <sup pTooltip="SRT identifies Information and Communication Technology (ICT) solicitations with a set of NAICS codes (334111, 334118, 3343, 33451, 334516, 334614, 5112, 518, 54169, 54121, 5415, 54169, and 61142).">
-                  <i class="fa fa-info-circle" aria-hidden="true"></i>
-                </sup>
-              </dt>
-              <dd class="usa-description-list__description" id="solICT">{{solicitation.category_list.value}}</dd>
+            <div class="margin-top-2">
+              <a [routerLink]="['/solicitation/history', solicitationID]" class="usa-button usa-button--outline">
+                History
+              </a>
+              <a [routerLink]="['/solicitation/feedback', solicitationID]" class="usa-button usa-button--outline margin-left-1">
+                Provide Feedback
+              </a>
             </div>
-
-            <div class="margin-bottom-2">
-              <dt class="usa-description-list__term">
-                PSC:
-                <sup pTooltip="Product and Service Code">
-                  <i class="fa fa-info-circle" aria-hidden="true"></i>
-                </sup>
-              </dt>
-              <dd class="usa-description-list__description" id="solPSC">{{solicitation.noticeData.psc}}</dd>
-            </div>
-          </dl>
-
-          <div style="position: relative;">
-            <h2 class="margin-0">Scan results</h2>
-            <a [routerLink]="['/solicitation/feedback', solicitationID]"
-              [class.usa-button--active]="type==='feedback'"
-              class="usa-button usa-button--outline"
-              style="position: absolute; right: 0; top: 0;"
-              (click)="onClickTabs('make_smarter_tab', 'Make Smarter Tab')">
-              <i class="fa fa-comment" aria-hidden="true"></i>&nbsp;
-              Provide feedback
-            </a>
           </div>
 
-          <table class="usa-table" data-sortable="true">
-            <thead>
-              <tr>
-                <th scope="col" data-sortable="false">Filename</th>
-                <th scope="col" data-sortable="false">Date posted</th>
-                <th scope="col" data-sortable="false">Machine readable</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (doc of solicitation.parseStatus; track doc) {
-                <tr>
-                  <td><a href="{{doc.attachment_url}}" class="usa-link">{{doc.name}}</a></td>
-                  <td>{{doc.formattedDate}}</td>
-                  <td>{{doc.status}}</td>
-                </tr>
-              }
-              @for (lock of lockDocs; track lock) {
-                <tr>
-                  <td>solicitation_{{solicitation.solNum}}_document: Failed to Load</td>
-                  <td></td>
-                  <td class="text-center"></td>
-                </tr>
-              }
-            </tbody>
-          </table>
+          <div class="tablet:grid-col-4">
+            <h2 class="section-title">Contact</h2>
+            <dl class="usa-description-list">
+              <div class="margin-bottom-2">
+                <dt class="usa-description-list__term">Agency:</dt>
+                <dd class="usa-description-list__description">{{ solicitation.agency }}</dd>
+              </div>
+              <div class="margin-bottom-2">
+                <dt class="usa-description-list__term">Office:</dt>
+                <dd class="usa-description-list__description">{{ solicitation.office }}</dd>
+              </div>
+              <div class="margin-bottom-2">
+                <dt class="usa-description-list__term">Point of Contact:</dt>
+                <dd class="usa-description-list__description">
+                  <a [routerLink]="['/solicitation/email', solicitationID]" class="usa-link">
+                    {{ solicitation.contactInfo?.join(', ') }}
+                  </a>
+                </dd>
+              </div>
+              <div class="margin-bottom-2">
+                <dt class="usa-description-list__term">Notice Type:</dt>
+                <dd class="usa-description-list__description">{{ solicitation.noticeType }}</dd>
+              </div>
+              <div class="margin-bottom-2">
+                <dt class="usa-description-list__term">NAICS:</dt>
+                <dd class="usa-description-list__description">{{ solicitation.noticeData?.naics }}</dd>
+              </div>
+              <div class="margin-bottom-2">
+                <dt class="usa-description-list__term">PSC:</dt>
+                <dd class="usa-description-list__description">{{ solicitation.noticeData?.psc }}</dd>
+              </div>
+            </dl>
+
+            <!-- Not Applicable Toggle -->
+            <div class="margin-top-3">
+              <div class="usa-checkbox">
+                <input class="usa-checkbox__input" id="na-flag" type="checkbox"
+                       [checked]="solicitation.na_flag" (change)="onNotApplicableClick($event)" />
+                <label class="usa-checkbox__label" for="na-flag">Mark as Not Applicable</label>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div class="tablet:grid-col-4">
-          <h2>Contact</h2>
-          <dl class="usa-description-list">
-            <div class="margin-bottom-2">
-              <dt class="usa-description-list__term">Agency:&nbsp;</dt>
-              <dd class="usa-description-list__description" id="solAgency">{{solicitation.agency}}</dd>
-            </div>
-
-            <div class="margin-bottom-2">
-              <dt class="usa-description-list__term">Office:&nbsp;</dt>
-              <dd class="usa-description-list__description" id="solOffice">{{solicitation.office}}</dd>
-            </div>
-
-            <div class="margin-bottom-2">
-              <dt class="usa-description-list__term">Point of Contact:&nbsp;</dt>
-              <dd class="usa-description-list__description" id="solPOC">
-                <a [routerLink]="['/solicitation/email', solicitationID]" class="usa-link">
-                  {{solicitation.contactInfo.join(', ')}}
-                </a>
-              </dd>
-            </div>
-          </dl>
-        </div>
-      </div>
-    </div>
+      </section>
+    }
   </div>
 </main>

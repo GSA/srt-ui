@@ -22,6 +22,11 @@
       <app-system-health></app-system-health>
     }
 
+    <!-- Email Templates Tab -->
+    @if (this.activeTab == 'email-templates') {
+      <app-email-templates></app-email-templates>
+    }
+
     <!-- Approved Tab -->
     @if (this.activeTab == 'approved') {
       <app-user-report></app-user-report>

@@ -43,6 +43,12 @@
         (keydown.space)="menuClick.emit('metric-downloads'); setActiveTab('metric-downloads')">
         <a class="custom-tabs__link">METRIC DOWNLOADS</a>
       </li>
+      <li class="custom-tabs__item" [ngClass]="{'custom-tabs__item--active': active['email-templates']}"
+        (click)="menuClick.emit('email-templates'); setActiveTab('email-templates')" tabindex="0"
+        (keydown.enter)="menuClick.emit('email-templates'); setActiveTab('email-templates')"
+        (keydown.space)="menuClick.emit('email-templates'); setActiveTab('email-templates')">
+        <a class="custom-tabs__link">EMAIL</a>
+      </li>
     </ul>
   </div>
 </div>

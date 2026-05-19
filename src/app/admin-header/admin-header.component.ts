@@ -21,6 +21,7 @@ export class AdminHeaderComponent implements OnInit {
     this.active['audit-log'] = false;
     this.active['system-health'] = false;
     this.active['feedback'] = false;
+    this.active['email-templates'] = false;
   }
 
 

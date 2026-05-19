@@ -1,0 +1,162 @@
+<div class="email-templates">
+  <h2 class="srt-section-title srt-blue">Email Templates</h2>
+  <p class="usa-intro">Send notifications to SRT users. Select a template, edit the content, and send.</p>
+
+  <!-- Success / Error Alerts -->
+  @if (sendResult) {
+    <div class="usa-alert usa-alert--slim margin-bottom-2" [class.usa-alert--success]="sendResult.success" [class.usa-alert--error]="!sendResult.success" role="alert">
+      <div class="usa-alert__body"><p class="usa-alert__text">{{ sendResult.message }}</p></div>
+    </div>
+  }
+
+  <!-- Template Selector -->
+  <div class="template-selector margin-bottom-3">
+    @for (t of templates; track t.id) {
+      <button class="template-btn" [class.template-btn--active]="selectedTemplate?.id === t.id" (click)="selectTemplate(t)">
+        {{ t.name }}
+      </button>
+    }
+  </div>
+
+  @if (selectedTemplate) {
+    <!-- Subject Line -->
+    <div class="margin-bottom-2">
+      <label class="usa-label" for="email-subject">Subject</label>
+      <input class="usa-input" id="email-subject" type="text" [(ngModel)]="editingSubject" />
+    </div>
+
+    <!-- Update Notes (for update template) -->
+    @if (selectedTemplate.id === 'update_announcement') {
+      <div class="margin-bottom-2">
+        <label class="usa-label">Update Notes</label>
+        <p class="font-sans-3xs text-base-dark margin-bottom-1">Add bullet points describing what changed.</p>
+        @for (note of updateNotes; track $index; let i = $index) {
+          <div class="note-row">
+            <span class="note-row__bullet">•</span>
+            <input class="usa-input note-row__input" type="text" [(ngModel)]="updateNotes[i]" placeholder="Describe an update..." />
+            @if (updateNotes.length > 1) {
+              <button class="note-row__remove" (click)="removeNote(i)" aria-label="Remove note">✕</button>
+            }
+          </div>
+        }
+        <button class="usa-button usa-button--unstyled margin-top-1" (click)="addNote()">+ Add another note</button>
+      </div>
+    }
+
+    <!-- Inactivity Days (for inactivity template) -->
+    @if (selectedTemplate.id === 'inactivity_warning') {
+      <div class="margin-bottom-2">
+        <label class="usa-label" for="inactivity-days">Days inactive threshold</label>
+        <input class="usa-input" id="inactivity-days" type="number" [(ngModel)]="inactivityDays" min="30" max="365" style="width: 120px;" />
+      </div>
+    }
+
+    <!-- Side-by-side: HTML source + Live Preview -->
+    <div class="editor-grid">
+      <!-- Left: HTML Source -->
+      <div class="editor-grid__source">
+        <h4 class="editor-grid__label">HTML Source</h4>
+        <textarea class="usa-textarea editor-grid__textarea" [(ngModel)]="editingBody" rows="16"></textarea>
+      </div>
+
+      <!-- Right: Live Preview -->
+      <div class="editor-grid__preview">
+        <h4 class="editor-grid__label">Live Preview</h4>
+        <div class="editor-grid__preview-box">
+          <p class="preview-meta"><strong>From:</strong> srt-noreply</p>
+          <p class="preview-meta"><strong>Subject:</strong> {{ editingSubject }}</p>
+          <hr style="margin: 8px 0;" />
+          <div [innerHTML]="getFullBody()"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recipients -->
+    <fieldset class="usa-fieldset margin-top-3">
+      <legend class="usa-legend font-sans-sm">Recipients</legend>
+      <div class="grid-row grid-gap">
+        <div class="grid-col-3">
+          <div class="usa-radio">
+            <input class="usa-radio__input" id="r-all" type="radio" name="recipients" value="all" [(ngModel)]="recipientMode" (change)="onRecipientChange()" />
+            <label class="usa-radio__label" for="r-all">All active users</label>
+          </div>
+        </div>
+        <div class="grid-col-3">
+          <div class="usa-radio">
+            <input class="usa-radio__input" id="r-agency" type="radio" name="recipients" value="agency" [(ngModel)]="recipientMode" (change)="onRecipientChange()" />
+            <label class="usa-radio__label" for="r-agency">By agency</label>
+          </div>
+        </div>
+        <div class="grid-col-3">
+          <div class="usa-radio">
+            <input class="usa-radio__input" id="r-role" type="radio" name="recipients" value="role" [(ngModel)]="recipientMode" (change)="onRecipientChange()" />
+            <label class="usa-radio__label" for="r-role">By role</label>
+          </div>
+        </div>
+        <div class="grid-col-3">
+          <div class="usa-radio">
+            <input class="usa-radio__input" id="r-inactive" type="radio" name="recipients" value="inactive" [(ngModel)]="recipientMode" (change)="onRecipientChange()" />
+            <label class="usa-radio__label" for="r-inactive">Inactive users</label>
+          </div>
+        </div>
+      </div>
+
+      @if (recipientMode === 'agency') {
+        <select class="usa-select margin-top-1" [(ngModel)]="selectedAgency" (change)="onRecipientChange()">
+          <option value="">Select agency</option>
+          @for (a of agencies; track a.id) {
+            <option [value]="a.agency">{{ a.acronym || a.agency }}</option>
+          }
+        </select>
+      }
+
+      @if (recipientMode === 'role') {
+        <select class="usa-select margin-top-1" [(ngModel)]="selectedRole" (change)="onRecipientChange()">
+          <option value="">Select role</option>
+          @for (r of roles; track r) {
+            <option [value]="r">{{ r }}</option>
+          }
+        </select>
+      }
+
+      <p class="font-sans-xs margin-top-1 text-base-dark">{{ recipientCount }} recipient(s) will receive this email.</p>
+    </fieldset>
+
+    <!-- Send Flow -->
+    <div class="send-section margin-top-3">
+      @if (confirmStep === 0) {
+        <button class="usa-button" (click)="startSend()" [disabled]="recipientCount === 0">
+          Send Email
+        </button>
+      }
+
+      @if (confirmStep === 1) {
+        <div class="usa-alert usa-alert--warning usa-alert--slim margin-bottom-2" role="alert">
+          <div class="usa-alert__body">
+            <p class="usa-alert__text">Please review for any inaccuracies. This will send to <strong>{{ recipientCount }}</strong> recipient(s).</p>
+          </div>
+        </div>
+        <button class="usa-button usa-button--secondary" (click)="cancelSend()">Cancel</button>
+        <button class="usa-button margin-left-1" (click)="confirmFirst()">I have reviewed, continue</button>
+      }
+
+      @if (confirmStep === 2) {
+        <div class="usa-alert usa-alert--error usa-alert--slim margin-bottom-2" role="alert">
+          <div class="usa-alert__body">
+            <p class="usa-alert__text">Final confirmation: Please review for any inaccuracies. Are you sure you want to send this to <strong>{{ recipientCount }}</strong> recipient(s)?</p>
+          </div>
+        </div>
+        <button class="usa-button usa-button--secondary" (click)="cancelSend()">Cancel</button>
+        <button class="usa-button usa-button--accent-cool margin-left-1" (click)="confirmSecond()">Send Now</button>
+      }
+
+      @if (confirmStep === 3) {
+        <p class="text-base-dark">Sending...</p>
+      }
+    </div>
+  } @else {
+    <div class="padding-4 text-center text-base-dark">
+      <p>Select a template above to get started.</p>
+    </div>
+  }
+</div>

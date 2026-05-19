@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { SolicitationService } from '../../solicitation.service';
 import { Solicitation } from '../../../shared/solicitation';
 import moment from 'moment';
@@ -27,10 +28,19 @@ export class ResultsDetailComponent implements OnInit {
   subscription: Subscription;
   solicitationID: string;
   type: string = 'report';
-  public step1: boolean = false;
-  public step2: boolean = false;
-  public step3: boolean = false;
+  loading = true;
   feature_flags = environment.feature_flags;
+
+  // RAG data
+  ragData: any = null;
+  ragDocuments: any[] = [];
+  ragMatches: any[] = [];
+  selectedDocTab = 0;
+
+  // ART requirements
+  artRequirements: any = null;
+  artLoading = false;
+  artError = '';
 
   private readonly STEP_ACTIONS = {
     REVIEW: 'reviewed solicitation action requested summary',
@@ -42,6 +52,7 @@ export class ResultsDetailComponent implements OnInit {
     private solicitationService: SolicitationService,
     private router: Router,
     private route: ActivatedRoute,
+    private http: HttpClient,
     private gaService: GoogleAnalyticsService
   ) {
     this.solicitation = new Solicitation(null, null, null, null, null, null,
@@ -64,6 +75,7 @@ export class ResultsDetailComponent implements OnInit {
       }
     } catch (error) {
       console.error('[ngOnInit] Error initializing component:', error);
+      this.loading = false;
     }
   }
 
@@ -75,7 +87,10 @@ export class ResultsDetailComponent implements OnInit {
         next: data => {
           this.processSolicitationData(data);
         },
-        error: err => console.error('[loadSolicitationData] Error:', err)
+        error: err => {
+          console.error('[loadSolicitationData] Error:', err);
+          this.loading = false;
+        }
       });
     });
   }
@@ -83,53 +98,114 @@ export class ResultsDetailComponent implements OnInit {
   private processSolicitationData(data: any): void {
     try {
       this.processParseStatus(data);
-      this.processSteps(data);
       this.setSolicitationData(data);
       this.processDocuments();
+      this.loading = false;
+
+      // Load RAG data if solicitation number is available
+      if (data.solNum) {
+        this.loadRagData(data.solNum);
+      }
     } catch (error) {
       console.error('[processSolicitationData] Error:', error);
+      this.loading = false;
     }
+  }
+
+  private loadRagData(solNum: string): void {
+    const baseUrl = environment.SERVER_URL;
+
+    // Fetch RAG solicitation summary
+    this.http.get<any>(`${baseUrl}/rag/solicitation/${solNum}`).subscribe({
+      next: (data) => {
+        this.ragData = data;
+
+        // If non-compliant, fetch ART requirements
+        if (this.solicitation?.reviewRec !== 'Compliant') {
+          this.loadArtRequirements();
+        }
+      },
+      error: () => { /* RAG data not available for this solicitation — that's fine */ }
+    });
+
+    // Fetch RAG documents
+    this.http.get<any>(`${baseUrl}/rag/solicitation/${solNum}/documents`).subscribe({
+      next: (data) => { this.ragDocuments = data.documents || []; },
+      error: () => {}
+    });
+
+    // Fetch RAG vector matches
+    this.http.get<any>(`${baseUrl}/rag/solicitation/${solNum}/matches`).subscribe({
+      next: (data) => { this.ragMatches = data.matches || []; },
+      error: () => {}
+    });
+  }
+
+  private loadArtRequirements(): void {
+    const ictTypes = this.getActiveIctTypes();
+    if (ictTypes.length === 0) return;
+
+    this.artLoading = true;
+    const baseUrl = environment.SERVER_URL;
+
+    this.http.post<any>(`${baseUrl}/rag-analytics/art-lookup`, { ict_types: ictTypes }).subscribe({
+      next: (data) => {
+        this.artRequirements = data;
+        this.artLoading = false;
+      },
+      error: (err) => {
+        this.artError = 'Unable to load ART requirements.';
+        this.artLoading = false;
+      }
+    });
+  }
+
+  getActiveIctTypes(): string[] {
+    if (!this.ragDocuments || this.ragDocuments.length === 0) return [];
+    const allTypes = new Set<string>();
+    for (const doc of this.ragDocuments) {
+      if (doc.ict_types) {
+        for (const ict of doc.ict_types) {
+          if (ict.is_applicable) {
+            allTypes.add(ict.ict_type);
+          }
+        }
+      }
+    }
+    return Array.from(allTypes);
+  }
+
+  getIctIcon(ictType: string): string {
+    const icons: { [key: string]: string } = {
+      'Web': 'language',
+      'Software': 'code',
+      'Hardware': 'devices',
+      'Electronic_Content': 'description',
+      'Telecommunications': 'cell_tower',
+      'Multimedia': 'play_circle',
+      'Medical_Devices': 'medical_services'
+    };
+    return icons[ictType] || 'category';
   }
 
   private processParseStatus(data: any): void {
     if (data.parseStatus && Array.isArray(data.parseStatus)) {
-      data.parseStatus.forEach((element, index) => {
+      data.parseStatus.forEach((element) => {
         element.status = this.mapStatus(element.status);
         element.formattedDate = moment(element.postedDate).format('L');
       });
     } else {
-      console.warn('[processParseStatus] Invalid parseStatus for solicitation:', data.solNum);
-      data.parseStatus = this.getDefaultParseStatus();
+      data.parseStatus = [this.getDefaultParseStatus()];
     }
   }
 
   private mapStatus(status: string): string {
-    const result = status === 'successfully parsed' ? 'Yes' :
-      status === 'processing error' ? 'No' :
-        status;
-    return result;
+    return status === 'successfully parsed' ? 'Yes' :
+      status === 'processing error' ? 'No' : status;
   }
 
   private getDefaultParseStatus(): ParseStatus {
-    const defaultStatus = {
-      formattedDate: '',
-      postedDate: null,
-      name: '',
-      status: '',
-      attachment_url: ''
-    };
-    return defaultStatus;
-  }
-
-  private processSteps(data: any): void {
-    this.step1 = this.checkStepCompletion(data.history, this.STEP_ACTIONS.REVIEW);
-    this.step2 = this.checkStepCompletion(data.history, this.STEP_ACTIONS.EMAIL);
-    this.step3 = this.checkStepCompletion(data.history, this.STEP_ACTIONS.FEEDBACK);
-  }
-
-  private checkStepCompletion(history: any[], actionText: string): boolean {
-    const result = history?.filter(e => e['action'].indexOf(actionText) > -1).length > 0;
-    return result;
+    return { formattedDate: '', postedDate: null, name: '', status: '', attachment_url: '' };
   }
 
   private setSolicitationData(data: any): void {
@@ -146,19 +222,15 @@ export class ResultsDetailComponent implements OnInit {
   }
 
   onNotApplicableClick(event: any): void {
-    console.log('[onNotApplicableClick] Event:', event.target.checked);
     this.solicitation.na_flag = event.target.checked;
-    this.solicitationService.update(this.solicitation)
-      .subscribe({
-        next: () => console.log('[onNotApplicableClick] Update successful'),
-        error: (err) => console.error('[onNotApplicableClick] Error:', err)
-      });
-
+    this.solicitationService.update(this.solicitation).subscribe({
+      next: () => {},
+      error: (err) => console.error('[onNotApplicableClick] Error:', err)
+    });
     this.gaService.event('not_applicable', 'make_srt_better', 'Not Applicable');
   }
 
   onClickTabs(action: string, label: string): void {
-    console.log('[onClickTabs]', { action, label });
     this.gaService.event(action, "solicitation_tab", label);
   }
 }
