@@ -122,13 +122,15 @@ export class ActivityTrackerService implements OnDestroy {
   }
 
   private generateSessionId(): string {
-    // crypto.randomUUID is available in all browsers this app supports; the
-    // Math.random fallback exists only for non-secure contexts (plain http).
-    const rand = (typeof crypto !== 'undefined' && crypto.randomUUID)
-      ? crypto.randomUUID().replace(/-/g, '').substring(0, 12)
-      : Math.random().toString(36).substring(2, 8)
+    // crypto.getRandomValues works in secure and non-secure contexts alike,
+    // unlike crypto.randomUUID. Deliberately no insecure fallback: a weak
+    // path that is never meant to run is still a weak path.
+    const bytes = new Uint8Array(8);
+    crypto.getRandomValues(bytes);
+    const rand = Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('');
     return 'sess_' + Date.now().toString(36) + '_' + rand;
   }
+
 
   ngOnDestroy(): void {
     this.flush();
