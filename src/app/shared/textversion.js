@@ -70,10 +70,10 @@ export function htmlToPlainText(htmlText, styleConfig) {
   }
 
   // remove inbody scripts and styles
-  tmp = tmp.replace(/<(script|style)( [^>]*)*>((?!<\/\1( [^>]*)*>).)*<\/\1>/gi, "");
+  tmp = tmp.replace(/<(script|style)( [^>]*)?>((?!<\/\1( [^>]*)?>).)*<\/\1>/gi, "");
 
   // remove all tags except that are being handled separately
-  tmp = tmp.replace(/<(\/)?((?!h[1-6]( [^>]*)*>)(?!img( [^>]*)*>)(?!a( [^>]*)*>)(?!ul( [^>]*)*>)(?!ol( [^>]*)*>)(?!li( [^>]*)*>)(?!p( [^>]*)*>)(?!div( [^>]*)*>)(?!td( [^>]*)*>)(?!br( [^>]*)*>)[^>\/])[^<>]*>/gi, "");
+  tmp = tmp.replace(/<(\/)?((?!h[1-6]( [^>]*)?>)(?!img( [^>]*)?>)(?!a( [^>]*)?>)(?!ul( [^>]*)?>)(?!ol( [^>]*)?>)(?!li( [^>]*)?>)(?!p( [^>]*)?>)(?!div( [^>]*)?>)(?!td( [^>]*)?>)(?!br( [^>]*)?>)[^>\/])[^<>]*>/gi, "");
 
   // remove or replace images - replacement texts with <> tags will be removed also, if not intentional, try to use other notation
   tmp = tmp.replace(/<img([^>]*)>/gi, function(str, imAttrs) {
@@ -151,7 +151,7 @@ export function htmlToPlainText(htmlText, styleConfig) {
   }
 
   // replace <br>s, <td>s, <divs> and <p>s with linebreaks
-  tmp = tmp.replace(/<br( [^>]*)*>|<p( [^>]*)*>|<\/p( [^>]*)*>|<div( [^>]*)*>|<\/div( [^>]*)*>|<td( [^>]*)*>|<\/td( [^>]*)*>/gi, "\n");
+  tmp = tmp.replace(/<br( [^>]*)?>|<p( [^>]*)?>|<\/p( [^>]*)?>|<div( [^>]*)?>|<\/div( [^>]*)?>|<td( [^>]*)?>|<\/td( [^>]*)?>/gi, "\n");
 
   // replace <a href>b<a> links with b (href) or as described in the linkProcess function
   tmp = tmp.replace(/<a[^>]*href="([^"]*)"[^>]*>([^<]+)<\/a[^>]*>/gi, function(str, href, linkText) {
