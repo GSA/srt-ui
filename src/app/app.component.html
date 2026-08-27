@@ -1,7 +1,8 @@
-<body>
-    <div style="background-color: #f1f1f1 ; " class="clearfix">
-        <div style="padding-right: 3rem; padding-left: 3rem;">
-            <div style="float: left">
+<div class="srt-app-shell">
+    <a class="bypass-block-link visible-when-focused" href="#content">Skip to main content</a>
+    <div style="background-color: #f1f1f1 ; " class="clearfix gov-banner-bar">
+        <div class="gov-banner-bar__inner">
+            <div class="gov-banner-bar__left">
                 <div style="margin-right: 10px; display: inline-block">
                     <img src="../assets/favicon-57.png" width="20px" height="20px" alt="U.S. flag" >
                 </div>
@@ -9,10 +10,10 @@
                     An official website of the United States government
                 </div>
                 <div class="gsa-subtitle dropdown-toggle" style="cursor: pointer">
-                    <a href="" onclick="return false;" data-bs-toggle="collapse" data-bs-target="#msg" class="gov-msg collapsed" style="color:#0000C7" gaEvent="heres_how_you_know" gaCategory="security">Here's how you know<span class="caret"></span></a>
+                    <button type="button" data-bs-toggle="collapse" data-bs-target="#msg" class="gov-msg collapsed" style="color:#0000C7; background:transparent; border:none; padding:0; cursor:pointer;" [attr.aria-expanded]="false" aria-controls="msg" gaEvent="heres_how_you_know" gaCategory="security">Here's how you know<span class="caret" aria-hidden="true"></span></button>
                 </div>
             </div>
-            <div style="float: right;" class="version">
+            <div class="version">
               SRT build {{version}}<span id="client-version">{{clientVersion}}</span>
               <span style="display:none">Client Build date: {{clientBuildDate}}</span>
               <span style="display:none">Server Build date: {{buildDate}}</span>
@@ -53,10 +54,13 @@
 
     <!-- Global USWDS Identifier Footer -->
     <footer class="srt-global-footer">
+      <section class="srt-global-footer__disclaimer" aria-label="Site disclaimer" style="padding: 0.75rem 1rem; max-width: 1100px; margin: 0 auto;">
+        <app-disclaimer variant="short" [showFullLink]="true"></app-disclaimer>
+      </section>
       <section class="usa-identifier__section usa-identifier__section--masthead" aria-label="Agency identifier" style="padding: 0.75rem 1rem;">
         <div class="usa-identifier__container" style="display: flex; align-items: center; gap: 0.5rem;">
           <span style="font-size: 0.8rem; font-weight: 600; color: #1b1b1b;">Solicitation Review Tool</span>
-          <span style="font-size: 0.75rem; color: #71767a;">— A dedicated platform to check for solicitation accessibility requirements.</span>
+          <span style="font-size: 0.75rem; color: #1b1b1b;">— A dedicated platform to check for solicitation accessibility requirements.</span>
         </div>
       </section>
       <nav class="usa-identifier__section usa-identifier__section--required-links" aria-label="Important links">
@@ -96,4 +100,4 @@
         </div>
       </section>
     </footer>
-</body>
+</div>

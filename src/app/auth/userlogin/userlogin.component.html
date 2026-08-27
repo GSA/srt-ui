@@ -1,12 +1,12 @@
 <div class="userlogin-actions">
-  <button class="login-gov-btn" (click)="loginWithLoginGov()" aria-label="Sign in with Login.gov">
-    <span class="material-symbols-outlined">login</span>
+  <button class="login-gov-btn" (click)="loginWithLoginGov()">
+    <span class="material-symbols-outlined" aria-hidden="true">login</span>
     Sign in with Login.gov
   </button>
 
   @if (is_dev) {
-    <button class="dev-login-btn" (click)="loginAsDev()" aria-label="Login as Dev">
-      <span class="material-symbols-outlined">developer_mode</span>
+    <button class="dev-login-btn" (click)="loginAsDev()">
+      <span class="material-symbols-outlined" aria-hidden="true">developer_mode</span>
       Login as DEV
     </button>
   }

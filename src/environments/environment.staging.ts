@@ -7,7 +7,7 @@ export const environment = {
   production: false,
   SERVER_URL: 'https://srt-server-staging.app.cloud.gov/api',
   EMAIL_NOTIFICATION: true,
-  FILE_UPLOAD_API: 'http://srt-server-staging.app.cloud.gov/file/upload',
+  FILE_UPLOAD_API: 'https://srt-server-staging.app.cloud.gov/file/upload',
   ART_API_SERVER:'https://art-api-dev.app.cloud.gov',
   USE_CLIENT_EMAIL: true,
   ENVIRONMENT: 'staging',

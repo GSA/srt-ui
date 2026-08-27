@@ -13,7 +13,9 @@ import { Title } from '@angular/platform-browser';
 export class FaqComponent extends BaseComponent implements OnInit {
   public faq: any[];  // Array of FAQs from the API
   public id = '';
-  public expanded: { [key: string]: boolean } = {}; // Track accordion state
+  // Accordion open/close state is owned by the global USWDS script (its
+  // delegated click handler on .usa-accordion__button). Keeping a parallel
+  // Angular state here is what double-toggled clicks and broke items.
 
   @ViewChild('searchInput') searchInput: ElementRef<HTMLInputElement>;
 
@@ -62,46 +64,12 @@ export class FaqComponent extends BaseComponent implements OnInit {
     this.helpService.getFAQs().subscribe({
       next: (data) => {
         this.faq = data;
-        // Initialize all accordion items as collapsed
-        this.faq.forEach((section, sectionIndex) => {
-          section.children?.forEach(item => {
-            this.expanded[this.getUniqueKey(sectionIndex, item.id)] = false;
-          });
-        });
       },
       error: (e) => console.log(e)
     });
   }
 
-  /**
-   * Generate a unique key for each accordion item based on section and item IDs.
-   * @param sectionIndex - The index of the section
-   * @param itemId - The unique ID of the accordion item within the section
-   * @returns A unique key string
-   */
-  getUniqueKey(sectionIndex: number, itemId: string): string {
-    return `${sectionIndex}-${itemId}`;
-  }
 
-  /**
-   * Toggle Accordion visibility for a specific item within a section
-   * @param sectionIndex - The index of the section
-   * @param itemId - The unique ID of the accordion item
-   */
-  toggleAccordion(sectionIndex: number, itemId: string): void {
-    const uniqueKey = this.getUniqueKey(sectionIndex, itemId);
-    this.expanded[uniqueKey] = !this.expanded[uniqueKey];
-  }
-
-  /**
-   * Determine if an accordion section is expanded
-   * @param sectionIndex - The index of the section
-   * @param itemId - The unique ID of the accordion item
-   * @returns boolean
-   */
-  isExpanded(sectionIndex: number, itemId: string): boolean {
-    return this.expanded[this.getUniqueKey(sectionIndex, itemId)] || false;
-  }
 
   /**
    * Scroll window to selected element by ID

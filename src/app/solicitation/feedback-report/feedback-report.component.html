@@ -1,13 +1,17 @@
 <main id="content" class="bypass-block-target">
   <div class="container" id="anchor-Feedback">
     <div class="imp-container">
+      <h1 class="srt-page-title srt-title-padding">Solicitation Feedback</h1>
       <table class="table table-bordered">
+        <caption class="usa-sr-only">Solicitation feedback submissions with submitter and submission date.</caption>
+        <thead>
         <tr>
           <th scope="col">Solicitation Feedback</th>
           <th scope="col">Submitter</th>
           <th scope="col">Submission Date</th>
         </tr>
-
+        </thead>
+        <tbody>
         @for (item of feedback; track item) {
           <tr>
             <td>
@@ -19,7 +23,7 @@
             <td>{{item.date}}</td>
           </tr>
         }
-
+        </tbody>
       </table>
     </div>
   </div>

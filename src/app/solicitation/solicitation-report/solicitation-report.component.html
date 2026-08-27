@@ -1,9 +1,9 @@
 <!-- Loading State -->
-<main id="content" class="report-page" role="main">
+<main id="content" class="report-page bypass-block-target" role="main" tabindex="-1">
   @if (!solicitations) {
-    <div class="loading-state">
+    <div class="loading-state" role="status" aria-live="polite">
       <div class="loading-state__inner">
-        <span class="material-symbols-outlined loading-state__icon">hourglass_top</span>
+        <span class="material-symbols-outlined loading-state__icon" aria-hidden="true">hourglass_top</span>
         <p class="loading-state__text">Loading solicitations...</p>
       </div>
     </div>
@@ -13,16 +13,20 @@
     <!-- Page Header -->
     <header class="report-header">
       <div class="report-header__left">
-        <h1 class="report-header__title">Daily Report Dashboard</h1>
-        <p class="report-header__subtitle">SRT results for {{ today | date:'MMMM d, yyyy' }}</p>
+        <h1 class="report-header__title">{{ scopeLabel }}</h1>
+        <p class="report-header__subtitle">{{ scopeSubtitle }} from the {{ timeRangeSummary() }} · updated {{ today | date:'MMMM d, yyyy' }}</p>
       </div>
       <div class="report-header__actions">
-        <button class="header-btn header-btn--secondary" (click)="loadSolicitationsLazy(tableState)">
-          <span class="material-symbols-outlined">refresh</span>
-          Refresh Data
+        <button class="header-btn header-btn--secondary"
+                (click)="loadSolicitationsLazy({ first: 0, rows: dt.rows, filters: dt.filters || {} })"
+                [disabled]="loading"
+                title="Re-fetch the report with your current filters."
+                aria-label="Refresh the report with the latest data, keeping your current filters">
+          <span class="material-symbols-outlined" aria-hidden="true">refresh</span>
+          {{ loading ? 'Refreshing…' : 'Refresh Data' }}
         </button>
         <button class="header-btn header-btn--primary" (click)="exportCSV({}, dt.filters)">
-          <span class="material-symbols-outlined">download</span>
+          <span class="material-symbols-outlined" aria-hidden="true">download</span>
           Export CSV
         </button>
       </div>
@@ -32,56 +36,92 @@
     <div class="report-body">
 
       <!-- Filter Sidebar -->
-      <aside class="filter-sidebar">
+      <aside class="filter-sidebar" aria-label="Filter results">
         <div class="filter-sidebar__inner">
           <div class="filter-sidebar__header">
             <h2 class="filter-sidebar__title">Filter Results</h2>
           </div>
 
           <!-- Search -->
-          <fieldset class="filter-group">
-            <legend class="filter-group__legend">Search</legend>
+          <div class="filter-group">
+            <label class="filter-group__legend" for="report-search">
+              Search
+              <span class="material-symbols-outlined" style="font-size: 13px; color: #1b1b1b; cursor: help; vertical-align: middle; margin-left: 2px;"
+                    role="img"
+                    aria-label="Searches the rows in this report — solicitation number, title, agency, notice type, and date. It does not search inside the solicitation documents themselves."
+                    title="Searches the rows in this report — solicitation number, title, agency, notice type, and date. It does not search inside the solicitation documents themselves.">info</span>
+            </label>
             <input
               type="text"
+              id="report-search"
               #searchInput
-              placeholder="Search solicitations..."
+              placeholder="Search by sol #, title, or agency"
+              aria-describedby="report-search-help"
               class="filter-input"
               (input)="dt.filterGlobal($event.target.value, 'contains')"
             />
-          </fieldset>
+            <span id="report-search-help" class="usa-sr-only">
+              Searches the visible report rows — solicitation number, title, agency, notice type, and date. Does not search inside solicitation documents.
+            </span>
+          </div>
 
           <!-- Review Result Filter -->
-          <fieldset class="filter-group">
-            <legend class="filter-group__legend">Integration Status</legend>
-            <p-dropdown
+          <div class="filter-group">
+            <label class="filter-group__legend" for="ddl_reviewRec">Scan Status</label>
+            <select
               id="ddl_reviewRec"
-              [options]="reviewRec"
+              class="filter-input filter-select"
               [(ngModel)]="reviewResultFilterModel"
-              (onChange)="dt.filter($event.value, 'reviewRec', 'equals')"
-              styleClass="filter-dropdown"
-            ></p-dropdown>
-          </fieldset>
+              (change)="dt.filter(reviewResultFilterModel || '', 'reviewRec', 'equals')">
+              @for (opt of reviewRec; track opt.label) {
+                <option [ngValue]="opt.value">{{ opt.label }}</option>
+              }
+            </select>
+          </div>
+
+          <!-- Time Range -->
+          <div class="filter-group">
+            <label class="filter-group__legend" for="ddl_timeRange">Time Range</label>
+            <select
+              id="ddl_timeRange"
+              class="filter-input filter-select"
+              [(ngModel)]="timeRangeModel"
+              (change)="onTimeRangeChange()">
+              @for (opt of timeRanges; track opt.value) {
+                <option [value]="opt.value">{{ opt.label }}</option>
+              }
+            </select>
+
+            @if (timeRangeModel === 'custom') {
+              <div class="custom-range">
+                <label class="custom-range__label" for="custom_start">Start date</label>
+                <input type="date" id="custom_start" class="filter-input" [(ngModel)]="customStart" [max]="todayIso" (change)="onCustomRangeSelect()" />
+                <label class="custom-range__label" for="custom_end">End date</label>
+                <input type="date" id="custom_end" class="filter-input" [(ngModel)]="customEnd" [max]="todayIso" (change)="onCustomRangeSelect()" />
+              </div>
+            }
+          </div>
         </div>
       </aside>
 
       <!-- Main Data Table Area -->
-      <section class="report-table-area">
+      <section class="report-table-area" aria-label="Solicitation results">
 
         <!-- Active Filters Bar -->
         <div class="active-filters-bar">
           <span class="active-filters-bar__label">
-            <span class="material-symbols-outlined">filter_list</span>
+            <span class="material-symbols-outlined" aria-hidden="true">filter_list</span>
             Active Filters:
           </span>
           @if (reviewResultFilterModel && reviewResultFilterModel !== 'All' && reviewResultFilterModel !== '') {
             <span class="filter-chip">
               Status: {{ reviewResultFilterModel }}
-              <button class="filter-chip__close" (click)="reviewResultFilterModel = ''; dt.filter('', 'reviewRec', 'equals')" aria-label="Remove filter">
-                <span class="material-symbols-outlined">close</span>
+              <button class="filter-chip__close" (click)="reviewResultFilterModel = ''; dt.filter('', 'reviewRec', 'equals')" aria-label="Remove status filter">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
               </button>
             </span>
           }
-          <div class="active-filters-bar__count">
+          <div class="active-filters-bar__count" role="status" aria-live="polite">
             Showing {{ solicitations?.length || 0 }} of {{ totalRecordCount }} records
           </div>
         </div>
@@ -92,43 +132,51 @@
             [paginator]="true" [totalRecords]="totalRecordCount" [loading]="loading" [lazy]="true"
             (onLazyLoad)="loadSolicitationsLazy($event)" styleClass="report-datatable">
 
+            <ng-template pTemplate="caption">
+              <span class="usa-sr-only">Report of solicitations with Section 508 scan status. Column headers are sortable buttons — press Enter to sort. In each row, the solicitation title links to its full SRT report; the SAM.gov link beneath it opens the original posting after a confirmation.</span>
+            </ng-template>
+
             <!-- Table Header -->
             <ng-template pTemplate="header">
               <tr>
-                <th pSortableColumn="solNum" scope="col">
-                  Solicitation ID
-                  <p-sortIcon field="solNum"></p-sortIcon>
-                </th>
-                <th pSortableColumn="title" scope="col">
-                  Title
+                <th pSortableColumn="title" scope="col" class="col-title" [attr.aria-sort]="dt.sortField === 'title' ? (dt.sortOrder === 1 ? 'ascending' : 'descending') : 'none'">
+                  Solicitation
                   <p-sortIcon field="title"></p-sortIcon>
                 </th>
-                <th pSortableColumn="noticeType" scope="col">
-                  Notice Type
-                  <p-sortIcon field="noticeType"></p-sortIcon>
+                <th pSortableColumn="agency" scope="col" [attr.aria-sort]="dt.sortField === 'agency' ? (dt.sortOrder === 1 ? 'ascending' : 'descending') : 'none'">
+                  Agency
+                  <p-sortIcon field="agency"></p-sortIcon>
                 </th>
-                <th pSortableColumn="date" scope="col">
-                  Post Date
+                <th pSortableColumn="date" scope="col" class="col-date" [attr.aria-sort]="dt.sortField === 'date' ? (dt.sortOrder === 1 ? 'ascending' : 'descending') : 'none'">
+                  Posted
                   <p-sortIcon field="date"></p-sortIcon>
                 </th>
-                <th pSortableColumn="reviewRec" scope="col">
+                <th pSortableColumn="reviewRec" scope="col" class="col-status" [attr.aria-sort]="dt.sortField === 'reviewRec' ? (dt.sortOrder === 1 ? 'ascending' : 'descending') : 'none'">
                   Status
                   <p-sortIcon field="reviewRec"></p-sortIcon>
                 </th>
-                <th scope="col" class="actions-col">Actions</th>
               </tr>
             </ng-template>
 
             <!-- Table Body -->
             <ng-template pTemplate="body" let-solicitation>
               <tr (mousedown)="mouseDown(solicitation)" (mouseup)="mouseUp(solicitation)" class="table-row">
-                <td>
-                  <a [href]="solicitation.url" target="_blank" class="sol-link"
-                    (click)="$event.stopPropagation()">{{ solicitation.solNum }}</a>
+                <td class="title-cell">
+                  <a href="#" class="row-title-link"
+                     (click)="$event.preventDefault(); selectSol(solicitation)"
+                     (mousedown)="$event.stopPropagation()"
+                     (mouseup)="$event.stopPropagation()">{{ solicitation.title || solicitation.solNum }}</a>
+                  <span class="row-solnum">
+                    {{ solicitation.solNum }}
+                    <a [href]="solicitation.url" target="_blank" rel="noopener noreferrer" class="sol-link"
+                       [attr.aria-label]="'Open ' + solicitation.solNum + ' on SAM.gov'"
+                       (click)="promptSamGov(solicitation, $event)"
+                       (mousedown)="$event.stopPropagation()"
+                       (mouseup)="$event.stopPropagation()">SAM.gov <span class="material-symbols-outlined ext-icon" aria-hidden="true">open_in_new</span></a>
+                  </span>
                 </td>
-                <td class="title-cell">{{ solicitation.title }}</td>
-                <td class="muted-cell">{{ solicitation.noticeType }}</td>
-                <td class="date-cell">{{ solicitation.date }}</td>
+                <td class="agency-cell">{{ solicitation.agency }}</td>
+                <td class="date-cell">{{ solicitation.date | date:'mediumDate':'UTC' }}</td>
                 <td>
                   <span class="status-badge" [ngClass]="{
                     'status-badge--noncompliant': solicitation.reviewRec === 'Non-compliant (Action Required)',
@@ -136,15 +184,20 @@
                     'status-badge--review': solicitation.reviewRec === 'Cannot Evaluate (Review Required)',
                     'status-badge--na': solicitation.reviewRec === 'Not Applicable'
                   }">
-                    {{ solicitation.reviewRec === 'Non-compliant (Action Required)' ? 'Non-Compliant' :
+                    <span class="material-symbols-outlined status-badge__icon" aria-hidden="true">{{
+                      solicitation.reviewRec === 'Compliant' ? 'check_circle' :
+                      solicitation.reviewRec === 'Non-compliant (Action Required)' ? 'warning' :
+                      solicitation.reviewRec === 'Cannot Evaluate (Review Required)' ? 'help' :
+                      solicitation.reviewRec === 'Not Applicable' ? 'remove_circle' : 'help' }}</span>
+                    {{ solicitation.reviewRec === 'Compliant' ? 'Included' :
+                       solicitation.reviewRec === 'Non-compliant (Action Required)' ? 'Not Included' :
                        solicitation.reviewRec === 'Cannot Evaluate (Review Required)' ? 'Cannot Evaluate' :
+                       solicitation.reviewRec === 'Not Applicable' ? 'Not Applicable' :
                        solicitation.reviewRec }}
                   </span>
-                </td>
-                <td class="actions-col">
-                  <button class="view-details-btn" (click)="$event.stopPropagation(); selectSol(solicitation)">
-                    View Details
-                  </button>
+                  @if (solicitation.reviewRec === 'Cannot Evaluate (Review Required)') {
+                    <div class="status-reason">{{ cannotEvaluateReasonShort(solicitation) }}</div>
+                  }
                 </td>
               </tr>
             </ng-template>
@@ -155,6 +208,23 @@
           Total Solicitations: {{ totalRecordCount }}
         </div>
       </section>
+    </div>
+  }
+
+  <!-- SAM.gov leave-site speed bump -->
+  @if (samGovConfirmUrl) {
+    <div class="samgov-modal__overlay" (click)="cancelSamGov()">
+      <div class="samgov-modal" role="alertdialog" aria-modal="true" aria-labelledby="samgov-modal-title"
+           aria-describedby="samgov-modal-desc" (click)="$event.stopPropagation()">
+        <h2 id="samgov-modal-title" class="samgov-modal__title">Leaving the Solicitation Review Tool</h2>
+        <p id="samgov-modal-desc" class="samgov-modal__desc">
+          This will open <strong>{{ samGovConfirmNum }}</strong> on SAM.gov in a new tab. Are you sure you want to proceed?
+        </p>
+        <div class="samgov-modal__actions">
+          <button type="button" class="usa-button" #samgovYes (click)="confirmSamGov()">Yes, go to SAM.gov</button>
+          <button type="button" class="usa-button usa-button--outline" (click)="cancelSamGov()">Cancel</button>
+        </div>
+      </div>
     </div>
   }
 </main>

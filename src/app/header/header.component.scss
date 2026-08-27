@@ -21,11 +21,15 @@
   padding: 0 2rem;
 }
 
-/* Navigation Container (Flexbox for left/right layout) */
-.usa-nav {
+/* Navigation Container (Flexbox for left/right layout).
+   Named srt-nav deliberately: the USWDS stylesheet turns `.usa-nav` into a
+   fixed full-height off-canvas panel below 1024px, which blanked the whole
+   app with the nav pinned to the bottom. Never reuse that class here. */
+.srt-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: static;
   padding: 0;
   width: 100%;
 }
@@ -66,14 +70,35 @@
 
 .nav-item {
   margin: 0;
+  flex-shrink: 0;
 }
 
 .nav-link {
-  color: #71767a;
+  /* UAT flagged the old nav gray as a contrast concern; #1b1b1b on white
+     is ~10:1 (AAA). */
+  color: #1b1b1b;
   text-decoration: none;
   font-size: 0.9rem;
   display: inline-flex;
   align-items: center;
+  /* Never let a squeezed link wrap its text — that was blowing the sticky
+     header up to full height on narrow screens. */
+  white-space: nowrap;
+}
+
+/* Active route indicator (also aids screen-reader/keyboard orientation). */
+.nav-link.active-link {
+  color: #1a4480;
+  font-weight: 700;
+  box-shadow: inset 0 -3px 0 #1a4480;
+}
+
+.nav-link--button {
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0.5rem 0;
 }
 
 .nav-link:hover {
@@ -101,22 +126,67 @@
   display: inline-block;
 }
 
-/* Responsive adjustments */
-@media (max-width: 48rem) {
-  .right-nav-group {
-    gap: 1rem;
+/* ── Responsive: NO hamburger. The link list simply wraps onto extra rows at
+   narrow widths / high zoom (WCAG 1.4.10 reflow) so every destination stays
+   visible with zero extra interaction. ── */
+@media (max-width: 64rem) {
+  /* Logos row, then links flow below and wrap as needed. */
+  .srt-nav {
+    flex-wrap: wrap;
+    row-gap: 0.25rem;
   }
 
-  .logo-container .gsa-logo-img {
-    height: 2.5rem;
+  /* The header can be 2–3 rows tall here, so let it scroll away instead of
+     staying sticky and eating the zoomed-in viewport. */
+  #header {
+    position: static;
+  }
+
+  .grid-container-widescreen {
+    padding: 0 1rem;
+  }
+
+  .right-nav-group {
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 0.25rem 1.25rem;
+    padding-top: 0.25rem;
+  }
+
+  .nav-link,
+  .nav-link--button {
+    padding: 0.5rem 0;
+    min-height: 44px; /* WCAG 2.5.5 target size */
+    font-size: 0.95rem;
+  }
+
+  /* Analytics submenu renders inline (not as a floating popover) so it can't
+     overflow or clip at narrow widths. */
+  .dropdown-menu {
+    position: static;
+    box-shadow: none;
+    border: none;
+    min-width: 0;
+    padding: 0 0 0.5rem;
+    background: #f9fafb;
+  }
+
+  .dropdown-item {
+    padding: 0.6rem 1rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media (max-width: 30rem) {
+  .logo-container .gsa-logo-img,
+  .logo-container .srt-logo-img {
+    height: 2.25rem;
   }
 
   .logo-divider {
-    height: 1.5rem;
-  }
-
-  .logo-container .srt-logo-img {
-    height: 2.5rem;
+    height: 1.25rem;
   }
 }
 
@@ -137,7 +207,7 @@
 }
 
 .dropdown-item {
-  color: #71767a;
+  color: #1b1b1b; /* darkened after UAT contrast feedback */
   padding: 0.6rem 1rem;
   text-decoration: none;
   display: block;

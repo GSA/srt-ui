@@ -4,14 +4,17 @@ import {
   OnDestroy,
   AfterViewInit,
   ElementRef,
+  HostListener,
   ViewChild,
 } from '@angular/core';
 import { AuthGuard } from '../../auth-guard.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { BaseComponent } from '../../base.component';
 import { Title } from '@angular/platform-browser';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { environment } from '../../../environments/environment';
+import { Section508Clause, resolveClause, clauseToPlainText } from '../../shared/section508-clause';
 
 @Component({
     selector: 'app-home',
@@ -28,7 +31,7 @@ export class HomeComponent
   Object = Object;
 
   // — Pipeline state —
-  pipelineVersion: 'v1' | 'v2' | 'v3' = 'v1';
+  pipelineVersion: 'v1' | 'v2' | 'v3' | 'v4' = 'v4';
   showVectorMatches = false;
   showStageDebug = false;
   showOverrideResults = false;
@@ -40,7 +43,26 @@ export class HomeComponent
   isRunning = false;
   isDragging = false;
   errorMessage = '';
-  pipelineResults: any = null;
+
+  // Screen-reader status announcer. Bound to a visually-hidden aria-live region
+  // in the template so assistive tech is told when analysis starts and finishes
+  // (instead of trying to announce the entire results region at once).
+  srStatus = '';
+
+  // Backed by _pipelineResults so setting a truthy result (from any of the
+  // several success paths) automatically announces "analysis complete".
+  private _pipelineResults: any = null;
+  get pipelineResults(): any { return this._pipelineResults; }
+  set pipelineResults(value: any) {
+    this._pipelineResults = value;
+    if (value) {
+      this.srStatus = 'Analysis complete. Your Section 508 results are shown below.';
+      // A fresh run just auto-saved a new draft version — refresh My Drafts.
+      if (!value.from_saved_draft) {
+        this.loadDrafts();
+      }
+    }
+  }
   allResults: any[] = [];
   currentFileIndex = 0;
   totalFiles = 0;
@@ -54,10 +76,66 @@ export class HomeComponent
     'Running Context Validations...',
     'Generating Final Synthesis...'
   ];
-  currentStageMessage = '';
+  // Backed by a setter so every stage change is announced to screen readers
+  // (state changes must re-read — GSA 508 team feedback).
+  private _currentStageMessage = '';
+  get currentStageMessage(): string { return this._currentStageMessage; }
+  set currentStageMessage(v: string) {
+    this._currentStageMessage = v;
+    if (v && this.isRunning) { this.srStatus = v; }
+  }
   stageLog: string[] = [];
   showPipelineLog = false;
   reportReady = false;
+
+  // Snapple-cap Section 508 fun facts. One is chosen at random per run and held
+  // for the whole analysis (rotating them tested as distracting).
+  readonly funFacts: string[] = [
+    'Section 508 is part of the Rehabilitation Act of 1973 — amended in 1998 to require federal agencies to make their electronic and information technology accessible.',
+    'The Revised 508 Standards (the 2017 "508 Refresh") use WCAG 2.0 Level AA as the benchmark for federal technology.',
+    'Section 508 applies whenever federal agencies develop, procure, maintain, or use information and communication technology.',
+    'About 1 in 4 U.S. adults lives with a disability, according to the CDC.',
+    'Captions aren\'t just for people who are deaf or hard of hearing — most viewers turn them on in noisy places or with the sound off.',
+    'The U.S. Access Board writes the technical standards behind Section 508.',
+    'WCAG is built on four principles: Perceivable, Operable, Understandable, and Robust — "POUR."',
+    'Curb cuts were designed for wheelchair users but help everyone — strollers, luggage, delivery carts. Digital accessibility works the same way.',
+    'Clear headings, alt text, and strong color contrast don\'t just aid assistive technology — they make documents easier for everyone to use.',
+    'Section 504 covers access to federally funded programs and services; Section 508 specifically covers technology.',
+  ];
+  factIndex = 0;
+
+  // A11y: move focus into the progress popup when analysis starts — the Run
+  // button disables at that moment, which would otherwise silently drop
+  // keyboard/screen-reader focus to the page body.
+  @ViewChild('progressModal') set progressModal(el: ElementRef | undefined) {
+    if (el) {
+      setTimeout(() => { try { el.nativeElement.focus(); } catch (e) { /* no-op */ } }, 0);
+    }
+  }
+
+  /** Pick ONE fact and keep it for the whole analysis. Reviewers found the
+      rotating version distracting; a single stable fact still engages. */
+  private startFunFacts(): void {
+    this.factIndex = Math.floor(Math.random() * this.funFacts.length);
+  }
+
+  // A11y: when the result overlay renders, move focus + scroll to the top of
+  // the result (the verdict) instead of leaving it partway down the page.
+  private reportScrolled = false;
+  @ViewChild('reportTop') set reportTop(el: ElementRef | undefined) {
+    // Only scroll/focus to the top once, when the report first appears — not on
+    // every change-detection cycle (e.g. loading ART requirements), which would
+    // yank the reviewer back to the top of the report mid-task.
+    if (el && !this.reportScrolled) {
+      this.reportScrolled = true;
+      setTimeout(() => {
+        try {
+          el.nativeElement.scrollIntoView({ block: 'start' });
+          el.nativeElement.focus();
+        } catch (e) { /* no-op */ }
+      }, 0);
+    }
+  }
 
   private adminCheckTimes = 0;
   private interval: any;
@@ -69,6 +147,7 @@ export class HomeComponent
     private router: Router,
     private titleService: Title,
     private $gaService: GoogleAnalyticsService,
+    private http: HttpClient,
   ) {
     super(titleService);
   }
@@ -77,6 +156,7 @@ export class HomeComponent
     console.log('UI: Initializing component.');
     this.setupInitialState();
     this.checkAdminStatus();
+    this.loadDrafts();
   }
 
   ngAfterViewInit() {
@@ -138,6 +218,7 @@ export class HomeComponent
 
     this.selectedFiles = validFiles;
     this.selectedFile = validFiles[0]; // Keep for backward compat
+    this.forceRerun = false;
     this.rawText = '';
     this.pipelineResults = null;
     this.allResults = [];
@@ -183,6 +264,7 @@ export class HomeComponent
 
       this.selectedFiles = validFiles;
       this.selectedFile = validFiles[0];
+      this.forceRerun = false;
       this.rawText = '';
       this.pipelineResults = null;
       this.allResults = [];
@@ -198,11 +280,16 @@ export class HomeComponent
     this.pipelineResults = null;
     this.allResults = [];
     this.isRunning = true;
+    this.reportScrolled = false;
+    this.actionChecked = {};
+    this.openSections = { actions: true, findings: true };
+    this.srStatus = 'Analyzing your solicitation for Section 508 language. This may take a moment.';
     this.stageLog = [];
     this.pipelineStageCount = 0;
     this.currentStageMessage = 'Connecting to pipeline...';
     this.reportReady = false;
     this.showPipelineLog = false;
+    this.startFunFacts();
 
     // Determine files to process
     const filesToProcess = this.selectedFiles.length > 0 ? this.selectedFiles : [];
@@ -339,11 +426,17 @@ export class HomeComponent
     } else if (text) {
       formData.append('text', text);
     }
+    // Bypass the per-user result cache when the reviewer asks to re-run.
+    if (this.forceRerun) {
+      formData.append('force', 'true');
+    }
 
     let completedResult: any = null;
     let progressiveResult: any = { success: true };
     const apiUrl = (this.pipelineVersion === 'v2' || this.pipelineVersion === 'v3')
       ? `${environment.SERVER_URL}/pipeline-v2/analyze`
+      : this.pipelineVersion === 'v4'
+      ? `${environment.SERVER_URL}/pipeline-v4/analyze`
       : `${environment.SERVER_URL}/rag-analytics/playground/analyze?stream=true`;
     console.log('UI: Calling RAG pipeline (SSE) at', apiUrl, file ? file.name : 'raw_text');
 
@@ -354,7 +447,10 @@ export class HomeComponent
 
     fetch(apiUrl, {
       method: 'POST',
-      body: formData
+      body: formData,
+      // The JWT identifies the user so the run auto-saves to My Drafts and the
+      // per-user result cache can match identical re-uploads.
+      headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
     })
     .then(response => {
       if (!response.ok) {
@@ -437,6 +533,7 @@ export class HomeComponent
           }).catch(err => {
             console.error('UI: Stream read error:', err);
             this.errorMessage = err.message || 'Stream connection lost';
+            this.srStatus = 'Analysis failed. ' + this.errorMessage;
             if (onComplete) onComplete();
             else this.isRunning = false;
           });
@@ -458,6 +555,7 @@ export class HomeComponent
     .catch(error => {
       console.error('UI: Pipeline error:', error);
       this.errorMessage = error.message || 'An unexpected error occurred during analysis.';
+      this.srStatus = 'Analysis failed. ' + this.errorMessage;
       if (onComplete) onComplete(); // Continue to next file even on error
       else this.isRunning = false;
     });
@@ -533,6 +631,10 @@ export class HomeComponent
 
   resetAnalysis(): void {
     console.log('UI: Resetting analysis state');
+    // Bottom "Check another solicitation" CTA sits at the end of a long report —
+    // bring the reviewer back to the upload card.
+    window.scrollTo({ top: 0 });
+    this.forceRerun = false;
     this.selectedFile = null;
     this.selectedFiles = [];
     this.rawText = '';
@@ -586,5 +688,354 @@ export class HomeComponent
       'it services': 'support_agent'
     };
     return icons[type] || 'devices';
+  }
+
+  getObjectKeys(obj: any): string[] {
+    return obj ? Object.keys(obj) : [];
+  }
+
+  // ── ART (Section 508 Requirements) — on-demand fetch (v4) ──────────
+  // Mirrors the dashboard detail page: when ICT types are detected, the
+  // reviewer can click "Get Requirements" to call the ART API for the
+  // applicable Section 508 requirement clauses.
+  artRequirements: any = null;
+  artLoading = false;
+  artError = '';
+  showArt = false;
+
+  fetchArtRequirements(): void {
+    const ictTypes = this.getActiveIctTypes();
+    if (ictTypes.length === 0) return;
+    this.artLoading = true;
+    this.artError = '';
+    const baseUrl = environment.SERVER_URL;
+    this.http.post<any>(`${baseUrl}/rag-analytics/art-lookup`, { ict_types: ictTypes }).subscribe({
+      next: (data) => {
+        this.artRequirements = data;
+        this.artLoading = false;
+        this.showArt = true;
+        // Keep the reviewer in context: scroll to the generated requirements
+        // (once the DOM has rendered) instead of letting the view jump around.
+        setTimeout(() => this.scrollToRequirements(), 50);
+      },
+      error: (err) => {
+        this.artError = 'Unable to load ART requirements. Please try again.';
+        this.artLoading = false;
+      }
+    });
+  }
+
+  // Jump to the Section 508 requirements section from the next-step banner.
+  // If requirements were already fetched but hidden, reveal them too.
+  scrollToRequirements(): void {
+    if (this.artRequirements) { this.showArt = true; }
+    setTimeout(() => document.getElementById('srt-req-anchor')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+  }
+
+  /** Checklist CTA: generate + reveal the requirements inline, right here. */
+  getRequirements(): void {
+    this.openSections['actions'] = true;
+    if (!this.artRequirements && !this.artLoading) {
+      this.fetchArtRequirements();
+    }
+    this.showArt = true;
+  }
+
+  /** Jump to a report section from the table-of-contents rail. */
+  scrollTo(id: string): void {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ── My Drafts: per-user auto-saved runs with version history ──
+  drafts: any[] = [];
+  expandedDraftId: number | null = null;
+  draftDetail: any = null;
+  // One-shot cache bypass; cleared whenever new content is selected.
+  forceRerun = false;
+
+  loadDrafts(): void {
+    this.http.get<any[]>(`${environment.SERVER_URL}/drafts`).subscribe({
+      next: (d) => { this.drafts = d || []; },
+      error: () => { /* drafts are a convenience — never block the page */ }
+    });
+  }
+
+  toggleDraft(d: any): void {
+    if (this.expandedDraftId === d.id) {
+      this.expandedDraftId = null;
+      this.draftDetail = null;
+      return;
+    }
+    this.expandedDraftId = d.id;
+    this.draftDetail = null;
+    this.http.get<any>(`${environment.SERVER_URL}/drafts/${d.id}`).subscribe({
+      next: (detail) => { this.draftDetail = detail; },
+      error: () => { this.expandedDraftId = null; }
+    });
+  }
+
+  /** Reopen a saved version's report exactly as it was generated. */
+  openDraftVersion(v: any): void {
+    this.reportScrolled = false;
+    this.actionChecked = {};
+    this.openSections = { actions: true, findings: true };
+    this.summaryExpanded = false;
+    this.pipelineResults = { ...v.result, from_saved_draft: true, saved_at: v.created_at, saved_version: v.version_number };
+    this.reportReady = true;
+  }
+
+  deleteDraft(d: any, event: Event): void {
+    event.stopPropagation();
+    if (!confirm(`Delete "${d.title}" and all ${d.version_count} saved version${d.version_count === 1 ? '' : 's'}? This cannot be undone.`)) { return; }
+    this.http.delete(`${environment.SERVER_URL}/drafts/${d.id}`).subscribe({
+      next: () => {
+        this.drafts = this.drafts.filter(x => x.id !== d.id);
+        if (this.expandedDraftId === d.id) { this.expandedDraftId = null; this.draftDetail = null; }
+      },
+      error: () => { alert('Unable to delete draft. Please try again.'); }
+    });
+  }
+
+  /** "Re-run anyway" from a cached result — bypasses the result cache once. */
+  rerunFresh(): void {
+    this.forceRerun = true;
+    this.runPipeline();
+  }
+
+  draftVerdictLabel(verdict: string): string {
+    switch (verdict) {
+      case 'compliant': return 'Language Found';
+      case 'non_compliant': return 'Language Not Found';
+      case 'not_applicable': return 'Not Applicable';
+      case 'not_machine_readable': return 'Not Readable';
+      default: return verdict || '—';
+    }
+  }
+
+  draftVerdictClass(verdict: string): string {
+    switch (verdict) {
+      case 'compliant': return 'draft-badge--found';
+      case 'non_compliant': return 'draft-badge--notfound';
+      case 'not_applicable': return 'draft-badge--na';
+      default: return 'draft-badge--other';
+    }
+  }
+
+  // ── TOC scrollspy: highlight the section currently in view ──
+  activeTocId = '';
+  private readonly tocAnchorIds = [
+    'srt-overview-anchor',
+    'srt-summary-anchor',
+    'srt-actions-anchor',
+  ];
+
+  @HostListener('document:keydown', ['$event'])
+  onShortcut(event: KeyboardEvent): void {
+    if (!event.altKey || event.ctrlKey || event.metaKey || this.isRunning) { return; }
+    if (event.code === 'KeyU') {
+      event.preventDefault();
+      this.fileInputRef?.nativeElement?.click();
+    } else if (event.code === 'KeyP') {
+      event.preventDefault();
+      (document.getElementById('raw-text-input') as HTMLTextAreaElement)?.focus();
+    } else if (event.code === 'KeyS') {
+      event.preventDefault();
+      if (this.selectedFiles.length > 0 || (this.rawText && this.rawText.length >= 10)) {
+        this.runPipeline();
+      } else {
+        this.srStatus = 'Nothing to review yet. Upload a file with Alt plus U, or paste text with Alt plus P.';
+      }
+    }
+  }
+
+  @HostListener('window:scroll')
+  updateActiveToc(): void {
+    if (!this.pipelineResults) { return; }
+    let current = '';
+    for (const id of this.tocAnchorIds) {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= 130) {
+        current = id;
+      }
+    }
+    if (!current) {
+      current = this.tocAnchorIds.find(id => !!document.getElementById(id)) || '';
+    }
+    this.activeTocId = current;
+  }
+
+  // Action-items checklist state (client-side; reset on each new run).
+  actionChecked: { [i: number]: boolean } = {};
+
+  // "Less is more": every report section except the verdict and action items
+  // is collapsible and starts collapsed. Data is all still there — just shown
+  // on demand to limit scrolling.
+  openSections: { [k: string]: boolean } = { actions: true, findings: true };
+
+  toggleSection(k: string): void {
+    this.openSections[k] = !this.openSections[k];
+  }
+
+  /** TOC click: expand the target section (if collapsible) and jump to it. */
+  openAndScroll(k: string, id: string): void {
+    if (k) { this.openSections[k] = true; }
+    setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+  }
+
+  toggleAction(i: number): void {
+    this.actionChecked[i] = !this.actionChecked[i];
+  }
+
+  get actionSteps(): { label: string; detail?: string }[] {
+    // No 508 language at all → two distinct actions, because the clause and the
+    // requirements go in DIFFERENT parts of the solicitation (the clause sits in
+    // the body/terms; the requirements go in the SOW/PWS/SOO or an attachment).
+    // Already handled (508/VPAT doc or ART content) or exempt → nothing to add.
+    if (this.alreadyAddressed || this.hasExemption) { return []; }
+    if (this.showRecommendedClause) {
+      return [
+        { label: 'Add the recommended Section 508 clause', detail: 'Copy it into the body of your solicitation.' },
+        { label: 'Add the relevant Section 508 requirements', detail: 'These go in the SOW, PWS, SOO, requirements document, or an attachment.' },
+        { label: 'Re-check the updated solicitation' },
+      ];
+    }
+    const v = this.pipelineResults?.ml_prediction?.prediction;
+    if (v === 'compliant') {
+      return [
+        { label: 'Generate Section 508 requirements', detail: 'SRT only confirms 508 is mentioned — confirm every applicable requirement is actually present.' },
+        { label: 'Copy any missing requirements and paste them into the Terms & Conditions or Requirements section' },
+        { label: 'Re-check the updated solicitation' },
+      ];
+    }
+    return [
+      { label: 'Generate Section 508 requirements', detail: 'Generated from the ICT types identified for this procurement.' },
+      { label: 'Copy them and paste them into the Terms & Conditions or Requirements section of your solicitation' },
+      { label: 'Re-check the updated solicitation' },
+    ];
+  }
+
+  get allActionsDone(): boolean {
+    const n = this.actionSteps.length;
+    if (n === 0) return false;
+    for (let i = 0; i < n; i++) {
+      if (!this.actionChecked[i]) return false;
+    }
+    return true;
+  }
+
+  requirementsCopied = false;
+
+  // ── Recommended clause (only when 508 applies but nothing was found) ──
+  recommendedClause: Section508Clause = resolveClause();
+  clauseCopied = false;
+  clauseOpen = false;
+  clauseExpanded = false;
+  clauseInstructionsOpen = false;
+
+  /** 508 applies but nothing found — and they haven't already handled it. */
+  get showRecommendedClause(): boolean {
+    return this.pipelineResults?.applicability?.is_508_applicable === true
+        && this.pipelineResults?.ml_prediction?.prediction === 'non_compliant'
+        && !this.alreadyAddressed
+        && !this.hasExemption;
+  }
+
+  /** Package already ships 508/VPAT documentation, or content pulled from ART. */
+  get alreadyAddressed(): boolean {
+    return this.pipelineResults?.already_addressed === true;
+  }
+
+  get alreadyAddressedReason(): string {
+    const doc = this.pipelineResults?.section508_document;
+    if (doc?.found) {
+      return `This package includes a document named for ${doc.matched} (${doc.file_name}), so the Section 508 documentation appears to already be in place.`;
+    }
+    const art = this.pipelineResults?.art_derived;
+    if (art?.found) {
+      return `The requirement language in this solicitation appears to come from the Accessibility Requirements Tool (${art.signals.join('; ')}), so no additional requirements are recommended.`;
+    }
+    return '';
+  }
+
+  /** A documented Section 508 exemption was found. */
+  get hasExemption(): boolean {
+    return this.pipelineResults?.exemption?.has_exemption === true;
+  }
+
+  // ── Verdict card matrix ──
+  // ONE card: not machine readable, not a solicitation, 508 not applicable.
+  // TWO cards: 508 applies (verdict + applicability), including the exemption case.
+  get showApplicabilityCard(): boolean {
+    if (this.pipelineResults?.stopped_at_gate) { return false; }
+    return this.pipelineResults?.applicability?.is_508_applicable === true;
+  }
+
+  get verdictHeading(): string {
+    if (this.hasExemption) { return 'Section 508 Exemption'; }
+    if (this.alreadyAddressed) { return 'Section 508 Language Found'; }
+    const v = this.pipelineResults?.ml_prediction?.prediction;
+    return v === 'compliant' ? 'Section 508 Language Found'
+         : v === 'non_compliant' ? 'Section 508 Language Not Found'
+         : 'Cannot Determine';
+  }
+
+  get verdictDescription(): string {
+    if (this.hasExemption) {
+      const ex = this.pipelineResults.exemption;
+      return `This solicitation documents a Section 508 exemption (${ex.exemption_type}). ${ex.explanation || ''}`.trim();
+    }
+    if (this.alreadyAddressed) { return this.alreadyAddressedReason; }
+    const v = this.pipelineResults?.ml_prediction?.prediction;
+    if (v === 'compliant') {
+      return 'Section 508 applies, and some required language was found in this solicitation — but you\'re not done. SRT only confirms 508 is mentioned, not that the requirements are complete. Confirm the requirements are sufficient before proceeding.';
+    }
+    if (v === 'non_compliant') {
+      return 'Section 508 applies to this solicitation, but the required language was not found — you\'ll need to add it. (This is different from "not applicable" — 508 does apply here.)';
+    }
+    return 'This solicitation could not be evaluated automatically.';
+  }
+
+  get verdictCardClass(): string {
+    if (this.hasExemption) { return 'determination-card--review'; }
+    if (this.alreadyAddressed) { return 'determination-card--compliant'; }
+    const v = this.pipelineResults?.ml_prediction?.prediction;
+    return v === 'compliant' ? 'determination-card--compliant'
+         : v === 'non_compliant' ? 'determination-card--noncompliant'
+         : 'determination-card--review';
+  }
+
+  get verdictIcon(): string {
+    if (this.hasExemption) { return 'gpp_maybe'; }
+    if (this.alreadyAddressed) { return 'verified'; }
+    const v = this.pipelineResults?.ml_prediction?.prediction;
+    return v === 'compliant' ? 'verified' : v === 'non_compliant' ? 'warning' : 'help';
+  }
+
+  copyClause(): void {
+    navigator.clipboard?.writeText(clauseToPlainText(this.recommendedClause)).then(() => {
+      this.clauseCopied = true;
+      setTimeout(() => { this.clauseCopied = false; }, 2000);
+    }).catch(() => {});
+  }
+  summaryExpanded = false;
+
+  // Copy the generated Section 508 requirements to the clipboard so reviewers
+  // can paste the language straight into their solicitation.
+  copyRequirements(): void {
+    const lang = this.artRequirements?.language;
+    if (!lang) { return; }
+    const lines: string[] = ['Section 508 Requirements'];
+    for (const section of lang) {
+      lines.push('');
+      lines.push(`${section.code || ''} ${section.title || ''}`.trim());
+      for (const sub of (section.sections || [])) {
+        const parts = [sub.code, sub.title, sub.text].filter(Boolean);
+        lines.push('  ' + parts.join(' — '));
+      }
+    }
+    navigator.clipboard?.writeText(lines.join('\n')).then(() => {
+      this.requirementsCopied = true;
+      setTimeout(() => { this.requirementsCopied = false; }, 2000);
+    }).catch(() => {});
   }
 }

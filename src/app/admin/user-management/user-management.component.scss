@@ -19,6 +19,9 @@
   &--success { background-color: #ecf3ec; color: #2e6e2e; }
   &--error { background-color: #f8e1e1; color: #b50909; }
   &--warning { background-color: #fef3c7; color: #92400e; }
+  // Awaiting Reply / On Hold — handled but not resolved. Blue reads as
+  // "in progress", distinct from pending (amber) and declined (red).
+  &--info { background-color: #d9e8f6; color: #1a4480; }
 }
 
 // Inline editable cells
@@ -43,7 +46,7 @@
     top: 50%;
     transform: translateY(-50%);
     font-size: 0.625rem;
-    color: #71767a;
+    color: #1b1b1b;
   }
 
   &:hover &__hint {
@@ -146,7 +149,7 @@
     cursor: pointer;
     padding: 0.25rem;
     font-size: 1rem;
-    color: #71767a;
+    color: #1b1b1b;
     line-height: 1;
     &:hover { color: #1b1b1b; }
   }
@@ -192,7 +195,7 @@
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #71767a;
+    color: #1b1b1b;
     font-weight: 700;
     white-space: nowrap;
   }
@@ -213,3 +216,132 @@
   th:nth-child(6), td:nth-child(6) { width: 12%; }      // created
   th:nth-child(7), td:nth-child(7) { width: 12%; }      // updated
 }
+
+/* ── Phase 1: granular filtering ──────────────────────────────────────── */
+
+/* Quick-stat strip; each card is a button that applies its saved view. */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.stat-card {
+  font-family: inherit;
+  text-align: left;
+  background: #fff;
+  border: 1px solid #dfe1e2;
+  border-left: 4px solid #1a4480;
+  border-radius: 6px;
+  padding: 0.55rem 0.9rem;
+  cursor: pointer;
+
+  b { display: block; font-size: 1.4rem; color: #112e51; font-variant-numeric: tabular-nums; }
+  span { font-size: 0.72rem; color: #565c65; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  &:hover { background: #f0f4fa; }
+  &:focus-visible { outline: 3px solid #2491ff; outline-offset: 2px; }
+}
+.stat-card--warn { border-left-color: #ffbe2e; }
+.stat-card--err  { border-left-color: #b50909; }
+.stat-card--on   { background: #e8eef7; border-color: #1a4480; }
+
+/* Active-filter chips + the live result count. */
+.filter-chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  min-height: 2rem;
+  margin-bottom: 0.5rem;
+}
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: #d9e8f6;
+  color: #1a4480;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.15rem 0.35rem 0.15rem 0.7rem;
+
+  button {
+    all: unset;
+    cursor: pointer;
+    font-weight: 700;
+    padding: 0 0.35rem;
+    border-radius: 50%;
+    &:hover { background: #b0cfe9; }
+    &:focus-visible { outline: 2px solid #2491ff; }
+  }
+}
+.filter-chips__clear {
+  all: unset;
+  cursor: pointer;
+  color: #005ea2;
+  font-size: 0.8rem;
+  text-decoration: underline;
+  margin-left: 0.3rem;
+  &:focus-visible { outline: 2px solid #2491ff; outline-offset: 2px; }
+}
+.filter-chips__count {
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: #1b1b1b;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Sortable header buttons — the whole header is the click target. */
+.th-sort {
+  all: unset;
+  cursor: pointer;
+  font: inherit;
+  font-weight: inherit;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+  &:focus-visible { outline: 2px solid #2491ff; outline-offset: 2px; }
+}
+.th-sort__arrow { font-size: 0.7rem; opacity: 0.8; }
+
+/* The filter row under the headers. Native inputs only — PrimeNG widgets
+   proved unusable with JAWS during UAT, so this stays plain HTML. */
+.filter-row th {
+  background: #e8eef7 !important;
+  padding: 0.3rem 0.4rem !important;
+
+  input, select {
+    width: 100%;
+    min-width: 0;
+    border: 1px solid #a9aeb1;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    padding: 0.25rem 0.4rem;
+    background: #fff;
+    color: #1b1b1b;
+    &:focus-visible { outline: 2px solid #2491ff; outline-offset: 1px; }
+  }
+  input[type="date"] { min-width: 8.5rem; }
+}
+
+@media (max-width: 760px) {
+  .stat-strip { grid-template-columns: 1fr 1fr; }
+  .filter-chips__count { margin-left: 0; width: 100%; }
+}
+
+/* Row actions */
+.row-action { font-size: 0.85rem; white-space: nowrap; }
+
+/* Pager */
+.pager { display: flex; align-items: center; gap: 1rem; margin-top: 0.75rem; }
+.pager__status { font-size: 0.82rem; color: #1b1b1b; font-variant-numeric: tabular-nums; }
+
+/* Status badge is now a dropdown trigger — surface the caret like other editable cells. */
+.status-toggle { border: 1px solid transparent; border-radius: 2px; padding: 0.15rem 0.35rem; background: none; cursor: pointer; }
+.status-toggle:hover { border-color: #a9aeb1; background: #f0f0f0; }
+.status-toggle:hover .editable-cell__hint { display: inline; color: #565c65; margin-left: 0.2rem; }
+.status-toggle:focus-visible { outline: 2px solid #2491ff; outline-offset: 1px; }

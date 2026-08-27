@@ -18,8 +18,8 @@ import {AiAnalyticsComponent} from './analytics/ai-analytics/ai-analytics.compon
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full', canActivate: [AuthGuardFn]},
   {path: 'auth', component: AuthComponent},
-  {path: 'admin/accepted', component: AdminComponent, canActivate: [AuthGuardFn] , data: { isAccepted: true, isRejected: false }},
-  {path: 'admin/masq', component: MasqComponent, canActivate: [AuthGuardFn] , data: {}},
+  {path: 'admin/accepted', component: AdminComponent, canActivate: [AdminGuardFn] , data: { isAccepted: true, isRejected: false }},
+  {path: 'admin/masq', component: MasqComponent, canActivate: [AdminGuardFn] , data: {}},
   {path: 'admin', component: AdminComponent, canActivate: [AdminGuardFn] , data: { isAccepted: false, isRejected: false }},
   {path: 'analytics', component: AnalyticsComponent, canActivate: [AdminGuardFn]},
   {path: 'analytics/ai-pipeline', component: AiPipelineComponent, canActivate: [AdminGuardFn]},

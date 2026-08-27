@@ -3,6 +3,14 @@
   <div class="container">
     <div class="clearfix summary-content-padding">
 
+      <h1 style="font-size: 1.5rem; font-weight: 700; margin: 0 0 0.25rem;">Solicitation History</h1>
+      <p style="font-size: 0.9rem; color: #1b1b1b; margin: 0 0 1.5rem; line-height: 1.5;">
+        A timeline of how this solicitation has been evaluated and acted on over time.
+        <em>Prediction History</em> shows each verdict the analysis pipeline has produced
+        (e.g. when a re-run changed the determination). <em>Action History</em> shows the
+        actions reviewers have taken — opening the report, emailing the point of contact,
+        flagging the solicitation as Not Applicable, or submitting feedback.
+      </p>
 
       <!-- Prediction History -->
       <div style="font-size: 16px;" class="margin-bottom-4">
@@ -18,10 +26,10 @@
                   <span [style.font-weight]="600">
                     @switch (entry.value) {
                       @case ('red') {
-                        Non-Compliant
+                        Not Included
                       }
                       @case ('green') {
-                        Compliant
+                        Included
                       }
                       @default {
                         {{entry.value}}

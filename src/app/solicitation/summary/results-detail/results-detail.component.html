@@ -1,172 +1,388 @@
 <main id="content" class="main-content usa-section">
-  <div class="feedback-container usa-layout-container">
+  <div class="feedback-container usa-layout-container" style="max-width: 64rem; margin: 0 auto; padding: 0 2rem;">
 
-    <!-- Loading State -->
     @if (loading) {
-      <div class="text-center padding-4">Loading analysis...</div>
+      <div class="text-center padding-4" role="status" aria-live="polite">Loading analysis...</div>
     }
 
     @if (!loading && solicitation) {
-      <!-- Back Button -->
+      <!-- Back -->
       <div class="margin-bottom-2">
-        <a [routerLink]="['/solicitation/report']" class="usa-link">
-          <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 18px;">arrow_back</span>
-          Back to Daily Report
+        <a [routerLink]="['/solicitation/report']" class="usa-link" style="display: inline-flex; align-items: center; gap: 4px;">
+          <span class="material-symbols-outlined" style="font-size: 18px;" aria-hidden="true">arrow_back</span>
+          Back to Solicitations
         </a>
       </div>
 
-      <!-- Title -->
-      <h1 class="font-sans-xl margin-bottom-1">{{ solicitation.title || solicitation.solNum }}</h1>
-      <p class="font-sans-xs text-base-dark margin-bottom-3">{{ solicitation.solNum }} · {{ solicitation.agency }} · {{ solicitation.date | date:'mediumDate' }}</p>
+      <!-- Title & Meta -->
+      <h1 style="font-size: 1.75rem; font-weight: 700; margin: 0 0 0.25rem;">{{ solicitation.title || solicitation.solNum }}</h1>
+      <p style="font-size: 0.85rem; color: #1b1b1b; margin: 0 0 0.75rem;">{{ solicitation.solNum }} · {{ solicitation.agency }} · {{ solicitation.date | date:'mediumDate' }}</p>
 
-      <!-- Determination Card -->
-      <section class="determination-card" [class.determination-card--compliant]="solicitation?.reviewRec === 'Compliant'" [class.determination-card--noncompliant]="solicitation?.reviewRec !== 'Compliant'">
+      <!-- Prominent Point of Contact — surfaced up top so reviewers don't have
+           to dig through the package to find who to follow up with. -->
+      @if (solicitation.contactInfo?.length) {
+        <p style="display: inline-flex; align-items: center; gap: 0.4rem; background: #f0f4f9; border: 1px solid #d3e0f1; border-radius: 999px; padding: 0.35rem 0.85rem; font-size: 0.85rem; margin: 0 0 1.5rem;">
+          <span class="material-symbols-outlined" style="font-size: 1rem; color: #1a4480;" aria-hidden="true">contact_mail</span>
+          <span style="font-weight: 700; color: #1a4480;">Point of contact:</span>
+          <a [routerLink]="['/solicitation/email', solicitationID]" class="usa-link">{{ solicitation.contactInfo.join(', ') }}</a>
+        </p>
+      }
+
+      <!-- Two-column report layout: sticky table-of-contents rail + content. -->
+      <div class="report-layout">
+        <nav class="report-toc" aria-label="On this page">
+          <p class="report-toc__heading">On this page</p>
+          <ul class="report-toc__list">
+            <li><button type="button" class="report-toc__link" [class.report-toc__link--active]="activeTocId === 'srt-overview-anchor'" [attr.aria-current]="activeTocId === 'srt-overview-anchor' ? 'true' : null" (click)="scrollTo('srt-overview-anchor')">Overall result</button></li>
+            @if (keyFindings.length > 0) {
+            }
+            @if (hasExecSummaryContent()) {
+              <li><button type="button" class="report-toc__link" [class.report-toc__link--active]="activeTocId === 'srt-summary-anchor'" [attr.aria-current]="activeTocId === 'srt-summary-anchor' ? 'true' : null" (click)="openAndScroll('summary', 'srt-summary-anchor')">Summary</button></li>
+            }
+            @if ((solicitation?.reviewRec === 'Non-compliant (Action Required)' || solicitation?.reviewRec === 'Compliant') && getActiveIctTypes().length > 0) {
+              <li><button type="button" class="report-toc__link" [class.report-toc__link--active]="activeTocId === 'srt-actions-anchor'" [attr.aria-current]="activeTocId === 'srt-actions-anchor' ? 'true' : null" (click)="openAndScroll('actions', 'srt-actions-anchor')">Action items</button></li>
+            }
+            @if (ragData?.ai_applicable !== undefined) {
+              <li><button type="button" class="report-toc__link" [class.report-toc__link--active]="activeTocId === 'srt-applicability-anchor'" [attr.aria-current]="activeTocId === 'srt-applicability-anchor' ? 'true' : null" (click)="openAndScroll('applicability', 'srt-applicability-anchor')">Applicability</button></li>
+            }
+            <li><button type="button" class="report-toc__link" [class.report-toc__link--active]="activeTocId === 'srt-docs-anchor'" [attr.aria-current]="activeTocId === 'srt-docs-anchor' ? 'true' : null" (click)="openAndScroll('docs', 'srt-docs-anchor')">Documentation</button></li>
+            @if (keyFindings.length > 0) {
+              <!-- Last in the list, matching its position on the page.
+                   openAndScroll (not scrollTo) so the collapsed panel expands. -->
+              <li><button type="button" class="report-toc__link" [class.report-toc__link--active]="activeTocId === 'srt-findings-anchor'" [attr.aria-current]="activeTocId === 'srt-findings-anchor' ? 'true' : null" (click)="openAndScroll('findings', 'srt-findings-anchor')">Key findings</button></li>
+            }
+          </ul>
+        </nav>
+
+        <div class="report-main">
+
+      <!-- Determination Card — mirrors the draft (manual-upload) view so both
+           detail pages read the same. -->
+      <div class="verdict-row" id="srt-overview-anchor" style="scroll-margin-top: 90px;" [class.verdict-row--single]="!showApplicabilityCard">
+      <section class="determination-card determination-card--slim" [ngClass]="getVerdictClass()">
         <div class="determination-card__content">
           <span class="determination-card__label">Section 508 Integration Assessment</span>
-          <h2 class="determination-card__verdict">{{ solicitation?.reviewRec === 'Compliant' ? 'INCLUDED' : 'NOT INCLUDED' }}</h2>
-          <p class="determination-card__desc">The SRT pipeline has analyzed solicitation <strong>{{ solicitation.solNum }}</strong> for integration of Section 508 accessibility requirements.</p>
+          <h2 class="determination-card__verdict">{{ getVerdictText() }}</h2>
+          <p class="determination-card__desc">{{ verdictDescription }}</p>
         </div>
         <div class="determination-card__badge">
-          <span class="material-symbols-outlined determination-card__icon">{{ solicitation?.reviewRec === 'Compliant' ? 'verified' : 'warning' }}</span>
+          <span class="material-symbols-outlined determination-card__icon" aria-hidden="true">{{ getVerdictIcon() }}</span>
         </div>
       </section>
 
-      <!-- RAG Analysis Section (if available) -->
-      @if (ragData) {
-        <!-- Executive Summary -->
-        @if (ragData.solicitation_explanation || ragData.ai_explanation) {
-          <section class="report-section">
-            <h2 class="section-title">Executive Summary</h2>
-            <div class="summary-box">
-              <p class="summary-box__text">{{ ragData.solicitation_explanation || ragData.ai_explanation }}</p>
-            </div>
-          </section>
-        }
+      <!-- Applicability card renders ONLY when 508 applies. "Not Applicable"
+           and "Cannot Evaluate" show a single card — otherwise the two cards
+           just repeat each other. -->
+      @if (showApplicabilityCard) {
+        <section class="determination-card determination-card--slim determination-card--support determination-card--support-yes">
+          <div class="determination-card__content">
+            <span class="determination-card__label">Section 508 Applicability</span>
+            <h2 class="determination-card__verdict">Section 508 Applies</h2>
+            <p class="determination-card__desc">This procurement involves ICT, so Section 508 requirements apply.</p>
+          </div>
+          <div class="determination-card__badge">
+            <span class="material-symbols-outlined determination-card__icon" aria-hidden="true">check_circle</span>
+          </div>
+        </section>
+      }
+      </div><!-- /.verdict-row -->
 
-        <!-- ICT Classification -->
-        @if (ragDocuments?.length > 0 && getActiveIctTypes().length > 0) {
-          <section class="report-section">
-            <h2 class="section-title">ICT Classification</h2>
-            <div class="ict-bento">
-              @for (ict of getActiveIctTypes(); track ict) {
-                <div class="ict-bento__card">
-                  <div class="ict-bento__header">
-                    <span class="material-symbols-outlined ict-bento__icon">{{ getIctIcon(ict) }}</span>
-                    <h4 class="ict-bento__name">{{ ict }}</h4>
-                  </div>
-                </div>
-              }
-            </div>
-          </section>
-        }
+      <!-- Key Findings now lives at the BOTTOM of the report, collapsed by
+           default — it is supporting detail, not the headline. See the section
+           just above the closing .report-main. -->
 
-        <!-- Section 508 Applicability -->
-        @if (ragData.ai_applicable !== undefined) {
-          <section class="report-section">
-            <div class="applicability-box">
-              <h2 class="applicability-box__title">Section 508 Applicability</h2>
-              <div class="applicability-box__status">
-                <span class="applicability-badge" [class.applicability-badge--yes]="ragData.ai_applicable" [class.applicability-badge--no]="!ragData.ai_applicable">
-                  {{ ragData.ai_applicable ? 'SECTION 508 APPLIES' : 'NOT APPLICABLE' }}
-                </span>
-              </div>
-            </div>
-          </section>
-        }
+      <!-- Why this determination -->
+      @if (getDeterminationRationale()) {
+        <section class="report-section">
+          <div class="summary-box">
+            <span class="summary-box__rationale-label">Why this determination — {{ getVerdictText() }}</span>
+            <p class="summary-box__text" style="margin-top: 0.35rem;">{{ getDeterminationRationale() }}</p>
+          </div>
+        </section>
+      }
 
-        <!-- Vector Match Evidence -->
-        @if (ragMatches?.length > 0) {
-          <section class="report-section">
-            <h2 class="section-title">Section 508 Evidence</h2>
-            <p class="font-sans-xs text-base-dark margin-bottom-2">{{ ragMatches.length }} vector matches found against the Section 508 standards corpus. Matches validated as meaningful are highlighted.</p>
-            <div class="vector-matches-list">
-              @for (match of ragMatches.slice(0, 10); track match.id) {
-                <div class="vector-match" [class.vector-match--meaningful]="match.is_meaningful_508_match" [class.vector-match--noise]="!match.is_meaningful_508_match">
-                  <div class="vector-match__header">
-                    <span class="vector-match__score">{{ (match.similarity_score * 100).toFixed(0) }}%</span>
-                    <span class="vector-match__badge">{{ match.is_meaningful_508_match ? '✓ Meaningful' : '✗ Not meaningful' }}</span>
-                    <span class="vector-match__file">{{ match.file_name }}</span>
+
+      @if (hasExemption || alreadyAddressed) {
+        <section class="handled-note" [class.handled-note--exempt]="hasExemption">
+          <span class="material-symbols-outlined handled-note__icon" aria-hidden="true">{{ hasExemption ? 'gpp_maybe' : 'task_alt' }}</span>
+          <div>
+            <p class="handled-note__title">{{ hasExemption ? 'Section 508 exemption documented' : 'Section 508 already addressed' }}</p>
+            <p class="handled-note__text">{{ hasExemption ? exemptionExplanation : alreadyAddressedReason }}</p>
+            <p class="handled-note__text handled-note__text--sub">No clause or requirements are recommended. If you believe this is wrong, use Give Feedback below.</p>
+          </div>
+        </section>
+      }
+
+      <!-- Action items checklist -->
+      @if ((solicitation?.reviewRec === 'Non-compliant (Action Required)' || solicitation?.reviewRec === 'Compliant') && getActiveIctTypes().length > 0) {
+        <section class="action-checklist" id="srt-actions-anchor" style="scroll-margin-top: 90px;" aria-labelledby="srt-actions-title">
+          <div class="action-checklist__head">
+            <h2 id="srt-actions-title" class="action-checklist__title">
+              <button type="button" class="action-checklist__toggle" (click)="toggleSection('actions')" [attr.aria-expanded]="!!openSections['actions']" aria-controls="actions-panel">
+                <span class="material-symbols-outlined" aria-hidden="true">checklist</span>
+                Your action items ({{ actionSteps.length }})
+                <span class="material-symbols-outlined" aria-hidden="true">{{ openSections['actions'] ? 'expand_less' : 'expand_more' }}</span>
+              </button>
+            </h2>
+            @if (allActionsDone) {
+              <span class="action-checklist__done" role="status">
+                <span class="material-symbols-outlined" aria-hidden="true">task_alt</span> All steps checked
+              </span>
+            }
+          </div>
+          @if (openSections['actions']) {
+          <ol class="action-checklist__list" id="actions-panel">
+            @for (step of actionSteps; track step.label; let i = $index) {
+              <li class="action-checklist__item" [class.action-checklist__item--done]="actionChecked[i]">
+                <label class="action-checklist__label">
+                  <input type="checkbox" [checked]="!!actionChecked[i]" (change)="toggleAction(i)" />
+                  <span class="action-checklist__text">
+                    <span class="action-checklist__step">{{ step.label }}</span>
+                    @if (step.detail) { <span class="action-checklist__detail">{{ step.detail }}</span> }
+                  </span>
+                </label>
+                @if (i === 0 && showRecommendedClause) {
+                  <button type="button" class="usa-button action-checklist__cta" (click)="clauseOpen = !clauseOpen" [attr.aria-expanded]="clauseOpen">{{ clauseOpen ? 'Hide clause' : 'View clause' }}</button>
+                }
+                @if ((i === 0 && !showRecommendedClause) || (i === 1 && showRecommendedClause)) {
+                  <button type="button" class="usa-button action-checklist__cta" (click)="getRequirements()">Generate requirements</button>
+                }
+                @if (i === 0 && showRecommendedClause && clauseOpen) {
+                        <!-- Recommended clause — shown only when 508 applies but no 508
+                             language was found anywhere in the solicitation. -->
+                        @if (showRecommendedClause) {
+                          <section class="clause-card">
+                            <h4 class="clause-card__title">
+                              <span class="material-symbols-outlined" aria-hidden="true">gavel</span>
+                              Recommended clause to add
+                            </h4>
+                            <p class="clause-card__lead">No Section 508 language was found in this solicitation. Copy the clause below into the body of your solicitation, then add the requirements underneath it.</p>
+                            <div class="clause-card__box" [class.clause-card__box--collapsed]="!clauseExpanded">
+                              <p class="clause-card__clause-title">{{ recommendedClause.title }}</p>
+                              @for (para of recommendedClause.paragraphs; track para; let i = $index) {
+                                @if (clauseExpanded || i === 0) {
+                                  <p class="clause-card__para">{{ para }}</p>
+                                }
+                              }
+                            </div>
+                            @if (recommendedClause.paragraphs.length > 1) {
+                              <button type="button" class="usa-button usa-button--unstyled clause-card__more" (click)="clauseExpanded = !clauseExpanded" [attr.aria-expanded]="clauseExpanded">
+                                {{ clauseExpanded ? 'Show less' : 'Show full clause (' + recommendedClause.paragraphs.length + ' paragraphs)' }}
+                              </button>
+                              <span class="usa-sr-only">Copying always copies the complete clause, whether or not it is fully shown.</span>
+                            }
+                            <div class="clause-card__actions">
+                              <button type="button" class="usa-button usa-button--outline" (click)="copyClause()">
+                                <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle; margin-right: 4px;" aria-hidden="true">{{ clauseCopied ? 'check' : 'content_copy' }}</span>
+                                {{ clauseCopied ? 'Copied!' : 'Copy clause' }}
+                              </button>
+                              <span class="usa-sr-only" role="status">{{ clauseCopied ? 'Clause copied to clipboard.' : '' }}</span>
+                              <button type="button" class="usa-button usa-button--unstyled" (click)="clauseInstructionsOpen = !clauseInstructionsOpen" [attr.aria-expanded]="clauseInstructionsOpen" aria-controls="clause-instructions">
+                                {{ clauseInstructionsOpen ? 'Hide instructions' : 'How to use this' }}
+                              </button>
+                            </div>
+                            @if (clauseInstructionsOpen) {
+                              <div id="clause-instructions" class="clause-card__instructions">
+                                @for (line of recommendedClause.instructions; track line) {
+                                  <p>{{ line }}</p>
+                                }
+                              </div>
+                            }
+                          </section>
+                        }
+                }
+                @if (((i === 0 && !showRecommendedClause) || (i === 1 && showRecommendedClause)) && (artLoading || artError || artRequirements)) {
+                  <div class="inline-req">
+                    @if (artLoading) {
+                      <p class="inline-req__loading" role="status" aria-live="polite">Generating Section 508 requirements…</p>
+                    }
+                    @if (artError) {
+                      <p style="color: #b41d1d; font-size: 0.85rem; margin: 0;" role="alert">{{ artError }}</p>
+                    }
+                    @if (artRequirements) {
+                      <div style="display: flex; gap: 0.75rem; align-items: flex-start; background: #e6f2f8; border-left: 4px solid #0467ae; border-radius: 0.5rem; padding: 0.9rem 1.1rem; margin-bottom: 0.75rem;">
+                        <span class="material-symbols-outlined" style="color: #0467ae; font-size: 1.25rem;" aria-hidden="true">playlist_add_check</span>
+                        <div>
+                          <p style="margin: 0 0 0.2rem; font-weight: 700; font-size: 0.9rem; color: #00467b;">What to do with these requirements</p>
+                          <p style="margin: 0; font-size: 0.85rem; line-height: 1.5;">Copy the requirements below, then paste them into the <strong>Terms &amp; Conditions</strong> or <strong>Requirements</strong> section. They paste cleanly as plain text. Only the requirements applicable to this procurement are listed — not the full 508 standard.</p>
+                        </div>
+                      </div>
+                      @if (artRequirements.language) {
+                        <div style="display: flex; justify-content: flex-end; margin-bottom: 0.5rem;">
+                          <button type="button" class="usa-button usa-button--outline" (click)="copyRequirements()" style="font-size: 0.8rem; display: inline-flex; align-items: center; gap: 4px;">
+                            <span class="material-symbols-outlined" style="font-size: 16px;" aria-hidden="true">{{ requirementsCopied ? 'check' : 'content_copy' }}</span>
+                            {{ requirementsCopied ? 'Copied!' : 'Copy requirements' }}
+                          </button>
+                          <span class="usa-sr-only" role="status">{{ requirementsCopied ? 'Requirements copied to clipboard.' : '' }}</span>
+                        </div>
+                        <div class="art-table-wrap">
+                          <table class="art-table">
+                            <caption class="usa-sr-only">Section 508 requirements generated by the Accessibility Requirements Tool, listing requirement code, requirement, and detail.</caption>
+                            <thead><tr><th scope="col">Code</th><th scope="col">Requirement</th><th scope="col">Detail</th></tr></thead>
+                            @for (section of artRequirements.language; track section.code || section.title) {
+                              <tbody class="art-table__group">
+                                <tr class="art-table__section-row">
+                                  <th scope="rowgroup" colspan="3" class="art-table__group-head">{{ section.code }} — {{ section.title }}</th>
+                                </tr>
+                                @if (section.sections?.length) {
+                                  @for (sub of section.sections; track sub.code || sub.title) {
+                                    <tr><th scope="row" class="art-table__code">{{ sub.code }}</th><td class="art-table__title">{{ sub.title }}</td><td class="art-table__text">{{ sub.text }}</td></tr>
+                                  }
+                                }
+                              </tbody>
+                            }
+                          </table>
+                        </div>
+                      }
+                    }
                   </div>
-                  <div class="vector-match__body">
-                    <div class="vector-match__col">
-                      <span class="vector-match__label">Solicitation Text</span>
-                      <p class="vector-match__text">{{ match.chunk_text }}</p>
-                    </div>
-                    <div class="vector-match__col">
-                      <span class="vector-match__label">508 Standard</span>
-                      <p class="vector-match__text">{{ match.matched_standard_text }}</p>
-                    </div>
-                  </div>
-                  @if (match.validation_reasoning) {
-                    <p class="vector-match__reason">{{ match.validation_reasoning }}</p>
+                }
+              </li>
+            }
+          </ol>
+          }
+        </section>
+      }
+
+      <!-- Section 508 Applicability + Report Metadata — collapsible ("less is
+           more"): the answer shows in the toggle row; details on demand. -->
+      <section class="report-section" id="srt-applicability-anchor" style="scroll-margin-top: 90px;">
+        <h2 class="collapse-heading"><button type="button" class="section-collapse-toggle" (click)="toggleSection('applicability')" [attr.aria-expanded]="!!openSections['applicability']" aria-controls="applicability-panel">
+          <span style="display: inline-flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+            <span class="section-title" style="margin: 0;">Section 508 Applicability &amp; Report Details</span>
+            @if (ragData?.ai_applicable !== undefined) {
+              <span class="applicability-badge" [class.applicability-badge--yes]="ragData.ai_applicable" [class.applicability-badge--no]="!ragData.ai_applicable">
+                {{ ragData.ai_applicable ? 'Applies' : 'Does Not Apply' }}
+              </span>
+            }
+          </span>
+          <span class="material-symbols-outlined" aria-hidden="true">{{ openSections['applicability'] ? 'expand_less' : 'expand_more' }}</span>
+        </button></h2>
+        @if (openSections['applicability']) {
+          <div id="applicability-panel" class="report-grid" style="margin-top: 0.75rem; margin-bottom: 0;">
+            <div>
+              @if (ragData?.ai_applicable !== undefined) {
+                <div class="summary-box">
+                  <span class="applicability-badge" [class.applicability-badge--yes]="ragData.ai_applicable" [class.applicability-badge--no]="!ragData.ai_applicable">
+                    <span class="material-symbols-outlined applicability-badge__icon" aria-hidden="true">{{ ragData.ai_applicable ? 'check_circle' : 'do_not_disturb_on' }}</span>
+                    {{ ragData.ai_applicable ? 'Yes — Section 508 Applies' : 'No — Section 508 Does Not Apply' }}
+                  </span>
+                  @if (getApplicabilityExplanation()) {
+                    <p style="font-size: 0.9rem; color: #1b1b1b; font-style: italic; margin-top: 0.75rem; line-height: 1.6;">{{ getApplicabilityExplanation() }}</p>
                   }
                 </div>
               }
             </div>
-          </section>
-        }
-
-        <!-- ART Requirements (for non-compliant only) -->
-        @if (solicitation?.reviewRec !== 'Compliant' && artRequirements) {
-          <section class="report-section">
-            <h2 class="section-title">Section 508 Requirements</h2>
-            <div class="art-explainer">
-              <div class="art-explainer__icon">
-                <span class="material-symbols-outlined">info</span>
-              </div>
-              <div class="art-explainer__content">
-                <p class="art-explainer__title">What is this?</p>
-                <p class="art-explainer__text">The <strong>Accessibility Requirements Tool (ART)</strong> generated the specific Section 508 requirements applicable to this procurement based on the ICT types identified ({{ getActiveIctTypes().join(', ') }}). These are the requirements this solicitation should reference.</p>
-              </div>
-            </div>
-            <p class="art-instruction-text">The requirements below belong in the Terms and Conditions or Requirements section of the solicitation. A reference to these requirements should be added to the initial Section 508 clause.</p>
-            <div class="art-note">
-              <span class="material-symbols-outlined">info</span>
-              <p>This tool provides Section 508 requirements guidance. It does not review FAR clauses, agency-specific requirements, clauses, or provisions.</p>
-            </div>
-            @if (artRequirements.language) {
-              <div class="art-table-wrap">
-                <table class="art-table">
-                  <thead><tr><th>Code</th><th>Requirement</th><th>Detail</th></tr></thead>
-                  <tbody>
-                    @for (section of artRequirements.language; track section.code || section.title) {
-                      <tr class="art-table__section-row"><td class="art-table__code">{{ section.code }}</td><td colspan="2"><strong>{{ section.title }}</strong></td></tr>
-                      @if (section.sections?.length) {
-                        @for (sub of section.sections; track sub.code || sub.title) {
-                          <tr><td class="art-table__code">{{ sub.code }}</td><td class="art-table__title">{{ sub.title }}</td><td class="art-table__text">{{ sub.text }}</td></tr>
-                        }
+            <div>
+              <h3 style="font-size: 0.85rem; font-weight: 700; color: #1b1b1b; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 0.75rem;">Report Metadata</h3>
+              <div class="meta-box">
+                <div class="meta-box__item"><span class="meta-box__label">Point of Contact</span><span class="meta-box__value"><a [routerLink]="['/solicitation/email', solicitationID]" class="usa-link">{{ solicitation.contactInfo?.join(', ') }}</a></span></div>
+                <div class="meta-box__item"><span class="meta-box__label">Agency</span><span class="meta-box__value">{{ solicitation.agency }}</span></div>
+                <div class="meta-box__item"><span class="meta-box__label">Office</span><span class="meta-box__value">{{ solicitation.office }}</span></div>
+                <div class="meta-box__item"><span class="meta-box__label">Notice Type</span><span class="meta-box__value">{{ solicitation.noticeType }}</span></div>
+                <div class="meta-box__item"><span class="meta-box__label">NAICS</span><span class="meta-box__value">{{ solicitation.noticeData?.naics }}</span></div>
+                <div class="meta-box__item"><span class="meta-box__label">PSC</span><span class="meta-box__value">{{ solicitation.noticeData?.psc }}</span></div>
+                <div class="meta-box__item"><span class="meta-box__label">Date Posted</span><span class="meta-box__value">{{ solicitation.date | date:'mediumDate':'UTC' }}</span></div>
+                @if (ragDocuments?.length > 0 && getActiveIctTypes().length > 0) {
+                  <div class="meta-box__item meta-box__item--stacked">
+                    <span class="meta-box__label" title="ICT (Information & Communication Technology) types are inferred from the solicitation's documents by the SRT analysis engine, not pulled from SAM.gov.">
+                      ICT Classification
+                      <span class="material-symbols-outlined" style="font-size: 12px; vertical-align: middle; margin-left: 2px; color: #5c6670; cursor: help;" aria-hidden="true">info</span>
+                    </span>
+                    <div class="meta-box__chips">
+                      @for (ict of getActiveIctTypes(); track ict) {
+                        <span class="meta-box__chip">
+                          <span class="material-symbols-outlined" style="font-size: 13px;" aria-hidden="true">{{ getIctIcon(ict) }}</span>
+                          {{ ict.replace('_', ' ') }}
+                        </span>
                       }
-                    }
-                  </tbody>
-                </table>
+                    </div>
+                    <span class="meta-box__caption">Determined by the SRT engine</span>
+                  </div>
+                }
               </div>
-            }
-            @if (artLoading) {
-              <p class="text-base-dark">Loading ART requirements...</p>
-            }
-            @if (artError) {
-              <p class="text-error">{{ artError }}</p>
-            }
+            </div>
+          </div>
+        }
+      </section>
+
+
+      <!-- Executive Summary (full width) — the verdict now lives in the
+           Determination Card above, so this spans the full row. -->
+      @if (hasExecSummaryContent()) {
+        <section class="report-section" id="srt-summary-anchor" style="scroll-margin-top: 90px;">
+          <h2 class="collapse-heading"><button type="button" class="section-collapse-toggle" (click)="toggleSection('summary')" [attr.aria-expanded]="!!openSections['summary']" aria-controls="exec-summary-panel">
+            <span class="section-title" style="margin: 0;">Summary</span>
+            <span class="material-symbols-outlined" aria-hidden="true">{{ openSections['summary'] ? 'expand_less' : 'expand_more' }}</span>
+          </button></h2>
+          @if (openSections['summary']) {
+            <div id="exec-summary-panel" class="summary-box" style="margin-top: 0.75rem;">
+              @if (getSolicitationDescription()) {
+                <p class="summary-box__text">{{ getSolicitationDescription() }}</p>
+              }
+            </div>
+          }
+        </section>
+      } @else if (solicitation?.reviewRec === 'Cannot Evaluate (Review Required)') {
+        <section class="report-section">
+          <h2 class="section-title">Summary</h2>
+          <div class="summary-box">
+            <p class="summary-box__text">{{ getCannotEvaluateReason() }}</p>
+          </div>
+        </section>
+      }
+
+      <!-- RAG Analysis (if available) -->
+      @if (ragData) {
+
+        <!-- (ICT Classification has moved into the Report Metadata box on
+             the right side of the page header so reviewers can see it
+             alongside Agency, NAICS, PSC, etc. Section 508 Applicability has
+             also moved up under the determination card.) -->
+
+        <!-- Key Findings -->
+        <!-- Already-published note — dashboard items are pulled from SAM.gov, so
+             they're live and can't be edited here. -->
+        @if (solicitation?.reviewRec === 'Non-compliant (Action Required)' || solicitation?.reviewRec === 'Compliant') {
+          <section class="report-section">
+            <div style="background: #faf3ea; border-left: 4px solid #c05600; border-radius: 0.5rem; padding: 0.6rem 1.1rem;">
+              <h2 class="collapse-heading"><button type="button" class="section-collapse-toggle" (click)="toggleSection('published')" [attr.aria-expanded]="!!openSections['published']" aria-controls="published-panel">
+                <span style="display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.9rem; color: #1b1b1b;">
+                  <span class="material-symbols-outlined" style="color: #c05600; font-size: 1.25rem;" aria-hidden="true">info</span>
+                  This solicitation is already published on SAM.gov
+                </span>
+                <span class="material-symbols-outlined" aria-hidden="true">{{ openSections['published'] ? 'expand_less' : 'expand_more' }}</span>
+              </button></h2>
+              @if (openSections['published']) {
+                <p id="published-panel" style="margin: 0.4rem 0 0.35rem; font-size: 0.85rem; line-height: 1.5; color: #1b1b1b;">SRT can't change a live solicitation. Use this review to confirm whether the Section 508 requirements are sufficient, and follow up with the solicitation owner if language is missing or should be added to a future version.</p>
+              }
+            </div>
           </section>
         }
 
         <!-- Per-File Results -->
         @if (ragDocuments?.length > 1) {
           <section class="report-section">
-            <h2 class="section-title">Individual File Results</h2>
-            <div class="file-tabs">
+            <h2 class="collapse-heading"><button type="button" class="section-collapse-toggle" (click)="toggleSection('files')" [attr.aria-expanded]="!!openSections['files']" aria-controls="files-panel">
+              <span class="section-title" style="margin: 0;">Individual File Results ({{ ragDocuments.length }} files)</span>
+              <span class="material-symbols-outlined" aria-hidden="true">{{ openSections['files'] ? 'expand_less' : 'expand_more' }}</span>
+            </button></h2>
+            @if (openSections['files']) {
+            <div id="files-panel" style="margin-top: 0.75rem;">
+            <div class="file-tabs" role="group" aria-label="Individual file results">
               @for (doc of ragDocuments; track doc.id; let i = $index) {
-                <button class="file-tabs__tab" [class.file-tabs__tab--active]="selectedDocTab === i" (click)="selectedDocTab = i">
-                  <span class="material-symbols-outlined file-tabs__icon">{{ doc.is_compliant ? 'check_circle' : 'cancel' }}</span>
+                <button class="file-tabs__tab" [class.file-tabs__tab--active]="selectedDocTab === i" [attr.aria-pressed]="selectedDocTab === i" (click)="selectedDocTab = i">
+                  <span class="material-symbols-outlined" style="font-size: 16px;" aria-hidden="true">{{ doc.bm25_prediction === 'compliant' ? 'check_circle' : 'cancel' }}</span>
                   {{ doc.file_name }}
+                  <span class="usa-sr-only">{{ doc.bm25_prediction === 'compliant' ? '(508 language included)' : '(508 language not included)' }}</span>
                 </button>
               }
             </div>
             <div class="file-tab-content">
               <div class="file-tab-result">
                 <div class="file-tab-result__header">
-                  <span class="file-tab-result__badge" [class.file-tab-result__badge--pass]="ragDocuments[selectedDocTab]?.is_compliant" [class.file-tab-result__badge--fail]="!ragDocuments[selectedDocTab]?.is_compliant">
-                    {{ ragDocuments[selectedDocTab]?.is_compliant ? 'Included' : 'Not Included' }}
+                  <span class="file-tab-result__badge" [class.file-tab-result__badge--pass]="ragDocuments[selectedDocTab]?.bm25_prediction === 'compliant'" [class.file-tab-result__badge--fail]="ragDocuments[selectedDocTab]?.bm25_prediction !== 'compliant'">
+                    {{ ragDocuments[selectedDocTab]?.bm25_prediction === 'compliant' ? 'Included' : 'Not Included' }}
                   </span>
                   <span class="file-tab-result__name">{{ ragDocuments[selectedDocTab]?.file_name }}</span>
                 </div>
@@ -176,18 +392,49 @@
                 @if (ragDocuments[selectedDocTab]?.applicability_explanation) {
                   <p class="file-tab-result__meta"><strong>Applicability:</strong> {{ ragDocuments[selectedDocTab].applicability_explanation }}</p>
                 }
+
+                <!-- Evidence of inclusion: BM25 508 keyword hits (mirrors manual-upload view) -->
+                @if (hasKeywordHits(ragDocuments[selectedDocTab])) {
+                  <div class="kw-evidence">
+                    <div class="kw-evidence__head">
+                      <span class="material-symbols-outlined kw-evidence__icon" aria-hidden="true">key</span>
+                      <span class="kw-evidence__title">Evidence of Inclusion — Section 508 Language Detected</span>
+                      <span class="kw-evidence__count">{{ getKeywordHitTotal(ragDocuments[selectedDocTab]) }} match{{ getKeywordHitTotal(ragDocuments[selectedDocTab]) === 1 ? '' : 'es' }}</span>
+                    </div>
+                    <p class="kw-evidence__sub">Keywords and FAR clause references found in this file. These are the terms the compliance model used to determine 508 language is present.</p>
+                    <div class="kw-evidence__chips">
+                      @for (hit of getKeywordHits(ragDocuments[selectedDocTab]); track hit.term) {
+                        <span class="kw-chip">
+                          {{ hit.term }}<span class="kw-chip__count">{{ hit.count }}×</span>
+                        </span>
+                      }
+                    </div>
+                  </div>
+                } @else if (ragDocuments[selectedDocTab]?.bm25_prediction !== 'compliant') {
+                  <div class="kw-evidence kw-evidence--none">
+                    <span class="material-symbols-outlined kw-evidence__icon" aria-hidden="true">search_off</span>
+                    <span>No Section 508 keywords or clause references were detected in this file.</span>
+                  </div>
+                }
               </div>
             </div>
+            </div>
+            }
           </section>
         }
       }
 
-      <!-- Contact & Metadata Grid -->
-      <section class="report-section">
-        <div class="grid-row grid-gap margin-top-3">
-          <div class="tablet:grid-col-8">
+      <!-- Scan Results & Contact (Documentation) — collapsible -->
+      <section class="report-section" id="srt-docs-anchor" style="scroll-margin-top: 90px;">
+        <h2 class="collapse-heading"><button type="button" class="section-collapse-toggle" (click)="toggleSection('docs')" [attr.aria-expanded]="!!openSections['docs']" aria-controls="docs-panel">
+          <span class="section-title" style="margin: 0;">Documentation &amp; Contact ({{ solicitation.parseStatus?.length || 0 }} files)</span>
+          <span class="material-symbols-outlined" aria-hidden="true">{{ openSections['docs'] ? 'expand_less' : 'expand_more' }}</span>
+        </button></h2>
+        @if (openSections['docs']) {
+        <div id="docs-panel" class="report-grid" style="margin-top: 0.75rem; margin-bottom: 0;">
+          <div>
             <h2 class="section-title">Scan Results</h2>
-            <table class="usa-table" data-sortable="true">
+            <table class="usa-table usa-table--borderless" style="width: 100%;">
               <thead>
                 <tr>
                   <th scope="col">Filename</th>
@@ -198,68 +445,58 @@
               <tbody>
                 @for (doc of solicitation.parseStatus; track doc) {
                   <tr>
-                    <td><a href="{{ doc.attachment_url }}" class="usa-link">{{ doc.name }}</a></td>
+                    <td>
+                      @if (doc.attachment_url) {
+                        <a [href]="doc.attachment_url"
+                           [attr.download]="doc.name || true"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="usa-link"
+                           (click)="onFileClick($event, doc)">
+                          <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle; margin-right: 4px;" aria-hidden="true">download</span>{{ doc.name }}
+                        </a>
+                      } @else {
+                        <span class="usa-link usa-link--disabled" style="color: #1b1b1b; cursor: not-allowed;" title="Source URL not available for this file">{{ doc.name }}</span>
+                      }
+                    </td>
                     <td>{{ doc.formattedDate }}</td>
                     <td>{{ doc.status }}</td>
                   </tr>
                 }
               </tbody>
             </table>
-
-            <div class="margin-top-2">
-              <a [routerLink]="['/solicitation/history', solicitationID]" class="usa-button usa-button--outline">
-                History
-              </a>
-              <a [routerLink]="['/solicitation/feedback', solicitationID]" class="usa-button usa-button--outline margin-left-1">
-                Provide Feedback
-              </a>
-            </div>
-          </div>
-
-          <div class="tablet:grid-col-4">
-            <h2 class="section-title">Contact</h2>
-            <dl class="usa-description-list">
-              <div class="margin-bottom-2">
-                <dt class="usa-description-list__term">Agency:</dt>
-                <dd class="usa-description-list__description">{{ solicitation.agency }}</dd>
-              </div>
-              <div class="margin-bottom-2">
-                <dt class="usa-description-list__term">Office:</dt>
-                <dd class="usa-description-list__description">{{ solicitation.office }}</dd>
-              </div>
-              <div class="margin-bottom-2">
-                <dt class="usa-description-list__term">Point of Contact:</dt>
-                <dd class="usa-description-list__description">
-                  <a [routerLink]="['/solicitation/email', solicitationID]" class="usa-link">
-                    {{ solicitation.contactInfo?.join(', ') }}
-                  </a>
-                </dd>
-              </div>
-              <div class="margin-bottom-2">
-                <dt class="usa-description-list__term">Notice Type:</dt>
-                <dd class="usa-description-list__description">{{ solicitation.noticeType }}</dd>
-              </div>
-              <div class="margin-bottom-2">
-                <dt class="usa-description-list__term">NAICS:</dt>
-                <dd class="usa-description-list__description">{{ solicitation.noticeData?.naics }}</dd>
-              </div>
-              <div class="margin-bottom-2">
-                <dt class="usa-description-list__term">PSC:</dt>
-                <dd class="usa-description-list__description">{{ solicitation.noticeData?.psc }}</dd>
-              </div>
-            </dl>
-
-            <!-- Not Applicable Toggle -->
-            <div class="margin-top-3">
-              <div class="usa-checkbox">
-                <input class="usa-checkbox__input" id="na-flag" type="checkbox"
-                       [checked]="solicitation.na_flag" (change)="onNotApplicableClick($event)" />
-                <label class="usa-checkbox__label" for="na-flag">Mark as Not Applicable</label>
-              </div>
-            </div>
           </div>
         </div>
+        }
       </section>
+
+      <!-- Key Findings — supporting detail, so it sits last and starts closed. -->
+      @if (keyFindings.length > 0) {
+        <section class="report-section" id="srt-findings-anchor" style="scroll-margin-top: 90px;">
+          <h2 class="collapse-heading"><button type="button" class="section-collapse-toggle" (click)="toggleSection('findings')" [attr.aria-expanded]="!!openSections['findings']" aria-controls="findings-panel">
+            <span class="section-title" style="margin: 0;">Key Findings ({{ keyFindings.length }})</span>
+            <span class="material-symbols-outlined" aria-hidden="true">{{ openSections['findings'] ? 'expand_less' : 'expand_more' }}</span>
+          </button></h2>
+          @if (openSections['findings']) {
+            <div id="findings-panel" class="findings-grid" style="margin-top: 0.75rem;">
+              @for (finding of keyFindings; track finding; let i = $index) {
+                <div class="finding-card">
+                  <div class="finding-card__icon-wrap"><span class="material-symbols-outlined finding-card__icon" aria-hidden="true">{{ i % 2 === 0 ? 'analytics' : 'fact_check' }}</span></div>
+                  <p class="finding-card__text">{{ finding }}</p>
+                </div>
+              }
+            </div>
+          }
+        </section>
+      }
+
+      <!-- Feedback stays outside the collapsed sections so it's always visible. -->
+      <div style="margin-bottom: 1.5rem;">
+        <app-feedback-button source="solicitation_detail" [solicitationNumber]="solicitation.solNum" [currentVerdict]="getVerdictText()"></app-feedback-button>
+      </div>
+
+        </div><!-- /.report-main -->
+      </div><!-- /.report-layout -->
     }
   </div>
 </main>

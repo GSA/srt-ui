@@ -40,6 +40,11 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    this.isAnalyticsDropdownOpen = false;
+  }
+
   /* CONSTRUCTORS */
 
   /**
@@ -158,7 +163,6 @@ export class HeaderComponent implements OnInit {
   }
 
   menuClick(location) {
-    
     this.$gaService.event(`navbar_${location.replace(/\//g, '')}`, 'navbar_click');
 
     this.router.navigateByUrl(location).catch(r => console.log(r));

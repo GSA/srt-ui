@@ -37,7 +37,7 @@ $surface: #fff;
   .material-symbols-outlined { font-size: 1rem; }
 
   &--primary { background: $primary; color: #fff; &:hover { background: darken($primary, 8%); } }
-  &--outline { background: none; border: 1px solid $border; color: #414750; &:hover { background: #f0f4f9; } }
+  &--outline { background: none; border: 1px solid $border; color: #1b1b1b; &:hover { background: #f0f4f9; } }
   &--small { padding: 0.35rem 0.75rem; font-size: 0.75rem; background: $primary-light; color: $primary; }
   &--run {
     background: $primary; color: #fff; padding: 0.75rem 2rem; font-size: 1rem;
@@ -62,7 +62,7 @@ $surface: #fff;
 .file-input-area {
   flex: 1; display: flex; align-items: center; gap: 0.5rem;
   padding: 0.75rem 1rem; border: 2px dashed $border; border-radius: 0.25rem;
-  cursor: pointer; font-size: 0.85rem; color: #414750; transition: border-color 0.2s;
+  cursor: pointer; font-size: 0.85rem; color: #1b1b1b; transition: border-color 0.2s;
   &:hover { border-color: $primary; }
   .material-symbols-outlined { font-size: 1.25rem; color: $primary; }
 }
@@ -182,14 +182,14 @@ $surface: #fff;
 
   &--input { background: #fff8f0; }
   &__key { font-weight: 600; color: $primary; min-width: 140px; flex-shrink: 0; }
-  &__value { margin: 0; white-space: pre-wrap; word-break: break-word; color: #414750; font-family: 'SF Mono', monospace; font-size: 0.75rem; }
+  &__value { margin: 0; white-space: pre-wrap; word-break: break-word; color: #1b1b1b; font-family: 'SF Mono', monospace; font-size: 0.75rem; }
 }
 
 .raw-toggle {
   padding: 0.5rem 1rem 0.75rem 2.5rem;
   summary { font-size: 0.7rem; color: #717782; cursor: pointer; font-weight: 600; }
 }
-.raw-response { font-size: 0.7rem; color: #555; white-space: pre-wrap; margin: 0.5rem 0 0; max-height: 200px; overflow-y: auto; }
+.raw-response { font-size: 0.7rem; color: #1b1b1b; white-space: pre-wrap; margin: 0.5rem 0 0; max-height: 200px; overflow-y: auto; }
 
 /* Chain Arrow */
 .chain-arrow {
@@ -339,7 +339,7 @@ $surface: #fff;
   &__info { display: flex; flex-direction: column; gap: 0.15rem; }
   &__name { font-weight: 600; font-size: 0.9rem; color: $navy; }
   &__type { font-size: 0.7rem; color: #717782; text-transform: uppercase; }
-  &__desc { font-size: 0.75rem; color: #555; font-style: italic; max-width: 30rem; }
+  &__desc { font-size: 0.75rem; color: #1b1b1b; font-style: italic; max-width: 30rem; }
   &__actions { display: flex; align-items: center; gap: 0.5rem; }
 }
 

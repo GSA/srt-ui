@@ -35,6 +35,7 @@
             <li class="usa-button-group__item">
               <a [routerLink]="['/solicitation/report', solicitationID]"
                 [class.usa-button--active]="type==='report'"
+                [attr.aria-current]="type==='report' ? 'page' : null"
                 class="usa-button"
                 (click)="onClickTabs('sol_result_tab', 'Solicitation Result Tab')">
                 STEP 1: VIEW RESULT
@@ -43,6 +44,7 @@
             <li class="usa-button-group__item">
               <a [routerLink]="['/solicitation/email', solicitationID]"
                 [class.usa-button--active]="type==='email'"
+                [attr.aria-current]="type==='email' ? 'page' : null"
                 class="usa-button"
                 (click)="onClickTabs('email_tab', 'Email Tab')">
                 STEP 2: EMAIL POC
@@ -51,6 +53,7 @@
             <li class="usa-button-group__item">
               <a [routerLink]="['/solicitation/feedback', solicitationID]"
                 [class.usa-button--active]="type==='feedback'"
+                [attr.aria-current]="type==='feedback' ? 'page' : null"
                 class="usa-button"
                 (click)="onClickTabs('make_smarter_tab', 'Make Smarter Tab')">
                 STEP 3: MAKE SRT SMARTER
@@ -62,6 +65,7 @@
             <li class="usa-button-group__item">
               <a [routerLink]="['/solicitation/prediction', solicitationID]"
                 [class.usa-button--active]="type==='prediction'"
+                [attr.aria-current]="type==='prediction' ? 'page' : null"
                 class="usa-button usa-button--outline"
                 (click)="onClickTabs('prediction_history_tab', 'Prediction History Tab')">
                 Prediction History
@@ -70,6 +74,7 @@
             <li class="usa-button-group__item">
               <a [routerLink]="['/solicitation/history', solicitationID]"
                 [class.usa-button--active]="type==='history'"
+                [attr.aria-current]="type==='history' ? 'page' : null"
                 class="usa-button usa-button--outline"
                 (click)="onClickTabs('history_tab', 'History Tab')">
                 History

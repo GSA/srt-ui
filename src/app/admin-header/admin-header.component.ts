@@ -1,5 +1,14 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
+/**
+ * Admin section tab bar.
+ *
+ * Four tabs, consolidated from the previous ten:
+ *   users     — user management (+ approval views, masquerade row action)
+ *   analytics — website analytics, login reports, metric downloads
+ *   ops       — system health, audit log
+ *   content   — email templates, user feedback
+ */
 @Component({
     selector: 'app-admin-header',
     templateUrl: './admin-header.component.html',
@@ -9,33 +18,15 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 export class AdminHeaderComponent implements OnInit {
 
   @Output() menuClick = new EventEmitter<string>();
-  active: Object;
-
-  constructor() {
-    this.active = {};
-    this.active['user-management'] = true;
-    this.active['website-analytics'] = false;
-    this.active['accepted'] = false;
-    this.active['masquerade'] = false;
-    this.active['reports'] = false;
-    this.active['audit-log'] = false;
-    this.active['system-health'] = false;
-    this.active['feedback'] = false;
-    this.active['email-templates'] = false;
-  }
-
+  @Input() initialTab = 'users';
+  active: { [key: string]: boolean } = { users: true, analytics: false, ops: false, content: false };
 
   ngOnInit() {
+    if (this.active.hasOwnProperty(this.initialTab)) { this.setActiveTab(this.initialTab); }
   }
 
   setActiveTab(tab: string) {
-    for (const key in this.active) {
-      if (this.active.hasOwnProperty(key)) {
-        this.active[key] = false;
-      }
-    }
+    for (const key of Object.keys(this.active)) { this.active[key] = false; }
     this.active[tab] = true;
-    console.log(this.active);
   }
-
 }

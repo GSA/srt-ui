@@ -1,86 +1,71 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
-import { SolicitationService } from '../../solicitation/solicitation.service';
-
-import { Email } from '../../solicitation/summary/email-poc/email';
-import {BaseComponent} from '../../base.component';
-import {Title} from '@angular/platform-browser';
+import { FeedbackService } from '../../shared/services/feedback.service';
+import { BaseComponent } from '../../base.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
-    selector: 'app-contact-us',
-    templateUrl: './contact-us.component.html',
-    styleUrls: ['./contact-us.component.scss'],
-    standalone: false
+  selector: 'app-contact-us',
+  templateUrl: './contact-us.component.html',
+  styleUrls: ['./contact-us.component.scss'],
+  standalone: false
 })
 export class ContactUsComponent extends BaseComponent implements OnInit {
 
-  /* ATTRIBUTES */
-
-  emailBody: String;
-  emailCC: String;
-  emailSent: Boolean = false;
-  emailTo: String;
   myForm: FormGroup;
-  subject: String;
-  type: String = 'email';
+  emailSent = false;
+  sending = false;
+  error = '';
+  userEmail = '';
 
-  /* CONSTRUCTOR */
-
-  /**
-   * constructor
-   * @param solicitationService
-   * @param ts
-   */
   constructor(
-    private solicitationService: SolicitationService,
+    private feedbackService: FeedbackService,
     private ts: Title
   ) {
     super(ts);
     this.pageName = 'SRT - Contact Us';
   }
 
-  /**
-   * angular lifecycle
-   */
   ngOnInit() {
     super.ngOnInit();
+
+    // Get email from localStorage (set during login)
+    this.userEmail = localStorage.getItem('email') || '';
+
     this.myForm = new FormGroup({
       name: new FormControl(null, Validators.required),
-      email: new FormControl(null, Validators.required),
-      content: new FormControl(null, Validators.required)
+      email: new FormControl({ value: this.userEmail, disabled: !!this.userEmail }, [Validators.required, Validators.email]),
+      content: new FormControl(null, [Validators.required, Validators.minLength(10)])
     });
   }
 
-  /**
-   * Submit
-   */
-  onSubmit() {
+  onSubmit(): void {
+    if (!this.myForm.valid) return;
 
-    // this.emailTo = 'marina.fox@gsa.gov';
-    // TODO: parameterize email contact address
-    this.emailTo = 'crowley@tcg.com';
+    this.sending = true;
+    this.error = '';
 
-    this.emailCC = '';
-    this.subject = 'SRT Contact Us';
-    this.emailBody =
-      '<p>From: ' + this.myForm.value.name + ' (' + this.myForm.value.email + ') </p>' +
-      '<br> ' +
-      '<p>Content: ' + this.myForm.value.content + '</p>';
+    const email = this.userEmail || this.myForm.value.email;
+    const message = `From: ${this.myForm.value.name} (${email})\n\n${this.myForm.getRawValue().content}`;
 
-    const emailContent = new Email(
-      this.emailTo,
-      this.subject,
-      this.emailBody,
-      '',
-      ''
-    );
-
-    this.solicitationService.sendContactEmail(emailContent)
-    .subscribe(
-      msg => {
+    this.feedbackService.submitFeedback({
+      source: 'contact_us',
+      feedback_text: message
+    }).subscribe({
+      next: () => {
+        this.sending = false;
         this.emailSent = true;
-      });
+      },
+      error: (err) => {
+        this.sending = false;
+        this.error = err.error?.error || 'Failed to send message. Please try again.';
+      }
+    });
   }
 
+  resetForm(): void {
+    this.emailSent = false;
+    this.myForm.reset();
+    this.myForm.patchValue({ email: this.userEmail });
+  }
 }

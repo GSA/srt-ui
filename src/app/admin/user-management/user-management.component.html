@@ -1,6 +1,6 @@
 <div class="user-management">
   <h2 class="srt-section-title srt-blue">User Management</h2>
-  <p class="usa-intro">Manage SRT user accounts — click any agency, role, or status cell to edit it inline.</p>
+  <p class="usa-intro">Manage SRT user accounts — filter by any column, click headers to sort, and click any agency, role, or status cell to edit it inline.</p>
 
   <!-- Success / Error Alerts -->
   @if (successMessage) {
@@ -14,37 +14,52 @@
     </div>
   }
 
-  <!-- Filters Bar -->
-  <div class="grid-row grid-gap margin-top-2 margin-bottom-2">
-    <div class="grid-col-4">
+  <!-- Quick stats — each card applies the matching view -->
+  <div class="stat-strip" role="group" aria-label="User statistics">
+    <button type="button" class="stat-card" [class.stat-card--on]="activeView === 'all'" (click)="setView('all')">
+      <b>{{ statTotal }}</b><span>Total users</span>
+    </button>
+    <button type="button" class="stat-card stat-card--warn" [class.stat-card--on]="activeView === 'pending'" (click)="setView('pending')">
+      <b>{{ statPending }}</b><span>Pending approval</span>
+    </button>
+    <button type="button" class="stat-card" [class.stat-card--on]="activeView === 'admins'" (click)="setView('admins')">
+      <b>{{ statAdmins }}</b><span>Administrators</span>
+    </button>
+    <button type="button" class="stat-card stat-card--err" [class.stat-card--on]="activeView === 'inactive'" (click)="setView('inactive')">
+      <b>{{ statInactive }}</b><span>Deactivated</span>
+    </button>
+  </div>
+
+  <!-- Toolbar: search + export + refresh -->
+  <div class="grid-row grid-gap margin-top-2 margin-bottom-1 flex-align-end">
+    <div class="grid-col-6">
       <label class="usa-label" for="user-search">Search users</label>
-      <input class="usa-input" id="user-search" type="text"
+      <input class="usa-input" id="user-search" type="search"
              [(ngModel)]="searchText" (input)="onSearchChange()"
-             placeholder="Name or email..." />
+             placeholder="Name, email, or agency..." />
     </div>
-    <div class="grid-col-3">
-      <label class="usa-label" for="status-filter">Status</label>
-      <select class="usa-select" id="status-filter" [(ngModel)]="statusFilter" (change)="onFilterChange()">
-        <option value="">All statuses</option>
-        <option value="active">Active</option>
-        <option value="inactive">Inactive</option>
-        <option value="pending">Pending</option>
-      </select>
-    </div>
-    <div class="grid-col-3">
-      <label class="usa-label" for="agency-filter">Agency</label>
-      <select class="usa-select" id="agency-filter" [(ngModel)]="agencyFilter" (change)="onFilterChange()">
-        <option value="">All agencies</option>
-        @for (a of agencies; track a.id) {
-          <option [value]="a.agency">{{ a.acronym || a.agency }}</option>
-        }
-      </select>
-    </div>
-    <div class="grid-col-2 display-flex flex-align-end">
+    <div class="grid-col-6 display-flex flex-justify-end" style="gap: .5rem;">
+      <button class="usa-button usa-button--outline" (click)="exportCsv()" [disabled]="filteredUsers.length === 0">
+        Export CSV ({{ filteredUsers.length }})
+      </button>
       <button class="usa-button usa-button--outline" (click)="loadUsers()" [disabled]="loading">
         Refresh
       </button>
     </div>
+  </div>
+
+  <!-- Active filter chips -->
+  <div class="filter-chips" aria-label="Active filters">
+    @for (chip of activeFilterChips; track chip.key) {
+      <span class="filter-chip">
+        {{ chip.label }}
+        <button type="button" (click)="removeFilter(chip.key)" [attr.aria-label]="'Remove filter ' + chip.label">✕</button>
+      </span>
+    }
+    @if (activeFilterChips.length > 0) {
+      <button type="button" class="filter-chips__clear" (click)="clearAllFilters()">Clear all filters</button>
+    }
+    <span class="filter-chips__count" role="status" aria-live="polite">Showing {{ filteredUsers.length }} of {{ users.length }} users</span>
   </div>
 
   <!-- Bulk Actions -->
@@ -66,7 +81,7 @@
     <div class="text-center padding-4">Loading users...</div>
   } @else {
     <div style="overflow-x: auto;">
-      <table class="usa-table usa-table--striped usa-table--borderless width-full" role="table" aria-label="User management table">
+      <table class="usa-table usa-table--striped usa-table--borderless width-full" aria-label="User management table">
         <thead>
           <tr>
             <th scope="col">
@@ -74,16 +89,96 @@
                      [checked]="selectAll" (change)="toggleSelectAll()" />
               <label class="usa-checkbox__label usa-sr-only" for="select-all">Select all</label>
             </th>
-            <th scope="col">Email</th>
-            <th scope="col">Agency</th>
-            <th scope="col">Role</th>
-            <th scope="col">Status</th>
-            <th scope="col">Created</th>
-            <th scope="col">Updated</th>
+            <th scope="col" [attr.aria-sort]="ariaSort('email')">
+              <button type="button" class="th-sort" (click)="sortBy('email')">Email
+                <span class="th-sort__arrow" aria-hidden="true">{{ sortField === 'email' ? (sortDir === 1 ? '▲' : '▼') : '↕' }}</span></button>
+            </th>
+            <th scope="col" [attr.aria-sort]="ariaSort('agency')">
+              <button type="button" class="th-sort" (click)="sortBy('agency')">Agency
+                <span class="th-sort__arrow" aria-hidden="true">{{ sortField === 'agency' ? (sortDir === 1 ? '▲' : '▼') : '↕' }}</span></button>
+            </th>
+            <th scope="col" [attr.aria-sort]="ariaSort('userRole')">
+              <button type="button" class="th-sort" (click)="sortBy('userRole')">Role
+                <span class="th-sort__arrow" aria-hidden="true">{{ sortField === 'userRole' ? (sortDir === 1 ? '▲' : '▼') : '↕' }}</span></button>
+            </th>
+            <th scope="col" [attr.aria-sort]="ariaSort('status')">
+              <button type="button" class="th-sort" (click)="sortBy('status')">Status
+                <span class="th-sort__arrow" aria-hidden="true">{{ sortField === 'status' ? (sortDir === 1 ? '▲' : '▼') : '↕' }}</span></button>
+            </th>
+            <th scope="col" [attr.aria-sort]="ariaSort('lastLogin')">
+              <button type="button" class="th-sort" (click)="sortBy('lastLogin')">Last login
+                <span class="th-sort__arrow" aria-hidden="true">{{ sortField === 'lastLogin' ? (sortDir === 1 ? '▲' : '▼') : '↕' }}</span></button>
+            </th>
+            <th scope="col" [attr.aria-sort]="ariaSort('creationDate')">
+              <button type="button" class="th-sort" (click)="sortBy('creationDate')">Created
+                <span class="th-sort__arrow" aria-hidden="true">{{ sortField === 'creationDate' ? (sortDir === 1 ? '▲' : '▼') : '↕' }}</span></button>
+            </th>
+            <th scope="col" [attr.aria-sort]="ariaSort('updatedAt')">
+              <button type="button" class="th-sort" (click)="sortBy('updatedAt')">Updated
+                <span class="th-sort__arrow" aria-hidden="true">{{ sortField === 'updatedAt' ? (sortDir === 1 ? '▲' : '▼') : '↕' }}</span></button>
+            </th>
+            <th scope="col">Actions</th>
+          </tr>
+          <!-- Per-column filter row: native controls only (JAWS-tested pattern) -->
+          <tr class="filter-row">
+            <th scope="col"><span class="usa-sr-only">No filter</span></th>
+            <th scope="col">
+              <label class="usa-sr-only" for="f-email">Filter by email</label>
+              <input id="f-email" type="text" placeholder="contains…"
+                     [(ngModel)]="colFilters.email" (input)="onColFilterChange()" />
+            </th>
+            <th scope="col">
+              <label class="usa-sr-only" for="f-agency">Filter by agency</label>
+              <select id="f-agency" [(ngModel)]="colFilters.agency" (change)="onColFilterChange()">
+                <option value="">All</option>
+                @for (a of agencies; track a.id) {
+                  <option [value]="a.agency">{{ a.acronym || a.agency }}</option>
+                }
+              </select>
+            </th>
+            <th scope="col">
+              <label class="usa-sr-only" for="f-role">Filter by role</label>
+              <select id="f-role" [(ngModel)]="colFilters.userRole" (change)="onColFilterChange()">
+                <option value="">All</option>
+                @for (role of roles; track role) {
+                  <option [value]="role">{{ role }}</option>
+                }
+              </select>
+            </th>
+            <th scope="col">
+              <label class="usa-sr-only" for="f-status">Filter by status</label>
+              <select id="f-status" [(ngModel)]="colFilters.status" (change)="onColFilterChange()">
+                <option value="">All</option>
+                <option value="Active">Active</option>
+                <option value="Pending">Pending</option>
+                <option value="Awaiting Reply">Awaiting Reply</option>
+                <option value="On Hold">On Hold</option>
+                <option value="Declined (Personal Email)">Declined (Personal Email)</option>
+                <option value="Declined (Generic Mailbox)">Declined (Generic Mailbox)</option>
+                <option value="Deactivated">Deactivated</option>
+              </select>
+            </th>
+            <th scope="col">
+              <label class="usa-sr-only" for="f-lastlogin">Filter by last login</label>
+              <select id="f-lastlogin" [(ngModel)]="lastLoginFilter" (change)="onColFilterChange()">
+                <option value="">Any time</option>
+                <option value="7">Last 7 days</option>
+                <option value="30">Last 30 days</option>
+                <option value="90plus">Over 90 days</option>
+                <option value="never">Never</option>
+              </select>
+            </th>
+            <th scope="col">
+              <label class="usa-sr-only" for="f-created">Created on or after</label>
+              <input id="f-created" type="date"
+                     [(ngModel)]="colFilters.createdAfter" (change)="onColFilterChange()" />
+            </th>
+            <th scope="col"><span class="usa-sr-only">No filter</span></th>
+            <th scope="col"><span class="usa-sr-only">No filter</span></th>
           </tr>
         </thead>
         <tbody>
-          @for (user of filteredUsers; track user.id) {
+          @for (user of pagedUsers; track user.id) {
             <tr>
               <td>
                 <input type="checkbox" class="usa-checkbox__input" [id]="'sel-' + user.id"
@@ -131,28 +226,57 @@
                 }
               </td>
 
-              <!-- Inline Editable: Status -->
+              <!-- Inline Editable: Status (click badge to pick a review state) -->
               <td>
-                <button class="status-toggle" (click)="toggleStatus(user)"
-                        [title]="getUserStatus(user) === 'Active' ? 'Click to deactivate' : 'Click to activate'"
-                        [attr.aria-label]="'Toggle status for ' + user.firstName + ' ' + user.lastName">
-                  <span class="srt-badge" [ngClass]="getStatusClass(user)">
-                    {{ getUserStatus(user) }}
-                  </span>
-                </button>
+                @if (inlineEditing?.id === user.id && inlineEditing?.field === 'status') {
+                  <select class="inline-select" [ngModel]="getUserStatus(user)"
+                          (ngModelChange)="setUserStatus(user, $event)"
+                          (blur)="cancelInlineEdit()"
+                          [attr.aria-label]="'Set status for ' + user.email">
+                    @for (st of reviewStatuses; track st) {
+                      <option [value]="st">{{ st }}</option>
+                    }
+                  </select>
+                } @else {
+                  <button class="status-toggle" (click)="startInlineEdit(user, 'status')"
+                          title="Click to change status"
+                          [attr.aria-label]="'Change status for ' + user.firstName + ' ' + user.lastName + ', currently ' + getUserStatus(user)">
+                    <span class="srt-badge" [ngClass]="getStatusClass(user)">{{ getUserStatus(user) }}</span>
+                    <span class="editable-cell__hint" aria-hidden="true">&#9662;</span>
+                  </button>
+                }
               </td>
 
+              <td>{{ lastLoginDisplay(user) }}</td>
               <td>{{ user.creationDate || '—' }}</td>
               <td>{{ user.updatedAt | date:'short' }}</td>
+              <td>
+                <button type="button" class="usa-button usa-button--unstyled row-action"
+                        (click)="masqueradeAs(user)"
+                        [attr.aria-label]="'Masquerade as ' + user.email">
+                  View as
+                </button>
+              </td>
             </tr>
           }
           @if (filteredUsers.length === 0) {
-            <tr><td colspan="7" class="text-center padding-2">No users found.</td></tr>
+            <tr><td colspan="9" class="text-center padding-2">
+              No users match the current filters.
+              <button type="button" class="usa-button usa-button--unstyled" (click)="clearAllFilters()">Clear all filters</button>
+            </td></tr>
           }
         </tbody>
       </table>
     </div>
-    <p class="text-base font-sans-xs margin-top-1">Showing {{ filteredUsers.length }} of {{ users.length }} users</p>
+    @if (totalPages > 1) {
+      <nav class="pager" aria-label="User table pages">
+        <button type="button" class="usa-button usa-button--outline usa-button--small"
+                (click)="setPage(page - 1)" [disabled]="page === 1">Previous</button>
+        <span class="pager__status" role="status">Page {{ page }} of {{ totalPages }} · users {{ pageStart }}–{{ pageEnd }} of {{ filteredUsers.length }}</span>
+        <button type="button" class="usa-button usa-button--outline usa-button--small"
+                (click)="setPage(page + 1)" [disabled]="page === totalPages">Next</button>
+      </nav>
+    }
   }
 </div>
 

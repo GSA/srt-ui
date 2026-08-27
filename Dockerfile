@@ -9,12 +9,16 @@ WORKDIR /app
 # Install Python and build dependencies
 RUN apk add --no-cache python3 make g++
 
-# Remove phantomjs-prebuilt from dependencies before install
-COPY package.json ./
-RUN sed -i '/phantomjs-prebuilt/d' package.json
+# npm ci, not yarn: this repo has no yarn.lock, so `yarn install` resolved
+# dependencies fresh from package.json ranges on every build — two builds of the
+# same source could ship different trees. npm ci installs exactly what
+# package-lock.json pins and fails loudly if the lockfile has drifted.
+# .npmrc carries legacy-peer-deps — without it npm ci fails on the
+# @angular/animations peer conflict. It must be present before npm ci runs.
+COPY package.json package-lock.json .npmrc ./
 
 COPY .snyk ./
-RUN yarn install
+RUN npm ci
 
 # Add the source code to app
 COPY . /app/

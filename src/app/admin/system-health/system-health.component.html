@@ -13,6 +13,22 @@
       }
     </div>
   </div>
+  <!-- Ingestion freshness (Phase 3). The number that was invisible during the
+       July feed outage: hours since the newest solicitation arrived. -->
+  @if (overview) {
+    <div class="fresh-banner" [ngClass]="'fresh-banner--' + freshnessLevel()" role="status">
+      <span class="fresh-banner__dot" aria-hidden="true"></span>
+      <div class="fresh-banner__body">
+        <b>{{ freshnessText() }}</b>
+        <small>
+          {{ overview.ingested_last_7d }} ingested in the last 7 days
+          @if (overview.analyzed_total !== null) { · {{ overview.analyzed_total }} solicitations analyzed by AI review }
+          · {{ overview.users_pending }} user(s) awaiting approval
+        </small>
+      </div>
+    </div>
+  }
+
 
   @if (loading) {
     <div class="text-center padding-4">Checking system health...</div>

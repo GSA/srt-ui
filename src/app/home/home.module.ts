@@ -33,6 +33,7 @@ import { AuthGuard } from '../auth-guard.service';
 import { HomeRoutingModule } from './home.routing';
 
 import { SolicitationModule } from '../solicitation/solicitation.module';
+import { DisclaimerComponent } from '../shared/components/disclaimer/disclaimer.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { SolicitationModule } from '../solicitation/solicitation.module';
         NgxGoogleAnalyticsModule.forRoot('G-RZRRP7Q0BH'),
         NgxGoogleAnalyticsRouterModule,
         QuillModule,
-        SolicitationModule], providers: [
+        SolicitationModule,
+        DisclaimerComponent], providers: [
             FileUploadService,
             AuthGuard,
             provideHttpClient(withInterceptorsFromDi())

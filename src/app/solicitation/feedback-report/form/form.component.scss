@@ -6,16 +6,31 @@ table {
   margin-bottom: 10px;
 }
 
+.feedback-meta {
+  margin: 0 0 1rem;
+}
+
+.feedback-meta .list {
+  display: flex;
+  align-items: baseline;
+}
+
+.feedback-note {
+  color: #1b1b1b;
+}
+
 .list-title {
   font-weight: 500;
   display: inline-block;
   vertical-align: baseline;
+  margin: 0;
 }
 
 .list-content {
   font-weight: 700;
   display: inline-block;
   vertical-align: baseline;
+  margin: 0;
 }
 
 .survey-radio-option {
@@ -63,7 +78,7 @@ input[type="checkbox"], input[type="radio"] {
 [type=checkbox] + label::before, [type=radio] + label::before {
   background: #ffffff;
   border-radius: 0.3rem;
-  box-shadow: 0 0 0 1px #757575;
+  box-shadow: 0 0 0 1px #5c6670;
   content: '\a0';
   display: inline-block;
   height: 1.8rem;

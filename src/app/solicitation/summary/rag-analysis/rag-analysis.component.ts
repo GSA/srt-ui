@@ -100,7 +100,7 @@ export class RagAnalysisComponent implements OnInit {
             case 'PDF': return '#005ea2';
             case 'DOC': return '#b52d2d';
             case 'XLS': return '#00a91c';
-            case 'TXT': return '#71767a';
+            case 'TXT': return '#1b1b1b';
             default: return '#005ea2';
         }
     }

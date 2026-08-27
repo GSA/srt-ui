@@ -22,7 +22,24 @@ body {
 }
 
 html {
-  overflow: hidden;
+  /* Allow normal vertical scrolling (a root `overflow: hidden` made content
+     unreachable — a blank screen — on narrow/mobile viewports). Only clip
+     horizontal bleed so there's no sideways scrollbar. */
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Responsive safety net: media never forces horizontal overflow. */
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+  height: auto;
 }
 
 body a {
@@ -470,3 +487,12 @@ textarea:focus,
    This level of specificity is generally only needed if the general rules above are not enough
    due to how the library applies its own focus styles.
 */
+/* External-link indicator — icon only, no "(opens in new tab)" text.
+   Matches the Section508.gov convention. The icon is decorative; the
+   new-tab behavior is conveyed by the icon plus target="_blank". */
+.ext-icon {
+  font-size: 0.95em;
+  vertical-align: -2px;
+  margin-left: 2px;
+  opacity: 0.85;
+}

@@ -4,6 +4,40 @@
     padding: 0px !important;
 }
 
+/* App shell: flex column so the footer sits at the bottom and content fills
+   the space — never a giant white gap between header and footer. */
+.srt-app-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.srt-app-shell > router-outlet + * {
+    flex: 1 0 auto;
+}
+
+/* Top "official website / Here's how you know" bar — responsive, wraps on
+   narrow screens instead of overflowing via floats. */
+.gov-banner-bar__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.25rem 1rem;
+    padding: 0.35rem clamp(1rem, 4vw, 3rem);
+}
+
+.gov-banner-bar__left {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 0.75rem;
+
+    .gsa-subtitle {
+        margin-right: 0;
+    }
+}
+
 
 * {
     font-family: Source Sans Pro !important

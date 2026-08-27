@@ -21,6 +21,16 @@ export class AdminManagementService {
     return this.http.get<any>(`${this.baseUrl}/admin/users${qs}`);
   }
 
+  /** Phase 3: headline counts + ingestion freshness for the Operations banner. */
+  getOverview(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/admin/overview`);
+  }
+
+  /** Phase 5: email -> last authentication timestamp for the Users table. */
+  getLastLogins(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/admin/last-logins`);
+  }
+
   updateUser(userId: number, updates: any): Observable<any> {
     return this.http.put<any>(`${this.baseUrl}/admin/users/${userId}`, updates);
   }

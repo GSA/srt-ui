@@ -15,6 +15,11 @@
 }
 
 .custom-tabs__link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
   color: #4b5563;
   font-size: 0.875rem;
   font-weight: 500;

@@ -37,7 +37,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #71767a;
+    color: #1b1b1b;
   }
 
   &__value {
@@ -49,7 +49,7 @@
 
   &__meta {
     font-size: 0.8125rem;
-    color: #71767a;
+    color: #1b1b1b;
     margin: 0.25rem 0 0;
   }
 
@@ -124,7 +124,7 @@
 
     &--pdf { background: #005ea2; }
     &--docx { background: #2e6e2e; }
-    &--txt { background: #71767a; }
+    &--txt { background: #1b1b1b; }
     &--spreadsheet { background: #0d7ea2; }
     &--html { background: #8168b3; }
     &--other { background: #e5a000; }
@@ -186,7 +186,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: #71767a;
+    color: #1b1b1b;
     white-space: nowrap;
     padding: 0.5rem 0.75rem;
   }
@@ -243,7 +243,7 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 
   &__time {
-    color: #71767a;
+    color: #1b1b1b;
     white-space: nowrap;
     min-width: 120px;
   }
@@ -265,5 +265,23 @@
   &--error { color: #f87171; }
   &--warn { color: #fbbf24; }
   &--info { color: #60a5fa; }
-  &--debug { color: #71767a; }
+  &--debug { color: #1b1b1b; }
 }
+
+/* ── Ingestion freshness banner (Phase 3) ── */
+.fresh-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  border-radius: 6px;
+  padding: 0.75rem 1.1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #dfe1e2;
+  border-left-width: 6px;
+}
+.fresh-banner__dot { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+.fresh-banner__body b { display: block; color: #1b1b1b; }
+.fresh-banner__body small { color: #565c65; }
+.fresh-banner--ok   { background: #ecf3ec; border-left-color: #2e6e2e; .fresh-banner__dot { background: #2e6e2e; } b { color: #1e5c1c; } }
+.fresh-banner--warn { background: #faf3d1; border-left-color: #8a6a00; .fresh-banner__dot { background: #8a6a00; } b { color: #6b5100; } }
+.fresh-banner--bad  { background: #f8e1e1; border-left-color: #b50909; .fresh-banner__dot { background: #b50909; } b { color: #8a0008; } }

@@ -11,6 +11,10 @@ import { environment } from '../../../environments/environment';
 })
 export class SystemHealthComponent implements OnInit {
 
+  // ── Phase 3: ingestion freshness ──
+  overview: any = null;
+  overviewError = false;
+
   health: any = null;
   loading = false;
   lastChecked: Date | null = null;
@@ -31,7 +35,38 @@ export class SystemHealthComponent implements OnInit {
     private http: HttpClient
   ) {}
 
+
+  loadOverview(): void {
+    this.adminService.getOverview().subscribe({
+      next: (d) => { this.overview = d; this.overviewError = false; },
+      error: () => { this.overviewError = true; }
+    });
+  }
+
+  /**
+   * green < 24h, amber 24-48h, red >= 48h (or never). The thresholds encode
+   * the lesson of the July 2026 outage: a silent feed is an incident, not a
+   * quiet day.
+   */
+  freshnessLevel(): 'ok' | 'warn' | 'bad' | 'unknown' {
+    const h = this.overview?.hours_since_ingest;
+    if (h === null || h === undefined) return this.overview ? 'bad' : 'unknown';
+    if (h < 24) return 'ok';
+    if (h < 48) return 'warn';
+    return 'bad';
+  }
+
+  freshnessText(): string {
+    const h = this.overview?.hours_since_ingest;
+    if (h === null || h === undefined) return 'No solicitations have ever been ingested.';
+    if (h < 1) return 'Ingestion healthy — last new solicitation under an hour ago.';
+    if (h < 24) return `Ingestion healthy — last new solicitation ${Math.round(h)} hour(s) ago.`;
+    const days = Math.floor(h / 24);
+    return `No new solicitations for ${days} day(s) (${Math.round(h)} hours). Check the SAM.gov feed and API quota.`;
+  }
+
   ngOnInit(): void {
+    this.loadOverview();
     this.refresh();
     this.loadLogs();
   }

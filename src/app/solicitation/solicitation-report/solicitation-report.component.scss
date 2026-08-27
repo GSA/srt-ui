@@ -11,14 +11,14 @@ $primary:          #0459ae;
 $primary-dark:     #003d7a;
 $uswds-navy:       #003366;
 $uswds-text:       #1B1B1B;
-$uswds-muted:      #71767A;
+$uswds-muted:      #1b1b1b;
 $uswds-surface:    #F0F0F0;
 $uswds-border:     #DFE1E2;
-$uswds-input-bdr:  #565C65;
+$uswds-input-bdr:  #1b1b1b;
 $uswds-link:       #005EA2;
-$uswds-danger:     #D13914;
+$uswds-danger:     #B50909;
 $uswds-danger-lt:  #F8E7EC;
-$uswds-success:    #00A91C;
+$uswds-success:    #2E8540;
 $uswds-success-lt: #E7F4E4;
 $uswds-review:     #FFBE2E;
 $uswds-review-lt:  #FEF0C8;
@@ -443,7 +443,7 @@ $uswds-focus:      #2491FF;
 
   &--review {
     background: $uswds-review-lt;
-    color: #946500;
+    color: #6b4a00;
   }
 
   &--na {
@@ -476,19 +476,185 @@ $uswds-focus:      #2491FF;
 }
 
 /* ── Responsive ── */
-@media (max-width: 768px) {
+/* Applies through the MID range too (769–1024px) — Laura hit a band where the
+   desktop height-trapped flex layout blanked content ("misses the middle"). */
+@media (max-width: 1024px) {
   .report-header {
     flex-direction: column;
     align-items: flex-start;
   }
 
+  /* Stack sidebar over the table and let the page flow naturally instead of
+     trapping content in nested height-bounded scroll areas (which is what made
+     content look cut off / blank on small screens). */
+  :host {
+    min-height: auto;
+  }
+
   .report-body {
     flex-direction: column;
+    overflow: visible;
   }
 
   .filter-sidebar {
     width: 100%;
     border-right: none;
     border-bottom: 1px solid $uswds-border;
+    overflow-y: visible;
   }
+
+  .report-table-area {
+    overflow-y: visible;
+  }
+
+  /* The wide data table keeps its own horizontal scroll so it never forces the
+     whole page to scroll sideways. */
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Inline reason hint shown under a Cannot Evaluate status badge */
+.status-reason {
+  margin-top: 4px;
+  font-size: 0.72rem;
+  color: var(--text-muted, #1b1b1b);
+  font-style: italic;
+  line-height: 1.3;
+  max-width: 220px;
+}
+
+/* ── SAM.gov leave-site speed bump modal ── */
+.samgov-modal__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(23, 28, 32, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 1000;
+  animation: samgovFade 0.15s ease-out;
+}
+
+.samgov-modal {
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+  max-width: 30rem;
+  width: 100%;
+  padding: 1.75rem 1.9rem;
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1b1b1b;
+    margin: 0 0 0.6rem;
+  }
+
+  &__desc {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: #1b1b1b;
+    margin: 0 0 1.4rem;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+}
+
+@keyframes samgovFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ── Custom-range calendar (Time Range filter) ── */
+:host ::ng-deep .filter-calendar {
+  width: 100%;
+
+  .p-calendar,
+  .p-inputtext {
+    width: 100%;
+  }
+}
+
+/* ── Native filter controls (replaced PrimeNG widgets for screen readers) ── */
+select.filter-select {
+  appearance: auto;
+  height: 2.6rem;
+  background: #fff;
+  cursor: pointer;
+}
+
+.custom-range {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 0.6rem;
+
+  &__label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-top: 0.35rem;
+  }
+
+  input[type="date"] {
+    background: #fff;
+    height: 2.6rem;
+  }
+}
+
+/* ── Redesigned row: title is the primary link, sol # + SAM.gov beneath ── */
+.col-title { width: 45%; }
+.col-date { width: 12%; white-space: nowrap; }
+.col-status { width: 16%; }
+
+.row-title-link {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: $uswds-link;
+  text-decoration: underline;
+  line-height: 1.35;
+
+  &:hover { color: $primary-dark; }
+
+  &:focus-visible {
+    outline: 4px solid $uswds-focus;
+    outline-offset: 2px;
+  }
+}
+
+.row-solnum {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.78rem;
+  color: $uswds-text;
+
+  .sol-link {
+    margin-left: 0.5rem;
+    color: $uswds-link;
+    white-space: nowrap;
+  }
+}
+
+.agency-cell {
+  font-size: 0.88rem;
+  overflow-wrap: anywhere;
+}
+
+.status-badge__icon {
+  font-size: 1rem;
+  vertical-align: -3px;
+  margin-right: 2px;
+}
+
+/* Title column needs room to breathe now that it carries two lines. */
+:host ::ng-deep .report-datatable .p-datatable-tbody > tr > td.title-cell {
+  max-width: none;
+  white-space: normal;
 }

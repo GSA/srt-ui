@@ -4,7 +4,7 @@
     <a class="usa-skipnav" href="#content">Skip to Main Content</a>
     <div class="usa-header usa-header--basic">
       <div class="grid-container-widescreen">
-        <nav class="usa-nav" role="navigation" aria-label="main navigation">
+        <nav class="srt-nav" role="navigation" aria-label="main navigation">
           <!-- Left Side: Logo Group -->
           <div class="logo-container">
             <img
@@ -20,11 +20,15 @@
               class="srt-logo-img"
               />
           </div>
-          <!-- Right Side: Navigation Links -->
-          <ul class="right-nav-group">
+          <!-- Right Side: Navigation Links — always visible; the list wraps to
+               extra rows at narrow widths / high zoom instead of collapsing
+               behind a menu button. -->
+          <ul class="right-nav-group" id="primary-nav">
             <li class="nav-item">
               <a
                 [routerLink]="['/home']"
+                routerLinkActive="active-link"
+                ariaCurrentWhenActive="page"
                 class="nav-link"
                 (click)="menuClick('/home')"
                 >Home</a
@@ -33,26 +37,29 @@
               <li class="nav-item">
                 <a
                   [routerLink]="['/solicitation/report']"
+                  routerLinkActive="active-link"
+                  ariaCurrentWhenActive="page"
                   class="nav-link"
                   (click)="menuClick('/solicitation/report')"
-                  >Daily Report</a
+                  >Solicitations</a
                   >
                 </li>
                 <!-- Admin-only navigation items -->
                 @if (isGSAAdmin) {
-                  <li class="nav-item">
-                  <li class="nav-item usa-nav__primary-item" style="position: relative;">
+                  <li class="nav-item" style="position: relative;">
                     <button
                       type="button"
-                      class="nav-link usa-accordion__button"
+                      class="nav-link"
                       id="nav-analytics"
+                      aria-controls="nav-analytics-submenu"
                       [attr.aria-expanded]="isAnalyticsDropdownOpen ? 'true' : 'false'"
                       (click)="isAnalyticsDropdownOpen = !isAnalyticsDropdownOpen"
-                      style="background: transparent; border: none; font-size: 0.9rem; color: #71767a; cursor: pointer; display: inline-flex; align-items: center; padding: 0.5rem 0;"
+                      (keydown.escape)="isAnalyticsDropdownOpen = false"
+                      style="background: transparent; border: none; font-size: 0.9rem; color: #1b1b1b; cursor: pointer; display: inline-flex; align-items: center; padding: 0.5rem 0;"
                       >Analytics 
-                      <i class="fa fa-angle-down" style="margin-left: 8px;"></i>
+                      <i class="fa fa-angle-down" aria-hidden="true" style="margin-left: 8px;"></i>
                     </button>
-                    <ul class="dropdown-menu usa-nav__submenu" [ngStyle]="{'display': isAnalyticsDropdownOpen ? 'block' : 'none'}" style="margin-top: 0; padding-left: 0; list-style: none;">
+                    <ul id="nav-analytics-submenu" class="dropdown-menu" [ngStyle]="{'display': isAnalyticsDropdownOpen ? 'block' : 'none'}" (keydown.escape)="isAnalyticsDropdownOpen = false" style="margin-top: 0; padding-left: 0; list-style: none;">
                       <li><a [routerLink]="['/analytics']" class="dropdown-item" (click)="isAnalyticsDropdownOpen = false; menuClick('/analytics')">System Analytics</a></li>
                       <li><a [routerLink]="['/analytics/ai-pipeline']" class="dropdown-item" (click)="isAnalyticsDropdownOpen = false; menuClick('/analytics/ai-pipeline')">AI Pipeline</a></li>
                       <li><a [routerLink]="['/analytics/ai-playground']" class="dropdown-item" (click)="isAnalyticsDropdownOpen = false; menuClick('/analytics/ai-playground')">AI Playground</a></li>
@@ -64,6 +71,8 @@
                     <li class="nav-item">
                       <a
                         [routerLink]="['/admin']"
+                        routerLinkActive="active-link"
+                        ariaCurrentWhenActive="page"
                         class="nav-link"
                         tabindex="{{ isGSAAdmin ? 0 : -1 }}"
                         (click)="menuClick('/admin')"
@@ -74,6 +83,8 @@
                     <li class="nav-item">
                       <a
                         [routerLink]="['/help/contactus']"
+                        routerLinkActive="active-link"
+                        ariaCurrentWhenActive="page"
                         class="nav-link"
                         (click)="menuClick('/help/contactus')"
                         >Contact us</a
@@ -81,7 +92,7 @@
                       </li>
                       <li class="nav-item">
                         <a
-                          href="https://app.buyaccessible.gov/"
+                          href="https://www.section508.gov/art/#/"
                           target="_blank"
                           rel="noopener noreferrer"
                           class="nav-link"
@@ -91,6 +102,7 @@
                           <svg
                             class="external-link-icon"
                             aria-hidden="true"
+                            focusable="false"
                             width="14"
                             height="14"
                             viewBox="0 0 24 24"
@@ -104,19 +116,20 @@
                       <li class="nav-item">
                         <a
                           [routerLink]="['/help/faq']"
+                          routerLinkActive="active-link"
+                          ariaCurrentWhenActive="page"
                           class="nav-link"
                           (click)="menuClick('/help/faq')"
                           >FAQs</a
                           >
                         </li>
                         <li class="nav-item">
-                          <a
-                            href="javascript:void(0)"
+                          <button
+                            type="button"
                             (click)="onLogout()"
                             (blur)="popUpMenuLostFocus()"
-                            class="nav-link"
-                            role="menuitem"
-                            >Log Out</a
+                            class="nav-link nav-link--button"
+                            >Log Out</button
                             >
                           </li>
                         </ul>

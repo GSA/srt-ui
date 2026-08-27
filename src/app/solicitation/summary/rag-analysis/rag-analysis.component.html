@@ -4,7 +4,7 @@
         <div class="grid-row">
             <div class="grid-col-12">
                 <button class="usa-button usa-button--unstyled back-link" (click)="goBack()"
-                    aria-label="Back to daily report">
+                    aria-label="Back to report">
                     ← Back to Report
                 </button>
                 <h1>Solicitation Analysis Report</h1>
@@ -291,7 +291,7 @@
                         <span class="srt-data-value">
                             <span *ngIf="solicitation.setfit_confidence !== null && solicitation.setfit_confidence !== undefined">
                                 {{(solicitation.setfit_confidence * 100).toFixed(1)}}%
-                                <span style="color: #71767a; font-size: 0.85rem; margin-left: 0.5rem;">
+                                <span style="color: #1b1b1b; font-size: 0.85rem; margin-left: 0.5rem;">
                                     (raw: {{solicitation.setfit_confidence}})
                                 </span>
                             </span>

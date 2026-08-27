@@ -47,6 +47,7 @@ import { HeaderComponent } from './header/header.component';
 import { AdminComponent } from 'app/admin/admin.component';
 import { LoginReportsComponent } from './admin/admin-reports/login-reports.component';
 import { UploadComponent } from './shared/components/upload/upload.component';
+import { DisclaimerComponent } from './shared/components/disclaimer/disclaimer.component';
 import { BaseComponent } from './base.component';
 import { AdminHeaderComponent } from './admin-header/admin-header.component';
 
@@ -72,6 +73,8 @@ import { Globals } from '../globals';
         FormsModule,
         ReactiveFormsModule,
         AppRoutingModule,
+        // Standalone Components
+        DisclaimerComponent,
         // Feature Modules
         AuthModule,
         HomeModule,

@@ -1,8 +1,8 @@
 <main id="content" class="bypass-block-target">
-  <section class="usa-banner bg-primary-dark" style="color: white !important;">
+  <section class="usa-banner bg-primary-dark" style="color: white !important;" aria-labelledby="faq-page-heading">
     <div class="usa-section">
       <div class="grid-container">
-        <h1>Frequently Asked Questions</h1>
+        <h1 id="faq-page-heading">Frequently Asked Questions</h1>
         <p>
           Solicitation Review Tool (SRT) is an automated predictive analysis application that performs scans of the SAM.gov website and delivers:
           <strong>(1)</strong> a report containing all of the new solicitations for the previous day;
@@ -21,82 +21,103 @@
   <div class="container-fluid">
     <div class="faq-content-div">
       <!-- Search Section -->
-      <div class="row px-5 mb-8">
+      <form role="search" aria-label="Search FAQs" class="row px-5 mb-8" (submit)="$event.preventDefault(); search()">
         <div class="col-lg-11 d-flex justify-content-end">
+          <label for="faq-search" class="usa-sr-only">Search FAQs</label>
           <input
-            id="search"
+            id="faq-search"
             class="search-input"
             placeholder="Search FAQs"
             (keyup)="search()"
             #searchInput
-            aria-label="input area to search your question"
+            type="search"
+            aria-describedby="faq-search-help"
             >
+          <span id="faq-search-help" class="usa-sr-only">Searches FAQ titles and answers. Type to filter the list below.</span>
         </div>
-        <div style="cursor: pointer" class="search-button col-lg-1" (click)="search()">
-          <i class="bi bi-search" style="vertical-align: sub;"></i>
-        </div>
-      </div>
+        <button type="submit" class="search-button col-lg-1" aria-label="Search FAQs">
+          <i class="bi bi-search" style="vertical-align: sub;" aria-hidden="true"></i>
+        </button>
+      </form>
 
       <!-- Main Content Area with Sidenav and FAQs -->
       <div class="grid-container usa-section">
         <div class="grid-row grid-gap">
           <!-- Left Sidenav - Sticky Position -->
-          <nav class="usa-sidenav grid-col-3 sticky-sidenav">
+          <nav class="usa-sidenav grid-col-3 sticky-sidenav" aria-label="FAQ sections">
             <ul class="usa-sidenav__list clean-list">
               <li class="usa-sidenav__item">
-                <a href="javascript:void(0)" tabindex="0" (click)="scroll('mostViewTitle')" class="sidenav-link">Most Viewed FAQs</a>
+                <button type="button" (click)="scroll('mostViewTitle')" class="sidenav-link" aria-label="Jump to Most Viewed FAQs section">Most Viewed FAQs</button>
               </li>
               <li class="usa-sidenav__item">
-                <a href="javascript:void(0)" tabindex="0" (click)="scroll('backgroundInfoTitle')" class="sidenav-link">Background</a>
+                <button type="button" (click)="scroll('backgroundInfoTitle')" class="sidenav-link" aria-label="Jump to Background section">Background</button>
               </li>
               <li class="usa-sidenav__item">
-                <a href="javascript:void(0)" tabindex="0" (click)="scroll('aboutTitle')" class="sidenav-link">About SRT</a>
+                <button type="button" (click)="scroll('aboutTitle')" class="sidenav-link" aria-label="Jump to About SRT section">About SRT</button>
               </li>
               <li class="usa-sidenav__item">
-                <a href="javascript:void(0)" tabindex="0" (click)="scroll('scanningProcessTitle')" class="sidenav-link">Explore the Scanning Process</a>
+                <button type="button" (click)="scroll('scanningProcessTitle')" class="sidenav-link" aria-label="Jump to Explore the Scanning Process section">Explore the Scanning Process</button>
               </li>
               <li class="usa-sidenav__item">
-                <a href="javascript:void(0)" tabindex="0" (click)="scroll('manageWorkloadTitle')" class="sidenav-link">Manage/ Review Solicitations</a>
+                <button type="button" (click)="scroll('manageWorkloadTitle')" class="sidenav-link" aria-label="Jump to Manage and Review Solicitations section">Manage/ Review Solicitations</button>
               </li>
               <li class="usa-sidenav__item">
-                <a href="javascript:void(0)" tabindex="0" (click)="scroll('requestSupportTitle')" class="sidenav-link">Request Support</a>
+                <button type="button" (click)="scroll('requestSupportTitle')" class="sidenav-link" aria-label="Jump to Request Support section">Request Support</button>
+              </li>
+              <li class="usa-sidenav__item">
+                <button type="button" (click)="scroll('disclaimerTitle')" class="sidenav-link" aria-label="Jump to Disclaimer section">Disclaimer</button>
               </li>
             </ul>
           </nav>
 
           <!-- FAQ Content Area -->
           <div class="grid-col-9">
-            <div class="usa-accordion usa-accordion--bordered">
+            <!-- Native USWDS accordion. uswds.min.js is loaded app-wide and binds
+                 its own delegated click handler to every .usa-accordion__button, so
+                 an Angular (click) toggle here DOUBLE-HANDLES each click: Angular
+                 opens the panel, USWDS closes it again (and, with the duplicate
+                 panel ids the old template generated, USWDS toggled the WRONG
+                 panel via getElementById). That is why some FAQs would not open.
+                 Fix: unique per-section ids, and USWDS owns all toggling — no
+                 Angular state. data-allow-multiple keeps several items open at
+                 once, matching the previous UX. -->
+            <div class="usa-accordion usa-accordion--bordered" data-allow-multiple>
               @for (section of faq; track section; let sectionIndex = $index) {
-                <div class="usa-accordion__item search-title">
+                <section class="usa-accordion__item search-title" [attr.aria-labelledby]="section.title">
                   <h2 class="search-title-header" id="{{section.title}}">{{ section.name }}</h2>
                   @if (section.children) {
                     <div class="faq-section">
                       @for (element of section.children; track element; let i = $index) {
                         <div class="usa-accordion__item search-content">
-                          <button
-                            class="usa-accordion__button custom-accordion-button"
-                            [attr.aria-expanded]="isExpanded(sectionIndex, element.id)"
-                            [attr.aria-controls]="'faq-' + element.id"
-                            (click)="toggleAccordion(sectionIndex, element.id)">
-                            <span class="button-text">{{ element.title }}</span>
-                            <span class="expand-icon">{{ isExpanded(sectionIndex, element.id) ? '−' : '+' }}</span>
-                          </button>
-                          @if (isExpanded(sectionIndex, element.id)) {
-                            <div
-                              [id]="'faq-' + element.id"
-                              class="usa-accordion__content usa-prose"
-                              >
-                              <div [innerHTML]="element.body"></div>
-                            </div>
-                          }
+                          <h3 class="usa-accordion__heading">
+                            <button
+                              type="button"
+                              class="usa-accordion__button"
+                              aria-expanded="false"
+                              [attr.aria-controls]="'faq-' + sectionIndex + '-' + element.id">
+                              {{ element.title }}
+                            </button>
+                          </h3>
+                          <div
+                            [id]="'faq-' + sectionIndex + '-' + element.id"
+                            class="usa-accordion__content usa-prose"
+                            hidden
+                            >
+                            <div [innerHTML]="element.body"></div>
+                          </div>
                         </div>
                       }
                     </div>
                   }
-                </div>
+                </section>
               }
             </div>
+
+            <!-- Full Disclaimer -->
+            <section id="disclaimerTitle" class="faq-disclaimer-section" aria-labelledby="disclaimer-heading" style="margin-top: 2rem;">
+              <h2 id="disclaimer-heading" class="search-title-header">Disclaimer</h2>
+              <app-disclaimer variant="long"></app-disclaimer>
+            </section>
           </div>
         </div>
       </div>

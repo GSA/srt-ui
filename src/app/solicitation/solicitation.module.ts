@@ -28,6 +28,7 @@ import { AuthGuard } from '../auth-guard.service';
 import { SolicitationReportComponent } from './solicitation-report/solicitation-report.component';
 import { SummaryComponent } from './summary/summary.component';
 import { ResultsDetailComponent } from './summary/results-detail/results-detail.component';
+import { FeedbackButtonComponent } from '../shared/feedback-button/feedback-button.component';
 import { HelpUsImproveComponent } from './summary/help-us-improve/help-us-improve.component';
 import { EmailPocComponent } from './summary/email-poc/email-poc.component';
 import { HistoryComponent } from './summary/history/history.component';
@@ -39,6 +40,7 @@ import { ArtIframeDialogComponent } from './summary/results-detail/art-modal/art
 import { ArtSectionComponent } from './summary/results-detail/art-modal/art-section/art-section.component';
 import { ArtCategoryComponent } from './summary/results-detail/art-modal/art-category/art-category.component';
 import { RagAnalysisComponent } from './summary/rag-analysis/rag-analysis.component';
+import { DisclaimerComponent } from '../shared/components/disclaimer/disclaimer.component';
 
 @NgModule({
   imports: [
@@ -58,6 +60,7 @@ import { RagAnalysisComponent } from './summary/rag-analysis/rag-analysis.compon
     NgxGoogleAnalyticsModule.forRoot('G-RZRRP7Q0BH'),
     NgxGoogleAnalyticsRouterModule,
     QuillModule.forRoot(),
+    DisclaimerComponent,
   ],
   declarations: [
     SolicitationReportComponent,
@@ -74,7 +77,7 @@ import { RagAnalysisComponent } from './summary/rag-analysis/rag-analysis.compon
     ArtSectionComponent,
     ArtCategoryComponent,
     RagAnalysisComponent,
-
+    FeedbackButtonComponent,
   ],
   providers: [
     SolicitationService,
