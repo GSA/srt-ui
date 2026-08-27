@@ -35,6 +35,8 @@
               "src/nginx.conf"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "src/styles.scss",
               "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/@uswds/uswds/dist/css/uswds.min.css"
@@ -42,7 +44,8 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/@uswds/uswds/dist/js/uswds-init.min.js",
-              "node_modules/@uswds/uswds/dist/js/uswds.min.js"
+              "node_modules/@uswds/uswds/dist/js/uswds.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ],
             "browser": "src/main.ts"
           },
