@@ -1,9 +1,0 @@
-node_modules
-.angular/cache
-dist
-.git
-.gitignore
-Dockerfile
-README.md
-test
-.circleci

@@ -122,7 +122,12 @@ export class ActivityTrackerService implements OnDestroy {
   }
 
   private generateSessionId(): string {
-    return 'sess_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 8);
+    // crypto.randomUUID is available in all browsers this app supports; the
+    // Math.random fallback exists only for non-secure contexts (plain http).
+    const rand = (typeof crypto !== 'undefined' && crypto.randomUUID)
+      ? crypto.randomUUID().replace(/-/g, '').substring(0, 12)
+      : Math.random().toString(36).substring(2, 8)
+    return 'sess_' + Date.now().toString(36) + '_' + rand;
   }
 
   ngOnDestroy(): void {
