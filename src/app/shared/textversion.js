@@ -70,7 +70,22 @@ export function htmlToPlainText(htmlText, styleConfig) {
   }
 
   // remove inbody scripts and styles
-  tmp = tmp.replace(/<(script|style)( [^>]*)?>((?!<\/\1( [^>]*)?>).)*<\/\1>/gi, "");
+  // Strip script and style blocks. Applied repeatedly rather than once:
+  // a single pass lets a nested construct such as <scr<script>ipt> collapse
+  // into a fresh <script> after the inner match is removed. Looping to a
+  // fixed point removes that class of bypass.
+  //
+  // Both current callers are safe regardless (the result is encodeURI'd into
+  // a mailto: URL, or assigned to textarea.value, neither of which parses
+  // HTML) but this is a shared utility and should not hand a future caller
+  // a partially stripped string.
+  var scriptStyleRe = /<(script|style)( [^>]*)?>((?!<\/\1( [^>]*)?>).)*<\/\1>/gi;
+  var guard = 0;
+  var previous;
+  do {
+    previous = tmp;
+    tmp = tmp.replace(scriptStyleRe, "");
+  } while (tmp !== previous && ++guard < 20);
 
   // remove all tags except that are being handled separately
   tmp = tmp.replace(/<(\/)?((?!h[1-6]( [^>]*)?>)(?!img( [^>]*)?>)(?!a( [^>]*)?>)(?!ul( [^>]*)?>)(?!ol( [^>]*)?>)(?!li( [^>]*)?>)(?!p( [^>]*)?>)(?!div( [^>]*)?>)(?!td( [^>]*)?>)(?!br( [^>]*)?>)[^>\/])[^<>]*>/gi, "");
