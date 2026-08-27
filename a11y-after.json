@@ -1,0 +1,44 @@
+{
+  "login": {
+    "url": "http://localhost:4200/auth",
+    "violations": [],
+    "violationCount": 0,
+    "nodeCount": 0,
+    "passes": 25
+  },
+  "home": {
+    "url": "http://localhost:4200/home",
+    "violations": [],
+    "violationCount": 0,
+    "nodeCount": 0,
+    "passes": 27
+  },
+  "daily-report": {
+    "url": "http://localhost:4200/solicitation/report",
+    "violations": [],
+    "violationCount": 0,
+    "nodeCount": 0,
+    "passes": 32
+  },
+  "admin": {
+    "url": "http://localhost:4200/admin",
+    "violations": [],
+    "violationCount": 0,
+    "nodeCount": 0,
+    "passes": 32
+  },
+  "contact-us": {
+    "url": "http://localhost:4200/help/contactus",
+    "violations": [],
+    "violationCount": 0,
+    "nodeCount": 0,
+    "passes": 28
+  },
+  "faq": {
+    "url": "http://localhost:4200/help/faq",
+    "violations": [],
+    "violationCount": 0,
+    "nodeCount": 0,
+    "passes": 27
+  }
+}

@@ -1,6 +1,6 @@
 
-import {throwError as observableThrowError,  Observable, catchError, map } from 'rxjs';
-import { Injectable} from '@angular/core';
+import { throwError as observableThrowError, Observable, catchError, map } from 'rxjs';
+import { Injectable } from '@angular/core';
 
 
 
@@ -43,6 +43,7 @@ export class SolicitationService {
   private solicitationUrl = environment.SERVER_URL + '/solicitation/';
   private updateUrl = environment.SERVER_URL + '/solicitation/';
   private emailUrl = environment.SERVER_URL + '/email/';
+  private ragBaseUrl = environment.SERVER_URL + '/rag';
 
   public firstLoadFilter: any = null;
   /* CONSTRUCTORS */
@@ -61,10 +62,10 @@ export class SolicitationService {
    * @param body
    */
   getFilteredSolicitations(body) {
-    if ( ! body.filters) {
-      body.filters = { 'active': {'value': true, 'matchMode': 'equals' }};
+    if (!body.filters) {
+      body.filters = { 'active': { 'value': true, 'matchMode': 'equals' } };
     } else if (!body.filters.active) {
-      body.filters.active = {'value': true, 'matchMode': 'equals' };
+      body.filters.active = { 'value': true, 'matchMode': 'equals' };
     }
     this.firstLoadFilter = null; // this isn't a first load call, so clear this if it's set
 
@@ -75,7 +76,7 @@ export class SolicitationService {
           console.log(error);
           return observableThrowError(() => (error.message || 'Server Error'));
         }
-      ));
+        ));
   }
 
 
@@ -86,17 +87,17 @@ export class SolicitationService {
   getSolicitation(index: String): Observable<Solicitation> {
     const solUrl = this.solicitationUrl + index;
     return this.http.get<Solicitation>(solUrl)
-      .pipe( 
-        catchError((error: any ) => {
+      .pipe(
+        catchError((error: any) => {
           console.log(error);
           return observableThrowError(() => error);
-      }), map((response) => {
-            response.url = response.url ? this.urlFilter(response.url.toString()) : undefined;
-            response.parseStatus.forEach(element => {
-              element.attachment_url = this.urlFilter(element.attachment_url.toString());
-            });
-        return response;
-      }));
+        }), map((response) => {
+          response.url = response.url ? this.urlFilter(response.url.toString()) : undefined;
+          response.parseStatus.forEach(element => {
+            element.attachment_url = this.urlFilter(element.attachment_url.toString());
+          });
+          return response;
+        }));
   }
 
   /**
@@ -106,11 +107,11 @@ export class SolicitationService {
   getSolicitationFeedback(filter) {
     return this.http
       .post(this.feedbackURL, filter)
-      .pipe( 
-        catchError((error: any ) => {
+      .pipe(
+        catchError((error: any) => {
           return observableThrowError(() => (error.json().error || 'Server Error'))
         }
-      ));
+        ));
   }
 
 
@@ -121,11 +122,11 @@ export class SolicitationService {
   sendContactEmail(emailContent) {
     return this.http
       .post(this.emailUrl, emailContent)
-      .pipe( 
-        catchError((error: any ) => {
+      .pipe(
+        catchError((error: any) => {
           return observableThrowError(() => (error.json().error || 'Server Error'))
         }
-      ));
+        ));
   }
 
   /**
@@ -135,38 +136,38 @@ export class SolicitationService {
   updateHistory(solicitation) {
     return this.http
       .post<Solicitation>(this.solicitationUrl, solicitation)
-      .pipe( 
-        catchError((error: any ) => {
+      .pipe(
+        catchError((error: any) => {
           return observableThrowError(() => (error.json().error || 'Server Error'))
         }
-      ));
+        ));
   }
 
   update(solicitation) {
-    console.log (solicitation);
+    console.log(solicitation);
     const url = `${this.updateUrl}${solicitation.solNum}`;
 
     return this.http
-      .post(url, {solicitation: solicitation})
-      .pipe( 
-        catchError((error: any ) => {
+      .post(url, { solicitation: solicitation })
+      .pipe(
+        catchError((error: any) => {
           return observableThrowError(() => (error.json().error || 'Server Error'))
         }
-      ));
+        ));
   }
 
-  postSolicitationART(id: string, body) { 
+  postSolicitationART(id: string, body) {
     const url = `${this.updateUrl}art/${id}`;
     //console.log('postSolicitationART URL: ', url);
     //console.log('postSolicitationART Body: ', body);
     return this.http
       .post(url, body)
-      .pipe( 
-        catchError((error: any ) => {
+      .pipe(
+        catchError((error: any) => {
           console.error('postSolicitationART error: ', error);
           return observableThrowError(() => (error.json().error || 'Server Error'))
         }
-      ));
+        ));
   }
 
   /**
@@ -178,8 +179,42 @@ export class SolicitationService {
    */
 
   urlFilter(url: string) {
-    const adjusted_url: string =  url.replace('://beta.sam.gov', '://sam.gov');
+    const adjusted_url: string = url.replace('://beta.sam.gov', '://sam.gov');
     return adjusted_url;
 
+  }
+
+  // --- RAG Analysis Methods ---
+
+  getRagSolicitations(): Observable<any> {
+    return this.http.get(`${this.ragBaseUrl}/solicitations`)
+      .pipe(catchError((error: any) => {
+        console.error('getRagSolicitations error:', error);
+        return observableThrowError(() => error);
+      }));
+  }
+
+  getRagAnalysis(solNum: string): Observable<any> {
+    return this.http.get(`${this.ragBaseUrl}/solicitation/${solNum}`)
+      .pipe(catchError((error: any) => {
+        console.error('getRagAnalysis error:', error);
+        return observableThrowError(() => error);
+      }));
+  }
+
+  getRagDocuments(solNum: string): Observable<any> {
+    return this.http.get(`${this.ragBaseUrl}/solicitation/${solNum}/documents`)
+      .pipe(catchError((error: any) => {
+        console.error('getRagDocuments error:', error);
+        return observableThrowError(() => error);
+      }));
+  }
+
+  getRagMatches(solNum: string): Observable<any> {
+    return this.http.get(`${this.ragBaseUrl}/solicitation/${solNum}/matches`)
+      .pipe(catchError((error: any) => {
+        console.error('getRagMatches error:', error);
+        return observableThrowError(() => error);
+      }));
   }
 }

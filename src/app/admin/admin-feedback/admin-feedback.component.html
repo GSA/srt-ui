@@ -1,0 +1,67 @@
+<div class="admin-feedback">
+  <h2 class="srt-section-title srt-blue">User Feedback</h2>
+  <p class="usa-intro">Feedback submitted by users from the manual upload, solicitation detail, and contact us pages. AI summaries are generated automatically.</p>
+
+  <!-- Filter -->
+  <div class="margin-bottom-2">
+    <label class="usa-label" for="source-filter">Filter by source</label>
+    <select class="usa-select" id="source-filter" [(ngModel)]="sourceFilter" (change)="onFilterChange()" style="width: 200px;">
+      <option value="">All sources</option>
+      <option value="manual_upload">Manual Upload</option>
+      <option value="solicitation_detail">Solicitation Detail</option>
+      <option value="contact_us">Contact Us</option>
+    </select>
+  </div>
+
+  <p class="font-sans-xs text-base-dark margin-bottom-2">{{ totalCount }} feedback item(s)</p>
+
+  @if (loading) {
+    <p>Loading...</p>
+  }
+
+  @for (item of feedback; track item.id) {
+    <div class="feedback-card">
+      <div class="feedback-card__header">
+        <span class="feedback-card__source">{{ item.source }}</span>
+        <span class="feedback-card__status" [style.color]="getStatusColor(item.status)">{{ item.status }}</span>
+        <span class="feedback-card__date">{{ item.created_at | date:'short' }}</span>
+        <span class="feedback-card__user">{{ item.user_email }}</span>
+      </div>
+
+      <p class="feedback-card__text">{{ item.feedback_text }}</p>
+
+      @if (item.solicitation_number) {
+        <p class="feedback-card__sol">Solicitation: {{ item.solicitation_number }}</p>
+      }
+
+      <!-- AI Summary -->
+      @if (item.ai_summary) {
+        <div class="feedback-card__ai">
+          <div class="feedback-card__ai-row">
+            <span class="feedback-card__ai-label">Summary:</span>
+            <span>{{ item.ai_summary }}</span>
+          </div>
+          @if (item.ai_interpretation) {
+            <div class="feedback-card__ai-row">
+              <span class="feedback-card__ai-label">Interpretation:</span>
+              <span>{{ item.ai_interpretation }}</span>
+            </div>
+          }
+          @if (item.ai_suggestion) {
+            <div class="feedback-card__ai-row">
+              <span class="feedback-card__ai-label">Suggestion:</span>
+              <span>{{ item.ai_suggestion }}</span>
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Status Actions -->
+      <div class="feedback-card__actions">
+        <button class="usa-button usa-button--unstyled" (click)="updateStatus(item.id, 'reviewed')" [disabled]="item.status === 'reviewed'">Mark Reviewed</button>
+        <button class="usa-button usa-button--unstyled" (click)="updateStatus(item.id, 'resolved')" [disabled]="item.status === 'resolved'">Resolve</button>
+        <button class="usa-button usa-button--unstyled" (click)="updateStatus(item.id, 'dismissed')" [disabled]="item.status === 'dismissed'">Dismiss</button>
+      </div>
+    </div>
+  }
+</div>

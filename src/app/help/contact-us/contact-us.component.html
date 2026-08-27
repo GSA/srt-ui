@@ -1,18 +1,62 @@
-<main id="content" class="usa-section bg-primary-dark">
-  <!-- Banner Section -->
+<main id="content" class="usa-section contact-page">
   <div class="grid-container">
-    <h1 class="usa-heading text-white">Contact Us</h1>
-    
-    <h5 class="usa-paragraph text-white contact-us">
-      We are here to answer any questions you may have about the Solicitation Review Tool (SRT) and assist your agency 
-      in having an efficient procurement process, ensuring Section 508 Compliance. If you have any suggestions to 
-      enhance SRT, we would be happy to hear from you as well. You can reach us at 
-      <a href="mailto:srt@gsa.gov" class="srt-link usa-link">srt@gsa.gov</a>.
-    </h5>
+    <h1 class="contact-page__heading">Contact Us</h1>
 
-    <h5 class="usa-paragraph text-white contact-us">
-      Need help determining if accessibility (Section 508) requirements apply to a solicitation? Please see the 
-      <a href="https://buyaccessible.gov/" target="_blank" rel="noopener noreferrer" class="srt-link usa-link">Accessibility Requirements Tool</a>.
-    </h5>
+    <p class="contact-page__intro">
+      We are here to answer any questions you may have about the Solicitation Review Tool (SRT) and assist your agency
+      in having an efficient procurement process, ensuring Section 508 requirements are met. If you have any suggestions to
+      enhance SRT, we would be happy to hear from you.
+    </p>
+
+    <p class="contact-page__intro">
+      Need help determining if accessibility (Section 508) requirements apply to a solicitation? Please see the
+      <a href="https://www.section508.gov/art/#/" target="_blank" rel="noopener noreferrer" class="usa-link">Accessibility Requirements Tool <span class="material-symbols-outlined ext-icon" aria-hidden="true">open_in_new</span></a>.
+    </p>
+
+    <!-- Contact Form -->
+    @if (!emailSent) {
+      <div class="contact-form">
+        <h2 class="contact-form__title">Send us a message</h2>
+        <p class="contact-form__subtitle">Your message will be sent to the SRT team at srt&#64;gsa.gov.</p>
+
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+          <div class="grid-row grid-gap">
+            <div class="grid-col-6">
+              <label class="usa-label" for="contact-name">Your name <span class="text-secondary" aria-hidden="true">*</span></label>
+              <input class="usa-input" id="contact-name" type="text" formControlName="name" required aria-required="true" />
+            </div>
+            <div class="grid-col-6">
+              <label class="usa-label" for="contact-email">Your email <span class="text-secondary" aria-hidden="true">*</span></label>
+              <input class="usa-input" id="contact-email" type="email" formControlName="email" required aria-required="true" />
+            </div>
+          </div>
+
+          <label class="usa-label margin-top-2" for="contact-content">Message <span class="text-secondary" aria-hidden="true">*</span></label>
+          <textarea class="usa-textarea" id="contact-content" formControlName="content" rows="6" placeholder="How can we help?" required aria-required="true"></textarea>
+          <p class="usa-hint margin-top-1"><span aria-hidden="true">*</span> Required fields</p>
+
+          @if (error) {
+            <div class="usa-alert usa-alert--error usa-alert--slim margin-top-2" role="alert">
+              <div class="usa-alert__body"><p class="usa-alert__text">{{ error }}</p></div>
+            </div>
+          }
+
+          <button class="usa-button margin-top-2" type="submit" [disabled]="!myForm.valid || sending">
+            @if (sending) {
+              Sending...
+            } @else {
+              Send Message
+            }
+          </button>
+        </form>
+      </div>
+    } @else {
+      <div class="contact-success" role="status" aria-live="polite">
+        <span class="material-symbols-outlined contact-success__icon" aria-hidden="true">check_circle</span>
+        <h2 class="contact-success__title">Message Sent</h2>
+        <p class="contact-success__text">Thank you for reaching out. The SRT team will review your message and get back to you.</p>
+        <button class="usa-button usa-button--outline margin-top-2" (click)="resetForm()">Send Another Message</button>
+      </div>
+    }
   </div>
 </main>

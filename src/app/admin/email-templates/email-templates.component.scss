@@ -1,0 +1,106 @@
+.email-templates {
+  .template-selector {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .template-btn {
+    padding: 8px 16px;
+    border: 1px solid #dfe1e2;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.15s ease;
+
+    &:hover {
+      background: #f0f4f9;
+      border-color: #1a4480;
+    }
+
+    &--active {
+      background: #1a4480;
+      color: #fff;
+      border-color: #1a4480;
+    }
+  }
+
+  .note-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+
+    &__bullet {
+      font-size: 1.2rem;
+      color: #1a4480;
+    }
+
+    &__input {
+      flex: 1;
+      margin: 0;
+    }
+
+    &__remove {
+      background: none;
+      border: none;
+      color: #d83933;
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 4px 8px;
+
+      &:hover {
+        background: #fce4ec;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .editor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+
+    &__label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #1b1b1b;
+      margin-bottom: 6px;
+    }
+
+    &__textarea {
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      resize: vertical;
+      min-height: 300px;
+    }
+
+    &__preview {
+      min-height: 300px;
+    }
+
+    &__preview-box {
+      border: 1px solid #dfe1e2;
+      border-radius: 4px;
+      padding: 16px;
+      background: #fff;
+      min-height: 300px;
+      max-height: 500px;
+      overflow-y: auto;
+      font-size: 0.875rem;
+
+      .preview-meta {
+        font-size: 0.75rem;
+        color: #1b1b1b;
+        margin: 2px 0;
+      }
+    }
+  }
+
+  .send-section {
+    padding-top: 16px;
+    border-top: 1px solid #dfe1e2;
+  }
+}

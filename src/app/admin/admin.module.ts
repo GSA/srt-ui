@@ -30,6 +30,14 @@ import {MetricDownloadsComponent} from './metric-downloads/metric-downloads.comp
 import {UserReportComponent} from '../user/reports/user.report.component';
 import {FeedbackReportTableComponent} from './admin-reports/feedback-report-table.component';
 import {FeedbackReportService} from './admin-reports/feedback-report.service';
+import {UserManagementComponent} from './user-management/user-management.component';
+import {WebsiteAnalyticsComponent} from './website-analytics/website-analytics.component';
+import {AuditLogComponent} from './audit-log/audit-log.component';
+import {SystemHealthComponent} from './system-health/system-health.component';
+import {AdminManagementService} from '../shared/services/admin-management.service';
+import {EmailTemplatesComponent} from './email-templates/email-templates.component';
+import {AdminFeedbackComponent} from './admin-feedback/admin-feedback.component';
+import {ChartModule} from 'primeng/chart';
 
 
 
@@ -46,6 +54,7 @@ import {FeedbackReportService} from './admin-reports/feedback-report.service';
     ReactiveFormsModule,
     AutoCompleteModule,
     FileUploadModule,
+    ChartModule,
   ],
   providers: [
     UserService,
@@ -53,19 +62,32 @@ import {FeedbackReportService} from './admin-reports/feedback-report.service';
     EmailService,
     FileService,
     LoginReportService,
-    FeedbackReportService
+    FeedbackReportService,
+    AdminManagementService
   ],
   exports: [
     MasqComponent,
     MetricDownloadsComponent,
     UserReportComponent,
-    FeedbackReportTableComponent
+    FeedbackReportTableComponent,
+    UserManagementComponent,
+    WebsiteAnalyticsComponent,
+    AuditLogComponent,
+    SystemHealthComponent,
+    EmailTemplatesComponent,
+    AdminFeedbackComponent
   ],
   declarations: [
     MasqComponent,
     MetricDownloadsComponent,
     UserReportComponent,
-    FeedbackReportTableComponent
+    FeedbackReportTableComponent,
+    UserManagementComponent,
+    WebsiteAnalyticsComponent,
+    AuditLogComponent,
+    SystemHealthComponent,
+    EmailTemplatesComponent,
+    AdminFeedbackComponent
   ]
 })
   export class AdminModule { }

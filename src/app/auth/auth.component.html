@@ -1,86 +1,103 @@
-<div class="grid-container">
-  <div class="grid-row login-header-bg py-2 px-4 mt-2">
-    <h1 class="usa-heading" style="font-weight: bold;"><u>Solicitation Review Tool</u></h1>
-    <h3 class="usa-heading usa-heading--third-level">
-      The Solicitation Review Tool (SRT) is provided to help agencies evaluate the overall solicitation compliance with accessibility, cyber security, and other regulations and requirements.
-    </h3>
+<!-- Global Header -->
+<header class="srt-header">
+  <div class="srt-header__inner">
+    <div class="srt-header__brand">
+      <img
+        src="../../assets/srt-logo.png"
+        alt="Solicitation Review Tool Logo"
+        class="srt-header__srt-logo"
+        />
+    </div>
+    <nav class="srt-header__nav" aria-label="Resource links">
+      <a href="https://www.section508.gov/" target="_blank" rel="noopener noreferrer">About Section 508 <span class="material-symbols-outlined ext-icon" aria-hidden="true">open_in_new</span></a>
+      <a href="mailto:srt@gsa.gov">Help</a>
+    </nav>
   </div>
+</header>
 
+<!-- Main Content -->
+<main id="content" class="srt-main bypass-block-target" tabindex="-1">
 
-  <div class="grid-row">
-    <div class="grid-col-12">
-      <div class="grid-row usa-prose">
-        <div class="grid-col-8 tablet:grid-col-8 desktop:grid-col-8 desktop:grid-offset-2">
-          <div class="usa-card margin-y-2 padding-1 card-shadow">
-            <div class="usa-card__header">
-                
-            </div>
-            <div class="usa-card__body">
-              <h3 class="usa-heading usa-heading--third-level">
-                To sign in and view your agency's solicitations, you'll need a Login.gov account associated with your <b>government email address</b>.
-              </h3>
-              <app-userlogin></app-userlogin>
-              <h5>
-                If you need help adding an email address to your Login.gov account, please visit the 
-                <a href="https://www.login.gov/help/manage-your-account/change-your-email-address/" target="_blank" rel="noopener noreferrer">Login.gov Help Page.</a>
-              </h5>
-            </div>
+  <!-- Hero Section -->
+  <section class="hero-section" aria-labelledby="hero-heading">
+    <div class="hero-section__inner">
+
+      <!-- Left: Value Prop -->
+      <div class="hero-section__text">
+        <h1 id="hero-heading" class="hero-section__heading">
+          Section 508 Requirements Integration Review
+        </h1>
+        <p class="hero-section__subtext">
+          A dedicated platform to check federal solicitations for integration of Section 508 accessibility requirements before publication.
+        </p>
+      </div>
+
+      <!-- Right: Login Card -->
+      <div class="hero-section__card-wrapper">
+        <div class="login-card">
+          <div class="login-card__icon">
+            <span class="material-symbols-outlined" aria-hidden="true">lock</span>
           </div>
+          <h2 class="login-card__title">Sign In</h2>
+
+          @if (isLogin && !isApproved) {
+            <div class="login-card__alert" role="alert">
+              <strong>Request Access</strong>
+              <p>Your account is not approved. Please contact the SRT administrator (<a href="mailto:srt@gsa.gov">srt&#64;gsa.gov</a>) to request access.</p>
+            </div>
+          }
+
+          @if (!isLogin) {
+            <p class="login-card__description">
+              SRT requires standard government authentication via Login.gov.
+            </p>
+            <app-userlogin></app-userlogin>
+          }
         </div>
       </div>
+
     </div>
-  </div>
+  </section>
 
-  
+  <!-- Feature Grid Section -->
+  <section class="features-section" aria-label="Platform features">
+    <div class="features-section__inner">
+      <div class="features-grid">
 
-  <div class="grid-row mt-5">
-    <div class="tablet:grid-col-2 mobile-lg:grid-col-6"></div>
-    <!-- Contact Us -->
-    <div class="tablet:grid-col-4 mobile-lg:grid-col-6">
-      <div class="usa-card">
-        <a
-          [routerLink]="['/help/contactus']"
-          aria-labelledby="h3cus"
-          class="usa-card__container usa-card__container--clickable"
-          (click)="onClickTiles('contact_tile', 'Contact Tile')"
-        >
-          <div class="usa-card__media">
-            <img alt="Contact Us Icon" src="/assets/contact-us.png" />
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-card__icon-wrap">
+            <span class="material-symbols-outlined" aria-hidden="true">upload_file</span>
           </div>
-          <div class="usa-card__header">
-            <h2 class="usa-card__heading" id="h3cus">Contact Us</h2>
+          <h3 class="feature-card__title">Check Your Draft</h3>
+          <p class="feature-card__text">
+            Bring your draft solicitation in and run it through the tool to confirm Section 508 requirements are properly built in, not bolted on later.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-card__icon-wrap">
+            <span class="material-symbols-outlined" aria-hidden="true">verified</span>
           </div>
-          <div class="usa-card__body">
-            <p>View contact information for the Solicitation Review Tool.</p>
+          <h3 class="feature-card__title">Requirements Integration</h3>
+          <p class="feature-card__text">
+            Identifies whether Section 508 accessibility requirements are properly referenced and incorporated into solicitation language.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-card__icon-wrap">
+            <span class="material-symbols-outlined" aria-hidden="true">speed</span>
           </div>
-        </a>
+          <h3 class="feature-card__title">Frictionless Workflow</h3>
+          <p class="feature-card__text">
+            Accessible experience designed specifically for acquisition professionals to streamline the review process.
+          </p>
+        </div>
+
       </div>
     </div>
-
-    <!-- FAQ -->
-    <div class="tablet:grid-col-4 mobile-lg:grid-col-6">
-      <div class="usa-card">
-        <a
-          [routerLink]="['/help/faq']"
-          aria-labelledby="h3faq"
-          class="usa-card__container usa-card__container--clickable"
-          (click)="onClickTiles('faq_tile', 'FAQ Tile')"
-        >
-          <div class="usa-card__media">
-            <img alt="FAQ Icon" src="/assets/faq.png" />
-          </div>
-          <div class="usa-card__header">
-            <h2 class="usa-card__heading" id="h3faq">Learn More</h2>
-          </div>
-          <div class="usa-card__body">
-            <p>Review Frequently Asked Questions and learn more about SRT.</p>
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <div class="tablet:grid-col-2 mobile-lg:grid-col-6"></div>
-
-  </div>
-
-</div>
+  </section>
+</main>

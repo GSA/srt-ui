@@ -1,46 +1,57 @@
 <main id="content" class="usa-section bypass-block-target">
   <div class="grid-container">
-    <app-admin-header (menuClick)="processMenuClick($event)"></app-admin-header>
+    <app-admin-header [initialTab]="activeTab" (menuClick)="processMenuClick($event)"></app-admin-header>
 
-    <!-- Approved Tab -->
-    <app-user-report *ngIf="this.activeTab == 'approved'"></app-user-report>
+    <!-- Four consolidated panels. Each is focusable so tab switches land
+         screen-reader and keyboard users on the selected content. -->
 
-    <!-- Masquerade Tab -->
-    <masquerade *ngIf="this.activeTab == 'masquerade'"></masquerade>
-
-    <!-- Metric Downloads Tab -->
-    <metric-downloads *ngIf="this.activeTab == 'metric-downloads'"></metric-downloads>
-
-    <!-- Reports Tab -->
-    <div *ngIf="this.activeTab == 'reports'" class="grid-row grid-gap">
-      <!-- Sticky Sidebar -->
-      <nav class="usa-sidenav grid-col-2 sticky-sidenav">
-        <ul class="usa-sidenav__list no-bullets">
-          <li class="usa-sidenav__item">
-            <a href="javascript:void(0)" (click)="scroll('anchor-Logins-Last-30-Days')">Logins</a>
-          </li>
-          <li class="usa-sidenav__item">
-            <a href="javascript:void(0)" (click)="scroll('anchor-User-Login-Report')">User Login Report</a>
-          </li>
-          <li class="usa-sidenav__item">
-            <a href="javascript:void(0)" (click)="scroll('anchor-Feedback-Table')">Feedback Table</a>
-          </li>
-        </ul>
-      </nav>
-
-            <!-- Main Content Area -->
-      <div class="grid-col-10">
-        <!-- Add IDs to the sections that correspond to the scroll targets -->
-        <div id="anchor-Logins-Last-30-Days" class="scroll-target">
-          <app-login-reports></app-login-reports>
-        </div>
-        <div id="anchor-User-Login-Report" class="scroll-target">
-          <app-user-login-report></app-user-login-report>
-        </div>
-        <div id="anchor-Feedback-Table" class="scroll-target">
-          <app-admin-feedback></app-admin-feedback>
-        </div>
+    <!-- USERS: management + approval views; masquerade is a row action -->
+    @if (activeTab === 'users') {
+      <div id="admin-panel-users" tabindex="-1" class="admin-panel">
+        <app-user-management></app-user-management>
       </div>
-    </div>
+    }
+
+    <!-- ANALYTICS: website analytics + login reports + metric downloads -->
+    @if (activeTab === 'analytics') {
+      <div id="admin-panel-analytics" tabindex="-1" class="admin-panel">
+        <app-website-analytics></app-website-analytics>
+        <hr class="admin-panel__rule" />
+        <app-login-reports></app-login-reports>
+        <hr class="admin-panel__rule" />
+        <!-- Metric Downloads as an accordion: exports are an action on the
+             data above, not a destination (Phase 4). -->
+        <h3 class="collapse-heading">
+          <button type="button" class="usa-accordion__button export-toggle"
+                  [attr.aria-expanded]="exportOpen" aria-controls="export-panel"
+                  (click)="exportOpen = !exportOpen">
+            Export data (CSV downloads)
+          </button>
+        </h3>
+        @if (exportOpen) {
+          <div id="export-panel">
+            <metric-downloads></metric-downloads>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- OPERATIONS: system health + audit log -->
+    @if (activeTab === 'ops') {
+      <div id="admin-panel-ops" tabindex="-1" class="admin-panel">
+        <app-system-health></app-system-health>
+        <hr class="admin-panel__rule" />
+        <app-audit-log></app-audit-log>
+      </div>
+    }
+
+    <!-- CONTENT: email templates + user feedback -->
+    @if (activeTab === 'content') {
+      <div id="admin-panel-content" tabindex="-1" class="admin-panel">
+        <app-email-templates></app-email-templates>
+        <hr class="admin-panel__rule" />
+        <app-admin-feedback></app-admin-feedback>
+      </div>
+    }
   </div>
 </main>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../../shared/user';
@@ -12,11 +12,12 @@ import { BaseComponent } from '../../base.component';
 import { Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-userlogin',
-  templateUrl: './userlogin.component.html',
-  styleUrls: ['./userlogin.component.scss']
+    selector: 'app-userlogin',
+    templateUrl: './userlogin.component.html',
+    styleUrls: ['./userlogin.component.scss'],
+    standalone: false
 })
-export class UserloginComponent extends BaseComponent implements OnInit {
+export class UserloginComponent extends BaseComponent implements OnInit, AfterViewInit {
 
   myForm: FormGroup;
   errorMessage = false;
@@ -30,7 +31,8 @@ export class UserloginComponent extends BaseComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private user: UserService,
-    private ts: Title
+    private ts: Title,
+    private cdr: ChangeDetectorRef
   ) {
     super(ts);
     this.pageName = 'Solicitation Review Tool';
@@ -43,6 +45,26 @@ export class UserloginComponent extends BaseComponent implements OnInit {
       email: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
     });
+    
+    // Force change detection cycle
+    setTimeout(() => {
+      this.cdr.detectChanges();
+    }, 0);
+  }
+  
+  ngAfterViewInit() {
+    // Check if we got here from a session timeout (token missing but other session data exists)
+    const hasToken = localStorage.getItem('token');
+    const hasUserInfo = localStorage.getItem('email') || localStorage.getItem('id');
+    
+    if (!hasToken && hasUserInfo) {
+      // Likely a timeout situation, clear remaining data
+      localStorage.clear();
+      
+      // Force rendering
+      this.cdr.detectChanges();
+      
+    }
   }
 
   onSubmit() {

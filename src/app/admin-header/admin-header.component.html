@@ -1,21 +1,34 @@
-<div class="active-tabs" ng-if="showActivitySelection()">
+<nav class="active-tabs" aria-label="Administration sections">
   <div class="custom-tabs">
-    <ul class="custom-tabs__list">
-      <li class="custom-tabs__item" 
-          [ngClass]="{'custom-tabs__item--active': active['masquerade']}"
-          (click)="menuClick.emit('masquerade'); setActiveTab('masquerade')">
-        <a class="custom-tabs__link">MASQUERADE</a>
+    <ul class="custom-tabs__list" role="tablist">
+      <li class="custom-tabs__item" [ngClass]="{'custom-tabs__item--active': active['users']}" role="presentation">
+        <button type="button" class="custom-tabs__link" role="tab"
+          [attr.aria-selected]="active['users'] ? 'true' : 'false'"
+          (click)="menuClick.emit('users'); setActiveTab('users')">
+          USERS
+        </button>
       </li>
-      <li class="custom-tabs__item" 
-          [ngClass]="{'custom-tabs__item--active': active['reports']}"
-          (click)="menuClick.emit('reports'); setActiveTab('reports')">
-        <a class="custom-tabs__link">REPORTS</a>
+      <li class="custom-tabs__item" [ngClass]="{'custom-tabs__item--active': active['analytics']}" role="presentation">
+        <button type="button" class="custom-tabs__link" role="tab"
+          [attr.aria-selected]="active['analytics'] ? 'true' : 'false'"
+          (click)="menuClick.emit('analytics'); setActiveTab('analytics')">
+          ANALYTICS
+        </button>
       </li>
-      <li class="custom-tabs__item" 
-          [ngClass]="{'custom-tabs__item--active': active['metric-downloads']}"
-          (click)="menuClick.emit('metric-downloads'); setActiveTab('metric-downloads')">
-        <a class="custom-tabs__link">METRIC DOWNLOADS</a>
+      <li class="custom-tabs__item" [ngClass]="{'custom-tabs__item--active': active['ops']}" role="presentation">
+        <button type="button" class="custom-tabs__link" role="tab"
+          [attr.aria-selected]="active['ops'] ? 'true' : 'false'"
+          (click)="menuClick.emit('ops'); setActiveTab('ops')">
+          OPERATIONS
+        </button>
+      </li>
+      <li class="custom-tabs__item" [ngClass]="{'custom-tabs__item--active': active['content']}" role="presentation">
+        <button type="button" class="custom-tabs__link" role="tab"
+          [attr.aria-selected]="active['content'] ? 'true' : 'false'"
+          (click)="menuClick.emit('content'); setActiveTab('content')">
+          CONTENT
+        </button>
       </li>
     </ul>
   </div>
-</div>
+</nav>

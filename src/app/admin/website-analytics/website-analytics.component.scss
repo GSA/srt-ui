@@ -1,0 +1,81 @@
+.website-analytics {
+  padding: 0;
+}
+
+:host {
+  display: block;
+  padding: 1rem 0;
+}
+
+.stat-card {
+  background: #f0f0f0;
+  border-radius: 4px;
+  padding: 1rem;
+  text-align: center;
+
+  &__value {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1b1b1b;
+    line-height: 1.2;
+  }
+
+  &__label {
+    display: block;
+    font-size: 0.8125rem;
+    color: #1b1b1b;
+    margin-top: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+  }
+
+  &--compact {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: left;
+    padding: 0.75rem 1rem;
+
+    .stat-card__value {
+      font-size: 1.5rem;
+      min-width: 2.5rem;
+    }
+
+    .stat-card__label {
+      margin-top: 0;
+    }
+  }
+}
+
+.chart-container {
+  background: #fff;
+  border: 1px solid #dfe1e2;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.chart-title,
+.table-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1b1b1b;
+  margin: 0 0 0.75rem;
+}
+
+.section-card {
+  background: #fff;
+  border: 1px solid #dfe1e2;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.text-ellipsis {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-green { color: #2e6e2e; }
+.text-red { color: #b50909; }

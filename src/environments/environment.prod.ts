@@ -1,8 +1,12 @@
 export const environment = {
-  production: false,
+  // Drives enableProdMode() in main.ts. Must stay true here: without it Angular
+  // runs its development-mode change-detection checks in production.
+  production: true,
   SERVER_URL: 'https://srt-server.app.cloud.gov/api',
   EMAIL_NOTIFICATION: true,
-  FILE_UPLOAD_API: 'http://srt-server.app.cloud.gov/file/upload',
+  // https, not http — a page served over TLS cannot call a plaintext endpoint
+  // (browsers block it as mixed content).
+  FILE_UPLOAD_API: 'https://srt-server.app.cloud.gov/file/upload',
   ART_API_SERVER:'https://art-api.app.cloud.gov',
   USE_CLIENT_EMAIL: true,
   ENVIRONMENT: 'prod',

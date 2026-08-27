@@ -1,7 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ResultsDetailComponent } from './results-detail.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {SolicitationService} from '../../solicitation.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SummaryComponent } from '../summary.component';
@@ -17,6 +17,7 @@ import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';
 
 import { ArtService } from './art-modal/art.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ResultsDetailComponent', () => {
   let component: ResultsDetailComponent;
@@ -26,12 +27,12 @@ describe('ResultsDetailComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SummaryComponent, ResultsDetailComponent, 
+    declarations: [SummaryComponent, ResultsDetailComponent,
         ArtIframeDialogComponent, ArtCategoryComponent],
-      providers: [SolicitationService, ArtService],
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]),
-            CommonModule, FormsModule, ButtonModule, DialogModule, CheckboxModule]
-    })
+    imports: [RouterTestingModule.withRoutes([]),
+        CommonModule, FormsModule, ButtonModule, DialogModule, CheckboxModule],
+    providers: [SolicitationService, ArtService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   });
 

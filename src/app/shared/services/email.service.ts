@@ -5,7 +5,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
 
 // Classes
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 // Services
 

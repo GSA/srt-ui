@@ -1,24 +1,33 @@
-
-<h2 class="srt-blue chart" *ngIf="hasValue" aria-labelledby="num-sol-tooltip">
+@if (hasValue) {
+  <h2 class="srt-blue chart" aria-labelledby="num-sol-tooltip">
     Scanned Solicitations
-    <sup class="supfont" pTooltip="Number of ICT solicitation scanned in the latest 30 days"
-         tooltipPosition="bottom">
-        <i tabindex="0" alt="hi there" class="fa fa-info-circle info" aria-hidden="true" ></i>
-    </sup>
-  <a (click)="downloadCSV()" style="padding-left: 10px; font-size: 12px; cursor: pointer;" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Download CSV</a>
-</h2>
+    <span class="tooltip-container">
+      <sup class="supfont tooltip-trigger" tabindex="0" role="button"
+        aria-label="Number of ICT solicitations scanned in the last 30 days"
+        (focus)="showScannedSolicitationsTooltip = true" (blur)="showScannedSolicitationsTooltip = false"
+        (keydown.enter)="showScannedSolicitationsTooltip = !showScannedSolicitationsTooltip"
+        (keydown.space)="showScannedSolicitationsTooltip = !showScannedSolicitationsTooltip; $event.preventDefault()">
+        <i class="fa fa-info-circle info" aria-hidden="true"></i>
+      </sup>
+      <span class="tooltip-text" [class.show]="showScannedSolicitationsTooltip">
+        Number of ICT solicitations scanned in the last 30 days
+      </span>
+    </span>
+    <a href="#" (click)="$event.preventDefault(); downloadCSV();"
+      class="download-csv-link link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Download
+    CSV</a>
+  </h2>
+}
 
 <div class="barchart">
-    <div class="positions" aria-hidden="true"># Solicitation</div>
-    <div class="positiond" aria-hidden="true">Date</div>
-    <div class="positionbar" *ngIf="hasValue">
-
-    <canvas baseChart
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [type]="barChartType">
-    </canvas>
+  <div class="positions" aria-hidden="true"># Solicitation</div>
+  <div class="positiond" aria-hidden="true">Date</div>
+  @if (hasValue) {
+    <div class="positionbar">
+      <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+        [type]="barChartType">
+      </canvas>
       <div [innerHTML]="this.tabularData"></div>
     </div>
+  }
 </div>

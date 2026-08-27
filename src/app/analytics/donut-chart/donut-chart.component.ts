@@ -1,15 +1,16 @@
-import {Component, OnInit, Input, ViewChild, OnChanges} from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnChanges } from '@angular/core';
 
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartData } from 'chart.js';
 
-import * as $ from 'jquery';
+import $ from 'jquery';
 
 
 @Component({
-  selector: 'app-donut-chart',
-  templateUrl: './donut-chart.component.html',
-  styleUrls: ['../analytics.component.scss', './donut-chart.component.scss']
+    selector: 'app-donut-chart',
+    templateUrl: './donut-chart.component.html',
+    styleUrls: ['../analytics.component.scss', './donut-chart.component.scss'],
+    standalone: false
 })
 export class DonutChartComponent implements OnInit, OnChanges {
 
@@ -18,38 +19,41 @@ export class DonutChartComponent implements OnInit, OnChanges {
 
   @Input() doughnutChartDataInput;
   @Input() title;
-  @Input() componentTooltip;
+  @Input() componentTooltip; // This already holds the tooltip text
   @Input() note;
-  @ViewChild(BaseChartDirective, {static: false}) private baseChart;
+  @ViewChild(BaseChartDirective, { static: false }) private baseChart;
 
   public doughnutChartLabels: String[] = ['', ''];
   public doughnutChartData: ChartData<'doughnut'>;
   public doughnutChartType: String = 'doughnut';
 
-  public percentage: Number = 0;
+  public percentage: number = 0;
   public numerator: number = 0;
-  public denominator: Number = 0;
+  public denominator: number = 0;
   public id: String = '';
 
   public readerSupplement = '';
 
   public options: any = {
-      cutout: '85%',
-      legend: {
-          display: false
-      },
-      tooltips: {
-          enabled: false
-      },
-      maintainAspectRatio: false,
-      responsive: true,
+    cutout: '85%',
+    legend: {
+      display: false
+    },
+    tooltips: {
+      enabled: false
+    },
+    maintainAspectRatio: false,
+    responsive: true,
   };
+
+  // Add this property to control tooltip visibility
+  public showTooltip = false; // Add this line
 
   /**
    * constructor
    */
   constructor(
-  ) {}
+  ) { }
 
   /**
    * lifecycle
@@ -62,25 +66,26 @@ export class DonutChartComponent implements OnInit, OnChanges {
    */
   ngOnChanges() {
     if (this.doughnutChartDataInput) {
-      let CountTo: any = 0;
+      let CountTo = 0;
       if (this.title === 'Conversion Rate') {
         this.numerator = this.doughnutChartDataInput.updatedCompliantICT;
         this.denominator = this.doughnutChartDataInput.uncompliance;
-        this.doughnutChartData = { 
-          datasets: [{ 
-              data: [this.doughnutChartDataInput.updatedCompliantICT, this.doughnutChartDataInput.uncompliance],
+        this.doughnutChartData = {
+          datasets: [
+            {
+              data: [this.numerator, this.doughnutChartDataInput.uncompliance - this.doughnutChartDataInput.updatedCompliantICT],
               backgroundColor: ['#2C81C0', '#f7f7f7'],
               borderColor: ['#2C81C0', '#f7f7f7'],
               hoverBackgroundColor: ['#2C81C0', '#f7f7f7']
-            }]
+            }
+          ]
         };
-
         this.percentage = this.doughnutChartDataInput.uncompliance === 0
           ? 0
           : Math.round(this.doughnutChartDataInput.updatedCompliantICT / this.doughnutChartDataInput.uncompliance * 100);
         CountTo = this.percentage;
         this.id = 'ConversionRate';
-        this.note = 'non-compliant ICT solicitations became compliant after they were updated sam.gov. ';
+        this.note = 'non-compliant ICT solicitations became compliant after they were updated sam.gov.';
         this.readerSupplement = `That is a ${this.percentage} percent conversion rate.`;
         console.log('Conversion Rate Data', this.doughnutChartData);
       } else if (this.title === 'Preliminary Compliance Rate') {
@@ -105,9 +110,9 @@ export class DonutChartComponent implements OnInit, OnChanges {
         console.log('Preliminary Compliance Rate Data', this.doughnutChartData);
       }
 
-      $('#' + this.id).each(function() {
+      $('#' + this.id).each(function () {
         $(this)
-        .prop('Counter', 0)
+          .prop('Counter', 0)
           .animate(
             {
               Counter: '' + CountTo
@@ -115,14 +120,23 @@ export class DonutChartComponent implements OnInit, OnChanges {
             {
               duration: 500,
               easing: 'swing',
-              step: function(now) {
+              step: function (now) {
                 $(this).text(Math.ceil(now) + '%');
               }
             }
           );
       });
-
+      this.forceChartRefresh();
     }
+  }
+
+  /**
+   * lifecycle
+   */
+  forceChartRefresh() {
+    setTimeout(() => {
+      this.baseChart.update();
+    }, 10);
   }
 
 }

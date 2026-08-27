@@ -1,0 +1,162 @@
+<!-- 
+<main id="content" class="main-content">
+  <div class="feedback-container">
+    <div id="detail">
+      <h1 class="font-sans-xl margin-bottom-2">{{ solicitation?.title || 'Manually Uploaded Solicitation' }}</h1>
+      
+      <div class="status-badge" [ngClass]="{
+          'status-badge--compliant': solicitation?.reviewRec === 'Compliant',
+          'status-badge--non-compliant': solicitation?.reviewRec !== 'Compliant'
+        }">
+        <svg viewBox="0 0 24 24" class="check-icon">
+          <path *ngIf="solicitation?.reviewRec === 'Compliant'" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+          <path *ngIf="solicitation?.reviewRec !== 'Compliant'" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+        {{ solicitation?.reviewRec || 'Unknown Status' }}
+      </div>
+      <div *ngIf="solicitation?.reviewRec === 'Non-compliant'" class="usa-alert usa-alert--warning margin-top-2">
+        <div class="usa-alert__body">
+          <p class="usa-alert__text">Solicitation does not include required 508 language.</p>
+          <p class="usa-alert__text">Use the ART tool to get the appropriate 508 language for this solicitation.</p>
+          <app-art-modal></app-art-modal>
+        </div>
+      </div>
+
+      <h2 class="margin-top-4">Uploaded Documents</h2>
+      <table class="usa-table usa-table--borderless usa-table--striped width-full margin-top-2">
+        <thead>
+          <tr>
+            <th scope="col">Filename</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let doc of solicitation?.parseStatus">
+            <td>{{ doc.name || 'Unnamed Document' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitation Analysis</title>
+    <style>
+        .analysis-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #dfe1e2;
+            border-radius: 4px;
+        }
+        .compliance-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .compliant {
+            background-color: #e7f4e4;
+            color: #2e8540;
+        }
+        .non-compliant {
+            background-color: #fef0f0;
+            color: #d63e04;
+        }
+        .quote-box {
+            background-color: #f0f0f0;
+            padding: 1rem;
+            border-left: 4px solid #005ea2;
+            margin: 1rem 0;
+        }
+        .recommendation-box {
+            background-color: #e7f6f8;
+            padding: 1rem;
+            border-left: 4px solid #00bde3;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <main id="content" class="main-content usa-section">
+        <div class="grid-container">
+            <!-- Compliant Example -->
+            <div class="analysis-section">
+                <h2>Solicitation Analysis Report</h2>
+                <div class="compliance-badge compliant">✓ Compliant</div>
+                
+                <h3>Key Compliance Indicators</h3>
+                <h4>Section 508 Requirements</h4>
+                <p><strong>Location:</strong> Section L.5.4 - Technical Requirements</p>
+                
+                <div class="quote-box">
+                    <p>"All electronic and information technology (EIT) deliverables rendered under this contract must comply with Section 508 of the Rehabilitation Act and the Access Board Standards. Information about Section 508 provisions is available at www.section508.gov. The contractor shall:</p>
+                    <ul>
+                        <li>Ensure all software, documentation, and web content delivered meets WCAG 2.1 Level AA standards</li>
+                        <li>Provide Section 508 test results and compliance documentation</li>
+                        <li>Include accessibility throughout the development lifecycle"</li>
+                    </ul>
+                </div>
+
+                <h4>Additional Technical Standards Met</h4>
+                <ul class="usa-list">
+                    <li><strong>Information Security Requirements</strong>
+                        <ul>
+                            <li>NIST 800-53 Security Controls implementation</li>
+                            <li>FedRAMP Moderate baseline compliance</li>
+                        </ul>
+                    </li>
+                    <li><strong>Data Management Standards</strong>
+                        <ul>
+                            <li>Compliance with Federal Data Strategy</li>
+                            <li>Implementation of NIST Privacy Framework</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Non-Compliant Example -->
+            <div class="analysis-section">
+                <h2>Solicitation Analysis Report</h2>
+                <div class="compliance-badge non-compliant">✕ Non-Compliant</div>
+                
+                <h3>Missing Requirements</h3>
+                <ul class="usa-list">
+                    <li>Section 508 compliance requirements</li>
+                    <li>Accessibility standards reference</li>
+                    <li>VPAT submission requirements</li>
+                </ul>
+
+                <h3>Recommended Additions</h3>
+                <h4>Add to Section L - Instructions to Offerors:</h4>
+                
+                <div class="recommendation-box">
+                    <h4>L.X Section 508 Compliance Requirements</h4>
+                    <p>All deliverables must comply with Section 508 of the Rehabilitation Act (29 U.S.C. 794d) and the Architectural and Transportation Barriers Compliance Board Electronic and Information Technology (EIT) Accessibility Standards (36 CFR Part 1194). The contractor shall:</p>
+                    <ul>
+                        <li>Ensure all electronic content and communications meet WCAG 2.1 Level AA success criteria</li>
+                        <li>Provide Voluntary Product Accessibility Template (VPAT) for all proposed software</li>
+                        <li>Include accessibility testing in quality assurance processes</li>
+                        <li>Document remediation procedures for any accessibility issues identified</li>
+                        <li>Maintain accessibility throughout product updates and maintenance</li>
+                    </ul>
+                    <p><small>Reference: https://www.section508.gov/</small></p>
+                </div>
+
+                <h4>Implementation Steps:</h4>
+                <ol class="usa-list">
+                    <li>Add Section 508 requirements under technical evaluation criteria</li>
+                    <li>Include accessibility testing in acceptance criteria</li>
+                    <li>Require VPAT submission with technical proposals</li>
+                    <li>Add accessibility metrics to performance requirements</li>
+                </ol>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

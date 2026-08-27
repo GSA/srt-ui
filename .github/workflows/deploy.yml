@@ -7,6 +7,8 @@ on:
 
 jobs:
   docker:
+    permissions:
+      contents: read
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
     outputs:
@@ -44,6 +46,8 @@ jobs:
           build-args: |
             "environment=dev"
   cloudgov:
+    permissions:
+      contents: read
     name: Deploying to Cloud.gov
     runs-on: ubuntu-latest
     needs: docker

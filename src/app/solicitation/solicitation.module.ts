@@ -8,7 +8,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
-import { QuillEditorModule } from 'ngx-quill-editor';
+import { QuillModule } from 'ngx-quill';
 import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ScrollTopModule } from 'primeng/scrolltop';
@@ -28,6 +28,7 @@ import { AuthGuard } from '../auth-guard.service';
 import { SolicitationReportComponent } from './solicitation-report/solicitation-report.component';
 import { SummaryComponent } from './summary/summary.component';
 import { ResultsDetailComponent } from './summary/results-detail/results-detail.component';
+import { FeedbackButtonComponent } from '../shared/feedback-button/feedback-button.component';
 import { HelpUsImproveComponent } from './summary/help-us-improve/help-us-improve.component';
 import { EmailPocComponent } from './summary/email-poc/email-poc.component';
 import { HistoryComponent } from './summary/history/history.component';
@@ -38,6 +39,8 @@ import { PredictionHistoryComponent } from './summary/prediction-history/predict
 import { ArtIframeDialogComponent } from './summary/results-detail/art-modal/art-modal.component';
 import { ArtSectionComponent } from './summary/results-detail/art-modal/art-section/art-section.component';
 import { ArtCategoryComponent } from './summary/results-detail/art-modal/art-category/art-category.component';
+import { RagAnalysisComponent } from './summary/rag-analysis/rag-analysis.component';
+import { DisclaimerComponent } from '../shared/components/disclaimer/disclaimer.component';
 
 @NgModule({
   imports: [
@@ -56,7 +59,8 @@ import { ArtCategoryComponent } from './summary/results-detail/art-modal/art-cat
     SolicitationRoutesModule,
     NgxGoogleAnalyticsModule.forRoot('G-RZRRP7Q0BH'),
     NgxGoogleAnalyticsRouterModule,
-    QuillEditorModule,
+    QuillModule.forRoot(),
+    DisclaimerComponent,
   ],
   declarations: [
     SolicitationReportComponent,
@@ -72,16 +76,18 @@ import { ArtCategoryComponent } from './summary/results-detail/art-modal/art-cat
     ArtIframeDialogComponent,
     ArtSectionComponent,
     ArtCategoryComponent,
-
+    RagAnalysisComponent,
+    FeedbackButtonComponent,
   ],
   providers: [
     SolicitationService,
     ArtService,
     AuthGuard
   ],
-    exports: [
-        SolicitationComponent,
-        FeedbackReportComponent
-    ]
+  exports: [
+    SolicitationComponent,
+    FeedbackReportComponent,
+    ArtIframeDialogComponent
+  ]
 })
 export class SolicitationModule { }

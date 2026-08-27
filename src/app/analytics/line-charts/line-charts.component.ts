@@ -4,9 +4,10 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
-  selector: 'app-line-charts',
-  templateUrl: './line-charts.component.html',
-  styleUrls: ['../analytics.component.scss', './line-charts.component.scss']
+    selector: 'app-line-charts',
+    templateUrl: './line-charts.component.html',
+    styleUrls: ['../analytics.component.scss', './line-charts.component.scss'],
+    standalone: false
 })
 export class LineChartsComponent implements OnInit {
 

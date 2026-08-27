@@ -1,0 +1,243 @@
+<div class="website-analytics">
+  <h2 class="srt-section-title srt-blue">Website Analytics</h2>
+  <p class="usa-intro">Track user activity, page views, clicks, uploads, and feature adoption.</p>
+
+  <!-- Period Selector -->
+  <div class="grid-row grid-gap margin-bottom-3 flex-align-end">
+    <div class="grid-col-3">
+      <label class="usa-label" for="days-select">Time period</label>
+      <select class="usa-select" id="days-select" [(ngModel)]="selectedDays" (change)="onDaysChange()">
+        @for (d of dayOptions; track d) {
+          <option [value]="d">Last {{ d }} days</option>
+        }
+      </select>
+    </div>
+    <div class="grid-col-auto">
+      <button class="usa-button usa-button--outline" (click)="loadData()" [disabled]="loading">Refresh</button>
+    </div>
+    <div class="grid-col-auto">
+      <button class="usa-button usa-button--secondary" (click)="sendTestEvent()">
+        Send Test Event
+      </button>
+    </div>
+    @if (testEventSent) {
+      <div class="grid-col-auto">
+        <span class="text-green font-sans-xs">✅ Test events sent — refreshing data...</span>
+      </div>
+    }
+  </div>
+
+  <!-- Tracking Status -->
+  <div class="usa-alert usa-alert--info usa-alert--slim margin-bottom-2" role="status">
+    <div class="usa-alert__body">
+      <p class="usa-alert__text">
+        <strong>Tracking is active.</strong> Page views, clicks, and time-on-page are automatically captured for all authenticated users.
+        Use "Send Test Event" to verify the pipeline is working, then refresh to see it appear.
+      </p>
+    </div>
+  </div>
+
+  @if (errorMessage) {
+    <div class="usa-alert usa-alert--error usa-alert--slim" role="alert">
+      <div class="usa-alert__body"><p class="usa-alert__text">{{ errorMessage }}</p></div>
+    </div>
+  }
+
+  @if (loading) {
+    <div class="text-center padding-4">Loading analytics...</div>
+  } @else if (overview) {
+
+    <!-- Summary Cards -->
+    <div class="grid-row grid-gap margin-bottom-3">
+      <div class="grid-col-2">
+        <div class="stat-card">
+          <div class="stat-card__value">{{ formatNumber(overview.summary?.page_views) }}</div>
+          <div class="stat-card__label">Page Views</div>
+        </div>
+      </div>
+      <div class="grid-col-2">
+        <div class="stat-card">
+          <div class="stat-card__value">{{ formatNumber(overview.summary?.unique_users) }}</div>
+          <div class="stat-card__label">Unique Users</div>
+        </div>
+      </div>
+      <div class="grid-col-2">
+        <div class="stat-card">
+          <div class="stat-card__value">{{ formatNumber(overview.summary?.total_sessions) }}</div>
+          <div class="stat-card__label">Sessions</div>
+        </div>
+      </div>
+      <div class="grid-col-2">
+        <div class="stat-card">
+          <div class="stat-card__value">{{ formatNumber(overview.summary?.total_clicks) }}</div>
+          <div class="stat-card__label">Clicks</div>
+        </div>
+      </div>
+      <div class="grid-col-2">
+        <div class="stat-card">
+          <div class="stat-card__value">{{ formatNumber(overview.summary?.total_uploads) }}</div>
+          <div class="stat-card__label">Uploads</div>
+        </div>
+      </div>
+      <div class="grid-col-2">
+        <div class="stat-card">
+          <div class="stat-card__value">{{ formatDuration(overview.summary?.avg_time_on_page_ms) }}</div>
+          <div class="stat-card__label">Avg. Time on Page</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Users -->
+    @if (overview.active_users) {
+      <div class="grid-row grid-gap margin-bottom-3">
+        <div class="grid-col-4">
+          <div class="stat-card stat-card--compact">
+            <span class="stat-card__value">{{ formatNumber(overview.active_users.dau) }}</span>
+            <span class="stat-card__label">Daily Active</span>
+          </div>
+        </div>
+        <div class="grid-col-4">
+          <div class="stat-card stat-card--compact">
+            <span class="stat-card__value">{{ formatNumber(overview.active_users.wau) }}</span>
+            <span class="stat-card__label">Weekly Active</span>
+          </div>
+        </div>
+        <div class="grid-col-4">
+          <div class="stat-card stat-card--compact">
+            <span class="stat-card__value">{{ formatNumber(overview.active_users.mau) }}</span>
+            <span class="stat-card__label">Monthly Active</span>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Daily Traffic Chart -->
+    @if (dailyChartData) {
+      <div class="chart-container margin-bottom-3">
+        <h3 class="chart-title">Daily Traffic</h3>
+        <div style="height: 300px;">
+          <p-chart type="line" [data]="dailyChartData" [options]="dailyChartOptions"></p-chart>
+        </div>
+      </div>
+    }
+
+    <!-- Two-Column Layout: Top Pages + Top Clicks -->
+    <div class="grid-row grid-gap margin-bottom-3">
+      <!-- Top Pages -->
+      <div class="grid-col-6">
+        <h3 class="table-title">Top Pages</h3>
+        <div style="overflow-x: auto; max-height: 400px; overflow-y: auto;">
+          <table class="usa-table usa-table--borderless usa-table--striped width-full" role="table" aria-label="Top pages">
+            <thead>
+              <tr>
+                <th scope="col">Page</th>
+                <th scope="col">Views</th>
+                <th scope="col">Users</th>
+                <th scope="col">Avg. Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (page of overview.top_pages; track page.page_url) {
+                <tr>
+                  <td class="text-ellipsis" [title]="page.page_url">{{ page.page_title || page.page_url }}</td>
+                  <td>{{ formatNumber(page.views) }}</td>
+                  <td>{{ formatNumber(page.unique_visitors) }}</td>
+                  <td>{{ formatDuration(page.avg_duration_ms) }}</td>
+                </tr>
+              }
+              @if (!overview.top_pages?.length) {
+                <tr><td colspan="4" class="text-center">No page view data yet.</td></tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Top Clicks -->
+      <div class="grid-col-6">
+        <h3 class="table-title">Top Clicks</h3>
+        <div style="overflow-x: auto; max-height: 400px; overflow-y: auto;">
+          <table class="usa-table usa-table--borderless usa-table--striped width-full" role="table" aria-label="Top clicks">
+            <thead>
+              <tr>
+                <th scope="col">Element</th>
+                <th scope="col">Page</th>
+                <th scope="col">Clicks</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (click of overview.top_clicks; track click.event_name) {
+                <tr>
+                  <td>{{ click.event_name }}</td>
+                  <td class="text-ellipsis" [title]="click.page_url">{{ click.page_url }}</td>
+                  <td>{{ formatNumber(click.click_count) }}</td>
+                </tr>
+              }
+              @if (!overview.top_clicks?.length) {
+                <tr><td colspan="3" class="text-center">No click data yet.</td></tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Manual Upload Stats -->
+    @if (overview.upload_stats) {
+      <div class="section-card margin-bottom-3">
+        <h3 class="table-title">Manual Upload (Ad-Hoc Pipeline) Stats</h3>
+        <div class="grid-row grid-gap">
+          <div class="grid-col-3">
+            <div class="stat-card stat-card--compact">
+              <span class="stat-card__value">{{ formatNumber(overview.upload_stats.total_uploads) }}</span>
+              <span class="stat-card__label">Total Uploads</span>
+            </div>
+          </div>
+          <div class="grid-col-3">
+            <div class="stat-card stat-card--compact">
+              <span class="stat-card__value">{{ formatNumber(overview.upload_stats.unique_files) }}</span>
+              <span class="stat-card__label">Unique Files</span>
+            </div>
+          </div>
+          <div class="grid-col-3">
+            <div class="stat-card stat-card--compact">
+              <span class="stat-card__value text-green">{{ formatNumber(overview.upload_stats.compliant) }}</span>
+              <span class="stat-card__label">Compliant</span>
+            </div>
+          </div>
+          <div class="grid-col-3">
+            <div class="stat-card stat-card--compact">
+              <span class="stat-card__value text-red">{{ formatNumber(overview.upload_stats.non_compliant) }}</span>
+              <span class="stat-card__label">Non-Compliant</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Feature Usage -->
+    @if (featureUsage?.features?.length) {
+      <h3 class="table-title">Feature Adoption</h3>
+      <table class="usa-table usa-table--borderless usa-table--striped width-full margin-bottom-3" role="table" aria-label="Feature usage">
+        <thead>
+          <tr>
+            <th scope="col">Feature</th>
+            <th scope="col">Usage Count</th>
+            <th scope="col">Unique Users</th>
+            <th scope="col">Last Used</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (f of featureUsage.features; track f.feature) {
+            <tr>
+              <td>{{ f.feature }}</td>
+              <td>{{ formatNumber(f.usage_count) }}</td>
+              <td>{{ formatNumber(f.unique_users) }}</td>
+              <td>{{ f.last_used | date:'short' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  }
+</div>
