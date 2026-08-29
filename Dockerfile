@@ -33,7 +33,7 @@ RUN mkdir -p src/assets/uswds/img && \
 RUN yarn run build-${BUILD_ENV}
 
 # Stage 2: Serve app with nginx server
-FROM nginx:1.27.2-alpine
+FROM nginx:1.27.5-alpine
 WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
 
