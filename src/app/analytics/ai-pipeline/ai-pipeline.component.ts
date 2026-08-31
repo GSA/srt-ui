@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { authHeaders } from '../../shared/services/auth-fetch';
 
 interface AgentPrompt {
   role: string;
@@ -184,9 +185,7 @@ Return ONLY valid JSON:
 
     fetch('/api/rag-analytics/playground/analyze', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: authHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({ text: this.playgroundText })
     })
     .then(response => {

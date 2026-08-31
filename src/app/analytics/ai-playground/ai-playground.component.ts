@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { environment } from '../../../environments/environment';
+import { authHeaders } from '../../shared/services/auth-fetch';
 
 interface PipelineStage {
   id: string;
@@ -146,7 +147,7 @@ export class AiPlaygroundComponent {
 
     fetch(`${environment.SERVER_URL}/rag-analytics/playground/generate-prompt`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: authHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({ description: stage.userDescription })
     })
     .then(res => res.json())
@@ -166,7 +167,7 @@ export class AiPlaygroundComponent {
 
   // Stage Library
   fetchSavedStages() {
-    fetch(`${environment.SERVER_URL}/rag-analytics/stages`)
+    fetch(`${environment.SERVER_URL}/rag-analytics/stages`, { headers: authHeaders() })
       .then(res => res.json())
       .then(data => { this.savedStages = Array.isArray(data) ? data : []; })
       .catch(() => { this.savedStages = []; });
@@ -175,7 +176,7 @@ export class AiPlaygroundComponent {
   saveStageToLibrary(stage: PipelineStage) {
     fetch(`${environment.SERVER_URL}/rag-analytics/stages`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: authHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({
         stage_id: stage.id,
         name: stage.name,
@@ -208,7 +209,7 @@ export class AiPlaygroundComponent {
   }
 
   deleteSavedStage(stageId: string) {
-    fetch(`${environment.SERVER_URL}/rag-analytics/stages/${stageId}`, { method: 'DELETE' })
+    fetch(`${environment.SERVER_URL}/rag-analytics/stages/${stageId}`, { method: 'DELETE', headers: authHeaders() })
       .then(() => this.fetchSavedStages())
       .catch(err => console.error('Failed to delete stage:', err));
   }
@@ -220,7 +221,7 @@ export class AiPlaygroundComponent {
     // Generate prompt from description
     fetch(`${environment.SERVER_URL}/rag-analytics/playground/generate-prompt`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: authHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({ description: this.newStageDescription })
     })
     .then(res => res.json())
@@ -229,7 +230,7 @@ export class AiPlaygroundComponent {
       // Generate examples
       return fetch(`${environment.SERVER_URL}/rag-analytics/stages/generate-examples`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: authHeaders({ 'Content-Type': 'application/json' }),
         body: JSON.stringify({ system_prompt: systemPrompt, user_description: this.newStageDescription })
       })
       .then(res => res.json())
@@ -239,7 +240,7 @@ export class AiPlaygroundComponent {
         // Save to DB
         return fetch(`${environment.SERVER_URL}/rag-analytics/stages`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: authHeaders({ 'Content-Type': 'application/json' }),
           body: JSON.stringify({
             stage_id: stageId,
             name,
@@ -268,7 +269,7 @@ export class AiPlaygroundComponent {
   generateExamples(stage: PipelineStage) {
     fetch(`${environment.SERVER_URL}/rag-analytics/stages/generate-examples`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: authHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({ system_prompt: stage.systemPrompt, user_description: stage.userDescription })
     })
     .then(res => res.json())
@@ -284,7 +285,7 @@ export class AiPlaygroundComponent {
 
   // Pipeline Templates
   fetchSavedPipelines() {
-    fetch(`${environment.SERVER_URL}/rag-analytics/pipelines`)
+    fetch(`${environment.SERVER_URL}/rag-analytics/pipelines`, { headers: authHeaders() })
       .then(res => res.json())
       .then(data => { this.savedPipelines = Array.isArray(data) ? data : []; })
       .catch(() => { this.savedPipelines = []; });
@@ -300,7 +301,7 @@ export class AiPlaygroundComponent {
 
     fetch(`${environment.SERVER_URL}/rag-analytics/pipelines`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: authHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({
         template_id: templateId,
         name: this.savePipelineName,
@@ -330,7 +331,7 @@ export class AiPlaygroundComponent {
   }
 
   deleteSavedPipeline(templateId: string) {
-    fetch(`${environment.SERVER_URL}/rag-analytics/pipelines/${templateId}`, { method: 'DELETE' })
+    fetch(`${environment.SERVER_URL}/rag-analytics/pipelines/${templateId}`, { method: 'DELETE', headers: authHeaders() })
       .then(() => this.fetchSavedPipelines())
       .catch(err => console.error('Failed to delete pipeline:', err));
   }
@@ -358,7 +359,7 @@ export class AiPlaygroundComponent {
 
     fetch(`${environment.SERVER_URL}/rag-analytics/playground/execute-stage`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: authHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({
         type: stage.type,
         systemPrompt: stage.systemPrompt,
@@ -449,7 +450,7 @@ export class AiPlaygroundComponent {
 
     const apiUrl = `${environment.SERVER_URL}/rag-analytics/playground/execute-pipeline`;
 
-    fetch(apiUrl, { method: 'POST', body: formData })
+    fetch(apiUrl, { method: 'POST', headers: authHeaders(), body: formData })
       .then(response => {
         const reader = response.body!.getReader();
         const decoder = new TextDecoder();
