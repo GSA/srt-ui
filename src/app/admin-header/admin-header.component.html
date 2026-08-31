@@ -8,6 +8,13 @@
           USERS
         </button>
       </li>
+      <li class="custom-tabs__item" [ngClass]="{'custom-tabs__item--active': active['agencies']}" role="presentation">
+        <button type="button" class="custom-tabs__link" role="tab"
+          [attr.aria-selected]="active['agencies'] ? 'true' : 'false'"
+          (click)="menuClick.emit('agencies'); setActiveTab('agencies')">
+          AGENCIES
+        </button>
+      </li>
       <li class="custom-tabs__item" [ngClass]="{'custom-tabs__item--active': active['analytics']}" role="presentation">
         <button type="button" class="custom-tabs__link" role="tab"
           [attr.aria-selected]="active['analytics'] ? 'true' : 'false'"

@@ -8,6 +8,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
  *   analytics — website analytics, login reports, metric downloads
  *   ops       — system health, audit log
  *   content   — email templates, user feedback
+ *   agencies  — agency hierarchy, domain mapping, access, deviation
  */
 @Component({
     selector: 'app-admin-header',
@@ -19,7 +20,7 @@ export class AdminHeaderComponent implements OnInit {
 
   @Output() menuClick = new EventEmitter<string>();
   @Input() initialTab = 'users';
-  active: { [key: string]: boolean } = { users: true, analytics: false, ops: false, content: false };
+  active: { [key: string]: boolean } = { users: true, agencies: false, analytics: false, ops: false, content: false };
 
   ngOnInit() {
     if (this.active.hasOwnProperty(this.initialTab)) { this.setActiveTab(this.initialTab); }

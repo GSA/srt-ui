@@ -55,7 +55,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
     // ?tab= makes each admin tab linkable; legacy ids are honored here too.
     const tab = this.route.snapshot.queryParamMap.get('tab');
     if (tab) { this.activeTab = AdminComponent.LEGACY_TABS[tab] || tab; }
-    if (!['users', 'analytics', 'ops', 'content'].includes(this.activeTab)) {
+    if (!['users', 'agencies', 'analytics', 'ops', 'content'].includes(this.activeTab)) {
       this.activeTab = 'users';
     }
   }

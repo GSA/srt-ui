@@ -37,6 +37,7 @@ import {SystemHealthComponent} from './system-health/system-health.component';
 import {AdminManagementService} from '../shared/services/admin-management.service';
 import {EmailTemplatesComponent} from './email-templates/email-templates.component';
 import {AdminFeedbackComponent} from './admin-feedback/admin-feedback.component';
+import {AgencyManagementComponent} from './agency-management/agency-management.component';
 import {ChartModule} from 'primeng/chart';
 
 
@@ -75,7 +76,8 @@ import {ChartModule} from 'primeng/chart';
     AuditLogComponent,
     SystemHealthComponent,
     EmailTemplatesComponent,
-    AdminFeedbackComponent
+    AdminFeedbackComponent,
+    AgencyManagementComponent
   ],
   declarations: [
     MasqComponent,
@@ -87,7 +89,8 @@ import {ChartModule} from 'primeng/chart';
     AuditLogComponent,
     SystemHealthComponent,
     EmailTemplatesComponent,
-    AdminFeedbackComponent
+    AdminFeedbackComponent,
+    AgencyManagementComponent
   ]
 })
   export class AdminModule { }
