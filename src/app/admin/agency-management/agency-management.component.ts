@@ -212,7 +212,10 @@ export class AgencyManagementComponent implements OnInit {
 
   /** Access is the interesting case when it is more than the agency itself. */
   accessSummary(a: AgencyRow): string {
-    if (a.solicitationAccessIsDefault || a.solicitationAccess.length <= 1) { return 'Own solicitations only'; }
+    // Reads with the column heading: "Sees solicitations from: Own agency only".
+    // The previous wording produced "Sees solicitations from own solicitations
+    // only", which parses as nonsense.
+    if (a.solicitationAccessIsDefault || a.solicitationAccess.length <= 1) { return 'Own agency only'; }
     return a.solicitationAccess.map(x => x.agency).filter(Boolean).join(', ');
   }
 
@@ -231,6 +234,8 @@ export class AgencyManagementComponent implements OnInit {
 
   deviationSummary(a: AgencyRow): string {
     if (!a.deviationSource) { return 'None set'; }
+    // Reads as "Department of Defense (inherited)" so it is clear at a glance
+    // whether the value was chosen here or came from the parent.
     return a.deviationIsInherited
       ? `${a.deviationSource.agency} (inherited)`
       : a.deviationSource.agency;

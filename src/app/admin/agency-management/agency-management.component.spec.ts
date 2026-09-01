@@ -111,11 +111,13 @@ describe('AgencyManagementComponent access and deviation are shown separately', 
     component = new AgencyManagementComponent(null as any);
   });
 
-  it('describes default access as own solicitations only', () => {
+  it('describes default access so it reads with the column heading', () => {
     const row = {
       solicitationAccess: [{ id: 1, agency: 'Navy' }], solicitationAccessIsDefault: true
     } as AgencyRow;
-    expect(component.accessSummary(row)).toBe('Own solicitations only');
+    // Reads as "Sees solicitations from: Own agency only". The earlier wording
+    // produced "Sees solicitations from own solicitations only".
+    expect(component.accessSummary(row)).toBe('Own agency only');
   });
 
   it('lists every agency when access has been widened', () => {

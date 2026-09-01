@@ -108,6 +108,12 @@
     @if (loading) {
       <div class="text-center padding-4">Loading agencies…</div>
     } @else {
+      <p class="agency-columns-help">
+        <strong>Sees solicitations from</strong> is which agencies' published solicitations these
+        users can read. <strong>Deviation applied</strong> is whose agency deviation governs their
+        reviews. They are separate on purpose: a component can follow its parent's deviation
+        without being able to see the parent's solicitations.
+      </p>
       <div class="agency-table-wrap">
         <table class="usa-table usa-table--borderless usa-table--striped width-full"
                aria-label="Agencies, their domains, solicitation access, and deviation source">

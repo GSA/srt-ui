@@ -345,3 +345,29 @@
 .status-toggle:hover { border-color: #a9aeb1; background: #f0f0f0; }
 .status-toggle:hover .editable-cell__hint { display: inline; color: #565c65; margin-left: 0.2rem; }
 .status-toggle:focus-visible { outline: 2px solid #2491ff; outline-offset: 1px; }
+
+/* ── Search field ───────────────────────────────────────────────────
+   Same fix as the Agencies tab. type="search" inherits a browser appearance
+   that leaves the right edge open on WebKit, so the field looks unfinished.
+   Draw the box explicitly. */
+#user-search {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid #565c65;
+  border-radius: 2px;
+  background: #ffffff;
+  padding: 0.5rem 0.75rem;
+  max-width: 26rem;
+  width: 100%;
+  margin-top: 0.25rem;
+
+  &:focus {
+    outline: 0.25rem solid #2491ff;
+    outline-offset: 0;
+  }
+
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+  }
+}
