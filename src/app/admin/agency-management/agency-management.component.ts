@@ -64,6 +64,16 @@ export class AgencyManagementComponent implements OnInit {
   showInactive = false;
 
   /**
+   * Per-column filters, matching the pattern the Users tab already uses so the
+   * two admin tables behave the same way.
+   *
+   * Any active column filter implies a search, in the sense that collapsing is
+   * suspended: a filter whose matches were hidden inside closed departments
+   * would look like it had returned nothing.
+   */
+  colFilters = { agency: '', type: '', domain: '', access: '', deviation: '' };
+
+  /**
    * Which parents are open. Empty means everything is collapsed, which is the
    * default: 653 agencies flattened into one list is unreadable, and the
    * hierarchy only helps if you can see the departments first and open the one
@@ -161,7 +171,16 @@ export class AgencyManagementComponent implements OnInit {
 
   /** True while a search is filtering, when collapsing would hide matches. */
   get isSearching(): boolean {
-    return this.search.trim().length > 0;
+    return this.search.trim().length > 0 || this.hasColumnFilter;
+  }
+
+  get hasColumnFilter(): boolean {
+    return Object.values(this.colFilters).some(v => String(v).trim().length > 0);
+  }
+
+  clearFilters(): void {
+    this.search = '';
+    this.colFilters = { agency: '', type: '', domain: '', access: '', deviation: '' };
   }
 
   /**
@@ -176,8 +195,20 @@ export class AgencyManagementComponent implements OnInit {
   get visibleAgencies(): Array<AgencyRow & { depth: number }> {
     const term = this.search.trim().toLowerCase();
 
+    const f = this.colFilters;
+    const has = (haystack: string, needle: string) =>
+      !needle || String(haystack || '').toLowerCase().includes(needle.trim().toLowerCase());
+
     const matches = (a: AgencyRow) => {
       if (!this.showInactive && !a.active) { return false; }
+
+      // Column filters are ANDed together, so each one narrows the last.
+      if (!has(a.agency + ' ' + (a.acronym || ''), f.agency)) { return false; }
+      if (f.type && a.agencyType !== f.type) { return false; }
+      if (f.domain && !a.domains.some(d => d.domain.toLowerCase().includes(f.domain.trim().toLowerCase()))) { return false; }
+      if (!has(this.accessSummary(a), f.access)) { return false; }
+      if (!has(this.deviationSummary(a), f.deviation)) { return false; }
+
       if (!term) { return true; }
       return a.agency.toLowerCase().includes(term)
         || (a.acronym || '').toLowerCase().includes(term)

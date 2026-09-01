@@ -133,6 +133,40 @@
               <th scope="col">Deviation applied</th>
               <th scope="col"><span class="usa-sr-only">Actions</span></th>
             </tr>
+            <tr class="agency-filter-row">
+              <th scope="col">
+                <label class="usa-sr-only" for="af-agency">Filter by agency name</label>
+                <input id="af-agency" type="text" placeholder="contains&hellip;" [(ngModel)]="colFilters.agency" />
+              </th>
+              <th scope="col">
+                <label class="usa-sr-only" for="af-type">Filter by type</label>
+                <select id="af-type" [(ngModel)]="colFilters.type">
+                  <option value="">All</option>
+                  @for (t of agencyTypes; track t) {
+                    <option [value]="t">{{ typeLabel(t) }}</option>
+                  }
+                </select>
+              </th>
+              <th scope="col">
+                <label class="usa-sr-only" for="af-domain">Filter by domain</label>
+                <input id="af-domain" type="text" placeholder="example.gov" [(ngModel)]="colFilters.domain" />
+              </th>
+              <th scope="col"><span class="usa-sr-only">No filter</span></th>
+              <th scope="col">
+                <label class="usa-sr-only" for="af-access">Filter by solicitation access</label>
+                <input id="af-access" type="text" placeholder="contains&hellip;" [(ngModel)]="colFilters.access" />
+              </th>
+              <th scope="col">
+                <label class="usa-sr-only" for="af-dev">Filter by deviation</label>
+                <input id="af-dev" type="text" placeholder="contains&hellip;" [(ngModel)]="colFilters.deviation" />
+              </th>
+              <th scope="col">
+                @if (hasColumnFilter || search) {
+                  <button type="button" class="usa-button usa-button--unstyled agency-linkish"
+                          (click)="clearFilters()">Clear</button>
+                }
+              </th>
+            </tr>
           </thead>
           <tbody>
             @for (a of visibleAgencies; track a.id) {
@@ -151,13 +185,16 @@
                   } @else {
                     <span class="agency-disclosure agency-disclosure--empty" aria-hidden="true"></span>
                   }
-                  <span class="agency-name">{{ a.agency }}</span>
                   @if (childCount(a.id) > 0 && !isSearching) {
-                    <button type="button" class="agency-childcount"
-                            (click)="toggleOpen(a, $event)"
-                            [attr.aria-label]="(isOpen(a.id) ? 'Collapse ' : 'Expand ') + a.agency">
-                      {{ childCount(a.id) }}
+                    <button type="button" class="agency-name agency-name--expandable"
+                            [attr.aria-expanded]="isOpen(a.id)"
+                            [attr.aria-label]="(isOpen(a.id) ? 'Collapse ' : 'Expand ') + a.agency + ', ' + childCount(a.id) + ' components'"
+                            (click)="toggleOpen(a, $event)">
+                      {{ a.agency }}
+                      <span class="agency-childcount" aria-hidden="true">{{ childCount(a.id) }}</span>
                     </button>
+                  } @else {
+                    <span class="agency-name">{{ a.agency }}</span>
                   }
                   @if (a.acronym) { <span class="agency-acronym">{{ a.acronym }}</span> }
                   @if (a.aliases?.length) {

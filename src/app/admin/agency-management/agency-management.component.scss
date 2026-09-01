@@ -420,3 +420,71 @@
   gap: 1rem;
   align-items: center;
 }
+
+/* ── Column filters ─────────────────────────────────────────────────
+   Mirrors the filter row on the Users tab so the two admin tables behave
+   alike. Any active filter suspends collapsing, since matches hidden inside
+   closed departments would look like no results at all. */
+.agency-filter-row {
+  th {
+    padding: 0.35rem 0.5rem 0.6rem;
+    background: #f9f9f9;
+    border-bottom: 1px solid #dfe1e2;
+    font-weight: 400;
+  }
+
+  input,
+  select {
+    width: 100%;
+    min-width: 6rem;
+    padding: 0.3rem 0.4rem;
+    border: 1px solid #a9aeb1;
+    border-radius: 2px;
+    background: #ffffff;
+    font-size: 0.82rem;
+    font-family: inherit;
+    appearance: auto;
+
+    &:focus {
+      outline: 0.15rem solid #2491ff;
+      outline-offset: 0;
+    }
+  }
+}
+
+/* ── The name as the expander ───────────────────────────────────────
+   A bare arrow was too small a target and did not read as interactive. On a
+   row with components the whole name is the control, styled as a link so the
+   affordance is obvious, with the component count carried alongside it. */
+.agency-name--expandable {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.1rem 0.25rem;
+  margin-left: -0.25rem;
+  border: none;
+  border-radius: 2px;
+  background: none;
+  color: #1a4480;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover {
+    background: #e6effa;
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: 0.2rem solid #2491ff;
+    outline-offset: 0;
+  }
+
+  /* The count sits inside the button now, so it must not swallow the click. */
+  .agency-childcount {
+    pointer-events: none;
+    margin-left: 0;
+  }
+}
