@@ -361,3 +361,62 @@
 
   strong { color: #1b1b1b; }
 }
+
+/* ── Hierarchy disclosure ───────────────────────────────────────────
+   Departments start collapsed. 653 agencies in one flat list is unreadable,
+   and the hierarchy only earns its place if you can scan the departments and
+   open the one you want. A search bypasses collapsing entirely, because hiding
+   a row the user just searched for would be worse than no hierarchy at all. */
+.agency-disclosure {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-right: 0.35rem;
+  padding: 0;
+  border: none;
+  border-radius: 2px;
+  background: none;
+  color: #1a4480;
+  font-size: 0.8rem;
+  line-height: 1;
+  cursor: pointer;
+  vertical-align: baseline;
+
+  &:hover { background: #e6effa; }
+
+  &:focus {
+    outline: 0.2rem solid #2491ff;
+    outline-offset: 0;
+  }
+
+  /* Keeps names aligned on rows that have nothing to open. */
+  &--empty {
+    cursor: default;
+    background: none;
+  }
+}
+
+/* The number of components hiding under a collapsed department. */
+.agency-childcount {
+  display: inline-block;
+  margin-left: 0.45rem;
+  padding: 0.05rem 0.4rem;
+  border: 1px solid #dfe1e2;
+  border-radius: 999px;
+  background: #f0f0f0;
+  color: #454545;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.4;
+  cursor: pointer;
+
+  &:hover { background: #e6effa; border-color: #1a4480; color: #1a4480; }
+}
+
+.agency-expand-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}

@@ -50,7 +50,48 @@ describe('AgencyManagementComponent hierarchy ordering', () => {
     component.agencies = [DOD, NAVY, NAVSEA, HHS, CMS];
   });
 
-  it('renders three levels of nesting in order', () => {
+  it('shows only top-level agencies when everything is collapsed', () => {
+    // The default. 653 agencies in one flat list is unreadable, so departments
+    // start closed and open on demand.
+    expect(shape()).toEqual([
+      'Department of Defense@0',
+      'Department of Health and Human Services@0'
+    ]);
+  });
+
+  it('opening a department reveals its own components and no others', () => {
+    component.openParents = new Set([1]);
+    expect(shape()).toEqual([
+      'Department of Defense@0',
+      'Department of the Navy@1',
+      'Department of Health and Human Services@0'
+    ]);
+  });
+
+  it('opening a department does not open its children in turn', () => {
+    // Navy stays closed, so NAVSEA is not revealed by opening DOD alone.
+    component.openParents = new Set([1]);
+    expect(shape()).not.toContain('Naval Sea Systems Command@2');
+  });
+
+  it('a search overrides collapsing, so a match is never hidden', () => {
+    component.openParents = new Set();
+    component.search = 'Naval Sea';
+    expect(shape()).toEqual([
+      'Department of Defense@0',
+      'Department of the Navy@1',
+      'Naval Sea Systems Command@2'
+    ]);
+  });
+
+  it('counts only the direct children of an agency', () => {
+    expect(component.childCount(1)).toBe(1);   // DOD has Navy
+    expect(component.childCount(2)).toBe(1);   // Navy has NAVSEA
+    expect(component.childCount(3)).toBe(0);   // NAVSEA has none
+  });
+
+  it('renders three levels of nesting in order when fully expanded', () => {
+    component.expandAll();
     expect(shape()).toEqual([
       'Department of Defense@0',
       'Department of the Navy@1',

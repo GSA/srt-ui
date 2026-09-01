@@ -63,6 +63,17 @@ export class AgencyManagementComponent implements OnInit {
   search = '';
   showInactive = false;
 
+  /**
+   * Which parents are open. Empty means everything is collapsed, which is the
+   * default: 653 agencies flattened into one list is unreadable, and the
+   * hierarchy only helps if you can see the departments first and open the one
+   * you want.
+   *
+   * A search bypasses this entirely, since hiding a row the user just searched
+   * for behind a collapsed parent would be worse than no hierarchy at all.
+   */
+  openParents = new Set<number>();
+
   expandedId: number | null = null;
   /** Which editor is open on the expanded row. Only one at a time. */
   editorMode: 'details' | 'access' | 'deviation' | 'domains' | null = null;
@@ -121,6 +132,37 @@ export class AgencyManagementComponent implements OnInit {
   }
 
   // ── Display helpers ────────────────────────────────────────────────
+
+  /** How many agencies sit directly under this one, for the row's count. */
+  childCount(id: number): number {
+    return this.agencies.filter(a => a.parent && a.parent.id === id
+      && (this.showInactive || a.active)).length;
+  }
+
+  isOpen(id: number): boolean {
+    return this.openParents.has(id);
+  }
+
+  toggleOpen(a: AgencyRow, event?: Event): void {
+    if (event) { event.stopPropagation(); }
+    if (this.openParents.has(a.id)) { this.openParents.delete(a.id); }
+    else { this.openParents.add(a.id); }
+  }
+
+  expandAll(): void {
+    for (const a of this.agencies) {
+      if (this.childCount(a.id) > 0) { this.openParents.add(a.id); }
+    }
+  }
+
+  collapseAll(): void {
+    this.openParents.clear();
+  }
+
+  /** True while a search is filtering, when collapsing would hide matches. */
+  get isSearching(): boolean {
+    return this.search.trim().length > 0;
+  }
 
   /**
    * Flatten the hierarchy depth first so every agency sits directly beneath its
@@ -184,6 +226,11 @@ export class AgencyManagementComponent implements OnInit {
       if (seen.has(node.id) || depth > 20) { return; }
       seen.add(node.id);
       ordered.push({ ...node, depth });
+
+      // A collapsed parent hides its children, unless a search is running, in
+      // which case every match must stay visible.
+      if (!this.isSearching && !this.openParents.has(node.id)) { return; }
+
       const kids = (childrenOf.get(node.id) || []).sort(byName);
       for (const kid of kids) { walk(kid, depth + 1); }
     };

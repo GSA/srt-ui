@@ -371,3 +371,28 @@
     -webkit-appearance: none;
   }
 }
+
+/* ── Table scrolling ────────────────────────────────────────────────
+   The wrapper already had overflow-x: auto, but the table carried
+   width-full, so it shrank to the container instead of overflowing it.
+   Nothing ever exceeded the box, so nothing scrolled and the right-hand
+   columns (Created, Updated) were squeezed out of view.
+
+   A min-width lets the table be genuinely wider than its container, which is
+   what makes the scrollbar appear and reachable. */
+.user-table-wrap {
+  overflow-x: auto;
+  width: 100%;
+
+  table {
+    min-width: 90rem;
+    width: max-content;
+  }
+
+  /* Keep the date columns legible rather than letting them wrap to two lines. */
+  th, td { white-space: nowrap; }
+
+  /* Email and agency are the long ones and may wrap. */
+  td:first-child,
+  td:nth-child(2) { white-space: normal; min-width: 14rem; }
+}

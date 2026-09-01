@@ -47,6 +47,12 @@
                placeholder="Agency, acronym, or domain" />
       </div>
       <div class="agency-toolbar__actions">
+        @if (!isSearching) {
+          <div class="agency-expand-controls">
+            <button type="button" class="usa-button usa-button--unstyled" (click)="expandAll()">Expand all</button>
+            <button type="button" class="usa-button usa-button--unstyled" (click)="collapseAll()">Collapse all</button>
+          </div>
+        }
         <div class="usa-checkbox">
           <input class="usa-checkbox__input" id="show-inactive" type="checkbox" [(ngModel)]="showInactive" />
           <label class="usa-checkbox__label" for="show-inactive">Show inactive</label>
@@ -133,8 +139,26 @@
               <tr [class.agency-row--component]="a.depth > 0" [class.agency-row--inactive]="!a.active">
                 <th scope="row" class="agency-name-cell"
                     [style.padding-left.rem]="a.depth ? a.depth * 1.5 : null">
-                  @if (a.depth) { <span class="agency-indent" aria-hidden="true">&#9492;</span> }
+                  @if (childCount(a.id) > 0 && !isSearching) {
+                    <button type="button" class="agency-disclosure"
+                            [attr.aria-expanded]="isOpen(a.id)"
+                            [attr.aria-label]="(isOpen(a.id) ? 'Collapse ' : 'Expand ') + a.agency"
+                            (click)="toggleOpen(a, $event)">
+                      <span aria-hidden="true">{{ isOpen(a.id) ? '&#9662;' : '&#9656;' }}</span>
+                    </button>
+                  } @else if (a.depth) {
+                    <span class="agency-indent" aria-hidden="true">&#9492;</span>
+                  } @else {
+                    <span class="agency-disclosure agency-disclosure--empty" aria-hidden="true"></span>
+                  }
                   <span class="agency-name">{{ a.agency }}</span>
+                  @if (childCount(a.id) > 0 && !isSearching) {
+                    <button type="button" class="agency-childcount"
+                            (click)="toggleOpen(a, $event)"
+                            [attr.aria-label]="(isOpen(a.id) ? 'Collapse ' : 'Expand ') + a.agency">
+                      {{ childCount(a.id) }}
+                    </button>
+                  }
                   @if (a.acronym) { <span class="agency-acronym">{{ a.acronym }}</span> }
                   @if (a.aliases?.length) {
                     <span class="agency-alias-note" [title]="'Solicitations tagged with these names are also visible: ' + aliasSummary(a)">
