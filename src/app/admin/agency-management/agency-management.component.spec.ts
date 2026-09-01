@@ -28,6 +28,7 @@ describe('AgencyManagementComponent hierarchy ordering', () => {
     domains: domains.map((d, i) => ({
       id: id * 100 + i, domain: d, active: true, source: 'test', originalRawValue: d
     })),
+    aliases: [],
     activeUsers: 0,
     totalUsers: 0,
     solicitationAccess: [{ id, agency: name }],

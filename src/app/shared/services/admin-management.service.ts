@@ -10,6 +10,32 @@ export class AdminManagementService {
 
   constructor(private http: HttpClient) {}
 
+  // ── Email Templates ────────────────────────────────────────────────
+  //
+  // These were a hardcoded array in the component, so a template could be
+  // edited for a single send but never saved. They now live in the database.
+
+  listEmailTemplates(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/admin/email-templates`);
+  }
+
+  createEmailTemplate(payload: {
+    name: string; subject: string; body: string; description?: string;
+  }): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/admin/email-templates`, payload);
+  }
+
+  updateEmailTemplate(id: number, updates: {
+    name?: string; subject?: string; body?: string; description?: string; active?: boolean;
+  }): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/admin/email-templates/${id}`, updates);
+  }
+
+  /** Built-in templates are deactivated rather than deleted, so they can return. */
+  deleteEmailTemplate(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/admin/email-templates/${id}`);
+  }
+
   // ── Agency Management ──────────────────────────────────────────────
   //
   // Solicitation access and deviation inheritance are separate relationships

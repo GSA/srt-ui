@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { AdminManagementService } from '../../shared/services/admin-management.service';
 
 interface EmailTemplate {
-  id: string;
+  id: number;
+  templateKey: string;
   name: string;
   subject: string;
   body: string;
   description: string;
+  isBuiltIn?: boolean;
+  active?: boolean;
 }
 
 const EMAIL_FOOTER = `<hr style="border: none; border-top: 1px solid #dfe1e2; margin: 24px 0;" />
@@ -26,41 +29,17 @@ const EMAIL_FOOTER = `<hr style="border: none; border-top: 1px solid #dfe1e2; ma
 })
 export class EmailTemplatesComponent implements OnInit {
 
-  templates: EmailTemplate[] = [
-    {
-      id: 'inactivity_warning',
-      name: 'Inactivity Warning',
-      subject: 'SRT Account Inactivity Notice',
-      body: `<p>Hello,</p>
-<p>Your SRT account has been inactive for {{days_inactive}} days. Per GSA policy, accounts that remain inactive for more than 90 days will be deactivated.</p>
-<p>Please log in to SRT within the next 30 days to keep your account active:</p>
-<p><a href="https://srt.app.cloud.gov">Log in to SRT</a></p>
-<p>If your account is deactivated, you will need to request access again through the normal process.</p>
-<p>Thank you,<br>SRT Team</p>`,
-      description: 'Sent to users who have not logged in within the configured inactivity period.'
-    },
-    {
-      id: 'deactivation_notice',
-      name: 'Account Deactivated',
-      subject: 'SRT Account Deactivated',
-      body: `<p>Hello,</p>
-<p>Your SRT account has been deactivated due to inactivity (no login for over 90 days).</p>
-<p>If you need access to SRT again, please contact your Section 508 coordinator or submit a new access request.</p>
-<p>Thank you,<br>SRT Team</p>`,
-      description: 'Sent when a user account is deactivated due to prolonged inactivity.'
-    },
-    {
-      id: 'update_announcement',
-      name: 'Platform Update',
-      subject: 'SRT Platform Update',
-      body: `<p>Hello,</p>
-<p>We have released updates to the Solicitation Review Tool. Here is what is new:</p>
-{{update_notes}}
-<p>Log in to check it out: <a href="https://srt.app.cloud.gov">SRT</a></p>
-<p>Thank you,<br>SRT Team</p>`,
-      description: 'Sent to all active users when a major platform update is released.'
-    }
-  ];
+  // Loaded from the API. These used to be a hardcoded array here, which meant a
+  // template could be edited for one send but never saved.
+  templates: EmailTemplate[] = [];
+  loadingTemplates = false;
+  templateError = '';
+  templateNotice = '';
+  savingTemplate = false;
+
+  // Creating a new template
+  showNewTemplate = false;
+  newTemplate = { name: '', subject: '', body: '', description: '' };
 
   // State
   selectedTemplate: EmailTemplate | null = null;
@@ -91,6 +70,108 @@ export class EmailTemplatesComponent implements OnInit {
       next: (data) => { this.agencies = data.agencies || []; },
       error: () => {}
     });
+    this.loadTemplates();
+  }
+
+  loadTemplates(): void {
+    this.loadingTemplates = true;
+    this.templateError = '';
+    this.adminService.listEmailTemplates().subscribe({
+      next: (data) => {
+        this.templates = (data.templates || []).filter((t: EmailTemplate) => t.active !== false);
+        this.loadingTemplates = false;
+        // Keep the current selection pointing at the refreshed copy rather than
+        // a stale object, so an edit made here is what gets sent.
+        if (this.selectedTemplate) {
+          const again = this.templates.find(t => t.id === this.selectedTemplate!.id);
+          this.selectedTemplate = again || null;
+          if (!again) { this.editingSubject = ''; this.editingBody = ''; }
+        }
+      },
+      error: (err) => {
+        this.templateError = err?.error?.error || 'Could not load email templates.';
+        this.loadingTemplates = false;
+      }
+    });
+  }
+
+  /** Save edits to the selected template so they persist beyond this send. */
+  saveTemplate(): void {
+    if (!this.selectedTemplate) { return; }
+    this.savingTemplate = true;
+    this.templateNotice = '';
+    this.templateError = '';
+    this.adminService.updateEmailTemplate(this.selectedTemplate.id, {
+      subject: this.editingSubject,
+      body: this.editingBody
+    }).subscribe({
+      next: () => {
+        this.savingTemplate = false;
+        this.templateNotice = `Saved changes to ${this.selectedTemplate!.name}.`;
+        this.loadTemplates();
+      },
+      error: (err) => {
+        this.savingTemplate = false;
+        this.templateError = err?.error?.error || 'Could not save the template.';
+      }
+    });
+  }
+
+  get newTemplateDisabled(): boolean {
+    return this.savingTemplate
+      || !this.newTemplate.name.trim()
+      || !this.newTemplate.subject.trim()
+      || !this.newTemplate.body.trim();
+  }
+
+  createTemplate(): void {
+    if (this.newTemplateDisabled) { return; }
+    this.savingTemplate = true;
+    this.templateNotice = '';
+    this.templateError = '';
+    this.adminService.createEmailTemplate({
+      name: this.newTemplate.name.trim(),
+      subject: this.newTemplate.subject.trim(),
+      body: this.newTemplate.body,
+      description: this.newTemplate.description.trim()
+    }).subscribe({
+      next: (res) => {
+        this.savingTemplate = false;
+        this.templateNotice = `Created ${this.newTemplate.name.trim()}.`;
+        this.newTemplate = { name: '', subject: '', body: '', description: '' };
+        this.showNewTemplate = false;
+        this.loadTemplates();
+        if (res && res.template) { this.selectTemplate(res.template); }
+      },
+      error: (err) => {
+        this.savingTemplate = false;
+        this.templateError = err?.error?.error || 'Could not create the template.';
+      }
+    });
+  }
+
+  removeTemplate(t: EmailTemplate): void {
+    const builtIn = t.isBuiltIn
+      ? '\n\nThis is a built-in template, so it will be hidden rather than deleted and can be restored later.'
+      : '';
+    if (!confirm(`Remove the "${t.name}" template?${builtIn}`)) { return; }
+    this.savingTemplate = true;
+    this.adminService.deleteEmailTemplate(t.id).subscribe({
+      next: (res) => {
+        this.savingTemplate = false;
+        this.templateNotice = res && res.deactivated
+          ? `${t.name} has been hidden. It can be restored later.`
+          : `${t.name} deleted.`;
+        if (this.selectedTemplate && this.selectedTemplate.id === t.id) {
+          this.selectedTemplate = null;
+        }
+        this.loadTemplates();
+      },
+      error: (err) => {
+        this.savingTemplate = false;
+        this.templateError = err?.error?.error || 'Could not remove the template.';
+      }
+    });
   }
 
   selectTemplate(template: EmailTemplate): void {
@@ -100,6 +181,8 @@ export class EmailTemplatesComponent implements OnInit {
     this.sendResult = null;
     this.confirmStep = 0;
     this.updateNotes = [''];
+    this.templateNotice = '';
+    this.templateError = '';
     this.loadRecipientCount();
   }
 
@@ -170,7 +253,10 @@ export class EmailTemplatesComponent implements OnInit {
     this.sendResult = null;
 
     const payload = {
-      templateId: this.selectedTemplate.id,
+      // The stable string key, not the numeric row id. Existing admin_audit_log
+      // rows reference the key from when these templates were hardcoded, so
+      // sending it keeps the send history continuous.
+      templateId: this.selectedTemplate.templateKey || String(this.selectedTemplate.id),
       subject: this.editingSubject,
       body: this.getFullBody(),
       recipientMode: this.recipientMode,

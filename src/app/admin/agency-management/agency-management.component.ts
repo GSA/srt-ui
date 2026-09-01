@@ -25,6 +25,7 @@ export interface AgencyRow {
   provenance: string | null;
   parent: { id: number; agency: string } | null;
   domains: Array<{ id: number; domain: string; active: boolean; source: string; originalRawValue: string }>;
+  aliases: Array<{ id: number; alias: string }>;
   activeUsers: number;
   totalUsers: number;
   solicitationAccess: Array<{ id: number; agency: string | null }>;
@@ -213,6 +214,19 @@ export class AgencyManagementComponent implements OnInit {
   accessSummary(a: AgencyRow): string {
     if (a.solicitationAccessIsDefault || a.solicitationAccess.length <= 1) { return 'Own solicitations only'; }
     return a.solicitationAccess.map(x => x.agency).filter(Boolean).join(', ');
+  }
+
+  /**
+   * Alternate spellings this agency answers to. Solicitations arrive from
+   * SAM.gov with the agency written however the posting office wrote it, and a
+   * merged duplicate survives as an alias, so this is how an admin sees why an
+   * agency's work shows up under more than one name.
+   */
+  aliasSummary(a: AgencyRow): string {
+    const list = a.aliases || [];
+    if (!list.length) { return ''; }
+    if (list.length <= 2) { return list.map(x => x.alias).join(', '); }
+    return `${list[0].alias} and ${list.length - 1} more`;
   }
 
   deviationSummary(a: AgencyRow): string {

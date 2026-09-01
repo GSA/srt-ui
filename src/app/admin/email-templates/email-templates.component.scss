@@ -104,3 +104,35 @@
     border-top: 1px solid #dfe1e2;
   }
 }
+
+/* Creating and saving templates. These were not possible before: the set was a
+   hardcoded array in the component, so an edit lasted for one send. */
+
+.template-btn--new {
+  border-style: dashed;
+  font-weight: 400;
+}
+
+.template-create {
+  border: 1px solid #dfe1e2;
+  border-left: 4px solid #1a4480;
+  background: #f9f9f9;
+  padding: 1rem 1.25rem 1.25rem;
+
+  &__title {
+    font-size: 1rem;
+    margin: 0 0 0.75rem;
+  }
+
+  .usa-input,
+  .usa-textarea { margin-top: 0; }
+
+  .usa-textarea { font-family: 'Roboto Mono', 'SFMono-Regular', Consolas, monospace; font-size: 0.85rem; }
+}
+
+.template-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}

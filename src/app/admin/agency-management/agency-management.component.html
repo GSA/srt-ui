@@ -130,6 +130,11 @@
                   @if (a.depth) { <span class="agency-indent" aria-hidden="true">&#9492;</span> }
                   <span class="agency-name">{{ a.agency }}</span>
                   @if (a.acronym) { <span class="agency-acronym">{{ a.acronym }}</span> }
+                  @if (a.aliases?.length) {
+                    <span class="agency-alias-note" [title]="'Solicitations tagged with these names are also visible: ' + aliasSummary(a)">
+                      also known as {{ aliasSummary(a) }}
+                    </span>
+                  }
                   @if (!a.active) { <span class="srt-badge">Inactive</span> }
                   @if (a.parent) { <span class="usa-sr-only">, a component of {{ a.parent.agency }}</span> }
                 </th>

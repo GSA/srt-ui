@@ -265,3 +265,15 @@
     color: #454545;
   }
 }
+
+/* Alternate spellings an agency answers to. Shown inline because a merged
+   duplicate survives as an alias, and an admin looking for a agency that has
+   "disappeared" needs to see where it went. */
+.agency-alias-note {
+  display: block;
+  font-size: 0.78rem;
+  color: #5c5c5c;
+  font-style: italic;
+  font-weight: 400;
+  margin-top: 0.1rem;
+}
