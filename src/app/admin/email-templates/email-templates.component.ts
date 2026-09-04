@@ -15,7 +15,7 @@ interface EmailTemplate {
 const EMAIL_FOOTER = `<hr style="border: none; border-top: 1px solid #dfe1e2; margin: 24px 0;" />
 <table cellpadding="0" cellspacing="0" style="margin-top: 16px;">
   <tr>
-    <td><img src="assets/gsa-logo-new.png" alt="U.S. General Services Administration" height="24" style="height: 24px; width: auto; display: block;" /></td>
+    <td><img src="assets/gsa-logo-new.png" alt="U.S. General Services Administration" height="12" style="height: 12px; width: auto; display: block;" /></td>
   </tr>
 </table>`;
 
