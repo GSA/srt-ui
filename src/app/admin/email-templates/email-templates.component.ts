@@ -15,9 +15,7 @@ interface EmailTemplate {
 const EMAIL_FOOTER = `<hr style="border: none; border-top: 1px solid #dfe1e2; margin: 24px 0;" />
 <table cellpadding="0" cellspacing="0" style="margin-top: 16px;">
   <tr>
-    <td style="padding-right: 16px;"><img src="assets/gsa-logo-new.png" alt="GSA Logo" height="40" /></td>
-    <td style="padding: 0 16px; vertical-align: middle;"><div style="width: 2px; height: 36px; background-color: #1a4480;"></div></td>
-    <td><img src="assets/srt-logo.png" alt="SRT Logo" height="36" style="filter: brightness(0) saturate(100%) invert(17%) sepia(65%) saturate(2000%) hue-rotate(200deg) brightness(90%) contrast(95%);" /></td>
+    <td><img src="assets/gsa-logo-new.png" alt="U.S. General Services Administration" height="24" style="height: 24px; width: auto; display: block;" /></td>
   </tr>
 </table>`;
 
