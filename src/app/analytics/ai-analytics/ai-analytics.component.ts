@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { authHeaders } from '../../shared/services/auth-fetch';
 
 @Component({
     selector: 'app-ai-analytics',
@@ -18,7 +19,7 @@ export class AiAnalyticsComponent implements OnInit {
 
   fetchUsage() {
     this.loading = true;
-    fetch(`${environment.SERVER_URL}/rag-analytics/adhoc-usage`)
+    fetch(`${environment.SERVER_URL}/rag-analytics/adhoc-usage`, { headers: authHeaders() })
       .then(res => res.json())
       .then(data => {
         this.usage = data;

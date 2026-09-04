@@ -1,0 +1,543 @@
+<div class="agency-management">
+
+  <h2 class="srt-section-title srt-blue">Agency Management</h2>
+  <p class="usa-intro">
+    Manage agencies, their components, and the email domains that map people to them.
+    Solicitation access and agency deviation are set separately.
+  </p>
+
+  <!-- Sub-navigation. The Needs Review count is the number that matters most on
+       this screen, so it is carried on the tab rather than hidden inside it. -->
+  <nav class="agency-subnav" aria-label="Agency management views">
+    <button type="button" class="agency-subnav__link"
+            [class.agency-subnav__link--active]="view === 'hierarchy'"
+            [attr.aria-current]="view === 'hierarchy' ? 'page' : null"
+            (click)="view = 'hierarchy'">
+      Agencies and domains
+    </button>
+    <button type="button" class="agency-subnav__link"
+            [class.agency-subnav__link--active]="view === 'review'"
+            [attr.aria-current]="view === 'review' ? 'page' : null"
+            (click)="view = 'review'">
+      Needs review
+      @if (pending.length) {
+        <span class="srt-badge srt-badge--error agency-subnav__count">{{ pending.length }}</span>
+      }
+    </button>
+  </nav>
+
+  @if (notice) {
+    <div class="usa-alert usa-alert--success usa-alert--slim" role="status">
+      <div class="usa-alert__body"><p class="usa-alert__text">{{ notice }}</p></div>
+    </div>
+  }
+  @if (error) {
+    <div class="usa-alert usa-alert--error usa-alert--slim" role="alert">
+      <div class="usa-alert__body"><p class="usa-alert__text">{{ error }}</p></div>
+    </div>
+  }
+
+  <!-- ══════════════ AGENCIES AND DOMAINS ══════════════ -->
+  @if (view === 'hierarchy') {
+
+    <div class="agency-toolbar">
+      <div class="agency-toolbar__search">
+        <label class="usa-label margin-top-0" for="agency-search">Search</label>
+        <input id="agency-search" class="usa-input" type="search" [(ngModel)]="search"
+               placeholder="Agency, acronym, or domain" />
+      </div>
+      <div class="agency-toolbar__actions">
+        @if (!isSearching) {
+          <div class="agency-expand-controls">
+            <button type="button" class="usa-button usa-button--unstyled" (click)="expandAll()">Expand all</button>
+            <button type="button" class="usa-button usa-button--unstyled" (click)="collapseAll()">Collapse all</button>
+          </div>
+        }
+        <div class="usa-checkbox">
+          <input class="usa-checkbox__input" id="show-inactive" type="checkbox" [(ngModel)]="showInactive" />
+          <label class="usa-checkbox__label" for="show-inactive">Show inactive</label>
+        </div>
+        <button type="button" class="usa-button" (click)="showCreate = !showCreate"
+                [attr.aria-expanded]="showCreate" aria-controls="create-agency-panel">
+          Add agency or component
+        </button>
+      </div>
+    </div>
+
+    @if (showCreate) {
+      <div id="create-agency-panel" class="agency-create">
+        <h3 class="agency-create__title">Add an agency or component</h3>
+        <div class="agency-create__grid">
+          <div>
+            <label class="usa-label margin-top-0" for="new-agency-name">Name</label>
+            <input id="new-agency-name" class="usa-input" [(ngModel)]="newAgency.agency" />
+          </div>
+          <div>
+            <label class="usa-label margin-top-0" for="new-agency-acronym">Acronym</label>
+            <input id="new-agency-acronym" class="usa-input" [(ngModel)]="newAgency.acronym" />
+          </div>
+          <div>
+            <label class="usa-label margin-top-0" for="new-agency-type">Type</label>
+            <select id="new-agency-type" class="usa-select" [(ngModel)]="newAgency.agencyType">
+              @for (t of agencyTypes; track t) {
+                <option [value]="t">{{ typeLabel(t) }}</option>
+              }
+            </select>
+          </div>
+          <div>
+            <label class="usa-label margin-top-0" for="new-agency-parent">
+              Parent @if (createNeedsParent) { <span class="agency-required">(required)</span> }
+            </label>
+            <select id="new-agency-parent" class="usa-select" [(ngModel)]="newAgency.parentId">
+              <option [ngValue]="null">None, this is top level</option>
+              @for (a of topLevelAgencies; track a.id) {
+                <option [ngValue]="a.id">{{ a.agency }}</option>
+              }
+            </select>
+          </div>
+        </div>
+        @if (createNeedsParent) {
+          <p class="agency-hint">
+            A {{ typeLabel(newAgency.agencyType) }} sits under a parent. Only a federal agency,
+            state or local body, educational institution, or other organisation can be top level.
+          </p>
+        }
+        <div class="agency-create__actions">
+          <button type="button" class="usa-button" [disabled]="createDisabled" (click)="createAgency()">
+            {{ saving ? 'Saving…' : 'Create' }}
+          </button>
+          <button type="button" class="usa-button usa-button--unstyled" (click)="showCreate = false">Cancel</button>
+        </div>
+      </div>
+    }
+
+    @if (loading) {
+      <div class="text-center padding-4">Loading agencies…</div>
+    } @else {
+      <p class="agency-columns-help">
+        <strong>Sees solicitations from</strong> is which agencies' published solicitations these
+        users can read. <strong>Deviation applied</strong> is whose agency deviation governs their
+        reviews. They are separate on purpose: a component can follow its parent's deviation
+        without being able to see the parent's solicitations.
+      </p>
+      <div class="agency-table-wrap">
+        <table class="usa-table usa-table--borderless usa-table--striped width-full"
+               aria-label="Agencies, their domains, solicitation access, and deviation source">
+          <thead>
+            <tr>
+              <th scope="col">Agency</th>
+              <th scope="col">Type</th>
+              <th scope="col">Domains</th>
+              <th scope="col">Users</th>
+              <th scope="col">Sees solicitations from</th>
+              <th scope="col">Deviation applied</th>
+              <th scope="col"><span class="usa-sr-only">Actions</span></th>
+            </tr>
+            <tr class="agency-filter-row">
+              <th scope="col">
+                <label class="usa-sr-only" for="af-agency">Filter by agency name</label>
+                <input id="af-agency" type="text" placeholder="contains&hellip;" [(ngModel)]="colFilters.agency" />
+              </th>
+              <th scope="col">
+                <label class="usa-sr-only" for="af-type">Filter by type</label>
+                <select id="af-type" [(ngModel)]="colFilters.type">
+                  <option value="">All</option>
+                  @for (t of agencyTypes; track t) {
+                    <option [value]="t">{{ typeLabel(t) }}</option>
+                  }
+                </select>
+              </th>
+              <th scope="col">
+                <label class="usa-sr-only" for="af-domain">Filter by domain</label>
+                <input id="af-domain" type="text" placeholder="example.gov" [(ngModel)]="colFilters.domain" />
+              </th>
+              <th scope="col"><span class="usa-sr-only">No filter</span></th>
+              <th scope="col">
+                <label class="usa-sr-only" for="af-access">Filter by solicitation access</label>
+                <input id="af-access" type="text" placeholder="contains&hellip;" [(ngModel)]="colFilters.access" />
+              </th>
+              <th scope="col">
+                <label class="usa-sr-only" for="af-dev">Filter by deviation</label>
+                <input id="af-dev" type="text" placeholder="contains&hellip;" [(ngModel)]="colFilters.deviation" />
+              </th>
+              <th scope="col">
+                @if (hasColumnFilter || search) {
+                  <button type="button" class="usa-button usa-button--unstyled agency-linkish"
+                          (click)="clearFilters()">Clear</button>
+                }
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (a of visibleAgencies; track a.id) {
+              <tr [class.agency-row--component]="a.depth > 0" [class.agency-row--inactive]="!a.active">
+                <th scope="row" class="agency-name-cell"
+                    [style.padding-left.rem]="a.depth ? a.depth * 1.5 : null">
+                  @if (childCount(a.id) > 0 && !isSearching) {
+                    <button type="button" class="agency-disclosure"
+                            [attr.aria-expanded]="isOpen(a.id)"
+                            [attr.aria-label]="(isOpen(a.id) ? 'Collapse ' : 'Expand ') + a.agency"
+                            (click)="toggleOpen(a, $event)">
+                      <span aria-hidden="true">{{ isOpen(a.id) ? '&#9662;' : '&#9656;' }}</span>
+                    </button>
+                  } @else if (a.depth) {
+                    <span class="agency-indent" aria-hidden="true">&#9492;</span>
+                  } @else {
+                    <span class="agency-disclosure agency-disclosure--empty" aria-hidden="true"></span>
+                  }
+                  @if (childCount(a.id) > 0 && !isSearching) {
+                    <button type="button" class="agency-name agency-name--expandable"
+                            [attr.aria-expanded]="isOpen(a.id)"
+                            [attr.aria-label]="(isOpen(a.id) ? 'Collapse ' : 'Expand ') + a.agency + ', ' + childCount(a.id) + ' components'"
+                            (click)="toggleOpen(a, $event)">
+                      {{ a.agency }}
+                      <span class="agency-childcount" aria-hidden="true">{{ childCount(a.id) }}</span>
+                    </button>
+                  } @else {
+                    <span class="agency-name">{{ a.agency }}</span>
+                  }
+                  @if (a.acronym) { <span class="agency-acronym">{{ a.acronym }}</span> }
+                  @if (a.aliases?.length) {
+                    <span class="agency-alias-note" [title]="'Solicitations tagged with these names are also visible: ' + aliasSummary(a)">
+                      also known as {{ aliasSummary(a) }}
+                    </span>
+                  }
+                  @if (!a.active) { <span class="srt-badge">Inactive</span> }
+                  @if (a.parent) { <span class="usa-sr-only">, a component of {{ a.parent.agency }}</span> }
+                </th>
+                <td>{{ typeLabel(a.agencyType) }}</td>
+                <td>
+                  @if (a.domains.length) {
+                    <button type="button" class="usa-button usa-button--unstyled agency-linkish"
+                            (click)="toggleRow(a, 'domains')">
+                      {{ a.domains.length }} domain{{ a.domains.length === 1 ? '' : 's' }}
+                    </button>
+                  } @else {
+                    <button type="button" class="usa-button usa-button--unstyled agency-linkish agency-muted"
+                            (click)="toggleRow(a, 'domains')">None</button>
+                  }
+                </td>
+                <td>{{ a.activeUsers }}</td>
+                <td>
+                  <button type="button" class="usa-button usa-button--unstyled agency-linkish"
+                          [class.agency-muted]="a.solicitationAccessIsDefault"
+                          (click)="toggleRow(a, 'access')">
+                    {{ accessSummary(a) }}
+                  </button>
+                </td>
+                <td>
+                  <button type="button" class="usa-button usa-button--unstyled agency-linkish"
+                          [class.agency-muted]="!a.deviationSource"
+                          (click)="toggleRow(a, 'deviation')">
+                    {{ deviationSummary(a) }}
+                  </button>
+                </td>
+                <td class="agency-actions-cell">
+                  <button type="button" class="usa-button usa-button--unstyled agency-linkish"
+                          (click)="toggleRow(a, 'details')">Edit</button>
+                  <button type="button" class="usa-button usa-button--unstyled agency-linkish"
+                          (click)="toggleActive(a)">{{ a.active ? 'Deactivate' : 'Reactivate' }}</button>
+                </td>
+              </tr>
+
+              @if (expandedId === a.id) {
+                <tr class="agency-editor-row">
+                  <td colspan="7">
+
+                    <!-- Details, type, and parent -->
+                    @if (editorMode === 'details') {
+                      <div class="agency-editor">
+                        <h3 class="agency-editor__title">Edit {{ a.agency }}</h3>
+                        <div class="agency-editor__grid">
+                          <div>
+                            <label class="usa-label margin-top-0" [attr.for]="'edit-name-' + a.id">Name</label>
+                            <input [id]="'edit-name-' + a.id" class="usa-input" [(ngModel)]="editDetails.agency" />
+                          </div>
+                          <div>
+                            <label class="usa-label margin-top-0" [attr.for]="'edit-acronym-' + a.id">Acronym</label>
+                            <input [id]="'edit-acronym-' + a.id" class="usa-input" [(ngModel)]="editDetails.acronym" />
+                          </div>
+                          <div>
+                            <label class="usa-label margin-top-0" [attr.for]="'edit-type-' + a.id">Type</label>
+                            <select [id]="'edit-type-' + a.id" class="usa-select" [(ngModel)]="editDetails.agencyType">
+                              @for (t of agencyTypes; track t) {
+                                <option [value]="t">{{ typeLabel(t) }}</option>
+                              }
+                            </select>
+                          </div>
+                          <div>
+                            <label class="usa-label margin-top-0" [attr.for]="'edit-parent-' + a.id">Parent</label>
+                            <select [id]="'edit-parent-' + a.id" class="usa-select" [(ngModel)]="editDetails.parentId">
+                              <option [ngValue]="null">None, this is top level</option>
+                              @for (p of sortedAgencies; track p.id) {
+                                @if (p.id !== a.id) {
+                                  <option [ngValue]="p.id">{{ p.agency }}</option>
+                                }
+                              }
+                            </select>
+                          </div>
+                        </div>
+                        <p class="agency-hint">
+                          Moving a component to a different parent changes which deviation it inherits.
+                          It does not change which solicitations its users can see.
+                        </p>
+                        <div class="agency-editor__actions">
+                          <button type="button" class="usa-button" [disabled]="saving" (click)="saveDetails(a)">
+                            {{ saving ? 'Saving…' : 'Save' }}
+                          </button>
+                          <button type="button" class="usa-button usa-button--unstyled" (click)="closeEditor()">Cancel</button>
+                        </div>
+                      </div>
+                    }
+
+                    <!-- Solicitation access -->
+                    @if (editorMode === 'access') {
+                      <div class="agency-editor">
+                        <h3 class="agency-editor__title">Solicitation access for {{ a.agency }}</h3>
+                        <p class="agency-editor__lede">
+                          Which agencies' solicitations these users can see. This is separate from the
+                          deviation that applies to them, and changing it here does not affect that.
+                        </p>
+                        <fieldset class="usa-fieldset agency-checklist">
+                          <legend class="usa-sr-only">Agencies visible to {{ a.agency }}</legend>
+                          @for (candidate of sortedAgencies; track candidate.id) {
+                            <div class="usa-checkbox agency-checklist__item">
+                              <input class="usa-checkbox__input" type="checkbox"
+                                     [id]="'access-' + a.id + '-' + candidate.id"
+                                     [checked]="isAccessSelected(candidate.id)"
+                                     [disabled]="candidate.id === a.id"
+                                     (change)="toggleAccess(candidate.id, a.id)" />
+                              <label class="usa-checkbox__label" [attr.for]="'access-' + a.id + '-' + candidate.id">
+                                {{ candidate.agency }}
+                                @if (candidate.id === a.id) {
+                                  <span class="agency-muted"> — always included</span>
+                                }
+                              </label>
+                            </div>
+                          }
+                        </fieldset>
+                        <div class="agency-editor__actions">
+                          <button type="button" class="usa-button" [disabled]="saving" (click)="saveAccess(a)">
+                            {{ saving ? 'Saving…' : 'Save access' }}
+                          </button>
+                          <button type="button" class="usa-button usa-button--unstyled" (click)="closeEditor()">Cancel</button>
+                        </div>
+                      </div>
+                    }
+
+                    <!-- Deviation source -->
+                    @if (editorMode === 'deviation') {
+                      <div class="agency-editor">
+                        <h3 class="agency-editor__title">Deviation applied to {{ a.agency }}</h3>
+                        <p class="agency-editor__lede">
+                          Whose agency deviation applies to these users. Leave this unset to inherit from
+                          the parent. Setting it does not change which solicitations they can see.
+                        </p>
+                        <label class="usa-label margin-top-0" [attr.for]="'deviation-' + a.id">Deviation source</label>
+                        <select [id]="'deviation-' + a.id" class="usa-select agency-select--wide"
+                                [(ngModel)]="editDeviationId">
+                          <option [ngValue]="null">
+                            Inherit from parent{{ a.parent ? ' (' + a.parent.agency + ')' : '' }}
+                          </option>
+                          @for (candidate of sortedAgencies; track candidate.id) {
+                            <option [ngValue]="candidate.id">{{ candidate.agency }}</option>
+                          }
+                        </select>
+                        <div class="agency-editor__actions">
+                          <button type="button" class="usa-button" [disabled]="saving" (click)="saveDeviation(a)">
+                            {{ saving ? 'Saving…' : 'Save deviation' }}
+                          </button>
+                          <button type="button" class="usa-button usa-button--unstyled" (click)="closeEditor()">Cancel</button>
+                        </div>
+                      </div>
+                    }
+
+                    <!-- Domains -->
+                    @if (editorMode === 'domains') {
+                      <div class="agency-editor">
+                        <h3 class="agency-editor__title">Email domains for {{ a.agency }}</h3>
+                        <p class="agency-editor__lede">
+                          People signing in with one of these domains are assigned to this agency.
+                        </p>
+                        @if (a.domains.length) {
+                          <ul class="agency-domain-list">
+                            @for (d of a.domains; track d.id) {
+                              <li class="agency-domain-list__item">
+                                <span class="agency-domain">{{ d.domain }}</span>
+                                @if (!d.active) { <span class="srt-badge">Inactive</span> }
+                                <span class="agency-muted agency-domain-source">{{ typeLabel(d.source) }}</span>
+                                <button type="button" class="usa-button usa-button--unstyled agency-linkish"
+                                        (click)="removeDomain(d)">Remove</button>
+                              </li>
+                            }
+                          </ul>
+                        } @else {
+                          <p class="agency-muted">No domains mapped yet.</p>
+                        }
+                        <div class="agency-domain-add">
+                          <label class="usa-label margin-top-0" [attr.for]="'new-domain-' + a.id">Add a domain</label>
+                          <div class="agency-domain-add__row">
+                            <input [id]="'new-domain-' + a.id" class="usa-input" [(ngModel)]="newDomain"
+                                   placeholder="example.gov" />
+                            <button type="button" class="usa-button" [disabled]="saving || !newDomain.trim()"
+                                    (click)="addDomain(a)">Add</button>
+                          </div>
+                          <p class="agency-hint">Enter the domain only. A leading &#64; is removed automatically.</p>
+                        </div>
+                        <div class="agency-editor__actions">
+                          <button type="button" class="usa-button usa-button--unstyled" (click)="closeEditor()">Close</button>
+                        </div>
+                      </div>
+                    }
+
+                  </td>
+                </tr>
+              }
+            }
+            @if (visibleAgencies.length === 0) {
+              <tr><td colspan="7" class="text-center padding-2">No agencies match that search.</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  }
+
+  <!-- ══════════════ NEEDS REVIEW ══════════════ -->
+  @if (view === 'review') {
+
+    <p class="usa-intro agency-review__lede">
+      People whose email domain did not match a known agency. Resolving a domain once
+      assigns everyone on it and maps the domain for future sign-ups.
+    </p>
+
+    @if (loadingPending) {
+      <div class="text-center padding-4">Loading…</div>
+    } @else if (pending.length === 0) {
+      <div class="usa-alert usa-alert--info usa-alert--slim" role="status">
+        <div class="usa-alert__body">
+          <p class="usa-alert__text">Nothing waiting. Every signed-in user resolved to a known agency.</p>
+        </div>
+      </div>
+    } @else {
+      <p class="agency-review__count">
+        {{ pending.length }} unresolved domain{{ pending.length === 1 ? '' : 's' }},
+        {{ totalPendingUsers() }} user{{ totalPendingUsers() === 1 ? '' : 's' }} waiting.
+      </p>
+
+      <div class="agency-table-wrap">
+        <table class="usa-table usa-table--borderless usa-table--striped width-full"
+               aria-label="Email domains awaiting review">
+          <thead>
+            <tr>
+              <th scope="col">Domain</th>
+              <th scope="col">Users</th>
+              <th scope="col">First seen</th>
+              <th scope="col"><span class="usa-sr-only">Actions</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (p of pending; track p.domain) {
+              <tr>
+                <th scope="row"><span class="agency-domain">{{ p.domain }}</span></th>
+                <td>{{ p.user_count }}</td>
+                <td>{{ p.first_seen | date:'mediumDate' }}</td>
+                <td>
+                  <button type="button" class="usa-button usa-button--unstyled agency-linkish"
+                          [attr.aria-expanded]="resolvingDomain === p.domain"
+                          (click)="startResolve(p)">
+                    {{ resolvingDomain === p.domain ? 'Cancel' : 'Resolve' }}
+                  </button>
+                </td>
+              </tr>
+
+              @if (resolvingDomain === p.domain) {
+                <tr class="agency-editor-row">
+                  <td colspan="4">
+                    <div class="agency-editor">
+                      <h3 class="agency-editor__title">Resolve {{ p.domain }}</h3>
+
+                      @if (p.emails?.length) {
+                        <details class="agency-review__emails">
+                          <summary>{{ p.user_count }} waiting user{{ p.user_count === 1 ? '' : 's' }}</summary>
+                          <ul class="agency-review__email-list">
+                            @for (e of p.emails; track e) { <li>{{ e }}</li> }
+                          </ul>
+                        </details>
+                      }
+
+                      <fieldset class="usa-fieldset">
+                        <legend class="usa-legend">Assign to</legend>
+                        <div class="usa-radio">
+                          <input class="usa-radio__input" type="radio" [id]="'mode-existing-' + p.domain"
+                                 [value]="'existing'" [(ngModel)]="resolveMode" [name]="'mode-' + p.domain" />
+                          <label class="usa-radio__label" [attr.for]="'mode-existing-' + p.domain">
+                            An existing agency or component
+                          </label>
+                        </div>
+                        <div class="usa-radio">
+                          <input class="usa-radio__input" type="radio" [id]="'mode-component-' + p.domain"
+                                 [value]="'component'" [(ngModel)]="resolveMode" [name]="'mode-' + p.domain" />
+                          <label class="usa-radio__label" [attr.for]="'mode-component-' + p.domain">
+                            A new component under an existing parent
+                          </label>
+                        </div>
+                      </fieldset>
+
+                      @if (resolveMode === 'existing') {
+                        <label class="usa-label" [attr.for]="'resolve-agency-' + p.domain">Agency</label>
+                        <select [id]="'resolve-agency-' + p.domain" class="usa-select agency-select--wide"
+                                [(ngModel)]="resolveAgencyId">
+                          <option [ngValue]="null">Choose an agency</option>
+                          @for (a of sortedAgencies; track a.id) {
+                            <option [ngValue]="a.id">{{ a.agency }}</option>
+                          }
+                        </select>
+                      } @else {
+                        <div class="agency-editor__grid">
+                          <div>
+                            <label class="usa-label margin-top-0" [attr.for]="'resolve-name-' + p.domain">Component name</label>
+                            <input [id]="'resolve-name-' + p.domain" class="usa-input"
+                                   [(ngModel)]="resolveComponent.agency" />
+                          </div>
+                          <div>
+                            <label class="usa-label margin-top-0" [attr.for]="'resolve-acronym-' + p.domain">Acronym</label>
+                            <input [id]="'resolve-acronym-' + p.domain" class="usa-input"
+                                   [(ngModel)]="resolveComponent.acronym" />
+                          </div>
+                          <div>
+                            <label class="usa-label margin-top-0" [attr.for]="'resolve-parent-' + p.domain">Parent</label>
+                            <select [id]="'resolve-parent-' + p.domain" class="usa-select"
+                                    [(ngModel)]="resolveComponent.parentId">
+                              <option [ngValue]="null">Choose a parent</option>
+                              @for (a of topLevelAgencies; track a.id) {
+                                <option [ngValue]="a.id">{{ a.agency }}</option>
+                              }
+                            </select>
+                          </div>
+                        </div>
+                        <p class="agency-hint">
+                          A new component always sits under a parent. To add a new top-level agency,
+                          use Add agency or component on the Agencies tab.
+                        </p>
+                      }
+
+                      <div class="agency-editor__actions">
+                        <button type="button" class="usa-button" [disabled]="resolveDisabled"
+                                (click)="confirmResolve(p)">
+                          {{ saving ? 'Resolving…' : 'Resolve and assign ' + p.user_count + ' user' + (p.user_count === 1 ? '' : 's') }}
+                        </button>
+                        <button type="button" class="usa-button usa-button--unstyled"
+                                (click)="resolvingDomain = null">Cancel</button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  }
+</div>

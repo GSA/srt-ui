@@ -1,0 +1,490 @@
+:host {
+  display: block;
+  padding: 1rem 0;
+}
+
+.agency-management {
+  padding: 0;
+}
+
+/* Reuses the badge treatment from the other admin panels so status colours
+   stay consistent across the console. */
+.srt-badge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 2px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #f0f0f0;
+  color: #454545;
+
+  &--success { background: #ecf3ec; color: #2e6e2e; }
+  &--error   { background: #f8e1e1; color: #b50909; }
+  &--info    { background: #e1f3f8; color: #005ea2; }
+}
+
+/* ── Sub-navigation ─────────────────────────────────────────────── */
+
+.agency-subnav {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid #dfe1e2;
+  margin: 1rem 0 1.5rem;
+
+  &__link {
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 0.75rem 1rem;
+    font-size: 0.93rem;
+    font-weight: 600;
+    color: #5c5c5c;
+    cursor: pointer;
+
+    &:hover { color: #1a4480; }
+
+    &--active {
+      color: #1a4480;
+      border-bottom-color: #1a4480;
+    }
+  }
+
+  &__count { margin-left: 0.4rem; }
+}
+
+/* ── Toolbar ────────────────────────────────────────────────────── */
+
+.agency-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  &__search { flex: 1 1 20rem; max-width: 26rem; }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+}
+
+/* ── Create panel ───────────────────────────────────────────────── */
+
+.agency-create {
+  border: 1px solid #dfe1e2;
+  border-left: 4px solid #1a4480;
+  background: #f9f9f9;
+  padding: 1rem 1.25rem 1.25rem;
+  margin-bottom: 1.5rem;
+
+  &__title {
+    font-size: 1rem;
+    margin: 0 0 0.75rem;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: 0.75rem 1rem;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+}
+
+/* ── Table ──────────────────────────────────────────────────────── */
+
+.agency-table-wrap { overflow-x: auto; }
+
+.agency-name-cell {
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.agency-name { font-weight: 600; }
+
+.agency-indent {
+  color: #a9aeb1;
+  margin-right: 0.4rem;
+}
+
+.agency-acronym {
+  margin-left: 0.4rem;
+  color: #5c5c5c;
+  font-size: 0.85rem;
+}
+
+.agency-row--component .agency-name { font-weight: 400; }
+
+.agency-row--inactive {
+  opacity: 0.65;
+  font-style: italic;
+}
+
+.agency-actions-cell {
+  white-space: nowrap;
+
+  .agency-linkish + .agency-linkish { margin-left: 0.75rem; }
+}
+
+/* Table cells that open an editor. Styled as links rather than buttons so the
+   table stays readable, but they remain real buttons for keyboard and
+   screen-reader users. */
+.agency-linkish {
+  font-size: inherit;
+  text-align: left;
+}
+
+.agency-muted { color: #5c5c5c; }
+
+.agency-required {
+  font-weight: 400;
+  color: #b50909;
+}
+
+/* ── Inline editors ─────────────────────────────────────────────── */
+
+.agency-editor-row > td {
+  background: #f9f9f9;
+  border-left: 4px solid #1a4480;
+}
+
+.agency-editor {
+  padding: 0.5rem 0.25rem 1rem;
+
+  &__title {
+    font-size: 1rem;
+    margin: 0 0 0.5rem;
+  }
+
+  &__lede {
+    margin: 0 0 1rem;
+    max-width: 46rem;
+    color: #454545;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: 0.75rem 1rem;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+}
+
+.agency-hint {
+  font-size: 0.85rem;
+  color: #5c5c5c;
+  max-width: 46rem;
+  margin: 0.75rem 0 0;
+}
+
+.agency-select--wide { max-width: 28rem; }
+
+/* Long agency list in the access editor. Capped and scrolled so the editor does
+   not push the rest of the table off screen. */
+.agency-checklist {
+  max-height: 18rem;
+  overflow-y: auto;
+  border: 1px solid #dfe1e2;
+  background: #ffffff;
+  padding: 0.75rem 1rem;
+  margin: 0;
+
+  &__item { margin-bottom: 0.25rem; }
+}
+
+/* ── Domains ────────────────────────────────────────────────────── */
+
+.agency-domain-list {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid #eef0f0;
+  }
+}
+
+.agency-domain {
+  font-family: 'Roboto Mono', 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.9rem;
+}
+
+.agency-domain-source { font-size: 0.8rem; }
+
+.agency-domain-add {
+  &__row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+    max-width: 30rem;
+
+    .usa-input { margin-top: 0; }
+  }
+}
+
+/* ── Needs review ───────────────────────────────────────────────── */
+
+.agency-review {
+  &__lede { margin-bottom: 1rem; }
+
+  &__count {
+    font-weight: 600;
+    margin: 0 0 0.75rem;
+  }
+
+  &__emails {
+    margin-bottom: 1rem;
+
+    summary { cursor: pointer; }
+  }
+
+  &__email-list {
+    margin: 0.5rem 0 0;
+    padding-left: 1.25rem;
+    max-height: 12rem;
+    overflow-y: auto;
+    font-size: 0.9rem;
+    color: #454545;
+  }
+}
+
+/* Alternate spellings an agency answers to. Shown inline because a merged
+   duplicate survives as an alias, and an admin looking for a agency that has
+   "disappeared" needs to see where it went. */
+.agency-alias-note {
+  display: block;
+  font-size: 0.78rem;
+  color: #5c5c5c;
+  font-style: italic;
+  font-weight: 400;
+  margin-top: 0.1rem;
+}
+
+/* ── Search field ───────────────────────────────────────────────────
+   USWDS type="search" inherits a browser appearance that leaves the right
+   edge open on WebKit, so the field reads as unfinished. Draw the box
+   explicitly and match the other admin inputs. */
+.agency-toolbar__search {
+  .usa-input,
+  input[type="search"] {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 1px solid #565c65;
+    border-radius: 2px;
+    background: #ffffff;
+    padding: 0.5rem 0.75rem;
+    width: 100%;
+    max-width: none;
+    margin-top: 0.25rem;
+
+    &:focus {
+      outline: 0.25rem solid #2491ff;
+      outline-offset: 0;
+    }
+  }
+
+  /* Safari renders a decoration inside the field that clips the border. */
+  input[type="search"]::-webkit-search-decoration,
+  input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+  }
+}
+
+/* ── Table layout ───────────────────────────────────────────────────
+   Every one of these cells holds a short label that reads as a phrase.
+   Letting them wrap stacks "2 domains" or "Own agency only" over two or three
+   lines and makes the row hard to scan, so each column gets enough room to
+   hold its label on one line. */
+.agency-table-wrap {
+  overflow-x: auto;
+
+  table { min-width: 68rem; }
+
+  th, td {
+    vertical-align: top;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+  }
+}
+
+/* Agency name is the one column allowed to wrap, since names are long. */
+.agency-name-cell {
+  min-width: 18rem;
+  white-space: normal;
+}
+
+/* Everything else stays on one line. */
+.agency-cell--type    { white-space: nowrap; min-width: 9rem; }
+.agency-cell--domains { white-space: nowrap; min-width: 7rem; }
+.agency-cell--users   { white-space: nowrap; min-width: 5rem; text-align: right; padding-right: 1.25rem; }
+.agency-cell--access  { min-width: 14rem; }
+.agency-cell--dev     { min-width: 14rem; }
+
+/* The access and deviation cells can hold several agency names, so they wrap,
+   but the default single-phrase value never should. */
+.agency-cell--access .agency-linkish,
+.agency-cell--dev .agency-linkish { text-align: left; }
+
+.agency-value--single { white-space: nowrap; }
+
+.agency-actions-cell {
+  white-space: nowrap;
+  min-width: 11rem;
+  text-align: right;
+  padding-right: 0.5rem;
+}
+
+/* A short note under the two columns whose meaning is not self-evident. */
+.agency-columns-help {
+  font-size: 0.85rem;
+  color: #5c5c5c;
+  margin: 0 0 1rem;
+  max-width: 60rem;
+
+  strong { color: #1b1b1b; }
+}
+
+/* ── Hierarchy disclosure ───────────────────────────────────────────
+   Departments start collapsed. 653 agencies in one flat list is unreadable,
+   and the hierarchy only earns its place if you can scan the departments and
+   open the one you want. A search bypasses collapsing entirely, because hiding
+   a row the user just searched for would be worse than no hierarchy at all. */
+.agency-disclosure {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-right: 0.35rem;
+  padding: 0;
+  border: none;
+  border-radius: 2px;
+  background: none;
+  color: #1a4480;
+  font-size: 0.8rem;
+  line-height: 1;
+  cursor: pointer;
+  vertical-align: baseline;
+
+  &:hover { background: #e6effa; }
+
+  &:focus {
+    outline: 0.2rem solid #2491ff;
+    outline-offset: 0;
+  }
+
+  /* Keeps names aligned on rows that have nothing to open. */
+  &--empty {
+    cursor: default;
+    background: none;
+  }
+}
+
+/* The number of components hiding under a collapsed department. */
+.agency-childcount {
+  display: inline-block;
+  margin-left: 0.45rem;
+  padding: 0.05rem 0.4rem;
+  border: 1px solid #dfe1e2;
+  border-radius: 999px;
+  background: #f0f0f0;
+  color: #454545;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.4;
+  cursor: pointer;
+
+  &:hover { background: #e6effa; border-color: #1a4480; color: #1a4480; }
+}
+
+.agency-expand-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* ── Column filters ─────────────────────────────────────────────────
+   Mirrors the filter row on the Users tab so the two admin tables behave
+   alike. Any active filter suspends collapsing, since matches hidden inside
+   closed departments would look like no results at all. */
+.agency-filter-row {
+  th {
+    padding: 0.35rem 0.5rem 0.6rem;
+    background: #f9f9f9;
+    border-bottom: 1px solid #dfe1e2;
+    font-weight: 400;
+  }
+
+  input,
+  select {
+    width: 100%;
+    min-width: 6rem;
+    padding: 0.3rem 0.4rem;
+    border: 1px solid #a9aeb1;
+    border-radius: 2px;
+    background: #ffffff;
+    font-size: 0.82rem;
+    font-family: inherit;
+    appearance: auto;
+
+    &:focus {
+      outline: 0.15rem solid #2491ff;
+      outline-offset: 0;
+    }
+  }
+}
+
+/* ── The name as the expander ───────────────────────────────────────
+   A bare arrow was too small a target and did not read as interactive. On a
+   row with components the whole name is the control, styled as a link so the
+   affordance is obvious, with the component count carried alongside it. */
+.agency-name--expandable {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.1rem 0.25rem;
+  margin-left: -0.25rem;
+  border: none;
+  border-radius: 2px;
+  background: none;
+  color: #1a4480;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover {
+    background: #e6effa;
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: 0.2rem solid #2491ff;
+    outline-offset: 0;
+  }
+
+  /* The count sits inside the button now, so it must not swallow the click. */
+  .agency-childcount {
+    pointer-events: none;
+    margin-left: 0;
+  }
+}

@@ -10,6 +10,99 @@ export class AdminManagementService {
 
   constructor(private http: HttpClient) {}
 
+  // ── Email Templates ────────────────────────────────────────────────
+  //
+  // These were a hardcoded array in the component, so a template could be
+  // edited for a single send but never saved. They now live in the database.
+
+  listEmailTemplates(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/admin/email-templates`);
+  }
+
+  createEmailTemplate(payload: {
+    name: string; subject: string; body: string; description?: string;
+  }): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/admin/email-templates`, payload);
+  }
+
+  updateEmailTemplate(id: number, updates: {
+    name?: string; subject?: string; body?: string; description?: string; active?: boolean;
+  }): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/admin/email-templates/${id}`, updates);
+  }
+
+  /** Built-in templates are deactivated rather than deleted, so they can return. */
+  deleteEmailTemplate(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/admin/email-templates/${id}`);
+  }
+
+  // ── Agency Management ──────────────────────────────────────────────
+  //
+  // Solicitation access and deviation inheritance are separate relationships
+  // and have separate endpoints. Setting one never moves the other, so the two
+  // methods below must not be combined into a single "save agency" call.
+
+  /** Hierarchy, domains, user counts, access scope, and deviation, in one call. */
+  getAgencyManagement(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/admin/agency-management`);
+  }
+
+  createAgency(payload: {
+    agency: string; acronym?: string; agencyType: string; parentId?: number | null;
+  }): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/admin/agencies`, payload);
+  }
+
+  /** Edit, deactivate, or reparent. Agencies are deactivated, never deleted. */
+  updateAgency(agencyId: number, updates: {
+    agency?: string; acronym?: string; agencyType?: string;
+    parentId?: number | null; active?: boolean;
+  }): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/admin/agencies/${agencyId}`, updates);
+  }
+
+  /** Which agencies' solicitations this agency's users may see. Access only. */
+  setSolicitationScope(agencyId: number, visibleAgencyIds: number[]): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/admin/agencies/${agencyId}/scope`, { visibleAgencyIds });
+  }
+
+  /** Whose deviation applies. Null returns the agency to inheriting its parent. */
+  setDeviationSource(agencyId: number, deviationSourceId: number | null): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/admin/agencies/${agencyId}/deviation`, { deviationSourceId });
+  }
+
+  createAgencyDomain(domain: string, agencyId: number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/admin/agency-domains`, { domain, agencyId });
+  }
+
+  updateAgencyDomain(domainId: number, updates: {
+    domain?: string; agencyId?: number; active?: boolean;
+  }): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/admin/agency-domains/${domainId}`, updates);
+  }
+
+  deleteAgencyDomain(domainId: number): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/admin/agency-domains/${domainId}`);
+  }
+
+  /** Domains that did not resolve to a known agency at login, grouped by domain. */
+  getNeedsReview(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/admin/needs-review`);
+  }
+
+  /**
+   * Resolve one domain for every user parked on it. Pass an existing agencyId,
+   * or a newComponent under a named parent. Creating a top-level agency is a
+   * separate deliberate act through createAgency.
+   */
+  resolveNeedsReview(payload: {
+    domain: string;
+    agencyId?: number;
+    newComponent?: { agency: string; acronym?: string; agencyType?: string; parentId: number };
+  }): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/admin/needs-review/resolve`, payload);
+  }
+
   // ── User Management ────────────────────────────────────────────────
 
   listUsers(params?: { status?: string; agency?: string; search?: string }): Observable<any> {

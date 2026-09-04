@@ -15,6 +15,7 @@ import { Title } from '@angular/platform-browser';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { environment } from '../../../environments/environment';
 import { Section508Clause, resolveClause, clauseToPlainText } from '../../shared/section508-clause';
+import { authHeaders } from '../../shared/services/auth-fetch';
 
 @Component({
     selector: 'app-home',
@@ -376,7 +377,7 @@ export class HomeComponent
     try {
       const response = await fetch(`${environment.SERVER_URL}/rag-analytics/playground/package-synthesis`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: authHeaders({ 'Content-Type': 'application/json' }),
         body: JSON.stringify({
           summaries,
           file_count: fileNames.length,

@@ -9,14 +9,68 @@
     </div>
   }
 
+  @if (templateNotice) {
+    <div class="usa-alert usa-alert--success usa-alert--slim margin-bottom-2" role="status">
+      <div class="usa-alert__body"><p class="usa-alert__text">{{ templateNotice }}</p></div>
+    </div>
+  }
+  @if (templateError) {
+    <div class="usa-alert usa-alert--error usa-alert--slim margin-bottom-2" role="alert">
+      <div class="usa-alert__body"><p class="usa-alert__text">{{ templateError }}</p></div>
+    </div>
+  }
+
   <!-- Template Selector -->
-  <div class="template-selector margin-bottom-3">
-    @for (t of templates; track t.id) {
-      <button class="template-btn" [class.template-btn--active]="selectedTemplate?.id === t.id" (click)="selectTemplate(t)">
-        {{ t.name }}
+  @if (loadingTemplates) {
+    <div class="text-center padding-3">Loading templates...</div>
+  } @else {
+    <div class="template-selector margin-bottom-2">
+      @for (t of templates; track t.id) {
+        <button class="template-btn" [class.template-btn--active]="selectedTemplate?.id === t.id" (click)="selectTemplate(t)">
+          {{ t.name }}
+        </button>
+      }
+      <button class="template-btn template-btn--new" (click)="showNewTemplate = !showNewTemplate"
+              [attr.aria-expanded]="showNewTemplate" aria-controls="new-template-panel">
+        + New template
       </button>
+    </div>
+    @if (templates.length === 0) {
+      <p class="text-base-dark margin-bottom-2">No templates yet. Create one to get started.</p>
     }
-  </div>
+  }
+
+  <!-- Create a new template -->
+  @if (showNewTemplate) {
+    <div id="new-template-panel" class="template-create margin-bottom-3">
+      <h3 class="template-create__title">New template</h3>
+      <div class="margin-bottom-2">
+        <label class="usa-label margin-top-0" for="new-tpl-name">Name</label>
+        <input class="usa-input" id="new-tpl-name" type="text" [(ngModel)]="newTemplate.name"
+               placeholder="Access Approved" />
+      </div>
+      <div class="margin-bottom-2">
+        <label class="usa-label margin-top-0" for="new-tpl-subject">Subject</label>
+        <input class="usa-input" id="new-tpl-subject" type="text" [(ngModel)]="newTemplate.subject" />
+      </div>
+      <div class="margin-bottom-2">
+        <label class="usa-label margin-top-0" for="new-tpl-desc">Description</label>
+        <input class="usa-input" id="new-tpl-desc" type="text" [(ngModel)]="newTemplate.description"
+               placeholder="When this template should be used" />
+      </div>
+      <div class="margin-bottom-2">
+        <label class="usa-label margin-top-0" for="new-tpl-body">Body</label>
+        <p class="font-sans-3xs text-base-dark margin-bottom-1">
+          HTML is allowed. The GSA and SRT footer is added automatically.
+        </p>
+        <textarea class="usa-textarea" id="new-tpl-body" rows="10" [(ngModel)]="newTemplate.body"></textarea>
+      </div>
+      <button class="usa-button" [disabled]="newTemplateDisabled" (click)="createTemplate()">
+        {{ savingTemplate ? 'Saving...' : 'Create template' }}
+      </button>
+      <button class="usa-button usa-button--unstyled margin-left-2" (click)="showNewTemplate = false">Cancel</button>
+    </div>
+  }
 
   @if (selectedTemplate) {
     <!-- Subject Line -->
@@ -25,8 +79,23 @@
       <input class="usa-input" id="email-subject" type="text" [(ngModel)]="editingSubject" />
     </div>
 
+    <!-- Saving is separate from sending on purpose. Editing the text below only
+         affects this one send unless it is saved back to the template. -->
+    <div class="template-actions margin-bottom-1">
+      <button class="usa-button usa-button--outline" [disabled]="savingTemplate" (click)="saveTemplate()">
+        {{ savingTemplate ? 'Saving...' : 'Save changes to this template' }}
+      </button>
+      <button class="usa-button usa-button--unstyled" [disabled]="savingTemplate"
+              (click)="removeTemplate(selectedTemplate)">
+        {{ selectedTemplate.isBuiltIn ? 'Hide this template' : 'Delete this template' }}
+      </button>
+    </div>
+    <p class="font-sans-3xs text-base-dark margin-top-0 margin-bottom-2">
+      Edits apply to this send only unless you save them.
+    </p>
+
     <!-- Update Notes (for update template) -->
-    @if (selectedTemplate.id === 'update_announcement') {
+    @if (selectedTemplate.templateKey === 'update_announcement') {
       <div class="margin-bottom-2">
         <label class="usa-label">Update Notes</label>
         <p class="font-sans-3xs text-base-dark margin-bottom-1">Add bullet points describing what changed.</p>
@@ -44,7 +113,7 @@
     }
 
     <!-- Inactivity Days (for inactivity template) -->
-    @if (selectedTemplate.id === 'inactivity_warning') {
+    @if (selectedTemplate.templateKey === 'inactivity_warning') {
       <div class="margin-bottom-2">
         <label class="usa-label" for="inactivity-days">Days inactive threshold</label>
         <input class="usa-input" id="inactivity-days" type="number" [(ngModel)]="inactivityDays" min="30" max="365" style="width: 120px;" />

@@ -12,6 +12,13 @@
       </div>
     }
 
+    <!-- AGENCIES: hierarchy, domain mapping, solicitation access, deviation -->
+    @if (activeTab === 'agencies') {
+      <div id="admin-panel-agencies" tabindex="-1" class="admin-panel">
+        <app-agency-management></app-agency-management>
+      </div>
+    }
+
     <!-- ANALYTICS: website analytics + login reports + metric downloads -->
     @if (activeTab === 'analytics') {
       <div id="admin-panel-analytics" tabindex="-1" class="admin-panel">

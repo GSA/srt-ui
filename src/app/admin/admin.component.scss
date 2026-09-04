@@ -9,13 +9,23 @@
     scroll-margin-top: 4em;
 }
 
-/* Let USWDS grid-container center itself naturally */
+/* Let USWDS grid-container center itself naturally.
+   Wider than the 1200px USWDS default because the admin console is dense
+   tabular data, not prose. At 1200px the Users and Agencies tables were being
+   cut off on the right and forced to scroll horizontally to read a single row. */
 :host .grid-container {
-    max-width: 1200px;
+    max-width: 1600px;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+}
+
+/* On a genuinely wide display, let the data panels use more of it. Prose-width
+   is the wrong constraint for a table with seven columns. */
+@media (min-width: 1700px) {
+    :host .grid-container { max-width: 1850px; }
 }
 
 /* Add padding-top to the sidenav */
