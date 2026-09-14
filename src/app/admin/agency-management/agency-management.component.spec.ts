@@ -31,6 +31,7 @@ describe('AgencyManagementComponent hierarchy ordering', () => {
     aliases: [],
     activeUsers: 0,
     totalUsers: 0,
+    solicitationCount: 0,
     solicitationAccess: [{ id, agency: name }],
     solicitationAccessIsDefault: true,
     deviationSource: null,
@@ -141,6 +142,85 @@ describe('AgencyManagementComponent hierarchy ordering', () => {
     const y = { ...agency(11, 'Y', null), parent: { id: 10, agency: 'X' } };
     component.agencies = [x, y];
     expect(component.visibleAgencies.length).toBe(2);
+  });
+});
+
+/**
+ * Triage. Exposing the inherited configuration turned this table into several
+ * hundred rows, and the screen is only usable if an administrator can get to
+ * the handful that need a decision. These cover the shortcuts that do that.
+ */
+describe('AgencyManagementComponent triage', () => {
+  let component: AgencyManagementComponent;
+
+  const row = (over: Partial<AgencyRow>): AgencyRow => ({
+    id: 1, agency: 'X', acronym: null, agencyType: 'federal_agency', active: true,
+    provenance: 'test', parent: null, domains: [], aliases: [],
+    activeUsers: 0, totalUsers: 0, solicitationCount: 0,
+    solicitationAccess: [], solicitationAccessIsDefault: true,
+    deviationSource: null, deviationIsInherited: true, ...over
+  });
+
+  beforeEach(() => { component = new AgencyManagementComponent(null as any); });
+
+  it('counts only live agencies in the tallies, and archived ones separately', () => {
+    component.agencies = [
+      row({ id: 1, agencyType: 'needs_review' }),
+      row({ id: 2, activeUsers: 3, domains: [{ id: 1, domain: 'a.gov', active: true, source: 't', originalRawValue: 'a.gov' }] }),
+      row({ id: 3, solicitationCount: 40 }),
+      row({ id: 4, active: false, agencyType: 'needs_review' })
+    ];
+    const t2 = component.tallies;
+    expect(t2.total).toBe(3);
+    expect(t2.needsReview).toBe(1);
+    expect(t2.hasUsers).toBe(1);
+    expect(t2.noDomain).toBe(2);
+    expect(t2.hasSolicitations).toBe(1);
+    expect(t2.hidden).toBe(1);
+  });
+
+  it('narrows to the rows a quick filter names', () => {
+    component.agencies = [
+      row({ id: 1, agency: 'Unclassified', agencyType: 'needs_review' }),
+      row({ id: 2, agency: 'Settled' })
+    ];
+    component.quickFilter = 'needs_review';
+    expect(component.visibleAgencies.map(r => r.agency)).toEqual(['Unclassified']);
+  });
+
+  it('clicking the same quick filter again turns it off', () => {
+    component.setQuickFilter('has_users');
+    expect(component.quickFilter).toBe('has_users');
+    component.setQuickFilter('has_users');
+    expect(component.quickFilter).toBe('all');
+  });
+
+  it('suspends collapsing while a quick filter is on, so matches are not hidden', () => {
+    expect(component.isSearching).toBeFalsy();
+    component.quickFilter = 'no_domain';
+    expect(component.isSearching).toBeTruthy();
+  });
+
+  it('flags an unclassified row only when something points at it', () => {
+    expect(component.attentionReason(row({ agencyType: 'needs_review' }))).toBe('');
+    expect(component.attentionReason(row({ agencyType: 'needs_review', solicitationCount: 9 }))).toBe('has solicitations');
+    expect(component.attentionReason(row({ agencyType: 'needs_review', activeUsers: 2 }))).toBe('has people');
+    expect(component.attentionReason(row({ agencyType: 'needs_review', activeUsers: 2, solicitationCount: 9 })))
+      .toBe('people and solicitations');
+  });
+
+  it('does not flag a row that has already been classified', () => {
+    expect(component.attentionReason(row({ agencyType: 'federal_agency', activeUsers: 5, solicitationCount: 99 }))).toBe('');
+  });
+
+  it('finds an agency by a spelling that was folded into it', () => {
+    // Folding duplicates retired the name an administrator may still search for.
+    component.agencies = [
+      row({ id: 1, agency: 'Department of Agriculture', aliases: [{ id: 1, alias: 'U.S. Department of Agriculture' }] }),
+      row({ id: 2, agency: 'Department of Commerce' })
+    ];
+    component.search = 'U.S. Department of Agriculture';
+    expect(component.visibleAgencies.map(r => r.agency)).toEqual(['Department of Agriculture']);
   });
 });
 

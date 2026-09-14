@@ -28,6 +28,8 @@ export interface AgencyRow {
   aliases: Array<{ id: number; alias: string }>;
   activeUsers: number;
   totalUsers: number;
+  /** Solicitations naming this agency or any of its aliases. null = not computed. */
+  solicitationCount: number | null;
   solicitationAccess: Array<{ id: number; agency: string | null }>;
   solicitationAccessIsDefault: boolean;
   deviationSource: { id: number; agency: string } | null;
@@ -62,6 +64,15 @@ export class AgencyManagementComponent implements OnInit {
   view: 'hierarchy' | 'review' = 'hierarchy';
   search = '';
   showInactive = false;
+
+  /**
+   * Triage shortcuts. Exposing the inherited configuration turned a short list
+   * into several hundred rows, most of which need no decision at all. These
+   * answer the questions an administrator actually works through: what is still
+   * unclassified, what has people behind it, and what carries solicitations but
+   * has no way for anyone to sign in against it.
+   */
+  quickFilter: 'all' | 'needs_review' | 'has_users' | 'no_domain' | 'has_solicitations' = 'all';
 
   /**
    * Per-column filters, matching the pattern the Users tab already uses so the
@@ -171,7 +182,7 @@ export class AgencyManagementComponent implements OnInit {
 
   /** True while a search is filtering, when collapsing would hide matches. */
   get isSearching(): boolean {
-    return this.search.trim().length > 0 || this.hasColumnFilter;
+    return this.search.trim().length > 0 || this.hasColumnFilter || this.quickFilter !== 'all';
   }
 
   get hasColumnFilter(): boolean {
@@ -180,7 +191,42 @@ export class AgencyManagementComponent implements OnInit {
 
   clearFilters(): void {
     this.search = '';
+    this.quickFilter = 'all';
     this.colFilters = { agency: '', type: '', domain: '', access: '', deviation: '' };
+  }
+
+  setQuickFilter(f: 'all' | 'needs_review' | 'has_users' | 'no_domain' | 'has_solicitations'): void {
+    this.quickFilter = this.quickFilter === f ? 'all' : f;
+  }
+
+  /** Counts for the triage buttons, over visible (not archived) agencies. */
+  get tallies(): { total: number; needsReview: number; hasUsers: number; noDomain: number; hasSolicitations: number; hidden: number } {
+    const live = this.agencies.filter(a => a.active);
+    return {
+      total: live.length,
+      needsReview: live.filter(a => a.agencyType === 'needs_review').length,
+      hasUsers: live.filter(a => a.activeUsers > 0).length,
+      noDomain: live.filter(a => a.domains.length === 0).length,
+      hasSolicitations: live.filter(a => !!a.solicitationCount).length,
+      hidden: this.agencies.filter(a => !a.active).length
+    };
+  }
+
+  /**
+   * Why a row is worth a second look, or '' when nothing stands out. Shown next
+   * to the name so the reason is on the row rather than something to work out
+   * by reading across five columns.
+   */
+  attentionReason(a: AgencyRow): string {
+    if (a.agencyType !== 'needs_review') { return ''; }
+    // Only flag a row that something actually points at. An unclassified record
+    // with nothing behind it already says "needs review" in the Type column,
+    // and badging every one of those buries the handful that matter.
+    if (a.activeUsers > 0 && a.solicitationCount) { return 'people and solicitations'; }
+    if (a.activeUsers > 0) { return 'has people'; }
+    if (a.solicitationCount) { return 'has solicitations'; }
+    if (a.domains.length) { return 'has a domain'; }
+    return '';
   }
 
   /**
@@ -202,6 +248,13 @@ export class AgencyManagementComponent implements OnInit {
     const matches = (a: AgencyRow) => {
       if (!this.showInactive && !a.active) { return false; }
 
+      switch (this.quickFilter) {
+        case 'needs_review': if (a.agencyType !== 'needs_review') { return false; } break;
+        case 'has_users': if (a.activeUsers < 1) { return false; } break;
+        case 'no_domain': if (a.domains.length > 0) { return false; } break;
+        case 'has_solicitations': if (!a.solicitationCount) { return false; } break;
+      }
+
       // Column filters are ANDed together, so each one narrows the last.
       if (!has(a.agency + ' ' + (a.acronym || ''), f.agency)) { return false; }
       if (f.type && a.agencyType !== f.type) { return false; }
@@ -210,9 +263,13 @@ export class AgencyManagementComponent implements OnInit {
       if (!has(this.deviationSummary(a), f.deviation)) { return false; }
 
       if (!term) { return true; }
+      // Aliases are searchable because folding duplicates retired the spelling
+      // an administrator may still be looking for. Typing "US Department of
+      // Agriculture" has to find the record that answers to it.
       return a.agency.toLowerCase().includes(term)
         || (a.acronym || '').toLowerCase().includes(term)
         || (a.parent ? a.parent.agency.toLowerCase().includes(term) : false)
+        || a.aliases.some(x => x.alias.toLowerCase().includes(term))
         || a.domains.some(d => d.domain.includes(term));
     };
 

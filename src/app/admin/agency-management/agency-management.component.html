@@ -114,6 +114,35 @@
     @if (loading) {
       <div class="text-center padding-4">Loading agencies…</div>
     } @else {
+      <div class="agency-triage" role="group" aria-label="Filter the agency list">
+        <span class="agency-triage__label">Show</span>
+        <button type="button" class="agency-chip" [class.agency-chip--on]="quickFilter === 'all'"
+                [attr.aria-pressed]="quickFilter === 'all'" (click)="setQuickFilter('all')">
+          Everything <span class="agency-chip__n">{{ tallies.total }}</span>
+        </button>
+        <button type="button" class="agency-chip" [class.agency-chip--on]="quickFilter === 'needs_review'"
+                [attr.aria-pressed]="quickFilter === 'needs_review'" (click)="setQuickFilter('needs_review')">
+          Needs a decision <span class="agency-chip__n">{{ tallies.needsReview }}</span>
+        </button>
+        <button type="button" class="agency-chip" [class.agency-chip--on]="quickFilter === 'has_users'"
+                [attr.aria-pressed]="quickFilter === 'has_users'" (click)="setQuickFilter('has_users')">
+          Has people <span class="agency-chip__n">{{ tallies.hasUsers }}</span>
+        </button>
+        <button type="button" class="agency-chip" [class.agency-chip--on]="quickFilter === 'has_solicitations'"
+                [attr.aria-pressed]="quickFilter === 'has_solicitations'" (click)="setQuickFilter('has_solicitations')">
+          Has solicitations <span class="agency-chip__n">{{ tallies.hasSolicitations }}</span>
+        </button>
+        <button type="button" class="agency-chip" [class.agency-chip--on]="quickFilter === 'no_domain'"
+                [attr.aria-pressed]="quickFilter === 'no_domain'" (click)="setQuickFilter('no_domain')">
+          No email domain <span class="agency-chip__n">{{ tallies.noDomain }}</span>
+        </button>
+        @if (tallies.hidden) {
+          <span class="agency-triage__hidden">
+            {{ tallies.hidden }} archived and out of the way &mdash; tick &ldquo;Show archived&rdquo; to bring them back into view.
+          </span>
+        }
+      </div>
+
       <p class="agency-columns-help">
         <strong>Sees solicitations from</strong> is which agencies' published solicitations these
         users can read. <strong>Deviation applied</strong> is whose agency deviation governs their
@@ -129,6 +158,7 @@
               <th scope="col">Type</th>
               <th scope="col">Domains</th>
               <th scope="col">Users</th>
+              <th scope="col">Solicitations</th>
               <th scope="col">Sees solicitations from</th>
               <th scope="col">Deviation applied</th>
               <th scope="col"><span class="usa-sr-only">Actions</span></th>
@@ -151,6 +181,7 @@
                 <label class="usa-sr-only" for="af-domain">Filter by domain</label>
                 <input id="af-domain" type="text" placeholder="example.gov" [(ngModel)]="colFilters.domain" />
               </th>
+              <th scope="col"><span class="usa-sr-only">No filter</span></th>
               <th scope="col"><span class="usa-sr-only">No filter</span></th>
               <th scope="col">
                 <label class="usa-sr-only" for="af-access">Filter by solicitation access</label>
@@ -202,7 +233,10 @@
                       also known as {{ aliasSummary(a) }}
                     </span>
                   }
-                  @if (!a.active) { <span class="srt-badge">Inactive</span> }
+                  @if (!a.active) { <span class="srt-badge">Archived</span> }
+                  @if (a.active && attentionReason(a)) {
+                    <span class="agency-attention">{{ attentionReason(a) }}</span>
+                  }
                   @if (a.parent) { <span class="usa-sr-only">, a component of {{ a.parent.agency }}</span> }
                 </th>
                 <td>{{ typeLabel(a.agencyType) }}</td>
@@ -218,6 +252,15 @@
                   }
                 </td>
                 <td>{{ a.activeUsers }}</td>
+                <td class="agency-cell--count">
+                  @if (a.solicitationCount === null) {
+                    <span class="agency-muted" title="Could not be counted">&mdash;</span>
+                  } @else if (a.solicitationCount === 0) {
+                    <span class="agency-muted">0</span>
+                  } @else {
+                    {{ a.solicitationCount | number }}
+                  }
+                </td>
                 <td>
                   <button type="button" class="usa-button usa-button--unstyled agency-linkish"
                           [class.agency-muted]="a.solicitationAccessIsDefault"
