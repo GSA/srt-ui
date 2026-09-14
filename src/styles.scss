@@ -3,8 +3,11 @@
 /* USWDS IMPORT */
 
 
-// Load USWDS source code
-@import "./assets/uswds/css/styles.css";
+// USWDS is loaded from node_modules via the "styles" array in angular.json.
+// A second, older copy (v3.8.0) used to be vendored under src/assets/uswds and
+// imported here. It shipped the same CSS twice, and because both copies resolve
+// url(../img/*.svg) to different files on disk, the bundler was asked to write two
+// different sources to the same media/ output path. Do not re-add it.
 
 @import "../node_modules/primeng/resources/primeng.min.css";
 /*@import '../node_modules/primeng/resources/themes/nova/theme.css'; */
@@ -12,6 +15,13 @@
 @import "../node_modules/primeicons/primeicons.css";
 
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600,700);
+
+// The vendored copy was USWDS 3.8, which styled row-header cells inside a table
+// body; 3.13 styles only <td>. The app uses <th scope="row"> for accessibility,
+// not emphasis, so without these two rules those cells turn bold and a striped
+// row renders its first cell white while the rest of the row is grey.
+.usa-table tbody th { font-weight: 400; }
+.usa-table--striped tbody tr:nth-child(odd) th { background-color: #f0f0f0; color: #1b1b1b; }
 
 
 
