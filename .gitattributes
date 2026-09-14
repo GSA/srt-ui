@@ -1,0 +1,21 @@
+# Assets must round-trip byte-for-byte on every platform.
+#
+# SVG is text, so without this git rewrites its line endings on a Windows
+# checkout (core.autocrlf). A checked-in icon then differs by a CR from the
+# identical icon inside node_modules, and the bundler refuses to write two
+# different sources to one output file. Marking these binary stops any
+# conversion, on any platform, whatever the developer's git config.
+*.svg   binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.webp  binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.eot   binary
+*.otf   binary
+*.pdf   binary
+*.xlsx  binary
