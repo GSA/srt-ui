@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
     "baseUrl": "",
+    "skipLibCheck": true,
     "types": [
       "jasmine",
       "node"

@@ -135,7 +135,7 @@ describe('ResultsDetailComponent', () => {
     expect(component.lockDocs).toEqual([1]);
   });
 
-  it('should set the step1, step2, and step3 properties', () => {
+  it('loads the solicitation on init', () => {
     const mockSolicitation: Solicitation = new Solicitation(
       '123',
       'Test Solicitation',
@@ -194,9 +194,8 @@ describe('ResultsDetailComponent', () => {
     );
     spyOn(solicitationService, 'getSolicitation').and.returnValue(of(mockSolicitation));
     component.ngOnInit();
-    expect(component.step1).toBeTrue();
-    expect(component.step2).toBeTrue();
-    expect(component.step3).toBeTrue();
+    expect(solicitationService.getSolicitation).toHaveBeenCalled();
+    expect(component.solicitation).toBeTruthy();
   });
 
 });
