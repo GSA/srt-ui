@@ -3,9 +3,10 @@ import {Component, Directive, Input, OnInit, ViewChild} from '@angular/core';
 import {BaseChartDirective} from 'ng2-charts';
 
 @Component({
-  selector: 'app-machine-readable',
-  templateUrl: './machine-readable.component.html',
-  styleUrls: ['../analytics.component.scss', './machine-readable.component.scss']
+    selector: 'app-machine-readable',
+    templateUrl: './machine-readable.component.html',
+    styleUrls: ['../analytics.component.scss', './machine-readable.component.scss'],
+    standalone: false
 })
 
 //@Directive({selector: 'baseChart'})

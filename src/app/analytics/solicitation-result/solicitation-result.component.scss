@@ -7,3 +7,13 @@
     margin-bottom: 20px;
     font-weight: 600;
 }
+
+/* Add this to solicitation-result.component.scss */
+.sol-result-container canvas {
+    width: 400px !important;
+    /* Ensure this matches the other chart's width */
+    height: 400px !important;
+    /* Ensure this matches the other chart's height */
+    display: block;
+    margin: 0 auto;
+}

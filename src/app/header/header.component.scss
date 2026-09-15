@@ -1,172 +1,111 @@
 /* Header Container */
 #header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   width: 100%;
   background-color: white;
-  position: sticky;  /* Change from relative to sticky */
-  top: 0;           /* Stick to the top */
-  z-index: 1000;    /* Ensure header stays above other content */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* Optional: adds shadow for visual separation */
+  border-bottom: 0.0625rem solid #dfe1e2;
 }
 
-#header {
-  transition: box-shadow 0.3s ease;
-}
-
-
+/* Basic header styling */
 .usa-header {
-  padding: 0.5rem 0;
+  padding: 0.75rem 0;
   border-bottom: none;
 }
 
+/* Container for centering the header content */
 .grid-container-widescreen {
-  max-width: 1400px;
+  max-width: 75rem;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 2rem;
 }
 
-/* Main Navigation Container */
-.usa-nav {
+/* Navigation Container (Flexbox for left/right layout).
+   Named srt-nav deliberately: the USWDS stylesheet turns `.usa-nav` into a
+   fixed full-height off-canvas panel below 1024px, which blanked the whole
+   app with the nav pinned to the bottom. Never reuse that class here. */
+.srt-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: static;
+  padding: 0;
+  width: 100%;
+}
+
+/* Logo Styling */
+.logo-container {
   display: flex;
   align-items: center;
-  width: 100%;
-  padding: 0;
-  flex-wrap: nowrap;
+  gap: 0.75rem;
 }
 
-/* Left Logo */
-.logo-container {
-  flex-shrink: 0;
-  padding-right: 2rem;
-}
-
-.logo-container img {
-  height: 40px;
+.logo-container .gsa-logo-img {
+  height: 3.125rem;
   width: auto;
 }
 
-/* Center Navigation */
-.usa-nav__primary {
-  display: flex;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  flex-grow: 1;
-  justify-content: center;
-  gap: 1rem;
+.logo-divider {
+  width: 1px;
+  height: 2.5rem;
+  background-color: #dfe1e2;
 }
 
-.usa-nav__primary-item {
-  margin: 0;
+.logo-container .srt-logo-img {
+  height: 3.125rem;
+  width: auto;
+  filter: brightness(0) saturate(100%) invert(12%) sepia(50%) saturate(1200%) hue-rotate(183deg) brightness(95%) contrast(95%);
 }
 
-.usa-nav__link {
-  color: #1b1b1b;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  display: block;
-}
-
-.usa-nav__link:hover {
-  color: #005ea2;
-}
-
-.usa-current {
-  color: #005ea2;
-  font-weight: bold;
-}
-
-/* Right Side Navigation Group */
+/* Navigation Links */
 .right-nav-group {
   display: flex;
   align-items: center;
   list-style: none;
   margin: 0;
   padding: 0;
-  margin-left: auto;
+  gap: 1.5rem;
 }
 
-.right-nav-group .nav-item {
-  display: flex;
-  align-items: center;
-}
-
-.gsa-logo-item {
-  margin-left: 1rem;
-}
-
-.gsa-logo-item img {
-  height: 40px;
-  width: auto;
-}
-
-/* User Menu */
-.user-menu {
-  position: relative;
-}
-
-.usa-button.usa-button--outline {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  background-color: transparent;
-  border: 1px solid #ffffff;
-  color: #005ea2;
-  font-weight: normal;
+.nav-item {
   margin: 0;
-  white-space: nowrap;
-  box-shadow: none; /* Remove box shadow */
+  flex-shrink: 0;
 }
 
-.usa-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-left: 0.5rem;
-}
-
-/* Dropdown Menu */
-.usa-nav__submenu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background: white;
-  border: 1px solid #dfe1e2;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  min-width: 150px;
-  display: block;
-  visibility: hidden; /* Hide initially */
-  opacity: 0;
-  z-index: 1000;
-  margin-top: 0.25rem;
-  padding: 0.5rem 0;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
-}
-
-/* Keep submenu visible briefly after mouse leaves button */
-.user-menu:hover .usa-nav__submenu,
-.usa-nav__submenu:hover {
-  visibility: visible;
-  opacity: 1;
-  transition-delay: 0s; /* Show immediately */
-}
-
-.user-menu:hover .usa-nav__submenu {
-  transition-delay: 0s, 0.2s; /* 200ms delay for hiding */
-}
-
-.usa-nav__submenu a {
+.nav-link {
+  /* UAT flagged the old nav gray as a contrast concern; #1b1b1b on white
+     is ~10:1 (AAA). */
   color: #1b1b1b;
   text-decoration: none;
-  padding: 0.5rem 1rem;
-  display: block;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  /* Never let a squeezed link wrap its text — that was blowing the sticky
+     header up to full height on narrow screens. */
+  white-space: nowrap;
 }
 
-.usa-nav__submenu a:hover {
-  background-color: #f0f0f0;
+/* Active route indicator (also aids screen-reader/keyboard orientation). */
+.nav-link.active-link {
+  color: #1a4480;
+  font-weight: 700;
+  box-shadow: inset 0 -3px 0 #1a4480;
 }
 
-/* Skip Nav */
+.nav-link--button {
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0.5rem 0;
+}
+
+.nav-link:hover {
+  color: #1a4480;
+}
+
+/* Skip Nav (maintaining accessibility) */
 .usa-skipnav {
   position: absolute;
   left: -999em;
@@ -179,39 +118,103 @@
   left: 0;
 }
 
-/* Border Bottom */
-.border-bottom {
-  border-bottom: 1px solid #dfe1e2;
+/* External link icon styling */
+.external-link-icon {
+  margin-left: 0.25rem;
+  fill: currentColor;
+  vertical-align: middle;
+  display: inline-block;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 1024px) {
-  .usa-nav__primary {
-      gap: 0.5rem;
+/* ── Responsive: NO hamburger. The link list simply wraps onto extra rows at
+   narrow widths / high zoom (WCAG 1.4.10 reflow) so every destination stays
+   visible with zero extra interaction. ── */
+@media (max-width: 64rem) {
+  /* Logos row, then links flow below and wrap as needed. */
+  .srt-nav {
+    flex-wrap: wrap;
+    row-gap: 0.25rem;
   }
-  
-  .usa-nav__link {
-      padding: 0.5rem;
-  }
-}
 
-@media (max-width: 768px) {
-  .usa-nav {
-      flex-wrap: wrap;
+  /* The header can be 2–3 rows tall here, so let it scroll away instead of
+     staying sticky and eating the zoomed-in viewport. */
+  #header {
+    position: static;
   }
-  
-  .usa-nav__primary {
-      order: 3;
-      width: 100%;
-      margin-top: 1rem;
-      flex-wrap: wrap;
+
+  .grid-container-widescreen {
+    padding: 0 1rem;
   }
-  
+
   .right-nav-group {
-      order: 2;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 0.25rem 1.25rem;
+    padding-top: 0.25rem;
   }
 
-  .logo-container {
-      order: 1;
+  .nav-link,
+  .nav-link--button {
+    padding: 0.5rem 0;
+    min-height: 44px; /* WCAG 2.5.5 target size */
+    font-size: 0.95rem;
   }
+
+  /* Analytics submenu renders inline (not as a floating popover) so it can't
+     overflow or clip at narrow widths. */
+  .dropdown-menu {
+    position: static;
+    box-shadow: none;
+    border: none;
+    min-width: 0;
+    padding: 0 0 0.5rem;
+    background: #f9fafb;
+  }
+
+  .dropdown-item {
+    padding: 0.6rem 1rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media (max-width: 30rem) {
+  .logo-container .gsa-logo-img,
+  .logo-container .srt-logo-img {
+    height: 2.25rem;
+  }
+
+  .logo-divider {
+    height: 1.25rem;
+  }
+}
+
+/* Dropdown Menu Support */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  min-width: 170px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  z-index: 1001;
+  border-radius: 4px;
+  padding: 0.5rem 0;
+  border: 1px solid #dfe1e2;
+  margin-top: 0;
+}
+
+.dropdown-item {
+  color: #1b1b1b; /* darkened after UAT contrast feedback */
+  padding: 0.6rem 1rem;
+  text-decoration: none;
+  display: block;
+  font-size: 0.9rem;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+  color: #1a4480;
 }

@@ -1,24 +1,26 @@
 <div class="undeter-solic-padding">
 
-    <div class="srt-blue undeter-solic-title">
-      <h2 class="srt-blue chart">Last 30 Days Unevaluated Solicitations from SRT Prediction Results (By Category)
-        <sup
-            pTooltip="Other Undetermined' solicitations are solicitations with attachments that are currently failed to be accessed by the system due to various reasons (e.g., security redirect)."
-            tooltipPosition="bottom">
-            <i tabindex="0" class="fa fa-info-circle info" aria-hidden="true" ></i>
+  <div class="srt-blue undeter-solic-title">
+    <h2 class="srt-blue chart">Last 30 Days Unevaluated Solicitations from SRT Prediction Results (By Category)
+      <span class="tooltip-container">
+        <sup class="supfont tooltip-trigger" tabindex="0" role="button" [attr.aria-label]="unevaluatedTooltipText"
+          (focus)="showUnevaluatedTooltip = true" (blur)="showUnevaluatedTooltip = false"
+          (keydown.enter)="showUnevaluatedTooltip = !showUnevaluatedTooltip"
+          (keydown.space)="showUnevaluatedTooltip = !showUnevaluatedTooltip; $event.preventDefault()">
+          <i class="fa fa-info-circle info" aria-hidden="true"></i>
         </sup>
-      </h2>
-    </div>
+        <span class="tooltip-text" [class.show]="showUnevaluatedTooltip">
+          {{unevaluatedTooltipText}}
+        </span>
+      </span>
+    </h2>
+  </div>
 
-    <div class="undeter-solic-div">
-      <div class="undeter-solic-canvas">
-          <canvas baseChart
-                  [data]="pieChartData"
-                  [options]="options"
-                  [type]="pieChartType"
-                  [plugins]="pieChartPlugins">
-          </canvas>
-      </div>
+  <div class="undeter-solic-div">
+    <div class="undeter-solic-canvas">
+      <canvas baseChart [data]="pieChartData" [options]="options" [type]="pieChartType" [plugins]="pieChartPlugins">
+      </canvas>
     </div>
+  </div>
 
 </div>

@@ -1,5 +1,5 @@
 // Module: SRTHeaderComponent
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, HostListener} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../shared/services/auth.service';
@@ -10,9 +10,10 @@ import { AuthGuard } from '../auth-guard.service';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    standalone: false
 })
 export class HeaderComponent implements OnInit {
 
@@ -20,8 +21,29 @@ export class HeaderComponent implements OnInit {
 
   @Input() firstName = '';
   public currentID = '';
+  public isAnalyticsDropdownOpen = false;
+  
   @Input() isLogin;
   @Input() isGSAAdmin;
+  @Input() isApproved;
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    const analyticsBtn = document.getElementById('nav-analytics');
+    const dropdownMenu = analyticsBtn?.parentElement?.querySelector('.dropdown-menu');
+    
+    if (this.isAnalyticsDropdownOpen && analyticsBtn && dropdownMenu) {
+      if (!analyticsBtn.contains(target) && !dropdownMenu.contains(target)) {
+        this.isAnalyticsDropdownOpen = false;
+      }
+    }
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    this.isAnalyticsDropdownOpen = false;
+  }
 
   /* CONSTRUCTORS */
 
@@ -141,7 +163,6 @@ export class HeaderComponent implements OnInit {
   }
 
   menuClick(location) {
-    
     this.$gaService.event(`navbar_${location.replace(/\//g, '')}`, 'navbar_click');
 
     this.router.navigateByUrl(location).catch(r => console.log(r));

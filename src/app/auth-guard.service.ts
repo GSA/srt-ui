@@ -1,10 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import {
-  CanActivate, Router,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  CanActivateFn
-} from '@angular/router';
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivateFn } from '@angular/router';
 import { AuthService } from './shared/services/auth.service';
 import { Observable } from 'rxjs';
 
@@ -18,6 +13,7 @@ export class AuthGuard  {
   /* ATTRIBUTES */
 
   public isLogin = false;
+  public isApproved = false;
   public isGSAAdmin = false;
 
   /* CONSTRUCTOR */
@@ -46,18 +42,33 @@ export class AuthGuard  {
    * @param url
    */
   checkLogin(url: string): boolean {
+
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      this.router.navigate(['/auth']).catch(r => console.log(r));
+      return false;
+    }
+
     if (this.isLogin) {
       return true;
     } else {
        this.authService.checkToken().subscribe(
         (data) => {
           this.isLogin = data.isLogin;
-          if (data.isLogin) {
+          this.isApproved = data.isApproved;
+
+          if (data.isLogin && data.isApproved) {
             this.router.navigate([url]).catch(r => console.log(r));
             return true;
           } else {
             this.router.navigate(['/auth']).catch(r => console.log(r));
           }
+        },
+        (error) => {
+          console.error('Token check failed:', error);
+          localStorage.removeItem('token');
+          this.router.navigate(['/auth']).catch(r => console.log(r));
         });
     }
     return false

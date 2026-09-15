@@ -4,6 +4,40 @@
     padding: 0px !important;
 }
 
+/* App shell: flex column so the footer sits at the bottom and content fills
+   the space — never a giant white gap between header and footer. */
+.srt-app-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.srt-app-shell > router-outlet + * {
+    flex: 1 0 auto;
+}
+
+/* Top "official website / Here's how you know" bar — responsive, wraps on
+   narrow screens instead of overflowing via floats. */
+.gov-banner-bar__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.25rem 1rem;
+    padding: 0.35rem clamp(1rem, 4vw, 3rem);
+}
+
+.gov-banner-bar__left {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 0.75rem;
+
+    .gsa-subtitle {
+        margin-right: 0;
+    }
+}
+
 
 * {
     font-family: Source Sans Pro !important
@@ -37,4 +71,67 @@ display: table
     display: table-cell;
     vertical-align: top;
     font-size: 1.2rem;
+}
+
+/* ── Global USWDS Identifier Footer ── */
+.srt-global-footer {
+  margin-top: auto;
+}
+
+.usa-identifier__section--required-links {
+  background: #112e51;
+  padding: 1.5rem 1rem;
+}
+
+.usa-identifier__container {
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.usa-identifier__required-links-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.usa-identifier__required-link {
+  color: #dfe1e2;
+  font-size: 0.8125rem;
+  text-decoration: none;
+
+  &:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+}
+
+.usa-identifier__section--usagov {
+  background: #0b2341;
+  padding: 1rem;
+}
+
+.usa-identifier__section--usagov .usa-identifier__container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.usa-identifier__usagov-description {
+  color: #dfe1e2;
+  font-size: 0.8125rem;
+}
+
+.usa-identifier__section--usagov .usa-link {
+  color: #73b3e7;
+  font-size: 0.8125rem;
+  text-decoration: none;
+
+  &:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
 }

@@ -2,12 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-base',
-  template: `
+    selector: 'app-base',
+    template: `
         <div>
             base works!!
         </div>
-    `
+    `,
+    standalone: false
 })
 export class BaseComponent implements OnInit {
   protected pageName = 'Solicitation Review Tool';

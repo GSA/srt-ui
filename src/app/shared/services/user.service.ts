@@ -5,7 +5,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 
 import { Currentuser } from '../../shared/currentuser';
 import { environment } from '../../../environments/environment';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 const httpOptions = { headers: new HttpHeaders({'Content-Type': 'application/json'})};
 

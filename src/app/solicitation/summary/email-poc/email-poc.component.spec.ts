@@ -1,12 +1,13 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { EmailPocComponent } from './email-poc.component';
-import {SolicitationService} from '../../solicitation.service';
+import { SolicitationService } from '../../solicitation.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SummaryComponent } from '../summary.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { QuillEditorModule } from 'ngx-quill-editor';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { QuillModule } from 'ngx-quill';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 
 describe('EmailPocComponent', () => {
@@ -17,7 +18,7 @@ describe('EmailPocComponent', () => {
     let store = {
       'emai': 'test1@testing.com',
     } as any;
-  
+
     const mockLocalStorage = {
       getItem: (key: string): string => {
         return key in store ? store[key] : null;
@@ -30,28 +31,28 @@ describe('EmailPocComponent', () => {
       },
       clear: () => {
         for (var member in store) delete store[member];
-      }};
-  
-      spyOn(window.localStorage, 'getItem')
-        .and.callFake(mockLocalStorage.getItem);
-      spyOn(Storage.prototype, 'setItem')
-        .and.callFake(mockLocalStorage.setItem);
-      spyOn(Storage.prototype, 'removeItem')
-        .and.callFake(mockLocalStorage.removeItem);
-      spyOn(Storage.prototype, 'clear')
-        .and.callFake(mockLocalStorage.clear);
-  
-    });
+      }
+    };
+
+    spyOn(window.localStorage, 'getItem')
+      .and.callFake(mockLocalStorage.getItem);
+    spyOn(Storage.prototype, 'setItem')
+      .and.callFake(mockLocalStorage.setItem);
+    spyOn(Storage.prototype, 'removeItem')
+      .and.callFake(mockLocalStorage.removeItem);
+    spyOn(Storage.prototype, 'clear')
+      .and.callFake(mockLocalStorage.clear);
+
+  });
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [EmailPocComponent, SummaryComponent],
-      providers: [SolicitationService],
-      imports: [QuillEditorModule, ReactiveFormsModule, 
-        HttpClientTestingModule, RouterTestingModule.withRoutes([]),
-      ]
+      imports: [QuillModule, ReactiveFormsModule,
+        RouterTestingModule.withRoutes([])],
+      providers: [SolicitationService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

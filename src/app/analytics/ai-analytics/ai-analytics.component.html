@@ -1,0 +1,94 @@
+<main id="content" class="bypass-block-target">
+  <div class="ai-analytics">
+    <div class="ai-analytics__header">
+      <h1 class="ai-analytics__title">AI Analytics</h1>
+      <p class="ai-analytics__subtitle">Ad-Hoc Prediction Tool Usage</p>
+    </div>
+
+    @if (loading) {
+      <div class="ai-analytics__loading">Loading usage data...</div>
+    }
+
+    @if (error) {
+      <div class="ai-analytics__error">{{ error }}</div>
+    }
+
+    @if (usage) {
+      <!-- Summary Cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-card__value">{{ usage.summary?.total_analyses || 0 }}</span>
+          <span class="stat-card__label">Total Analyses</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card__value">{{ usage.summary?.unique_files || 0 }}</span>
+          <span class="stat-card__label">Unique Files</span>
+        </div>
+        <div class="stat-card stat-card--green">
+          <span class="stat-card__value">{{ usage.summary?.compliant_count || 0 }}</span>
+          <span class="stat-card__label">Compliant</span>
+        </div>
+        <div class="stat-card stat-card--red">
+          <span class="stat-card__value">{{ usage.summary?.non_compliant_count || 0 }}</span>
+          <span class="stat-card__label">Non-Compliant</span>
+        </div>
+      </div>
+
+      <!-- Metadata -->
+      <div class="meta-row">
+        @if (usage.summary?.first_analysis) {
+          <span class="meta-row__item">First analysis: {{ usage.summary.first_analysis | date:'mediumDate' }}</span>
+        }
+        @if (usage.summary?.last_analysis) {
+          <span class="meta-row__item">Last analysis: {{ usage.summary.last_analysis | date:'mediumDate' }}</span>
+        }
+      </div>
+
+      <!-- Daily Usage Table -->
+      @if (usage.daily?.length) {
+        <div class="section">
+          <h2 class="section__title">Daily Usage (Last 30 Days)</h2>
+          <table class="usage-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Files Analyzed</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (day of usage.daily; track day.date) {
+                <tr>
+                  <td>{{ day.date | date:'mediumDate' }}</td>
+                  <td>{{ day.count }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+
+      <!-- ICT Breakdown -->
+      @if (usage.by_ict?.length) {
+        <div class="section">
+          <h2 class="section__title">By ICT Category</h2>
+          <table class="usage-table">
+            <thead>
+              <tr>
+                <th>ICT Category</th>
+                <th>Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (ict of usage.by_ict; track ict.ict_category) {
+                <tr>
+                  <td>{{ ict.ict_category }}</td>
+                  <td>{{ ict.count }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    }
+  </div>
+</main>

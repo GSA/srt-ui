@@ -1,0 +1,42 @@
+.audit-log {
+  padding: 0;
+}
+
+:host {
+  display: block;
+  padding: 1rem 0;
+}
+
+.srt-badge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 2px;
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  &--success { background: #ecf3ec; color: #2e6e2e; }
+  &--error { background: #f8e1e1; color: #b50909; }
+  &--info { background: #e1f3f8; color: #005ea2; }
+}
+
+.details-cell {
+  max-width: 300px;
+}
+
+.details-pre {
+  font-size: 0.75rem;
+  background: #f0f0f0;
+  padding: 0.5rem;
+  border-radius: 2px;
+  max-height: 200px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+details summary {
+  cursor: pointer;
+  color: #005ea2;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}

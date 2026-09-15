@@ -5,15 +5,15 @@ import { HomeComponent } from './home/home.component';
 import { PrivateComponent } from './private/private.component';
 
 
-import { AuthGuard } from '../auth-guard.service';
+import { AuthGuardFn } from '../auth-guard.service';
 
 const routes: Routes = [
     {
         path: '',
         component: PrivateComponent,
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuardFn],
         children: [
-            {path: 'home', component: HomeComponent, canActivate : [AuthGuard]},
+            {path: 'home', component: HomeComponent, canActivate : [AuthGuardFn]},
         ]
     },
 ];

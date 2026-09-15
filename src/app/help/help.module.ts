@@ -13,12 +13,16 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 // Services
 import { HelpService } from '../shared/services/help.service';
 
+// Standalone Components
+import { DisclaimerComponent } from '../shared/components/disclaimer/disclaimer.component';
+
 @NgModule({
   imports: [
     CommonModule,
     HelpRoutesModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DisclaimerComponent
   ],
   declarations: [
     HelpComponent,

@@ -2,10 +2,11 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SolicitationReportComponent } from './solicitation-report.component';
 import {SolicitationService} from '../solicitation.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {NoticeTypesService} from '../../shared/services/noticeTypes.service';
 import { LoggerTestingModule } from 'ngx-logger/testing';
 import {Globals} from '../../../globals';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('SolicitationReportComponent', () => {
   let component: SolicitationReportComponent;
@@ -43,10 +44,10 @@ describe('SolicitationReportComponent', () => {
   });
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ SolicitationReportComponent ],
-      imports: [HttpClientTestingModule, LoggerTestingModule],
-      providers: [SolicitationService, NoticeTypesService, Globals], 
-    })
+    declarations: [SolicitationReportComponent],
+    imports: [LoggerTestingModule],
+    providers: [SolicitationService, NoticeTypesService, Globals, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   });
 

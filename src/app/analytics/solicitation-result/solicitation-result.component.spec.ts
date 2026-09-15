@@ -9,11 +9,11 @@ describe('SolicitationResultComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SolicitationResultComponent ],
+      declarations: [SolicitationResultComponent],
       providers: [BaseChartDirective],
       imports: [NgChartsModule]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(SolicitationResultComponent);
     component = fixture.componentInstance;
@@ -46,16 +46,16 @@ describe('SolicitationResultComponent', () => {
       chart.cannotEvaluate,
     ]);
     expect(component.pieChartData.datasets[0].backgroundColor).toEqual([
-      '#2C81C0',
-      '#ff0000',
-      '#e8e8e8',
-      '#FFB300',
+      '#00a91c',
+      '#d54309',
+      '#900973',
+      '#0062FF',
     ]);
     expect(component.pieChartData.datasets[0].borderColor).toEqual([
-      '#2C81C0',
-      '#ff0000',
-      '#e8e8e8',
-      '#FFB300',
+      '#00a91c',
+      '#d54309',
+      '#900973',
+      '#0062FF',
     ]);
     expect(component.hasValue).toBeTrue();
   });
@@ -74,7 +74,7 @@ describe('SolicitationResultComponent', () => {
     expect(component.numNonCompliant).toEqual(0);
     expect(component.numNotApplicable).toEqual(0);
     expect(component.numCannotEvaluate).toEqual(0);
-    
+
   });
 
 });

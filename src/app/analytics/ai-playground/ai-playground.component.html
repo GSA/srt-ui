@@ -1,0 +1,347 @@
+<main id="content" class="bypass-block-target">
+  <div class="pipeline-editor">
+
+    <!-- Header -->
+    <div class="editor-header">
+      <div>
+        <h1 class="editor-header__title">Pipeline Editor</h1>
+        <p class="editor-header__subtitle">Build, configure, and test your SRT analysis pipeline</p>
+      </div>
+      <div class="editor-header__actions">
+        <button class="btn btn--outline" (click)="showPipelineMenu = !showPipelineMenu">
+          <span class="material-symbols-outlined">folder_open</span> Pipelines
+        </button>
+        <button class="btn btn--outline" (click)="showSavePipeline = !showSavePipeline">
+          <span class="material-symbols-outlined">save</span> Save Pipeline
+        </button>
+        <button class="btn btn--outline" (click)="loadDefaultPipeline()">
+          <span class="material-symbols-outlined">restart_alt</span> Reset
+        </button>
+        <button class="btn btn--outline" (click)="showStageLibrary = !showStageLibrary">
+          <span class="material-symbols-outlined">library_add</span> Add Stage
+        </button>
+        <button class="btn btn--primary" (click)="showCreateStage = !showCreateStage">
+          <span class="material-symbols-outlined">add</span> Create Stage
+        </button>
+      </div>
+    </div>
+
+    <!-- Pipeline Load/Save -->
+    @if (showPipelineMenu) {
+      <div class="library-panel">
+        <h3 class="library-panel__title"><span class="material-symbols-outlined">folder_open</span> Saved Pipelines</h3>
+        @if (savedPipelines.length === 0) {
+          <p class="library-panel__empty">No saved pipelines yet. Build one and save it.</p>
+        }
+        @for (p of savedPipelines; track p.template_id) {
+          <div class="library-item">
+            <div class="library-item__info">
+              <span class="library-item__name">{{ p.name }}</span>
+              @if (p.description) { <span class="library-item__desc">{{ p.description }}</span> }
+              <span class="library-item__type">{{ p.stages?.length || '?' }} stages</span>
+            </div>
+            <div class="library-item__actions">
+              <button class="btn btn--small" (click)="loadPipeline(p)">
+                <span class="material-symbols-outlined">download</span> Load
+              </button>
+              <button class="icon-btn icon-btn--danger" (click)="deleteSavedPipeline(p.template_id)">
+                <span class="material-symbols-outlined">delete</span>
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    @if (showSavePipeline) {
+      <div class="create-panel">
+        <h3 class="create-panel__title"><span class="material-symbols-outlined">save</span> Save Current Pipeline</h3>
+        <div class="create-panel__field">
+          <label>Pipeline Name</label>
+          <input type="text" [(ngModel)]="savePipelineName" placeholder="e.g., Standard 508 Review" class="create-panel__input" />
+        </div>
+        <div class="create-panel__field">
+          <label>Description (optional)</label>
+          <input type="text" [(ngModel)]="savePipelineDesc" placeholder="What this pipeline does..." class="create-panel__input" />
+        </div>
+        <div class="create-panel__actions">
+          <button class="btn btn--primary" (click)="saveCurrentPipeline()" [disabled]="!savePipelineName?.trim()">Save</button>
+          <button class="btn btn--outline" (click)="showSavePipeline = false">Cancel</button>
+        </div>
+      </div>
+    }
+
+    <!-- Create Stage Panel -->
+    @if (showCreateStage) {
+      <div class="create-panel">
+        <h3 class="create-panel__title"><span class="material-symbols-outlined">auto_awesome</span> Create New Stage</h3>
+        <div class="create-panel__field">
+          <label>Stage Name</label>
+          <input type="text" [(ngModel)]="newStageName" placeholder="e.g., COTS Detection" class="create-panel__input" />
+        </div>
+        <div class="create-panel__field">
+          <label>Describe what this stage should do (plain English)</label>
+          <textarea [(ngModel)]="newStageDescription" rows="3" placeholder="e.g., I want to know if this solicitation involves commercial off-the-shelf software, how many COTS products are mentioned, and whether VPAT documentation is required..." class="create-panel__textarea"></textarea>
+        </div>
+        <div class="create-panel__actions">
+          <button class="btn btn--generate" (click)="createNewStage()" [disabled]="creatingStage || !newStageDescription?.trim()">
+            @if (creatingStage) {
+              <span class="spinner spinner--small spinner--white"></span> Creating...
+            } @else {
+              <span class="material-symbols-outlined">auto_awesome</span> Create & Save Stage
+            }
+          </button>
+          <button class="btn btn--outline" (click)="showCreateStage = false">Cancel</button>
+        </div>
+      </div>
+    }
+
+    <!-- Stage Library Panel -->
+    @if (showStageLibrary) {
+      <div class="library-panel">
+        <h3 class="library-panel__title"><span class="material-symbols-outlined">library_books</span> Stage Library</h3>
+        @if (savedStages.length === 0) {
+          <p class="library-panel__empty">No saved stages yet. Create one above.</p>
+        }
+        @for (saved of savedStages; track saved.stage_id) {
+          <div class="library-item">
+            <div class="library-item__info">
+              <span class="library-item__name">{{ saved.name }}</span>
+              <span class="library-item__type">{{ saved.type }}</span>
+              @if (saved.user_description) {
+                <span class="library-item__desc">{{ saved.user_description }}</span>
+              }
+            </div>
+            <div class="library-item__actions">
+              <button class="btn btn--small" (click)="addSavedStage(saved)">
+                <span class="material-symbols-outlined">add_circle</span> Add to Pipeline
+              </button>
+              <button class="icon-btn icon-btn--danger" (click)="deleteSavedStage(saved.stage_id)">
+                <span class="material-symbols-outlined">delete</span>
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- Input Section -->
+    <div class="input-section">
+      <h2 class="section-label">Input</h2>
+      <div class="input-row">
+        <div class="file-input-area" (click)="triggerFileInput()">
+          @if (selectedFile) {
+            <span class="material-symbols-outlined">description</span>
+            <span>{{ selectedFile.name }}</span>
+            <button class="remove-btn" (click)="removeFile(); $event.stopPropagation()">✕</button>
+          } @else {
+            <span class="material-symbols-outlined">upload_file</span>
+            <span>Upload document</span>
+          }
+          <input #fileInput type="file" accept=".pdf,.doc,.docx,.txt" (change)="onFileSelected($event)" (click)="$event.stopPropagation()" hidden />
+        </div>
+        <span class="input-or">or</span>
+        <textarea class="text-input" [(ngModel)]="rawText" placeholder="Paste solicitation text..." rows="3"></textarea>
+      </div>
+      @if (parseResult) {
+        <div class="parse-result">
+          <span class="material-symbols-outlined">check_circle</span>
+          Parsed: {{ parseResult.fileName }} — {{ parseResult.charCount | number }} characters
+        </div>
+      }
+    </div>
+
+    <!-- Pipeline Stages -->
+    <div class="section-label-row">
+      <h2 class="section-label">Pipeline Stages</h2>
+      <span class="stage-count">{{ stages.length }} stages</span>
+    </div>
+
+    <div cdkDropList (cdkDropListDropped)="drop($event)" class="stages-list">
+      @for (stage of stages; track stage.id; let i = $index) {
+        <div class="stage-card" cdkDrag [class.stage-card--running]="stage.running" [class.stage-card--done]="stage.output && !stage.error" [class.stage-card--error]="stage.error">
+
+          <!-- Drag Handle -->
+          <div class="stage-card__handle" cdkDragHandle>
+            <span class="material-symbols-outlined">drag_indicator</span>
+          </div>
+
+          <!-- Stage Header -->
+          <div class="stage-card__header" (click)="toggleExpand(stage)">
+            <div class="stage-card__index">{{ i + 1 }}</div>
+            <div class="stage-card__info">
+              <span class="stage-card__name">{{ stage.name }}</span>
+              <span class="stage-card__type">{{ stage.type === 'llm' ? 'LLM Call' : stage.type === 'ml_prediction' ? 'ML Model' : 'ART API' }}</span>
+            </div>
+            <div class="stage-card__status">
+              @if (stage.running) {
+                <span class="spinner"></span>
+              } @else if (stage.output && !stage.error) {
+                <span class="material-symbols-outlined status-done">check_circle</span>
+              } @else if (stage.error) {
+                <span class="material-symbols-outlined status-error">error</span>
+              }
+            </div>
+            <div class="stage-card__actions">
+              <button class="icon-btn icon-btn--run" (click)="runSingleStage(stage); $event.stopPropagation()" title="Run this stage" [disabled]="stage.running">
+                <span class="material-symbols-outlined">play_circle</span>
+              </button>
+              <button class="icon-btn" (click)="generateExamples(stage); $event.stopPropagation()" title="Generate example input/output">
+                <span class="material-symbols-outlined">science</span>
+              </button>
+              <button class="icon-btn" (click)="saveStageToLibrary(stage); $event.stopPropagation()" title="Save to library">
+                <span class="material-symbols-outlined">save</span>
+              </button>
+              <button class="icon-btn" (click)="editStage(stage); $event.stopPropagation()" title="Edit prompt">
+                <span class="material-symbols-outlined">edit</span>
+              </button>
+              <button class="icon-btn icon-btn--danger" (click)="removeStage(i); $event.stopPropagation()" title="Remove stage">
+                <span class="material-symbols-outlined">delete</span>
+              </button>
+              <span class="material-symbols-outlined stage-card__chevron" [class.stage-card__chevron--open]="stage.expanded">expand_more</span>
+            </div>
+          </div>
+
+          <!-- Prompt Editor (inline) -->
+          @if (editingStage === stage) {
+            <div class="stage-editor">
+              <div class="stage-editor__field">
+                <label>Stage Name</label>
+                <input type="text" [(ngModel)]="stage.name" class="stage-editor__input" />
+              </div>
+              <div class="stage-editor__field">
+                <label>Type</label>
+                <select [(ngModel)]="stage.type" class="stage-editor__input">
+                  <option value="llm">LLM Call</option>
+                  <option value="ml_prediction">ML Model (srt-ml)</option>
+                  <option value="art_api">ART API</option>
+                </select>
+              </div>
+              @if (stage.type === 'llm') {
+                <div class="stage-editor__field">
+                  <label>Model</label>
+                  <select [(ngModel)]="stage.model" class="stage-editor__input">
+                    <option value="claude_4_5_sonnet">Claude 4.5 Sonnet</option>
+                    <option value="claude_3_5_haiku">Claude 3.5 Haiku</option>
+                    <option value="claude_3_5_sonnet">Claude 3.5 Sonnet</option>
+                  </select>
+                </div>
+
+                <!-- Plain English Prompt Builder -->
+                <div class="prompt-builder">
+                  <div class="prompt-builder__header">
+                    <span class="material-symbols-outlined">auto_awesome</span>
+                    <span>Describe what you want in plain English</span>
+                  </div>
+                  <textarea [(ngModel)]="stage.userDescription" class="prompt-builder__input" rows="3" placeholder="Example: I want to know the number of findings, a count of 508 matches, and a description of what the solicitation is about..."></textarea>
+                  <button class="btn btn--generate" (click)="generatePrompt(stage)" [disabled]="stage.generatingPrompt || !stage.userDescription?.trim()">
+                    @if (stage.generatingPrompt) {
+                      <span class="spinner spinner--small"></span> Generating...
+                    } @else {
+                      <span class="material-symbols-outlined">auto_awesome</span> Generate Prompt
+                    }
+                  </button>
+                </div>
+
+                <!-- Generated/Editable System Prompt -->
+                @if (stage.systemPrompt) {
+                  <div class="stage-editor__field">
+                    <label>System Prompt <span class="label-hint">(auto-generated — editable by power users)</span></label>
+                    <textarea [(ngModel)]="stage.systemPrompt" class="stage-editor__textarea" rows="10"></textarea>
+                  </div>
+                  <div class="prompt-templates">
+                    <span class="prompt-templates__label">Insert template:</span>
+                    @for (tpl of promptTemplates; track tpl.label) {
+                      <button class="prompt-templates__btn" (click)="insertTemplate(stage, tpl.snippet)">{{ tpl.label }}</button>
+                    }
+                  </div>
+                }
+              }
+              <button class="btn btn--small" (click)="editingStage = null">Done Editing</button>
+            </div>
+          }
+
+          <!-- Input & Output (expanded) -->
+          @if (stage.expanded && (stage.input || stage.output)) {
+            <div class="stage-output">
+              @if (stage.input) {
+                <div class="stage-output__section">
+                  <div class="stage-output__header">
+                    <span class="stage-output__label stage-output__label--input">Input Sent</span>
+                  </div>
+                  <div class="stage-output__body">
+                    @for (key of getOutputKeys(stage.input); track key) {
+                      <div class="output-row output-row--input">
+                        <span class="output-row__key">{{ key }}</span>
+                        <pre class="output-row__value">{{ formatValue(stage.input[key]) }}</pre>
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+              @if (stage.output) {
+                <div class="stage-output__section">
+                  <div class="stage-output__header">
+                    <span class="stage-output__label">Output Received</span>
+                  </div>
+                  <div class="stage-output__body">
+                    @for (key of getOutputKeys(stage.output); track key) {
+                      <div class="output-row">
+                        <span class="output-row__key">{{ key }}</span>
+                        <pre class="output-row__value">{{ formatValue(stage.output[key]) }}</pre>
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+              @if (stage.rawResponse) {
+                <details class="raw-toggle">
+                  <summary>Raw LLM Response</summary>
+                  <pre class="raw-response">{{ stage.rawResponse }}</pre>
+                </details>
+              }
+              @if (stage.metrics) {
+                <div class="metrics-bar">
+                  <span class="metrics-bar__item"><span class="material-symbols-outlined">timer</span> {{ stage.metrics.duration_ms }}ms</span>
+                  <span class="metrics-bar__item"><span class="material-symbols-outlined">smart_toy</span> {{ stage.metrics.model }}</span>
+                  @if (stage.metrics.prompt_tokens_est) {
+                    <span class="metrics-bar__item"><span class="material-symbols-outlined">token</span> ~{{ stage.metrics.prompt_tokens_est }} in / ~{{ stage.metrics.response_tokens_est }} out</span>
+                  }
+                </div>
+              }
+            </div>
+          }
+
+          <!-- Chain indicator -->
+          @if (i < stages.length - 1) {
+            <div class="chain-arrow">
+              <span class="material-symbols-outlined">arrow_downward</span>
+              <span class="chain-arrow__label">output → next input</span>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Run Button -->
+    <div class="run-section">
+      <button class="btn btn--run" [disabled]="isRunning || (!selectedFile && (!rawText || rawText.length < 10))" (click)="runPipeline()">
+        @if (isRunning) {
+          <span class="spinner spinner--white"></span> Running Pipeline...
+        } @else {
+          <span class="material-symbols-outlined">play_arrow</span> Run Pipeline
+        }
+      </button>
+      @if (pipelineComplete) {
+        <button class="btn btn--outline" (click)="resetPipeline()">
+          <span class="material-symbols-outlined">refresh</span> Clear Results
+        </button>
+      }
+    </div>
+
+    @if (errorMessage) {
+      <div class="error-banner">{{ errorMessage }}</div>
+    }
+
+  </div>
+</main>

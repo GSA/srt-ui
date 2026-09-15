@@ -4,9 +4,10 @@ import { SolicitationService } from '../solicitation.service';
 import {BaseComponent} from '../../base.component';
 import {Title} from '@angular/platform-browser';
 @Component({
-  selector: 'app-feedback-report',
-  templateUrl: './feedback-report.component.html',
-  styleUrls: ['./feedback-report.component.scss']
+    selector: 'app-feedback-report',
+    templateUrl: './feedback-report.component.html',
+    styleUrls: ['./feedback-report.component.scss'],
+    standalone: false
 })
 export class FeedbackReportComponent extends BaseComponent implements OnInit {
 

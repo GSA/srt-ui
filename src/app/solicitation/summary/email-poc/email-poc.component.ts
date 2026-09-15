@@ -9,14 +9,15 @@ import { Email } from './email';
 import { environment } from '../../../../environments/environment';
 
 import { htmlToPlainText } from '../../../shared/textversion';
-import * as moment from 'moment';
-import * as $ from 'jquery';
+import moment from 'moment';
+import $ from 'jquery';
 
 
 @Component({
   selector: 'app-email-poc',
   templateUrl: './email-poc.component.html',
-  styleUrls: ['./email-poc.component.scss']
+  styleUrls: ['./email-poc.component.scss'],
+  standalone: false
 })
 export class EmailPocComponent implements OnInit {
 
@@ -81,47 +82,47 @@ export class EmailPocComponent implements OnInit {
                 }
               });
             } else {
-              console.log ('Error processing parse status for solicitation ' + data.solNum);
-              data.parseStatus = [{formattedDate: '', postedDate: null, name: '', status: '', attachment_url: ''}];
+              console.log('Error processing parse status for solicitation ' + data.solNum);
+              data.parseStatus = [{ formattedDate: '', postedDate: null, name: '', status: '', attachment_url: '' }];
             }
-            this.emailSent = data.history.filter(function(e){return ((e['action'].indexOf('sent email to POC') > -1) ); }).length > 0;
+            this.emailSent = data.history.filter(function (e) { return ((e['action'].indexOf('sent email to POC') > -1)); }).length > 0;
             this.emailTo = data.contactInfo.join(', '); // "crowley+srttestemail@tcg.com";
             this.emailCC = localStorage.getItem('email');
             this.subject = 'Section 508 Requirements Assessment of ' + data.solNum + ', reviewed on ' + now;
             this.epaSubject = 'EPA Requirements Assessment of ' + data.solNum + ', reviewed on ' + now;
             this.emailBody =
-                  '<p>Solicitation Title: ' + data.title  + '</p>' +
-                  '<p>Link: ' + '<a href=' + data.url + '>' + data.url + '</a></p>' +
-                  '<br>' +
+              '<p>Solicitation Title: ' + data.title + '</p>' +
+              '<p>Link: ' + '<a href=' + data.url + '>' + data.url + '</a></p>' +
+              '<br>' +
 
-                  '<p>Dear Acquisition Professional:</p>' +
-                  '<br>' +
+              '<p>Dear Acquisition Professional:</p>' +
+              '<br>' +
 
-                  '<p>You are receiving this letter as the point of contact for the ' +
-                  'solicitation referenced above. The GSA Solicitation Review Tool (SRT) has flagged ' +
-                  'your solicitation because Section 508 requires that any ICT that is developed, procured, ' +
-                  'maintained, or used by the Federal government conform to the Section 508 Standards. This means that ' +
-                  'Section 508 technical criteria MUST be included in the requirements document in ' +
-                  'order to inform the vendor  of the Section 508 deliverables to meet the ' +
-                  'contractual requirements.\n</p>' +
-                  '<br>' +
-                  '<p>To assist your efforts in addressing Section 508, please refer ' +
-                  'to the <a href="https://www.access-board.gov/guidelines-and-standards">Section 508 ' +
-                  'guidelines and standards.</a> GSA also provides free tools and ' +
-                  'resources to assist with generating accessibility requirements. ' +
-                  'The <a href="https://buyaccessible.gov/">Accessibility Requirement Tool</a> ' +
-                  'is a web-based tool that guides users through the process of gathering ' +
-                  'Section 508 requirements for ICT procurements and provides documentation ' +
-                  'of due diligence.</p>' +
-                  '<br>' +
-                  '<p>For additional assistance with Section 508 requirements or concerns ' +
-                  'about the assessment of this solicitation, please reach out to the Section 508 ' +
-                  'Coordinator or contact us at srt@gsa.gov.</p>' +
-                  '<br>' +
-                  '<p>Sincerely</p>' +
-                  '<br>' +
-                  '<p>Section 508 Program Manager';
-            this.epaEmailBody = '<p>Solicitation Title: ' + data.title  + '</p>' +
+              '<p>You are receiving this letter as the point of contact for the ' +
+              'solicitation referenced above. The GSA Solicitation Review Tool (SRT) has flagged ' +
+              'your solicitation because Section 508 requires that any ICT that is developed, procured, ' +
+              'maintained, or used by the Federal government conform to the Section 508 Standards. This means that ' +
+              'Section 508 technical criteria MUST be included in the requirements document in ' +
+              'order to inform the vendor  of the Section 508 deliverables to meet the ' +
+              'contractual requirements.\n</p>' +
+              '<br>' +
+              '<p>To assist your efforts in addressing Section 508, please refer ' +
+              'to the <a href="https://www.access-board.gov/guidelines-and-standards">Section 508 ' +
+              'guidelines and standards.</a> GSA also provides free tools and ' +
+              'resources to assist with generating accessibility requirements. ' +
+              'The <a href="https://buyaccessible.gov/">Accessibility Requirement Tool</a> ' +
+              'is a web-based tool that guides users through the process of gathering ' +
+              'Section 508 requirements for ICT procurements and provides documentation ' +
+              'of due diligence.</p>' +
+              '<br>' +
+              '<p>For additional assistance with Section 508 requirements or concerns ' +
+              'about the assessment of this solicitation, please reach out to the Section 508 ' +
+              'Coordinator or contact us at srt@gsa.gov.</p>' +
+              '<br>' +
+              '<p>Sincerely</p>' +
+              '<br>' +
+              '<p>Section 508 Program Manager';
+            this.epaEmailBody = '<p>Solicitation Title: ' + data.title + '</p>' +
               '<p>Link: ' + '<a href=' + data.url + '>' + data.url + '</a></p>' +
               '<br>' +
               '<p>Dear Acquisition Professional:</p>' +
@@ -148,22 +149,22 @@ export class EmailPocComponent implements OnInit {
             this.myForm.controls['epa_message'].setValue(this.epaEmailBody);
           },
           error: err => console.log(err)
+        });
       });
-      });
-      this.emailCC = localStorage.getItem('email');
-      this.myForm = new FormGroup({
-        emailTo: new FormControl('crowley+srttestemail@tcg.com', Validators.required),
-        emailCC: new FormControl(this.emailCC , Validators.required),
-        subject: new FormControl(this.subject, Validators.required),
-        epaSubject: new FormControl(this.epaSubject, Validators.required),
-        it_message: new FormControl(this.emailBody, Validators.required),
-        epa_message: new FormControl(this.epaEmailBody, Validators.required)
-      });
+    this.emailCC = localStorage.getItem('email');
+    this.myForm = new FormGroup({
+      emailTo: new FormControl('crowley+srttestemail@tcg.com', Validators.required),
+      emailCC: new FormControl(this.emailCC, Validators.required),
+      subject: new FormControl(this.subject, Validators.required),
+      epaSubject: new FormControl(this.epaSubject, Validators.required),
+      it_message: new FormControl(this.emailBody, Validators.required),
+      epa_message: new FormControl(this.epaEmailBody, Validators.required)
+    });
 
   }
 
   emailError(to) {
-    alert (`There was a problem sending an email message to ${to}. Please try again later or contact srt@gsa.gov to report the issue.`);
+    alert(`There was a problem sending an email message to ${to}. Please try again later or contact srt@gsa.gov to report the issue.`);
   }
 
   clientEmail(emailTo, subject, body, from, cc) {
@@ -175,12 +176,12 @@ export class EmailPocComponent implements OnInit {
 
     emailTo = encodeURI(emailTo);
     subject = encodeURI(subject);
-    body = encodeURI( htmlToPlainText(body) );
+    body = encodeURI(htmlToPlainText(body));
     cc = encodeURI(cc);
 
     // if we are on dev/local and the email address ends in nospam,
     // give a chance for a simulated error
-    if ( simulateError ) {
+    if (simulateError) {
       this.emailError(emailTo);
       return;
     }
@@ -200,7 +201,8 @@ export class EmailPocComponent implements OnInit {
         },
         error: err => {
           this.emailError(this.myForm.value.emailTo);
-        }});
+        }
+      });
   }
 
   emailSuccess() {
@@ -208,7 +210,7 @@ export class EmailPocComponent implements OnInit {
     const now = moment().format('MM/DD/YYYY');
 
     const user = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
-    this.solicitation.history.push({'date': now, 'action': 'sent email to POC', 'user': user , 'status' : 'Email Sent to POC'});
+    this.solicitation.history.push({ 'date': now, 'action': 'sent email to POC', 'user': user, 'status': 'Email Sent to POC' });
     this.emailSent = true;
     this.solicitationService.updateHistory(this.solicitation)
       .subscribe({
@@ -217,7 +219,8 @@ export class EmailPocComponent implements OnInit {
         },
         error: err => {
           console.log(`Error updating history -- ${err}`)
-        }});
+        }
+      });
   }
 
   copyText(field) {
@@ -251,14 +254,14 @@ export class EmailPocComponent implements OnInit {
 
   }
 
-    skiptext(event) {
-      if (event.keyCode === 9) {
-        $('#btn').focus();
-      }
+  skiptext(event) {
+    if (event.keyCode === 9) {
+      $('#btn').focus();
     }
+  }
 
-    selectLanguage(event) {
-      this.templateToShow = event.value;
-    }
+  selectLanguage(event) {
+    this.templateToShow = event.value;
+  }
 
 }

@@ -3,9 +3,10 @@ import {FeedbackReportService} from './feedback-report.service';
 
 
 @Component({
-  selector: 'app-admin-feedback',
-  templateUrl: './feedback-report-table.component.html',
-  styleUrls: ['./feedback-report-table.component.scss']
+    selector: 'app-admin-feedback',
+    templateUrl: './feedback-report-table.component.html',
+    styleUrls: ['./feedback-report-table.component.scss'],
+    standalone: false
 })
 export class FeedbackReportTableComponent implements OnInit {
 

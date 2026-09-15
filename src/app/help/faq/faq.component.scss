@@ -25,11 +25,17 @@
 /* Sidenav link styling */
 .sidenav-link {
   display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
   color: #205493;
   text-decoration: none;
   padding: 0.5rem 0;
   font-size: 1.1rem;
   font-weight: 500;
+  font-family: inherit;
   transition: color 0.2s ease;
 }
 
@@ -58,12 +64,13 @@
   border-bottom-right-radius: 0.3125rem;
   width: 4.6875rem;
   background-color: #205493;
-  border-color: #205493;
+  border: 0.0625rem solid #205493;
   color: white;
   font-size: 1.25rem;
   font-weight: 500;
   height: 2.8125rem;
   text-align: center;
+  cursor: pointer;
 }
 
 /* Custom accordion button styling */
@@ -135,4 +142,19 @@
 /* Remove margin from last accordion item in a section */
 .faq-section .usa-accordion__item:last-child {
   margin-bottom: 0;
+}
+
+/* ── Visible focus indicators for keyboard navigation (WCAG 2.4.7) ── */
+.sidenav-link:focus-visible,
+.search-button:focus-visible,
+.search-input:focus-visible,
+.custom-accordion-button:focus-visible {
+  outline: 3px solid #ffbe2e;
+  outline-offset: 2px;
+  z-index: 1;
+}
+
+/* Ensure the FAQ page-heading banner contrast meets AA — slight darken */
+.usa-banner.bg-primary-dark {
+  background-color: #112e51 !important; /* USWDS primary dark, ~14:1 vs white */
 }

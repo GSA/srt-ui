@@ -1,16 +1,17 @@
-import { Component, OnInit, Input, ViewChild} from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { getChartLabelPlugin, PLUGIN_ID } from 'chart.js-plugin-labels-dv';
 
 @Component({
-  selector: 'app-solicitation-result',
-  templateUrl: './solicitation-result.component.html',
-  styleUrls: ['./solicitation-result.component.scss']
+    selector: 'app-solicitation-result',
+    templateUrl: './solicitation-result.component.html',
+    styleUrls: ['./solicitation-result.component.scss'],
+    standalone: false
 })
 export class SolicitationResultComponent {
 
   @Input() SolicitationResultChart;
-  @ViewChild(BaseChartDirective, {static: false}) private baseChart;
+  @ViewChild(BaseChartDirective, { static: false }) private baseChart;
 
   public displayCompliance = '';
   public displayUncompliance = '';
@@ -46,10 +47,10 @@ export class SolicitationResultComponent {
         textMargin: 6,
       },
       legend: {
-          display: true,
-          position: 'bottom',
-          onClick: function() {
-          }
+        display: true,
+        position: 'bottom',
+        onClick: function () {
+        }
       }
     },
     maintainAspectRatio: false,
@@ -59,12 +60,12 @@ export class SolicitationResultComponent {
   /**
    * constructor
    */
-  constructor( ) { }
+  constructor() { }
 
   /**
    * lifecycle
    */
-  ngOnInit() {}
+  ngOnInit() { }
 
   /**
    * lifecycle
@@ -79,14 +80,14 @@ export class SolicitationResultComponent {
       this.numNotApplicable = this.SolicitationResultChart.notApplicable || 0;
       this.numCannotEvaluate = this.SolicitationResultChart.cannotEvaluate || 0;
 
-      
+
       this.pieChartData = {
         labels: this.pieChartLabels,
 
         datasets: [{
-          data: [this.numCompliant, this.numNonCompliant, this.numNotApplicable, this.numCannotEvaluate], 
-          backgroundColor: ['#2C81C0', '#ff0000', '#e8e8e8', '#FFB300'], 
-          borderColor: ['#2C81C0', '#ff0000', '#e8e8e8','#FFB300']
+          data: [this.numCompliant, this.numNonCompliant, this.numNotApplicable, this.numCannotEvaluate],
+          backgroundColor: ['#00a91c', '#d54309', '#900973', '#0062FF'],
+          borderColor: ['#00a91c', '#d54309', '#900973', '#0062FF']
         }]
       };
 
@@ -98,7 +99,7 @@ export class SolicitationResultComponent {
   // refresh the charts
   forceChartRefresh() {
     setTimeout(() => {
-        this.baseChart.update();
+      this.baseChart.update();
     }, 10);
   }
 

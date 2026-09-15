@@ -1,12 +1,13 @@
-<div class="button-container">
-  <div class="login-container">
-    <span class="login-text">Sign in with:</span>
-    <a class="login-image" href="javascript:void(0);" (click)="loginWithLoginGov()">
-      <img src="assets/login-gov-logo.svg" alt="Login.gov">
-    </a>
-  </div>
-  <!-- Conditionally show the Login as DEV button only in development environment -->
-  <button *ngIf="is_dev" class="usa-button dev-button" aria-label="Login as Dev" (click)="loginAsDev()">
-    Login as DEV
+<div class="userlogin-actions">
+  <button class="login-gov-btn" (click)="loginWithLoginGov()">
+    <span class="material-symbols-outlined" aria-hidden="true">login</span>
+    Sign in with Login.gov
   </button>
+
+  @if (is_dev) {
+    <button class="dev-login-btn" (click)="loginAsDev()">
+      <span class="material-symbols-outlined" aria-hidden="true">developer_mode</span>
+      Login as DEV
+    </button>
+  }
 </div>

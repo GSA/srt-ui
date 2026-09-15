@@ -1,0 +1,97 @@
+
+> srt@1.8.2 dev
+> ng serve  --disable-host-check --host 0.0.0.0 --watch --configuration=local
+
+Prebundling has been configured but will not be used because scripts optimization is enabled.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+The "disableHostCheck" option will not be used because it is not supported by the "@angular-devkit/build-angular:application" builder.
+❯ Building...
+One or more browsers which are configured in the project's Browserslist configuration will be ignored as ES5 output is not supported by the Angular CLI.
+Ignored browsers:
+kaios 2.5, op_mini all
+One or more browsers which are configured in the project's Browserslist configuration fall outside Angular's browser support for this version.
+Unsupported browsers:
+and_qq 14.9, and_uc 15.5, android 145, chrome 109, kaios 3.0-3.1, op_mob 80, opera 125, opera 124, samsung 29, samsung 28
+✔ Building...
+Initial chunk files | Names         |  Raw size | Estimated transfer size
+main.js             | main          |   2.67 MB |               583.64 kB
+styles.css          | styles        | 802.47 kB |                64.84 kB
+scripts.js          | scripts       | 163.46 kB |                48.35 kB
+polyfills.js        | polyfills     |  66.73 kB |                18.73 kB
+chunk-YOJKCELP.js   | -             |  22.01 kB |                 7.23 kB
+
+                    | Initial total |   3.73 MB |               722.78 kB
+
+Lazy chunk files    | Names         |  Raw size | Estimated transfer size
+chunk-YFC2IJTX.js   | quill         | 184.29 kB |                47.05 kB
+
+Application bundle generation complete. [7.398 seconds] - 2026-03-22T19:01:05.567Z
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mModule 'quill-delta' used by 'node_modules/quill/core.js' is not ESM[0m
+
+  CommonJS or AMD dependencies can cause optimization bailouts.
+  For more information see: [4mhttps://angular.dev/tools/cli/build#configuring-commonjs-dependencies[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mModule '@uswds/uswds/js/usa-file-input' used by 'src/app/home/home/home.component.ts' is not ESM[0m
+
+  CommonJS or AMD dependencies can cause optimization bailouts.
+  For more information see: [4mhttps://angular.dev/tools/cli/build#configuring-commonjs-dependencies[0m
+
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+One or more browsers which are configured in the project's Browserslist configuration will be ignored as ES5 output is not supported by the Angular CLI.
+Ignored browsers:
+kaios 2.5, op_mini all
+One or more browsers which are configured in the project's Browserslist configuration fall outside Angular's browser support for this version.
+Unsupported browsers:
+and_qq 14.9, and_uc 15.5, android 145, chrome 109, kaios 3.0-3.1, op_mob 80, opera 125, opera 124, samsung 29, samsung 28
+  ➜  Local:   http://localhost:4200/
+  ➜  Network: http://192.168.40.8:4200/
+  ➜  press h + enter to show help
+❯ Changes detected. Rebuilding...
+One or more browsers which are configured in the project's Browserslist configuration will be ignored as ES5 output is not supported by the Angular CLI.
+Ignored browsers:
+kaios 2.5, op_mini all
+One or more browsers which are configured in the project's Browserslist configuration fall outside Angular's browser support for this version.
+Unsupported browsers:
+and_qq 14.9, and_uc 15.5, android 145, chrome 109, kaios 3.0-3.1, op_mob 80, opera 125, opera 124, samsung 29, samsung 28
+✔ Changes detected. Rebuilding...
+
+No output file changes.
+
+Application bundle generation complete. [3.281 seconds] - 2026-03-22T19:01:09.211Z
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mModule 'quill-delta' used by 'node_modules/quill/core.js' is not ESM[0m
+
+  CommonJS or AMD dependencies can cause optimization bailouts.
+  For more information see: [4mhttps://angular.dev/tools/cli/build#configuring-commonjs-dependencies[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mModule '@uswds/uswds/js/usa-file-input' used by 'src/app/home/home/home.component.ts' is not ESM[0m
+
+  CommonJS or AMD dependencies can cause optimization bailouts.
+  For more information see: [4mhttps://angular.dev/tools/cli/build#configuring-commonjs-dependencies[0m
+
+
+Page reload sent to client(s).
+2:03:25 PM [vite] (client) warning: 
+/Users/collinschreyer/GSA/srt-ui/.angular/vite-root/srt/main.js
+397 |  
+398 |  (h) Compliance Verification: The Government reserves the right to conduct independent accessibility testing of all IC...
+399 |  ...ull,function*(){return this.#o?this.#o:(yield import(this.workerSrc)).WorkerMessageHandler}))}},P5=class{#e=new Ma...
+    |                                                          ^^^^^^^^^^^^^^
+400 |  `)||null;a&&this.data.comb&&(a=a.replaceAll(/\s+/g,""));let c={userValue:o,formattedValue:a,lastCommittedValue:null,c...
+401 |  `))e.push({name:"span",value:o,attributes:r});return i}_formatContents({str:n,dir:e}){let i=document.createElement("p...
+The above dynamic import cannot be analyzed by Vite.
+See https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#limitations for supported dynamic import formats. If this is intended to be left as-is, you can use the /* @vite-ignore */ comment inside the import() call to suppress this warning.
+
+  Plugin: vite:import-analysis
+  File: /Users/collinschreyer/GSA/srt-ui/.angular/vite-root/srt/main.js
+Request for HTML file "/version.html?timestamp=1774206205626" was received but no asset found. Asset may be missing from build.
+Request for HTML file "/version.html?timestamp=1774206243832" was received but no asset found. Asset may be missing from build.
+Request for HTML file "/version.html?timestamp=1774206264560" was received but no asset found. Asset may be missing from build.
+Request for HTML file "/version.html?timestamp=1774206296684" was received but no asset found. Asset may be missing from build.
+Request for HTML file "/version.html?timestamp=1774206352469" was received but no asset found. Asset may be missing from build.
+Request for HTML file "/version.html?timestamp=1774207047000" was received but no asset found. Asset may be missing from build.

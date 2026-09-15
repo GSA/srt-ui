@@ -1,0 +1,111 @@
+/* Tooltip styles */
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-trigger {
+    cursor: help;
+    outline-offset: 2px;
+    color: #2491ff;
+}
+
+.tooltip-trigger:focus {
+    outline: 2px solid #2491ff;
+    border-radius: 2px;
+}
+
+.tooltip-trigger:hover {
+    color: #1a7ec8;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #212121;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 9999;
+    width: 300px;
+    white-space: normal;
+    line-height: 1.4;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #212121 transparent transparent transparent;
+}
+
+.tooltip-text.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Additional hover support for tooltips */
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .feedback-container {
+        padding: 0 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .tooltip-text {
+        width: 250px;
+        font-size: 13px;
+    }
+}
+
+/* Ensure tooltip works well on mobile/touch devices */
+@media (hover: none) {
+    .tooltip-trigger:focus~.tooltip-text {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .tooltip-container:hover .tooltip-text {
+        visibility: hidden;
+        opacity: 0;
+    }
+}
+
+/* Accessibility improvements */
+.tooltip-trigger:focus-visible {
+    outline: 3px solid #2491ff;
+    outline-offset: 3px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .tooltip-text {
+        background-color: black;
+        border: 2px solid white;
+    }
+
+    .tooltip-trigger:focus {
+        outline: 3px solid white;
+    }
+}

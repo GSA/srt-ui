@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import * as moment from 'moment';
+import moment from 'moment';
 
 // Service
 import { SolicitationService } from '../../solicitation.service';
@@ -13,7 +13,8 @@ import { Solicitation } from '../../../shared/solicitation';
 @Component({
   selector: 'app-prediction-history',
   templateUrl: './prediction-history.component.html',
-  styleUrls: ['./prediction-history.component.scss']
+  styleUrls: ['./prediction-history.component.scss'],
+  standalone: false
 })
 export class PredictionHistoryComponent implements OnInit {
 
@@ -42,15 +43,15 @@ export class PredictionHistoryComponent implements OnInit {
 
   ngOnInit() {
     this.subscription = this.route.params.subscribe((params: any) => {
-        this.solicitationID = params['id'];
-        this.solicitationService.getSolicitation(this.solicitationID).subscribe(
-          data => {
-            this.predictionHistory = data.predictions.history;
-            for (const entry of this.predictionHistory.reverse()) {
-              entry.date = moment(entry.date).format('MM/DD/YYYY');
-            }
-          });
-      });
+      this.solicitationID = params['id'];
+      this.solicitationService.getSolicitation(this.solicitationID).subscribe(
+        data => {
+          this.predictionHistory = data.predictions.history;
+          for (const entry of this.predictionHistory.reverse()) {
+            entry.date = moment(entry.date).format('MM/DD/YYYY');
+          }
+        });
+    });
   }
 
 }

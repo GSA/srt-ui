@@ -16,16 +16,26 @@
           <h2 class="font-heading-xl margin-bottom-2">
             Prediction History
           </h2>
-          
+
           <!-- List using USWDS list styles -->
-          <ul *ngIf="predictionHistory" class="usa-list usa-list--unstyled">
-            <li *ngFor="let entry of predictionHistory" class="margin-y-1">
-              {{entry.date}} -
-              <span *ngIf="entry.value == 'red'" class="text-bold text-secondary-dark">Non-Compliant</span>
-              <span *ngIf="entry.value == 'green'" class="text-bold text-success">Compliant</span>
-              <span *ngIf="entry.value != 'green' && entry.value != 'red'" class="text-bold">{{entry.value}}</span>
-            </li>
-          </ul>
+          @if (predictionHistory) {
+            <ul class="usa-list usa-list--unstyled">
+              @for (entry of predictionHistory; track entry) {
+                <li class="margin-y-1">
+                  {{entry.date}} -
+                  @if (entry.value == 'red') {
+                    <span class="text-bold text-secondary-dark">Non-Compliant</span>
+                  }
+                  @if (entry.value == 'green') {
+                    <span class="text-bold text-success">Compliant</span>
+                  }
+                  @if (entry.value != 'green' && entry.value != 'red') {
+                    <span class="text-bold">{{entry.value}}</span>
+                  }
+                </li>
+              }
+            </ul>
+          }
         </div>
       </div>
     </div>

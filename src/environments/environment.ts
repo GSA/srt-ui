@@ -1,6 +1,8 @@
 export const environment = {
   production: false,
-  SERVER_URL: "https://srt-server.app.cloud.gov/api",
+  // Local dev now points at the DEV API (was srt-server.app.cloud.gov — PROD!)
+  // so local testing exercises dev data, incl. the new My Drafts feature.
+  SERVER_URL: "https://srt-server-dev.app.cloud.gov/api",
   EMAIL_NOTIFICATION: true,
   FILE_UPLOAD_API: "http://srt-server.app.cloud.gov/file/upload",
   ART_API_SERVER:'https://art-api.app.cloud.gov',
