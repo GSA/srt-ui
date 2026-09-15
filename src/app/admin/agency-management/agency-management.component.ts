@@ -54,6 +54,9 @@ export class AgencyManagementComponent implements OnInit {
 
   agencies: AgencyRow[] = [];
   agencyTypes: string[] = [];
+  /** Which categories may stand alone. Comes from the API so this screen and
+   *  the server cannot disagree about it. */
+  topLevelTypes: string[] = [];
   pending: PendingDomain[] = [];
 
   loading = false;
@@ -132,6 +135,7 @@ export class AgencyManagementComponent implements OnInit {
       next: (data) => {
         this.agencies = data.agencies || [];
         this.agencyTypes = data.agencyTypes || [];
+        this.topLevelTypes = data.topLevelTypes || [];
         this.loading = false;
       },
       error: (err) => {
@@ -341,8 +345,24 @@ export class AgencyManagementComponent implements OnInit {
     return [...this.agencies].sort((x, y) => x.agency.localeCompare(y.agency));
   }
 
+  /**
+   * Display names for the categories. Underscore-stripping alone produced
+   * "personal", which does not say what filing something there means.
+   * Anything not listed falls back to the old behaviour, so a category added
+   * on the server still reads sensibly here before this map catches up.
+   */
+  private static readonly TYPE_LABELS: { [key: string]: string } = {
+    federal_agency: 'federal agency',
+    federal_component: 'federal component',
+    state_local: 'state or local',
+    education: 'education',
+    personal: 'personal / non-government',
+    other: 'other',
+    needs_review: 'needs review'
+  };
+
   typeLabel(t: string): string {
-    return (t || '').replace(/_/g, ' ');
+    return AgencyManagementComponent.TYPE_LABELS[t] || (t || '').replace(/_/g, ' ');
   }
 
   /** Access is the interesting case when it is more than the agency itself. */
@@ -517,7 +537,15 @@ export class AgencyManagementComponent implements OnInit {
 
   /** A component needs a parent; only real top-level types may stand alone. */
   get createNeedsParent(): boolean {
-    return !['federal_agency', 'state_local', 'education', 'other'].includes(this.newAgency.agencyType);
+    if (!this.topLevelTypes.length) { return false; }
+    return !this.topLevelTypes.includes(this.newAgency.agencyType);
+  }
+
+  /** The top-level categories, read out for the create form's hint. */
+  get topLevelTypeList(): string {
+    const names = this.topLevelTypes.map(t => this.typeLabel(t));
+    if (names.length < 2) { return names[0] || ''; }
+    return names.slice(0, -1).join(', ') + ' or ' + names[names.length - 1];
   }
 
   get createDisabled(): boolean {

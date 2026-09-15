@@ -98,8 +98,8 @@
         </div>
         @if (createNeedsParent) {
           <p class="agency-hint">
-            A {{ typeLabel(newAgency.agencyType) }} sits under a parent. Only a federal agency,
-            state or local body, educational institution, or other organisation can be top level.
+            A {{ typeLabel(newAgency.agencyType) }} sits under a parent.
+            Only {{ topLevelTypeList }} can be top level.
           </p>
         }
         <div class="agency-create__actions">

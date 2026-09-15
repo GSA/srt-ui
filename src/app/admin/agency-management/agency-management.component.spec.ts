@@ -150,6 +150,48 @@ describe('AgencyManagementComponent hierarchy ordering', () => {
  * hundred rows, and the screen is only usable if an administrator can get to
  * the handful that need a decision. These cover the shortcuts that do that.
  */
+/**
+ * Categories. Sign-ups from gmail and the like had nowhere to go, so they sat
+ * in needs_review next to genuine agencies. The "personal" category gives them
+ * a home and makes them selectable as a group.
+ */
+describe('AgencyManagementComponent agency categories', () => {
+  let component: AgencyManagementComponent;
+  beforeEach(() => { component = new AgencyManagementComponent(null as any); });
+
+  it('names the personal category in a way that says what it means', () => {
+    // 'personal' on its own does not tell an administrator what filing a
+    // domain there does.
+    expect(component.typeLabel('personal')).toBe('personal / non-government');
+    expect(component.typeLabel('state_local')).toBe('state or local');
+  });
+
+  it('falls back to underscore stripping for a category it has no label for', () => {
+    // The server owns the list, so the screen must stay readable if a category
+    // is added there before this map catches up.
+    expect(component.typeLabel('brand_new_kind')).toBe('brand new kind');
+  });
+
+  it('takes the top-level categories from the server rather than its own copy', () => {
+    component.topLevelTypes = ['federal_agency', 'personal'];
+    component.newAgency.agencyType = 'personal';
+    expect(component.createNeedsParent).toBeFalsy();
+    component.newAgency.agencyType = 'federal_component';
+    expect(component.createNeedsParent).toBeTruthy();
+  });
+
+  it('does not demand a parent before the server has said which types are top level', () => {
+    component.topLevelTypes = [];
+    component.newAgency.agencyType = 'federal_agency';
+    expect(component.createNeedsParent).toBeFalsy();
+  });
+
+  it('reads the top-level list out for the create form hint', () => {
+    component.topLevelTypes = ['federal_agency', 'personal', 'other'];
+    expect(component.topLevelTypeList).toBe('federal agency, personal / non-government or other');
+  });
+});
+
 describe('AgencyManagementComponent triage', () => {
   let component: AgencyManagementComponent;
 
