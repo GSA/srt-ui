@@ -2,7 +2,8 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScannedSolicitationComponent } from './scanned-solicitation.component';
 import { AnalyticsService } from '../services/analytics.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ScannedSolicitationComponent', () => {
   let component: ScannedSolicitationComponent;
@@ -10,10 +11,10 @@ describe('ScannedSolicitationComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScannedSolicitationComponent ],
-      providers: [AnalyticsService],
-      imports: [HttpClientTestingModule]
-    })
+    declarations: [ScannedSolicitationComponent],
+    imports: [],
+    providers: [AnalyticsService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 

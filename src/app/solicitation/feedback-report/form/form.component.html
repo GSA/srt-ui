@@ -1,38 +1,45 @@
 <!-- <a [routerLink]="['/solicitation/report/', solicitation._id]">{{solicitation.title}}</a> -->
-<div class="container">
+<main id="content" class="bypass-block-target container">
   <div class="clearfix impcontainer pt-3">
     <div class="imppostion">
-      <div class="pb-3">
+      <h1 class="srt-page-title srt-title-padding">Feedback Detail</h1>
+      <dl class="pb-3 feedback-meta">
         <div class="list">
-          <div class="list-title" style="width: 120px">Solicitation Title:&nbsp;</div>
-          <div class="list-content">{{title}}</div>
+          <dt class="list-title" style="width: 120px">Solicitation Title:&nbsp;</dt>
+          <dd class="list-content">{{title}}</dd>
         </div>
         <div class="list">
-          <div class="list-title" style="width: 142px">Solicitation Number:&nbsp;</div>
-          <div class="list-content">{{this.solNum}}</div>
+          <dt class="list-title" style="width: 142px">Solicitation Number:&nbsp;</dt>
+          <dd class="list-content">{{this.solNum}}</dd>
         </div>
         <div class="list">
-          <div class="list-title" style="width: 142px">Submitter:&nbsp;</div>
-          <div class="list-content">{{submitter}}</div>
+          <dt class="list-title" style="width: 142px">Submitter:&nbsp;</dt>
+          <dd class="list-content">{{submitter}}</dd>
         </div>
         <div class="list">
-          <div class="list-title" style="width: 142px">Submission Date: </div>
-          <div class="list-content">{{date}}</div>
+          <dt class="list-title" style="width: 142px">Submission Date: </dt>
+          <dd class="list-content">{{date}}</dd>
         </div>
-      </div>
+      </dl>
 
 
       <table class="table table-bordered">
+        <caption class="usa-sr-only">Feedback questions and the submitter's answers.</caption>
+        <thead>
         <tr>
           <th scope="col">Question</th>
           <th scope="col">Answer</th>
         </tr>
-
-        <tr *ngFor="let item of feedback">
-          <td style="font-weight: 800">{{item.question}}<br><span style="color: #899197">{{item.note}}</span></td>
-          <td>{{item.answer}}</td>
-        </tr>
+        </thead>
+        <tbody>
+        @for (item of feedback; track item) {
+          <tr>
+            <td style="font-weight: 800">{{item.question}}<br><span class="feedback-note">{{item.note}}</span></td>
+            <td>{{item.answer}}</td>
+          </tr>
+        }
+        </tbody>
       </table>
     </div>
   </div>
-</div>
+</main>

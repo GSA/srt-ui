@@ -1,161 +1,1097 @@
-<!-- /home -->
+<main id="content" class="bypass-block-target srt-home">
 
-<main id="content" class="bypass-block-target">
-  
-<section class="usa-hero" aria-label="Introduction">
-  <div class="grid-container">
-    <div class="usa-hero__callout">
-      <h1 class="usa-hero__heading">
-        Solicitation Review Tool
-      </h1>
-      <p class="usa-hero__overlay">
-        The Solicitation Review Tool (SRT) is provided to help agencies evaluate the overall solicitation compliance with accessibility, cyber security, and other regulations and requirements.
-      </p>
+  <!-- Screen-reader status announcer: tells assistive tech when analysis
+       starts, finishes, or fails without reading the whole results region. -->
+  <div class="sr-only" role="status" aria-live="assertive" aria-atomic="true">{{ srStatus }}</div>
+
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <div class="hero-banner__inner">
+      <div class="hero-banner__text">
+        <h1 class="hero-banner__heading">Solicitation Review Tool 2.0</h1>
+        <p class="hero-banner__subtext">Instantly assess federal solicitations for inclusion of relevant Section 508 requirements before publication.</p>
+      </div>
+      <div class="hero-banner__actions">
+        <a [routerLink]="['/solicitation/report']" class="hero-btn hero-btn--primary" (click)="onClickTiles('daily_dashboard', 'Explore Solicitations')">
+          Explore Solicitations
+        </a>
+        <a href="https://www.access-board.gov/ict/" target="_blank" rel="noopener noreferrer" class="hero-btn hero-btn--outline">
+          View Section 508 Standards <span class="material-symbols-outlined ext-icon" aria-hidden="true">open_in_new</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Grid -->
+  <div class="content-grid" [class.content-grid--hidden]="reportReady">
+
+    <!-- Left Column: Draft Solicitation Review -->
+    <div class="content-grid__main">
+      <div class="prediction-card">
+        <div class="prediction-card__header">
+          <div>
+            <h3 class="prediction-card__title">Draft Solicitation Review</h3>
+            <p class="prediction-card__desc">Upload your draft solicitation <strong>package</strong> — one or more files from the <strong>same</strong> solicitation — to check for integration of Section 508 requirements.</p>
+          </div>
+          @if (selectedFiles.length > 0 || rawText.length > 10) {
+            <button class="prediction-card__reset" (click)="resetAnalysis()" aria-label="Reset analysis">
+              <span class="material-symbols-outlined" aria-hidden="true">restart_alt</span> Reset
+            </button>
+          }
+        </div>
+
+        <!-- Educational Note -->
+        <div class="educational-note">
+          <span class="material-symbols-outlined educational-note__icon" aria-hidden="true">info</span>
+          <p class="educational-note__text">This tool checks whether your solicitation includes the required Section 508 language — it does not evaluate the uploaded document itself for accessibility. Uploading more than one file? They're reviewed <strong>together as a single solicitation package</strong>, not scored individually — so don't mix files from different solicitations.</p>
+        </div>
+
+        <!-- Pipeline Version -->
+        <div class="pipeline-toggle" role="group" aria-label="Pipeline version">
+          <span class="pipeline-toggle__btn pipeline-toggle__btn--active" aria-current="true">Pipeline V4.1</span>
+        </div>
+
+        <!-- Keyboard shortcuts for screen-reader / keyboard users -->
+        <p class="kbd-hints">
+          <span class="material-symbols-outlined" style="font-size: 1rem; vertical-align: -3px;" aria-hidden="true">keyboard</span>
+          Keyboard shortcuts: <kbd>Alt</kbd>+<kbd>U</kbd> upload files · <kbd>Alt</kbd>+<kbd>P</kbd> paste text · <kbd>Alt</kbd>+<kbd>S</kbd> start review
+        </p>
+
+        <!-- Upload + Paste side-by-side (Spencer/Kristen: smaller drop zone,
+             paste option up top, submit button reachable without scrolling) -->
+        <div class="input-split">
+          <div class="input-split__col">
+        <!-- File Upload Zone -->
+        <button
+          type="button"
+          class="upload-zone"
+          [class.upload-zone--active]="isDragging"
+          aria-label="Drag and drop solicitation file or package for review, or activate to browse. Supports PDF, DOCX, TXT up to 50 megabytes. Do not combine multiple solicitations for review at one time."
+          (dragenter)="handleDrag($event)"
+          (dragover)="handleDrag($event)"
+          (dragleave)="handleDrag($event)"
+          (drop)="handleDrop($event)"
+          (click)="fileInputRef.click()"
+        >
+          <span class="material-symbols-outlined upload-zone__icon" aria-hidden="true">cloud_upload</span>
+          <span class="upload-zone__title">Drag and drop solicitation file or package for review</span>
+          <span class="upload-zone__hint">PDF, DOCX, TXT — Max 50MB. Do not combine multiple solicitations for review at one time.</span>
+          <span class="upload-zone__btn">Upload files</span>
+        </button>
+        <input #fileInputRef id="file-input-adhoc" tabindex="-1" type="file" accept=".pdf,.doc,.docx,.txt" multiple (change)="onFileSelect($event)" class="upload-zone__native-input" aria-label="Choose solicitation files to upload" />
+
+        <!-- Selected Files Info -->
+        @if (selectedFiles.length > 0) {
+          <div class="file-info" role="status">
+            <span class="file-info__name"><span aria-hidden="true">📎</span> {{ selectedFiles.length }} file{{ selectedFiles.length > 1 ? 's' : '' }} selected</span>
+            <button class="file-info__remove" (click)="removeFile()"><span aria-hidden="true">✖</span> Clear</button>
+          </div>
+          @if (selectedFiles.length > 1) {
+            <ul class="file-list">
+              @for (f of selectedFiles; track f.name) {
+                <li class="file-list__item" [title]="f.name">{{ f.name }} ({{ (f.size / 1024).toFixed(1) }} KB)</li>
+              }
+            </ul>
+          } @else {
+            <div class="file-info file-info--detail">
+              <span class="file-info__name" [title]="selectedFiles[0].name">{{ selectedFiles[0].name }} ({{ (selectedFiles[0].size / 1024).toFixed(1) }} KB)</span>
+            </div>
+          }
+        }
+          </div>
+
+          <div class="input-split__col">
+        <!-- Raw Text Input -->
+        <div class="raw-text-section">
+          <label class="raw-text-section__label" for="raw-text-input">
+            Paste text directly:
+            <span class="material-symbols-outlined" style="font-size: 14px; color: #1b1b1b; cursor: help; vertical-align: middle; margin-left: 2px;"
+                  role="img"
+                  aria-label="Paste solicitation text directly. Useful for short or text-only notices and solicitations that exist as plain text rather than attachments. Process one document at a time. Up to about 200,000 characters."
+                  title="Paste solicitation text directly. Useful for short or text-only notices and solicitations that exist as plain text rather than attachments. Process one document at a time. Up to about 200,000 characters.">info</span>
+          </label>
+          <textarea id="raw-text-input"
+                    class="raw-text-section__textarea"
+                    [(ngModel)]="rawText"
+                    placeholder="Paste solicitation text here"
+                    maxlength="200000"
+                    rows="7"></textarea>
+        </div>
+          </div>
+        </div>
+
+        <!-- Run Pipeline Button -->
+        <div class="prediction-card__footer">
+          <button class="scan-btn" [disabled]="(selectedFiles.length === 0 && (!rawText || rawText.length < 10)) || isRunning" [class.scan-btn--disabled]="(selectedFiles.length === 0 && (!rawText || rawText.length < 10)) || isRunning" [class.scan-btn--loading]="isRunning" (click)="runPipeline()">
+            @if (isRunning) {
+              <span class="scan-btn__spinner" aria-hidden="true"></span>
+              Analyzing...
+            } @else {
+              <span class="material-symbols-outlined" aria-hidden="true">document_scanner</span>
+              Run Section 508 Review
+            }
+          </button>
+        </div>
+
+        <!-- Pipeline Progress — centered popup so it's visible without
+             scrolling. Stage changes are announced via the srStatus live
+             region; the rotating fun fact is visual-only (not announced). -->
+        @if (isRunning) {
+          <div class="progress-modal__overlay">
+            <div class="progress-modal" #progressModal tabindex="-1" style="outline: none;" aria-label="Analysis in progress">
+              <h4 class="pipeline-progress__title">Analyzing {{ selectedFiles.length > 0 ? selectedFiles[0].name : 'document' }}</h4>
+              <div class="pipeline-progress__bar-wrap" role="progressbar" [attr.aria-valuenow]="pipelineStageCount" aria-valuemin="0" [attr.aria-valuemax]="pipelineTotalStages" [attr.aria-valuetext]="'Step ' + pipelineStageCount + ' of ' + pipelineTotalStages + ': ' + currentStageMessage">
+                <div class="pipeline-progress__bar" [style.width.%]="(pipelineStageCount / pipelineTotalStages) * 100"></div>
+              </div>
+              <div class="pipeline-progress__status">
+                <span class="pipeline-progress__step">Step {{ pipelineStageCount }} of {{ pipelineTotalStages }}</span>
+                <span class="pipeline-progress__label">{{ currentStageMessage }}</span>
+              </div>
+              <p class="pipeline-progress__hint">This usually takes 30–60 seconds — the more files in your package, the longer it takes. Please keep this tab open.</p>
+
+              <!-- Snapple-cap 508 fun fact while you wait -->
+              <div class="progress-modal__fact" aria-hidden="true">
+                <span class="progress-modal__fact-label"><span class="material-symbols-outlined" style="font-size: 1rem; vertical-align: -3px;">lightbulb</span> Did you know?</span>
+                <p class="progress-modal__fact-text">{{ funFacts[factIndex] }}</p>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- Error Message -->
+        @if (errorMessage) {
+          <div class="error-alert" role="alert"><span aria-hidden="true">⚠️</span> {{ errorMessage }}</div>
+        }
+      </div>
+
+    </div>
+
+    <!-- Right Column: Sidebar -->
+    <div class="content-grid__sidebar">
+
+      <!-- My Drafts — compact rail, first thing you see at login. Every run is
+           auto-saved; expand a draft for its version history. -->
+      <div class="sidebar-card drafts-rail">
+        <h3 class="sidebar-card__title" style="display: flex; align-items: center; gap: 6px;">
+          <span class="material-symbols-outlined" aria-hidden="true" style="color: #1a4480;">folder_open</span>
+          My Drafts
+        </h3>
+        <p style="font-size: 0.72rem; color: #1b1b1b; margin: -0.25rem 0 0.6rem;">Results are kept for this session only (30 minutes), then deleted. Your documents are never stored.</p>
+        @if (drafts.length === 0) {
+          <p class="drafts-rail__empty">No saved drafts yet. Run a review and it will be saved here automatically — re-uploading an unchanged file returns your result instantly.</p>
+        } @else {
+          <ul class="draft-list draft-list--compact">
+            @for (d of drafts; track d.id) {
+              <li class="draft-list__item">
+                <div class="draft-list__row">
+                  <button type="button" class="draft-list__main" (click)="toggleDraft(d)" [attr.aria-expanded]="expandedDraftId === d.id">
+                    <span class="material-symbols-outlined" aria-hidden="true">{{ expandedDraftId === d.id ? 'expand_less' : 'expand_more' }}</span>
+                    <span class="draft-list__title" [title]="d.title">{{ d.title }}</span>
+                    <span class="draft-list__meta">v{{ d.version_count }} · {{ d.last_run | date:'MMM d' }}</span>
+                  </button>
+                  <span class="draft-badge" [ngClass]="draftVerdictClass(d.latest_verdict)">{{ draftVerdictLabel(d.latest_verdict) }}</span>
+                  <button type="button" class="draft-list__delete" (click)="deleteDraft(d, $event)" [attr.aria-label]="'Delete draft ' + d.title">
+                    <span class="material-symbols-outlined" aria-hidden="true">delete</span>
+                  </button>
+                </div>
+                @if (expandedDraftId === d.id) {
+                  @if (draftDetail) {
+                    <ol class="draft-versions">
+                      @for (v of draftDetail.versions; track v.id) {
+                        <li class="draft-versions__item">
+                          <button type="button" class="draft-versions__open" (click)="openDraftVersion(v)">
+                            <span class="draft-versions__num">v{{ v.version_number }}</span>
+                            <span class="draft-badge" [ngClass]="draftVerdictClass(v.verdict)">{{ draftVerdictLabel(v.verdict) }}</span>
+                            <span class="draft-versions__date">{{ v.created_at | date:'MMM d, h:mm a' }}</span>
+                            <span class="draft-versions__cta">View</span>
+                          </button>
+                        </li>
+                      }
+                    </ol>
+                  } @else {
+                    <p style="margin: 0.5rem 0 0 1rem; font-size: 0.8rem;" role="status">Loading versions…</p>
+                  }
+                }
+              </li>
+            }
+          </ul>
+        }
+      </div>
+
+      <div class="sidebar-card">
+        <h3 class="sidebar-card__title">Section 508 Integration Assessment</h3>
+        <p class="sidebar-card__desc">Our AI-powered scanner reviews your solicitation packages to determine whether Section 508 accessibility requirements are properly referenced and incorporated into the solicitation language.</p>
+        <ul class="sidebar-checks">
+          <li class="sidebar-checks__item">
+            <span class="material-symbols-outlined sidebar-checks__icon" aria-hidden="true">accessibility_new</span>
+            <div>
+              <h4 class="sidebar-checks__heading">Section 508 Integration Check</h4>
+              <p class="sidebar-checks__text">Reviews each solicitation document for the language, clauses, and references that show Section 508 accessibility requirements have been built into the procurement (such as FAR 39.2, the relevant Section 508 standards, and accessibility deliverables). The result tells you whether the solicitation includes that language, doesn't include it, or doesn't need to.</p>
+            </div>
+          </li>
+          <li class="sidebar-checks__item">
+            <span class="material-symbols-outlined sidebar-checks__icon" aria-hidden="true">summarize</span>
+            <div>
+              <h4 class="sidebar-checks__heading">Solicitation Report Summary</h4>
+              <p class="sidebar-checks__text">Generates a comprehensive AI analysis of the entire solicitation package, summarizing integration posture and key findings.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="help-card">
+        <h4 class="help-card__title"><span class="material-symbols-outlined" aria-hidden="true">help</span> Need Assistance?</h4>
+        <p class="help-card__text">If you encounter issues with the review tool or need help interpreting results, please review the <a [routerLink]="['/help/faq']">FAQs</a> or <a [routerLink]="['/help/contactus']">contact support</a>.</p>
+      </div>
     </div>
   </div>
-</section>
-<section class="usa-section">
-  <div class="grid-container" #gridContainer *ngIf="showGrid">
-    <div class="grid-row grid-gap">
 
-      <!-- Review/Manage Workload -->
-      <div class="tablet:grid-col-4 mobile-lg:grid-col-6">
-        <div class="usa-card">
-          <a
-            [routerLink]="['/solicitation/report']"
-            aria-labelledby="h3rmw"
-            class="usa-card__container usa-card__container--clickable"
-            (click)="onClickTiles('solicitation_tile', 'Solicitation Tile')"
-          >
-            <div class="usa-card__media">
-              <img alt="Manage/Review Workload Icon" src="/assets/review-manage-workflow.png" />
-            </div>
-            <div class="usa-card__header">
-              <h2 class="usa-card__heading" id="h3rmw">Manage/Review Solicitations</h2>
-            </div>
-            <div class="usa-card__body">
-              <p>Access and manage solicitation review results for your agency.</p>
-            </div>
-          </a>
+  <!-- Full-Screen Report Overlay -->
+  @if (reportReady && pipelineResults) {
+    <div class="report-overlay" [class.report-overlay--visible]="pipelineResults" role="region" aria-label="Section 508 review results">
+      <div class="report-overlay__inner" #reportTop tabindex="-1" style="outline: none;">
+
+        <!-- Report Toolbar -->
+        <div class="report-toolbar">
+          <button class="report-toolbar__close" (click)="resetAnalysis()">
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span> Check another solicitation
+          </button>
+          @if (pipelineVersion === 'v2') {
+            <button class="report-toolbar__debug" (click)="showStageDebug = !showStageDebug" [attr.aria-pressed]="showStageDebug">
+              <span class="material-symbols-outlined" aria-hidden="true">code</span> {{ showStageDebug ? 'Hide' : 'Show' }} Prompts & Responses
+            </button>
+          }
+          @if (pipelineVersion === 'v4') {
+            <button class="report-toolbar__debug" (click)="showStageDebug = !showStageDebug" [attr.aria-pressed]="showStageDebug">
+              <span class="material-symbols-outlined" aria-hidden="true">code</span> {{ showStageDebug ? 'Hide' : 'Show' }} Pipeline Log
+            </button>
+          }
         </div>
-      </div>
 
-      <!-- View Analytics (Admin Only) -->
-      <div class="tablet:grid-col-4 mobile-lg:grid-col-6" *ngIf="isGSAAdmin">
-        <div class="usa-card">
-          <a
-            [routerLink]="['/analytics']"
-            aria-labelledby="h3va"
-            class="usa-card__container usa-card__container--clickable"
-            (click)="onClickTiles('analytics_tile', 'Analytics Tile')"
-          >
-            <div class="usa-card__media">
-              <img alt="View Analytics Icon" src="/assets/view-analytics.png" />
-            </div>
-            <div class="usa-card__header">
-              <h2 class="usa-card__heading" id="h3va">View Analytics</h2>
-            </div>
-            <div class="usa-card__body">
-              <p>Visualize trends and discover insights from the analytics.</p>
-            </div>
-          </a>
-        </div>
-      </div>
+        <!-- Cached-result banner: identical file + pipeline → instant saved result. -->
+        @if (pipelineResults?.cached) {
+          <div class="cache-banner" role="status">
+            <span class="material-symbols-outlined" aria-hidden="true">bolt</span>
+            <span class="cache-banner__text">
+              <strong>Instant result.</strong> This exact document was already analyzed on {{ pipelineResults.cached_at | date:'MMM d, y, h:mm a' }}, so we returned your saved result — no re-processing needed.
+            </span>
+            <button type="button" class="usa-button usa-button--outline cache-banner__btn" (click)="rerunFresh()">Re-run anyway</button>
+          </div>
+        }
 
-      <!-- Manage SRT Access Requests (Admin Only) -->
-      <div class="tablet:grid-col-4 mobile-lg:grid-col-6" *ngIf="isGSAAdmin">
-        <div class="usa-card">
-          <a
-            [routerLink]="['/admin']"
-            aria-labelledby="h3-admin-label"
-            class="usa-card__container usa-card__container--clickable"
-            (click)="onClickTiles('admin_tile', 'Admin Tile')"
-          >
-            <div class="usa-card__media">
-              <img alt="Manage SRT Access Requests Icon" src="/assets/manage-srt-access-requests.png" />
-            </div>
-            <div class="usa-card__header">
-              <h2 class="usa-card__heading" id="h3-admin-label">Administration</h2>
-            </div>
-            <div class="usa-card__body">
-              <p>View reports on user statistics, activities, and feedback.</p>
-            </div>
-          </a>
-        </div>
-      </div>
+        <!-- Saved-draft banner: viewing an earlier version from My Drafts. -->
+        @if (pipelineResults?.from_saved_draft) {
+          <div class="cache-banner" role="status">
+            <span class="material-symbols-outlined" aria-hidden="true">history</span>
+            <span class="cache-banner__text">
+              <strong>Saved report</strong> — version {{ pipelineResults.saved_version }} from {{ pipelineResults.saved_at | date:'MMM d, y, h:mm a' }}. To re-check, upload the file again.
+            </span>
+          </div>
+        }
 
-      <!-- Get Additional Resources -->
-      <div class="tablet:grid-col-4 mobile-lg:grid-col-6">
-        <div class="usa-card">
-          <a
-            href="https://app.buyaccessible.gov/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-labelledby="h3gar"
-            class="usa-card__container usa-card__container--clickable"
-            (click)="onClickTiles('art_tile', 'ART Tile')"
-          >
-            <div class="usa-card__media">
-              <img alt="Get Additional Resources Icon" src="/assets/get-additional-resources.png" />
+        <!-- Two-column report layout: sticky table-of-contents rail + content. -->
+        <div class="report-layout" [class.report-layout--no-toc]="pipelineResults?.stopped_at_gate">
+          @if (!pipelineResults?.stopped_at_gate) {
+            <nav class="report-toc" aria-label="On this page">
+              <p class="report-toc__heading">On this page</p>
+              <ul class="report-toc__list">
+                <li><button type="button" class="report-toc__link" [class.report-toc__link--active]="activeTocId === 'srt-overview-anchor'" [attr.aria-current]="activeTocId === 'srt-overview-anchor' ? 'true' : null" (click)="scrollTo('srt-overview-anchor')">Overall result</button></li>
+                @if (pipelineVersion === 'v4' && pipelineResults?.bm25) {
+                  <li><button type="button" class="report-toc__link" [class.report-toc__link--active]="activeTocId === 'srt-summary-anchor'" [attr.aria-current]="activeTocId === 'srt-summary-anchor' ? 'true' : null" (click)="scrollTo('srt-summary-anchor')">Summary</button></li>
+                }
+                @if (pipelineResults.applicability?.is_508_applicable && getActiveIctTypes().length > 0) {
+                  <li><button type="button" class="report-toc__link" [class.report-toc__link--active]="activeTocId === 'srt-actions-anchor'" [attr.aria-current]="activeTocId === 'srt-actions-anchor' ? 'true' : null" (click)="openAndScroll('actions', 'srt-actions-anchor')">Action items</button></li>
+                }
+              </ul>
+            </nav>
+          }
+          <div class="report-main">
+
+        <!-- Debug: Stage Prompts & Responses (v2 only) -->
+        @if (showStageDebug && pipelineResults?.debug) {
+          <div class="debug-panel">
+            <h4 class="debug-panel__title">Stage Prompts & AI Responses</h4>
+
+            @if (pipelineResults.debug.machine_readable?.system_prompt) {
+              <div class="debug-stage">
+                <h5 class="debug-stage__name">Stage 1a: Machine Readability (gemini-2.5-pro)</h5>
+                <details class="debug-stage__details">
+                  <summary>System Prompt</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.machine_readable.system_prompt }}</pre>
+                </details>
+                <details class="debug-stage__details">
+                  <summary>User Prompt (truncated)</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.machine_readable.user_prompt }}</pre>
+                </details>
+                <details class="debug-stage__details" open>
+                  <summary>AI Response</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.machine_readable.raw_response }}</pre>
+                </details>
+              </div>
+            }
+
+            @if (pipelineResults.debug.is_solicitation?.system_prompt) {
+              <div class="debug-stage">
+                <h5 class="debug-stage__name">Stage 1b: Is Solicitation (gemini-2.5-pro)</h5>
+                <details class="debug-stage__details">
+                  <summary>System Prompt</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.is_solicitation.system_prompt }}</pre>
+                </details>
+                <details class="debug-stage__details">
+                  <summary>User Prompt (truncated)</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.is_solicitation.user_prompt }}</pre>
+                </details>
+                <details class="debug-stage__details" open>
+                  <summary>AI Response</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.is_solicitation.raw_response }}</pre>
+                </details>
+              </div>
+            }
+
+            @if (pipelineResults.debug.applicability?.system_prompt) {
+              <div class="debug-stage">
+                <h5 class="debug-stage__name">Stage 2: 508 Applicability (gemini-2.5-pro)</h5>
+                <details class="debug-stage__details">
+                  <summary>System Prompt</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.applicability.system_prompt }}</pre>
+                </details>
+                <details class="debug-stage__details">
+                  <summary>User Prompt (truncated)</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.applicability.user_prompt }}</pre>
+                </details>
+                <details class="debug-stage__details" open>
+                  <summary>AI Response</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.applicability.raw_response }}</pre>
+                </details>
+              </div>
+            }
+
+            @if (pipelineResults.debug.ict?.system_prompt) {
+              <div class="debug-stage">
+                <h5 class="debug-stage__name">Stage 3: ICT Classification (gemini-2.5-pro)</h5>
+                <details class="debug-stage__details">
+                  <summary>System Prompt</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.ict.system_prompt }}</pre>
+                </details>
+                <details class="debug-stage__details">
+                  <summary>User Prompt (truncated)</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.ict.user_prompt }}</pre>
+                </details>
+                <details class="debug-stage__details" open>
+                  <summary>AI Response</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.ict.raw_response }}</pre>
+                </details>
+              </div>
+            }
+
+            @if (pipelineResults.debug.vector_validation) {
+              <div class="debug-stage">
+                <h5 class="debug-stage__name">Stage 4: Vector Match Validation (gemini-2.5-flash)</h5>
+                <details class="debug-stage__details" open>
+                  <summary>AI Validation Response</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.vector_validation }}</pre>
+                </details>
+              </div>
+            }
+
+            @if (pipelineResults.debug.summary?.system_prompt) {
+              <div class="debug-stage">
+                <h5 class="debug-stage__name">Stage 5: Document Summary (gemini-2.5-pro)</h5>
+                <details class="debug-stage__details">
+                  <summary>System Prompt</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.summary.system_prompt }}</pre>
+                </details>
+                <details class="debug-stage__details">
+                  <summary>User Prompt (truncated)</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.summary.user_prompt }}</pre>
+                </details>
+                <details class="debug-stage__details" open>
+                  <summary>AI Response</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.debug.summary.raw_response }}</pre>
+                </details>
+              </div>
+            }
+          </div>
+        }
+
+        <!-- V4 Debug Panel -->
+        @if (showStageDebug && pipelineVersion === 'v4' && pipelineResults) {
+          <div class="debug-panel">
+            <h4 class="debug-panel__title">V4 Pipeline Log</h4>
+
+            <div class="debug-stage">
+              <h5 class="debug-stage__name">Stage 1: Machine Readability</h5>
+              <details class="debug-stage__details" open>
+                <summary>Result</summary>
+                <pre class="debug-stage__code">{{ pipelineResults.machine_readable | json }}</pre>
+              </details>
             </div>
-            <div class="usa-card__header">
-              <h2 class="usa-card__heading" id="h3gar">Get Additional Resources</h2>
+
+            <div class="debug-stage">
+              <h5 class="debug-stage__name">Stage 2: Is Solicitation</h5>
+              <details class="debug-stage__details" open>
+                <summary>Result</summary>
+                <pre class="debug-stage__code">{{ pipelineResults.is_solicitation | json }}</pre>
+              </details>
             </div>
-            <div class="usa-card__body">
-              <p>
-                Need help with Accessibility requirements? Accessibility Requirements Tool can assist
-                you with that.
+
+            @if (pipelineResults.bm25) {
+              <div class="debug-stage">
+                <h5 class="debug-stage__name">Stage 3: BM25 Keyword Screening (Deterministic)</h5>
+                <details class="debug-stage__details" open>
+                  <summary>Full BM25 Output</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.bm25 | json }}</pre>
+                </details>
+              </div>
+            }
+
+            <div class="debug-stage">
+              <h5 class="debug-stage__name">Compliance Decision</h5>
+              <details class="debug-stage__details" open>
+                <summary>Routing</summary>
+                <pre class="debug-stage__code">{{ pipelineResults.ml_prediction | json }}</pre>
+              </details>
+            </div>
+
+            @if (pipelineResults.ict_classification) {
+              <div class="debug-stage">
+                <h5 class="debug-stage__name">Stage 4: ICT Classification (LLM)</h5>
+                <details class="debug-stage__details">
+                  <summary>Result</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.ict_classification | json }}</pre>
+                </details>
+              </div>
+            }
+
+            @if (pipelineResults.document_summary) {
+              <div class="debug-stage">
+                <h5 class="debug-stage__name">Stage 5: Document Summary (LLM)</h5>
+                <details class="debug-stage__details">
+                  <summary>Result</summary>
+                  <pre class="debug-stage__code">{{ pipelineResults.document_summary | json }}</pre>
+                </details>
+              </div>
+            }
+
+            <div class="debug-stage">
+              <h5 class="debug-stage__name">Pipeline Metadata</h5>
+              <details class="debug-stage__details">
+                <summary>Timing & Version</summary>
+                <pre class="debug-stage__code">{{ { pipeline_version: pipelineResults.pipeline_version, pipeline_name: pipelineResults.pipeline_name, processing_time_ms: pipelineResults.processing_time_ms, generated_at: pipelineResults.generated_at, file_name: pipelineResults.file_name } | json }}</pre>
+              </details>
+            </div>
+          </div>
+        }
+
+        <!-- Determination Card -->
+        @if (pipelineResults?.stopped_at_gate) {
+          <section class="determination-card" [class.determination-card--stopped]="pipelineResults.stopped_at_gate !== 'applicability'" [class.determination-card--na]="pipelineResults.stopped_at_gate === 'applicability'">
+            <div class="determination-card__content">
+              <span class="determination-card__label">{{ pipelineResults.stopped_at_gate === 'applicability' ? 'Section 508 Integration Assessment' : 'Unable to Review' }}</span>
+              <h2 class="determination-card__verdict">{{ pipelineResults.stopped_at_gate === 'machine_readable' ? 'Document Not Readable' : pipelineResults.stopped_at_gate === 'applicability' ? 'Section 508 Not Applicable' : 'Not a Solicitation' }}</h2>
+              @if (pipelineResults.stopped_at_gate === 'applicability') {
+                <p class="determination-card__desc">Section 508 does not apply to this procurement — it isn't information and communication technology (ICT). No Section 508 language is required.</p>
+                @if (pipelineResults.applicability?.applicability_explanation) {
+                  <p class="determination-card__desc" style="margin-top: 0.5rem; font-style: italic;">{{ pipelineResults.applicability.applicability_explanation }}</p>
+                }
+              }
+              @if (pipelineResults.stopped_at_gate === 'is_solicitation') {
+                <p class="determination-card__desc">This tool can only review solicitations, and this document doesn't appear to be one — so it was not analyzed. Upload an actual solicitation to get a full Section 508 report. (This does <strong>not</strong> mean Section 508 doesn't apply to this document; it may still apply to other document types.)</p>
+              } @else {
+                <p class="determination-card__desc">{{ pipelineResults.gate_message }}</p>
+              }
+              @if (pipelineResults.stopped_at_gate === 'is_solicitation' && pipelineResults.is_solicitation?.explanation) {
+                <p class="determination-card__desc" style="margin-top: 0.5rem; font-style: italic;">{{ pipelineResults.is_solicitation.explanation }}</p>
+              }
+              @if (pipelineResults.stopped_at_gate === 'machine_readable' && pipelineResults.machine_readable?.explanation) {
+                <p class="determination-card__desc" style="margin-top: 0.5rem; font-style: italic;">{{ pipelineResults.machine_readable.explanation }}</p>
+              }
+            </div>
+            <div class="determination-card__badge determination-card__badge--stopped">
+              <span class="material-symbols-outlined determination-card__icon" aria-hidden="true">{{ pipelineResults.stopped_at_gate === 'applicability' ? 'remove_circle' : 'block' }}</span>
+            </div>
+          </section>
+        } @else {
+        <div class="verdict-row" id="srt-overview-anchor" style="scroll-margin-top: 90px;" [class.verdict-row--single]="!showApplicabilityCard">
+        <section class="determination-card determination-card--slim" [ngClass]="verdictCardClass">
+          <div class="determination-card__content">
+            <span class="determination-card__label">Section 508 Integration Assessment</span>
+            <h2 class="determination-card__verdict">{{ verdictHeading }}</h2>
+            <p class="determination-card__desc">
+              {{ verdictDescription }}
+            </p>
+            @if (pipelineResults.ocr_applied) {
+              <p class="determination-card__desc" style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.85;">
+                <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: middle; margin-right: 2px;" aria-hidden="true">document_scanner</span>
+                Text recovered via OCR (image-only PDF).
               </p>
-            </div>
-          </a>
-        </div>
-      </div>
+            }
+          </div>
+          <div class="determination-card__badge">
+            <span class="material-symbols-outlined determination-card__icon" aria-hidden="true">{{ verdictIcon }}</span>
+          </div>
+        </section>
 
-      <!-- Contact Us -->
-      <div class="tablet:grid-col-4 mobile-lg:grid-col-6">
-        <div class="usa-card">
-          <a
-            [routerLink]="['/help/contactus']"
-            aria-labelledby="h3cus"
-            class="usa-card__container usa-card__container--clickable"
-            (click)="onClickTiles('contact_tile', 'Contact Tile')"
-          >
-            <div class="usa-card__media">
-              <img alt="Contact Us Icon" src="/assets/contact-us.png" />
+        <!-- Applicability card — only when 508 applies. Not-applicable and the
+             gate-stop states render a single card instead. -->
+        @if (showApplicabilityCard) {
+          <section class="determination-card determination-card--slim determination-card--support determination-card--support-yes">
+            <div class="determination-card__content">
+              <span class="determination-card__label">Section 508 Applicability</span>
+              <h2 class="determination-card__verdict">Section 508 Applies</h2>
+              <p class="determination-card__desc">This procurement involves ICT, so Section 508 requirements apply.</p>
             </div>
-            <div class="usa-card__header">
-              <h2 class="usa-card__heading" id="h3cus">Contact Us</h2>
+            <div class="determination-card__badge">
+              <span class="material-symbols-outlined determination-card__icon" aria-hidden="true">check_circle</span>
             </div>
-            <div class="usa-card__body">
-              <p>View contact information for the Solicitation Review Tool.</p>
-            </div>
-          </a>
-        </div>
-      </div>
+          </section>
+        }
+        </div><!-- /.verdict-row -->
+        }
 
-      <!-- FAQ -->
-      <div class="tablet:grid-col-4 mobile-lg:grid-col-6">
-        <div class="usa-card">
-          <a
-            [routerLink]="['/help/faq']"
-            aria-labelledby="h3faq"
-            class="usa-card__container usa-card__container--clickable"
-            (click)="onClickTiles('faq_tile', 'FAQ Tile')"
-          >
-            <div class="usa-card__media">
-              <img alt="FAQ Icon" src="/assets/faq.png" />
-            </div>
-            <div class="usa-card__header">
-              <h2 class="usa-card__heading" id="h3faq">FAQ</h2>
-            </div>
-            <div class="usa-card__body">
-              <p>Review Frequently Asked Questions and learn more about SRT.</p>
-            </div>
-          </a>
-        </div>
-      </div>
+        @if (!pipelineResults?.stopped_at_gate) {
 
+        <!-- Summary — the result at a glance: applicability + ICT badges and the
+             narrative summary, with details behind "Why this determination?". -->
+        @if (pipelineVersion === 'v4' && pipelineResults?.bm25) {
+          <section class="report-section" id="srt-summary-anchor" style="margin-bottom: 1.25rem; scroll-margin-top: 90px;">
+            <h2 class="section-title">Summary</h2>
+            <div class="summary-box">
+              <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.85rem;">
+                @if (pipelineResults.applicability?.is_508_applicable !== undefined) {
+                  <span class="applicability-badge"
+                        [class.applicability-badge--yes]="pipelineResults.applicability.is_508_applicable"
+                        [class.applicability-badge--no]="!pipelineResults.applicability.is_508_applicable">
+                    <span class="material-symbols-outlined applicability-badge__icon" aria-hidden="true">{{ pipelineResults.applicability.is_508_applicable ? 'check_circle' : 'do_not_disturb_on' }}</span>
+                    {{ pipelineResults.applicability.is_508_applicable ? 'Yes — Section 508 Applies' : 'No — Section 508 Does Not Apply' }}
+                  </span>
+                }
+                @for (ict of getActiveIctTypes(); track ict) {
+                  <span class="meta-box__chip">
+                    <span class="material-symbols-outlined" style="font-size: 13px;" aria-hidden="true">{{ getIctIcon(ict) }}</span>
+                    {{ ict.replace('_', ' ') }}
+                  </span>
+                }
+              </div>
+              @if (pipelineResults.synthesis?.executive_summary) {
+                <p class="summary-box__text">{{ pipelineResults.synthesis.executive_summary }}</p>
+              } @else if (pipelineResults.document_summary?.document_summary) {
+                <p class="summary-box__text">{{ pipelineResults.document_summary.document_summary }}</p>
+              }
+              <h3 class="collapse-heading" style="margin-top: 0.85rem;">
+                <button type="button" class="section-collapse-toggle" (click)="toggleSection('why')" [attr.aria-expanded]="!!openSections['why']" aria-controls="why-panel">
+                  <span style="font-weight: 700; font-size: 0.9rem; color: #1a4480;">Why this determination?</span>
+                  <span class="material-symbols-outlined" aria-hidden="true">{{ openSections['why'] ? 'expand_less' : 'expand_more' }}</span>
+                </button>
+              </h3>
+              @if (openSections['why']) {
+                <div id="why-panel" style="margin-top: 0.5rem; border-top: 1px solid #d6e0ec; padding-top: 0.75rem;">
+                  @if (pipelineResults.applicability?.applicability_explanation) {
+                    <p class="summary-box__text">{{ pipelineResults.applicability.applicability_explanation }}</p>
+                  }
+                  @if (pipelineResults.ict_classification?.explanation) {
+                    <p class="summary-box__text" style="margin-top: 0.5rem;">{{ pipelineResults.ict_classification.explanation }}</p>
+                  }
+                  <p style="font-size: 0.8rem; color: #1b1b1b; margin: 0.75rem 0 0;">Document: <span class="doc-name" [title]="pipelineResults.file_name">{{ pipelineResults.file_name }}</span> · Reviewed {{ pipelineResults.generated_at | date:'mediumDate' }}</p>
+                </div>
+              }
+            </div>
+          </section>
+        }
+
+        <!-- Exempt or already handled → explain instead of recommending actions -->
+        @if (hasExemption || alreadyAddressed) {
+          <section class="handled-note" [class.handled-note--exempt]="hasExemption">
+            <span class="material-symbols-outlined handled-note__icon" aria-hidden="true">{{ hasExemption ? 'gpp_maybe' : 'task_alt' }}</span>
+            <div>
+              <p class="handled-note__title">{{ hasExemption ? 'Section 508 exemption documented' : 'Section 508 already addressed' }}</p>
+              <p class="handled-note__text">{{ hasExemption ? pipelineResults.exemption.explanation : alreadyAddressedReason }}</p>
+              <p class="handled-note__text handled-note__text--sub">No clause or requirements are recommended. If you believe this is wrong, use Give Feedback below.</p>
+            </div>
+          </section>
+        }
+
+        <!-- Action items checklist — the single "what do I do now" list.
+             Sits directly under the verdict; check items off as you go. -->
+        @if (pipelineResults.applicability?.is_508_applicable && getActiveIctTypes().length > 0) {
+          <section class="action-checklist" id="srt-actions-anchor" style="scroll-margin-top: 90px;" aria-labelledby="srt-actions-title">
+            <div class="action-checklist__head">
+              <h2 id="srt-actions-title" class="action-checklist__title">
+                <button type="button" class="action-checklist__toggle" (click)="toggleSection('actions')" [attr.aria-expanded]="!!openSections['actions']" aria-controls="actions-panel">
+                  <span class="material-symbols-outlined" aria-hidden="true">checklist</span>
+                  Your action items ({{ actionSteps.length }})
+                  <span class="material-symbols-outlined" aria-hidden="true">{{ openSections['actions'] ? 'expand_less' : 'expand_more' }}</span>
+                </button>
+              </h2>
+              @if (allActionsDone) {
+                <span class="action-checklist__done" role="status">
+                  <span class="material-symbols-outlined" aria-hidden="true">task_alt</span> All steps checked — re-check your solicitation
+                </span>
+              }
+            </div>
+            @if (openSections['actions']) {
+            <ol class="action-checklist__list" id="actions-panel">
+              @for (step of actionSteps; track step.label; let i = $index) {
+                <li class="action-checklist__item" [class.action-checklist__item--done]="actionChecked[i]">
+                  <label class="action-checklist__label">
+                    <input type="checkbox" [checked]="!!actionChecked[i]" (change)="toggleAction(i)" />
+                    <span class="action-checklist__text">
+                      <span class="action-checklist__step">{{ step.label }}</span>
+                      @if (step.detail) { <span class="action-checklist__detail">{{ step.detail }}</span> }
+                    </span>
+                  </label>
+                  @if (i === 0 && showRecommendedClause) {
+                    <button type="button" class="usa-button action-checklist__cta" (click)="clauseOpen = !clauseOpen" [attr.aria-expanded]="clauseOpen">{{ clauseOpen ? 'Hide clause' : 'View clause' }}</button>
+                  }
+                  @if ((i === 0 && !showRecommendedClause) || (i === 1 && showRecommendedClause)) {
+                    <button type="button" class="usa-button action-checklist__cta" (click)="getRequirements()">Generate requirements</button>
+                  }
+                  @if (i === 0 && showRecommendedClause && clauseOpen) {
+                          <!-- Recommended clause — shown only when 508 applies but no 508
+                               language was found anywhere in the solicitation. -->
+                          @if (showRecommendedClause) {
+                            <section class="clause-card">
+                              <h4 class="clause-card__title">
+                                <span class="material-symbols-outlined" aria-hidden="true">gavel</span>
+                                Recommended clause to add
+                              </h4>
+                              <p class="clause-card__lead">No Section 508 language was found in this solicitation. Copy the clause below into the body of your solicitation, then add the requirements underneath it.</p>
+                              <div class="clause-card__box" [class.clause-card__box--collapsed]="!clauseExpanded">
+                                <p class="clause-card__clause-title">{{ recommendedClause.title }}</p>
+                                @for (para of recommendedClause.paragraphs; track para; let i = $index) {
+                                  @if (clauseExpanded || i === 0) {
+                                    <p class="clause-card__para">{{ para }}</p>
+                                  }
+                                }
+                              </div>
+                              @if (recommendedClause.paragraphs.length > 1) {
+                                <button type="button" class="usa-button usa-button--unstyled clause-card__more" (click)="clauseExpanded = !clauseExpanded" [attr.aria-expanded]="clauseExpanded">
+                                  {{ clauseExpanded ? 'Show less' : 'Show full clause (' + recommendedClause.paragraphs.length + ' paragraphs)' }}
+                                </button>
+                                <span class="usa-sr-only">Copying always copies the complete clause, whether or not it is fully shown.</span>
+                              }
+                              <div class="clause-card__actions">
+                                <button type="button" class="usa-button usa-button--outline" (click)="copyClause()">
+                                  <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle; margin-right: 4px;" aria-hidden="true">{{ clauseCopied ? 'check' : 'content_copy' }}</span>
+                                  {{ clauseCopied ? 'Copied!' : 'Copy clause' }}
+                                </button>
+                                <span class="usa-sr-only" role="status">{{ clauseCopied ? 'Clause copied to clipboard.' : '' }}</span>
+                                <button type="button" class="usa-button usa-button--unstyled" (click)="clauseInstructionsOpen = !clauseInstructionsOpen" [attr.aria-expanded]="clauseInstructionsOpen" aria-controls="clause-instructions">
+                                  {{ clauseInstructionsOpen ? 'Hide instructions' : 'How to use this' }}
+                                </button>
+                              </div>
+                              @if (clauseInstructionsOpen) {
+                                <div id="clause-instructions" class="clause-card__instructions">
+                                  @for (line of recommendedClause.instructions; track line) {
+                                    <p>{{ line }}</p>
+                                  }
+                                </div>
+                              }
+                            </section>
+                          }
+                  }
+                  @if (((i === 0 && !showRecommendedClause) || (i === 1 && showRecommendedClause)) && (artLoading || artError || artRequirements)) {
+                    <div class="inline-req">
+                      @if (artLoading) {
+                        <p class="inline-req__loading" role="status" aria-live="polite">Generating Section 508 requirements…</p>
+                      }
+                      @if (artError) {
+                        <p style="color: #b41d1d; font-size: 0.85rem; margin: 0;" role="alert">{{ artError }}</p>
+                      }
+                      @if (artRequirements) {
+                        <div style="display: flex; gap: 0.75rem; align-items: flex-start; background: #e6f2f8; border-left: 4px solid #0467ae; border-radius: 0.5rem; padding: 0.9rem 1.1rem; margin-bottom: 0.75rem;">
+                          <span class="material-symbols-outlined" style="color: #0467ae; font-size: 1.25rem;" aria-hidden="true">playlist_add_check</span>
+                          <div>
+                            <p style="margin: 0 0 0.2rem; font-weight: 700; font-size: 0.9rem; color: #00467b;">What to do with these requirements</p>
+                            <p style="margin: 0; font-size: 0.85rem; line-height: 1.5;">Copy the requirements below, then paste them into the <strong>Terms &amp; Conditions</strong> or <strong>Requirements</strong> section of your solicitation. They paste cleanly as plain text. Only the requirements applicable to this procurement are listed — not the full 508 standard.</p>
+                          </div>
+                        </div>
+                        @if (artRequirements.language) {
+                          <div style="display: flex; justify-content: flex-end; margin-bottom: 0.5rem;">
+                            <button type="button" class="usa-button usa-button--outline" (click)="copyRequirements()" style="font-size: 0.8rem; display: inline-flex; align-items: center; gap: 4px;">
+                              <span class="material-symbols-outlined" style="font-size: 16px;" aria-hidden="true">{{ requirementsCopied ? 'check' : 'content_copy' }}</span>
+                              {{ requirementsCopied ? 'Copied!' : 'Copy requirements' }}
+                            </button>
+                            <span class="usa-sr-only" role="status">{{ requirementsCopied ? 'Requirements copied to clipboard.' : '' }}</span>
+                          </div>
+                          <div class="art-table-wrap">
+                            <table class="art-table">
+                              <caption class="usa-sr-only">Section 508 requirements generated by the Accessibility Requirements Tool, listing requirement code, requirement, and detail.</caption>
+                              <thead><tr><th scope="col">Code</th><th scope="col">Requirement</th><th scope="col">Detail</th></tr></thead>
+                              @for (section of artRequirements.language; track section.code || section.title) {
+                                <tbody class="art-table__group">
+                                  <tr class="art-table__section-row">
+                                    <th scope="rowgroup" colspan="3" class="art-table__group-head">{{ section.code }} — {{ section.title }}</th>
+                                  </tr>
+                                  @if (section.sections?.length) {
+                                    @for (sub of section.sections; track sub.code || sub.title) {
+                                      <tr><th scope="row" class="art-table__code">{{ sub.code }}</th><td class="art-table__title">{{ sub.title }}</td><td class="art-table__text">{{ sub.text }}</td></tr>
+                                    }
+                                  }
+                                </tbody>
+                              }
+                            </table>
+                          </div>
+                        }
+                      }
+                    </div>
+                  }
+                </li>
+              }
+            </ol>
+            }
+          </section>
+        }
+
+        <!-- BM25 Evidence (v4 only) -->
+        @if (pipelineVersion === 'v4' && pipelineResults?.bm25) {
+          <!-- Evidence of Inclusion — keyword chips. Same treatment as the
+               per-file evidence panel on the daily dashboard detail page. -->
+          @if (pipelineResults.bm25.keyword_hits && getObjectKeys(pipelineResults.bm25.keyword_hits).length > 0) {
+            <section class="report-section" style="margin-bottom: 1.25rem;">
+              <h2 class="collapse-heading"><button type="button" class="section-collapse-toggle" (click)="toggleSection('evidence')" [attr.aria-expanded]="!!openSections['evidence']" aria-controls="evidence-panel">
+                <span class="section-title" style="margin: 0; display: inline-flex; align-items: center; gap: 6px;">
+                  <span class="material-symbols-outlined" style="font-size: 1.1rem;" aria-hidden="true">key</span>
+                  Evidence of Inclusion ({{ getObjectKeys(pipelineResults.bm25.keyword_hits).length }} terms found)
+                </span>
+                <span class="material-symbols-outlined" aria-hidden="true">{{ openSections['evidence'] ? 'expand_less' : 'expand_more' }}</span>
+              </button></h2>
+              @if (openSections['evidence']) {
+                <div id="evidence-panel" style="margin-top: 0.5rem;">
+                  <p style="font-size: 0.8rem; color: #1b1b1b; margin: 0 0 0.75rem; line-height: 1.5;">
+                    Keywords and FAR clause references found in this document.
+                    These are the terms the SRT engine identified as evidence
+                    of Section 508 language.
+                  </p>
+                  <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                    @for (kw of getObjectKeys(pipelineResults.bm25.keyword_hits); track kw) {
+                      <span style="display: inline-flex; align-items: center; gap: 0.35rem; background: #d2e4ff; color: #1a4480; padding: 5px 12px; border-radius: 1rem; font-size: 0.78rem; font-weight: 600;">
+                        {{ kw }}
+                        <span style="font-size: 0.68rem; font-weight: 700; opacity: 0.7;">{{ pipelineResults.bm25.keyword_hits[kw] }}×</span>
+                      </span>
+                    }
+                  </div>
+                </div>
+              }
+            </section>
+          }
+
+        }
+
+        <!-- Gates Summary Row (v2) — all 3 gates at top -->
+        @if (pipelineVersion === 'v2') {
+          <section class="report-section" style="margin-bottom: 1.5rem;">
+            <h2 class="section-title">Analysis Gates</h2>
+            <div class="gates-grid gates-grid--three">
+              @if (pipelineResults.machine_readable) {
+                <div class="gate-card" [class.gate-card--pass]="pipelineResults.machine_readable.is_machine_readable" [class.gate-card--fail]="!pipelineResults.machine_readable.is_machine_readable">
+                  <div class="gate-card__header">
+                    <span class="material-symbols-outlined gate-card__status-icon" [class.gate-card__status-icon--pass]="pipelineResults.machine_readable.is_machine_readable" [class.gate-card__status-icon--fail]="!pipelineResults.machine_readable.is_machine_readable">{{ pipelineResults.machine_readable.is_machine_readable ? 'check_circle' : 'cancel' }}</span>
+                    <h4 class="gate-card__title">Q1: Machine Readable</h4>
+                  </div>
+                  <p class="gate-card__result">{{ pipelineResults.machine_readable.is_machine_readable ? 'Yes' : 'No' }}</p>
+                </div>
+              }
+              @if (pipelineResults.is_solicitation) {
+                <div class="gate-card" [class.gate-card--pass]="pipelineResults.is_solicitation.is_solicitation" [class.gate-card--fail]="!pipelineResults.is_solicitation.is_solicitation">
+                  <div class="gate-card__header">
+                    <span class="material-symbols-outlined gate-card__status-icon" [class.gate-card__status-icon--pass]="pipelineResults.is_solicitation.is_solicitation" [class.gate-card__status-icon--fail]="!pipelineResults.is_solicitation.is_solicitation">{{ pipelineResults.is_solicitation.is_solicitation ? 'check_circle' : 'cancel' }}</span>
+                    <h4 class="gate-card__title">Q2: Is a Solicitation</h4>
+                  </div>
+                  <p class="gate-card__result">{{ pipelineResults.is_solicitation.is_solicitation ? 'Yes' : 'No' }}</p>
+                </div>
+              }
+              @if (pipelineResults.applicability) {
+                <div class="gate-card" [class.gate-card--pass]="pipelineResults.applicability.is_508_applicable" [class.gate-card--fail]="!pipelineResults.applicability.is_508_applicable">
+                  <div class="gate-card__header">
+                    <span class="material-symbols-outlined gate-card__status-icon" [class.gate-card__status-icon--pass]="pipelineResults.applicability.is_508_applicable" [class.gate-card__status-icon--fail]="!pipelineResults.applicability.is_508_applicable">{{ pipelineResults.applicability.is_508_applicable ? 'check_circle' : 'cancel' }}</span>
+                    <h4 class="gate-card__title">Q3: Section 508 Applies</h4>
+                  </div>
+                  <p class="gate-card__result">{{ pipelineResults.applicability.is_508_applicable ? 'Yes' : 'No' }}</p>
+                </div>
+              }
+            </div>
+            @if (pipelineResults.applicability && !pipelineResults.applicability.is_508_applicable) {
+              <div class="gate-stop-note">
+                <p><strong>Section 508 does not apply to this procurement.</strong> No further action required.</p>
+                <p class="gate-stop-note__explanation">{{ pipelineResults.applicability.applicability_explanation }}</p>
+                <button class="gate-stop-note__override" (click)="showOverrideResults = !showOverrideResults">
+                  {{ showOverrideResults ? 'Hide' : 'Show' }} analysis anyway
+                </button>
+              </div>
+            }
+          </section>
+        }
+
+        <!-- Full results (show if 508 applies, or if user overrides) -->
+        @if (pipelineVersion !== 'v2' || pipelineResults?.applicability?.is_508_applicable || showOverrideResults) {
+
+        <!-- (Executive Summary + Metadata moved to the top of the result for
+             v4. The block below only renders for legacy v2 paths.) -->
+        @if (pipelineVersion !== 'v4') {
+        <section class="report-grid">
+          <div class="report-grid__main">
+            @if (pipelineResults.synthesis?.executive_summary || pipelineResults.document_summary?.document_summary || pipelineResults.applicability?.applicability_explanation) {
+              <h2 class="section-title">Executive Summary</h2>
+              <div class="summary-box">
+                @if (pipelineResults.synthesis?.executive_summary) {
+                  <p class="summary-box__text">{{ summaryExpanded || pipelineResults.synthesis.executive_summary.length <= 320 ? pipelineResults.synthesis.executive_summary : (pipelineResults.synthesis.executive_summary.slice(0, 320) + '…') }}</p>
+                  @if (pipelineResults.synthesis.executive_summary.length > 320) {
+                    <button class="usa-button usa-button--unstyled" (click)="summaryExpanded = !summaryExpanded" style="font-size: 0.8rem;">{{ summaryExpanded ? 'Show less' : 'Show more' }}</button>
+                  }
+                } @else if (pipelineResults.document_summary?.document_summary) {
+                  <p class="summary-box__text">{{ pipelineResults.document_summary.document_summary }}</p>
+                }
+                @if (pipelineResults.applicability?.applicability_explanation) {
+                  <div class="summary-box__rationale">
+                    <span class="summary-box__rationale-label">
+                      Why this determination —
+                      {{ pipelineResults.ml_prediction?.prediction === 'compliant' ? 'Section 508 Language Found'
+                         : pipelineResults.ml_prediction?.prediction === 'non_compliant' ? 'Section 508 Language Not Found'
+                         : 'Cannot Determine' }}
+                    </span>
+                    <p class="summary-box__text">{{ pipelineResults.applicability.applicability_explanation }}</p>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+          <div class="report-grid__sidebar">
+            <h3 class="meta-title">Report Metadata</h3>
+            <div class="meta-box">
+              <div class="meta-box__item"><span class="meta-box__label">Document</span><span class="meta-box__value doc-name" [title]="pipelineResults.file_name">{{ pipelineResults.file_name }}</span></div>
+              <div class="meta-box__item"><span class="meta-box__label">Review Date</span><span class="meta-box__value">{{ pipelineResults.generated_at | date:'mediumDate' }}</span></div>
+              @if (pipelineResults.ict_classification?.primary_ict_category || pipelineResults.ict_classification?.ict_types) {
+                <div class="meta-box__item meta-box__item--stacked">
+                  <span class="meta-box__label">ICT Classification</span>
+                  <div class="meta-box__chips">
+                    @if (pipelineResults.ict_classification?.primary_ict_category) {
+                      <span class="meta-box__chip">{{ pipelineResults.ict_classification.primary_ict_category }}</span>
+                    }
+                  </div>
+                  <span class="meta-box__caption">Determined by the SRT engine</span>
+                </div>
+              }
+            </div>
+          </div>
+        </section>
+        }
+
+        <!-- Multi-file Tabs -->
+        @if (pipelineResults.multi_file && pipelineResults.reports?.length > 1) {
+          <section class="report-section">
+            <h2 class="section-title">Individual File Results</h2>
+            <div class="file-tabs">
+              @for (report of pipelineResults.reports; track $index; let i = $index) {
+                <button class="file-tabs__tab" [class.file-tabs__tab--active]="selectedTab === i" (click)="selectedTab = i">
+                  <span class="material-symbols-outlined file-tabs__icon">{{ report.ml_prediction?.prediction === 'compliant' ? 'check_circle' : 'cancel' }}</span>
+                  <span class="doc-name" [title]="report.file_name">{{ report.file_name }}</span>
+                </button>
+              }
+            </div>
+            <div class="file-tab-content">
+              <div class="file-tab-result">
+                <div class="file-tab-result__header">
+                  <span class="file-tab-result__badge" [class.file-tab-result__badge--pass]="pipelineResults.reports[selectedTab]?.ml_prediction?.prediction === 'compliant'" [class.file-tab-result__badge--fail]="pipelineResults.reports[selectedTab]?.ml_prediction?.prediction !== 'compliant'">
+                    {{ pipelineResults.reports[selectedTab]?.ml_prediction?.prediction === 'compliant' ? 'Included' : 'Not Included' }}
+                  </span>
+                  <span class="file-tab-result__name" [title]="pipelineResults.reports[selectedTab]?.file_name">{{ pipelineResults.reports[selectedTab]?.file_name }}</span>
+                </div>
+                @if (pipelineResults.reports[selectedTab]?.synthesis?.executive_summary) {
+                  <p class="file-tab-result__summary">{{ pipelineResults.reports[selectedTab].synthesis.executive_summary }}</p>
+                }
+                @if (pipelineResults.reports[selectedTab]?.ict_classification?.primary_ict_category) {
+                  <p class="file-tab-result__meta"><strong>ICT:</strong> {{ pipelineResults.reports[selectedTab].ict_classification.primary_ict_category }}</p>
+                }
+                @if (pipelineResults.reports[selectedTab]?.applicability?.applicability_explanation) {
+                  <p class="file-tab-result__meta"><strong>Applicability:</strong> {{ pipelineResults.reports[selectedTab].applicability.applicability_explanation }}</p>
+                }
+              </div>
+            </div>
+          </section>
+        }
+
+        <!-- ICT Classification (per-file) -->
+        @if (getActiveReport()?.ict_classification?.ict_types) {
+          <section class="report-section">
+            <h2 class="section-title">ICT Classification</h2>
+            <div class="ict-bento">
+              @for (entry of getActiveIctTypes(); track entry) {
+                <div class="ict-bento__card">
+                  <div class="ict-bento__header">
+                    <span class="material-symbols-outlined ict-bento__icon">{{ getIctIcon(entry) }}</span>
+                    <h4 class="ict-bento__name">{{ entry }}</h4>
+                  </div>
+                </div>
+              }
+            </div>
+            @if (getActiveReport()?.ict_classification?.explanation) {
+              <p class="ict-explanation">{{ getActiveReport().ict_classification.explanation }}</p>
+            }
+          </section>
+        }
+
+        <!-- Applicability (per-file, v1 only) -->
+        @if (pipelineVersion === 'v1' && getActiveReport()?.applicability) {
+          <section class="report-section">
+            <div class="applicability-box">
+              <h2 class="applicability-box__title">Section 508 Applicability</h2>
+              <div class="applicability-box__status">
+                <span class="applicability-badge" [class.applicability-badge--yes]="getActiveReport()?.applicability?.is_508_applicable" [class.applicability-badge--no]="!getActiveReport()?.applicability?.is_508_applicable">
+                  {{ getActiveReport()?.applicability?.is_508_applicable ? '508 APPLIES' : 'NOT APPLICABLE' }}
+                </span>
+                <span class="applicability-box__confidence">Confidence: {{ getActiveReport()?.applicability?.confidence_score }}/10</span>
+              </div>
+              @if (getActiveReport()?.applicability?.applicability_explanation) {
+                <p class="applicability-box__text">{{ getActiveReport().applicability.applicability_explanation }}</p>
+              }
+            </div>
+          </section>
+        }
+
+        <!-- Vector Matches (v2 only) -->
+        @if (pipelineVersion === 'v2' && pipelineResults?.vector_matches?.matches?.length > 0) {
+          <section class="report-section">
+            <div class="vector-summary">
+              <div class="vector-summary__left">
+                <h2 class="section-title">Section 508 Evidence — Vector Matches</h2>
+                <div class="vector-stats">
+                  <span class="vector-stats__item"><strong>{{ pipelineResults.vector_matches.matches_found }}</strong> matches found</span>
+                  <span class="vector-stats__item"><strong>{{ pipelineResults.vector_matches.meaningful_matches }}</strong> meaningful</span>
+                  <span class="vector-stats__item">Strength: <strong>{{ pipelineResults.vector_matches.match_strength }}</strong></span>
+                </div>
+              </div>
+              <button class="vector-toggle-btn" (click)="showVectorMatches = !showVectorMatches">
+                {{ showVectorMatches ? 'Hide' : 'Show' }} Matches
+                <span class="material-symbols-outlined">{{ showVectorMatches ? 'expand_less' : 'expand_more' }}</span>
+              </button>
+            </div>
+            @if (showVectorMatches) {
+              <p class="vector-intro">Passages in your solicitation matched against the Section 508 standards corpus. Matches validated as meaningful by the AI are highlighted.</p>
+              <div class="vector-matches-list">
+                @for (match of pipelineResults.vector_matches.matches; track match.chunk_index) {
+                  <div class="vector-match" [class.vector-match--meaningful]="match.llm_meaningful" [class.vector-match--noise]="!match.llm_meaningful">
+                    <div class="vector-match__header">
+                      <span class="vector-match__score">{{ (match.similarity_score * 100).toFixed(0) }}%</span>
+                      <span class="vector-match__badge">{{ match.llm_meaningful ? '✓ Meaningful' : '✗ Noise' }}</span>
+                    </div>
+                    <div class="vector-match__body">
+                      <div class="vector-match__col">
+                        <span class="vector-match__label">Solicitation Text</span>
+                        <p class="vector-match__text">{{ match.chunk_text }}</p>
+                      </div>
+                      <div class="vector-match__col">
+                        <span class="vector-match__label">508 Standard</span>
+                        <p class="vector-match__text">{{ match.matched_standard }}</p>
+                      </div>
+                    </div>
+                    @if (match.llm_reason) {
+                      <p class="vector-match__reason">{{ match.llm_reason }}</p>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          </section>
+        }
+
+        <!-- ART Requirements Table (per-file) — v1 only -->
+        @if (pipelineVersion === 'v1' && getActiveReport()?.art_clauses?.language) {
+          <section class="report-section">
+            <h2 class="section-title">Section 508 Requirements</h2>
+            <div class="art-explainer">
+              <div class="art-explainer__icon">
+                <span class="material-symbols-outlined" aria-hidden="true">info</span>
+              </div>
+              <div class="art-explainer__content">
+                <p class="art-explainer__title">What is this?</p>
+                <p class="art-explainer__text">The <strong>Accessibility Requirements Tool (ART)</strong> is a GSA-provided service that generates the specific Section 508 accessibility requirements applicable to your procurement. Based on the ICT types identified in this solicitation ({{ getActiveIctTypes().join(', ') }}), the ART API returned the requirements below. These are the requirements your solicitation should reference.</p>
+              </div>
+            </div>
+            <p class="art-instruction-text">The requirements below belong in the Terms and Conditions or Requirements section of your solicitation.</p>
+            <div class="art-note">
+              <span class="material-symbols-outlined" aria-hidden="true">info</span>
+              <p>This tool provides Section 508 requirements guidance. It does not review FAR clauses, agency-specific requirements, clauses, or provisions.</p>
+            </div>
+            <div class="art-table-wrap">
+              <table class="art-table">
+                <caption class="usa-sr-only">Section 508 requirements generated by the Accessibility Requirements Tool, listing requirement code, requirement, and detail.</caption>
+                <thead><tr><th scope="col">Code</th><th scope="col">Requirement</th><th scope="col">Detail</th></tr></thead>
+                @for (section of getActiveReport().art_clauses.language; track section.code || section.title) {
+                  <tbody class="art-table__group">
+                    <tr class="art-table__section-row">
+                      <th scope="rowgroup" colspan="3" class="art-table__group-head">{{ section.code }} — {{ section.title }}</th>
+                    </tr>
+                    @if (section.sections?.length) {
+                      @for (sub of section.sections; track sub.code || sub.title) {
+                        <tr><th scope="row" class="art-table__code">{{ sub.code }}</th><td class="art-table__title">{{ sub.title }}</td><td class="art-table__text">{{ sub.text }}</td></tr>
+                      }
+                    }
+                  </tbody>
+                }
+              </table>
+            </div>
+          </section>
+        }
+        @if (pipelineVersion === 'v1' && getActiveReport()?.art_clauses?.error) {
+          <section class="report-section">
+            <h2 class="section-title">Section 508 Requirements (ART)</h2>
+            <p class="stage-card__note">{{ getActiveReport().art_clauses.error }}</p>
+          </section>
+        }
+
+        <!-- Key Findings (per-file) — collapsible -->
+        @if (getActiveReport()?.synthesis?.key_findings?.length || pipelineResults?.document_summary?.key_findings?.length) {
+          <section class="report-section">
+            <h2 class="collapse-heading"><button type="button" class="section-collapse-toggle" (click)="toggleSection('findings')" [attr.aria-expanded]="!!openSections['findings']" aria-controls="findings-panel">
+              <span class="section-title" style="margin: 0;">Key Findings ({{ (getActiveReport()?.synthesis?.key_findings || pipelineResults?.document_summary?.key_findings)?.length }})</span>
+              <span class="material-symbols-outlined" aria-hidden="true">{{ openSections['findings'] ? 'expand_less' : 'expand_more' }}</span>
+            </button></h2>
+            @if (openSections['findings']) {
+              <div id="findings-panel" class="findings-grid" style="margin-top: 0.75rem;">
+                @for (finding of (getActiveReport()?.synthesis?.key_findings || pipelineResults?.document_summary?.key_findings); track finding; let i = $index) {
+                  <div class="finding-card">
+                    <div class="finding-card__icon-wrap"><span class="material-symbols-outlined finding-card__icon">{{ i % 2 === 0 ? 'analytics' : 'fact_check' }}</span></div>
+                    <p class="finding-card__text">{{ finding }}</p>
+                  </div>
+                }
+              </div>
+            }
+          </section>
+        }
+
+        <!-- Procurement Description (per-file) — collapsible -->
+        @if (getActiveReport()?.synthesis?.procurement_description) {
+          <section class="report-section">
+            <h2 class="collapse-heading"><button type="button" class="section-collapse-toggle" (click)="toggleSection('procurement')" [attr.aria-expanded]="!!openSections['procurement']" aria-controls="procurement-panel">
+              <span class="section-title" style="margin: 0;">Procurement Description</span>
+              <span class="material-symbols-outlined" aria-hidden="true">{{ openSections['procurement'] ? 'expand_less' : 'expand_more' }}</span>
+            </button></h2>
+            @if (openSections['procurement']) {
+              <div id="procurement-panel" class="summary-box" style="margin-top: 0.75rem;"><p class="summary-box__text">{{ getActiveReport().synthesis.procurement_description }}</p></div>
+            }
+          </section>
+        }
+
+        } <!-- end @if (508 applies || override) -->
+        } <!-- end @if (!stopped_at_gate) -->
+
+        <p class="pipeline-note">{{ pipelineResults.pipeline_note }}</p>
+
+        <!-- Bottom CTA — people expect the next action at the end of a long
+             results page (top toolbar button stays too). -->
+        <div style="display: flex; justify-content: center; margin: 1.5rem 0 0.5rem;">
+          <button type="button" class="usa-button" (click)="resetAnalysis()">
+            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle; margin-right: 4px;" aria-hidden="true">restart_alt</span>
+            Check another solicitation
+          </button>
+        </div>
+        <!-- AI disclaimer intentionally not repeated here; the single site-wide
+             disclaimer lives in the global footer (app.component.html). -->
+
+        </div><!-- /.report-main -->
+      </div><!-- /.report-layout -->
+      </div>
     </div>
-  </div>
-</section>
+  }
+
 </main>

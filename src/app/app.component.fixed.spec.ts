@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import {AuthGuard} from './auth-guard.service';
 import {AuthService} from './shared/services/auth.service';
-import {HttpClient, HttpHandler} from '@angular/common/http';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 import {Globals} from '../globals';
 import { HeaderComponent } from './header/header.component';
 import { UserService } from './shared/services/user.service';

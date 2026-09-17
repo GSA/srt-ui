@@ -1,9 +1,10 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SummaryComponent } from './summary.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {SolicitationService} from '../solicitation.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('SummaryComponent', () => {
   let component: SummaryComponent;
@@ -11,10 +12,10 @@ describe('SummaryComponent', () => {
 
   beforeEach((() => {
     TestBed.configureTestingModule({
-      declarations: [ SummaryComponent ],
-      providers: [SolicitationService],
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])]
-    })
+    declarations: [SummaryComponent],
+    imports: [RouterTestingModule.withRoutes([])],
+    providers: [SolicitationService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 

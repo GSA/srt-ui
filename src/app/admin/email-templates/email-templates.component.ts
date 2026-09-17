@@ -1,0 +1,360 @@
+import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import DOMPurify from 'dompurify';
+import { AdminManagementService } from '../../shared/services/admin-management.service';
+
+interface EmailTemplate {
+  id: number;
+  templateKey: string;
+  name: string;
+  subject: string;
+  body: string;
+  description: string;
+  isBuiltIn?: boolean;
+  active?: boolean;
+}
+
+const EMAIL_FOOTER = `<hr style="border: none; border-top: 1px solid #dfe1e2; margin: 24px 0;" />
+<table cellpadding="0" cellspacing="0" style="margin-top: 16px;">
+  <tr>
+    <td><img src="assets/gsa-logo-new.png" alt="U.S. General Services Administration" height="54" style="height: 54px; width: auto; display: block;" /></td>
+  </tr>
+</table>`;
+
+@Component({
+  selector: 'app-email-templates',
+  templateUrl: './email-templates.component.html',
+  styleUrls: ['./email-templates.component.scss'],
+  standalone: false
+})
+export class EmailTemplatesComponent implements OnInit {
+
+  // Loaded from the API. These used to be a hardcoded array here, which meant a
+  // template could be edited for one send but never saved.
+  templates: EmailTemplate[] = [];
+  loadingTemplates = false;
+  templateError = '';
+  templateNotice = '';
+  savingTemplate = false;
+
+  // Creating a new template
+  showNewTemplate = false;
+  newTemplate = { name: '', subject: '', body: '', description: '' };
+
+  // State
+  selectedTemplate: EmailTemplate | null = null;
+  editingSubject = '';
+  editingBody = '';
+
+  // Update notes (bullet points)
+  updateNotes: string[] = [''];
+
+  // Recipients
+  recipientMode: 'all' | 'agency' | 'role' | 'inactive' = 'all';
+  selectedAgency = '';
+  selectedRole = '';
+  inactivityDays = 60;
+  agencies: any[] = [];
+  roles = ['Administrator', 'SRT Program Manager', 'Section 508 Coordinator', 'CO/COR'];
+
+  // Send flow
+  confirmStep = 0; // 0 = not started, 1 = first warning, 2 = second warning, 3 = sending
+  recipientCount = 0;
+  // The actual people, not just how many. A number cannot show a wrong
+  // audience; the list can.
+  recipients: Array<{ id: number; email: string; firstName?: string; lastName?: string;
+                      agency?: string; userRole?: string }> = [];
+  showRecipients = false;
+  recipientsLoading = false;
+  sending = false;
+  sendResult: { success: boolean; message: string } | null = null;
+
+  constructor(private adminService: AdminManagementService, private sanitizer: DomSanitizer) {}
+
+  ngOnInit(): void {
+    this.adminService.listAgencies().subscribe({
+      next: (data) => { this.agencies = data.agencies || []; },
+      error: () => {}
+    });
+    this.loadTemplates();
+  }
+
+  loadTemplates(): void {
+    this.loadingTemplates = true;
+    this.templateError = '';
+    this.adminService.listEmailTemplates().subscribe({
+      next: (data) => {
+        this.templates = (data.templates || []).filter((t: EmailTemplate) => t.active !== false);
+        this.loadingTemplates = false;
+        // Keep the current selection pointing at the refreshed copy rather than
+        // a stale object, so an edit made here is what gets sent.
+        if (this.selectedTemplate) {
+          const again = this.templates.find(t => t.id === this.selectedTemplate!.id);
+          this.selectedTemplate = again || null;
+          if (!again) { this.editingSubject = ''; this.editingBody = ''; }
+        }
+      },
+      error: (err) => {
+        this.templateError = err?.error?.error || 'Could not load email templates.';
+        this.loadingTemplates = false;
+      }
+    });
+  }
+
+  /** Save edits to the selected template so they persist beyond this send. */
+  saveTemplate(): void {
+    if (!this.selectedTemplate) { return; }
+    this.savingTemplate = true;
+    this.templateNotice = '';
+    this.templateError = '';
+    this.adminService.updateEmailTemplate(this.selectedTemplate.id, {
+      subject: this.editingSubject,
+      body: this.editingBody
+    }).subscribe({
+      next: () => {
+        this.savingTemplate = false;
+        this.templateNotice = `Saved changes to ${this.selectedTemplate!.name}.`;
+        this.loadTemplates();
+      },
+      error: (err) => {
+        this.savingTemplate = false;
+        this.templateError = err?.error?.error || 'Could not save the template.';
+      }
+    });
+  }
+
+  get newTemplateDisabled(): boolean {
+    return this.savingTemplate
+      || !this.newTemplate.name.trim()
+      || !this.newTemplate.subject.trim()
+      || !this.newTemplate.body.trim();
+  }
+
+  createTemplate(): void {
+    if (this.newTemplateDisabled) { return; }
+    this.savingTemplate = true;
+    this.templateNotice = '';
+    this.templateError = '';
+    this.adminService.createEmailTemplate({
+      name: this.newTemplate.name.trim(),
+      subject: this.newTemplate.subject.trim(),
+      body: this.newTemplate.body,
+      description: this.newTemplate.description.trim()
+    }).subscribe({
+      next: (res) => {
+        this.savingTemplate = false;
+        this.templateNotice = `Created ${this.newTemplate.name.trim()}.`;
+        this.newTemplate = { name: '', subject: '', body: '', description: '' };
+        this.showNewTemplate = false;
+        this.loadTemplates();
+        if (res && res.template) { this.selectTemplate(res.template); }
+      },
+      error: (err) => {
+        this.savingTemplate = false;
+        this.templateError = err?.error?.error || 'Could not create the template.';
+      }
+    });
+  }
+
+  removeTemplate(t: EmailTemplate): void {
+    const builtIn = t.isBuiltIn
+      ? '\n\nThis is a built-in template, so it will be hidden rather than deleted and can be restored later.'
+      : '';
+    if (!confirm(`Remove the "${t.name}" template?${builtIn}`)) { return; }
+    this.savingTemplate = true;
+    this.adminService.deleteEmailTemplate(t.id).subscribe({
+      next: (res) => {
+        this.savingTemplate = false;
+        this.templateNotice = res && res.deactivated
+          ? `${t.name} has been hidden. It can be restored later.`
+          : `${t.name} deleted.`;
+        if (this.selectedTemplate && this.selectedTemplate.id === t.id) {
+          this.selectedTemplate = null;
+        }
+        this.loadTemplates();
+      },
+      error: (err) => {
+        this.savingTemplate = false;
+        this.templateError = err?.error?.error || 'Could not remove the template.';
+      }
+    });
+  }
+
+  selectTemplate(template: EmailTemplate): void {
+    this.selectedTemplate = template;
+    this.editingSubject = template.subject;
+    this.editingBody = template.body;
+    this.sendResult = null;
+    this.confirmStep = 0;
+    this.updateNotes = [''];
+    this.templateNotice = '';
+    this.templateError = '';
+    this.loadRecipientCount();
+  }
+
+  addNote(): void {
+    this.updateNotes.push('');
+  }
+
+  removeNote(index: number): void {
+    if (this.updateNotes.length > 1) {
+      this.updateNotes.splice(index, 1);
+    }
+  }
+
+  getUpdateNotesHtml(): string {
+    const notes = this.updateNotes.filter(n => n.trim());
+    if (notes.length === 0) return '<ul><li>[Add update notes]</li></ul>';
+    return '<ul>' + notes.map(n => `<li>${n}</li>`).join('') + '</ul>';
+  }
+
+  getFullBody(): string {
+    let body = this.editingBody;
+    body = body.replace('{{days_inactive}}', String(this.inactivityDays));
+    body = body.replace('{{update_notes}}', this.getUpdateNotesHtml());
+    return body + EMAIL_FOOTER;
+  }
+
+  // The preview used to bind getFullBody() straight to [innerHTML], which runs it
+  // through Angular's sanitiser. The sanitiser strips style attributes, so every
+  // inline style the email carries was silently dropped from the preview. With the
+  // footer logo that was very visible: the email sends it at 12px, the preview drew
+  // it at its natural 152px, because once the inline height was gone the global
+  // "img { height: auto }" in styles.scss took over.
+  //
+  // Trying to win that back from CSS does not work. "height: revert" and
+  // "height: unset" both roll the cascade back past the HTML height attribute, so
+  // the image still lands on auto. The attribute cannot be recovered once the
+  // inline style is gone.
+  //
+  // So the preview runs the body through DOMPurify and trusts THAT. DOMPurify keeps
+  // inline style, which restores the sizing, and strips scripts, event handlers
+  // and javascript: URLs, which Angular's sanitiser would also have removed. The
+  // preview is therefore at least as safe as it was before, and no longer a raw
+  // DOM-to-HTML sink (the js/xss-through-dom finding CodeQL raised on the first
+  // version of this). The send path is unchanged and still mails the raw body.
+  //
+  // The result is cached against the exact string it was built from. [innerHTML]
+  // compares by reference, so returning a fresh SafeHtml on every change-detection
+  // pass would rebuild the preview DOM continuously.
+  private previewCacheKey: string | null = null;
+  private previewCacheValue: SafeHtml | null = null;
+
+  getPreviewBody(): SafeHtml {
+    const html = this.getFullBody();
+    if (html !== this.previewCacheKey) {
+      this.previewCacheKey = html;
+      // Angular's own sanitiser strips style attributes, which is what made the
+      // preview misrepresent the email (the footer logo drew at 152px instead of
+      // 12px). Trusting the raw editor text instead is a DOM-to-HTML sink with no
+      // sanitiser in between, which CodeQL flags as js/xss-through-dom, and it is
+      // right to: an administrator pasting markup from elsewhere could carry a
+      // script or an onerror handler into the preview.
+      //
+      // DOMPurify keeps inline style, so the preview still shows what the
+      // recipient receives, and removes scripts, event handlers and javascript:
+      // URLs. The sanitised string is what gets trusted, never the raw text.
+      const clean = DOMPurify.sanitize(html, { USE_PROFILES: { html: true } });
+      this.previewCacheValue = this.sanitizer.bypassSecurityTrustHtml(clean);
+    }
+    return this.previewCacheValue as SafeHtml;
+  }
+
+  loadRecipientCount(): void {
+    // Asks the server the same question the send asks, through the same resolver,
+    // so what is shown is what will be mailed. This used to be a separate user
+    // query that disagreed with the send: for the inactive mode it counted every
+    // user while the send went to every active user.
+    this.recipientsLoading = true;
+    this.adminService.previewRecipients({
+      recipientMode: this.recipientMode,
+      agency: this.recipientMode === 'agency' ? this.selectedAgency : undefined,
+      role: this.recipientMode === 'role' ? this.selectedRole : undefined,
+      inactivityDays: this.recipientMode === 'inactive' ? this.inactivityDays : undefined
+    }).subscribe({
+      next: (data) => {
+        this.recipients = data.recipients || [];
+        this.recipientCount = data.count || 0;
+        this.recipientsLoading = false;
+      },
+      error: () => {
+        this.recipients = [];
+        this.recipientCount = 0;
+        this.recipientsLoading = false;
+      }
+    });
+  }
+
+  toggleRecipients(): void {
+    this.showRecipients = !this.showRecipients;
+  }
+
+
+  onRecipientChange(): void {
+    this.confirmStep = 0;
+    this.loadRecipientCount();
+  }
+
+  startSend(): void {
+    this.confirmStep = 1;
+  }
+
+  confirmFirst(): void {
+    this.confirmStep = 2;
+  }
+
+  confirmSecond(): void {
+    this.confirmStep = 3;
+    this.send();
+  }
+
+  cancelSend(): void {
+    this.confirmStep = 0;
+  }
+
+  send(): void {
+    if (!this.selectedTemplate) return;
+    this.sending = true;
+    this.sendResult = null;
+
+    const payload = {
+      // The stable string key, not the numeric row id. Existing admin_audit_log
+      // rows reference the key from when these templates were hardcoded, so
+      // sending it keeps the send history continuous.
+      templateId: this.selectedTemplate.templateKey || String(this.selectedTemplate.id),
+      subject: this.editingSubject,
+      body: this.getFullBody(),
+      recipientMode: this.recipientMode,
+      agency: this.recipientMode === 'agency' ? this.selectedAgency : undefined,
+      role: this.recipientMode === 'role' ? this.selectedRole : undefined,
+      inactivityDays: this.recipientMode === 'inactive' ? this.inactivityDays : undefined,
+      // The count the administrator actually reviewed. The server refuses the
+      // send if the audience has changed since then.
+      expectedRecipientCount: this.recipientCount
+    };
+
+    this.adminService.sendBulkEmail(payload).subscribe({
+      next: (res) => {
+        this.sending = false;
+        this.confirmStep = 0;
+        this.sendResult = { success: true, message: `Email sent to ${res.sent} recipient(s).` };
+      },
+      error: (err) => {
+        this.sending = false;
+        this.confirmStep = 0;
+        if (err.status === 409) {
+          // The audience changed between review and send. Refresh the list so the
+          // administrator reviews the new one rather than retrying blind.
+          this.sendResult = { success: false, message:
+            `Nothing was sent. The recipient list changed while you were reviewing it, `
+            + `from ${err.error?.expected} to ${err.error?.actual} people. `
+            + `The list below has been refreshed. Please check it and send again.` };
+          this.showRecipients = true;
+          this.loadRecipientCount();
+        } else {
+          this.sendResult = { success: false, message: err.error?.error || 'Failed to send email.' };
+        }
+      }
+    });
+  }
+}

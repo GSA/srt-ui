@@ -1,14 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { EmailService } from './email.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('EmailService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [EmailService],
-      imports: [HttpClientTestingModule]
-    });
+    imports: [],
+    providers: [EmailService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
   });
 
   it('should ...', inject([EmailService], (service: EmailService) => {

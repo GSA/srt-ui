@@ -2,8 +2,9 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FeedbackReportComponent } from './feedback-report.component';
 import {SolicitationService} from '../solicitation.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { of } from 'rxjs';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('FeedbackReportComponent', () => {
   let component: FeedbackReportComponent;
@@ -12,10 +13,10 @@ describe('FeedbackReportComponent', () => {
 
   beforeEach((() => {
     TestBed.configureTestingModule({
-      declarations: [ FeedbackReportComponent ],
-      imports: [HttpClientTestingModule],
-      providers: [SolicitationService]
-    })
+    declarations: [FeedbackReportComponent],
+    imports: [],
+    providers: [SolicitationService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 

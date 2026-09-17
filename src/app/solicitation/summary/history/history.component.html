@@ -1,30 +1,63 @@
-<main id="content" class="usa-section">
-  <app-summary [step1]="step1" [step2]="step2" [step3]="step3" [solicitationID]="solicitationID" [type]="type"></app-summary>
+<main id="content" class="bypass-block-target">
 
-  <div class="grid-container">
-    <div class="grid-row grid-gap">
-      <div class="grid-col-12">
-        <!-- Back link using USWDS typography and spacing -->
-        <div class="margin-bottom-4">
-          <a [routerLink]="['/solicitation/report']" class="usa-link usa-link--back">
-            Back to Solicitation Review Results for Section 508 Requirements
-          </a>
+  <div class="container">
+    <div class="clearfix summary-content-padding">
+
+      <h1 style="font-size: 1.5rem; font-weight: 700; margin: 0 0 0.25rem;">Solicitation History</h1>
+      <p style="font-size: 0.9rem; color: #1b1b1b; margin: 0 0 1.5rem; line-height: 1.5;">
+        A timeline of how this solicitation has been evaluated and acted on over time.
+        <em>Prediction History</em> shows each verdict the analysis pipeline has produced
+        (e.g. when a re-run changed the determination). <em>Action History</em> shows the
+        actions reviewers have taken — opening the report, emailing the point of contact,
+        flagging the solicitation as Not Applicable, or submitting feedback.
+      </p>
+
+      <!-- Prediction History -->
+      <div style="font-size: 16px;" class="margin-bottom-4">
+        <div class="list-title" style="width: 100%;">
+          Prediction History
         </div>
+        <div class="list-content">
+          @if (predictionHistory) {
+            <ul class="nopadding">
+              @for (entry of predictionHistory; track entry) {
+                <li style="list-style: none;">
+                  {{entry.date}} -
+                  <span [style.font-weight]="600">
+                    @switch (entry.value) {
+                      @case ('red') {
+                        Not Included
+                      }
+                      @case ('green') {
+                        Included
+                      }
+                      @default {
+                        {{entry.value}}
+                      }
+                    }
+                  </span>
+                </li>
+              }
+            </ul>
+          }
+        </div>
+      </div>
 
-        <!-- Action History section -->
-        <div class="usa-prose">
-          <h2 class="font-heading-xl margin-bottom-2">
-            Action History
-          </h2>
-          
-          <!-- List using USWDS list styles -->
-          <ul *ngIf="history" class="usa-list usa-list--unstyled">
-            <li *ngFor="let action of history" class="margin-y-1">
-              {{action.date}} -
-              <span class="text-bold">{{action.user}}</span>
-              {{action.action}}
-            </li>
-          </ul>
+      <!-- Action History -->
+      <div style="font-size: 16px;">
+        <div class="list-title" style="width: 100%;">
+          Action History
+        </div>
+        <div class="list-content">
+          @if (history) {
+            <ul class="nopadding">
+              @for (action of history; track action) {
+                <li style="list-style: none;">
+                  {{action.date}} - <span style="font-weight: 600">{{action.user}}</span> {{action.action}}
+                </li>
+              }
+            </ul>
+          }
         </div>
       </div>
     </div>

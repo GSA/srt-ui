@@ -3,7 +3,8 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { UploadComponent } from './upload.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from '../../services/auth.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('UploadComponent', () => {
   let component: UploadComponent;
@@ -11,10 +12,10 @@ describe('UploadComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ UploadComponent ],
-      providers: [AuthService],
-      imports: [RouterTestingModule.withRoutes([]), HttpClientTestingModule]
-    })
+    declarations: [UploadComponent],
+    imports: [RouterTestingModule.withRoutes([])],
+    providers: [AuthService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 

@@ -1,244 +1,282 @@
-ul.register {
-    padding: 0px;
-    margin: 0px;
-    list-style: none;
-    width: 100%;
+/* ──────────────────────────────────────────────
+   SRT Auth Page – USWDS 3.0 Design
+   ────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+/* ── Design Tokens ── */
+$uswds-header: #112E51;
+$uswds-bg:     #F0F0F0;
+$uswds-text:   #1B1B1B;
+$uswds-muted:  #1b1b1b;
+$primary:      #0467ae;
+$primary-dark: #1A4480;
+$border-color: #DFE1E2;
+$icon-bg:      #e6f2f8;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Public Sans', sans-serif;
+  color: $uswds-text;
+  background: #fff;
 }
 
-ul.register li {
-    float: left;
-    font-size: 20px;
-    width: 50%;
-    text-align: center;
-    cursor: pointer;
-    padding: 10px;
-    border-bottom: 1px solid #dadada;
+/* ── Gov Banner ── */
+.gov-banner {
+  background: $uswds-bg;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  color: $uswds-text;
+  border-bottom: 1px solid $border-color;
+
+  &__inner {
+    max-width: 80rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__flag {
+    height: 0.75rem;
+    width: 1rem;
+    object-fit: cover;
+  }
 }
 
-ul.register li.active {
-    background: #112e51;
-    color: #fff;
+/* ── Global Header ── */
+.srt-header {
+  background: $uswds-header;
+  color: #fff;
+  padding: 1.5rem 1rem;
+
+  &__inner {
+    max-width: 80rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__gsa-logo {
+    height: 3.125rem;
+    width: auto;
+    filter: brightness(0) invert(1);
+  }
+
+  &__divider {
+    width: 1px;
+    height: 2.5rem;
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+
+  &__srt-logo {
+    height: 4.6875rem;
+    width: auto;
+    filter: brightness(0) invert(1);
+  }
+
+  &__nav {
+    display: none;
+    gap: 1.5rem;
+
+    @media (min-width: 768px) {
+      display: flex;
+    }
+
+    a {
+      color: #fff;
+      font-weight: 500;
+      text-decoration: none;
+      &:hover { text-decoration: underline; }
+    }
+  }
+}
+
+/* ── Main ── */
+.srt-main {
+  flex-grow: 1;
+}
+
+/* ── Hero Section ── */
+.hero-section {
+  &__inner {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 4rem 1rem 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    align-items: center;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      padding: 6rem 1rem 7rem;
+    }
+  }
+
+  &__text {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  &__heading {
+    font-size: 2.5rem;
     font-weight: 700;
-    transform: scaleY(1.1);
-    border: none;
+    line-height: 1.15;
+    color: $uswds-text;
+    margin: 0;
+
+    @media (min-width: 768px) {
+      font-size: 3rem;
+    }
+  }
+
+  &__subtext {
+    font-size: 1.25rem;
+    color: $uswds-text;
+    line-height: 1.6;
+    max-width: 37rem;
+    margin: 0;
+  }
+
+  &__card-wrapper {
+    flex: 2;
+    width: 100%;
+  }
 }
 
+/* ── Login Card ── */
+.login-card {
+  background: #fff;
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem 2rem;
+  border: 1px solid $border-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
 
-/*Kailun's adding*/
+  &__icon {
+    color: $uswds-header;
+    margin-bottom: 0.25rem;
 
-#gsaDropdown ul.dropdown-menu{
-    padding: 5px 0px;
-    background-color: #112e51 !important;
-}
+    .material-symbols-outlined {
+      font-size: 3rem;
+    }
+  }
 
-#gsaDropdown ul.dropdown-menu > li > a{
-    color: white;
-    /* font-weight.*300 */;
-}
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $uswds-text;
+    margin: 0;
+  }
 
+  &__description {
+    color: $uswds-muted;
+    font-size: 1rem;
+    margin: 0;
+  }
 
-#gsaDropdown ul.dropdown-menu > li > a:hover{
-    background-color: transparent!important;
-}
-.dropdown-item {
-background-color: #112e51;
-color: white;
-border: none;
-padding: 15px 0px;
-text-align: left;
-text-decoration: none;
-display: inline-block;
-font-size: 16px;
-    width: calc(100%);
-margin-left: 0px;
-padding-left: 15px;
-}
-#srtlogo {
-max-height: 40px;
-margin-top: 8px;
-margin-left: 10px;
-}
-#navbar ul.nav.navbar-nav,
-#navbar ul.nav.navbar-nav > li{
-height: 60px;
-cursor: pointer;
-}
+  &__alert {
+    background: #fef0f0;
+    border-left: 4px solid #d63e04;
+    padding: 1rem 1.25rem;
+    border-radius: 0.125rem;
+    text-align: left;
+    width: 100%;
 
-#navbar ul.nav.navbar-nav > li.active{
-height: 60px;
-cursor: pointer;
-border-bottom: 2px solid #102c52;
-}
+    strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      color: #d63e04;
+    }
 
-#navbar ul.nav.navbar-nav > li > a{
-margin: 20px 15px;
-padding: 0px;
-font-weight: 500;
-color: #102c52;
-font-size: 16px;
-}
+    p {
+      margin: 0;
+      font-size: 0.875rem;
+      color: $uswds-text;
+    }
 
-#navbar ul.nav.navbar-nav > li.active > a{
-color: #102c52!important;
-font-weight: 700 !important;
-/* border-bottom: 1px solid #102c52; */
-padding-bottom: 5px!important;
-font-weight: 700;
-background-color: transparent !important;
+    a {
+      color: $primary;
+      &:hover { text-decoration: underline; }
+    }
+  }
 }
 
-#navbar ul.nav.navbar-nav > li:focus {
-outline: none;
-}
+/* ── Features Section ── */
+.features-section {
+  background: $uswds-bg;
+  padding: 4rem 0;
+  border-top: 1px solid $border-color;
 
-
-hr {
-margin: 0px;
-}
-
-.us-navbar {
-background-color: white;
-}
-
-#header {
-top: 0px;
-margin:0px;
-
-/* border-width: 2px;
-border-bottom-width:2px;
-border-bottom-color: #112e51;
-border-bottom-style: solid;
-width: 100%;*/
-padding: 0px;
-position: sticky;
-z-index: 50
-}
-#navbar a {
-padding-top: 20px;
-}
-#navbar a:link
-{
-text-decoration: none;
-color: #4c2c92;
-font-family: Arial, sans-serif;
-font-size: medium;
-font-weight: bold;
-letter-spacing: 1px;
-}
-/*#navbar a:active
-{
-text-decoration: none;
-color: #112e51;
-font-family: Arial, sans-serif;
-font-size: medium;
-font-weight: bold;
-letter-spacing: 1px;
-}*/
-
-img {
-max-width: 100%;
-max-height: 60px;
-float: right;
-}
-
-hr {
-display: block;
-height: 3px;
-border: 0;
-border-top: 1px solid #112e51;
-margin: 5px 0;
-padding: 0;
-}
-
-.dropdown-menu {
-left: auto;
-right: -1px;
-}
-
-
-.card-shadow{
-    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-}
-
-.login-header-bg {
-    background-image: url("/assets/login.jpg");
-    background-size: cover;
-    background-color: rgba(255,255,255,0.8);
-    background-blend-mode: lighten;
-}
-
-/* Cards Section */
-.usa-card {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-  
-.usa-card__container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    text-decoration: none;
-    color: inherit;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-    border-radius: 0.25rem; /* 4px */
-}
-  
-.usa-card__container--clickable {
-    cursor: pointer; /* Show the clicky hand cursor on hover */
-}
-  
-.usa-card__container--clickable:hover,
-.usa-card__container--clickable:focus {
-    box-shadow: 0 0 0 0.1875rem #2491ff; /* 3px */
-    transform: translateY(-0.125rem); /* -2px */
-    text-decoration: none;
-    cursor: pointer;
-    outline: none;
-}
-  
-.usa-card__media {
-    flex: 0 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    height: 7.5rem; /* 120px */
-}
-  
-.usa-card__media img {
-    width: 5rem; /* 80px */
-    height: 5rem; /* 80px */
-    object-fit: contain;
-}
-  
-.usa-card__media img[alt="FAQ Icon"] {
-    width: 10rem; /* 160px */
-    height: 10rem; /* 160px */
-    object-fit: contain; /* Ensures the image scales without distortion */
-}
-  
-.usa-card__header,
-.usa-card__body {
-    flex: 1 1 auto;
+  &__inner {
+    max-width: 80rem;
+    margin: 0 auto;
     padding: 0 1rem;
-    text-align: center;
+  }
 }
-  
-.usa-card__heading {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
+
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
-  
-.usa-card__body p {
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 1rem;
+
+.feature-card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 0.125rem;
+  border: 1px solid $border-color;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &__icon-wrap {
+    color: $primary;
+    background: $icon-bg;
+    padding: 0.75rem;
+    border-radius: 0.125rem;
+    width: fit-content;
+
+    .material-symbols-outlined {
+      font-size: 1.75rem;
+    }
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $uswds-text;
+    margin: 0;
+  }
+
+  &__text {
+    color: $uswds-muted;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+  }
 }
-  
-.tablet\:grid-col-4,
-.mobile-lg\:grid-col-6 {
-    margin-bottom: 1rem;
-}
+
+/* ── Footer styles handled by global app component ── */

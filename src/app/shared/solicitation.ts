@@ -13,6 +13,7 @@ export class Solicitation {
         public category_list: {value: String},
         public date: Date,
         public agency: String,
+        public agencyID: number,
         public office: String,
         public contact: String,
         public position: String,

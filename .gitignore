@@ -44,3 +44,11 @@ Thumbs.db
 #Angular
 .angular
 .dccache
+.env
+.env.*
+.claude/
+.venv/
+venv/
+yarn.lock
+.yarnrc.yml
+.yarn/install-state.gz

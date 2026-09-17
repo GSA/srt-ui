@@ -1,0 +1,72 @@
+<section class="srt-disclaimer"
+         [class.srt-disclaimer--long]="variant === 'long'"
+         role="note"
+         aria-label="Disclaimer">
+  <h2 class="srt-disclaimer__heading" *ngIf="variant === 'long'">Disclaimer</h2>
+  <p class="srt-disclaimer__label" *ngIf="variant === 'short'">
+    <span class="srt-disclaimer__icon" aria-hidden="true">&#9432;</span> Disclaimer
+  </p>
+
+  <!-- SHORT (with inline expand) -->
+  <ng-container *ngIf="variant === 'short'">
+    <p class="srt-disclaimer__body">
+      The information on this site is provided for general informational purposes
+      only. GSA does not warrant the completeness, accuracy, or currency of any
+      content, including solicitation Section 508 requirements, which reflect
+      conditions at the time of creation. Users should independently verify
+      information before finalizing solicitations or related content. GSA assumes
+      no liability for decisions made based on this content. Reference to any
+      product or vendor does not constitute endorsement by the U.S. federal
+      government.
+    </p>
+
+    <!-- Full text expands inline; no navigation. -->
+    <div *ngIf="expanded" class="srt-disclaimer__full" id="srt-disclaimer-full">
+      <ng-container *ngTemplateOutlet="longText"></ng-container>
+    </div>
+
+    <button *ngIf="showFullLink"
+            type="button"
+            class="srt-disclaimer__toggle"
+            [attr.aria-expanded]="expanded"
+            aria-controls="srt-disclaimer-full"
+            (click)="expanded = !expanded">
+      {{ expanded ? 'Hide full disclaimer' : 'Read the full disclaimer' }}
+    </button>
+  </ng-container>
+
+  <!-- LONG (always fully shown, e.g. FAQ page) -->
+  <ng-container *ngIf="variant === 'long'">
+    <ng-container *ngTemplateOutlet="longText"></ng-container>
+  </ng-container>
+</section>
+
+<!-- Shared full disclaimer text -->
+<ng-template #longText>
+  <p class="srt-disclaimer__body">
+    The information provided in the Solicitation Review Tool
+    (srt.app.cloud.gov) is made available for general informational purposes
+    only. The Solicitation Review Tool and related content accessible through
+    this site are provided on an &ldquo;as is&rdquo; basis, without warranty or
+    guarantee of any kind, express or implied.
+  </p>
+  <p class="srt-disclaimer__body">
+    The General Services Administration (GSA) and contributing agencies do not
+    warrant or represent that the information contained herein is complete,
+    accurate, current, or free from error. Solicitations are scanned via
+    artificial intelligence using training from sources such as the Section 508
+    Statute, Federal Acquisition Regulations, and the Acquisition Requirements
+    Tool. Results may not reflect individual agency acquisition regulations or
+    recent updates to the FAR, Section 508, or other sources.
+  </p>
+  <p class="srt-disclaimer__body">
+    Users should not rely solely on the information provided through this tool
+    when making procurement, compliance, or accessibility determinations.
+    Independent verification is strongly encouraged. GSA assumes no liability
+    for decisions made based on the content of this site.
+  </p>
+  <p class="srt-disclaimer__body">
+    Reference to any specific product, vendor, or report does not constitute
+    endorsement or recommendation by the U.S. federal government.
+  </p>
+</ng-template>

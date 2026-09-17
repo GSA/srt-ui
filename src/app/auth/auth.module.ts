@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ButtonModule } from 'primeng/button';
@@ -22,28 +22,21 @@ import { UserloginComponent } from './userlogin/userlogin.component';
 
 import { AuthComponent } from 'app/auth/auth.component';
 
-@NgModule({
-    imports: [
-      AuthRoutingModule,
-      CommonModule,
-      HttpClientModule,
-      FormsModule,
-      ReactiveFormsModule,
-      TableModule,
-      ButtonModule,
-      DropdownModule,
-      CalendarModule,
-      AutoCompleteModule,
+@NgModule({ declarations: [
+        UserloginComponent,
+        AuthComponent,
     ],
-    declarations: [
-      UserloginComponent,
-      AuthComponent,
-    ],
-    providers: [
-    AuthService,
-    UserService
-    ],
-    exports: [
-    ]
-  })
+    exports: [], imports: [AuthRoutingModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TableModule,
+        ButtonModule,
+        DropdownModule,
+        CalendarModule,
+        AutoCompleteModule], providers: [
+        AuthService,
+        UserService,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
   export class AuthModule { }

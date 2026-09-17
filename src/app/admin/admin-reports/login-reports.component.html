@@ -26,17 +26,21 @@
   <p-table [value]="userData" [columns]="userChartCols" styleClass="pDataTable p-datatable-gridlines">
     <ng-template pTemplate="header" let-columns>
       <tr>
-        <th *ngFor="let col of userChartCols" [pSortableColumn]="col.field">
-          {{col.header}}
-          <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-        </th>
+        @for (col of userChartCols; track col) {
+          <th [pSortableColumn]="col.field">
+            {{col.header}}
+            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+          </th>
+        }
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">
       <tr>
-        <td *ngFor="let col of columns" class="srt-table-data">
-          {{rowData[col.field]}}
-        </td>
+        @for (col of columns; track col) {
+          <td class="srt-table-data">
+            {{rowData[col.field]}}
+          </td>
+        }
       </tr>
     </ng-template>
 

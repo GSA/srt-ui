@@ -6,9 +6,10 @@ import { SolicitationService } from '../solicitation.service';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
-  selector: 'app-summary',
-  templateUrl: './summary.component.html',
-  styleUrls: ['./summary.component.scss']
+    selector: 'app-summary',
+    templateUrl: './summary.component.html',
+    styleUrls: ['./summary.component.scss'],
+    standalone: false
 })
 export class SummaryComponent implements OnInit {
   @Input() solicitationID: string;

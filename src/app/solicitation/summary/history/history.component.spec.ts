@@ -1,13 +1,14 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HistoryComponent } from './history.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {SolicitationService} from '../../solicitation.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SummaryComponent } from '../summary.component';
 
 import { Solicitation } from 'app/shared/solicitation';
 import {of} from 'rxjs';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('HistoryComponent', () => {
   let component: HistoryComponent;
@@ -16,10 +17,10 @@ describe('HistoryComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ SummaryComponent, HistoryComponent ],
-      providers: [SolicitationService],
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])]
-    })
+    declarations: [SummaryComponent, HistoryComponent],
+    imports: [RouterTestingModule.withRoutes([])],
+    providers: [SolicitationService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   });
 

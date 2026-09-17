@@ -1,298 +1,660 @@
-/* Style for the CSV export icon */
-#csvlogo {
-    max-height: 2.5rem;
-    padding-left: 0.625rem;
-    margin-left: 0.9375rem; /* Add margin to space it nicely from other elements */
-    cursor: pointer;
+/* ──────────────────────────────────────────────
+   Daily Report Dashboard – USWDS 3.0 Design
+   ────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+/* ── Design Tokens ── */
+$primary:          #0459ae;
+$primary-dark:     #003d7a;
+$uswds-navy:       #003366;
+$uswds-text:       #1B1B1B;
+$uswds-muted:      #1b1b1b;
+$uswds-surface:    #F0F0F0;
+$uswds-border:     #DFE1E2;
+$uswds-input-bdr:  #1b1b1b;
+$uswds-link:       #005EA2;
+$uswds-danger:     #B50909;
+$uswds-danger-lt:  #F8E7EC;
+$uswds-success:    #2E8540;
+$uswds-success-lt: #E7F4E4;
+$uswds-review:     #FFBE2E;
+$uswds-review-lt:  #FEF0C8;
+$uswds-focus:      #2491FF;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 100px);
+  font-family: 'Public Sans', sans-serif;
+  color: $uswds-text;
+  background: #fff;
 }
 
-/* Align elements vertically */
-.grid-col {
-    display: flex;
-    align-items: center; /* Align content vertically to look more balanced */
+.report-page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
-/* Button styling */
-.button {
-    background-color: white;
-}
+/* ── Loading State ── */
+.loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
 
-/* Override for PrimeNG theme for the workflow table */
-body .p-datatable .p-datatable-tbody td.p-resizable-column {
-    color: #111111;
-}
-
-body p-paginator div a {
-    color: #111111 !important;
-}
-
-body p-paginator div a.p-highlight {
-    background-color: #112e51 !important;
-    color: white !important;
-    font-weight: bold;
-}
-
-/* Table header styling */
-th {
-    font-size: 1.125rem;
-    font-weight: bold !important;
-    vertical-align: top;
-}
-
-/* Global font family */
-body {
-    font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif !important;
-}
-
-/* Result styles */
-.result-red span,
-.result-red i {
-    font-size: 1rem;
-    color: #cc0000;
-    font-weight: bold;
-}
-
-.result-green span,
-.result-green i {
-    font-size: 1rem;
-    font-weight: bold;
-    color: green;
-}
-
-.result-yellow span,
-.result-yellow i {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #635401;
-}
-
-/* Animation styles */
-ul.cb-slide-show {
-    padding-left: 0;
-    font-size: 5rem;
+  &__inner {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__icon {
+    font-size: 3rem;
+    color: $primary;
+    animation: spin 1.2s linear infinite;
+  }
+
+  &__text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $uswds-muted;
+    margin: 0;
+  }
 }
 
-ul.cb-slide-show li {
-    list-style: none;
-    display: inline;
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
-.cb-slide-show li span {
-    opacity: 0.3;
-    display: inline;
-    -webkit-backface-visibility: hidden;
-    animation: imageAnimation 3s linear infinite 0s;
+/* ── Page Header ── */
+.report-header {
+  background: #fff;
+  border-bottom: 1px solid $uswds-border;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
+    letter-spacing: -0.015em;
+  }
+
+  &__subtitle {
+    font-size: 0.9375rem;
+    color: $uswds-muted;
+    margin: 0;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 0.75rem;
+  }
 }
 
-.cb-slide-show li:nth-child(1) span {
-    animation-delay: 0s;
+.header-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: 0.125rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  .material-symbols-outlined { font-size: 1.125rem; }
+
+  &--secondary {
+    background: $uswds-surface;
+    color: $uswds-text;
+    border: 1px solid $uswds-border;
+
+    &:hover { background: darken($uswds-surface, 5%); }
+  }
+
+  &--primary {
+    background: $primary;
+    color: #fff;
+    border: 1px solid $primary;
+
+    &:hover { background: $primary-dark; }
+  }
+
+  &:focus-visible {
+    outline: 4px solid $uswds-focus;
+    outline-offset: 2px;
+  }
 }
 
-.cb-slide-show li:nth-child(2) span {
-    animation-delay: 0.25s;
+/* ── Report Body (Sidebar + Table) ── */
+.report-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
 }
 
-.cb-slide-show li:nth-child(3) span {
-    animation-delay: 0.5s;
+/* ── Filter Sidebar ── */
+.filter-sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  background: #fff;
+  border-right: 1px solid $uswds-border;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+
+  &__inner {
+    padding: 1.5rem;
+    flex: 1;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+  }
 }
 
-.cb-slide-show li:nth-child(4) span {
-    animation-delay: 0.75s;
+.filter-group {
+  border: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+  border-top: 1px solid $uswds-border;
+  padding-top: 1.25rem;
+
+  &__legend {
+    font-weight: 700;
+    font-size: 1rem;
+    color: $uswds-text;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
 }
 
-.cb-slide-show li:nth-child(5) span {
-    animation-delay: 1s;
+.filter-input {
+  width: 100%;
+  border: 2px solid $uswds-input-bdr;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9375rem;
+  font-family: 'Public Sans', sans-serif;
+  color: $uswds-text;
+  background: #fff;
+
+  &::placeholder { color: $uswds-muted; }
+
+  &:focus {
+    outline: 4px solid $uswds-focus;
+    outline-offset: 0;
+    border-color: $uswds-input-bdr;
+  }
 }
 
-.cb-slide-show li:nth-child(6) span {
-    animation-delay: 1.25s;
+.filter-dropdown {
+  width: 100%;
 }
 
-.cb-slide-show li:nth-child(7) span {
-    animation-delay: 1.5s;
-}
-
-.cb-slide-show li:nth-child(8) span {
-    animation-delay: 1.75s;
-}
-
-.cb-slide-show li:nth-child(9) span {
-    animation-delay: 2s;
-}
-
-.cb-slide-show li:nth-child(10) span {
-    animation-delay: 2.25s;
-}
-
-.cb-slide-show li:nth-child(11) span {
-    animation-delay: 2.5s;
-}
-
-.cb-slide-show li:nth-child(12) span {
-    animation-delay: 2.75s;
-}
-
-.cb-slide-show li:nth-child(13) span {
-    animation-delay: 3s;
-}
-
-@keyframes imageAnimation {
-    0% {
-        opacity: 0.5;
-        animation-timing-function: ease-in;
-    }
-    8% {
-        opacity: 1;
-        transform: scale(1.05);
-        animation-timing-function: ease-out;
-    }
-    17% {
-        opacity: 1;
-        transform: scale(1.05);
-    }
-    25% {
-        opacity: 0.5;
-        transform: scale(1.05);
-    }
-    100% {
-        opacity: 0.5;
-        transform: scale(1.05);
-    }
-}
-
-/* No solicitation message styles */
-.solic-nosolic {
-    height: calc(100vh - 3.75rem);
-    display: table;
+/* Style the PrimeNG dropdown inside the sidebar */
+:host ::ng-deep .filter-sidebar {
+  .p-dropdown {
     width: 100%;
+    border: 2px solid $uswds-input-bdr;
+    border-radius: 0;
+    font-family: 'Public Sans', sans-serif;
+
+    .p-dropdown-label {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.9375rem;
+    }
+  }
 }
 
-.solic-nosolic-posi {
-    display: table-cell;
-    vertical-align: middle;
-}
+/* ── Active Filters Bar ── */
+.active-filters-bar {
+  background: $uswds-surface;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 1px solid $uswds-border;
+  flex-wrap: wrap;
 
-/* Table styles */
-.pDataTable {
-    padding: 0 1.25rem;
-}
+  &__label {
+    color: $uswds-muted;
+    font-weight: 600;
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    white-space: nowrap;
 
-body .p-datatable .p-datatable-tbody tr {
-    border-bottom: 1px solid black;
-}
+    .material-symbols-outlined { font-size: 1rem; }
+  }
 
-/* Total count styles */
-#total-count {
-    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+  &__count {
+    margin-left: auto;
     font-size: 0.875rem;
-    text-decoration: none;
-    padding: 0.3em;
+    font-weight: 600;
+    color: $uswds-muted;
+    white-space: nowrap;
+  }
 }
 
-@media (max-width: 45em) {
-    #total-count {
-        position: relative;
-        float: right;
-        right: 3em;
-        height: 3em;
-        top: 0.5em;
-    }
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: #fff;
+  border: 1px solid $uswds-border;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+
+  &__close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: $uswds-muted;
+    padding: 0;
+    display: flex;
+
+    .material-symbols-outlined { font-size: 0.875rem; }
+
+    &:hover { color: $uswds-danger; }
+  }
 }
 
-@media (min-width: 45em) {
-    #total-count {
-        top: -1.9em;
-        position: relative;
-        float: right;
-        right: 3em;
-    }
+/* ── Table Area ── */
+.report-table-area {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
 }
 
-/* Adjust overflow in table headers */
-#content p-table table > thead > tr > th {
-    overflow: visible;
+.table-wrapper {
+  flex: 1;
+  overflow: auto;
 }
 
-/* Custom input group styles */
-.custom-container {
-    margin-bottom: 1.25rem !important; /* Space between search bar and table */
-}
-
-.custom-input-group {
-    display: flex !important;
-    align-items: center !important;
-    margin-right: 0.9375rem !important;
-    padding: 1.25rem !important;
-}
-
-.custom-input {
-    padding: 0.625rem !important;
-    margin-right: 0.9375rem !important;
-    height: 2.5rem !important;
-    width: 100% !important;
-    max-width: 30rem; /* Optional: set a maximum width for the input */
-    border: 1px solid #565c65 !important;
-    border-radius: 0.25rem !important;
-}
-
-.custom-button {
-    height: 2.5rem !important;
-    padding: 0.375rem 0.75rem !important;
-}
-
-/* Dropdown and table adjustments */
+/* ── PrimeNG Table Overrides ── */
 :host ::ng-deep {
-    .p-dropdown {
-        width: 100%; /* Make dropdown width match column */
-        min-width: 9.375rem; /* 150px converted to rem */
+  .report-datatable {
+    width: 100%;
+    font-family: 'Public Sans', sans-serif;
+
+    .p-datatable-header {
+      display: none;
     }
 
-    .p-dropdown-panel {
-        width: auto !important; /* Allow panel to size based on content */
-        max-width: 18.75rem; /* 300px converted to rem */
-        overflow: hidden; /* Prevent overflow */
-    }
-
-    .p-dropdown-items-wrapper {
-        max-height: 12.5rem; /* 200px converted to rem */
-    }
-
-    /* Ensure dropdown options don't wrap and show ellipsis if too long */
-    .p-dropdown-item {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    /* Prevent table resizing */
-    .p-datatable {
-        table-layout: fixed;
-        width: 100%;
-    }
-
-    /* Ensure column headers maintain their width */
     .p-datatable-thead > tr > th {
-        overflow: visible; /* Allow dropdown to overflow */
-        position: relative; /* Required for dropdown positioning */
+      background: #fff;
+      padding: 0.875rem 1.5rem;
+      border: none;
+      border-bottom: 2px solid $uswds-text;
+      color: $uswds-text;
+      font-weight: 700;
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: left;
+      white-space: nowrap;
     }
+
+    .p-datatable-thead > tr > th:hover {
+      background: $uswds-surface;
+    }
+
+    .p-datatable-tbody > tr > td {
+      padding: 1rem 1.5rem;
+      border: none;
+      border-bottom: 1px solid $uswds-border;
+      color: $uswds-text;
+      font-size: 0.9375rem;
+      vertical-align: middle;
+    }
+
+    .p-datatable-tbody > tr {
+      cursor: pointer;
+      transition: background 0.15s ease;
+
+      &:hover {
+        background: $uswds-surface;
+      }
+    }
+
+    // Zebra striping
+    .p-datatable-tbody > tr:nth-child(even) {
+      background: #fafafa;
+
+      &:hover {
+        background: $uswds-surface;
+      }
+    }
+
+    .p-paginator {
+      padding: 1rem 1.5rem;
+      background: #fff;
+      border: none;
+      border-top: 1px solid $uswds-border;
+      font-family: 'Public Sans', sans-serif;
+    }
+
+    .p-paginator-page.p-highlight {
+      background: $primary;
+      color: #fff;
+      border-color: $primary;
+    }
+
+    .p-sortable-column-icon {
+      color: $uswds-muted;
+      font-size: 0.75rem;
+    }
+
+    .p-datatable-loading-overlay {
+      background: rgba(255,255,255,0.7);
+    }
+  }
 }
 
-/* Remove the default button border and outline */
-button {
-    border: none !important; /* Remove border */
-    outline: none !important; /* Remove outline */
-    box-shadow: none !important; /* Remove box-shadow if any */
+/* ── Table Cell Styles ── */
+.sol-link {
+  font-family: 'Roboto Mono', monospace;
+  color: $uswds-link;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+
+  &:hover { text-decoration: underline; }
 }
 
-/* Remove any border on table cells in this column */
-.p-datatable .p-datatable-tbody > tr > td.col_review_result {
-    border: none !important; /* Remove cell border for the specific column */
+.title-cell {
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-/* Specific override for the .table-button class if needed */
-.button.table-button {
-    border: none !important; /* Remove any border applied to buttons in this class */
-    outline: none !important;
-    box-shadow: none !important;
+.muted-cell {
+  color: $uswds-muted;
+}
+
+.date-cell {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.875rem;
+}
+
+.actions-col {
+  text-align: right !important;
+  width: 120px;
+}
+
+/* ── Status Badges ── */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.5rem;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  min-width: 110px;
+  text-align: center;
+
+  &--noncompliant {
+    background: $uswds-danger-lt;
+    color: $uswds-danger;
+  }
+
+  &--compliant {
+    background: $uswds-success-lt;
+    color: $uswds-success;
+  }
+
+  &--review {
+    background: $uswds-review-lt;
+    color: #6b4a00;
+  }
+
+  &--na {
+    background: $uswds-surface;
+    color: $uswds-muted;
+  }
+}
+
+/* ── View Details Button ── */
+.view-details-btn {
+  background: none;
+  border: none;
+  color: $uswds-link;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: 0;
+
+  &:hover { text-decoration: underline; }
+}
+
+/* ── Total Count ── */
+.total-count {
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: $uswds-muted;
+  text-align: right;
+  border-top: 1px solid $uswds-border;
+}
+
+/* ── Responsive ── */
+/* Applies through the MID range too (769–1024px) — Laura hit a band where the
+   desktop height-trapped flex layout blanked content ("misses the middle"). */
+@media (max-width: 1024px) {
+  .report-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Stack sidebar over the table and let the page flow naturally instead of
+     trapping content in nested height-bounded scroll areas (which is what made
+     content look cut off / blank on small screens). */
+  :host {
+    min-height: auto;
+  }
+
+  .report-body {
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .filter-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid $uswds-border;
+    overflow-y: visible;
+  }
+
+  .report-table-area {
+    overflow-y: visible;
+  }
+
+  /* The wide data table keeps its own horizontal scroll so it never forces the
+     whole page to scroll sideways. */
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Inline reason hint shown under a Cannot Evaluate status badge */
+.status-reason {
+  margin-top: 4px;
+  font-size: 0.72rem;
+  color: var(--text-muted, #1b1b1b);
+  font-style: italic;
+  line-height: 1.3;
+  max-width: 220px;
+}
+
+/* ── SAM.gov leave-site speed bump modal ── */
+.samgov-modal__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(23, 28, 32, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 1000;
+  animation: samgovFade 0.15s ease-out;
+}
+
+.samgov-modal {
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+  max-width: 30rem;
+  width: 100%;
+  padding: 1.75rem 1.9rem;
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1b1b1b;
+    margin: 0 0 0.6rem;
+  }
+
+  &__desc {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: #1b1b1b;
+    margin: 0 0 1.4rem;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+}
+
+@keyframes samgovFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ── Custom-range calendar (Time Range filter) ── */
+:host ::ng-deep .filter-calendar {
+  width: 100%;
+
+  .p-calendar,
+  .p-inputtext {
+    width: 100%;
+  }
+}
+
+/* ── Native filter controls (replaced PrimeNG widgets for screen readers) ── */
+select.filter-select {
+  appearance: auto;
+  height: 2.6rem;
+  background: #fff;
+  cursor: pointer;
+}
+
+.custom-range {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 0.6rem;
+
+  &__label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-top: 0.35rem;
+  }
+
+  input[type="date"] {
+    background: #fff;
+    height: 2.6rem;
+  }
+}
+
+/* ── Redesigned row: title is the primary link, sol # + SAM.gov beneath ── */
+.col-title { width: 45%; }
+.col-date { width: 12%; white-space: nowrap; }
+.col-status { width: 16%; }
+
+.row-title-link {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: $uswds-link;
+  text-decoration: underline;
+  line-height: 1.35;
+
+  &:hover { color: $primary-dark; }
+
+  &:focus-visible {
+    outline: 4px solid $uswds-focus;
+    outline-offset: 2px;
+  }
+}
+
+.row-solnum {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.78rem;
+  color: $uswds-text;
+
+  .sol-link {
+    margin-left: 0.5rem;
+    color: $uswds-link;
+    white-space: nowrap;
+  }
+}
+
+.agency-cell {
+  font-size: 0.88rem;
+  overflow-wrap: anywhere;
+}
+
+.status-badge__icon {
+  font-size: 1rem;
+  vertical-align: -3px;
+  margin-right: 2px;
+}
+
+/* Title column needs room to breathe now that it carries two lines. */
+:host ::ng-deep .report-datatable .p-datatable-tbody > tr > td.title-cell {
+  max-width: none;
+  white-space: normal;
 }

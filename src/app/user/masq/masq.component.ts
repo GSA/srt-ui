@@ -11,9 +11,10 @@ import {TokenService} from '../../shared/services/token.service';
 
 
 @Component({
-  selector: 'masquerade',
-  templateUrl: './masq.component.html',
-  styleUrls: ['./masq.component.scss']
+    selector: 'masquerade',
+    templateUrl: './masq.component.html',
+    styleUrls: ['./masq.component.scss'],
+    standalone: false
 })
 export class MasqComponent implements OnInit {
 

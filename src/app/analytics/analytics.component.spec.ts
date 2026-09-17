@@ -3,7 +3,7 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AnalyticsComponent } from './analytics.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AnalyticsService } from './services/analytics.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Globals } from 'globals';
 import { BaseChartDirective } from 'ng2-charts';
 import { FormsModule } from '@angular/forms';
@@ -26,6 +26,7 @@ import { SolicitationResultComponent } from './solicitation-result/solicitation-
 
 
 import {of} from 'rxjs';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AnalyticsComponent', () => {
   let component: AnalyticsComponent;
@@ -33,15 +34,15 @@ describe('AnalyticsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AnalyticsComponent, TopSrtActionsComponent,
-                      TopAgenciesComponent, ScannedSolicitationComponent,
-                      UserLoginComponent, MachineReadableComponent,
-                      PredictionResultComponent, TopAgenciesPercentageComponent,
-                      UndeterminedSolicitationsComponent, LineChartsComponent,
-                      DonutChartComponent, SolicitationResultComponent],
-      providers: [Globals, AnalyticsService, BaseChartDirective],
-      imports: [NgChartsModule, TooltipModule, FormsModule, RouterTestingModule.withRoutes([]), HttpClientTestingModule]
-    })
+    declarations: [AnalyticsComponent, TopSrtActionsComponent,
+        TopAgenciesComponent, ScannedSolicitationComponent,
+        UserLoginComponent, MachineReadableComponent,
+        PredictionResultComponent, TopAgenciesPercentageComponent,
+        UndeterminedSolicitationsComponent, LineChartsComponent,
+        DonutChartComponent, SolicitationResultComponent],
+    imports: [NgChartsModule, TooltipModule, FormsModule, RouterTestingModule.withRoutes([])],
+    providers: [Globals, AnalyticsService, BaseChartDirective, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 

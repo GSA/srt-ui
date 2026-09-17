@@ -6,9 +6,8 @@
     "children": [
       {
         "id": 1,
-        "title": "What is \"Information and Communication Technology\"(ICT)?",
+        "title": "What is \"Information and Communication Technology\" (ICT)?",
         "body": "<p>ICT is information technology (IT), as defined at FAR 2.101, and any equipment or interconnected system or subsystem of equipment that is used in the creation, conversion, or duplication of data or information. In addition to IT, ICT includes:</p><ul><li>telecommunication products, such as telephones;</li><li>information kiosks;</li><li>transaction machines;</li><li>World Wide Web sites;</li><li>multimedia (including videotapes); and</li><li>office equipment, such as copiers and fax machines.</li> </ul> <p>ICT is defined by the Access Board at 36 CFR 1194.4 and in the FAR at 2.101.</p>",
-
         "titleClass": "ICT"
       },
       {
@@ -18,36 +17,32 @@
       },
       {
         "id": 4,
-        "title": "How SRT Works?",
-        "body": "<p>A group of accessibility experts created a training model by manually reviewing about 1,000 federal solicitations and marking each as either compliant or non-compliant.  We parsed the training model, calculated the frequencies of all the unique words, and generated a word count table that contains the frequency of each unique words in every red and green solicitation. Around one million words were identified at the stage. <span>(STEP 1)</span></p><p>Using the <b>Term Frequency–Inverse Document Frequency (TF-IDF)</b>, we were able to pre-process/normalize the results of word count table in preparation of identifying the controlled vocabulary and building the classification/prediction model. TF-IDF is a numerical statistic that is intended to reflect how important a word is to a document as well as in the collection or corpus that the document belongs to.  To generate the controlled vocabulary, which serves as critical indicators in the classification model, we used the three sources.  First, for each unique word extracted from the training data set, moderated t-test, false positive rate (FPR) multiple testing methods, etc. are used to determine the similarities of the frequencies in red versus green solicitations.  Second, we conducted empirical testing among Section 508 regulation documents versus other irrelevant documents, and look for the words with significant higher frequencies in the regulation documents. Third, we compared the unique words and the frequency of the words appeared in all the green solicitations versus the irrelevant documents.  Among the results of all three sources, we run through the metrics: <b>{ (1) ∪ { (2) ∩ (3) } }</b> to get the final controlled vocabulary. <span>(STEP 2)</span></p><p>Then we built the prediction model by using the selected best-performance classification algorithm from many which were evaluated by cross-validation <span>(STEP 3)</span>.  The system used the trained prediction model to analyze the solicitation and generate a red or green prediction result for each solicitation posted on sam.gov <span>(STEP 4)</span>.  Section 508 Program Managers go into platform to review the results of all solicitations from his or her agency and provide feedback on the prediction result for the specific solicitation based on his or her manual review. The feedback will become a new training data set to improve the prediction results.  <span>(STEP 5 & 6)</span></p></p>",
-      "picclass":"color background"
+        "title": "How does SRT Work?",
+        "body": "<p>The determination is made by deterministic keyword scoring, not by an AI model's judgment. SRT scores the solicitation package against the language, clauses and references that show Section 508 requirements were built into the procurement. A high score returns <b>Included</b> and a low score returns <b>Not included</b>, both without consulting an AI model at all. Only documents that land in the ambiguous middle go to a trained model to break the tie.</p><p>This matters for defensibility. The same document produces the same result every time, and the result does not depend on how a language model happened to phrase things that day.</p><p>The AI does four supporting jobs, none of which decide the result:</p><ul><li>Confirming the file is machine readable</li><li>Confirming the document is actually a solicitation</li><li>Classifying what kind of information and communication technology is being procured</li><li>Writing the plain language summary shown in the report</li></ul><p>Scanned documents are handled automatically through optical character recognition, up to 25 pages. Recognized Section 508 exceptions under 36 CFR 1194.1 and E202 are checked before the applicability question, so an exempt procurement is identified as exempt rather than reported as missing required language.</p>",
+        "picclass": "color background"
       },
       {
         "id": 5,
         "title": "What does SRT measure?",
-      "body": "<p>The Solicitation Review Tool (SRT) was created to assist federal acquisition staffs and Section 508 Program Managers on creating Section 508 compliant Information and Communication Technology (ICT)  solicitations.</p><p>SRT scans for the absence or presence of sufficient Section 508 languages (specific regulatory requirements) in all ICT  posted on SAM.gov (https://www.sam.gov/) EXCEPT FOR types of solicitations with 0 documents, non-machine-readable solicitations, pre-solicitations, sources sought, special notices, award notice and intent to bundle requirements.   SRT will provide results for each scanned solicitation with Compliant or Non-compliant (Action Required) status. If the solicitation does not require the inclusion of section 508 language, for example, you are purchasing an ICT part or your solicitation is a sources sought, you are able to click not applicable, to resolve comformance</p>"
+        "body": "<p>The Solicitation Review Tool (SRT) was created to assist federal acquisition staff and Section 508 Program Managers in creating solicitations that invoke Section 508 requirements where appropriate.</p><p>SRT scans for the absence or presence of sufficient Section 508 language (specific regulatory requirements) in solicitations posted on SAM.gov, except for solicitations with zero documents, non-machine-readable solicitations, pre-solicitations, sources sought, special notices, award notices and intent to bundle requirements.</p><p>SRT provides a result for each scanned solicitation showing whether ICT applies or does not apply, and whether Section 508 content is included. If the solicitation does not require the inclusion of Section 508 language, you are able to mark it not applicable to resolve conformance.</p>"
       },
       {
         "id": 6,
         "title": "Are there regulations implementing Section 508?",
-        "body": "<p class=''>Yes, there are two regulations addressing the requirements of Section 508.</p><ul><ol style='list-style-type: lower-roman; padding: 0px 0px 20px 0px;'><p>Access Board Standards. The first regulation implementing Section 508 was issued by the Architectural and Transportation Barriers Compliance Board (the 'Access Board'), an independent Federal agency that has the primary mission of promoting accessibility for individuals with disabilities. This regulation is referred to as the 'Access Board’s Standards.'</p><p>The Access Board’s Standards, along with an explanatory preamble, were published in the Federal Register, as a final rule, on December 21, 2000 (65 Fed. Reg. 80499). The standards are codified at 36 CFR Part 1194 and may be accessed through the Access Board’s web site at<a href='http://www.access-board.gov' class=''>http://www.access-board.gov</a>.</p>The Access Board’s Standards consist of several subparts which, among other things, do the following: <br><ul><li>define ICT  (see 36 CFR 1194.4);</li><li>set forth 'technical provisions' that:<br>(1) address the required functionality / performance of specific technologies and product categories (see 'Subpart B' of the Access Board’s Standards);(2) identify broader functional performance criteria to cover technologies or components for which there is no specific provision in Subpart B -- e.g., because the technology or product does not yet exist or was not contemplated by the Access Board during the promulgation of the standards (see 'Subpart C' of the Access Board’s Standards); and (3) include requirements for accessible information, documentation, and support for ICT (see 'Subpart D' of the Access Board’s Standards);</li><li>define agencies’ authority to consider ICT that does not meet the applicable technical provisions in Subpart B, but provides equivalent facilitation that meets the functional performance criteria of Subpart C (see 36 CFR 1194.5); and</li><li>set forth some of the exceptions to the requirement to buy ICT that meets the applicable technical provisions (see 36 CFR 1194.3).</li></ul><ol style='padding: 0px 0px 20px 0px;'>The Access Board’s Standards become enforceable on June 21, 2001.</ol><ol style='list-style-type: lower-roman; padding: 0px 0px 20px 0px;'> FAR Rule. The second rule issued to implement Section 508 amends the Federal Acquisition Regulation (FAR) to ensure that agency acquisitions of ICT comply with the Access Board’s Standards. The FAR change implementing Section 508 was published along with an explanatory preamble in the Federal Register on April 25, 2001 (66 Fed. Reg. 20894) and is effective as of June 25, 2001. More information about the FAR rule for Section 508 can be found at <a href='https://www.section508.gov/'>https://www.section508.gov/</a>.</ol></ul>",
+        "body": "<p class=''>Yes, there are two regulations addressing the requirements of Section 508.</p><ul><ol style='list-style-type: lower-roman; padding: 0px 0px 20px 0px;'><p>Access Board Standards. The first regulation implementing Section 508 was issued by the Architectural and Transportation Barriers Compliance Board (the 'Access Board'), an independent Federal agency that has the primary mission of promoting accessibility for individuals with disabilities. This regulation is referred to as the 'Access Board’s Standards.'</p><p>The Access Board’s Standards, along with an explanatory preamble, were published in the Federal Register, as a final rule, on December 21, 2000 (65 Fed. Reg. 80499). The standards are codified at 36 CFR Part 1194 and may be accessed through the Access Board’s web site at <a href='http://www.access-board.gov' class=''>http://www.access-board.gov</a>.</p>The Access Board’s Standards consist of several subparts which, among other things, do the following: <br><ul><li>define ICT  (see 36 CFR 1194.4);</li><li>set forth 'technical provisions' that:<br>(1) address the required functionality / performance of specific technologies and product categories (see 'Subpart B' of the Access Board’s Standards);(2) identify broader functional performance criteria to cover technologies or components for which there is no specific provision in Subpart B -- e.g., because the technology or product does not yet exist or was not contemplated by the Access Board during the promulgation of the standards (see 'Subpart C' of the Access Board’s Standards); and (3) include requirements for accessible information, documentation, and support for ICT (see 'Subpart D' of the Access Board’s Standards);</li><li>define agencies’ authority to consider ICT that does not meet the applicable technical provisions in Subpart B, but provides equivalent facilitation that meets the functional performance criteria of Subpart C (see 36 CFR 1194.5); and</li><li>set forth some of the exceptions to the requirement to buy ICT that meets the applicable technical provisions (see 36 CFR 1194.3).</li></ul><ol style='padding: 0px 0px 20px 0px;'>The Access Board’s Standards become enforceable on June 21, 2001.</ol><ol style='list-style-type: lower-roman; padding: 0px 0px 20px 0px;'> FAR Rule. The second rule issued to implement Section 508 amends the Federal Acquisition Regulation (FAR) to ensure that agency acquisitions of ICT comply with the Access Board’s Standards. The FAR change implementing Section 508 was published along with an explanatory preamble in the Federal Register on April 25, 2001 (66 Fed. Reg. 20894) and is effective as of June 25, 2001. More information about the FAR rule for Section 508 can be found at <a href='https://www.section508.gov/'>https://www.section508.gov/</a>.</ol></ul>",
         "picclass": "padding olstyle"
       }
-
-
     ]
   },
-
-
   {
     "name": "Background",
     "id": "backgroundInfo",
-    "title":"backgroundInfoTitle",
+    "title": "backgroundInfoTitle",
     "children": [
       {
         "id": 1,
         "title": "What is Section 508?",
-        "body": "<p> Section 508 refers to a statutory section in the Rehabilitation Act of 1973 (refer to 29 U.S.C. 794d). Congress significantly strengthened Section 508 in the Workforce Investment Act of 1998. Its primary purpose is to provide access to and use of Federal executive agencies’ Information and Communication Technology (ICT) by individuals with disabilities. The statutory language of Section 508 can be found at <a href='www.section508.gov'>www.section508.gov</a>.</p><p> Section 508 of the Rehabilitation Act, as amended in 1998, requires that when Federal agencies develop, procure, maintain, or use electronic and information technology, they shall ensure that the electronic and information technology allows Federal employees with disabilities and members of the public with disabilities to have access to and use of information and data that is comparable to the access to and use of data by Federal employees and members of the public who are not individuals with disabilities, unless an undue burden would be imposed on the agency. </p>",
+        "body": "<p> Section 508 refers to a statutory section in the Rehabilitation Act of 1973 (refer to 29 U.S.C. 794d). Congress significantly strengthened Section 508 in the Workforce Investment Act of 1998. Its primary purpose is to provide access to and use of Federal executive agencies' Information and Communication Technology (ICT) by individuals with disabilities. The statutory language of Section 508 can be found at <a href='http://www.section508.gov'>www.section508.gov</a>.</p><p> Section 508 of the Rehabilitation Act, as amended in 1998, requires that when Federal agencies develop, procure, maintain, or use electronic and information technology, they shall ensure that the electronic and information technology allows Federal employees with disabilities and members of the public with disabilities to have access to and use of information and data that is comparable to the access to and use of data by Federal employees and members of the public who are not individuals with disabilities, unless an undue burden would be imposed on the agency. </p>",
         "class": "in"
       },
       {
@@ -58,38 +53,34 @@
       {
         "id": 3,
         "title": "Are there regulations implementing Section 508?",
-        "body": "<p class=''>Yes, there are two regulations addressing the requirements of Section 508.</p><ul><ol style='list-style-type: lower-roman; padding: 0px 0px 20px 0px;'><p>Access Board Standards. The first regulation implementing Section 508 was issued by the Architectural and Transportation Barriers Compliance Board (the 'Access Board'), an independent Federal agency that has the primary mission of promoting accessibility for individuals with disabilities. This regulation is referred to as the 'Access Board’s Standards.'</p><p>The Access Board’s Standards, along with an explanatory preamble, were published in the Federal Register, as a final rule, on December 21, 2000 (65 Fed. Reg. 80499). The standards are codified at 36 CFR Part 1194 and may be accessed through the Access Board’s web site at<a href='http://www.access-board.gov' class=''>http://www.access-board.gov</a>.</p>The Access Board’s Standards consist of several subparts which, among other things, do the following: <br><ul><li>define ICT  (see 36 CFR 1194.4);</li><li>set forth 'technical provisions' that:<br>(1) address the required functionality / performance of specific technologies and product categories (see 'Subpart B' of the Access Board’s Standards);(2) identify broader functional performance criteria to cover technologies or components for which there is no specific provision in Subpart B -- e.g., because the technology or product does not yet exist or was not contemplated by the Access Board during the promulgation of the standards (see 'Subpart C' of the Access Board’s Standards); and (3) include requirements for accessible information, documentation, and support for ICT (see 'Subpart D' of the Access Board’s Standards);</li><li>define agencies’ authority to consider ICT  that does not meet the applicable technical provisions in Subpart B, but provides equivalent facilitation that meets the functional performance criteria of Subpart C (see 36 CFR 1194.5); and</li><li>set forth some of the exceptions to the requirement to buy ICT that meets the applicable technical provisions (see 36 CFR 1194.3).</li></ul><ol style='padding: 0px 0px 20px 0px;'>The Access Board’s Standards become enforceable on June 21, 2001.</ol><ol style='list-style-type: lower-roman; padding: 0px 0px 20px 0px;'> FAR Rule. The second rule issued to implement Section 508 amends the Federal Acquisition Regulation (FAR) to ensure that agency acquisitions of ICT  comply with the Access Board’s Standards. The FAR change implementing Section 508 was published along with an explanatory preamble in the Federal Register on April 25, 2001 (66 Fed. Reg. 20894) and is effective as of June 25, 2001. More information about the FAR rule for Section 508 can be found at <a href='https://www.section508.gov/'>https://www.section508.gov/</a>.</ol></ul>",
+        "body": "<p class=''>Yes, there are two regulations addressing the requirements of Section 508.</p><ul><ol style='list-style-type: lower-roman; padding: 0px 0px 20px 0px;'><p>Access Board Standards. The first regulation implementing Section 508 was issued by the Architectural and Transportation Barriers Compliance Board (the 'Access Board'), an independent Federal agency that has the primary mission of promoting accessibility for individuals with disabilities. This regulation is referred to as the 'Access Board’s Standards.'</p><p>The Access Board’s Standards, along with an explanatory preamble, were published in the Federal Register, as a final rule, on December 21, 2000 (65 Fed. Reg. 80499). The standards are codified at 36 CFR Part 1194 and may be accessed through the Access Board’s web site at <a href='http://www.access-board.gov' class=''>www.access-board.gov</a>.</p>The Access Board’s Standards consist of several subparts which, among other things, do the following: <br><ul><li>define ICT  (see 36 CFR 1194.4);</li><li>set forth 'technical provisions' that:<br>(1) address the required functionality / performance of specific technologies and product categories (see 'Subpart B' of the Access Board’s Standards);(2) identify broader functional performance criteria to cover technologies or components for which there is no specific provision in Subpart B -- e.g., because the technology or product does not yet exist or was not contemplated by the Access Board during the promulgation of the standards (see 'Subpart C' of the Access Board’s Standards); and (3) include requirements for accessible information, documentation, and support for ICT (see 'Subpart D' of the Access Board’s Standards);</li><li>define agencies’ authority to consider ICT  that does not meet the applicable technical provisions in Subpart B, but provides equivalent facilitation that meets the functional performance criteria of Subpart C (see 36 CFR 1194.5); and</li><li>set forth some of the exceptions to the requirement to buy ICT that meets the applicable technical provisions (see 36 CFR 1194.3).</li></ul><ol style='padding: 0px 0px 20px 0px;'>The Access Board’s Standards become enforceable on June 21, 2001.</ol><ol style='list-style-type: lower-roman; padding: 0px 0px 20px 0px;'> FAR Rule. The second rule issued to implement Section 508 amends the Federal Acquisition Regulation (FAR) to ensure that agency acquisitions of ICT  comply with the Access Board’s Standards. The FAR change implementing Section 508 was published along with an explanatory preamble in the Federal Register on April 25, 2001 (66 Fed. Reg. 20894) and is effective as of June 25, 2001. More information about the FAR rule for Section 508 can be found at <a href='https://www.section508.gov/'>https://www.section508.gov/</a>.</ol></ul>",
         "class": "padding olstyle"
       },
-
-
       {
         "id": 4,
-        "title": "Does Section 508, as implemented by the Access Board’s Standards and the FAR, impose the same obligations on agencies and contractors?",
-        "body": "<p>No. Although the FAR uses the term 'compliance' with respect to both agencies and contractors, the nature of their respective responsibilities differs.</p><p>Agencies are responsible for complying with Section 508 as a whole, including identification of applicable Access Board technical provisions and making nonavailability and exception determinations.</p><p>Contractors interested in selling ICT  to the Federal government are responsible for designing and manufacturing products which conform to the applicable Access Board’s technical provisions.</p>"
+        "title": "Does Section 508, as implemented by the Access Board's Standards and the FAR, impose the same obligations on agencies and contractors?",
+        "body": "<p>No. Although the FAR uses the term 'compliance' with respect to both agencies and contractors, the nature of their respective responsibilities differs.</p><p>Agencies are responsible for complying with Section 508 as a whole, including identification of applicable Access Board technical provisions and making nonavailability and exception determinations.</p><p>Contractors interested in selling ICT  to the Federal government are responsible for designing and manufacturing products which conform to the applicable Access Board's technical provisions.</p>"
       },
-
-
       {
         "id": 5,
         "title": "What aspects of the acquisition process are affected by Section 508 and its implementing regulations?",
-        "body": "<p>Section 508 affects what agencies acquire (i.e., the requirements development process), generally not how they acquire it (i.e., source selection). See FAR 7.103(o) (addressing acquisition planning), FAR 10.001(a)(3)(vii) (addressing market research), FAR 11.002(f) (addressing needs descriptions), FAR 12.202(d) (addressing requirements documents for commercial item acquisitions), and FAR Subpart 39.2 (addressing the acquisition of ICT).</p><p><p>Section 508 applies to all Information and Communication Technology (ICT) (See What is 'Information and Communication Technology (ICT)'?) contract vehicles and procurement actions, including micro-purchases. All ICT solicitations that are “developed, procured, maintained, or used” enforced through the FAR, DFAR, etc.</p>"
+        "body": "<p>Section 508 affects what agencies acquire (i.e., the requirements development process), generally not how they acquire it (i.e., source selection). See FAR 7.103(o) (addressing acquisition planning), FAR 10.001(a)(3)(vii) (addressing market research), FAR 11.002(f) (addressing needs descriptions), FAR 12.202(d) (addressing requirements documents for commercial item acquisitions), and FAR Subpart 39.2 (addressing the acquisition of ICT).</p><p><p>Section 508 applies to all Information and Communication Technology (ICT) (See What is 'Information and Communication Technology (ICT)'?) contract vehicles and procurement actions, including micro-purchases. All ICT solicitations that are \"developed, procured, maintained, or used\" enforced through the FAR, DFAR, etc.</p>"
       },
       {
         "id": 6,
-        "title": "What is \"Information and Communication Technology\"(ICT)?",
+        "title": "What is \"Information and Communication Technology\" (ICT)?",
         "body": "<p>ICT is information technology (IT), as defined at FAR 2.101, and any equipment or interconnected system or subsystem of equipment that is used in the creation, conversion, or duplication of data or information. In addition to IT, ICT includes:</p><ul><li>telecommunication products, such as telephones;</li><li>information kiosks;</li><li>transaction machines;</li><li>World Wide Web sites;</li><li>multimedia (including videotapes); and</li><li>office equipment, such as copiers and fax machines.</li> </ul> <p>ICT is defined by the Access Board at 36 CFR 1194.4 and in the FAR at 2.101.</p>",
         "titleClass": "ICT"
       },
       {
-        "id":9,
-        "title":"Is Information and Communication Technology (ICT) limited to products?",
-        "body": "<p>No. ICT, like IT, also includes services. For example, some agencies seek to satisfy their desktop computing needs through so-called 'seat management' service contracts. Under a seat management arrangement, the contractor provides the software, hardware, and technical support services necessary to support full service desktop computing resources to the agency for a given period of time. Although the agency does not acquire title to the hardware and software, the agency would still need to comply with Section 508 in acquiring desktop computing resources.</p><p>As another example, agencies acquiring help desks must ensure that providers are capable of accommodating the communications needs of persons with disabilities, consistent with Subpart D of the Access Board’s Standards. An agency help desk may need to communicate through a teletypewriter (TTY) – i.e., equipment that transmits coded signals across a telephone network. The help desk provider must also be familiar with such features as keyboard access and other options important to people with disabilities.</p>   "
+        "id": 9,
+        "title": "Is Information and Communication Technology (ICT) limited to products?",
+        "body": "<p>No. ICT, like IT, also includes services. For example, some agencies seek to satisfy their desktop computing needs through so-called 'seat management' service contracts. Under a seat management arrangement, the contractor provides the software, hardware, and technical support services necessary to support full service desktop computing resources to the agency for a given period of time. Although the agency does not acquire title to the hardware and software, the agency would still need to comply with Section 508 in acquiring desktop computing resources.</p><p>As another example, agencies acquiring help desks must ensure that providers are capable of accommodating the communications needs of persons with disabilities, consistent with Subpart D of the Access Board's Standards. An agency help desk may need to communicate through a teletypewriter (TTY) - i.e., equipment that transmits coded signals across a telephone network. The help desk provider must also be familiar with such features as keyboard access and other options important to people with disabilities.</p>   "
       },
       {
-        "id":10,
+        "id": 10,
         "title": "What are the tips to comply with Section 508?",
-        "body": "<ul><li>Make a strong statement of Section 508 relevance </li><li>Identify applicable technical provisions</li><li>Identify applicable functional performance criteria</li><li>Support Documentation always applies!</li><li>If you have an EXCEPTION, state it!</li><li>Ensure accessible solicitation documents</li><li>Ask vendors to conform to accessibility requirements, do not ask vendors to comply with or “certify” accessibility</li><li>Consider accessibility in source selections</li><li>Inspect what you expect to accept</li><li>Document and audit</li><li>To do all this, use the Accessibility Requirements Tool l</li></ul>"
+        "body": "<ul><li>Make a strong statement of Section 508 relevance</li><li>Identify applicable technical provisions</li><li>Identify applicable functional performance criteria</li><li>Support Documentation always applies</li><li>If you have an exception, state it</li><li>Ensure accessible solicitation documents</li><li>Ask vendors to conform to accessibility requirements, do not ask vendors to comply with or \"certify\" accessibility</li><li>Consider accessibility in source selections (buy accessible)</li><li>Inspect what you expect to accept</li><li>Document and audit</li><li>Use the <a href=\"https://www.section508.gov/art/#/\" target=\"_blank\" rel=\"noopener noreferrer\">Accessibility Requirements Tool</a> to draft solicitations</li></ul>"
       }
     ]
   },
@@ -101,14 +92,8 @@
       {
         "id": 1,
         "title": "What does SRT measure?",
-        "body": "<p>The Solicitation Review Tool (SRT) was created to assist federal acquisition staffs and Section 508 Coordinators on creating Section 508 compliant Information and Communication Technology (ICT)  solicitations.</p><p>SRT scans for the absence or presence of sufficient Section 508 languages (specific regulatory requirements) in all ICT solicitations posted on SAM.gov (https://www.sam.gov/) EXCEPT FOR types of solicitations with 0 documents, non-machine-readable solicitations, pre-solicitations, sources sought, special notices, award notice, intent to bundle requirements, and other undetermined solicitations.   And SRT will provide results for each scanned solicitation with Compliant or Non-compliant (Action Required) status.</p>",
+        "body": "<p>The Solicitation Review Tool (SRT) was created to assist federal acquisition staff and Section 508 Coordinators in creating solicitations that invoke Section 508 requirements where appropriate.</p><p>SRT scans for the absence or presence of sufficient Section 508 language (specific regulatory requirements) in ICT solicitations posted on SAM.gov, except for solicitations with zero documents, non-machine-readable solicitations, pre-solicitations, sources sought, special notices, award notices, intent to bundle requirements, and other undetermined solicitations.</p><p>SRT provides a result for each scanned solicitation showing whether ICT applies or does not apply, and whether Section 508 content is included.</p>",
         "class": "in"
-      },
-      {
-        "id": 2,
-        "title": "How SRT Works?",
-        "body": "<p>A group of accessibility experts created a training model by manually reviewing about 1,000 federal solicitations and marking each as either compliant or non-compliant.  We parsed the training model, calculated the frequencies of all the unique words, and generated a word count table that contains the frequency of each unique words in every red and green solicitation. Around one million words were identified at the stage. <span>(STEP 1)</span></p><p>Using the <b>Term Frequency–Inverse Document Frequency (TF-IDF)</b>, we were able to pre-process/normalize the results of word count table in preparation of identifying the controlled vocabulary and building the classification/prediction model. TF-IDF is a numerical statistic that is intended to reflect how important a word is to a document as well as in the collection or corpus that the document belongs to.  To generate the controlled vocabulary, which serves as critical indicators in the classification model, we used the three sources.  First, for each unique word extracted from the training data set, moderated t-test, false positive rate (FPR) multiple testing methods, etc. are used to determine the similarities of the frequencies in red versus green solicitations.  Second, we conducted empirical testing among Section 508 regulation documents versus other irrelevant documents, and look for the words with significant higher frequencies in the regulation documents. Third, we compared the unique words and the frequency of the words appeared in all the green solicitations versus the irrelevant documents.  Among the results of all three sources, we run through the metrics: <b>{ (1) ∪ { (2) ∩ (3) } }</b> to get the final controlled vocabulary. <span>(STEP 2)</span></p><p>Then we built the prediction model by using the selected best-performance classification algorithm from many which were evaluated by cross-validation <span>(STEP 3)</span>.  The system used the trained prediction model to analyze the solicitation and generate a red or green prediction result for each solicitation posted on SAM.gov <span>(STEP 4)</span>.  Section 508 Coordinators go into platform to review the results of all solicitations from his or her agency and provide feedback on the prediction result for the specific solicitation based on his or her manual review. The feedback will become a new training data set to improve the prediction results.  <span>(STEP 5 & 6)</span></p></p>",
-        "picclass":"color background"
       },
       {
         "id": 3,
@@ -118,22 +103,22 @@
       {
         "id": 4,
         "title": "How frequent does SRT retrieve solicitations from SAM.gov?",
-        "body": "<p>SRT does a daily night scan to pull the data from SAM.gov (https://www.sam.gov/).</p>"
+        "body": "<p>SRT performs a nightly scan to pull data from SAM.gov (https://www.sam.gov/).</p>"
       },
       {
         "id": 5,
-        "title": "Who is eligible for registering to SRT?",
-        "body": "<p>SRT provides value to federal agencies’ Section 508 Program Managers, Chief Information Officers, Contracting Officers, and Contracting Officer Representatives.  It provides assistance on agencies’ procurement process to ensure compliance. User access is restricted to those who have email address of .gov, .mil, .edu, and .us.</p>"
+        "title": "Who is eligible to use the SRT?",
+        "body": "<p>SRT provides value to federal agencies' Section 508 Program Managers, Chief Information Officers, Contracting Officers, and Contracting Officer Representatives. It provides assistance on agencies' procurement processes to ensure compliance. User access is restricted to those who have email addresses of .gov, .mil, .edu, and .us.</p>"
       },
       {
         "id": 6,
         "title": "Is the SRT data public or private?",
-      "body": "<p>SRT is a private platform for agencies to manage their own solicitations. A user is required to request access to the tool in order to obtain the SRT data.</p>"
+        "body": "<p>SRT is a private platform for agencies to manage their own solicitations. A user is required to request access to the tool in order to obtain the SRT data.</p>"
       },
       {
         "id": 7,
         "title": "Can I share the SRT results with non-registered users?",
-        "body": "<p>As a Section 508 Program Manager, you will be able to share a solicitation summary result with non-registered users through email. However, the non-registered user will be asked to sign up to the system when they click on the link to access the data.</p>"
+        "body": "<p>As a Section 508 Program Manager, you are able to share a solicitation summary result with non-registered users through email. The non-registered user will be asked to sign up to the system when they click the link to access the data.</p><p>You can also export the solicitation table to CSV using the Export CSV button on the report page. The export includes the columns you have showing plus any hidden columns. There is currently no export of an individual solicitation's full review report as a standalone document.</p>"
       }
     ]
   },
@@ -145,31 +130,29 @@
       {
         "id": 1,
         "title": "How does SRT identify ICT solicitations?",
-        "body": "<p>SRT is currently using a set of ICT  NAICS codes to identify the ICT solicitations.</p>",
+        "body": "<p>Two things happen, at two different stages.</p><p>When solicitations are pulled in from SAM.gov, SRT selects them by matching either a set of ICT Product Service Codes (PSC) or a set of ICT NAICS codes. Matching either one is enough to bring a solicitation in.</p><p>The review itself then classifies the information and communication technology being procured independently of those codes, based on the content of the solicitation documents. So the codes decide which solicitations are examined, and the review decides whether ICT actually applies.</p>",
         "class": "in"
       },
       {
         "id": 2,
         "title": "What does each SRT Review Result represent on the Workload table?",
-        "body": "Compliant: The ICT  solicitation contains sufficient Section 508 requirements. <br>Non-compliant: The ICT  solicitation may not contain sufficient Section 508 requirements. "
+        "body": "<b>Included:</b> Section 508 content is included in the solicitation.<br><b>Not included:</b> Section 508 related content is not included in the solicitation.<br><b>Not applicable:</b> Section 508 does not apply, as this is not an ICT solicitation.<br><b>Can not evaluate:</b> The solicitation could not be scanned, or does not have enough content to review."
       },
       {
         "id": 3,
-        "title": "What are “Not Applicable Solicitations”?",
-        "body": "<p>Not Applicable Solicitations are solicitations that do not require section 508 language to be included in the solicitation.  Examples include purchasing of parts for ICT.</p><p>Please note that these solicitations will be excluded from the Analytics metrics and use for training the machine learning.</p>"
+        "title": "What are \"Not Applicable Solicitations\"?",
+        "body": "<p><b>Not Applicable</b> Solicitations are solicitations that do not require Section 508 language to be included in the solicitation.</p><p>Examples include purchasing of parts for ICT.</p><p>Please note that these solicitations will be excluded from the Analytics metrics and will be used for training the tool.</p>"
       },
       {
         "id": 4,
         "title": "How does SRT track updated solicitations?",
-        "body": "A daily scan is done by SRT nightly and all updated solicitations are scanned and updated as part of the scan. 4"
+        "body": "<p>A scan is performed nightly by SRT and all updated solicitations are scanned and updated as part of the scan.</p>"
       },
       {
         "id": 5,
         "title": "What data are excluded from the Analytics charts?",
-        "body": "<p>All the charts on the Analytics Dashboard are ICT solicitations only. Solicitations with 0 documents, non-machine-readable solicitations, pre-solicitations, sources sought, special notices, award notice, intent to bundle requirements, and not applicable  solicitations (See ‘What are “Not Applicable Solicitations”?’) are excluded.</p>"
+        "body": "<p>All the charts on the <b>Analytics Dashboard</b> are ICT solicitations only. Solicitations with zero documents, non-machine-readable solicitations, pre-solicitations, sources sought, special notices, award notice, intent to bundle requirements, and not applicable solicitations (See 'What are \"Not Applicable Solicitations\"?') are excluded.</p>"
       }
-
-
     ]
   },
   {
@@ -180,7 +163,7 @@
       {
         "id": 1,
         "title": "What is the process of reviewing non-complaint solicitations?",
-        "body": "Click on the solicitation’s “SAM.gov Link” to access the solicitation on the SAM.gov website and download the solicitation documents;\nevaluate the documents for inclusion of Section 508 language (here are some suggested keywords to search for in the documents: Section 508, accessibility, compliance, conform, conformance, VPAT, Section 508 requirements, WCAG, and Buy Accessible).  If no section 508 language is found and is required. You may utilize the Accessibility Requirements Tool to generate your requirements and add them to the solicitation.",
+        "body": "<ul><li>Click on the solicitation's \"SAM.gov Link\" to access the solicitation on the SAM.gov website and download the solicitation documents</li><li>Manually evaluate the documents for inclusion of Section 508 language.</li><li>If no Section 508 language is found and is required, you may utilize the Accessibility Requirements Tool (ART) to generate your requirements and add them to the solicitation.</li><li>If you are not the author of the solicitation, email the solicitation owner with the recommended changes to include Section 508 requirements.</li></ul>",
         "class": "in"
       },
       {
@@ -190,7 +173,7 @@
       },
       {
         "id": 3,
-        "title": "What does \"information technology or communication technology\" mean?",
+        "title": "What does \"Information Technology or Communication Technology\" mean?",
         "body": "Information technology is defined in FAR 2.101.  Communication technology means equipment, systems, technologies, or processes, for which the principal function is the creation, manipulation, storage, display, receipt, or transmission of electronic data and information, as well as any associated content.  Examples of information technology include, but are not limited to: computers and peripheral equipment; information kiosks and transaction machines; telecommunications equipment; customer premises equipment; multifunction office machines; software; applications; web sites; videos; and electronic documents."
       },
       {
@@ -203,28 +186,23 @@
   {
     "name": "Request Support",
     "id": "requestSupport",
-    "title":"requestSupportTitle",
+    "title": "requestSupportTitle",
     "children": [
       {
         "id": 1,
         "title": "Is there a help desk that can assist me with the SRT?",
-        "body": "srt@gsa.gov",
+        "body": "<p>Email <a href=\"mailto:srt@gsa.gov\">srt@gsa.gov</a> with any questions about using the tool, results, or access.</p>",
         "class": "in"
       },
       {
         "id": 2,
         "title": "How can I send feedback to the technical team?",
-        "body": "srt@gsa.gov"
+        "body": "<p>You can send feedback through the \"Give Feedback\" form at the bottom of each solicitation results page, or you may fill out the <a href=\"https://srt.app.cloud.gov/help/contactus\">contact us form</a>.</p>"
       },
       {
         "id": 3,
         "title": "How can I request SRT to re-evaluate a solicitation review result?",
-        "body": "srt@gsa.gov"
-      },
-      {
-        "id": 4,
-        "title": "How can I request SRT technical support?",
-        "body": "srt@gsa.gov"
+        "body": "<p>It depends on which kind of review you want re-run.</p><p>For a draft solicitation you uploaded yourself, you can simply run the review again in the upload tool. Re-running forces a fresh analysis rather than returning your stored result.</p><p>For a solicitation that SRT pulled in from SAM.gov, email <a href=\"mailto:srt@gsa.gov\">srt@gsa.gov</a> with the solicitation number. The team will re-run the review and update the record.</p>"
       }
     ]
   }

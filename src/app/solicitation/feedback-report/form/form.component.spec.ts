@@ -2,9 +2,10 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormComponent } from './form.component';
 import { SolicitationService } from '../../solicitation.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('FormComponent', () => {
   let component: FormComponent;
@@ -13,10 +14,10 @@ describe('FormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormComponent ],
-      providers: [SolicitationService],
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])]
-    })
+    declarations: [FormComponent],
+    imports: [RouterTestingModule.withRoutes([])],
+    providers: [SolicitationService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 
