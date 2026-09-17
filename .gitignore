@@ -49,3 +49,6 @@ Thumbs.db
 .claude/
 .venv/
 venv/
+yarn.lock
+.yarnrc.yml
+.yarn/install-state.gz

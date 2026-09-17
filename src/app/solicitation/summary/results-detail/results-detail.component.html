@@ -147,6 +147,32 @@
                 @if ((i === 0 && !showRecommendedClause) || (i === 1 && showRecommendedClause)) {
                   <button type="button" class="usa-button action-checklist__cta" (click)="getRequirements()">Generate requirements</button>
                 }
+                 @if(i === 2 && showRecommendedClause && hasAgencyDeviation){
+                    <button type="button" class="usa-button action-checklist__cta" (click)="agencyDeviationOpen  = !agencyDeviationOpen " [attr.aria-expanded]="agencyDeviationOpen ">{{ agencyDeviationOpen ? 'Hide clause' : 'View clause' }}</button>
+                }
+                @if (i === 2 && agencyDeviationOpen) {
+                  <section class="clause-card">
+                    <h4 class="clause-card__title">
+                      <span class="material-symbols-outlined" aria-hidden="true">gavel</span>
+                      Agency-specific deviation
+                    </h4>
+                    <p class="clause-card__lead">This agency has {{ agencyDeviations.length }} recorded deviation{{ agencyDeviations.length > 1 ? 's' : '' }} from the standard Section 508 requirements.</p>
+
+                    @for (deviation of agencyDeviations; track deviation.id) {
+                      <div class="clause-card__box">
+                        <p class="clause-card__clause-title">{{ deviation.regulation_part }} — {{ deviation.section }}</p>
+                        <p class="clause-card__para">
+                          {{ isDeviationExpanded(deviation.id) ? deviation.language : truncate(deviation.language) }}
+                        </p>
+                        @if (deviation.language.length > 1) {
+                          <button type="button" class="usa-button usa-button--unstyled clause-card__more" (click)="toggleDeviation(deviation.id)" [attr.aria-expanded]="isDeviationExpanded(deviation.id)">
+                            {{ isDeviationExpanded(deviation.id) ? 'Show less' : 'Show more' }}
+                          </button>
+                        }
+                      </div>
+                    }
+                  </section>
+                }
                 @if (i === 0 && showRecommendedClause && clauseOpen) {
                         <!-- Recommended clause — shown only when 508 applies but no 508
                              language was found anywhere in the solicitation. -->
@@ -191,6 +217,7 @@
                           </section>
                         }
                 }
+               
                 @if (((i === 0 && !showRecommendedClause) || (i === 1 && showRecommendedClause)) && (artLoading || artError || artRequirements)) {
                   <div class="inline-req">
                     @if (artLoading) {

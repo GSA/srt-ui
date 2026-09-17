@@ -19,6 +19,13 @@ export interface SolicitationResult {
   totalCount: number;
 }
 
+export interface AgencyDeviation {
+  id: number;
+  agency_id: number;
+  regulation_part: string;
+  section: string;
+  language: string;
+}
 
 @Injectable()
 export class SolicitationService {
@@ -44,6 +51,7 @@ export class SolicitationService {
   private updateUrl = environment.SERVER_URL + '/solicitation/';
   private emailUrl = environment.SERVER_URL + '/email/';
   private ragBaseUrl = environment.SERVER_URL + '/rag';
+  private agencyDeviationbaseUrl = environment.SERVER_URL + '/agency_deviation';
 
   public firstLoadFilter: any = null;
   /* CONSTRUCTORS */
@@ -92,13 +100,26 @@ export class SolicitationService {
           console.log(error);
           return observableThrowError(() => error);
         }), map((response) => {
-          response.url = response.url ? this.urlFilter(response.url.toString()) : undefined;
+          //console.log('raw response:', response);
+          response.url = response.url ? this.urlFilter(response.url.toString()): '';
           response.parseStatus.forEach(element => {
             element.attachment_url = this.urlFilter(element.attachment_url.toString());
           });
+          response.agencyID = (response as any).agency_id;
           return response;
         }));
   }
+
+ getAgencyDeviations(agency_id: number): Observable<AgencyDeviation[]> {
+  const agencyUrl = this.agencyDeviationbaseUrl + '/' + agency_id;
+  return this.http.get<AgencyDeviation[]>(agencyUrl)
+    .pipe(
+      catchError((error: any) => {
+        console.log(error);
+        return observableThrowError(() => error);
+      })
+    );
+}
 
   /**
    * get feedback of selected solicitation

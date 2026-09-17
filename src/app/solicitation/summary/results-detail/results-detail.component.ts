@@ -52,6 +52,12 @@ export class ResultsDetailComponent implements OnInit {
   clauseExpanded = false;
   clauseInstructionsOpen = false;
 
+  // Agency Deviation 
+  hasAgencyDeviation = false;
+  agencyDeviations: { id: number, regulation_part: string, section: string, language: string }[] = [];
+  agencyDeviationOpen  = false;
+  expandedDeviations = new Set<number>();
+
   get showRecommendedClause(): boolean {
     return this.solicitation?.reviewRec === 'Non-compliant (Action Required)'
         && !this.alreadyAddressed
@@ -165,11 +171,15 @@ export class ResultsDetailComponent implements OnInit {
     // requirements go in DIFFERENT parts of the solicitation (the clause sits in
     // the body/terms; the requirements go in the SOW/PWS/SOO or an attachment).
     if (this.showRecommendedClause) {
-      return [
-        { label: 'Add the recommended Section 508 clause', detail: 'Copy it into the body of your solicitation.' },
+      let arr = [{ label: 'Add the recommended Section 508 clause', detail: 'Copy it into the body of your solicitation.' },
         { label: 'Add the relevant Section 508 requirements', detail: 'These go in the SOW, PWS, SOO, requirements document, or an attachment.' },
-        { label: 'Re-check the updated solicitation' },
-      ];
+        { label: 'Re-check the updated solicitation' }];
+        
+        // agency deviation check 
+        if (this.hasAgencyDeviation){
+          arr.splice(2, 0, ({label: "Add your agency specific regulation clause", detail: "Copy it into the body of your solicitation."}));
+        }
+      return arr;
     }
     if (this.solicitation?.reviewRec === 'Compliant') {
       return [
@@ -275,7 +285,7 @@ export class ResultsDetailComponent implements OnInit {
     private gaService: GoogleAnalyticsService
   ) {
     this.solicitation = new Solicitation(null, null, null, null, null, null,
-      { value: '' }, null, null, null, null, null, null,
+      { value: '' }, null, null, null, null, null, null, null,
       [{ name: '', status: '', attachment_url: '', formattedDate: '', postedDate: new Date() }],
       [''], null, null, { psc: '', naics: '', naics_match: false, epa_psc_match: false },
       null, null, null, null, true);
@@ -319,6 +329,7 @@ export class ResultsDetailComponent implements OnInit {
       this.processParseStatus(data);
       this.setSolicitationData(data);
       this.processDocuments();
+      this.checkAgencyDeviation();
       this.loading = false;
 
       // Load RAG data if solicitation number is available
@@ -329,6 +340,38 @@ export class ResultsDetailComponent implements OnInit {
       console.error('[processSolicitationData] Error:', error);
       this.loading = false;
     }
+  }
+
+  private checkAgencyDeviation(): void {
+    this.solicitationService.getAgencyDeviations(this.solicitation.agencyID).subscribe({
+      next: (deviations) => {
+        console.log('fetched agency deviations:', deviations);
+        this.agencyDeviations = deviations;
+        this.hasAgencyDeviation = deviations.length > 0;
+      },
+      error: (err) => {
+        console.log('error fetching agency deviations:', err);
+        this.agencyDeviations = [];
+        this.hasAgencyDeviation = false;
+      }
+    });
+  }
+
+  toggleDeviation(id: number): void {
+    if (this.expandedDeviations.has(id)) {
+      this.expandedDeviations.delete(id);
+    } else {
+      this.expandedDeviations.add(id);
+    }
+  }
+
+  isDeviationExpanded(id: number): boolean {
+    return this.expandedDeviations.has(id);
+  }
+
+  truncate(text: string, maxLength: number = 180): string {
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength).trim() + '…';
   }
 
   private loadRagData(solNum: string): void {
